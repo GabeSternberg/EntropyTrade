@@ -53,6 +53,7 @@ class RiskLimits(DomainModel):
     max_open_orders: int | None = Field(default=None, ge=0)
     max_order_rate: int | None = Field(default=None, ge=0)
     max_slippage: ExactDecimal | None = None
+    max_model_age_seconds: int | None = Field(default=None, ge=0)
     config_version: str
 
 
@@ -111,6 +112,7 @@ class RiskEngine:
         equity: Decimal,
         open_orders: int = 0,
         orders_in_window: int = 0,
+        model_as_of: datetime | None = None,
     ) -> RiskDecision:
         _count(open_orders, "open_orders")
         _count(orders_in_window, "orders_in_window")
@@ -127,6 +129,7 @@ class RiskEngine:
             equity=equity,
             open_orders=open_orders,
             orders_in_window=orders_in_window,
+            model_as_of=model_as_of,
         )
         if blocked:
             return _decision(
@@ -205,6 +208,7 @@ def _gate(
     equity: Decimal,
     open_orders: int,
     orders_in_window: int,
+    model_as_of: datetime | None,
 ) -> bool:
     checks.append(
         RiskCheckResult(
@@ -281,6 +285,23 @@ def _gate(
                 passed=open_orders < limits.max_open_orders,
                 observed=str(open_orders),
                 limit=str(limits.max_open_orders),
+            )
+        )
+    if limits.max_model_age_seconds is not None:
+        model_age: float | None
+        if model_as_of is None:
+            model_age = None
+            fresh = False
+        else:
+            model_age = (now - model_as_of).total_seconds()
+            fresh = model_age <= limits.max_model_age_seconds
+        observed = None if model_age is None else str(model_age)
+        checks.append(
+            RiskCheckResult(
+                check_name="model_age",
+                passed=fresh,
+                observed=observed,
+                limit=str(limits.max_model_age_seconds),
             )
         )
     if limits.max_slippage is not None:

@@ -501,6 +501,48 @@ def test_max_slippage_rejects_a_missing_or_large_reserve() -> None:
     assert all(check.check_name != "max_slippage" for check in unset.checks)
 
 
+def test_model_age_rejects_a_missing_or_old_timestamp() -> None:
+    limits = _limits().model_copy(update={"max_model_age_seconds": 60})
+    intent = _intent(quantity="1.00", price="0.4500")
+    missing = RiskEngine(limits).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+    )
+    assert any(check.check_name == "model_age" and not check.passed for check in missing.checks)
+    old = RiskEngine(limits).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+        model_as_of=utc(2026, 10, 2, 14, 58),
+    )
+    assert any(check.check_name == "model_age" and not check.passed for check in old.checks)
+    fresh = RiskEngine(limits).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+        model_as_of=utc(2026, 10, 2, 14, 59),
+    )
+    assert fresh.approved
+    unset = _decide(intent, _limits())
+    assert all(check.check_name != "model_age" for check in unset.checks)
+
+
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:
     intent = _intent(quantity="1.00", price="0.4500")
     halt = halt_sentinel(tmp_path)
