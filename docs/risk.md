@@ -44,7 +44,7 @@ person.
 
 `RiskEngine.halted` is true when any of these is on: the in-process kill switch
 (`kill` / `resume`), `trading_enabled=False` (the flag a later database row will store),
-a `HALT` file at the path the engine was given, or `ENTROPYTRADE_TRADING_ENABLED` set to
+a `HALT` file from `halt_sentinel` (the name is `HALT`), or `ENTROPYTRADE_TRADING_ENABLED` set to
 anything other than `true` in the environ mapping passed in. A halt rejects new orders.
 It does not cancel resting orders and it does not liquidate. `resume` clears only the
 in-process switch. There is no dashboard button yet; that button will call `kill`.

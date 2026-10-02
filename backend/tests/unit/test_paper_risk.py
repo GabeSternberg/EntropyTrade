@@ -27,7 +27,13 @@ from entropytrade.execution.paper import PaperBroker, PaperBrokerError
 from entropytrade.execution.reconcile import ReconcileMismatchError, adopt_order, compare_snapshots
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.portfolio.store import LedgerStore
-from entropytrade.risk.engine import RiskEngine, RiskLimits, RiskRejectedError, seal
+from entropytrade.risk.engine import (
+    RiskEngine,
+    RiskLimits,
+    RiskRejectedError,
+    halt_sentinel,
+    seal,
+)
 from tests.support import utc
 
 TICKER = "KXHIGHPHIL-26OCT02-T89"
@@ -343,7 +349,8 @@ def test_stale_book_and_drawdown_reject() -> None:
 
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:
     intent = _intent(quantity="1.00", price="0.4500")
-    halt = tmp_path / "HALT"
+    halt = halt_sentinel(tmp_path)
+    assert halt.name == "HALT"
     halt.write_text("stop", encoding="utf-8")
     engine = RiskEngine(_limits(), halt_file=halt)
     decision = engine.evaluate(

@@ -26,6 +26,13 @@ from entropytrade.domain.portfolio import PortfolioSnapshot
 from entropytrade.domain.risk import RiskCheckResult, RiskDecision
 from entropytrade.domain.time import UtcDatetime
 
+HALT_SENTINEL_NAME = "HALT"
+
+
+def halt_sentinel(directory: Path) -> Path:
+    """Local HALT file. The engine blocks new orders while this path exists."""
+    return directory / HALT_SENTINEL_NAME
+
 
 class RiskLimits(DomainModel):
     """Caps the engine enforces. None of these can be raised by a strategy spec."""
