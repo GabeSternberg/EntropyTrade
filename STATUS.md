@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.74 — deferred**. Next is Phase 4.75.
+Last updated: 2026-10-02 · Current phase: **Phase 4.75 — complete**. Next is Phase 4.76.
 
 ## What this project is
 
@@ -81,6 +81,7 @@ holds trading credentials.
 | 4.72 | Pre-decision B80.5 print versus the CLI bracket | **complete** | [phase-4.72.md](docs/phase-reports/phase-4.72.md) |
 | 4.73 | Walk-forward of the pre-decision print guess | **complete** | [phase-4.73.md](docs/phase-reports/phase-4.73.md) |
 | 4.74 | Volume shortfall on the two trade routes | **deferred** | [phase-4.74.md](docs/phase-reports/phase-4.74.md) |
+| 4.75 | Chicago daily high, same registered rules | **complete** | [phase-4.75.md](docs/phase-reports/phase-4.75.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -219,6 +220,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.74**: deferred. Both public trade routes already returned no
   extra size for the 18 short markets. The missing size is not invented.
   0.50 and 15:00 stay put.
+- **Phase 4.75**: the series list names Chicago before New York. Four more
+  hypotheses on CLIMDW, none promoted. Optimistic equity is 100.750000,
+  99.400000, 99.660000, and 102.430000. Base and conservative stay at 100.
+  Philadelphia replay equity stays 100.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -254,17 +259,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.75 — one more daily-high series, New York or Chicago, whichever
-`GET /series` returns as `KXHIGH*`. Same point-in-time rules, same fidelity
-labels, and the same pre-registered thresholds as Philadelphia. Freeze
-those thresholds before scoring. Count the new city as more hypotheses. No
-promotion. If the series list fails, store the real error body. No live
-order.
+Phase 4.76 — write `docs/research/philadelphia-daily-high.md` from the
+stored Philadelphia rows only: hypothesis count, optimistic, base, and
+conservative equity, walk-forward counts, and that nothing was promoted.
+No new model. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.74: ruff clean, mypy strict
-clean, pytest 210 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.75: ruff clean, mypy strict
+clean, pytest 212 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
