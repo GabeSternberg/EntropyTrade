@@ -58,6 +58,38 @@ def book_from_snapshot(frame: BookSnapshotFrame) -> OrderBook:
     )
 
 
+@dataclass(frozen=True)
+class ThresholdMark:
+    """One greater-than strike. A candle or a print is not an executable ask."""
+
+    floor: Decimal
+    ticker: str
+    book: OrderBook | None = None
+    non_executable: bool = False
+
+
+def scan_thresholds(marks: Sequence[ThresholdMark]) -> tuple[Violation, ...]:
+    """Monotonic check on executable asks. A print or candle is a separate flag.
+
+    This does not submit an order.
+    """
+    brackets: list[Bracket] = []
+    flagged: list[Violation] = []
+    for mark in marks:
+        if mark.book is not None and _ask(mark.book) is not None:
+            brackets.append(Bracket(floor=mark.floor, book=mark.book))
+            continue
+        if mark.non_executable:
+            flagged.append(
+                Violation(
+                    kind="non_executable",
+                    tickers=(mark.ticker,),
+                    detail="candle or trade only; not used as a price",
+                )
+            )
+    return tuple(scan_ladder(brackets)) + tuple(flagged)
+
+
 def scan_ladder(brackets: Sequence[Bracket]) -> tuple[Violation, ...]:
     """Flag a higher strike whose YES ask is strictly above a lower strike's YES ask."""
     usable = [bracket for bracket in brackets if _ask(bracket.book) is not None]

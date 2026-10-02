@@ -13,11 +13,13 @@ from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.strategies.scanner import (
     Bracket,
+    ThresholdMark,
     book_from_snapshot,
     complement_gap,
     paper_ladder,
     scan_exhaustive,
     scan_ladder,
+    scan_thresholds,
 )
 
 
@@ -72,6 +74,21 @@ def test_a_rich_higher_strike_is_a_violation_and_a_flat_ladder_is_not() -> None:
         Bracket(floor=Decimal(90), book=_book("B", "0.2000", "0.3000")),
     )
     assert scan_ladder(calm) == ()
+
+
+def test_a_trade_or_candle_is_not_an_executable_ladder() -> None:
+    inverted = (
+        ThresholdMark(floor=Decimal(80), ticker="T80", non_executable=True),
+        ThresholdMark(floor=Decimal(87), ticker="T87", non_executable=True),
+    )
+    found = scan_thresholds(inverted)
+    assert [item.kind for item in found] == ["non_executable", "non_executable"]
+    books = (
+        ThresholdMark(floor=Decimal(80), ticker="T80", book=_book("T80", "0.2000", "0.3000")),
+        ThresholdMark(floor=Decimal(87), ticker="T87", book=_book("T87", "0.8000", "0.9000")),
+    )
+    priced = scan_thresholds(books)
+    assert [item.kind for item in priced] == ["monotonic"]
 
 
 def test_a_crossed_book_is_not_a_quote() -> None:
