@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.66 — complete**. Next is Phase 4.67.
+Last updated: 2026-10-02 · Current phase: **Phase 4.67 — complete**. Next is Phase 4.68.
 
 ## What this project is
 
@@ -73,6 +73,7 @@ holds trading credentials.
 | 4.64 | Last historical print versus the stored result | **complete** | [phase-4.64.md](docs/phase-reports/phase-4.64.md) |
 | 4.65 | Print before occurrence versus the stored result | **complete** | [phase-4.65.md](docs/phase-reports/phase-4.65.md) |
 | 4.66 | Expiration value versus strike and result | **complete** | [phase-4.66.md](docs/phase-reports/phase-4.66.md) |
+| 4.67 | Print size sum versus stored volume | **complete** | [phase-4.67.md](docs/phase-reports/phase-4.67.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -186,6 +187,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.66**: 2,887 markets have an expiration value and a strike.
   All 2,887 results match that strike. 808 expiration values are empty
   and 25 strikes are missing. Those stay unevaluable. Nothing is promoted.
+- **Phase 4.67**: print sizes equal `volume_fp` on 3,702 markets. 18 are
+  short. None are long. 54 markets have no prints and volume 0. The missing
+  size is not invented. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -221,15 +225,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.67 — for each stored historical market, sum the historical print
-`count` values and compare that sum with the stored `volume_fp`. Count
-markets where they differ, including markets with prints and a missing
-volume. Do not invent a size. A print is not a fill. No live order.
+Phase 4.68 — compare each stored historical market's
+`settlement_value_dollars` with its result. Exactly 1 is YES and exactly 0
+is NO. Any other number is unevaluable. Do not round. This is not a fill.
+No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.66: ruff clean, mypy strict
-clean, pytest 197 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.67: ruff clean, mypy strict
+clean, pytest 199 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
