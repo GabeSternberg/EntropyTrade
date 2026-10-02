@@ -24,7 +24,7 @@ from entropytrade.domain.portfolio import PortfolioSnapshot, SnapshotSource
 from entropytrade.domain.risk import RiskCheckResult, RiskDecision
 from entropytrade.execution.fees import FeeSchedule, trade_fee
 from entropytrade.execution.paper import PaperBroker, PaperBrokerError
-from entropytrade.execution.reconcile import adopt_order, compare_snapshots
+from entropytrade.execution.reconcile import ReconcileMismatchError, adopt_order, compare_snapshots
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.portfolio.store import LedgerStore
 from entropytrade.risk.engine import RiskEngine, RiskLimits, RiskRejectedError, seal
@@ -394,3 +394,34 @@ def test_reconcile_adopts_an_unknown_order_by_client_order_id() -> None:
     assert compare_snapshots(local, remote_snapshot) == ()
     drifted = remote_snapshot.revalidated(cash_balance=Decimal("1"))
     assert compare_snapshots(local, drifted) != ()
+
+
+def test_reconcile_refuses_a_smaller_fill_or_a_second_exchange_id() -> None:
+    ledger = Ledger(Decimal("100"), as_of=NOW)
+    order = PaperBroker(ledger, _schedule()).submit(
+        _approve(_intent(price="0.4400", quantity="2.00")),
+        _book(ask_qty="1.00"),
+        now=NOW,
+    )
+    assert order.state is OrderState.PARTIALLY_FILLED
+    smaller = order.revalidated(filled_quantity=Decimal("0.50"))
+    with pytest.raises(ReconcileMismatchError, match="filled_quantity"):
+        adopt_order(order, smaller)
+    conflict = order.revalidated(exchange_order_id="ex-a")
+    other_id = conflict.revalidated(exchange_order_id="ex-b")
+    with pytest.raises(ReconcileMismatchError, match="exchange_order_id"):
+        adopt_order(conflict, other_id)
+    other_contract = order.revalidated(
+        contract=Contract(market_ticker="OTHER", side=OutcomeSide.YES),
+    )
+    with pytest.raises(ReconcileMismatchError, match="contract"):
+        adopt_order(order, other_contract)
+    grown = order.revalidated(
+        state=OrderState.FILLED,
+        filled_quantity=Decimal("2.00"),
+        exchange_order_id="ex-1",
+    )
+    adopted = adopt_order(order, grown)
+    assert adopted.state is OrderState.FILLED
+    assert adopted.filled_quantity == Decimal("2.00")
+    assert adopted.exchange_order_id == "ex-1"

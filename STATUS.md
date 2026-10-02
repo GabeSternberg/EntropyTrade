@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 3.51 — complete**. Next is Phase 2.50.
+Last updated: 2026-10-02 · Current phase: **Phase 2.50 — complete**. Next is Phase 8.50.
 
 ## What this project is
 
@@ -54,6 +54,7 @@ holds trading credentials.
 | 4.53 | Rescore on CLI-aligned rows | **complete** | [phase-4.53.md](docs/phase-reports/phase-4.53.md) |
 | 3.50 | Series fee fields in replay | **complete** | [phase-3.50.md](docs/phase-reports/phase-3.50.md) |
 | 3.51 | Point-in-time revision leakage | **complete** | [phase-3.51.md](docs/phase-reports/phase-3.51.md) |
+| 2.50 | Order reconciliation invariants | **complete** | [phase-2.50.md](docs/phase-reports/phase-2.50.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -99,6 +100,8 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   the series payload. The fee-schedule PDF returned HTTP 429.
 - **Phase 3.51**: a revision timestamp after the decision cannot change
   `select_as_of` or a replay trade.
+- **Phase 2.50**: reconciliation refuses a smaller fill, a conflicting
+  exchange order id, or a different contract.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -113,15 +116,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 2.50 — order-state reconciliation invariants. Filled quantity cannot
-move backwards or past the requested size, and a conflicting exchange order
-id is a mismatch. Then shadow-versus-paper comparison records and health
-flags. Skip anything that needs a trading key, an LLM key, or a live order.
+Phase 8.50 — records that compare a shadow price with the paper fill on the
+same book. Then health flags. Skip anything that needs a trading key, an LLM
+key, or a live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 3.51: ruff clean, mypy strict
-clean, pytest 157 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 2.50: ruff clean, mypy strict
+clean, pytest 158 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

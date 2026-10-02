@@ -34,16 +34,39 @@ def compare_snapshots(local: PortfolioSnapshot, remote: PortfolioSnapshot) -> tu
 
 
 def adopt_order(local: Order, remote: Order) -> Order:
-    """Move ``local`` to the remote state when the transition table allows it."""
+    """Move ``local`` to the remote state when the transition table allows it.
+
+    Filled quantity cannot decrease or exceed the requested size. A second
+    exchange id for the same client order id is a mismatch. The requested
+    contract and size stay the local order's.
+    """
+    reasons: list[str] = []
     if local.client_order_id != remote.client_order_id:
-        raise ReconcileMismatchError(("client_order_id",))
-    if local.state is remote.state and local.filled_quantity == remote.filled_quantity:
-        return local
-    check_order_transition(local.state, remote.state)
+        reasons.append("client_order_id")
+    if local.contract != remote.contract:
+        reasons.append("contract")
+    if local.requested_quantity != remote.requested_quantity:
+        reasons.append("requested_quantity")
+    if (
+        local.exchange_order_id is not None
+        and remote.exchange_order_id is not None
+        and local.exchange_order_id != remote.exchange_order_id
+    ):
+        reasons.append("exchange_order_id")
+    if remote.filled_quantity < local.filled_quantity:
+        reasons.append("filled_quantity")
+    if reasons:
+        raise ReconcileMismatchError(tuple(reasons))
     updated_at = remote.updated_at if remote.updated_at >= local.updated_at else local.updated_at
+    exchange_order_id = remote.exchange_order_id or local.exchange_order_id
+    if local.state is remote.state and local.filled_quantity == remote.filled_quantity:
+        if exchange_order_id == local.exchange_order_id:
+            return local
+        return local.revalidated(exchange_order_id=exchange_order_id, updated_at=updated_at)
+    check_order_transition(local.state, remote.state)
     return local.revalidated(
         state=remote.state,
         filled_quantity=remote.filled_quantity,
-        exchange_order_id=remote.exchange_order_id or local.exchange_order_id,
+        exchange_order_id=exchange_order_id,
         updated_at=updated_at,
     )
