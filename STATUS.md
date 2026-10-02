@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2.56 — complete**. Next is Phase 2.57.
+Last updated: 2026-10-02 · Current phase: **Phase 2.57 — complete**. Next is Phase 4.57.
 
 ## What this project is
 
@@ -61,6 +61,7 @@ holds trading credentials.
 | 2.54 | Optional order-rate cap | **complete** | [phase-2.54.md](docs/phase-reports/phase-2.54.md) |
 | 2.55 | Optional slippage-reserve cap | **complete** | [phase-2.55.md](docs/phase-reports/phase-2.55.md) |
 | 2.56 | Optional maximum model age | **complete** | [phase-2.56.md](docs/phase-reports/phase-2.56.md) |
+| 2.57 | Reconciliation age, with the existing halt switches | **complete** | [phase-2.57.md](docs/phase-reports/phase-2.57.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -132,6 +133,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 2.56**: when `max_model_age_seconds` is set, a missing model time
   or a model older than the cap rejects the intent. Age equal to the cap is
   still fresh. Unset leaves the check off.
+- **Phase 2.57**: the HALT file and `trading_enabled` already block new
+  orders. The missing check was time since reconciliation. When that cap is
+  set, a missing or stale reconciliation time rejects the intent.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -167,14 +171,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 2.57 — optional maximum time since the last successful reconciliation.
-The caller supplies that timestamp. Leave the check off unless the limit is
-set. No live order.
+Phase 4.57 — pull public trades for the stored KXHIGHPHIL markets. Do not
+treat a print as a guaranteed fill. Score optimistic, base, and conservative
+scenarios with an explicit fidelity label. No fabricated sizes. No live
+order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2.56: ruff clean, mypy strict
-clean, pytest 175 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 2.57: ruff clean, mypy strict
+clean, pytest 176 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

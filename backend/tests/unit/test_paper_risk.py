@@ -1,5 +1,6 @@
 """Paper fills, the risk gate, and restart-safe accounting."""
 
+from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import TYPE_CHECKING, cast
@@ -541,6 +542,42 @@ def test_model_age_rejects_a_missing_or_old_timestamp() -> None:
     assert fresh.approved
     unset = _decide(intent, _limits())
     assert all(check.check_name != "model_age" for check in unset.checks)
+
+
+def _at(
+    intent: OrderIntent,
+    limits: RiskLimits,
+    *,
+    last_reconciled_at: datetime | None = None,
+) -> RiskDecision:
+    return RiskEngine(limits).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+        last_reconciled_at=last_reconciled_at,
+    )
+
+
+def test_reconciliation_age_rejects_a_missing_or_old_timestamp() -> None:
+    limits = _limits().model_copy(update={"max_reconciliation_age_seconds": 60})
+    intent = _intent(quantity="1.00", price="0.4500")
+    missing = _at(intent, limits)
+    assert any(
+        check.check_name == "reconciliation_age" and not check.passed for check in missing.checks
+    )
+    old = _at(intent, limits, last_reconciled_at=utc(2026, 10, 2, 14, 58))
+    assert any(
+        check.check_name == "reconciliation_age" and not check.passed for check in old.checks
+    )
+    fresh = _at(intent, limits, last_reconciled_at=utc(2026, 10, 2, 14, 59))
+    assert fresh.approved
+    unset = _decide(intent, _limits())
+    assert all(check.check_name != "reconciliation_age" for check in unset.checks)
 
 
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:

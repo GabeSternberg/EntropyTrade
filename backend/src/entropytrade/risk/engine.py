@@ -54,6 +54,7 @@ class RiskLimits(DomainModel):
     max_order_rate: int | None = Field(default=None, ge=0)
     max_slippage: ExactDecimal | None = None
     max_model_age_seconds: int | None = Field(default=None, ge=0)
+    max_reconciliation_age_seconds: int | None = Field(default=None, ge=0)
     config_version: str
 
 
@@ -113,6 +114,7 @@ class RiskEngine:
         open_orders: int = 0,
         orders_in_window: int = 0,
         model_as_of: datetime | None = None,
+        last_reconciled_at: datetime | None = None,
     ) -> RiskDecision:
         _count(open_orders, "open_orders")
         _count(orders_in_window, "orders_in_window")
@@ -130,6 +132,7 @@ class RiskEngine:
             open_orders=open_orders,
             orders_in_window=orders_in_window,
             model_as_of=model_as_of,
+            last_reconciled_at=last_reconciled_at,
         )
         if blocked:
             return _decision(
@@ -209,6 +212,7 @@ def _gate(
     open_orders: int,
     orders_in_window: int,
     model_as_of: datetime | None,
+    last_reconciled_at: datetime | None,
 ) -> bool:
     checks.append(
         RiskCheckResult(
@@ -302,6 +306,23 @@ def _gate(
                 passed=fresh,
                 observed=observed,
                 limit=str(limits.max_model_age_seconds),
+            )
+        )
+    if limits.max_reconciliation_age_seconds is not None:
+        recon_age: float | None
+        if last_reconciled_at is None:
+            recon_age = None
+            reconciled = False
+        else:
+            recon_age = (now - last_reconciled_at).total_seconds()
+            reconciled = recon_age <= limits.max_reconciliation_age_seconds
+        recon_observed = None if recon_age is None else str(recon_age)
+        checks.append(
+            RiskCheckResult(
+                check_name="reconciliation_age",
+                passed=reconciled,
+                observed=recon_observed,
+                limit=str(limits.max_reconciliation_age_seconds),
             )
         )
     if limits.max_slippage is not None:
