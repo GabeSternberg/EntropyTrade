@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 7 — complete**. Next is Phase 8.
+Last updated: 2026-10-02 · Current phase: **Phase 8 — complete**. Next is Phase 9.
 
 ## What this project is
 
@@ -51,7 +51,7 @@ holds trading credentials.
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
-| 8 | Live paper + shadow validation | planned | — |
+| 8 | Live paper + shadow validation | **complete** | [phase-8.md](docs/phase-reports/phase-8.md) |
 | 9 | Live-small execution (explicit approval required) | planned | — |
 | 10 | Live decay detection + automatic downsizing | planned | — |
 | 11 | Optional expansion (more markets, cross-venue, FIX, DL) | planned | — |
@@ -86,17 +86,18 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 8 — live paper and shadow on recorded books. The exact plan is the last
-section of [`docs/phase-reports/phase-7.md`](docs/phase-reports/phase-7.md).
+Phase 9 — a submit path that stays off the network. The exact plan is the last
+section of [`docs/phase-reports/phase-8.md`](docs/phase-reports/phase-8.md).
 
-Scope: paper fills through the risk gate, a comparison to the next trade
-print, and a refusal to start in `LIVE`. No trading key and no exchange
-submit. A real demo socket stays unverified.
+Scope: `resolve_trading_mode` still required. `LIVE` does not call out, even
+with the flag set. A demo test, if any, uses a mock transport and a key
+generated in the test. No real order. No production credential. If a test
+would need a live call, leave Phase 9 unmarked.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 7: ruff clean, mypy strict clean,
-pytest 126 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 8: ruff clean, mypy strict clean,
+pytest 131 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 

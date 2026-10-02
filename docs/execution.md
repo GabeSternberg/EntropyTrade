@@ -18,7 +18,9 @@ second order.
 Good-till-canceled remainder rests as collateral. Fill-or-kill and immediate-or-cancel
 cancel what they cannot take. The broker does not call `KalshiGateway.submit_order`.
 A later book does not fill an order that is already resting; that matching loop is still
-open. Reconciliation compares snapshots and adopts an `unknown` order only along a legal
+open. `run_shadow` fills the ledger only in `PAPER`. `SHADOW` records the price it
+would have paid and compares it with the next recorded print. A missing print is a
+gap. `LIVE` and `DEMO` raise before the strategy runs, even when the live flag is set. Reconciliation compares snapshots and adopts an `unknown` order only along a legal
 transition, keyed by `client_order_id`.
 
 ## State machine
