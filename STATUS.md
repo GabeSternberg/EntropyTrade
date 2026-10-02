@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 5.50 — complete**. Next is Phase 6.50.
+Last updated: 2026-10-02 · Current phase: **Phase 6.50 — complete**. Next is Phase 2.51.
 
 ## What this project is
 
@@ -61,6 +61,7 @@ holds trading credentials.
 | 4.55 | Broader public KXHIGHPHIL tape, no sized book | **complete** | [phase-4.55.md](docs/phase-reports/phase-4.55.md) |
 | 4.56 | Rescore on the broader tape; equity stays 100 | **complete** | [phase-4.56.md](docs/phase-reports/phase-4.56.md) |
 | 5.50 | Walk-forward on stored CLI days | **complete** | [phase-5.50.md](docs/phase-reports/phase-5.50.md) |
+| 6.50 | Feature manifest and rescore prediction records | **complete** | [phase-6.50.md](docs/phase-reports/phase-6.50.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -123,6 +124,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   was promoted. The taker coefficient stays unpublished.
 - **Phase 5.50**: walk-forward on the 40 stored CLI days. Train 20, validation
   10, holdout 10. The holdout is not run. Fills stay 0. Equity stays 100.
+- **Phase 6.50**: on-disk feature manifest and 39 prediction records for the
+  rescore. Probability is 0. Bid, ask, and net edge are empty. Nine records
+  name a stored B80.5 market. The other days name the series because that
+  strike was not listed.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -137,13 +142,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 6.50 — write an on-disk feature manifest and prediction records
-(spec section 28) for the Phase 4.56 rescore. No LLM call. No live order.
+Phase 2.51 — name the local HALT sentinel if the engine does not already
+expose one path for it. No live order. If the sentinel already blocks new
+orders, record that and continue to the next credential-free gap.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 5.50: ruff clean, mypy strict
-clean, pytest 167 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 6.50: ruff clean, mypy strict
+clean, pytest 169 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -164,7 +170,8 @@ Phase 4.55 stored 240 empty settled order books and 230 hourly candles for
 the CLI window. No sized book was found before a CLI label. Phase 4.56
 rescored those rows with the stored fee model. The rule still does not
 trade, and equity stays 100. Phase 5.50 walk-forward on those days skips
-the holdout and still does not trade.
+the holdout and still does not trade. Phase 6.50 stored the feature manifest
+and 39 prediction records for that rescore.
 
 ## How to resume (fresh agent)
 
