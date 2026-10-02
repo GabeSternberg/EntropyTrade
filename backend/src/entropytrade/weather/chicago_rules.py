@@ -21,6 +21,7 @@ from entropytrade.domain.observations import Forecast
 from entropytrade.exchange.historical_trades import _decode_time
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint
+from entropytrade.weather.baseline import mean_absolute_error
 from entropytrade.weather.cli_observations import CliLabel
 from entropytrade.weather.cli_print_guess import (
     CliPrintGuess,
@@ -301,6 +302,24 @@ def _decimal(value: object) -> Decimal | None:
     if isinstance(value, str) and value != "":
         return Decimal(value)
     return None
+
+
+@dataclass(frozen=True)
+class ChicagoForecastError:
+    """Mean absolute error of the stored previous-day forecast. Not a fitted model."""
+
+    days: int
+    mae: Decimal
+    fitted_model: bool
+    promoted: bool
+
+
+def load_chicago_forecast_error(root: Path) -> ChicagoForecastError:
+    """Score the stored forecast against the CLI highs. Do not fit a model."""
+    labels, forecasts, _prints, _found, _missing = _inputs(root)
+    rows = tuple((label.valid_on, label.high_f, label.available_at) for label in labels)
+    mae = mean_absolute_error(tuple(forecasts.values()), rows, station=_STATION)
+    return ChicagoForecastError(days=len(rows), mae=mae, fitted_model=False, promoted=False)
 
 
 def load_chicago_print_disagreements(root: Path) -> tuple[PrintDisagreement, ...]:
