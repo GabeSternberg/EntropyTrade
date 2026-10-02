@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.99 — complete**. Next is Phase 4.100.
+Last updated: 2026-10-02 · Current phase: **Phase 4.100 — complete**. Next is Phase 4.101.
 
 ## What this project is
 
@@ -106,6 +106,7 @@ holds trading credentials.
 | 4.97 | Amsterdam listing, Celsius not scored | **complete** | [phase-4.97.md](docs/phase-reports/phase-4.97.md) |
 | 4.98 | Houston listing, not scored | **complete** | [phase-4.98.md](docs/phase-reports/phase-4.98.md) |
 | 4.99 | Dallas daily-high rules | **complete** | [phase-4.99.md](docs/phase-reports/phase-4.99.md) |
+| 4.100 | Mumbai `KXHIGHTVABB`, B80.5 not found | **complete** | [phase-4.100.md](docs/phase-reports/phase-4.100.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -344,6 +345,8 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   substituted. Optimistic equity is 100.000000 on all four rules.
   `forecast_above` agreed 39 of 40. `forecast_gap` agreed 1 of 40.
   Nothing is promoted.
+- **Phase 4.100**: `KXHIGHTVABB` (Mumbai). 0 of 40 B80.5 markets exist.
+  Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -379,17 +382,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.100 — the last ticker in the stored series list is
-`KXHIGHTVABB`. Read the contract before applying the frozen rules. If it
-is not a Fahrenheit 80-81 bracket, do not convert 80.5 into another
-strike. Missing B80.5 markets stay not_found. Do not change 0.40, 15:00
-UTC, or 80.5 after a score. Do not promote. Do not score a holdout. No
-live order.
+Phase 4.101 — next stored ticker not yet scanned, `KXHIGHTLTFM`.
+Same frozen rules. If the series or its B80.5 markets 404, store the
+error and do not substitute a strike. Do not change 0.40, 15:00 UTC, or
+80.5. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.99: ruff clean, mypy strict
-clean, pytest 240 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.100: ruff clean, mypy strict
+clean, pytest 242 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
