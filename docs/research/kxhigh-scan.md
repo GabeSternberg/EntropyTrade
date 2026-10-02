@@ -38,3 +38,4 @@ Optimistic trade-print equity is not a fill. Nothing is promoted.
 | KXHIGHTOMDB | 0 | not scored | not walked | not scored |
 | KXHIGHTWSSS | 0 | not scored | not walked | not scored |
 | KXHIGHTDC | 5 | 100.000000, 100.000000, 100.000000, 101.740000 | 100.000000, 100.000000, 100.000000, 101.810000 | 100.000000 |
+| KXHIGHTSEA | 1 | 100.000000, 100.000000, 100.000000, 100.000000 | 100.000000, 100.000000, 100.000000, 100.000000 | 100.000000 |
