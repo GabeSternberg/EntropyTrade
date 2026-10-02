@@ -1,0 +1,10 @@
+{
+  "series": "KXHIGHTCYYZ",
+  "title": "Daily high temp Toronto",
+  "fetched_at": "2026-10-02T18:49:55.617565+00:00",
+  "scored": false,
+  "promoted": false,
+  "markets_found": 0,
+  "markets_missing": 40,
+  "reason": "Every requested B80.5 market was not_found. No strike was substituted."
+}
