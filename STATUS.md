@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.55 — complete**. Next is Phase 4.56.
+Last updated: 2026-10-02 · Current phase: **Phase 4.56 — complete**. Next is Phase 5.50.
 
 ## What this project is
 
@@ -59,6 +59,7 @@ holds trading credentials.
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
 | 4.55 | Broader public KXHIGHPHIL tape, no sized book | **complete** | [phase-4.55.md](docs/phase-reports/phase-4.55.md) |
+| 4.56 | Rescore on the broader tape; equity stays 100 | **complete** | [phase-4.56.md](docs/phase-reports/phase-4.56.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -116,6 +117,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.55**: 240 settled KXHIGHPHIL order books in the CLI window, 66
   strikes, all empty. 230 hourly candles stored. No touch size was invented.
   No sized book exists before a CLI label.
+- **Phase 4.56**: rescore with CLI labels, that tape, and the stored fee
+  model. The forecast rule still does not trade. Equity stays 100. Nothing
+  was promoted. The taker coefficient stays unpublished.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -130,15 +134,13 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.56 — rescore baselines and replay on the CLI labels, the Phase 4.55
-tape, and the fee model from Phases 3.50 and 4.54. Answer the five Phase 4
-questions from stored rows only. Do not promote. If the rule still does not
-trade, write that and continue.
+Phase 5.50 — walk-forward on the stored CLI days with the existing split
+primitives. No LLM provider call. No holdout leakage. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.55: ruff clean, mypy strict
-clean, pytest 163 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.56: ruff clean, mypy strict
+clean, pytest 165 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -156,7 +158,9 @@ The forecast rule does not trade on the CLI-aligned rows, and replay equity
 stays 100. Phase 3.50 stored public series fee fields. The fee-schedule PDF
 returned HTTP 429; the body is kept and no coefficient was invented.
 Phase 4.55 stored 240 empty settled order books and 230 hourly candles for
-the CLI window. No sized book was found before a CLI label.
+the CLI window. No sized book was found before a CLI label. Phase 4.56
+rescored those rows with the stored fee model. The rule still does not
+trade, and equity stays 100.
 
 ## How to resume (fresh agent)
 

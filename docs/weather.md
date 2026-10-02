@@ -47,5 +47,7 @@ settlement source on these dates. Phase 4.53 scores the previous-day Open-Meteo
 max against those CLI labels (MAE 2.9925 °F, 0 forecast signals on 80–81, no
 sized book before the label, equity 100). Phase 4.55 asked the public host
 for 240 settled markets across 66 strikes and stored 230 hourly candles.
-Every current book was empty. Candles were not given a touch size. The
-package still does not open a socket.
+Every current book was empty. Candles were not given a touch size. Phase
+4.56 rescored that tape with the stored series fee model. The forecast rule
+still does not trade, and equity stays 100. The package still does not open
+a socket.
