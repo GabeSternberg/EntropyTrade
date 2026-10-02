@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.53 — complete**. Next is Phase 3.50.
+Last updated: 2026-10-02 · Current phase: **Phase 3.50 — complete**. Next is Phase 3.51.
 
 ## What this project is
 
@@ -52,6 +52,7 @@ holds trading credentials.
 | 4.51 | CLIPHL settlement observations from NWS CLI | **complete** | [phase-4.51.md](docs/phase-reports/phase-4.51.md) |
 | 4.52 | Longer public KXHIGHPHIL tape | **complete** | [phase-4.52.md](docs/phase-reports/phase-4.52.md) |
 | 4.53 | Rescore on CLI-aligned rows | **complete** | [phase-4.53.md](docs/phase-reports/phase-4.53.md) |
+| 3.50 | Series fee fields in replay | **complete** | [phase-3.50.md](docs/phase-reports/phase-3.50.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -91,6 +92,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.53**: baselines and replay on the CLI labels. Forecast MAE
   2.9925 °F. The forecast rule does not trade. No sized book is inside the
   label window. Equity stays 100. Nothing was fit or promoted.
+- **Phase 3.50**: replay applies stored series fee fields. KXHIGHPHIL is
+  quadratic and makers pay nothing. KXNHL makers pay. The run records
+  fee-model version `series-fields-v1`. The quadratic coefficient is not in
+  the series payload. The fee-schedule PDF returned HTTP 429.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -105,14 +110,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 3.50 — apply stored per-series fee fields in replay. KXHIGH is
-quadratic and makers pay nothing. Record the fee-model version on the run.
-Test maker versus taker, and a series where makers pay.
+Phase 3.51 — tighten point-in-time leakage checks if a future row can still
+change a decision. Then order-state reconciliation invariants, shadow-versus-paper
+comparison records, and health flags. Skip anything that needs a trading key,
+an LLM key, or a live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.53: ruff clean, mypy strict
-clean, pytest 151 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 3.50: ruff clean, mypy strict
+clean, pytest 155 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -127,7 +133,8 @@ returned HTTP 400; the body is in the Phase 4.50 report. Phase 4.51 stored an
 IEM CLIPHL pull. Phase 4.52 used unauthenticated GETs on the production
 market-data host. No order was sent. Phase 4.53 did not call the network.
 The forecast rule does not trade on the CLI-aligned rows, and replay equity
-stays 100.
+stays 100. Phase 3.50 stored public series fee fields. The fee-schedule PDF
+returned HTTP 429; the body is kept and no coefficient was invented.
 
 ## How to resume (fresh agent)
 

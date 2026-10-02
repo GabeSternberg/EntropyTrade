@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 
 from entropytrade.domain.enums import MarketResult
+from entropytrade.domain.fees import FeeModelRef
 from entropytrade.domain.market_data import OrderBook, OrderBookLevel
 from entropytrade.domain.numeric import ZERO
 from entropytrade.domain.observations import FeatureObservation, select_as_of
@@ -18,6 +19,7 @@ from entropytrade.domain.orders import OrderIntent
 from entropytrade.domain.runs import BacktestRun, SampleSplit, SplitWindow
 from entropytrade.domain.time import ensure_utc
 from entropytrade.execution.paper import PaperBroker
+from entropytrade.execution.series_fees import SeriesFeeTable
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskRejectedError, seal
 
@@ -46,9 +48,18 @@ class DecisionView:
 class ReplayResult:
     """Fills produced inside one split, and the equity after them."""
 
-    def __init__(self, *, fill_ids: tuple[str, ...], ending_equity: Decimal) -> None:
+    def __init__(
+        self,
+        *,
+        fill_ids: tuple[str, ...],
+        ending_equity: Decimal,
+        fee_model_version: str | None = None,
+        fee_models: tuple[FeeModelRef, ...] = (),
+    ) -> None:
         self.fill_ids = fill_ids
         self.ending_equity = ending_equity
+        self.fee_model_version = fee_model_version
+        self.fee_models = fee_models
 
     def digest(self, run: BacktestRun) -> str:
         from entropytrade.domain.ids import content_hash
@@ -57,6 +68,7 @@ class ReplayResult:
             {
                 "config_hash": run.config_hash,
                 "ending_equity": self.ending_equity,
+                "fee_model_version": self.fee_model_version,
                 "fill_ids": self.fill_ids,
                 "spec_hash": run.strategy_spec_hash,
                 "strategy_id": run.strategy_id,
@@ -75,15 +87,24 @@ def run_replay(
     latency: timedelta,
     window: SplitWindow,
     settlements: Sequence[tuple[datetime, str, MarketResult]] = (),
+    series_fees: SeriesFeeTable | None = None,
 ) -> ReplayResult:
-    """Walk books inside ``window``. Holdout is not a trading split."""
+    """Walk books inside ``window``. Holdout is not a trading split.
+
+    When ``series_fees`` is set, each book replaces the broker schedule with
+    that series' stored fee type, multiplier, and maker rule. The quadratic
+    coefficient stays the one already on the broker. It is not in the payload.
+    """
     if window.split is SampleSplit.HOLDOUT:
         raise ReplayError("holdout rows are not passed to the strategy")
     ordered = tuple(sorted(books, key=lambda book: (book.received_at, book.market_ticker)))
     known = {fill.fill_id for fill in ledger.fills()}
+    applied: dict[str, FeeModelRef] = {}
     for book in ordered:
         if book.received_at < window.start or book.received_at >= window.end:
             continue
+        if series_fees is not None:
+            _apply_series_fee(broker, series_fees, book.market_ticker, applied)
         _settle_due(ledger, settlements, book.received_at, window)
         view = DecisionView(records, book.received_at)
         intent = strategy(view, book)
@@ -114,7 +135,29 @@ def run_replay(
         broker.submit(approved, fill_book, now=later.received_at)
     _settle_due(ledger, settlements, window.end, window)
     fresh = tuple(fill.fill_id for fill in ledger.fills() if fill.fill_id not in known)
-    return ReplayResult(fill_ids=fresh, ending_equity=ledger.equity())
+    version = None if series_fees is None else series_fees.version
+    return ReplayResult(
+        fill_ids=fresh,
+        ending_equity=ledger.equity(),
+        fee_model_version=version,
+        fee_models=tuple(applied.values()),
+    )
+
+
+def _apply_series_fee(
+    broker: PaperBroker,
+    series_fees: SeriesFeeTable,
+    market_ticker: str,
+    applied: dict[str, FeeModelRef],
+) -> None:
+    try:
+        series = series_fees.match(market_ticker)
+    except KeyError as exc:
+        raise ReplayError(f"no stored series fee for {market_ticker}") from exc
+    broker.use_schedule(
+        series_fees.schedule(series, coefficient=broker.schedule.quadratic_coefficient)
+    )
+    applied[series.ticker] = series_fees.fee_model(series)
 
 
 def run_walk_forward(

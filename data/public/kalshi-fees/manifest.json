@@ -1,0 +1,36 @@
+{
+  "quadratic_coefficient": null,
+  "coefficient_note": "Series payloads include fee_type and fee_multiplier. They do not include a quadratic coefficient. The fee-schedule PDF was not retrieved.",
+  "calls": [
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL",
+      "status": 200,
+      "fetched_at": "2026-10-02T15:56:04.459923+00:00",
+      "path": "kalshi-fees/KXHIGHPHIL.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/fee_changes?series_ticker=KXHIGHPHIL",
+      "status": 200,
+      "fetched_at": "2026-10-02T15:56:04.567924+00:00",
+      "path": "kalshi-fees/KXHIGHPHIL-fee-changes.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXNHL",
+      "status": 200,
+      "fetched_at": "2026-10-02T15:56:20.863995+00:00",
+      "path": "kalshi-fees/KXNHL.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXMVECROSSCATEGORY",
+      "status": 200,
+      "fetched_at": "2026-10-02T15:56:20.979995+00:00",
+      "path": "kalshi-fees/KXMVECROSSCATEGORY.json"
+    },
+    {
+      "url": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+      "status": 429,
+      "fetched_at": "2026-10-02T15:56:20.731994+00:00",
+      "path": "kalshi-fees/fee-schedule.error.html"
+    }
+  ]
+}

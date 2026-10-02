@@ -16,12 +16,19 @@ class FeeFormulaError(ValueError):
 
 
 class FeeSchedule(DomainModel):
-    """One series fee schedule. ``quadratic_coefficient`` comes from that schedule's text."""
+    """One series fee schedule. ``quadratic_coefficient`` comes from that schedule's text.
+
+    ``maker_fraction`` scales the coefficient on a maker fill. It is 1 when the
+    caller is describing a maker who pays the taker formula. A stored series
+    sets it from the fee type: 0.25 or 0.5 where makers pay, unused when they
+    do not.
+    """
 
     fee_type: FeeType
     fee_multiplier: ExactDecimal
     maker_pays: bool
     quadratic_coefficient: ExactDecimal
+    maker_fraction: ExactDecimal = Decimal(1)
 
 
 _CENT = Decimal("0.01")
@@ -39,9 +46,11 @@ def trade_fee(
         return parse_money(ZERO)
     if schedule.fee_type is FeeType.FLAT:
         raise FeeFormulaError("flat series fees are not computed from a hidden formula")
+    role_factor = schedule.maker_fraction if role is LiquidityRole.MAKER else ONE
     raw = (
         schedule.quadratic_coefficient
         * schedule.fee_multiplier
+        * role_factor
         * quantity
         * yes_price
         * (ONE - yes_price)

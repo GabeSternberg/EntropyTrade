@@ -64,6 +64,14 @@ class PaperBroker:
         self._ledger = ledger
         self._schedule = schedule
 
+    @property
+    def schedule(self) -> FeeSchedule:
+        return self._schedule
+
+    def use_schedule(self, schedule: FeeSchedule) -> None:
+        """Replace the schedule before the next fill. Replay uses this per series."""
+        self._schedule = schedule
+
     def submit(
         self,
         approved: ApprovedOrderIntent,
