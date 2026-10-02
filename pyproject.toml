@@ -1,0 +1,106 @@
+[project]
+name = "entropytrade"
+version = "0.0.0"
+description = "Private single-user Kalshi research, backtesting and automated-trading platform"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Gabe Sternberg" }]
+dependencies = [
+    "pydantic>=2.12,<3",
+]
+
+[project.scripts]
+entropytrade = "entropytrade.cli:main"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.140",
+    "mypy>=1.18",
+    "pre-commit>=4.3",
+    "pytest>=8.4",
+    "pytest-cov>=7.0",
+    "ruff>=0.14",
+]
+
+[build-system]
+requires = ["uv_build>=0.9,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "entropytrade"
+module-root = "backend/src"
+
+[tool.uv]
+default-groups = ["dev"]
+
+# ---------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["backend/src", "backend"]
+extend-exclude = [".agents", "docs/project-spec.md", "data", "vendor"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F",   # pycodestyle / pyflakes
+    "I",             # isort
+    "B",             # bugbear
+    "UP",            # pyupgrade
+    "N",             # pep8-naming
+    "S",             # bandit
+    "C4",            # comprehensions
+    "SIM",           # simplify
+    "RUF",           # ruff-specific
+    "DTZ",           # naive datetime usage
+    "PT",            # pytest style
+    "TID",           # tidy imports (banned APIs, import boundaries)
+    "T20",           # print statements
+    "PIE", "RET", "ARG", "PTH", "PERF", "TC", "FBT", "BLE", "ERA",
+]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"kalshi".msg = "The Kalshi SDK may only be imported inside entropytrade.exchange.kalshi (wrap it behind ExchangeGateway)."
+"pydantic_ai".msg = "PydanticAI may only be imported inside entropytrade.agents."
+"datetime.datetime.utcnow".msg = "Use entropytrade.domain.time.utc_now() or an injected Clock."
+"datetime.datetime.utcfromtimestamp".msg = "Use datetime.fromtimestamp(ts, tz=UTC)."
+
+[tool.ruff.lint.per-file-ignores]
+"backend/src/entropytrade/exchange/kalshi/**" = ["TID251"]
+"backend/src/entropytrade/agents/**" = ["TID251"]
+"backend/tests/**" = ["S101", "FBT", "ARG", "PLR2004"]
+"backend/src/entropytrade/cli.py" = ["T201"]
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+files = ["backend/src", "backend/tests"]
+mypy_path = ["backend/src", "backend"]
+warn_unreachable = true
+enable_error_code = ["ignore-without-code", "redundant-expr", "truthy-bool"]
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+
+# ---------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+pythonpath = ["backend/src", "backend"]
+addopts = ["-ra", "--strict-markers", "--strict-config", "--import-mode=importlib"]
+xfail_strict = true
+filterwarnings = ["error"]
+
+[tool.coverage.run]
+source = ["entropytrade"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "\\.\\.\\."]

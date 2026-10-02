@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 0 — in progress**
+Last updated: 2026-10-02 · Current phase: **Phase 0 — complete**. Next is Phase 1, and it has not been started.
 
 ## What this project is
 
@@ -35,7 +35,7 @@ holds trading credentials.
 
 | Phase | Name | Status | Report |
 | --- | --- | --- | --- |
-| 0 | Open-source audit + project skeleton | **in progress** | — |
+| 0 | Open-source audit + project skeleton | **complete** | [phase-0.md](docs/phase-reports/phase-0.md) |
 | 1 | Read-only Kalshi gateway + market recorder | planned | — |
 | 2 | Accounting + paper broker + risk foundation | planned | — |
 | 3 | Point-in-time backtesting engine | planned | — |
@@ -76,8 +76,37 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Finish Phase 0 (audit, skeleton, docs, domain types, tests), open the draft
-PR, write the checkpoint report, then stop for review.
+Phase 1 — read-only Kalshi gateway and market recorder. Do not start it until
+the user explicitly says to continue.
+
+Scope, and only this scope: pin `kalshi-sdk==17.1.0`; `KalshiGateway` behind
+`ExchangeGateway` in `READ_ONLY` (explicit `KalshiConfig.demo()` /
+`.production()`, never `from_env()`, refuse `KALSHI_ALLOW_UNKNOWN_HOST`,
+`max_retries=0`); market, event and series discovery; rules storage with
+`rules_hash` and settlement-source-by-date; REST books from `orderbook_fp`;
+WebSocket connect, book deltas and the trade feed; reconnect; our own sequence
+checks for trade and lifecycle on top of the SDK's book-gap handling; API
+limits from `GET /account/limits` via a wrapping transport; persist metadata,
+rule versions, trades, book snapshots and deltas, and lifecycle events; health.
+No order submission. A read-scoped key for the collector, separate from any
+trading key. Recorded data must be replayable.
+
+Acceptance from spec §40: hours on demo or read-only production, restart
+without corruption, reconnect after a dropped socket, and a detected sequence
+gap.
+
+Read [`docs/external-repositories.md`](docs/external-repositories.md) and the
+Phase 0 report before writing the adapter. The audit changed several spec
+assumptions (Weather Company settlement, two API keys, no vendored bot code,
+exact SDK pin). Those are decisions waiting on the user; do not silently
+revert them.
+
+## Checks
+
+On 2026-10-02, `make check` passed: ruff clean, mypy strict clean (48 source
+files), pytest 57 passed. `uv sync` then `make check`. Default mode is
+`read_only`. `uv` is not on the default `PATH` in every shell; it lives at
+`~/.local/bin/uv` (0.12.22) in the environment that built this.
 
 ## How to resume (fresh agent)
 
@@ -85,4 +114,4 @@ PR, write the checkpoint report, then stop for review.
 2. Read the latest phase report under `docs/phase-reports/`.
 3. Set up: `uv sync` (Python 3.12+), then `make check` (lint + typecheck + tests).
 4. Kalshi API reference: `.agents/skills/kalshi-docs/` (see `README.md`).
-5. Continue with the phase listed under **Next steps**, and only that phase.
+5. Continue with the phase listed under **Next steps**, and only that phase, and only after the user explicitly says to continue.

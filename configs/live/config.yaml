@@ -1,0 +1,7 @@
+# Not sufficient on its own. Live trading also requires all of:
+#   - this file explicitly selected via ENTROPYTRADE_CONFIG
+#   - kalshi_environment: production
+#   - ENTROPYTRADE_LIVE_TRADING_ENABLED=true in the execution process only
+# The default config is configs/dev, whose mode is read_only.
+trading_mode: live
+kalshi_environment: production

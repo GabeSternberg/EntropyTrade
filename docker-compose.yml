@@ -1,0 +1,39 @@
+# Phase 0 skeleton. One image, four logical processes (spec section 39).
+# Nothing here submits orders: the default command prints the version and exits.
+# Credentials, when they exist, are mounted only into the execution service.
+
+services:
+  api:
+    build: .
+    profiles: ["app"]
+    command: ["uv", "run", "entropytrade"]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ENTROPYTRADE_TRADING_MODE: read_only
+      ENTROPYTRADE_CONFIG: configs/dev/config.yaml
+
+  collector:
+    build: .
+    profiles: ["app"]
+    command: ["uv", "run", "entropytrade"]
+    environment:
+      ENTROPYTRADE_TRADING_MODE: read_only
+
+  research:
+    build: .
+    profiles: ["app"]
+    command: ["uv", "run", "entropytrade"]
+    environment:
+      ENTROPYTRADE_TRADING_MODE: backtest
+
+  execution:
+    build: .
+    profiles: ["app"]
+    command: ["uv", "run", "entropytrade"]
+    environment:
+      ENTROPYTRADE_TRADING_MODE: read_only
+      ENTROPYTRADE_LIVE_TRADING_ENABLED: "false"
+    # secrets:
+    #   - kalshi_private_key

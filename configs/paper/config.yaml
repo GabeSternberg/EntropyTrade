@@ -1,0 +1,3 @@
+# Simulated fills against a live or recorded book. No orders are sent.
+trading_mode: paper
+kalshi_environment: demo

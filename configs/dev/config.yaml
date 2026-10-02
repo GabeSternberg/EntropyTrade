@@ -1,0 +1,3 @@
+# Local development. Reads nothing live unless a later phase is pointed at demo.
+trading_mode: read_only
+kalshi_environment: demo
