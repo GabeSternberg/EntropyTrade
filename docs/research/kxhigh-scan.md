@@ -25,3 +25,4 @@ Optimistic trade-print equity is not a fill. Nothing is promoted.
 | KXHIGHMIA | 0 | not scored | not walked | not scored |
 | KXHIGHTPHX | 0 | not scored | not walked | not scored |
 | KXHIGHTEGLL | 0 | not scored | not walked | not scored |
+| KXHIGHTEMPDEN | 0 | not scored | not walked | not scored |
