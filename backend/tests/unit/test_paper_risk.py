@@ -463,6 +463,44 @@ def test_order_rate_rejects_a_full_window() -> None:
     assert all(check.check_name != "order_rate" for check in unset.checks)
 
 
+def test_max_slippage_rejects_a_missing_or_large_reserve() -> None:
+    limits = _limits().model_copy(update={"max_slippage": Decimal("0.010000")})
+    intent = _intent(quantity="1.00", price="0.4500")
+    missing = _decide(intent, limits)
+    assert any(check.check_name == "max_slippage" and not check.passed for check in missing.checks)
+    assert not missing.approved
+    wide = _decide(
+        _intent(
+            quantity="1.00",
+            price="0.4500",
+            edge=EdgeEstimate(
+                outcome_probability=Decimal("0.80"),
+                price_per_contract=Decimal("0.4000"),
+                fee_per_contract=Decimal(0),
+                expected_slippage=Decimal("0.020000"),
+            ),
+        ),
+        limits,
+    )
+    assert any(check.check_name == "max_slippage" and not check.passed for check in wide.checks)
+    tight = _decide(
+        _intent(
+            quantity="1.00",
+            price="0.4500",
+            edge=EdgeEstimate(
+                outcome_probability=Decimal("0.80"),
+                price_per_contract=Decimal("0.4000"),
+                fee_per_contract=Decimal(0),
+                expected_slippage=Decimal("0.010000"),
+            ),
+        ),
+        limits,
+    )
+    assert tight.approved
+    unset = _decide(intent, _limits())
+    assert all(check.check_name != "max_slippage" for check in unset.checks)
+
+
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:
     intent = _intent(quantity="1.00", price="0.4500")
     halt = halt_sentinel(tmp_path)

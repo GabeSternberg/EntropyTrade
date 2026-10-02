@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2.54 — complete**. Next is Phase 2.55.
+Last updated: 2026-10-02 · Current phase: **Phase 2.55 — complete**. Next is Phase 2.56.
 
 ## What this project is
 
@@ -59,6 +59,7 @@ holds trading credentials.
 | 2.52 | Optional minimum net-edge check | **complete** | [phase-2.52.md](docs/phase-reports/phase-2.52.md) |
 | 2.53 | Optional open-order cap | **complete** | [phase-2.53.md](docs/phase-reports/phase-2.53.md) |
 | 2.54 | Optional order-rate cap | **complete** | [phase-2.54.md](docs/phase-reports/phase-2.54.md) |
+| 2.55 | Optional slippage-reserve cap | **complete** | [phase-2.55.md](docs/phase-reports/phase-2.55.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -124,6 +125,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 2.54**: when `max_order_rate` is set, the caller-supplied count of
   orders already placed in the window must be strictly below the cap. Unset
   leaves the check off.
+- **Phase 2.55**: when `max_slippage` is set, a missing edge estimate or a
+  slippage reserve above the cap rejects the intent. Unset leaves the check
+  off.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -159,14 +163,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 2.55 — optional cap on the slippage reserve in an edge estimate.
-A missing estimate fails when the cap is set. Unset leaves the check off.
-No live order.
+Phase 2.56 — optional maximum model age. The engine has no model timestamp
+yet. Add one only as a caller-supplied time, leave the check off unless the
+limit is set, and do not place an order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2.54: ruff clean, mypy strict
-clean, pytest 173 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 2.55: ruff clean, mypy strict
+clean, pytest 174 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

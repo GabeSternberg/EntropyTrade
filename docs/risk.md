@@ -59,8 +59,9 @@ that floor, is rejected. Leaving the field unset does not add the check. When
 `max_open_orders` is set, the caller-supplied open-order count must be strictly
 below it. The portfolio snapshot does not carry that count. When `max_order_rate`
 is set, the caller-supplied count of orders already placed in the window must
-be strictly below it. Still open:
-per series, correlated exposure, maximum slippage,
+be strictly below it. When `max_slippage` is set, a missing edge estimate fails,
+and so does an estimate whose slippage reserve is above the cap. Still open:
+per series, correlated exposure,
 model age, and time since reconciliation. No martingale. The correlated-event
 cap matters for weather: every strike of one city-day is the same bet.
 

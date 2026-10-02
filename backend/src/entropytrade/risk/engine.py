@@ -52,6 +52,7 @@ class RiskLimits(DomainModel):
     min_net_edge: ExactDecimal | None = None
     max_open_orders: int | None = Field(default=None, ge=0)
     max_order_rate: int | None = Field(default=None, ge=0)
+    max_slippage: ExactDecimal | None = None
     config_version: str
 
 
@@ -280,6 +281,16 @@ def _gate(
                 passed=open_orders < limits.max_open_orders,
                 observed=str(open_orders),
                 limit=str(limits.max_open_orders),
+            )
+        )
+    if limits.max_slippage is not None:
+        reserve = None if intent.edge is None else intent.edge.expected_slippage
+        checks.append(
+            RiskCheckResult(
+                check_name="max_slippage",
+                passed=reserve is not None and reserve <= limits.max_slippage,
+                observed=None if reserve is None else str(reserve),
+                limit=str(limits.max_slippage),
             )
         )
     if limits.min_net_edge is not None:
