@@ -1,1 +1,1 @@
-"""Deterministic strategy evaluators. ``interpret`` runs a subset of StrategySpec."""
+"""Deterministic strategy evaluators and the structural scanner."""
