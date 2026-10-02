@@ -1,0 +1,14 @@
+{
+  "fetched_at": "2026-10-02T18:29:22.140713+00:00",
+  "series": "KXHIGHHOU",
+  "title": "Highest temperature in Houston",
+  "listed_after": "KXHIGHTEHAM",
+  "markets_listed": 0,
+  "sample_ticker": "KXHIGHHOU-26AUG23-B80.5",
+  "sample_http_status": 404,
+  "sample_error_code": "not_found",
+  "station_named": false,
+  "scored": false,
+  "promoted": false,
+  "reason": "The series exists. The settled market list is empty. The sample B80.5 ticker is not_found. No market named a station, so no forecast was requested and the bracket was not applied."
+}
