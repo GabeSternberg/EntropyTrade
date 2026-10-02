@@ -1,0 +1,10 @@
+{
+  "series": "KXHIGHTSBGR",
+  "title": "Daly high temp Sao Paulo",
+  "fetched_at": "2026-10-02T19:17:08.320896+00:00",
+  "scored": false,
+  "promoted": false,
+  "markets_found": 0,
+  "markets_missing": 40,
+  "reason": "Every requested B80.5 market was not_found. No strike was substituted."
+}
