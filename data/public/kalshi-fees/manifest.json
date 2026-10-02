@@ -31,6 +31,15 @@
       "status": 429,
       "fetched_at": "2026-10-02T15:56:20.731994+00:00",
       "path": "kalshi-fees/fee-schedule.error.html"
+    },
+    {
+      "url": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+      "status": 429,
+      "fetched_at": "2026-10-02T16:10:02.821328+00:00",
+      "path": "kalshi-fees/fee-schedule-retry.error.html",
+      "note": "Phase 4.54 retry. Same checkpoint page. Coefficient still absent."
     }
-  ]
+  ],
+  "published_fee_version": "kalshi-docs-maker-fractions-v1",
+  "published_fee_citation": ".agents/skills/kalshi-docs/api-reference/market/get-series.md"
 }

@@ -4,8 +4,9 @@ A series payload has ``fee_type`` and ``fee_multiplier``. It does not have the
 quadratic coefficient from the general trading-fee table. Maker fractions come
 from the fee-type description: makers pay nothing on ``quadratic``, 0.25 of the
 taker coefficient on ``quadratic_with_maker_fees``, and 0.5 on
-``quadratic_with_combo_maker_fees``. The coefficient itself stays an argument
-because the fee-schedule PDF was not retrieved.
+``quadratic_with_combo_maker_fees``. Those two multipliers are the numbers in
+``.agents/skills/kalshi-docs/api-reference/market/get-series.md``. The taker
+coefficient is not in that file. The fee-schedule PDF retry returned HTTP 429.
 """
 
 import json
@@ -19,14 +20,11 @@ from entropytrade.domain.enums import FeeType
 from entropytrade.domain.fees import FeeModelRef
 from entropytrade.domain.time import ensure_utc
 from entropytrade.execution.fees import FeeFormulaError, FeeSchedule
+from entropytrade.execution.published_fees import MAKER_FRACTIONS
 
 FEE_MODEL_VERSION = "series-fields-v1"
 
-_MAKER_FRACTION: dict[FeeType, Decimal] = {
-    FeeType.QUADRATIC: Decimal(0),
-    FeeType.QUADRATIC_WITH_MAKER_FEES: Decimal("0.25"),
-    FeeType.QUADRATIC_WITH_COMBO_MAKER_FEES: Decimal("0.5"),
-}
+_MAKER_FRACTION = MAKER_FRACTIONS
 
 
 @dataclass(frozen=True)

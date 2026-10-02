@@ -196,6 +196,29 @@ def test_an_unknown_series_is_not_given_a_fee() -> None:
         )
 
 
+def test_published_docs_state_maker_fractions_and_no_taker_coefficient() -> None:
+    from entropytrade.execution.published_fees import (
+        CITATION,
+        MAKER_FRACTIONS,
+        PUBLISHED_FEE_VERSION,
+        QUADRATIC_COEFFICIENT,
+    )
+
+    source = (
+        Path(__file__).resolve().parents[2].joinpath("src/entropytrade/execution/published_fees.py")
+    )
+    cited = Path(__file__).resolve().parents[3].joinpath(CITATION)
+    text = cited.read_text(encoding="utf-8")
+    assert "0.5 maker multiplier instead of 0.25" in text
+    assert QUADRATIC_COEFFICIENT is None
+    assert MAKER_FRACTIONS[FeeType.QUADRATIC_WITH_MAKER_FEES] == Decimal("0.25")
+    assert MAKER_FRACTIONS[FeeType.QUADRATIC_WITH_COMBO_MAKER_FEES] == Decimal("0.5")
+    assert PUBLISHED_FEE_VERSION == "kalshi-docs-maker-fractions-v1"
+    assert "0.07" not in source.read_text(encoding="utf-8")
+    retry = (ROOT / "kalshi-fees" / "fee-schedule-retry.error.html").read_text(encoding="utf-8")
+    assert "Vercel Security Checkpoint" in retry
+
+
 def test_the_fee_loader_does_not_invent_a_coefficient() -> None:
     text = (
         Path(__file__)
