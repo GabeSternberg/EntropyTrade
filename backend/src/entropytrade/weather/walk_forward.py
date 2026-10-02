@@ -16,12 +16,14 @@ from entropytrade.domain.market_data import OrderBook
 from entropytrade.domain.observations import FeatureObservation, Forecast
 from entropytrade.domain.orders import OrderIntent
 from entropytrade.domain.runs import SampleSplit, SplitWindow
+from entropytrade.exchange.trade_prints import load_trade_tape
 from entropytrade.execution.fees import FeeSchedule
 from entropytrade.execution.paper import PaperBroker
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.weather.baseline import mean_absolute_error
 from entropytrade.weather.cli_observations import CliLabel, load_comparison
+from entropytrade.weather.informational_rules import RuleScore, score_rules
 from entropytrade.weather.settlement_score import load_stored_forecasts
 
 _STATION = "CLIPHL"
@@ -89,6 +91,76 @@ def load_stored_walk_forward(root: Path) -> StoredWalkForward:
         replay_equity=results[SampleSplit.VALIDATION].ending_equity,
         promoted=False,
     )
+
+
+@dataclass(frozen=True)
+class RuleWalkForward:
+    """Train and validation scores. The holdout days are not scored."""
+
+    train_days: int
+    validation_days: int
+    holdout_days: int
+    ran_splits: tuple[str, ...]
+    holdout_blocked: bool
+    holdout_scored: bool
+    promoted: bool
+    train: tuple[RuleScore, ...]
+    validation: tuple[RuleScore, ...]
+
+
+def load_rule_walk_forward(root: Path) -> RuleWalkForward:
+    """Walk the registered rules forward. Holdout labels are not passed in."""
+    labels, _comparison = load_comparison(root)
+    ordered = tuple(sorted(labels, key=lambda label: (label.valid_on, label.available_at)))
+    train, validation, holdout = _thirds(ordered)
+    reject_holdout(
+        {label.valid_on for label in train + validation},
+        {label.valid_on for label in holdout},
+    )
+    forecast_rows = load_stored_forecasts(root)
+    forecasts = {item.valid_from.date(): item for item in forecast_rows}
+    prints = load_trade_tape(root).b805_prints
+    windows = (
+        _window(SampleSplit.TRAIN, train[0], validation[0]),
+        _window(SampleSplit.VALIDATION, validation[0], holdout[0]),
+        _window(SampleSplit.HOLDOUT, holdout[0], _day_after(holdout[-1])),
+    )
+    visible = train + validation
+    records = _features(forecast_rows, visible)
+    holdout_ids = {f"{_STATION}-{label.valid_on.isoformat()}" for label in holdout}
+    if any(record.entity_id in holdout_ids for record in records):
+        raise ValueError("a holdout day was passed into walk-forward")
+    start = windows[0].start
+    ledger = Ledger(Decimal("100"), as_of=start)
+    results = run_walk_forward(
+        books=(),
+        records=records,
+        strategy=_no_trade,
+        ledger=ledger,
+        broker=_broker(ledger),
+        engine=_engine(),
+        latency=timedelta(0),
+        splits=windows,
+    )
+    if SampleSplit.HOLDOUT in results:
+        raise ValueError("walk-forward ran the holdout")
+    return RuleWalkForward(
+        train_days=len(train),
+        validation_days=len(validation),
+        holdout_days=len(holdout),
+        ran_splits=tuple(result.value for result in results),
+        holdout_blocked=_holdout_is_blocked(windows[2]),
+        holdout_scored=False,
+        promoted=False,
+        train=score_rules(train, forecasts, prints),
+        validation=score_rules(validation, forecasts, prints),
+    )
+
+
+def reject_holdout(scored: set[date], holdout: set[date]) -> None:
+    """A scored day and a holdout day cannot be the same day."""
+    if scored & holdout:
+        raise ValueError("a holdout day was scored")
 
 
 def _thirds(

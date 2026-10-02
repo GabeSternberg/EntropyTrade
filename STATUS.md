@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.61 — complete**. Next is Phase 4.62.
+Last updated: 2026-10-02 · Current phase: **Phase 4.62 — complete**. Next is Phase 4.63.
 
 ## What this project is
 
@@ -68,6 +68,7 @@ holds trading credentials.
 | 4.59 | Later books stay out of the CLI replay | **complete** | [phase-4.59.md](docs/phase-reports/phase-4.59.md) |
 | 4.60 | Historical trade prints, not joined to the CLI replay | **complete** | [phase-4.60.md](docs/phase-reports/phase-4.60.md) |
 | 4.61 | Pre-registered informational rules | **complete** | [phase-4.61.md](docs/phase-reports/phase-4.61.md) |
+| 4.62 | Walk-forward of the registered rules | **complete** | [phase-4.62.md](docs/phase-reports/phase-4.62.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -163,6 +164,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   Above fires 19 times and below 21 times, with no print cheap enough to
   buy NO. The gap rule's optimistic case assumes 3 fills and equity
   99.900000. Base and conservative stay at 100. A print is not a fill.
+- **Phase 4.62**: train 20, validation 10, holdout 10. The holdout is not
+  scored. The gap rule assumes 2 optimistic fills in train (equity
+  99.910000) and 1 in validation (equity 99.990000). Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -198,13 +202,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.62 — walk-forward the 4.61 rules with the existing train and
-validation split. Do not score the holdout. No LLM. No live order.
+Phase 4.63 — when forecast_above and forecast_gap both fire, they want
+opposite sides of the same 80-81 contract. Net those intents before an
+optimistic fill. Report how many days conflict and what equity does after
+netting. No new threshold. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.61: ruff clean, mypy strict
-clean, pytest 189 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.62: ruff clean, mypy strict
+clean, pytest 190 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
