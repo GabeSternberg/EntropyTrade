@@ -1,0 +1,16 @@
+{
+  "fetched_at": "2026-10-02T16:55:09.401965+00:00",
+  "finished_at": "2026-10-02T17:00:20.337582+00:00",
+  "endpoint": "https://api.elections.kalshi.com/trade-api/v2/historical/trades",
+  "tickers": 3720,
+  "tickers_ok": 3720,
+  "tickers_with_prints": 3666,
+  "failed_calls": 0,
+  "trade_count": 1018012,
+  "http_calls": 3880,
+  "table": "kalshi-public/historical-trades/prints.sqlite",
+  "encoding": "created_us is microseconds since the Unix epoch; yes_price is dollars times 10000; count is contracts times 100",
+  "raw_pages": "data/raw/kalshi-historical-trades/pages",
+  "joined_to_cli_replay": false,
+  "note": "Prints from the historical trades endpoint. Not fills. Not joined to the 2026 CLI replay. Raw pages are gitignored."
+}

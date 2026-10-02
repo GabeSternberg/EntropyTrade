@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.59 — complete**. Next is Phase 4.60.
+Last updated: 2026-10-02 · Current phase: **Phase 4.60 — complete**. Next is Phase 4.61.
 
 ## What this project is
 
@@ -66,6 +66,7 @@ holds trading credentials.
 | 4.58 | Prediction records for the rescore decisions | **complete** | [phase-4.58.md](docs/phase-reports/phase-4.58.md) |
 | 7.50 | Structural scan of stored strikes | **complete** | [phase-7.50.md](docs/phase-reports/phase-7.50.md) |
 | 4.59 | Later books stay out of the CLI replay | **complete** | [phase-4.59.md](docs/phase-reports/phase-4.59.md) |
+| 4.60 | Historical trade prints, not joined to the CLI replay | **complete** | [phase-4.60.md](docs/phase-reports/phase-4.60.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -154,6 +155,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.59**: the twelve sized books are for 2 October and 3 October.
   The CLI window ends on 1 October, so they do not enter the replay. Equity
   stays 100.000000.
+- **Phase 4.60**: 1,018,012 historical prints for 3,666 of the 3,720 stored
+  pre-cutoff tickers. 54 tickers had no prints. Raw pages are gitignored.
+  The prints are not fills and are not in the 2026 CLI replay.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -189,16 +193,16 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.60 — pull `/historical/trades` for the stored pre-cutoff
-KXHIGHPHIL tickers (3,720 in the historical market pages). A probe of
-`KXHIGHPHIL-24DEC09-T53` returned prints there; `/markets/trades` for that
-ticker was empty. Label them as trade prints, not fills. Do not join them
-to the 2026 CLI replay. No live order.
+Phase 4.61 — pre-register informational rules on the same point-in-time
+fields: forecast above 80-81, forecast below 80-81, and forecast minus 80.5
+against the existing 0.40 price threshold. Score them on the 2026 CLI labels
+and the 4.57 trade-print scenarios. Count each as a tried hypothesis. No
+promotion. No threshold changes after seeing equity. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.59: ruff clean, mypy strict
-clean, pytest 184 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.60: ruff clean, mypy strict
+clean, pytest 186 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
