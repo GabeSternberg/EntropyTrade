@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2.52 — complete**. Next is Phase 2.53.
+Last updated: 2026-10-02 · Current phase: **Phase 2.53 — complete**. Next is Phase 6.51.
 
 ## What this project is
 
@@ -57,6 +57,7 @@ holds trading credentials.
 | 2.50 | Order reconciliation invariants | **complete** | [phase-2.50.md](docs/phase-reports/phase-2.50.md) |
 | 2.51 | Named local HALT sentinel | **complete** | [phase-2.51.md](docs/phase-reports/phase-2.51.md) |
 | 2.52 | Optional minimum net-edge check | **complete** | [phase-2.52.md](docs/phase-reports/phase-2.52.md) |
+| 2.53 | Optional open-order cap | **complete** | [phase-2.53.md](docs/phase-reports/phase-2.53.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -116,6 +117,8 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   cancel or liquidate.
 - **Phase 2.52**: when `min_net_edge` is set, a missing edge estimate or a
   net edge below the floor rejects the intent. Unset leaves the check off.
+- **Phase 2.53**: when `max_open_orders` is set, the caller-supplied count
+  must be strictly below the cap. Unset leaves the check off.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -149,14 +152,13 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 2.53 — optional cap on open orders, using the orders already on the
-portfolio snapshot. No live order. Leave the check off unless the limit is
-set.
+Phase 6.51 — a registry-page control that writes the local HALT sentinel
+and does not submit an order. `POST /` stays refused. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2.52: ruff clean, mypy strict
-clean, pytest 170 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 2.53: ruff clean, mypy strict
+clean, pytest 171 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

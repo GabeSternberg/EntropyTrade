@@ -54,8 +54,10 @@ in-process switch. There is no dashboard button yet; that button will call `kill
 Phase 2 enforces per-trade, per-event, total deployed, and bankroll caps, plus realized
 loss, realized drawdown, book age, spread, and minimum displayed liquidity. When
 `min_net_edge` is set, an intent with no edge estimate, or with a net edge below
-that floor, is rejected. Leaving the field unset does not add the check. Still open:
-per series, correlated exposure, open-order count, order rate, maximum slippage,
+that floor, is rejected. Leaving the field unset does not add the check. When
+`max_open_orders` is set, the caller-supplied open-order count must be strictly
+below it. The portfolio snapshot does not carry that count. Still open:
+per series, correlated exposure, order rate, maximum slippage,
 model age, and time since reconciliation. No martingale. The correlated-event
 cap matters for weather: every strike of one city-day is the same bet.
 

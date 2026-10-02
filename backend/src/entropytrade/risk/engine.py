@@ -10,6 +10,8 @@ from datetime import datetime
 from decimal import ROUND_DOWN, Decimal
 from pathlib import Path
 
+from pydantic import Field
+
 from entropytrade.domain.base import DomainModel
 from entropytrade.domain.enums import OutcomeSide
 from entropytrade.domain.market_data import OrderBook
@@ -48,6 +50,7 @@ class RiskLimits(DomainModel):
     min_liquidity: Quantity
     max_spread: Price
     min_net_edge: ExactDecimal | None = None
+    max_open_orders: int | None = Field(default=None, ge=0)
     config_version: str
 
 
@@ -104,7 +107,10 @@ class RiskEngine:
         realized_pnl: Decimal,
         peak_equity: Decimal,
         equity: Decimal,
+        open_orders: int = 0,
     ) -> RiskDecision:
+        if isinstance(open_orders, bool) or open_orders < 0:
+            raise ValueError("open_orders must be a non-negative count")
         checks: list[RiskCheckResult] = []
         blocked = _gate(
             checks,
@@ -116,6 +122,7 @@ class RiskEngine:
             realized_pnl=realized_pnl,
             peak_equity=peak_equity,
             equity=equity,
+            open_orders=open_orders,
         )
         if blocked:
             return _decision(
@@ -192,6 +199,7 @@ def _gate(
     realized_pnl: Decimal,
     peak_equity: Decimal,
     equity: Decimal,
+    open_orders: int,
 ) -> bool:
     checks.append(
         RiskCheckResult(
@@ -252,6 +260,15 @@ def _gate(
             limit=str(limits.min_liquidity),
         )
     )
+    if limits.max_open_orders is not None:
+        checks.append(
+            RiskCheckResult(
+                check_name="max_open_orders",
+                passed=open_orders < limits.max_open_orders,
+                observed=str(open_orders),
+                limit=str(limits.max_open_orders),
+            )
+        )
     if limits.min_net_edge is not None:
         edge = None if intent.edge is None else intent.edge.net_edge
         checks.append(
