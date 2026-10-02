@@ -28,6 +28,7 @@ from entropytrade.weather.informational_rules import (
     score_rules,
 )
 from entropytrade.weather.recorded import RecordedBodyError, parse_cli_daily_high
+from entropytrade.weather.revision_rule import revision_lines
 from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
 _WINDOW_START = date(2026, 8, 23)
@@ -77,6 +78,8 @@ def render_kxhigh_scan(root: Path) -> str:
         "| --- | --- | --- | --- | --- |",
     ]
     lines.extend(_row(city) for city in load_kxhigh_scan(root))
+    lines.append("")
+    lines.extend(revision_lines(root))
     lines.append("")
     return "\n".join(lines)
 

@@ -48,3 +48,31 @@ Optimistic trade-print equity is not a fill. Nothing is promoted.
 | KXHIGHTVHHH | 0 | not scored | not walked | not scored |
 | KXHIGHTKSAN | 0 | not scored | not walked | not scored |
 | KXHIGHTHOU | 0 | not scored | not walked | not scored |
+
+## Revision
+
+`forecast_revision_up` is one hypothesis. It was not scored.
+
+At 15:00 UTC, take two vintages of the same valid day's hourly
+temperature whose available_at is at or before the decision. Later
+vintage: latest run with available_at <= 15:00 UTC. Earlier vintage:
+latest run with available_at <= 03:00 UTC the same day. Daily max is
+the max of that vintage's hourly values. Revision = later_max -
+earlier_max. If either vintage is missing, no trade.
+
+The rule fires only when revision >= 2 F and the later max is inside
+80-81 inclusive. Optimistic may assume one YES at a B80.5 print at or
+before 15:00 UTC with price <= 0.40. Base and conservative do not
+treat a print as a fill. Fidelity is trade-print. A print is not a
+guaranteed fill. The fee coefficient stays unset. Train, then
+validation. The holdout is not scored.
+
+Two vintages are not on disk. The previous-runs API refused a model
+run. The stored body is:
+
+{"error":true,"reason":"Parameter 'run' must not be set"}
+
+Fires: not scored. Fills: not scored.
+Optimistic equity: not scored.
+Validation equity: not scored.
+Nothing was promoted.
