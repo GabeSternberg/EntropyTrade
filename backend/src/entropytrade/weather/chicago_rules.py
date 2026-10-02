@@ -245,6 +245,64 @@ def load_chicago_settlement_check(root: Path) -> ChicagoSettlementCheck:
     )
 
 
+@dataclass(frozen=True)
+class ChicagoExpirationCli:
+    """Expiration value versus the CLI high. CLI is not the settlement source."""
+
+    listed: int
+    omitted: int
+    equal: int
+    differ: int
+    cli_is_settlement_source: bool
+    promoted: bool
+
+
+def load_chicago_expiration_cli(root: Path) -> ChicagoExpirationCli:
+    """Compare degrees. Equality does not make the CLI the settlement source."""
+    labels, _forecasts, _prints, _found, _missing = _inputs(root)
+    by_day = {label.valid_on: label.high_f for label in labels}
+    check = load_chicago_settlement_check(root)
+    payload: object = json.loads(
+        (root / "chicago" / "settlements.json").read_text(encoding="utf-8"),
+        parse_float=Decimal,
+    )
+    if not isinstance(payload, list):
+        raise ValueError("Chicago settlements are not a list")
+    equal = 0
+    differ = 0
+    for item in payload:
+        row = _object_value(item, "settlement")
+        valid_on = ticker_target_date(_text(row.get("ticker"), "ticker"))
+        high = None if valid_on is None else by_day.get(valid_on)
+        expiration = _decimal(row.get("expiration_value"))
+        if high is None or expiration is None:
+            raise ValueError("a listed Chicago market has no CLI high or expiration value")
+        if expiration == high:
+            equal += 1
+        else:
+            differ += 1
+    if equal + differ != check.listed:
+        raise ValueError("expiration comparison did not cover the listed markets")
+    return ChicagoExpirationCli(
+        listed=check.listed,
+        omitted=check.omitted,
+        equal=equal,
+        differ=differ,
+        cli_is_settlement_source=False,
+        promoted=False,
+    )
+
+
+def _decimal(value: object) -> Decimal | None:
+    if isinstance(value, Decimal):
+        return value
+    if isinstance(value, int) and not isinstance(value, bool):
+        return Decimal(value)
+    if isinstance(value, str) and value != "":
+        return Decimal(value)
+    return None
+
+
 def load_chicago_print_disagreements(root: Path) -> tuple[PrintDisagreement, ...]:
     """Full-window misses of the 0.50 guess. The line is not changed."""
     labels, _forecasts, prints, _found, _missing = _inputs(root)
