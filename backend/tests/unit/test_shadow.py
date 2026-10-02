@@ -13,7 +13,12 @@ from entropytrade.domain.modes import TradingMode
 from entropytrade.domain.orders import OrderIntent
 from entropytrade.execution.fees import FeeSchedule
 from entropytrade.execution.paper import PaperBroker
-from entropytrade.execution.shadow import ShadowComparison, ShadowError, run_shadow
+from entropytrade.execution.shadow import (
+    ShadowComparison,
+    ShadowError,
+    compare_shadow_and_paper,
+    run_shadow,
+)
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 
@@ -146,6 +151,48 @@ def test_read_only_does_not_fill() -> None:
     ledger, rows = _run(TradingMode.READ_ONLY, (_print_at("0.4500", WHEN),))
     assert ledger.cash == Decimal("100")
     assert rows == ()
+
+
+def test_shadow_and_paper_prices_are_recorded_apart() -> None:
+    later = _book()
+    later = OrderBook(
+        market_ticker=TICKER,
+        bids=later.bids,
+        asks=later.asks,
+        received_at=WHEN + timedelta(minutes=5),
+    )
+
+    def buy_wide(book: OrderBook) -> OrderIntent | None:
+        if book.received_at != WHEN:
+            return None
+        return OrderIntent(
+            strategy_id="shadow",
+            strategy_version=1,
+            contract=Contract(market_ticker=book.market_ticker, side=OutcomeSide.YES),
+            yes_price=Decimal("0.5000"),
+            quantity=Decimal("1.00"),
+            time_in_force=TimeInForce.FILL_OR_KILL,
+            decision_time=book.received_at,
+        )
+
+    rows = compare_shadow_and_paper(
+        environment=KalshiEnvironment.PRODUCTION,
+        process_env={},
+        books=(_book(), later),
+        prints=(),
+        strategy=buy_wide,
+        starting_cash=Decimal("100"),
+        as_of=WHEN,
+        schedule=_schedule(),
+        engines=(RiskEngine(_limits()), RiskEngine(_limits())),
+    )
+    assert len(rows) == 1
+    row = rows[0]
+    assert row.market_ticker == TICKER
+    assert row.paper_filled is True
+    assert row.paper_price == Decimal("0.4000")
+    assert row.shadow_price == Decimal("0.5000")
+    assert row.difference == Decimal("-0.1000")
 
 
 def test_the_runner_does_not_name_the_gateway() -> None:
