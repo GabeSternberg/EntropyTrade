@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2 — complete**. Next is Phase 3.
+Last updated: 2026-10-02 · Current phase: **Phase 3 — complete**. Next is Phase 4.
 
 ## What this project is
 
@@ -46,7 +46,7 @@ holds trading credentials.
 | 0 | Open-source audit + project skeleton | **complete** | [phase-0.md](docs/phase-reports/phase-0.md) |
 | 1 | Read-only Kalshi gateway + market recorder | **complete** | [phase-1.md](docs/phase-reports/phase-1.md) |
 | 2 | Accounting + paper broker + risk foundation | **complete** | [phase-2.md](docs/phase-reports/phase-2.md) |
-| 3 | Point-in-time backtesting engine | planned | — |
+| 3 | Point-in-time backtesting engine | **complete** | [phase-3.md](docs/phase-reports/phase-3.md) |
 | 4 | First weather dataset + baseline models | planned | — |
 | 5 | Agentic research pipeline (PydanticAI) | planned | — |
 | 6 | Strategy registry + experiment tracking + dashboard | planned | — |
@@ -86,18 +86,18 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 3 — point-in-time backtesting. The exact plan is the last section of
-[`docs/phase-reports/phase-2.md`](docs/phase-reports/phase-2.md).
+Phase 4 — the first weather dataset and baseline models. The exact plan is the
+last section of [`docs/phase-reports/phase-3.md`](docs/phase-reports/phase-3.md).
 
-Scope: replay recorded frames through the paper broker, fees and a latency
-shift, settlement, a deterministic run artifact, and walk-forward splits.
-A strategy that reads data from after the decision time must be blocked.
-Do not vendor `prediction-market-backtester`. No live or demo orders.
+Scope: daily high temperature, point-in-time forecasts, a baseline that does
+not train on the settlement, and both a forecast score and a paper trading
+score. Philadelphia `KXHIGHPHIL` / CLIPHL is in scope. Settlement source follows
+the contract text and the 2026-08-14 cutover. No live orders.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2: ruff clean, mypy strict clean,
-pytest 89 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 3: ruff clean, mypy strict clean,
+pytest 94 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 

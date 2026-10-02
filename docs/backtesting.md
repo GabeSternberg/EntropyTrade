@@ -1,7 +1,12 @@
 # Backtesting
 
-The backtest engine is Phase 3. Phase 0 fixes the rules it has to satisfy and the reasons
-the audited engines are not that engine.
+`entropytrade.backtest.replay` walks recorded books in time order. A strategy receives a
+`DecisionView`, which is `select_as_of` at the book's receive time, and nothing else.
+Holdout windows are not passed to the strategy. A fill uses the book at
+`decision_time + latency`, with prices clamped so the run cannot buy a better touch
+than the one it saw. Settlement inside the split window goes through `Ledger.settle`.
+The artifact hash covers the spec hash, the fill ids, and ending equity. Fees are
+`trade_fee`. The audited backtester is still not imported.
 
 ## Rules already encoded
 
