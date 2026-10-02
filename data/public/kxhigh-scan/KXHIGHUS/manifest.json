@@ -1,0 +1,10 @@
+{
+  "series": "KXHIGHUS",
+  "title": "High temp in United States",
+  "fetched_at": "2026-10-02T18:55:06.789134+00:00",
+  "scored": false,
+  "promoted": false,
+  "markets_found": 0,
+  "markets_missing": 40,
+  "reason": "Every requested B80.5 market was not_found. No strike was substituted."
+}
