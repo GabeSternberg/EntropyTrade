@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2.57 — complete**. Next is Phase 4.57.
+Last updated: 2026-10-02 · Current phase: **Phase 4.57 — complete**. Next is Phase 4.58.
 
 ## What this project is
 
@@ -62,6 +62,7 @@ holds trading credentials.
 | 2.55 | Optional slippage-reserve cap | **complete** | [phase-2.55.md](docs/phase-reports/phase-2.55.md) |
 | 2.56 | Optional maximum model age | **complete** | [phase-2.56.md](docs/phase-reports/phase-2.56.md) |
 | 2.57 | Reconciliation age, with the existing halt switches | **complete** | [phase-2.57.md](docs/phase-reports/phase-2.57.md) |
+| 4.57 | Public trade prints, labeled as not a fill | **complete** | [phase-4.57.md](docs/phase-reports/phase-4.57.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -136,6 +137,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 2.57**: the HALT file and `trading_enabled` already block new
   orders. The missing check was time since reconciliation. When that cap is
   set, a missing or stale reconciliation time rejects the intent.
+- **Phase 4.57**: 104,442 public trade prints for the 240 stored markets.
+  A print is not a guaranteed fill. The forecast rule fires on 0 days under
+  optimistic, base, and conservative. Equity stays 100.000000. No fee was
+  applied.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -171,15 +176,16 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.57 — pull public trades for the stored KXHIGHPHIL markets. Do not
-treat a print as a guaranteed fill. Score optimistic, base, and conservative
-scenarios with an explicit fidelity label. No fabricated sizes. No live
-order.
+Phase 4.58 — persist a prediction record for each 4.56 and 4.57 decision:
+prediction id, model version, market, decision time, feature hash,
+probability, bid and ask when a book exists, net edge, and the source
+manifest. A record must not include a label whose `available_at` is after
+the decision. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2.57: ruff clean, mypy strict
-clean, pytest 176 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.57: ruff clean, mypy strict
+clean, pytest 180 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

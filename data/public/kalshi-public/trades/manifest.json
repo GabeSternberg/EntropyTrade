@@ -1,0 +1,2084 @@
+{
+  "fetched_at": "2026-10-02T16:40:56.194494+00:00",
+  "finished_at": "2026-10-02T16:41:35.814640+00:00",
+  "host": "https://api.elections.kalshi.com/trade-api/v2",
+  "tickers": 240,
+  "trade_count": 104442,
+  "tickers_with_trades": 240,
+  "failed_calls": 0,
+  "note": "A trade print is not a book and is not a guaranteed fill. count_fp is the reported trade size, not a touch size.",
+  "calls": [
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/cutoff",
+      "status": 200,
+      "bytes": 188,
+      "fetched_at": "2026-10-02T16:40:56.321887+00:00",
+      "path": "kalshi-public/trades/historical-cutoff.json",
+      "error": null
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 50457,
+      "fetched_at": "2026-10-02T16:40:56.475149+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 188965,
+      "fetched_at": "2026-10-02T16:40:56.733287+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 183249,
+      "fetched_at": "2026-10-02T16:40:57.003739+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 140767,
+      "fetched_at": "2026-10-02T16:40:57.163953+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-T80&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 21785,
+      "fetched_at": "2026-10-02T16:40:57.275881+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-T80-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-T80"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG23-T87&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28966,
+      "fetched_at": "2026-10-02T16:40:57.400389+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG23-T87-0.json",
+      "ticker": "KXHIGHPHIL-26AUG23-T87"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 26442,
+      "fetched_at": "2026-10-02T16:40:57.514535+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 117440,
+      "fetched_at": "2026-10-02T16:40:57.637116+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 225882,
+      "fetched_at": "2026-10-02T16:40:57.789453+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 167894,
+      "fetched_at": "2026-10-02T16:40:57.931873+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-T78&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 16422,
+      "fetched_at": "2026-10-02T16:40:58.048880+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-T78-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-T78"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG24-T85&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 23880,
+      "fetched_at": "2026-10-02T16:40:58.164139+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG24-T85-0.json",
+      "ticker": "KXHIGHPHIL-26AUG24-T85"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 272652,
+      "fetched_at": "2026-10-02T16:40:58.301826+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 233893,
+      "fetched_at": "2026-10-02T16:40:58.491095+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 158552,
+      "fetched_at": "2026-10-02T16:40:58.635671+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 22512,
+      "fetched_at": "2026-10-02T16:40:58.831598+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-T80&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 34909,
+      "fetched_at": "2026-10-02T16:40:58.949833+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-T80-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-T80"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG25-T87&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 6298,
+      "fetched_at": "2026-10-02T16:40:59.056837+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG25-T87-0.json",
+      "ticker": "KXHIGHPHIL-26AUG25-T87"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 180264,
+      "fetched_at": "2026-10-02T16:40:59.187231+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 196870,
+      "fetched_at": "2026-10-02T16:40:59.416367+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 168157,
+      "fetched_at": "2026-10-02T16:40:59.542732+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-B89.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 29724,
+      "fetched_at": "2026-10-02T16:40:59.651196+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-B89.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-B89.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-T83&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 36411,
+      "fetched_at": "2026-10-02T16:40:59.781136+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-T83-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-T83"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG26-T90&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 11680,
+      "fetched_at": "2026-10-02T16:40:59.892698+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG26-T90-0.json",
+      "ticker": "KXHIGHPHIL-26AUG26-T90"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 182883,
+      "fetched_at": "2026-10-02T16:41:00.042606+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 141449,
+      "fetched_at": "2026-10-02T16:41:00.177995+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 107134,
+      "fetched_at": "2026-10-02T16:41:00.356876+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 64943,
+      "fetched_at": "2026-10-02T16:41:00.501362+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-T84&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 164775,
+      "fetched_at": "2026-10-02T16:41:00.634283+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-T84-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-T84"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG27-T91&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 2112,
+      "fetched_at": "2026-10-02T16:41:00.741208+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG27-T91-0.json",
+      "ticker": "KXHIGHPHIL-26AUG27-T91"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 144766,
+      "fetched_at": "2026-10-02T16:41:00.867821+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 212764,
+      "fetched_at": "2026-10-02T16:41:01.026742+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 192530,
+      "fetched_at": "2026-10-02T16:41:01.159016+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-B89.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 43889,
+      "fetched_at": "2026-10-02T16:41:01.276110+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-B89.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-B89.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-T83&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 110621,
+      "fetched_at": "2026-10-02T16:41:01.625063+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-T83-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-T83"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG28-T90&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 6892,
+      "fetched_at": "2026-10-02T16:41:01.739297+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG28-T90-0.json",
+      "ticker": "KXHIGHPHIL-26AUG28-T90"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 180080,
+      "fetched_at": "2026-10-02T16:41:02.009386+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 151082,
+      "fetched_at": "2026-10-02T16:41:02.141089+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 49863,
+      "fetched_at": "2026-10-02T16:41:02.259690+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 17129,
+      "fetched_at": "2026-10-02T16:41:02.380227+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-T81&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 108565,
+      "fetched_at": "2026-10-02T16:41:02.512539+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-T81-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-T81"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG29-T88&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 7782,
+      "fetched_at": "2026-10-02T16:41:02.624603+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG29-T88-0.json",
+      "ticker": "KXHIGHPHIL-26AUG29-T88"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 106412,
+      "fetched_at": "2026-10-02T16:41:02.764333+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 203453,
+      "fetched_at": "2026-10-02T16:41:02.896102+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 199931,
+      "fetched_at": "2026-10-02T16:41:03.046450+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 39044,
+      "fetched_at": "2026-10-02T16:41:03.168209+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-T84&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 77307,
+      "fetched_at": "2026-10-02T16:41:03.287289+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-T84-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-T84"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG30-T91&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 21534,
+      "fetched_at": "2026-10-02T16:41:03.416029+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG30-T91-0.json",
+      "ticker": "KXHIGHPHIL-26AUG30-T91"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 185867,
+      "fetched_at": "2026-10-02T16:41:03.553300+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 119524,
+      "fetched_at": "2026-10-02T16:41:03.692341+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 86080,
+      "fetched_at": "2026-10-02T16:41:03.820789+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-B89.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 24029,
+      "fetched_at": "2026-10-02T16:41:03.932707+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-B89.5-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-B89.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-T83&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 240140,
+      "fetched_at": "2026-10-02T16:41:04.066362+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-T83-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-T83"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26AUG31-T90&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 8380,
+      "fetched_at": "2026-10-02T16:41:04.186666+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26AUG31-T90-0.json",
+      "ticker": "KXHIGHPHIL-26AUG31-T90"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 109401,
+      "fetched_at": "2026-10-02T16:41:04.321601+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 246694,
+      "fetched_at": "2026-10-02T16:41:04.466287+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300585,
+      "fetched_at": "2026-10-02T16:41:04.609143+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-B82.5&limit=1000&cursor=EhIKEAcjIalNeYlhFmo14v74PeQaDAis-_bVBhDgo9qdAQ",
+      "status": 200,
+      "bytes": 37332,
+      "fetched_at": "2026-10-02T16:41:04.771758+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-B82.5-1.json",
+      "ticker": "KXHIGHPHIL-26OCT01-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300308,
+      "fetched_at": "2026-10-02T16:41:04.907823+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-T78&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 41819,
+      "fetched_at": "2026-10-02T16:41:05.020962+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-T78-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-T78"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26OCT01-T85&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 103670,
+      "fetched_at": "2026-10-02T16:41:05.147091+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26OCT01-T85-0.json",
+      "ticker": "KXHIGHPHIL-26OCT01-T85"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-B89.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 213357,
+      "fetched_at": "2026-10-02T16:41:05.280100+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-B89.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-B89.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-B91.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 252362,
+      "fetched_at": "2026-10-02T16:41:05.488439+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-B91.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-B91.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-B93.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 205288,
+      "fetched_at": "2026-10-02T16:41:05.626159+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-B93.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-B93.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-B95.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 90208,
+      "fetched_at": "2026-10-02T16:41:05.751084+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-B95.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-B95.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-T89&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 169081,
+      "fetched_at": "2026-10-02T16:41:05.889073+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-T89-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-T89"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP01-T96&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 24812,
+      "fetched_at": "2026-10-02T16:41:06.149122+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP01-T96-0.json",
+      "ticker": "KXHIGHPHIL-26SEP01-T96"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 68459,
+      "fetched_at": "2026-10-02T16:41:06.277368+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 46591,
+      "fetched_at": "2026-10-02T16:41:06.398258+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 8717,
+      "fetched_at": "2026-10-02T16:41:06.513369+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 6922,
+      "fetched_at": "2026-10-02T16:41:06.620398+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-T82&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 100879,
+      "fetched_at": "2026-10-02T16:41:06.745947+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-T82-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-T82"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP02-T89&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 7181,
+      "fetched_at": "2026-10-02T16:41:06.872261+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP02-T89-0.json",
+      "ticker": "KXHIGHPHIL-26SEP02-T89"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 236534,
+      "fetched_at": "2026-10-02T16:41:07.012685+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 202136,
+      "fetched_at": "2026-10-02T16:41:07.149507+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-B92.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 108171,
+      "fetched_at": "2026-10-02T16:41:07.274533+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-B92.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-B92.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-B94.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 24672,
+      "fetched_at": "2026-10-02T16:41:07.387149+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-B94.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-B94.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-T88&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 263037,
+      "fetched_at": "2026-10-02T16:41:07.527875+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-T88-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-T88"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP03-T95&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 15219,
+      "fetched_at": "2026-10-02T16:41:07.642327+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP03-T95-0.json",
+      "ticker": "KXHIGHPHIL-26SEP03-T95"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 121962,
+      "fetched_at": "2026-10-02T16:41:07.768183+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 252403,
+      "fetched_at": "2026-10-02T16:41:07.955916+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 198733,
+      "fetched_at": "2026-10-02T16:41:08.119879+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-B92.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 22860,
+      "fetched_at": "2026-10-02T16:41:08.245455+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-B92.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-B92.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-T86&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 17019,
+      "fetched_at": "2026-10-02T16:41:08.357357+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-T86-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-T86"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP04-T93&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 10178,
+      "fetched_at": "2026-10-02T16:41:08.467873+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP04-T93-0.json",
+      "ticker": "KXHIGHPHIL-26SEP04-T93"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 69407,
+      "fetched_at": "2026-10-02T16:41:08.593161+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 195532,
+      "fetched_at": "2026-10-02T16:41:08.767253+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 250341,
+      "fetched_at": "2026-10-02T16:41:08.937983+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 73589,
+      "fetched_at": "2026-10-02T16:41:09.059683+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-T80&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 26577,
+      "fetched_at": "2026-10-02T16:41:09.172733+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-T80-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-T80"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP05-T87&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 22152,
+      "fetched_at": "2026-10-02T16:41:09.425339+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP05-T87-0.json",
+      "ticker": "KXHIGHPHIL-26SEP05-T87"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B77.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 125979,
+      "fetched_at": "2026-10-02T16:41:09.551093+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B77.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B77.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 255732,
+      "fetched_at": "2026-10-02T16:41:09.691038+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300292,
+      "fetched_at": "2026-10-02T16:41:09.891099+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B81.5&limit=1000&cursor=EhIKEAchoJmEIb49crXO0KRoyYkaDAi5mvTUBhC4rbXSAw",
+      "status": 200,
+      "bytes": 57337,
+      "fetched_at": "2026-10-02T16:41:10.061810+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B81.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300348,
+      "fetched_at": "2026-10-02T16:41:10.247244+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-B83.5&limit=1000&cursor=EhIKEAchoDteoYaR7NmlDaREvnQaDAiQivTUBhC4zqTUAw",
+      "status": 200,
+      "bytes": 125079,
+      "fetched_at": "2026-10-02T16:41:10.434166+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-B83.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP06-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-T77&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 63480,
+      "fetched_at": "2026-10-02T16:41:10.553870+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-T77-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-T77"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP06-T84&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 77890,
+      "fetched_at": "2026-10-02T16:41:10.690267+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP06-T84-0.json",
+      "ticker": "KXHIGHPHIL-26SEP06-T84"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 47492,
+      "fetched_at": "2026-10-02T16:41:10.829512+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 237183,
+      "fetched_at": "2026-10-02T16:41:10.984311+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 230811,
+      "fetched_at": "2026-10-02T16:41:11.126908+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 146975,
+      "fetched_at": "2026-10-02T16:41:11.252877+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-T78&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 17045,
+      "fetched_at": "2026-10-02T16:41:11.361593+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-T78-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-T78"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP07-T85&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 32308,
+      "fetched_at": "2026-10-02T16:41:11.473847+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP07-T85-0.json",
+      "ticker": "KXHIGHPHIL-26SEP07-T85"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 185898,
+      "fetched_at": "2026-10-02T16:41:11.601684+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 291834,
+      "fetched_at": "2026-10-02T16:41:11.891100+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 237029,
+      "fetched_at": "2026-10-02T16:41:12.037778+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28523,
+      "fetched_at": "2026-10-02T16:41:12.150005+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-T82&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 57903,
+      "fetched_at": "2026-10-02T16:41:12.272242+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-T82-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-T82"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP08-T89&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 18863,
+      "fetched_at": "2026-10-02T16:41:12.385051+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP08-T89-0.json",
+      "ticker": "KXHIGHPHIL-26SEP08-T89"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 33033,
+      "fetched_at": "2026-10-02T16:41:12.510485+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 169272,
+      "fetched_at": "2026-10-02T16:41:12.876338+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 244384,
+      "fetched_at": "2026-10-02T16:41:13.015656+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 196166,
+      "fetched_at": "2026-10-02T16:41:13.149246+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-T84&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 18514,
+      "fetched_at": "2026-10-02T16:41:13.262527+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-T84-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-T84"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP09-T91&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 42073,
+      "fetched_at": "2026-10-02T16:41:13.432305+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP09-T91-0.json",
+      "ticker": "KXHIGHPHIL-26SEP09-T91"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 16205,
+      "fetched_at": "2026-10-02T16:41:13.547864+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 66400,
+      "fetched_at": "2026-10-02T16:41:13.670428+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-B88.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 256539,
+      "fetched_at": "2026-10-02T16:41:13.917199+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-B88.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-B88.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-B90.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 278261,
+      "fetched_at": "2026-10-02T16:41:14.061083+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-B90.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-B90.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-T84&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 20259,
+      "fetched_at": "2026-10-02T16:41:14.171551+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-T84-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-T84"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP10-T91&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 134577,
+      "fetched_at": "2026-10-02T16:41:14.297080+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP10-T91-0.json",
+      "ticker": "KXHIGHPHIL-26SEP10-T91"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 233187,
+      "fetched_at": "2026-10-02T16:41:14.437871+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300634,
+      "fetched_at": "2026-10-02T16:41:14.674877+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B81.5&limit=1000&cursor=EhIKEAcitthyYbFwX9osVoMlqbgaDAiMhY7VBhCgv9a-AQ",
+      "status": 200,
+      "bytes": 19217,
+      "fetched_at": "2026-10-02T16:41:14.836027+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B81.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300319,
+      "fetched_at": "2026-10-02T16:41:15.053935+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B83.5&limit=1000&cursor=EhIKEAciuDZQaY4G9U2w134wv-oaDAiGyozVBhDosJTQAg",
+      "status": 200,
+      "bytes": 12649,
+      "fetched_at": "2026-10-02T16:41:15.217225+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B83.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 194205,
+      "fetched_at": "2026-10-02T16:41:15.356794+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-T79&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 14622,
+      "fetched_at": "2026-10-02T16:41:15.481890+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-T79-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-T79"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP11-T86&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 39069,
+      "fetched_at": "2026-10-02T16:41:15.597834+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP11-T86-0.json",
+      "ticker": "KXHIGHPHIL-26SEP11-T86"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 91337,
+      "fetched_at": "2026-10-02T16:41:15.725033+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 143609,
+      "fetched_at": "2026-10-02T16:41:15.855642+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 190223,
+      "fetched_at": "2026-10-02T16:41:16.032538+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 165821,
+      "fetched_at": "2026-10-02T16:41:16.163411+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-T79&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 21512,
+      "fetched_at": "2026-10-02T16:41:16.280418+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-T79-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-T79"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP12-T86&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 17318,
+      "fetched_at": "2026-10-02T16:41:16.391198+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP12-T86-0.json",
+      "ticker": "KXHIGHPHIL-26SEP12-T86"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 61553,
+      "fetched_at": "2026-10-02T16:41:16.517791+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 169701,
+      "fetched_at": "2026-10-02T16:41:16.689460+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-B84.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 235630,
+      "fetched_at": "2026-10-02T16:41:16.845610+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-B84.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-B84.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-B86.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 199692,
+      "fetched_at": "2026-10-02T16:41:17.007045+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-B86.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-B86.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-T80&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 34367,
+      "fetched_at": "2026-10-02T16:41:17.120476+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-T80-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-T80"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP13-T87&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 53134,
+      "fetched_at": "2026-10-02T16:41:17.248618+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP13-T87-0.json",
+      "ticker": "KXHIGHPHIL-26SEP13-T87"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-B74.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 24372,
+      "fetched_at": "2026-10-02T16:41:17.361119+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-B74.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-B74.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-B76.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 193840,
+      "fetched_at": "2026-10-02T16:41:17.489550+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-B76.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-B76.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 192837,
+      "fetched_at": "2026-10-02T16:41:17.628753+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 149298,
+      "fetched_at": "2026-10-02T16:41:17.757215+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-T74&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 12233,
+      "fetched_at": "2026-10-02T16:41:17.866487+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-T74-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-T74"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP14-T81&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28113,
+      "fetched_at": "2026-10-02T16:41:17.978679+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP14-T81-0.json",
+      "ticker": "KXHIGHPHIL-26SEP14-T81"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-B75.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 99422,
+      "fetched_at": "2026-10-02T16:41:18.108120+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-B75.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-B75.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-B77.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 257810,
+      "fetched_at": "2026-10-02T16:41:18.275098+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-B77.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-B77.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 182350,
+      "fetched_at": "2026-10-02T16:41:18.413420+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 27359,
+      "fetched_at": "2026-10-02T16:41:18.529926+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-T75&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 50719,
+      "fetched_at": "2026-10-02T16:41:18.650183+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-T75-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-T75"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP15-T82&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 8388,
+      "fetched_at": "2026-10-02T16:41:18.760889+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP15-T82-0.json",
+      "ticker": "KXHIGHPHIL-26SEP15-T82"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 26456,
+      "fetched_at": "2026-10-02T16:41:18.887705+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 201334,
+      "fetched_at": "2026-10-02T16:41:19.239823+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 186666,
+      "fetched_at": "2026-10-02T16:41:19.384855+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 138206,
+      "fetched_at": "2026-10-02T16:41:19.516884+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-T79&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 13436,
+      "fetched_at": "2026-10-02T16:41:19.629576+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-T79-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-T79"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP16-T86&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 16738,
+      "fetched_at": "2026-10-02T16:41:19.744584+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP16-T86-0.json",
+      "ticker": "KXHIGHPHIL-26SEP16-T86"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 242110,
+      "fetched_at": "2026-10-02T16:41:19.951702+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 238241,
+      "fetched_at": "2026-10-02T16:41:20.102340+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 249193,
+      "fetched_at": "2026-10-02T16:41:20.409336+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-B89.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 65189,
+      "fetched_at": "2026-10-02T16:41:20.580097+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-B89.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-B89.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-T83&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 51404,
+      "fetched_at": "2026-10-02T16:41:20.713086+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-T83-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-T83"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP17-T90&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 15273,
+      "fetched_at": "2026-10-02T16:41:20.818009+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP17-T90-0.json",
+      "ticker": "KXHIGHPHIL-26SEP17-T90"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 99459,
+      "fetched_at": "2026-10-02T16:41:21.031743+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-B83.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 243294,
+      "fetched_at": "2026-10-02T16:41:21.354089+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-B83.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-B83.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-B85.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 247946,
+      "fetched_at": "2026-10-02T16:41:21.487372+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-B85.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-B85.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-B87.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 198271,
+      "fetched_at": "2026-10-02T16:41:21.624857+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-B87.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-B87.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-T81&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28678,
+      "fetched_at": "2026-10-02T16:41:21.744412+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-T81-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-T81"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP18-T88&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 31088,
+      "fetched_at": "2026-10-02T16:41:21.859146+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP18-T88-0.json",
+      "ticker": "KXHIGHPHIL-26SEP18-T88"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-B74.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 104284,
+      "fetched_at": "2026-10-02T16:41:22.023655+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-B74.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-B74.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-B76.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 149343,
+      "fetched_at": "2026-10-02T16:41:22.157854+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-B76.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-B76.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 181540,
+      "fetched_at": "2026-10-02T16:41:22.290899+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 109040,
+      "fetched_at": "2026-10-02T16:41:22.417057+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-T74&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 37853,
+      "fetched_at": "2026-10-02T16:41:22.570490+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-T74-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-T74"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP19-T81&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 29883,
+      "fetched_at": "2026-10-02T16:41:22.680760+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP19-T81-0.json",
+      "ticker": "KXHIGHPHIL-26SEP19-T81"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B75.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 188717,
+      "fetched_at": "2026-10-02T16:41:22.817996+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B75.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B75.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B77.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300432,
+      "fetched_at": "2026-10-02T16:41:22.973872+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B77.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B77.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B77.5&limit=1000&cursor=EhIKEAcjwQhaUZqXqOB-1OVSaQgaDAiZ7sDVBhCwlsOXAg",
+      "status": 200,
+      "bytes": 200426,
+      "fetched_at": "2026-10-02T16:41:23.158181+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B77.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B77.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B79.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300425,
+      "fetched_at": "2026-10-02T16:41:23.301968+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B79.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B79.5&limit=1000&cursor=EhIKEAciQ6hGAaz4Bu1_Oyna8tIaDAiT0L_VBhCg3_TlAg",
+      "status": 200,
+      "bytes": 73912,
+      "fetched_at": "2026-10-02T16:41:23.480224+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B79.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B79.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-B81.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 63688,
+      "fetched_at": "2026-10-02T16:41:23.611186+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-B81.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-B81.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-T75&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 118385,
+      "fetched_at": "2026-10-02T16:41:23.736022+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-T75-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-T75"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP20-T82&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28987,
+      "fetched_at": "2026-10-02T16:41:23.854548+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP20-T82-0.json",
+      "ticker": "KXHIGHPHIL-26SEP20-T82"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-B68.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 28534,
+      "fetched_at": "2026-10-02T16:41:23.969099+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-B68.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-B68.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-B70.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 104251,
+      "fetched_at": "2026-10-02T16:41:24.100077+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-B70.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-B70.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-B72.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 152623,
+      "fetched_at": "2026-10-02T16:41:24.228252+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-B72.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-B72.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-B74.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 198997,
+      "fetched_at": "2026-10-02T16:41:24.367749+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-B74.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-B74.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-T68&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 7776,
+      "fetched_at": "2026-10-02T16:41:24.490592+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-T68-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-T68"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP21-T75&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 130983,
+      "fetched_at": "2026-10-02T16:41:24.616945+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP21-T75-0.json",
+      "ticker": "KXHIGHPHIL-26SEP21-T75"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-B62.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 53241,
+      "fetched_at": "2026-10-02T16:41:24.819484+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-B62.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-B62.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-B64.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 176692,
+      "fetched_at": "2026-10-02T16:41:25.035080+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-B64.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-B64.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-B66.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 213891,
+      "fetched_at": "2026-10-02T16:41:25.176328+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-B66.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-B66.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-B68.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 105763,
+      "fetched_at": "2026-10-02T16:41:25.296618+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-B68.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-B68.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-T62&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 11092,
+      "fetched_at": "2026-10-02T16:41:25.404362+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-T62-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-T62"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP22-T69&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 42457,
+      "fetched_at": "2026-10-02T16:41:25.534364+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP22-T69-0.json",
+      "ticker": "KXHIGHPHIL-26SEP22-T69"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-B64.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 42065,
+      "fetched_at": "2026-10-02T16:41:25.710297+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-B64.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-B64.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-B66.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 76873,
+      "fetched_at": "2026-10-02T16:41:25.925095+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-B66.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-B66.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-B68.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 248550,
+      "fetched_at": "2026-10-02T16:41:26.063630+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-B68.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-B68.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-B70.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300589,
+      "fetched_at": "2026-10-02T16:41:26.205525+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-B70.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-B70.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-B70.5&limit=1000&cursor=EhIKEAcj7LslYYCwDkcQ4NMNK1caDAjYmMrVBhDojYLPAQ",
+      "status": 200,
+      "bytes": 326,
+      "fetched_at": "2026-10-02T16:41:26.364862+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-B70.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP23-B70.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-T64&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 8684,
+      "fetched_at": "2026-10-02T16:41:26.484115+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-T64-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-T64"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP23-T71&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 122366,
+      "fetched_at": "2026-10-02T16:41:26.650805+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP23-T71-0.json",
+      "ticker": "KXHIGHPHIL-26SEP23-T71"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-B65.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 149574,
+      "fetched_at": "2026-10-02T16:41:26.779539+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-B65.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-B65.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-B67.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 285655,
+      "fetched_at": "2026-10-02T16:41:26.968575+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-B67.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-B69.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 203053,
+      "fetched_at": "2026-10-02T16:41:27.321262+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-B69.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-B69.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-B71.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 74203,
+      "fetched_at": "2026-10-02T16:41:27.441023+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-B71.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-B71.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-T65&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 22093,
+      "fetched_at": "2026-10-02T16:41:27.603592+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-T65-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-T65"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP24-T72&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 35248,
+      "fetched_at": "2026-10-02T16:41:27.711661+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP24-T72-0.json",
+      "ticker": "KXHIGHPHIL-26SEP24-T72"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-B68.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 55233,
+      "fetched_at": "2026-10-02T16:41:27.830089+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-B68.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-B68.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-B70.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 124672,
+      "fetched_at": "2026-10-02T16:41:28.015176+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-B70.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-B70.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-B72.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 201270,
+      "fetched_at": "2026-10-02T16:41:28.186616+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-B72.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-B72.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-B74.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300553,
+      "fetched_at": "2026-10-02T16:41:28.344990+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-B74.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-B74.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-B74.5&limit=1000&cursor=EhIKEAcjuSJ0ebPPe0x-b0tlAKgaDAjxr9nVBhCYuM-hAQ",
+      "status": 200,
+      "bytes": 114862,
+      "fetched_at": "2026-10-02T16:41:28.674377+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-B74.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP25-B74.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-T68&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 34288,
+      "fetched_at": "2026-10-02T16:41:28.784779+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-T68-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-T68"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-T75&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 298386,
+      "fetched_at": "2026-10-02T16:41:28.921621+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-T75-0.json",
+      "ticker": "KXHIGHPHIL-26SEP25-T75"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP25-T75&limit=1000&cursor=EhIKEAcjgew0GaYgqdswkVof6IYaDAiTs9bVBhDomfjQAQ",
+      "status": 200,
+      "bytes": 57364,
+      "fetched_at": "2026-10-02T16:41:29.174965+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP25-T75-1.json",
+      "ticker": "KXHIGHPHIL-26SEP25-T75"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-B61.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 31623,
+      "fetched_at": "2026-10-02T16:41:29.288636+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-B61.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-B61.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-B63.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 84165,
+      "fetched_at": "2026-10-02T16:41:29.604507+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-B63.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-B63.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-B65.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 191707,
+      "fetched_at": "2026-10-02T16:41:29.955861+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-B65.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-B65.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-B67.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300509,
+      "fetched_at": "2026-10-02T16:41:30.099916+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-B67.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-B67.5&limit=1000&cursor=EhIKEAcjsZ-ZOZXzAlxOysMYnP4aDAjB-NvVBhCA0arjAQ",
+      "status": 200,
+      "bytes": 32509,
+      "fetched_at": "2026-10-02T16:41:30.266460+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-B67.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP26-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-T61&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 18237,
+      "fetched_at": "2026-10-02T16:41:30.379241+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-T61-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-T61"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP26-T68&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 173125,
+      "fetched_at": "2026-10-02T16:41:30.512692+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP26-T68-0.json",
+      "ticker": "KXHIGHPHIL-26SEP26-T68"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-B63.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 132723,
+      "fetched_at": "2026-10-02T16:41:30.694125+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-B63.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-B63.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-B65.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 256026,
+      "fetched_at": "2026-10-02T16:41:31.011290+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-B65.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-B65.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-B67.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300543,
+      "fetched_at": "2026-10-02T16:41:31.261650+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-B67.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-B67.5&limit=1000&cursor=EhIKEAcjpRvm8bHgQzABl7YhxsQaDAjBl-DVBhDIyPzGAQ",
+      "status": 200,
+      "bytes": 6026,
+      "fetched_at": "2026-10-02T16:41:31.418661+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-B67.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP27-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-B69.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 105590,
+      "fetched_at": "2026-10-02T16:41:31.535669+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-B69.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-B69.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-T63&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 79592,
+      "fetched_at": "2026-10-02T16:41:31.656663+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-T63-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-T63"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP27-T70&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 23624,
+      "fetched_at": "2026-10-02T16:41:31.795986+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP27-T70-0.json",
+      "ticker": "KXHIGHPHIL-26SEP27-T70"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B65.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 133100,
+      "fetched_at": "2026-10-02T16:41:31.918396+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B65.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B65.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B67.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300254,
+      "fetched_at": "2026-10-02T16:41:32.133072+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B67.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B67.5&limit=1000&cursor=EhIKEAcjR903EYILi8exIi4BmiQaDAjcwenVBhDg_L3-AQ",
+      "status": 200,
+      "bytes": 59432,
+      "fetched_at": "2026-10-02T16:41:32.422344+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B67.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B67.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B69.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300519,
+      "fetched_at": "2026-10-02T16:41:32.558595+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B69.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B69.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B69.5&limit=1000&cursor=EhIKEAcjdTr2QZ-_CgzlcSzFFNgaDAic3-XVBhCAvvXXAg",
+      "status": 200,
+      "bytes": 15047,
+      "fetched_at": "2026-10-02T16:41:32.715967+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B69.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B69.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-B71.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 105484,
+      "fetched_at": "2026-10-02T16:41:32.861878+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-B71.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-B71.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-T65&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 48327,
+      "fetched_at": "2026-10-02T16:41:33.019173+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-T65-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-T65"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP28-T72&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 20355,
+      "fetched_at": "2026-10-02T16:41:33.143609+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP28-T72-0.json",
+      "ticker": "KXHIGHPHIL-26SEP28-T72"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B71.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 85087,
+      "fetched_at": "2026-10-02T16:41:33.266538+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B71.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B71.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B73.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300664,
+      "fetched_at": "2026-10-02T16:41:33.470090+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B73.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B73.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B73.5&limit=1000&cursor=EhIKEAcjX6OIwZRcSkL_n_qAIbYaDAiDuO7VBhCQrZLOAQ",
+      "status": 200,
+      "bytes": 71179,
+      "fetched_at": "2026-10-02T16:41:33.642369+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B73.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B73.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B75.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300125,
+      "fetched_at": "2026-10-02T16:41:33.782097+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B75.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B75.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B75.5&limit=1000&cursor=EhIKEAcjXDScsYDvAz4X_TS4b70aDAiJz-3VBhDAnd_eAQ",
+      "status": 200,
+      "bytes": 64962,
+      "fetched_at": "2026-10-02T16:41:33.951831+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B75.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B75.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-B77.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 187017,
+      "fetched_at": "2026-10-02T16:41:34.121747+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-B77.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-B77.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-T71&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 11082,
+      "fetched_at": "2026-10-02T16:41:34.254167+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-T71-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-T71"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP29-T78&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 31968,
+      "fetched_at": "2026-10-02T16:41:34.401575+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP29-T78-0.json",
+      "ticker": "KXHIGHPHIL-26SEP29-T78"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B76.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300499,
+      "fetched_at": "2026-10-02T16:41:34.585149+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B76.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B76.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B76.5&limit=1000&cursor=EhIKEAcjO0_wUZqWLgWTYsMxXvMaDAjx_fPVBhDw6rraAw",
+      "status": 200,
+      "bytes": 218656,
+      "fetched_at": "2026-10-02T16:41:34.816598+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B76.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B76.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B78.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 300348,
+      "fetched_at": "2026-10-02T16:41:34.998923+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B78.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B78.5&limit=1000&cursor=EhIKEAcjUihV8Zvh1OpEi8R1mAgaCwjW8_DVBhCgn_p-",
+      "status": 200,
+      "bytes": 21649,
+      "fetched_at": "2026-10-02T16:41:35.174523+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B78.5-1.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B78.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B80.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 222000,
+      "fetched_at": "2026-10-02T16:41:35.469303+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B80.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B80.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-B82.5&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 20142,
+      "fetched_at": "2026-10-02T16:41:35.577552+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-B82.5-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-B82.5"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-T76&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 96740,
+      "fetched_at": "2026-10-02T16:41:35.697026+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-T76-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-T76"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/trades?ticker=KXHIGHPHIL-26SEP30-T83&limit=1000&cursor=",
+      "status": 200,
+      "bytes": 10171,
+      "fetched_at": "2026-10-02T16:41:35.814144+00:00",
+      "path": "kalshi-public/trades/pages/KXHIGHPHIL-26SEP30-T83-0.json",
+      "ticker": "KXHIGHPHIL-26SEP30-T83"
+    }
+  ]
+}
