@@ -29,6 +29,7 @@ from entropytrade.weather.informational_rules import (
     score_rules,
 )
 from entropytrade.weather.recorded import RecordedBodyError, parse_cli_daily_high
+from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
 _STATION = "CLIMDW"
 _OFFICE = "KLOT"
@@ -58,26 +59,23 @@ class ChicagoScore:
     rules: tuple[RuleScore, ...]
 
 
+@dataclass(frozen=True)
+class ChicagoWalkForward:
+    """Train and validation only. The holdout days are not scored."""
+
+    train_days: int
+    validation_days: int
+    holdout_days: int
+    holdout_scored: bool
+    promoted: bool
+    train: tuple[RuleScore, ...]
+    validation: tuple[RuleScore, ...]
+
+
 def load_chicago_score(root: Path) -> ChicagoScore:
     """Score the stored Chicago rows. Thresholds come from the registered rules."""
-    folder = root / "chicago"
-    manifest = _object(folder / "manifest.json")
-    _require_frozen(manifest)
-    _require_order(folder / "kxhigh-order.json")
-    markets = _markets(folder / "markets.json")
-    found = sum(1 for row in markets if row["http_status"] == 200)
-    missing = len(markets) - found
-    if found != _count(manifest.get("markets_found"), "markets_found"):
-        raise ValueError("the Chicago manifest does not match the market list")
-    if missing != _count(manifest.get("markets_missing"), "markets_missing"):
-        raise ValueError("the Chicago manifest does not match the missing markets")
-    prints = _prints(folder)
-    if len(prints) != _count(manifest.get("print_count"), "print_count"):
-        raise ValueError("the Chicago table does not match the print count")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    labels = _labels(folder / "climdw-afos.txt", ingested)
-    forecasts = _forecasts(folder / "previous-runs.json", labels)
-    rules = score_rules(labels, {item.valid_from.date(): item for item in forecasts}, prints)
+    labels, forecasts, prints, found, missing = _inputs(root)
+    rules = score_rules(labels, forecasts, prints)
     if tuple(rule.name for rule in rules) != RULE_NAMES:
         raise ValueError("Chicago did not score the registered rules")
     if any(not rule.tried or rule.promoted for rule in rules):
@@ -95,6 +93,56 @@ def load_chicago_score(root: Path) -> ChicagoScore:
         promoted=False,
         rules=rules,
     )
+
+
+def load_chicago_walk_forward(root: Path) -> ChicagoWalkForward:
+    """Same 20/10/10 split as Philadelphia. Holdout labels are not scored."""
+    labels, forecasts, prints, _found, _missing = _inputs(root)
+    ordered = tuple(sorted(labels, key=lambda label: (label.valid_on, label.available_at)))
+    train, validation, holdout = _thirds(ordered)
+    reject_holdout(
+        {label.valid_on for label in train + validation},
+        {label.valid_on for label in holdout},
+    )
+    train_scores = score_rules(train, forecasts, prints)
+    validation_scores = score_rules(validation, forecasts, prints)
+    if tuple(rule.name for rule in train_scores) != RULE_NAMES:
+        raise ValueError("Chicago train did not score the registered rules")
+    if tuple(rule.name for rule in validation_scores) != RULE_NAMES:
+        raise ValueError("Chicago validation did not score the registered rules")
+    return ChicagoWalkForward(
+        train_days=len(train),
+        validation_days=len(validation),
+        holdout_days=len(holdout),
+        holdout_scored=False,
+        promoted=False,
+        train=train_scores,
+        validation=validation_scores,
+    )
+
+
+def _inputs(
+    root: Path,
+) -> tuple[tuple[CliLabel, ...], dict[date, Forecast], tuple[TradePrint, ...], int, int]:
+    folder = root / "chicago"
+    manifest = _object(folder / "manifest.json")
+    _require_frozen(manifest)
+    _require_order(folder / "kxhigh-order.json")
+    markets = _markets(folder / "markets.json")
+    found = sum(1 for row in markets if row["http_status"] == 200)
+    missing = len(markets) - found
+    if found != _count(manifest.get("markets_found"), "markets_found"):
+        raise ValueError("the Chicago manifest does not match the market list")
+    if missing != _count(manifest.get("markets_missing"), "markets_missing"):
+        raise ValueError("the Chicago manifest does not match the missing markets")
+    prints = _prints(folder)
+    if len(prints) != _count(manifest.get("print_count"), "print_count"):
+        raise ValueError("the Chicago table does not match the print count")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _labels(folder / "climdw-afos.txt", ingested)
+    built = _forecasts(folder / "previous-runs.json", labels)
+    forecasts = {item.valid_from.date(): item for item in built}
+    return labels, forecasts, prints, found, missing
 
 
 def _require_frozen(manifest: dict[str, object]) -> None:
