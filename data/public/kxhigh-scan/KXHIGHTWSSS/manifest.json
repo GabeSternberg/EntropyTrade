@@ -1,0 +1,10 @@
+{
+  "series": "KXHIGHTWSSS",
+  "title": "Daily high temp Singapore",
+  "fetched_at": "2026-10-02T18:59:36.355441+00:00",
+  "scored": false,
+  "promoted": false,
+  "markets_found": 0,
+  "markets_missing": 40,
+  "reason": "Every requested B80.5 market was not_found. No strike was substituted."
+}
