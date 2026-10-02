@@ -39,6 +39,7 @@ FEATURE_VERSION = "cli-rescore-features-v2"
 _NAMESPACE = UUID("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
 _MANIFEST = Path("features/cli-rescore-manifest.json")
 _PREDICTIONS = Path("features/cli-rescore-predictions.json")
+_OMITTED_FROM_FEATURE_HASH = ("market_ticker", "sized_book")
 
 
 def load_feature_manifest(root: Path) -> Mapping[str, object]:
@@ -93,6 +94,45 @@ def load_prediction_records(root: Path) -> tuple[PredictionRecord, ...]:
     return fresh
 
 
+@dataclass(frozen=True)
+class FeatureHashGap:
+    """Manifest row keys the feature-vector hash does not cover."""
+
+    row_keys: tuple[str, ...]
+    hashed_keys: tuple[str, ...]
+    omitted_keys: tuple[str, ...]
+
+
+def load_feature_hash_gap(root: Path) -> FeatureHashGap:
+    """Name the row keys left out of the stored feature hash. The hash stays put."""
+    payload = build_feature_payload(root)
+    records = load_prediction_records(root)
+    rows = payload.get("rows")
+    if not isinstance(rows, tuple) or len(rows) != len(records):
+        raise ValueError("feature rows and prediction records disagree")
+    first: Mapping[str, object] | None = None
+    for raw, record in zip(rows, records, strict=True):
+        row = _mapping(raw, "feature row")
+        if first is None:
+            first = row
+        elif tuple(row) != tuple(first):
+            raise ValueError("feature rows do not share one set of keys")
+        if content_hash(_feature_vector(row)) != record.feature_vector_hash:
+            raise ValueError("the feature hash is not the row minus the omitted keys")
+        if content_hash(row) == record.feature_vector_hash:
+            raise ValueError("the feature hash already covers the whole row")
+    if first is None:
+        raise ValueError("no feature rows")
+    omitted = tuple(key for key in first if key not in _feature_vector(first))
+    if omitted != _OMITTED_FROM_FEATURE_HASH:
+        raise ValueError("omitted feature keys drifted")
+    return FeatureHashGap(
+        row_keys=tuple(first),
+        hashed_keys=tuple(_feature_vector(first)),
+        omitted_keys=omitted,
+    )
+
+
 def build_feature_payload(root: Path) -> dict[str, object]:
     """Feature rows known at each decision. Outcomes are not included."""
     labels, _comparison = load_comparison(root)
@@ -102,21 +142,7 @@ def build_feature_payload(root: Path) -> dict[str, object]:
     rows: list[dict[str, object]] = []
     for label, forecast, decision, climate in _decisions(labels, forecasts):
         raw = raw_forecast_probability(forecast.value, _STRIKE)
-        rows.append(
-            {
-                "climatology": climate,
-                "decision_time": decision,
-                "forecast_available_at": forecast.available_at,
-                "forecast_high_f": forecast.value,
-                "market_listed": label.valid_on in tickers,
-                "market_ticker": _ticker(tickers, label),
-                "prints_at_decision": _prints_known(print_times, label.valid_on, decision),
-                "raw_probability": raw,
-                "sized_book": False,
-                "station": "CLIPHL",
-                "valid_on": label.valid_on,
-            }
-        )
+        rows.append(_feature_row(label, forecast, decision, climate, raw, tickers, print_times))
     return {
         "decision": "15:00:00Z",
         "features": (
@@ -143,20 +169,8 @@ def build_prediction_records(root: Path) -> tuple[PredictionRecord, ...]:
     for label, forecast, decision, climate in _decisions(labels, forecasts):
         raw = raw_forecast_probability(forecast.value, _STRIKE)
         blended = calibrate(raw, climate)
-        listed = label.valid_on in tickers
-        feature_hash = content_hash(
-            {
-                "climatology": climate,
-                "decision_time": decision,
-                "forecast_available_at": forecast.available_at,
-                "forecast_high_f": forecast.value,
-                "market_listed": listed,
-                "prints_at_decision": _prints_known(print_times, label.valid_on, decision),
-                "raw_probability": raw,
-                "station": "CLIPHL",
-                "valid_on": label.valid_on,
-            }
-        )
+        row = _feature_row(label, forecast, decision, climate, raw, tickers, print_times)
+        feature_hash = content_hash(_feature_vector(row))
         records.append(
             PredictionRecord(
                 prediction_id=uuid5(_NAMESPACE, f"cli-rescore:{label.valid_on.isoformat()}"),
@@ -239,6 +253,34 @@ def _decisions(
 
 def _decision_time(valid_on: date) -> datetime:
     return datetime(valid_on.year, valid_on.month, valid_on.day, 15, tzinfo=UTC)
+
+
+def _feature_row(
+    label: CliLabel,
+    forecast: Forecast,
+    decision: datetime,
+    climate: Decimal,
+    raw: Decimal,
+    tickers: Mapping[date, str],
+    print_times: Mapping[date, tuple[datetime, ...]],
+) -> dict[str, object]:
+    return {
+        "climatology": climate,
+        "decision_time": decision,
+        "forecast_available_at": forecast.available_at,
+        "forecast_high_f": forecast.value,
+        "market_listed": label.valid_on in tickers,
+        "market_ticker": _ticker(tickers, label),
+        "prints_at_decision": _prints_known(print_times, label.valid_on, decision),
+        "raw_probability": raw,
+        "sized_book": False,
+        "station": "CLIPHL",
+        "valid_on": label.valid_on,
+    }
+
+
+def _feature_vector(row: Mapping[str, object]) -> dict[str, object]:
+    return {key: value for key, value in row.items() if key not in _OMITTED_FROM_FEATURE_HASH}
 
 
 def _skip_reason(
