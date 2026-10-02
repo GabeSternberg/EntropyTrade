@@ -28,7 +28,7 @@ Scored only with information available at the decision:
 | Climatology | Fraction of already-available CLI highs that resolve YES on the strike. |
 | Raw forecast | 1 if the forecast value itself would resolve YES, else 0. |
 | Calibrated | Average of the raw indicator and the climatology hit rate. |
-| Fitted / ML | Refused below 30 scored days. This sample does not qualify. |
+| Fitted / ML | Refused below 30 scored days. The synthetic fixture does not qualify. The stored CLIPHL window has 40 days; Phase 4.53 still does not fit. |
 
 `greater` is strict, `less` is strict, `between` is inclusive, via `Strike.resolves_yes`.
 Persistence may repeat the previous CLI high only after that high's `available_at`.
@@ -43,4 +43,6 @@ CLI does not enter the error. None of this is a claim about live Philadelphia ma
 
 Live Weather Company calls are unverified. A stored IEM copy of the NWS CLI
 for CLIPHL is in `docs/phase-reports/phase-4.51.md`. It is not the contract's
-settlement source on these dates. The package still does not open a socket.
+settlement source on these dates. Phase 4.53 scores the previous-day Open-Meteo
+max against those CLI labels (MAE 2.9925 °F, 0 forecast signals on 80–81, no
+sized book before the label, equity 100). The package still does not open a socket.

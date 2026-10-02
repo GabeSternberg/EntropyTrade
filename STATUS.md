@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.52 — complete**. Next is Phase 4.53.
+Last updated: 2026-10-02 · Current phase: **Phase 4.53 — complete**. Next is Phase 3.50.
 
 ## What this project is
 
@@ -51,6 +51,7 @@ holds trading credentials.
 | 4.50 | One public Philadelphia daily-high pull | **complete** | [phase-4.50.md](docs/phase-reports/phase-4.50.md) |
 | 4.51 | CLIPHL settlement observations from NWS CLI | **complete** | [phase-4.51.md](docs/phase-reports/phase-4.51.md) |
 | 4.52 | Longer public KXHIGHPHIL tape | **complete** | [phase-4.52.md](docs/phase-reports/phase-4.52.md) |
+| 4.53 | Rescore on CLI-aligned rows | **complete** | [phase-4.53.md](docs/phase-reports/phase-4.53.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -87,6 +88,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.52**: longer public KXHIGHPHIL tape. Unauthenticated production
   GETs returned markets, historical markets, candlesticks, and 12 order books
   with real sizes. Empty books are skipped. Candles are not given a touch size.
+- **Phase 4.53**: baselines and replay on the CLI labels. Forecast MAE
+  2.9925 °F. The forecast rule does not trade. No sized book is inside the
+  label window. Equity stays 100. Nothing was fit or promoted.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -101,14 +105,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.53 — rescore baselines and replay on the settlement-aligned rows.
-Answer the five Phase 4 questions from those rows. Do not treat Open-Meteo as
-settlement. Do not fit a model. Do not promote a strategy.
+Phase 3.50 — apply stored per-series fee fields in replay. KXHIGH is
+quadratic and makers pay nothing. Record the fee-model version on the run.
+Test maker versus taker, and a series where makers pay.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.52: ruff clean, mypy strict
-clean, pytest 149 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.53: ruff clean, mypy strict
+clean, pytest 151 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -121,7 +125,9 @@ started. No production trading credentials are in the repo. Phase 4.50 did
 call Open-Meteo and the Kalshi demo host without a key. One of those calls
 returned HTTP 400; the body is in the Phase 4.50 report. Phase 4.51 stored an
 IEM CLIPHL pull. Phase 4.52 used unauthenticated GETs on the production
-market-data host. No order was sent.
+market-data host. No order was sent. Phase 4.53 did not call the network.
+The forecast rule does not trade on the CLI-aligned rows, and replay equity
+stays 100.
 
 ## How to resume (fresh agent)
 
