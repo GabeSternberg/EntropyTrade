@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.57 — complete**. Next is Phase 4.58.
+Last updated: 2026-10-02 · Current phase: **Phase 4.58 — complete**. Next is Phase 7.50.
 
 ## What this project is
 
@@ -63,6 +63,7 @@ holds trading credentials.
 | 2.56 | Optional maximum model age | **complete** | [phase-2.56.md](docs/phase-reports/phase-2.56.md) |
 | 2.57 | Reconciliation age, with the existing halt switches | **complete** | [phase-2.57.md](docs/phase-reports/phase-2.57.md) |
 | 4.57 | Public trade prints, labeled as not a fill | **complete** | [phase-4.57.md](docs/phase-reports/phase-4.57.md) |
+| 4.58 | Prediction records for the rescore decisions | **complete** | [phase-4.58.md](docs/phase-reports/phase-4.58.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -141,6 +142,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   A print is not a guaranteed fill. The forecast rule fires on 0 days under
   optimistic, base, and conservative. Equity stays 100.000000. No fee was
   applied.
+- **Phase 4.58**: 39 prediction records. Bid, ask, and net edge are empty.
+  A label whose `available_at` is after the decision cannot be included.
+  2,617 B80.5 prints are counted only when they existed by 15:00 UTC.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -176,16 +180,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.58 — persist a prediction record for each 4.56 and 4.57 decision:
-prediction id, model version, market, decision time, feature hash,
-probability, bid and ask when a book exists, net edge, and the source
-manifest. A record must not include a label whose `available_at` is after
-the decision. No live order.
+Phase 7.50 — structural scan of the stored KXHIGHPHIL strikes. Use an
+executable price when a sized book exists. Flag a candle or a trade print
+as non-executable. Paper and shadow only. No LLM. No order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.57: ruff clean, mypy strict
-clean, pytest 180 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.58: ruff clean, mypy strict
+clean, pytest 181 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
