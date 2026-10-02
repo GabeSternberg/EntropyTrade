@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.51 — complete**. Next is Phase 4.52.
+Last updated: 2026-10-02 · Current phase: **Phase 4.52 — complete**. Next is Phase 4.53.
 
 ## What this project is
 
@@ -50,6 +50,7 @@ holds trading credentials.
 | 4 | First weather dataset + baseline models | **complete** | [phase-4.md](docs/phase-reports/phase-4.md) |
 | 4.50 | One public Philadelphia daily-high pull | **complete** | [phase-4.50.md](docs/phase-reports/phase-4.50.md) |
 | 4.51 | CLIPHL settlement observations from NWS CLI | **complete** | [phase-4.51.md](docs/phase-reports/phase-4.51.md) |
+| 4.52 | Longer public KXHIGHPHIL tape | **complete** | [phase-4.52.md](docs/phase-reports/phase-4.52.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -83,6 +84,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.51**: NWS CLI highs for CLIPHL from a stored IEM pull. Compared
   with the Open-Meteo archive and with Kalshi official results. Open-Meteo is
   not settlement. The contracts on these dates name The Weather Company.
+- **Phase 4.52**: longer public KXHIGHPHIL tape. Unauthenticated production
+  GETs returned markets, historical markets, candlesticks, and 12 order books
+  with real sizes. Empty books are skipped. Candles are not given a touch size.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -97,14 +101,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.52 — a longer KXHIGHPHIL tape from public unauthenticated HTTP. Demo
-host is allowed. Production only if the GET needs no key. Persist endpoint
-and `available_at`. Skip empty books. Do not invent a size at the touch.
+Phase 4.53 — rescore baselines and replay on the settlement-aligned rows.
+Answer the five Phase 4 questions from those rows. Do not treat Open-Meteo as
+settlement. Do not fit a model. Do not promote a strategy.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.51: ruff clean, mypy strict
-clean, pytest 146 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.52: ruff clean, mypy strict
+clean, pytest 149 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -116,7 +120,8 @@ OpenAI call. Provider model requests are blocked. The MLflow UI server is not
 started. No production trading credentials are in the repo. Phase 4.50 did
 call Open-Meteo and the Kalshi demo host without a key. One of those calls
 returned HTTP 400; the body is in the Phase 4.50 report. Phase 4.51 stored an
-IEM CLIPHL pull. The production host was not called.
+IEM CLIPHL pull. Phase 4.52 used unauthenticated GETs on the production
+market-data host. No order was sent.
 
 ## How to resume (fresh agent)
 

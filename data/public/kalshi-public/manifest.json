@@ -1,0 +1,347 @@
+{
+  "fetched_at": "2026-10-02T15:48:09.632726+00:00",
+  "calls": [
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL",
+      "status": 200,
+      "bytes": 579023,
+      "path": "kalshi-public/markets-000.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsI3_HP1AYQyJrmEBIWS1hISUdIUEhJTC0yNkFVRzMxLVQ4Mw",
+      "status": 200,
+      "bytes": 471549,
+      "path": "kalshi-public/markets-001.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsIue2h0wYQuLviBRIYS1hISUdIUEhJTC0yNkpVTDI5LUI4My41",
+      "status": 200,
+      "bytes": 48611,
+      "path": "kalshi-public/markets-002.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL",
+      "status": 200,
+      "bytes": 485418,
+      "path": "kalshi-public/historical-000.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwIvdOD0gYQ4IiQjAISFktYSElHSFBISUwtMjZKVU4yOS1UODQ",
+      "status": 200,
+      "bytes": 485033,
+      "path": "kalshi-public/historical-001.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwIzdDV0AYQ4LrMrQESGEtYSElHSFBISUwtMjZNQVkyNy1CODIuNQ",
+      "status": 200,
+      "bytes": 484693,
+      "path": "kalshi-public/historical-002.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI4M2nzwYQ4MGAiwISGEtYSElHSFBISUwtMjZBUFIyNC1CNjcuNQ",
+      "status": 200,
+      "bytes": 478820,
+      "path": "kalshi-public/historical-003.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsI4Kf0zQYQkISJIRIWS1hISUdIUEhJTC0yNk1BUjIxLVQ1Nw",
+      "status": 200,
+      "bytes": 477939,
+      "path": "kalshi-public/historical-004.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsI1sDGzAYQ2Ki0DBIYS1hISUdIUEhJTC0yNkZFQjE2LUI0My41",
+      "status": 200,
+      "bytes": 479010,
+      "path": "kalshi-public/historical-005.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI072YywYQyMuotQISGEtYSElHSFBISUwtMjZKQU4xNC1CNDguNQ",
+      "status": 200,
+      "bytes": 478181,
+      "path": "kalshi-public/historical-006.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI1ZflyQYQmIbxsQMSFktYSElHSFBISUwtMjVERUMxMS1UMzc",
+      "status": 200,
+      "bytes": 478586,
+      "path": "kalshi-public/historical-007.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI6pS3yAYQ-IHV5AISGEtYSElHSFBISUwtMjVOT1YwOC1CNjguNQ",
+      "status": 200,
+      "bytes": 478535,
+      "path": "kalshi-public/historical-008.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI9_WIxwYQwJfIkwESGEtYSElHSFBISUwtMjVPQ1QwNi1CNzguNQ",
+      "status": 200,
+      "bytes": 479806,
+      "path": "kalshi-public/historical-009.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwIyM_VxQYQyPHc1AMSGEtYSElHSFBISUwtMjVTRVAwMi1CODIuNQ",
+      "status": 200,
+      "bytes": 477704,
+      "path": "kalshi-public/historical-010.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI6synxAYQoI_UvgMSGEtYSElHSFBISUwtMjVKVUwzMS1CODkuNQ",
+      "status": 200,
+      "bytes": 476106,
+      "path": "kalshi-public/historical-011.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwIwMn5wgYQ6M6t8QESFktYSElHSFBISUwtMjVKVU4yOC1UODc",
+      "status": 200,
+      "bytes": 475992,
+      "path": "kalshi-public/historical-012.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsIt6PGwQYQoO7sbBIYS1hISUdIUEhJTC0yNU1BWTI1LUI3My41",
+      "status": 200,
+      "bytes": 475243,
+      "path": "kalshi-public/historical-013.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI0aCYwAYQyPfp0gISFktYSElHSFBISUwtMjVBUFIyMi1UNzQ",
+      "status": 200,
+      "bytes": 473234,
+      "path": "kalshi-public/historical-014.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI0p3qvgYQsO3esQESFktYSElHSFBISUwtMjVNQVIyMC1UNjU",
+      "status": 200,
+      "bytes": 446401,
+      "path": "kalshi-public/historical-015.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgwI0JO3vQYQsK6czgESFktYSElHSFBISUwtMjVGRUIxNC1UMzI",
+      "status": 200,
+      "bytes": 422472,
+      "path": "kalshi-public/historical-016.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsI4ZCJvAYQmMHKeBIYS1hISUdIUEhJTC0yNUpBTjEyLUIzNi41",
+      "status": 200,
+      "bytes": 423978,
+      "path": "kalshi-public/historical-017.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/historical/markets?limit=200&series_ticker=KXHIGHPHIL&cursor=CgsI643bugYQkJSvWBIYS1hISUdIUEhJTC0yNERFQzEwLUI1NC41",
+      "status": 200,
+      "bytes": 254541,
+      "path": "kalshi-public/historical-018.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-T77/orderbook",
+      "status": 200,
+      "bytes": 785,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-T77.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-T70/orderbook",
+      "status": 200,
+      "bytes": 712,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-T70.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-B76.5/orderbook",
+      "status": 200,
+      "bytes": 970,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-B76.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-B74.5/orderbook",
+      "status": 200,
+      "bytes": 1144,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-B74.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-B72.5/orderbook",
+      "status": 200,
+      "bytes": 906,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-B72.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT03-B70.5/orderbook",
+      "status": 200,
+      "bytes": 847,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT03-B70.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-T89/orderbook",
+      "status": 200,
+      "bytes": 1083,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-T89.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-T82/orderbook",
+      "status": 200,
+      "bytes": 843,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-T82.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-B88.5/orderbook",
+      "status": 200,
+      "bytes": 1263,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-B88.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-B86.5/orderbook",
+      "status": 200,
+      "bytes": 1250,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-B86.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-B84.5/orderbook",
+      "status": 200,
+      "bytes": 1341,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-B84.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT02-B82.5/orderbook",
+      "status": 200,
+      "bytes": 958,
+      "path": "kalshi-public/orderbooks/KXHIGHPHIL-26OCT02-B82.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/markets/KXHIGHPHIL-26OCT01-T85/orderbook",
+      "status": 200,
+      "bytes": 51,
+      "path": "kalshi-public/orderbook-empty-sample.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26AUG23-B80.5/candlesticks?start_ts=1787443200&end_ts=1787529600&period_interval=60",
+      "status": 200,
+      "bytes": 10117,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26AUG23-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26AUG24-B80.5/candlesticks?start_ts=1787529600&end_ts=1787616000&period_interval=60",
+      "status": 200,
+      "bytes": 10657,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26AUG24-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26AUG25-B80.5/candlesticks?start_ts=1787616000&end_ts=1787702400&period_interval=60",
+      "status": 200,
+      "bytes": 11247,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26AUG25-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP05-B80.5/candlesticks?start_ts=1788566400&end_ts=1788652800&period_interval=60",
+      "status": 200,
+      "bytes": 10975,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP05-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP07-B80.5/candlesticks?start_ts=1788739200&end_ts=1788825600&period_interval=60",
+      "status": 200,
+      "bytes": 11233,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP07-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP13-B80.5/candlesticks?start_ts=1789257600&end_ts=1789344000&period_interval=60",
+      "status": 200,
+      "bytes": 10111,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP13-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP14-B80.5/candlesticks?start_ts=1789344000&end_ts=1789430400&period_interval=60",
+      "status": 200,
+      "bytes": 10329,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP14-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP19-B80.5/candlesticks?start_ts=1789776000&end_ts=1789862400&period_interval=60",
+      "status": 200,
+      "bytes": 10531,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP19-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26SEP30-B80.5/candlesticks?start_ts=1790726400&end_ts=1790812800&period_interval=60",
+      "status": 200,
+      "bytes": 11228,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26SEP30-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT01-B80.5/candlesticks?start_ts=1790812800&end_ts=1790899200&period_interval=60",
+      "status": 200,
+      "bytes": 10891,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT01-B80.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-T77/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 53,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-T77.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-T70/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 53,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-T70.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-B76.5/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 55,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-B76.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-B74.5/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 55,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-B74.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-B72.5/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 55,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-B72.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT03-B70.5/candlesticks?start_ts=1790985600&end_ts=1791072000&period_interval=60",
+      "status": 200,
+      "bytes": 55,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT03-B70.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-T89/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 7132,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-T89.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-T82/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 5699,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-T82.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-B88.5/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 7626,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-B88.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-B86.5/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 7623,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-B86.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-B84.5/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 7621,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-B84.5.json"
+    },
+    {
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL/markets/KXHIGHPHIL-26OCT02-B82.5/candlesticks?start_ts=1790899200&end_ts=1790985600&period_interval=60",
+      "status": 200,
+      "bytes": 7371,
+      "path": "kalshi-public/candles/KXHIGHPHIL-26OCT02-B82.5.json"
+    }
+  ]
+}
