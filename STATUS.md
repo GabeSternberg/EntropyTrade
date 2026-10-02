@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 0 — complete**. Next is Phase 1, and it has not been started.
+Last updated: 2026-10-02 · Current phase: **Phase 1 — complete**. Next is Phase 2.
 
 ## What this project is
 
@@ -24,19 +24,27 @@ holds trading credentials.
 1. Work **strictly phase by phase**. At the end of a phase: run all checks
    (`make check`), update docs, commit, write the checkpoint report, update
    this file, then **STOP** until the user explicitly says to continue.
-2. Off-plan work gets a sub-phase number (e.g. 5.50, 5.51) added to the table
+   On 2026-10-02 the user authorized the agent on branch
+   `cursor/phase-0-skeleton-e162` to continue from Phase 1 through later
+   phases on that same branch without waiting between phases. Live and
+   production orders stay forbidden. A later agent should follow the latest
+   user instruction; this note does not by itself authorize a new session to
+   skip the stop.
+2. Off-plan work gets a sub-phase number (e.g. 1.50, 1.51) added to the table
    below, never silently folded into another phase.
 3. If a finding makes the spec's architecture worse, flag it in the phase
    report rather than following the spec blindly.
 4. Never add live trading, order submission or production credentials before
    the phase that explicitly calls for it (Phase 9, after explicit approval).
+   Even then, live mode stays off unless `ENTROPYTRADE_LIVE_TRADING_ENABLED`
+   is exactly `true`. Do not place a real-money or production order.
 
 ## Phase overview
 
 | Phase | Name | Status | Report |
 | --- | --- | --- | --- |
 | 0 | Open-source audit + project skeleton | **complete** | [phase-0.md](docs/phase-reports/phase-0.md) |
-| 1 | Read-only Kalshi gateway + market recorder | planned | — |
+| 1 | Read-only Kalshi gateway + market recorder | **complete** | [phase-1.md](docs/phase-reports/phase-1.md) |
 | 2 | Accounting + paper broker + risk foundation | planned | — |
 | 3 | Point-in-time backtesting engine | planned | — |
 | 4 | First weather dataset + baseline models | planned | — |
@@ -58,6 +66,8 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   rules storage, REST book snapshots, WebSocket deltas/trades, reconnect,
   sequence integrity, API limits, persisted raw + normalized data, health.
   Must run for hours in demo, survive restarts and replay recordings.
+  The hours-long live run is unverified (no read-scoped key). Restart,
+  replay, gap detection, and in-process reconnect are tested.
 - **Phase 2**: account/positions/orders/fills/settlements/P&L, PaperBroker,
   deterministic risk engine, kill switch, reconciliation against demo.
 - **Phase 3**: point-in-time replay engine, fees/spread/latency/slippage,
@@ -76,37 +86,27 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 1 — read-only Kalshi gateway and market recorder. Do not start it until
-the user explicitly says to continue.
+Phase 2 — accounting, paper broker, and the risk foundation. The exact plan is
+the last section of [`docs/phase-reports/phase-1.md`](docs/phase-reports/phase-1.md).
 
-Scope, and only this scope: pin `kalshi-sdk==17.1.0`; `KalshiGateway` behind
-`ExchangeGateway` in `READ_ONLY` (explicit `KalshiConfig.demo()` /
-`.production()`, never `from_env()`, refuse `KALSHI_ALLOW_UNKNOWN_HOST`,
-`max_retries=0`); market, event and series discovery; rules storage with
-`rules_hash` and settlement-source-by-date; REST books from `orderbook_fp`;
-WebSocket connect, book deltas and the trade feed; reconnect; our own sequence
-checks for trade and lifecycle on top of the SDK's book-gap handling; API
-limits from `GET /account/limits` via a wrapping transport; persist metadata,
-rule versions, trades, book snapshots and deltas, and lifecycle events; health.
-No order submission. A read-scoped key for the collector, separate from any
-trading key. Recorded data must be replayable.
-
-Acceptance from spec §40: hours on demo or read-only production, restart
-without corruption, reconnect after a dropped socket, and a detected sequence
-gap.
-
-Read [`docs/external-repositories.md`](docs/external-repositories.md) and the
-Phase 0 report before writing the adapter. The audit changed several spec
-assumptions (Weather Company settlement, two API keys, no vendored bot code,
-exact SDK pin). Those are decisions waiting on the user; do not silently
-revert them.
+Scope: account, positions, orders, fills, settlements, P&L, capital-at-risk,
+execution intents, `PaperBroker` against the Phase 1 book, and a deterministic
+risk engine (bankroll, per-trade, per-event, total deployed, loss, drawdown,
+stale data, minimum liquidity, maximum spread, kill switch). Property tests
+for accounting. Tests that a strategy cannot bypass risk. Crash/restart
+reconciliation against fixtures. No production trading. No trading key in
+research code. No live or demo order submission.
 
 ## Checks
 
-On 2026-10-02, `make check` passed: ruff clean, mypy strict clean (48 source
-files), pytest 57 passed. `uv sync` then `make check`. Default mode is
-`read_only`. `uv` is not on the default `PATH` in every shell; it lives at
+On 2026-10-02, `make check` passed for Phase 1: ruff clean, mypy strict clean,
+pytest 71 passed. `uv sync` then `make check`. Default mode is `read_only`.
+`uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
+
+Unverified for lack of credentials: a multi-hour demo or read-only production
+session, and a real Kalshi WebSocket handshake. No production trading
+credentials are in the repo.
 
 ## How to resume (fresh agent)
 
@@ -114,4 +114,5 @@ files), pytest 57 passed. `uv sync` then `make check`. Default mode is
 2. Read the latest phase report under `docs/phase-reports/`.
 3. Set up: `uv sync` (Python 3.12+), then `make check` (lint + typecheck + tests).
 4. Kalshi API reference: `.agents/skills/kalshi-docs/` (see `README.md`).
-5. Continue with the phase listed under **Next steps**, and only that phase, and only after the user explicitly says to continue.
+5. Continue with the phase listed under **Next steps**. If the user has said
+   to continue across phases, stay on `cursor/phase-0-skeleton-e162`.

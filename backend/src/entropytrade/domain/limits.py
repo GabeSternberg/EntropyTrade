@@ -22,6 +22,22 @@ class ApiLimits(DomainModel):
     observed_at: UtcDatetime
 
 
+class EndpointCost(DomainModel):
+    """Token cost of one HTTP route. Unlisted routes use ``EndpointCostSchedule.default_cost``."""
+
+    method: str = Field(min_length=1)
+    path: str = Field(min_length=1)
+    cost: int = Field(gt=0)
+
+
+class EndpointCostSchedule(DomainModel):
+    """``GET /account/endpoint_costs``. The budgeter prices reads from this, not a constant."""
+
+    default_cost: int = Field(gt=0)
+    endpoints: tuple[EndpointCost, ...]
+    observed_at: UtcDatetime
+
+
 class ExchangeStatus(DomainModel):
     trading_active: bool
     exchange_ts: UtcDatetime | None = None

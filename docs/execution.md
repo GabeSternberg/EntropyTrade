@@ -36,26 +36,33 @@ and never decreases.
 status, API token-bucket limits, series, events, markets, books, trades, portfolio, open
 orders, fills and settlements. `submit_order` and `cancel_order` call
 `require_order_submission`, which raises `OrderSubmissionForbiddenError` unless the mode is
-`demo` or `live`. Phase 0 has no implementation that opens a socket. A fake in the tests
-satisfies the protocol and demonstrates the refusal.
+`demo` or `live`. `KalshiGateway` implements the reads and calls
+`require_order_submission` on submit and cancel, which raises while the mode is
+`read_only`. Portfolio, order, fill, and settlement reads raise `GatewayError`; they are
+Phase 2. No method on this class sends an order.
 
-There is no streaming method yet. Phase 1 adds it on this protocol. The collector will use
-the SDK's WebSocket client for books, with our own sequence checks on the trade and
-lifecycle channels, because the SDK tracks sequence only for `orderbook_delta`,
-`orderbook_snapshot` and `order_group_updates`.
+Streaming is `LiveIngest` plus domain frames (`orderbook_snapshot`, `orderbook_delta`,
+`trade`, `market_lifecycle_v2`), not a method on the protocol. Book gaps use the SDK
+`SequenceTracker`. Trade and lifecycle gaps use `SequenceWatch`, because the SDK ignores
+those channels. A gap is a health event. After a disconnect, deltas are refused until a
+snapshot. `run_connections` is the resubscribe loop; it consumes frame iterators and does
+not open a socket by itself.
 
 ## Rate limits
 
 Kalshi meters reads and writes as separate token buckets, refilled continuously, with burst
 capacity of about three seconds on the higher tiers. `GET /account/limits` and
-`GET /account/endpoint_costs` are the source of the numbers, returned as `ApiLimits`.
-The budgeter is Phase 1. Priority, when it exists, is cancel, then order state, then
-execution, then market-data recovery, then research. A collector must not be able to spend
-the tokens needed to cancel.
+`GET /account/endpoint_costs` are the source of the numbers, returned as `ApiLimits` and
+`EndpointCostSchedule`. `ReadBudget` prices each read from that schedule (default cost
+when a route is unlisted) and refuses the call before it is sent when the bucket cannot
+pay. Priority, when orders exist, is cancel, then order state, then execution, then
+market-data recovery, then research. A collector must not be able to spend the tokens
+needed to cancel. That split is not enforced yet: Phase 1 has no trading key and no
+cancel path.
 
-The SDK retries by default and hides rate-limit headers. Phase 1 will construct it with
-`max_retries=0` and a wrapping transport so the budgeter sees the responses. 429s currently
-carry no `Retry-After`.
+`KalshiGateway` sets `max_retries=0` and wraps the HTTP transport. A 429 is one attempt.
+The body `{"error": "too many requests"}` is kept, and `retry_after` stays unset when
+Kalshi omits `Retry-After`.
 
 ## Sharding
 

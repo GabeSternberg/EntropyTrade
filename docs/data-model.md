@@ -104,9 +104,27 @@ inside the run window, chronological, and non-overlapping. A holdout requires a 
 Paper deployments can be proposed with no approver. `CapitalEnvelope` is a bound the risk
 engine enforces; a spec cannot raise it (`risk_overrides_allowed` is the literal `"none"`).
 
+## Recorder
+
+`entropytrade.storage.recorder.Recorder` is one SQLite file in WAL mode. Rows are inserted
+with `INSERT OR IGNORE` on natural keys, so reopening the file after a restart does not
+duplicate a trade, a rule version, a raw body, or a `(channel, sid, seq)` frame. Tables:
+
+- `raw_payloads` — sha256 of the body, origin (`live` or `historical`), path, status, receive time
+- `rule_versions` — `(market_ticker, rules_hash)`, origin, `exchange_index`, captured time
+- `market_metadata` — version hash of the market with `captured_at` removed, origin, `exchange_index`
+- `series_fees` — fee type, multiplier, whether the fee type charges makers, `exchange_index`
+- `events` — version hash and `exchange_index`
+- `trades` — `trade_id`, origin, receive time
+- `frames` — book snapshots, book deltas, and lifecycle events
+- `cutoff` — the single `GET /historical/cutoff` observation
+
+`MarketRules.settlement_basis` and `settlement_target_date` record which source applies and
+on which contract date. The hash of the rule text does not include `captured_at`, so a
+second read of the same text is the same version.
+
 ## What is deliberately not here yet
 
-No tables, no Parquet layout, no feature store. SQLite (WAL) for transactional state and
-DuckDB/Parquet for analytical data are the planned stores (spec sections 2I and 2J) and
-arrive with the recorder in Phase 1 and the backtester in Phase 3. Raw data is append-only;
-`data/raw/` is gitignored.
+No Parquet layout and no feature store. DuckDB/Parquet for analytical data is still the
+planned store for the backtester (Phase 3). Account, order, and fill tables are Phase 2.
+Raw data is append-only; `data/raw/` is gitignored.

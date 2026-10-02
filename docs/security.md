@@ -40,7 +40,7 @@ Generated Python is out of scope until a real container exists. See
 
 ## Supply chain
 
-`kalshi-sdk` will be pinned exactly when Phase 1 adds it. It had 17 major versions in
+`kalshi-sdk` is pinned at `17.1.0`. It had 17 major versions in
 about five months from one maintainer, and response models mark fields required, so an
 unchanged pin can start failing when Kalshi removes a field. Upgrades are deliberate and
 go through the gateway's contract tests. `uv.lock` is committed.

@@ -6,9 +6,10 @@ and settlement sources, and its ``rules_hash`` changes whenever any of them chan
 rule revisions are detected and versioned.
 """
 
+from datetime import date
 from decimal import Decimal
 from itertools import pairwise
-from typing import Self
+from typing import Literal, Self
 
 from pydantic import Field, computed_field, model_validator
 
@@ -143,6 +144,8 @@ class MarketRules(DomainModel):
     rules_secondary: str = ""
     early_close_condition: str | None = None
     settlement_sources: tuple[SettlementSource, ...] = ()
+    settlement_basis: Literal["contract_text", "kxhigh_schedule", "unresolved"] | None = None
+    settlement_target_date: date | None = None
     captured_at: UtcDatetime
 
     @computed_field  # type: ignore[prop-decorator]
@@ -169,6 +172,7 @@ class Series(DomainModel):
     fee_type: FeeType
     fee_multiplier: ExactDecimal
     contract_url: str | None = None
+    exchange_index: int | None = Field(default=None, ge=0)
 
 
 class Event(DomainModel):

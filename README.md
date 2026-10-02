@@ -2,8 +2,8 @@
 
 Private, single-user research, backtesting and (eventually) automated trading for Kalshi
 prediction markets. Not a SaaS product. Phase 0 is complete: domain types, architecture
-and an audit of the open-source projects the design builds on. It does not trade. Phase 1
-has not been started.
+and an audit of the open-source projects the design builds on. Phase 1 is a read-only
+Kalshi gateway and a SQLite recorder. It does not trade. Phase 2 has not been started.
 
 The requirements are in [`docs/project-spec.md`](docs/project-spec.md). Where the project
 actually is, and how to resume it, is [`STATUS.md`](STATUS.md).
@@ -25,8 +25,8 @@ cannot submit orders.
 
 `backend/src/entropytrade/` is the Python package. `domain/` holds venue-neutral types
 (exact decimals, UTC timestamps, strategy specs, the order state machine). `exchange/`
-defines `ExchangeGateway`; the Kalshi SDK, when it is added in Phase 1, may be imported
-only inside `exchange/kalshi/`.
+defines `ExchangeGateway`. The Kalshi SDK (`kalshi-sdk==17.1.0`) is imported only inside
+`exchange/kalshi/`.
 
 Kalshi's current API docs are checked out as an agent skill at
 [`.agents/skills/kalshi-docs/`](.agents/skills/kalshi-docs/SKILL.md), pinned by

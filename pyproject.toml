@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 authors = [{ name = "Gabe Sternberg" }]
 dependencies = [
+    "kalshi-sdk==17.1.0",
     "pydantic>=2.12,<3",
 ]
 

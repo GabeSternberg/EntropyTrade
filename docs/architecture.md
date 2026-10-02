@@ -38,10 +38,13 @@ are timezone-aware and stored as UTC. Identifiers that cross a process boundary 
 client-generated UUIDs. Content hashes (`sha256:`) identify specs, rule texts and, later,
 dataset manifests.
 
-`exchange/gateway.py` defines `ExchangeGateway`. The Kalshi SDK is not a dependency yet.
-When Phase 1 adds it, the import is allowed only under `exchange/kalshi/`, and SDK models
-are converted to domain types before they leave that package. Ruff bans `kalshi` and
-`pydantic_ai` imports everywhere else.
+`exchange/gateway.py` defines `ExchangeGateway`. `kalshi-sdk==17.1.0` is imported only
+under `exchange/kalshi/`, and SDK models are converted to domain types before they leave
+that package. `KalshiGateway` is read-only: it constructs `KalshiConfig.demo()` or
+`.production()`, never `from_env()`, refuses `KALSHI_ALLOW_UNKNOWN_HOST`, and sets
+`max_retries=0`. Streaming frames, the local book, and the recorder live beside the
+protocol so a dropped socket does not share a lifetime with a REST call. Ruff bans
+`kalshi` and `pydantic_ai` imports everywhere else.
 
 Other packages (`backtest`, `risk`, `execution`, `agents`, ...) exist as named boundaries
 with a docstring and no behaviour. Their phases are listed in [`../STATUS.md`](../STATUS.md).
