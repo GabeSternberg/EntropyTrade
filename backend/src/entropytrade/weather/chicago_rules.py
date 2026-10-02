@@ -105,6 +105,39 @@ def load_chicago_print_guess(root: Path) -> CliPrintGuess:
     return guess
 
 
+@dataclass(frozen=True)
+class ChicagoGuessWalkForward:
+    """The 0.50 print guess on train and validation. Holdout is not scored."""
+
+    train_days: int
+    validation_days: int
+    holdout_days: int
+    holdout_scored: bool
+    promoted: bool
+    train: CliPrintGuess
+    validation: CliPrintGuess
+
+
+def load_chicago_guess_walk_forward(root: Path) -> ChicagoGuessWalkForward:
+    """Same 20/10/10 split. Holdout labels are not passed to the guess."""
+    labels, _forecasts, prints, _found, _missing = _inputs(root)
+    ordered = tuple(sorted(labels, key=lambda label: (label.valid_on, label.available_at)))
+    train, validation, holdout = _thirds(ordered)
+    reject_holdout(
+        {label.valid_on for label in train + validation},
+        {label.valid_on for label in holdout},
+    )
+    return ChicagoGuessWalkForward(
+        train_days=len(train),
+        validation_days=len(validation),
+        holdout_days=len(holdout),
+        holdout_scored=False,
+        promoted=False,
+        train=score_cli_print_guess(train, prints),
+        validation=score_cli_print_guess(validation, prints),
+    )
+
+
 def load_chicago_walk_forward(root: Path) -> ChicagoWalkForward:
     """Same 20/10/10 split as Philadelphia. Holdout labels are not scored."""
     labels, forecasts, prints, _found, _missing = _inputs(root)
