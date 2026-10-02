@@ -62,6 +62,88 @@ class RuleScore:
     scenarios: tuple[RuleScenario, RuleScenario, RuleScenario]
 
 
+@dataclass(frozen=True)
+class NettedScore:
+    """Opposite YES and NO intents on one day become no position."""
+
+    conflict_days: int
+    same_side_days: int
+    optimistic_fills: int
+    optimistic_equity: Decimal
+    fidelity: str
+    guaranteed_fill: bool
+    promoted: bool
+
+
+def load_netted_score(root: Path) -> NettedScore:
+    """Net the registered rules on the 2026 window before an optimistic fill."""
+    labels, _comparison = load_comparison(root)
+    forecasts = {item.valid_from.date(): item for item in load_stored_forecasts(root)}
+    prints = load_trade_tape(root).b805_prints
+    return net_rules(labels, forecasts, prints)
+
+
+def net_rules(
+    labels: tuple[CliLabel, ...],
+    forecasts: Mapping[date, Forecast],
+    prints: tuple[TradePrint, ...],
+) -> NettedScore:
+    """One contract per day. Opposite sides cancel. Same sides do not double."""
+    by_day = _prints_by_day(prints)
+    conflicts = 0
+    same_side = 0
+    pnl: list[Decimal] = []
+    for label in labels:
+        forecast = forecasts.get(label.valid_on)
+        if forecast is None or forecast.available_at >= label.available_at:
+            continue
+        yes_names = tuple(
+            name for name in ("forecast_inside", "forecast_gap") if _fires(name, forecast.value)
+        )
+        no_names = tuple(
+            name for name in ("forecast_above", "forecast_below") if _fires(name, forecast.value)
+        )
+        if yes_names and no_names:
+            conflicts += 1
+            continue
+        if len(yes_names) > 1 or len(no_names) > 1:
+            same_side += 1
+        if not yes_names and not no_names:
+            continue
+        decision = datetime(
+            label.valid_on.year,
+            label.valid_on.month,
+            label.valid_on.day,
+            15,
+            tzinfo=UTC,
+        )
+        day_prints = tuple(
+            item
+            for item in by_day.get(label.valid_on, ())
+            if item.created_at <= decision
+            and item.created_at < label.available_at
+            and item.count > 0
+        )
+        if yes_names:
+            price = _optimistic_price("forecast_gap", day_prints)
+            won = _STRIKE.resolves_yes(label.high_f)
+        else:
+            price = _optimistic_price("forecast_above", day_prints)
+            won = not _STRIKE.resolves_yes(label.high_f)
+        if price is None:
+            continue
+        pnl.append(_ONE - price if won else -price)
+    return NettedScore(
+        conflict_days=conflicts,
+        same_side_days=same_side,
+        optimistic_fills=len(pnl),
+        optimistic_equity=parse_money(sum(pnl, Decimal(100))),
+        fidelity=FIDELITY,
+        guaranteed_fill=False,
+        promoted=False,
+    )
+
+
 def load_rule_scores(root: Path) -> tuple[RuleScore, ...]:
     """Score the registered rules on the 2026 CLI window and its prints."""
     labels, _comparison = load_comparison(root)

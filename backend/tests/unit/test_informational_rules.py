@@ -12,7 +12,9 @@ from entropytrade.weather.informational_rules import (
     BRACKET_FLOOR,
     MIDPOINT,
     PRICE_THRESHOLD,
+    load_netted_score,
     load_rule_scores,
+    net_rules,
     score_rules,
 )
 
@@ -59,6 +61,26 @@ def test_a_no_rule_uses_a_rich_yes_print_and_a_yes_rule_does_not() -> None:
     assert scored["forecast_below"].fires == 0
 
 
+def test_opposite_sides_of_the_bracket_net_to_flat() -> None:
+    valid_on = date(2026, 8, 25)
+    label = CliLabel(
+        available_at=datetime(2026, 8, 26, 8, tzinfo=UTC),
+        source="test",
+        endpoint="test",
+        valid_on=valid_on,
+        high_f=Decimal(70),
+        header="KPHI 260800",
+    )
+    forecast = _forecast(Decimal(85))
+    printed = _print(created=datetime(2026, 8, 25, 14, tzinfo=UTC), price="0.2000")
+    netted = net_rules((label,), {valid_on: forecast}, (printed,))
+    assert netted.conflict_days == 1
+    assert netted.optimistic_fills == 0
+    assert netted.optimistic_equity == Decimal("100.000000")
+    assert netted.guaranteed_fill is False
+    assert netted.promoted is False
+
+
 def test_stored_rules_are_tried_and_not_promoted() -> None:
     scored = {item.name: item for item in load_rule_scores(ROOT)}
     assert set(scored) == {
@@ -88,6 +110,13 @@ def test_stored_rules_are_tried_and_not_promoted() -> None:
     assert gap.scenarios[0].assumed_fills == 3
     assert gap.scenarios[0].equity == Decimal("99.900000")
     assert gap.scenarios[0].guaranteed_fill is False
+    netted = load_netted_score(ROOT)
+    assert netted.conflict_days == 19
+    assert netted.same_side_days == 0
+    assert netted.optimistic_fills == 0
+    assert netted.optimistic_equity == Decimal("100.000000")
+    assert netted.guaranteed_fill is False
+    assert netted.promoted is False
 
 
 def _forecast(value: Decimal) -> Forecast:
