@@ -57,6 +57,7 @@ class AlignedScore:
     sized_books_in_window: int
     replay_fills: int
     replay_equity: Decimal
+    books_after_window: tuple[str, ...]
     model_gate_open: bool
     fitted_model: bool
     promoted: bool
@@ -79,8 +80,10 @@ def load_aligned_score(root: Path) -> AlignedScore:
     mae_second = mean_absolute_error(forecasts, label_rows[midpoint:], station=_STATION)
     raw, climate, blended, days = _briers(forecasts, labels)
     signals = sum(1 for forecast in forecasts if _STRIKE.resolves_yes(forecast.value))
-    books = _books_before_the_label(load_books(root), labels)
+    stored_books = load_books(root)
+    books = _books_before_the_label(stored_books, labels)
     fills, equity = _replay(books, forecasts, labels)
+    last_day = max(label.valid_on for label in labels)
     try:
         refuse_fitted_model(len(label_rows))
     except InsufficientHistoryError:
@@ -100,6 +103,7 @@ def load_aligned_score(root: Path) -> AlignedScore:
         sized_books_in_window=len(books),
         replay_fills=fills,
         replay_equity=equity,
+        books_after_window=_books_after(stored_books, last_day),
         model_gate_open=gate_open,
         fitted_model=False,
         promoted=False,
@@ -175,6 +179,16 @@ def _briers(
         brier_score(blended_pairs),
         len(raw_pairs),
     )
+
+
+def _books_after(books: Sequence[PublicBook], last_day: date) -> tuple[str, ...]:
+    """Sized books whose market day is after the last CLI label. They stay out."""
+    later: list[str] = []
+    for item in books:
+        valid_on = ticker_target_date(item.market_ticker)
+        if valid_on is not None and valid_on > last_day:
+            later.append(item.market_ticker)
+    return tuple(sorted(later))
 
 
 def _books_before_the_label(

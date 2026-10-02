@@ -22,6 +22,20 @@ def test_cli_aligned_baselines_do_not_fit_or_trade() -> None:
     assert score.sized_books_in_window == 0
     assert score.replay_fills == 0
     assert score.replay_equity == Decimal("100.000000")
+    assert score.books_after_window == (
+        "KXHIGHPHIL-26OCT02-B82.5",
+        "KXHIGHPHIL-26OCT02-B84.5",
+        "KXHIGHPHIL-26OCT02-B86.5",
+        "KXHIGHPHIL-26OCT02-B88.5",
+        "KXHIGHPHIL-26OCT02-T82",
+        "KXHIGHPHIL-26OCT02-T89",
+        "KXHIGHPHIL-26OCT03-B70.5",
+        "KXHIGHPHIL-26OCT03-B72.5",
+        "KXHIGHPHIL-26OCT03-B74.5",
+        "KXHIGHPHIL-26OCT03-B76.5",
+        "KXHIGHPHIL-26OCT03-T70",
+        "KXHIGHPHIL-26OCT03-T77",
+    )
     assert score.model_gate_open is True
     assert score.fitted_model is False
     assert score.promoted is False
