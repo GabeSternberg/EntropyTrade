@@ -52,9 +52,11 @@ in-process switch. There is no dashboard button yet; that button will call `kill
 ## Limits the engine will enforce
 
 Phase 2 enforces per-trade, per-event, total deployed, and bankroll caps, plus realized
-loss, realized drawdown, book age, spread, and minimum displayed liquidity. Still open:
-per series, correlated exposure, open-order count, order rate, maximum slippage, minimum
-net edge, model age, and time since reconciliation. No martingale. The correlated-event
+loss, realized drawdown, book age, spread, and minimum displayed liquidity. When
+`min_net_edge` is set, an intent with no edge estimate, or with a net edge below
+that floor, is rejected. Leaving the field unset does not add the check. Still open:
+per series, correlated exposure, open-order count, order rate, maximum slippage,
+model age, and time since reconciliation. No martingale. The correlated-event
 cap matters for weather: every strike of one city-day is the same bet.
 
 `EdgeEstimate` keeps the pieces separate. `raw_edge` is model probability minus the

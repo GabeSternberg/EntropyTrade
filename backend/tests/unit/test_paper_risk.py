@@ -22,6 +22,7 @@ from entropytrade.domain.numeric import ZERO
 from entropytrade.domain.orders import ApprovedOrderIntent, Order, OrderIntent, OrderState
 from entropytrade.domain.portfolio import PortfolioSnapshot, SnapshotSource
 from entropytrade.domain.risk import RiskCheckResult, RiskDecision
+from entropytrade.domain.signals import EdgeEstimate
 from entropytrade.execution.fees import FeeSchedule, trade_fee
 from entropytrade.execution.paper import PaperBroker, PaperBrokerError
 from entropytrade.execution.reconcile import ReconcileMismatchError, adopt_order, compare_snapshots
@@ -70,6 +71,7 @@ def _intent(
     time_in_force: TimeInForce = TimeInForce.GOOD_TILL_CANCELED,
     post_only: bool = False,
     reduce_only: bool = False,
+    edge: EdgeEstimate | None = None,
 ) -> OrderIntent:
     return OrderIntent(
         strategy_id="baseline",
@@ -81,6 +83,7 @@ def _intent(
         post_only=post_only,
         reduce_only=reduce_only,
         decision_time=NOW,
+        edge=edge,
     )
 
 
@@ -345,6 +348,55 @@ def test_stale_book_and_drawdown_reject() -> None:
         equity=Decimal("40"),
     )
     assert any(check.check_name == "drawdown" and not check.passed for check in drawn.checks)
+
+
+def _decide(intent: OrderIntent, limits: RiskLimits) -> RiskDecision:
+    return RiskEngine(limits).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+    )
+
+
+def test_min_net_edge_rejects_a_missing_or_thin_estimate() -> None:
+    limits = _limits().model_copy(update={"min_net_edge": Decimal(0)})
+    missing = _decide(_intent(quantity="1.00", price="0.4500"), limits)
+    assert any(check.check_name == "min_net_edge" and not check.passed for check in missing.checks)
+    assert not missing.approved
+    thin = _decide(
+        _intent(
+            quantity="1.00",
+            price="0.4500",
+            edge=EdgeEstimate(
+                outcome_probability=Decimal("0.70"),
+                price_per_contract=Decimal("0.6900"),
+                fee_per_contract=Decimal("0.020000"),
+            ),
+        ),
+        limits,
+    )
+    assert any(check.check_name == "min_net_edge" and not check.passed for check in thin.checks)
+    wide = _decide(
+        _intent(
+            quantity="1.00",
+            price="0.4500",
+            edge=EdgeEstimate(
+                outcome_probability=Decimal("0.80"),
+                price_per_contract=Decimal("0.4000"),
+                fee_per_contract=Decimal(0),
+            ),
+        ),
+        limits,
+    )
+    assert wide.approved
+    untouched = _decide(_intent(quantity="1.00", price="0.4500"), _limits())
+    assert all(check.check_name != "min_net_edge" for check in untouched.checks)
+    assert untouched.approved
 
 
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:

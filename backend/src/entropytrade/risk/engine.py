@@ -16,6 +16,7 @@ from entropytrade.domain.market_data import OrderBook
 from entropytrade.domain.numeric import (
     QUANTITY_QUANTUM,
     ZERO,
+    ExactDecimal,
     NonNegativeMoney,
     Price,
     Quantity,
@@ -46,6 +47,7 @@ class RiskLimits(DomainModel):
     max_book_age_seconds: int
     min_liquidity: Quantity
     max_spread: Price
+    min_net_edge: ExactDecimal | None = None
     config_version: str
 
 
@@ -250,6 +252,16 @@ def _gate(
             limit=str(limits.min_liquidity),
         )
     )
+    if limits.min_net_edge is not None:
+        edge = None if intent.edge is None else intent.edge.net_edge
+        checks.append(
+            RiskCheckResult(
+                check_name="min_net_edge",
+                passed=edge is not None and edge >= limits.min_net_edge,
+                observed=None if edge is None else str(edge),
+                limit=str(limits.min_net_edge),
+            )
+        )
     return any(not check.passed for check in checks)
 
 
