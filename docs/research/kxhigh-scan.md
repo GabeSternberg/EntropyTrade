@@ -8,3 +8,4 @@ Optimistic trade-print equity is not a fill. Nothing is promoted.
 | Ticker | Markets found | Optimistic equity | Validation optimistic equity | Base and conservative |
 | --- | --- | --- | --- | --- |
 | KXHIGHTVABB | 0 | not scored | not walked | not scored |
+| KXHIGHTLTFM | 0 | not scored | not walked | not scored |
