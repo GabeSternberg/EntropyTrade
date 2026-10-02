@@ -31,8 +31,11 @@ is its identity, and `StrategyVersion` chains hashes so an old version is never 
 
 ## What this is not
 
-It is not a trading strategy. Nothing interprets the predicates against a book yet. Phase 3
-is when a spec becomes a deterministic evaluator, and only for the predicate language above.
+It is not a trading strategy by itself. `entropytrade.strategies.interpret` can run a
+subset: informational specs, fixed contract size, an immediate order, a
+`*_probability` entry feature, and an exit description that holds to settlement.
+Anything else is rejected instead of half-run. Generated Python is still not
+accepted.
 Generated Python, if it is ever allowed, runs in a separate container with no credentials,
 no network and a read-only dataset (spec section 10). The sandbox in
 `karshincheo/kalshi-trading` is not that container: its AST filter allows file reads,

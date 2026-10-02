@@ -1,4 +1,8 @@
-"""PydanticAI research agents (Research, Hypothesis, Quant, Critic, Backtest Analyst). Phase 5.
+"""PydanticAI research pipeline. ``pydantic_ai`` is imported only in this package.
 
-The only package allowed to import ``pydantic_ai``. Agents emit typed StrategySpecs and
-never receive trading credentials or order-placing tools."""
+Provider requests are blocked on import. The demo uses TestModel.
+"""
+
+from entropytrade.agents.guard import block_provider_requests
+
+block_provider_requests()

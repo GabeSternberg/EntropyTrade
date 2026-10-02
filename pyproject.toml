@@ -8,6 +8,7 @@ authors = [{ name = "Gabe Sternberg" }]
 dependencies = [
     "kalshi-sdk==17.1.0",
     "pydantic>=2.12,<3",
+    "pydantic-ai-slim[anthropic,openai]>=2.53,<3",
 ]
 
 [project.scripts]

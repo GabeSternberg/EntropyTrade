@@ -1,1 +1,1 @@
-"""Deterministic strategy evaluators (informational and structural families). Phase 3+."""
+"""Deterministic strategy evaluators. ``interpret`` runs a subset of StrategySpec."""

@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4 — complete**. Next is Phase 5.
+Last updated: 2026-10-02 · Current phase: **Phase 5 — complete**. Next is Phase 6.
 
 ## What this project is
 
@@ -48,7 +48,7 @@ holds trading credentials.
 | 2 | Accounting + paper broker + risk foundation | **complete** | [phase-2.md](docs/phase-reports/phase-2.md) |
 | 3 | Point-in-time backtesting engine | **complete** | [phase-3.md](docs/phase-reports/phase-3.md) |
 | 4 | First weather dataset + baseline models | **complete** | [phase-4.md](docs/phase-reports/phase-4.md) |
-| 5 | Agentic research pipeline (PydanticAI) | planned | — |
+| 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | planned | — |
 | 7 | Structural / arbitrage scanner | planned | — |
 | 8 | Live paper + shadow validation | planned | — |
@@ -86,25 +86,26 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 5 — the agentic research pipeline. The exact plan is the last section of
-[`docs/phase-reports/phase-4.md`](docs/phase-reports/phase-4.md).
+Phase 6 — strategy registry, experiment tracking, and a read-only dashboard.
+The exact plan is the last section of
+[`docs/phase-reports/phase-5.md`](docs/phase-reports/phase-5.md).
 
-Scope: PydanticAI only inside `agents/`, `TestModel` with model requests
-disabled, StrategySpec output, a predicate interpreter, and fixture backtests.
-No holdout access, no order tool, no trading key. A missing LLM key does not
-block the phase; live provider calls stay unverified.
+Scope: SQLite lineage, the existing promotion table, a local MLflow directory,
+and a page that lists specs. No live orders, no trading key, and `configs/live`
+stays unloaded. Agents still cannot approve real capital.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4: ruff clean, mypy strict clean,
-pytest 109 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 5: ruff clean, mypy strict clean,
+pytest 115 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 
 Unverified for lack of credentials: a multi-hour demo or read-only production
 session, a real Kalshi WebSocket handshake, reconciliation against a live demo
-account, and any live NWS, Weather Company, or Open-Meteo request. No
-production trading credentials are in the repo.
+account, any live NWS, Weather Company, or Open-Meteo request, and any live
+Anthropic or OpenAI call. Provider model requests are blocked.
+No production trading credentials are in the repo.
 
 ## How to resume (fresh agent)
 

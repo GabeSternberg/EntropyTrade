@@ -5,7 +5,9 @@ prediction markets. Not a SaaS product. Phase 0 is complete: domain types, archi
 and an audit of the open-source projects the design builds on. Phase 1 is a read-only
 Kalshi gateway and a SQLite recorder. Phase 2 is paper accounting and the risk gate.
 Phase 3 replays recorded books without showing the strategy future rows. Phase 4 scores
-daily-high baselines from recorded weather bodies. None of this sends exchange orders.
+daily-high baselines from recorded weather bodies. Phase 5 turns a prompt into
+StrategySpecs and backtests the ones that pass the critic and the interpreter.
+None of this sends exchange orders.
 
 The requirements are in [`docs/project-spec.md`](docs/project-spec.md). Where the project
 actually is, and how to resume it, is [`STATUS.md`](STATUS.md).
@@ -43,7 +45,8 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 
 ## Status
 
-Phase 4 is complete. Phase 5 (the research pipeline) is next. See
+Phase 5 is complete. Phase 6 (registry, experiment log, dashboard) is next. See
 [`STATUS.md`](STATUS.md) before starting anything else. Daily-high scoring is
-described in [`docs/weather.md`](docs/weather.md).
+in [`docs/weather.md`](docs/weather.md). The research pipeline is in
+[`docs/research.md`](docs/research.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).
