@@ -139,6 +139,23 @@ def test_a_future_settlement_is_invisible_and_does_not_trade() -> None:
     assert result.fill_ids == ()  # type: ignore[attr-defined]
 
 
+def test_a_revision_after_the_book_cannot_make_the_strategy_trade() -> None:
+    original = _feature(9, "0")
+    leaked = original.revalidated(value=Decimal(1), revised_at=utc(2026, 10, 2, 15))
+    seen: list[Decimal | None] = []
+
+    def leaky(view: DecisionView, book: OrderBook) -> OrderIntent | None:
+        row = view.feature("settled_value", TICKER)
+        seen.append(None if row is None or row.value is None else row.value)
+        if row is not None and row.value == Decimal(1):
+            return _intent(book.received_at)
+        return None
+
+    result = _run_pair(leaky, (_book(10, ask="0.4400"),), (original, leaked))
+    assert seen == [Decimal(0)]
+    assert result.fill_ids == ()  # type: ignore[attr-defined]
+
+
 def test_latency_does_not_fill_at_a_better_price_than_the_decision_book() -> None:
     def buy_once(view: DecisionView, book: OrderBook) -> OrderIntent | None:
         del view

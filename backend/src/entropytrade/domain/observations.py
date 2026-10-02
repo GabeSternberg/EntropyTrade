@@ -92,13 +92,17 @@ def select_as_of[T: PointInTimeRecord, K: Hashable](
 ) -> dict[K, T]:
     """Latest known record per ``key`` among those available at ``decision_time``.
 
-    Ties are broken by ``(available_at, revised_at, revision_id)`` and finally by the record's
-    serialised content, so the result is deterministic and independent of input order.
+    A row whose ``available_at`` or ``revised_at`` is after ``decision_time`` is
+    absent. Ties are broken by ``(available_at, revised_at, revision_id)`` and
+    finally by the record's serialised content, so the result is deterministic
+    and independent of input order.
     """
     cutoff = ensure_utc(decision_time)
     latest: dict[K, T] = {}
     for record in records:
         if record.available_at > cutoff:
+            continue
+        if record.revised_at is not None and record.revised_at > cutoff:
             continue
         k = key(record)
         current = latest.get(k)

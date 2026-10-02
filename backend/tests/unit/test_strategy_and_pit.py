@@ -159,6 +159,25 @@ def test_select_as_of_hides_the_future_and_keeps_the_latest_known_revision() -> 
         select_as_of([early], datetime(2026, 10, 1, 12, 0), key=lambda row: row.entity_id)  # noqa: DTZ001
 
 
+def test_a_revision_after_the_decision_is_not_visible() -> None:
+    early = _observation(8, "70")
+    revised = early.revalidated(
+        value=Decimal("74"),
+        revision_id="r2",
+        revised_at=utc(2026, 10, 1, 9),
+    )
+    leaked = early.revalidated(
+        value=Decimal("80"),
+        revision_id="r3",
+        revised_at=utc(2026, 10, 1, 18),
+    )
+    decision = utc(2026, 10, 1, 12)
+    chosen = select_as_of([leaked, early, revised], decision, key=lambda row: row.entity_id)
+    assert chosen["CLIPHL"] is revised
+    assert select_as_of([early, revised], decision, key=lambda row: row.entity_id) == chosen
+    assert select_as_of([leaked], decision, key=lambda row: row.entity_id) == {}
+
+
 def test_forecast_cannot_be_available_before_it_was_run() -> None:
     moment = utc(2026, 10, 1, 12)
     with pytest.raises(ValueError, match="run time"):
