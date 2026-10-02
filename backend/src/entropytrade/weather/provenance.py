@@ -103,6 +103,21 @@ class FeatureHashGap:
     omitted_keys: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class CalibrationGap:
+    """How many stored records leave calibration_version empty."""
+
+    records: int
+    calibration_version_empty: int
+
+
+def load_calibration_gap(root: Path) -> CalibrationGap:
+    """Count empty calibration versions. Does not invent one."""
+    records = load_prediction_records(root)
+    empty = sum(1 for record in records if record.calibration_version is None)
+    return CalibrationGap(records=len(records), calibration_version_empty=empty)
+
+
 def load_feature_hash_gap(root: Path) -> FeatureHashGap:
     """Name the row keys left out of the stored feature hash. The hash stays put."""
     payload = build_feature_payload(root)
