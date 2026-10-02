@@ -16,7 +16,7 @@ from entropytrade.domain.enums import StrikeType
 from entropytrade.domain.market import Strike
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint, load_trade_tape
-from entropytrade.weather.cli_observations import load_comparison
+from entropytrade.weather.cli_observations import CliLabel, load_comparison
 from entropytrade.weather.last_print import GUESS_YES_AT
 
 _STRIKE = Strike(strike_type=StrikeType.BETWEEN, floor=Decimal(80), cap=Decimal(81))
@@ -40,7 +40,15 @@ class CliPrintGuess:
 def load_cli_print_guess(root: Path) -> CliPrintGuess:
     """Score the 2026 tape. Days with no eligible print get no guess."""
     labels, _comparison = load_comparison(root)
-    by_day = _prints_by_day(load_trade_tape(root).b805_prints)
+    return score_cli_print_guess(labels, load_trade_tape(root).b805_prints)
+
+
+def score_cli_print_guess(
+    labels: tuple[CliLabel, ...],
+    prints: tuple[TradePrint, ...],
+) -> CliPrintGuess:
+    """Score only the labels that were passed in."""
+    by_day = _prints_by_day(prints)
     guesses_yes = 0
     agreements = 0
     with_prints = 0

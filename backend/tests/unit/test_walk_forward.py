@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from entropytrade.weather.walk_forward import (
+    load_guess_walk_forward,
     load_rule_walk_forward,
     load_stored_walk_forward,
     reject_holdout,
@@ -60,6 +61,29 @@ def test_registered_rules_walk_forward_skips_the_holdout() -> None:
         assert rule.scenarios[2].assumed_fills == 0
     with pytest.raises(ValueError, match="holdout"):
         reject_holdout({date(2026, 8, 23)}, {date(2026, 8, 23)})
+
+
+def test_the_print_guess_walks_forward_without_the_holdout() -> None:
+    result = load_guess_walk_forward(ROOT)
+    assert result.train_days == 20
+    assert result.validation_days == 10
+    assert result.holdout_days == 10
+    assert result.ran_splits == ("train", "validation")
+    assert result.holdout_blocked is True
+    assert result.holdout_scored is False
+    assert result.promoted is False
+    assert result.train.with_prints == 5
+    assert result.train.without_prints == 15
+    assert result.train.guesses_yes == 0
+    assert result.train.agreements == 4
+    assert result.validation.with_prints == 3
+    assert result.validation.without_prints == 7
+    assert result.validation.guesses_yes == 0
+    assert result.validation.agreements == 3
+    assert result.train.guaranteed_fill is False
+    assert result.validation.guaranteed_fill is False
+    assert result.train.promoted is False
+    assert result.validation.promoted is False
 
 
 def test_walk_forward_does_not_call_a_provider() -> None:

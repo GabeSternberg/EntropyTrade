@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.72 — complete**. Next is Phase 4.73.
+Last updated: 2026-10-02 · Current phase: **Phase 4.73 — complete**. Next is Phase 4.74.
 
 ## What this project is
 
@@ -79,6 +79,7 @@ holds trading credentials.
 | 4.70 | Second pull of the 18 markets short of volume | **complete** | [phase-4.70.md](docs/phase-reports/phase-4.70.md) |
 | 4.71 | Live trades for the 18 markets short of volume | **complete** | [phase-4.71.md](docs/phase-reports/phase-4.71.md) |
 | 4.72 | Pre-decision B80.5 print versus the CLI bracket | **complete** | [phase-4.72.md](docs/phase-reports/phase-4.72.md) |
+| 4.73 | Walk-forward of the pre-decision print guess | **complete** | [phase-4.73.md](docs/phase-reports/phase-4.73.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -211,6 +212,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   UTC. None of those prints are at or above 0.50. 9 match the bracket.
   The miss is 25 August, print 0.1000, CLI high 80. Nothing is promoted.
   Replay equity stays 100.
+- **Phase 4.73**: train has 5 eligible prints and 4 agreements. Validation
+  has 3 eligible prints and 3 agreements. No YES guess in either split.
+  The holdout is not scored. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -246,15 +250,16 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.73 — walk-forward the Phase 4.72 guess with the existing split.
-Train and validation only. Do not score the holdout. Do not change 0.50 or
-15:00. The print is not a guaranteed fill. Do not promote. No LLM call. No
-live order.
+Phase 4.74 — not started. The 18 markets that are short of `volume_fp`
+stayed short on a second `/historical/trades` pull, and `/markets/trades`
+returned no rows for them. Do not invent that size. Do not change 0.50 or
+15:00. A later phase needs a different public source for the missing
+contracts. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.72: ruff clean, mypy strict
-clean, pytest 209 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.73: ruff clean, mypy strict
+clean, pytest 210 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

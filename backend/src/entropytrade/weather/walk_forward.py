@@ -23,6 +23,7 @@ from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.weather.baseline import mean_absolute_error
 from entropytrade.weather.cli_observations import CliLabel, load_comparison
+from entropytrade.weather.cli_print_guess import CliPrintGuess, score_cli_print_guess
 from entropytrade.weather.informational_rules import RuleScore, score_rules
 from entropytrade.weather.settlement_score import load_stored_forecasts
 
@@ -154,6 +155,68 @@ def load_rule_walk_forward(root: Path) -> RuleWalkForward:
         promoted=False,
         train=score_rules(train, forecasts, prints),
         validation=score_rules(validation, forecasts, prints),
+    )
+
+
+@dataclass(frozen=True)
+class GuessWalkForward:
+    """The 0.50 print guess on train and validation. Holdout is not scored."""
+
+    train_days: int
+    validation_days: int
+    holdout_days: int
+    ran_splits: tuple[str, ...]
+    holdout_blocked: bool
+    holdout_scored: bool
+    promoted: bool
+    train: CliPrintGuess
+    validation: CliPrintGuess
+
+
+def load_guess_walk_forward(root: Path) -> GuessWalkForward:
+    """Walk the pre-decision print guess forward. Holdout labels are not passed."""
+    labels, _comparison = load_comparison(root)
+    ordered = tuple(sorted(labels, key=lambda label: (label.valid_on, label.available_at)))
+    train, validation, holdout = _thirds(ordered)
+    reject_holdout(
+        {label.valid_on for label in train + validation},
+        {label.valid_on for label in holdout},
+    )
+    prints = load_trade_tape(root).b805_prints
+    visible = train + validation
+    records = _features(load_stored_forecasts(root), visible)
+    holdout_ids = {f"{_STATION}-{label.valid_on.isoformat()}" for label in holdout}
+    if any(record.entity_id in holdout_ids for record in records):
+        raise ValueError("a holdout day was passed into walk-forward")
+    windows = (
+        _window(SampleSplit.TRAIN, train[0], validation[0]),
+        _window(SampleSplit.VALIDATION, validation[0], holdout[0]),
+        _window(SampleSplit.HOLDOUT, holdout[0], _day_after(holdout[-1])),
+    )
+    start = windows[0].start
+    ledger = Ledger(Decimal("100"), as_of=start)
+    results = run_walk_forward(
+        books=(),
+        records=records,
+        strategy=_no_trade,
+        ledger=ledger,
+        broker=_broker(ledger),
+        engine=_engine(),
+        latency=timedelta(0),
+        splits=windows,
+    )
+    if SampleSplit.HOLDOUT in results:
+        raise ValueError("walk-forward ran the holdout")
+    return GuessWalkForward(
+        train_days=len(train),
+        validation_days=len(validation),
+        holdout_days=len(holdout),
+        ran_splits=tuple(result.value for result in results),
+        holdout_blocked=_holdout_is_blocked(windows[2]),
+        holdout_scored=False,
+        promoted=False,
+        train=score_cli_print_guess(train, prints),
+        validation=score_cli_print_guess(validation, prints),
     )
 
 
