@@ -61,3 +61,16 @@ cap matters for weather: every strike of one city-day is the same bet.
 executable price of the outcome being bought. `net_edge` subtracts fee, expected slippage,
 latency, fill uncertainty and model uncertainty. A 70% probability against a 69¢ ask is a
 negative net edge once costs are included, and the type makes that arithmetic visible.
+
+## Decay
+
+`monitoring.decay` reads a sequence of `ShadowComparison` rows. The recent mean
+of print minus fill price, skipping gaps, is decay when it is strictly below a
+caller-supplied threshold. The flag proposes one allow-listed downward state
+(`live` to `degraded`, `paper` to `paused`, `backtested` to `research`) and can
+halve quantity on the 0.01 grid. It never proposes `live` or `live_small` and
+never returns a larger quantity. An agent can apply the downward transition.
+The same agent still cannot apply a capital increase. The module does not call
+`attempt_submit` or `KalshiGateway`. Model drift, calibration, feature drift,
+and live-versus-backtest divergence are not scored, because a comparison does
+not carry those series.

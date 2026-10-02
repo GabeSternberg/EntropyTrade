@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 9 — complete**. Next is Phase 10.
+Last updated: 2026-10-02 · Current phase: **Phase 10 — complete**. Next is the Phase 11 deferral.
 
 ## What this project is
 
@@ -53,7 +53,7 @@ holds trading credentials.
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
 | 8 | Live paper + shadow validation | **complete** | [phase-8.md](docs/phase-reports/phase-8.md) |
 | 9 | Live-small execution (explicit approval required) | **complete** (gate only; no order sent) | [phase-9.md](docs/phase-reports/phase-9.md) |
-| 10 | Live decay detection + automatic downsizing | planned | — |
+| 10 | Live decay detection + automatic downsizing | **complete** (comparisons only; no order sent) | [phase-10.md](docs/phase-reports/phase-10.md) |
 | 11 | Optional expansion (more markets, cross-venue, FIX, DL) | planned | — |
 
 Phase definitions are in spec §40. Summary of each phase's acceptance bar:
@@ -81,21 +81,21 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 7**: deterministic constraint/arbitrage detection, paper/shadow only.
 - **Phase 8**: live paper + shadow validation against real books, no real orders.
 - **Phase 9**: tiny live envelope for one approved strategy, only after approval.
-- **Phase 10**: drift/decay detection and automatic downsizing.
-- **Phase 11**: optional expansion.
+- **Phase 10**: decay from paper and shadow comparisons, a downward lifecycle
+  move, and a size cut that never increases a limit. Model drift, calibration,
+  feature drift, and live-versus-backtest divergence are not scored.
+- **Phase 11**: optional expansion. Not started.
 
 ## Next steps
 
-Phase 10 — decay detection and a downward lifecycle move. The exact plan is
-the last section of [`docs/phase-reports/phase-9.md`](docs/phase-reports/phase-9.md).
-
-Scope: fixture comparisons only. Do not connect `attempt_submit` to the
-gateway. Do not place an order. An agent still cannot raise capital.
+Record Phase 11 as deferred. Do not add pmxt, FIX, deep learning,
+cross-exchange execution, or automatic retraining. The exact plan is the last
+section of [`docs/phase-reports/phase-10.md`](docs/phase-reports/phase-10.md).
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 9: ruff clean, mypy strict clean,
-pytest 134 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 10: ruff clean, mypy strict clean,
+pytest 140 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 

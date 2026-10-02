@@ -1,1 +1,5 @@
-"""Health, structured logging and drift detection (Phase 1, then Phase 10)."""
+"""Health checks and decay detection.
+
+Phase 10 scores paper and shadow comparisons and proposes a downward
+lifecycle move. It does not submit orders.
+"""
