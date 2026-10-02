@@ -20,7 +20,10 @@ cancel what they cannot take. The broker does not call `KalshiGateway.submit_ord
 A later book does not fill an order that is already resting; that matching loop is still
 open. `run_shadow` fills the ledger only in `PAPER`. `SHADOW` records the price it
 would have paid and compares it with the next recorded print. A missing print is a
-gap. `LIVE` and `DEMO` raise before the strategy runs, even when the live flag is set. Reconciliation compares snapshots and adopts an `unknown` order only along a legal
+gap. `LIVE` and `DEMO` raise before the strategy runs, even when the live flag is set.
+`attempt_submit` calls an injected transport only in `DEMO`. Every other mode,
+including `LIVE` with the flag set, raises first. The Kalshi gateway's own
+`submit_order` still raises for every mode and is not wired to that transport. Reconciliation compares snapshots and adopts an `unknown` order only along a legal
 transition, keyed by `client_order_id`.
 
 ## State machine

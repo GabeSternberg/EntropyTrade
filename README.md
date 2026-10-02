@@ -10,7 +10,8 @@ StrategySpecs and backtests the ones that pass the critic and the interpreter.
 Phase 6 stores those specs and serves a read-only registry page.
 Phase 7 flags executable-price violations and can paper them.
 Phase 8 compares a paper or shadow price with the next recorded print.
-None of this sends exchange orders.
+Phase 9 classifies a submit without opening a socket. The Kalshi gateway
+still refuses every submit. None of this sends exchange orders.
 
 The requirements are in [`docs/project-spec.md`](docs/project-spec.md). Where the project
 actually is, and how to resume it, is [`STATUS.md`](STATUS.md).
@@ -48,7 +49,7 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 
 ## Status
 
-Phase 8 is complete. Phase 9 (a gated submit that does not call the exchange
-in this tree) is next. See [`STATUS.md`](STATUS.md) before starting anything
-else. The scanner is described in [`docs/scanner.md`](docs/scanner.md).
+Phase 9 is complete as a closed gate. Phase 10 (decay detection, no live
+order) is next. See [`STATUS.md`](STATUS.md) before starting anything else.
+The scanner is described in [`docs/scanner.md`](docs/scanner.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).
