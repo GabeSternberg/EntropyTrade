@@ -19,7 +19,12 @@ from entropytrade.domain.observations import Forecast
 from entropytrade.exchange.historical_trades import _decode_time
 from entropytrade.exchange.trade_prints import TradePrint
 from entropytrade.weather.cli_observations import CliLabel
-from entropytrade.weather.cli_print_guess import CliPrintGuess, score_cli_print_guess
+from entropytrade.weather.cli_print_guess import (
+    CliPrintGuess,
+    PrintDisagreement,
+    print_disagreements,
+    score_cli_print_guess,
+)
 from entropytrade.weather.informational_rules import (
     BRACKET_CAP,
     BRACKET_FLOOR,
@@ -94,6 +99,12 @@ def load_chicago_score(root: Path) -> ChicagoScore:
         promoted=False,
         rules=rules,
     )
+
+
+def load_chicago_print_disagreements(root: Path) -> tuple[PrintDisagreement, ...]:
+    """Full-window misses of the 0.50 guess. The line is not changed."""
+    labels, _forecasts, prints, _found, _missing = _inputs(root)
+    return print_disagreements(labels, prints)
 
 
 def load_chicago_print_guess(root: Path) -> CliPrintGuess:

@@ -24,6 +24,18 @@ DECISION_HOUR = 15
 
 
 @dataclass(frozen=True)
+class PrintDisagreement:
+    """One pre-decision print whose YES guess does not match the bracket."""
+
+    valid_on: date
+    yes_price: Decimal
+    high_f: Decimal
+    created_at: datetime
+    guess_yes: bool
+    bracket_yes: bool
+
+
+@dataclass(frozen=True)
 class CliPrintGuess:
     """How often the pre-decision print matches the CLI bracket."""
 
@@ -41,6 +53,35 @@ def load_cli_print_guess(root: Path) -> CliPrintGuess:
     """Score the 2026 tape. Days with no eligible print get no guess."""
     labels, _comparison = load_comparison(root)
     return score_cli_print_guess(labels, load_trade_tape(root).b805_prints)
+
+
+def print_disagreements(
+    labels: tuple[CliLabel, ...],
+    prints: tuple[TradePrint, ...],
+) -> tuple[PrintDisagreement, ...]:
+    """Days where the 0.50 guess and the CLI bracket disagree. No new line."""
+    by_day = _prints_by_day(prints)
+    found: list[PrintDisagreement] = []
+    for label in labels:
+        quote = _last_quote(by_day.get(label.valid_on, ()), label.available_at, label.valid_on)
+        if quote is None:
+            continue
+        price, created_at = quote
+        guess_yes = price >= GUESS_YES_AT
+        bracket_yes = _STRIKE.resolves_yes(label.high_f)
+        if guess_yes == bracket_yes:
+            continue
+        found.append(
+            PrintDisagreement(
+                valid_on=label.valid_on,
+                yes_price=price,
+                high_f=label.high_f,
+                created_at=created_at,
+                guess_yes=guess_yes,
+                bracket_yes=bracket_yes,
+            )
+        )
+    return tuple(found)
 
 
 def score_cli_print_guess(
@@ -89,6 +130,17 @@ def _last_price(
     available_at: datetime,
     valid_on: date,
 ) -> Decimal | None:
+    quote = _last_quote(prints, available_at, valid_on)
+    if quote is None:
+        return None
+    return quote[0]
+
+
+def _last_quote(
+    prints: tuple[TradePrint, ...],
+    available_at: datetime,
+    valid_on: date,
+) -> tuple[Decimal, datetime] | None:
     decision = datetime(valid_on.year, valid_on.month, valid_on.day, DECISION_HOUR, tzinfo=UTC)
     eligible = [
         item
@@ -98,4 +150,4 @@ def _last_price(
     if not eligible:
         return None
     latest = max(item.created_at for item in eligible)
-    return max(item.yes_price for item in eligible if item.created_at == latest)
+    return max(item.yes_price for item in eligible if item.created_at == latest), latest
