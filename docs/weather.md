@@ -45,4 +45,7 @@ Live Weather Company calls are unverified. A stored IEM copy of the NWS CLI
 for CLIPHL is in `docs/phase-reports/phase-4.51.md`. It is not the contract's
 settlement source on these dates. Phase 4.53 scores the previous-day Open-Meteo
 max against those CLI labels (MAE 2.9925 °F, 0 forecast signals on 80–81, no
-sized book before the label, equity 100). The package still does not open a socket.
+sized book before the label, equity 100). Phase 4.55 asked the public host
+for 240 settled markets across 66 strikes and stored 230 hourly candles.
+Every current book was empty. Candles were not given a touch size. The
+package still does not open a socket.

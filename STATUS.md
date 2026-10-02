@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.54 — complete**. Next is Phase 4.55.
+Last updated: 2026-10-02 · Current phase: **Phase 4.55 — complete**. Next is Phase 4.56.
 
 ## What this project is
 
@@ -58,6 +58,7 @@ holds trading credentials.
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
+| 4.55 | Broader public KXHIGHPHIL tape, no sized book | **complete** | [phase-4.55.md](docs/phase-reports/phase-4.55.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -112,6 +113,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.54**: the vendored series docs state maker multipliers 0.25 and
   0.5. They do not state a taker coefficient. A second PDF fetch returned
   HTTP 429. The coefficient stays unset.
+- **Phase 4.55**: 240 settled KXHIGHPHIL order books in the CLI window, 66
+  strikes, all empty. 230 hourly candles stored. No touch size was invented.
+  No sized book exists before a CLI label.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -126,16 +130,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.55 — pull a broader public KXHIGHPHIL tape (more strikes than
-B80.5, more hours). Demo or unauthenticated production only. Persist under
-`data/public/` with endpoint and `available_at`. Do not fabricate a size at
-the touch. The question is whether any sized book exists before the CLI
-label.
+Phase 4.56 — rescore baselines and replay on the CLI labels, the Phase 4.55
+tape, and the fee model from Phases 3.50 and 4.54. Answer the five Phase 4
+questions from stored rows only. Do not promote. If the rule still does not
+trade, write that and continue.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.54: ruff clean, mypy strict
-clean, pytest 161 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.55: ruff clean, mypy strict
+clean, pytest 163 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -152,6 +155,8 @@ market-data host. No order was sent. Phase 4.53 did not call the network.
 The forecast rule does not trade on the CLI-aligned rows, and replay equity
 stays 100. Phase 3.50 stored public series fee fields. The fee-schedule PDF
 returned HTTP 429; the body is kept and no coefficient was invented.
+Phase 4.55 stored 240 empty settled order books and 230 hourly candles for
+the CLI window. No sized book was found before a CLI label.
 
 ## How to resume (fresh agent)
 

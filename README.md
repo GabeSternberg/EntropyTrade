@@ -51,8 +51,8 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 ## Status
 
 Phase 10 is complete as a fixture-tested gate. It does not submit. Phase 11
-is deferred. Phase 4.53 rescores the stored public rows against NWS CLI labels
-and does not promote a strategy. See [`STATUS.md`](STATUS.md) before starting
+is deferred. Phase 4.55 stored a broader public KXHIGHPHIL tape and found no
+sized book before the CLI label. See [`STATUS.md`](STATUS.md) before starting
 anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).
