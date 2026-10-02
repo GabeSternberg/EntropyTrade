@@ -62,6 +62,12 @@ class AlignedScore:
     promoted: bool
 
 
+def load_stored_forecasts(root: Path) -> tuple[Forecast, ...]:
+    """Previous-day Open-Meteo maxima for the stored CLI days. No socket."""
+    labels, _comparison = load_comparison(root)
+    return _forecasts(root, labels)
+
+
 def load_aligned_score(root: Path) -> AlignedScore:
     """Score stored forecasts against CLI labels and replay only real books."""
     labels, _comparison = load_comparison(root)
