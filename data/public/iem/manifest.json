@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-10-02T15:44:57.552635+00:00",
+  "calls": [
+    {
+      "url": "https://mesonet.agron.iastate.edu/cgi-bin/afos/retrieve.py?pil=CLIPHL&fmt=text&limit=400&sdate=2026-08-24&edate=2026-10-03",
+      "status": 200,
+      "path": "iem/cliphl-afos.txt"
+    },
+    {
+      "url": "https://mesonet.agron.iastate.edu/api/1/nws/afos/list.json?pil=CLIPHL&sdate=2026-08-24&edate=2026-10-03",
+      "status": 422,
+      "path": "iem/afos-list.error.json"
+    }
+  ]
+}
