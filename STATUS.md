@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.76 — complete**. Next is Phase 4.77.
+Last updated: 2026-10-02 · Current phase: **Phase 4.77 — complete**. Next is Phase 4.78.
 
 ## What this project is
 
@@ -83,6 +83,7 @@ holds trading credentials.
 | 4.74 | Volume shortfall on the two trade routes | **deferred** | [phase-4.74.md](docs/phase-reports/phase-4.74.md) |
 | 4.75 | Chicago daily high, same registered rules | **complete** | [phase-4.75.md](docs/phase-reports/phase-4.75.md) |
 | 4.76 | Philadelphia daily-high research note | **complete** | [phase-4.76.md](docs/phase-reports/phase-4.76.md) |
+| 4.77 | CLI day with no prediction record | **complete** | [phase-4.77.md](docs/phase-reports/phase-4.77.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -229,6 +230,11 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   stored optimistic, base, and conservative equities, and the train and
   validation walk-forward counts. The holdout is not in the note as a
   score. Nothing is promoted. No new model.
+- **Phase 4.77**: 40 CLI days, 39 prediction records. The missing day is
+  2026-08-23. The forecast is stored and available before the label. The
+  15:00 decision has no prior CLI high, so climatology raises
+  InsufficientHistoryError. No probability was stored for that day.
+  Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -264,15 +270,16 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.77 — the CLI rescore stores 39 prediction records for 40 CLI days.
-Name the day that has no record, from the stored rows, and say why the
-builder skipped it. Do not invent a probability. Do not promote. No live
-order.
+Phase 4.78 — the feature manifest names three columns. Compare them with
+the weather features listed in spec section 27, using only stored rows.
+Say which of those names have a stored value and which do not. Do not
+invent a value. Do not fetch. Do not fit a model. Nothing is promoted.
+No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.76: ruff clean, mypy strict
-clean, pytest 213 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.77: ruff clean, mypy strict
+clean, pytest 214 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

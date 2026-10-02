@@ -11,6 +11,7 @@ This module does not open a socket.
 
 import json
 from collections.abc import Mapping
+from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
@@ -48,6 +49,30 @@ def load_feature_manifest(root: Path) -> Mapping[str, object]:
     if stored.get("manifest_hash") != digest:
         raise ValueError("the on-disk feature manifest does not match the stored rows")
     return stored
+
+
+@dataclass(frozen=True)
+class SkippedPredictionDay:
+    """A CLI day ``_decisions`` did not turn into a record. No probability."""
+
+    valid_on: date
+    decision_time: datetime
+    label_available_at: datetime
+    forecast_available_at: datetime | None
+    known_highs: int
+    reason: str
+
+
+def load_skipped_prediction_days(root: Path) -> tuple[SkippedPredictionDay, ...]:
+    """Name each CLI day the builder skipped, and which continue branch fired."""
+    labels, _comparison = load_comparison(root)
+    forecasts = {item.valid_from.date(): item for item in load_stored_forecasts(root)}
+    kept = {
+        label.valid_on for label, _forecast, _decision, _climate in _decisions(labels, forecasts)
+    }
+    return tuple(
+        _skip_reason(label, labels, forecasts) for label in labels if label.valid_on not in kept
+    )
 
 
 def load_prediction_records(root: Path) -> tuple[PredictionRecord, ...]:
@@ -199,13 +224,7 @@ def _decisions(
         forecast = forecasts.get(label.valid_on)
         if forecast is None or forecast.available_at >= label.available_at:
             continue
-        decision = datetime(
-            label.valid_on.year,
-            label.valid_on.month,
-            label.valid_on.day,
-            15,
-            tzinfo=UTC,
-        )
+        decision = _decision_time(label.valid_on)
         try:
             climate = climatology_hit_rate(
                 known_highs(labels, decision),
@@ -216,6 +235,42 @@ def _decisions(
             continue
         found.append((label, forecast, decision, climate))
     return tuple(found)
+
+
+def _decision_time(valid_on: date) -> datetime:
+    return datetime(valid_on.year, valid_on.month, valid_on.day, 15, tzinfo=UTC)
+
+
+def _skip_reason(
+    label: CliLabel,
+    labels: tuple[CliLabel, ...],
+    forecasts: Mapping[date, Forecast],
+) -> SkippedPredictionDay:
+    decision = _decision_time(label.valid_on)
+    highs = known_highs(labels, decision)
+    forecast = forecasts.get(label.valid_on)
+    if forecast is None:
+        reason = "forecast is missing"
+        forecast_at = None
+    elif forecast.available_at >= label.available_at:
+        reason = "forecast is not available before the label"
+        forecast_at = forecast.available_at
+    else:
+        forecast_at = forecast.available_at
+        try:
+            climatology_hit_rate(highs, decision_time=decision, strike=_STRIKE)
+        except InsufficientHistoryError as exc:
+            reason = str(exc)
+        else:
+            raise ValueError(f"{label.valid_on.isoformat()} was skipped without a builder reason")
+    return SkippedPredictionDay(
+        valid_on=label.valid_on,
+        decision_time=decision,
+        label_available_at=label.available_at,
+        forecast_available_at=forecast_at,
+        known_highs=len(highs),
+        reason=reason,
+    )
 
 
 def _print_times(prints: tuple[TradePrint, ...]) -> dict[date, tuple[datetime, ...]]:
