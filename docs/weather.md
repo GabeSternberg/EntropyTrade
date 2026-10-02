@@ -41,4 +41,6 @@ The same trade with coefficient 0.02 pays a 0.01 taker fee (cash 100.59). A two-
 latency with only one book does not fill (cash stays 100). A forecast issued after the
 CLI does not enter the error. None of this is a claim about live Philadelphia markets.
 
-Live NWS, Weather Company, and Open-Meteo calls are unverified.
+Live NWS and Weather Company calls are unverified. One stored public pull is
+described in `docs/phase-reports/phase-4.50.md`. The package still does not
+open a socket.

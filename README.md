@@ -51,6 +51,7 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 ## Status
 
 Phase 10 is complete as a fixture-tested gate. It does not submit. Phase 11
-is deferred. See [`STATUS.md`](STATUS.md) before starting anything else.
+is deferred. Phase 4.50 scores one stored public weather and demo-host market
+pull. See [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).
