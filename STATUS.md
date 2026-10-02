@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.94 — complete**. Next is Phase 4.95.
+Last updated: 2026-10-02 · Current phase: **Phase 4.95 — complete**. Next is Phase 4.96.
 
 ## What this project is
 
@@ -101,6 +101,7 @@ holds trading credentials.
 | 4.92 | Chicago daily-high research note | **complete** | [phase-4.92.md](docs/phase-reports/phase-4.92.md) |
 | 4.93 | New York daily-high rules | **complete** | [phase-4.93.md](docs/phase-reports/phase-4.93.md) |
 | 4.94 | Austin daily-high rules | **complete** | [phase-4.94.md](docs/phase-reports/phase-4.94.md) |
+| 4.95 | Oklahoma City daily-high rules | **complete** | [phase-4.95.md](docs/phase-reports/phase-4.95.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -321,6 +322,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   equity is 100.000000 on all four rules because there is no print.
   `forecast_above` fired 40 times and agreed 40 times. `forecast_gap`
   fired 40 times and agreed 0 times. Nothing is promoted.
+- **Phase 4.95**: Oklahoma City `KXHIGHTOKC`, station CLIOKC, the same
+  frozen rules. 0 of 40 B80.5 markets exist. 39 CLI labels; 2026-09-16
+  has only same-day products, so no high was invented. Optimistic equity
+  is 100.000000 on all four rules. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -356,16 +361,16 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.95 — score the next listed daily-high series after `KXHIGHAUS`,
-`KXHIGHTOKC`, with the same frozen rules and the same fidelity labels.
+Phase 4.96 — score the next listed daily-high series after `KXHIGHTOKC`,
+`KXHIGHTMMMX`, with the same frozen rules and the same fidelity labels.
 Read the station from the contract. Missing B80.5 markets stay
 not_found. Do not change 0.40, 15:00 UTC, or 80.5 after the score. Do
 not promote. Do not score a holdout. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.94: ruff clean, mypy strict
-clean, pytest 233 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.95: ruff clean, mypy strict
+clean, pytest 235 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -391,7 +396,9 @@ and 39 prediction records for that rescore. Phase 4.93 stored a public
 KXHIGHNY pull: Kalshi markets and trades, IEM CLINYC, NWS station KNYC,
 and Open-Meteo previous-runs. No order was sent. Phase 4.94 stored a
 public KXHIGHAUS pull the same way. All 40 requested B80.5 markets were
-not_found. No order was sent.
+not_found. No order was sent. Phase 4.95 stored a public KXHIGHTOKC
+pull the same way. All 40 requested B80.5 markets were not_found. No
+order was sent.
 
 ## How to resume (fresh agent)
 
