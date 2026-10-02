@@ -15,8 +15,11 @@ from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
 
+from entropytrade.domain.enums import StrikeType
+from entropytrade.domain.market import Strike
 from entropytrade.domain.observations import Forecast
 from entropytrade.exchange.historical_trades import _decode_time
+from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint
 from entropytrade.weather.cli_observations import CliLabel
 from entropytrade.weather.cli_print_guess import (
@@ -98,6 +101,68 @@ def load_chicago_score(root: Path) -> ChicagoScore:
         fidelity="trade-print",
         promoted=False,
         rules=rules,
+    )
+
+
+@dataclass(frozen=True)
+class ChicagoResultCheck:
+    """Stored Kalshi results versus the CLI bracket. Missing markets stay missing."""
+
+    markets: int
+    found: int
+    missing: int
+    yes_results: int
+    no_results: int
+    agreements: int
+    disagreements: int
+    promoted: bool
+
+
+def load_chicago_result_check(root: Path) -> ChicagoResultCheck:
+    """Compare listed B80.5 results with the CLI bracket. 404s have no result."""
+    labels, _forecasts, _prints, found, missing = _inputs(root)
+    by_day = {label.valid_on: label for label in labels}
+    strike = Strike(strike_type=StrikeType.BETWEEN, floor=BRACKET_FLOOR, cap=BRACKET_CAP)
+    agreements = 0
+    disagreements = 0
+    yes_results = 0
+    no_results = 0
+    listed = 0
+    for row in _markets(root / "chicago" / "markets.json"):
+        status = row.get("http_status")
+        if status == 404:
+            if "result" in row:
+                raise ValueError("a missing Chicago market has a result")
+            continue
+        if status != 200:
+            raise ValueError("unexpected Chicago market status")
+        result = row.get("result")
+        if result not in ("yes", "no"):
+            raise ValueError("a listed Chicago market has no yes/no result")
+        valid_on = ticker_target_date(_text(row.get("ticker"), "ticker"))
+        label = None if valid_on is None else by_day.get(valid_on)
+        if label is None:
+            raise ValueError("a listed Chicago market has no CLI label")
+        listed += 1
+        if result == "yes":
+            yes_results += 1
+        else:
+            no_results += 1
+        if (result == "yes") == strike.resolves_yes(label.high_f):
+            agreements += 1
+        else:
+            disagreements += 1
+    if listed != found:
+        raise ValueError("not every listed Chicago market was compared")
+    return ChicagoResultCheck(
+        markets=found + missing,
+        found=found,
+        missing=missing,
+        yes_results=yes_results,
+        no_results=no_results,
+        agreements=agreements,
+        disagreements=disagreements,
+        promoted=False,
     )
 
 
