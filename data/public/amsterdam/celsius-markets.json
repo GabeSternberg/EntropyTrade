@@ -1,0 +1,26 @@
+[
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T22",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 22\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  },
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T21",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 21\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  },
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T20",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 20\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  },
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T19",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 19\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  },
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T18",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 18\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  },
+  {
+    "ticker": "KXHIGHTEHAM-26AUG20-T17",
+    "rules_primary": "If the maximum temperature recorded at EHAM in Amsterdam for Aug 20, 2026 is at least 17\u00b0 Degrees Celsius according to The Weather Company, then the market resolves to Yes."
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-10-02T18:27:40.533326+00:00",
+  "finished_at": "2026-10-02T18:27:48.572995+00:00",
+  "series": "KXHIGHTEHAM",
+  "title": "Amsterdam Daily High Temperature",
+  "listed_after": "KXHIGHTMMMX",
+  "markets_found": 0,
+  "markets_missing": 40,
+  "celsius_markets_listed": 6,
+  "station_in_celsius_sample": "EHAM",
+  "bracket_applied": false,
+  "scored": false,
+  "promoted": false,
+  "reason": "The listed markets settle in Celsius. The requested B80.5 tickers are not_found. The Fahrenheit 80-81 bracket was not applied to a Celsius strike."
+}

@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.96 — complete**. Next is Phase 4.97.
+Last updated: 2026-10-02 · Current phase: **Phase 4.97 — complete**. Next is Phase 4.98.
 
 ## What this project is
 
@@ -103,6 +103,7 @@ holds trading credentials.
 | 4.94 | Austin daily-high rules | **complete** | [phase-4.94.md](docs/phase-reports/phase-4.94.md) |
 | 4.95 | Oklahoma City daily-high rules | **complete** | [phase-4.95.md](docs/phase-reports/phase-4.95.md) |
 | 4.96 | Mexico City listing, not scored | **complete** | [phase-4.96.md](docs/phase-reports/phase-4.96.md) |
+| 4.97 | Amsterdam listing, Celsius not scored | **complete** | [phase-4.97.md](docs/phase-reports/phase-4.97.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -330,6 +331,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.96**: `KXHIGHTMMMX` lists no markets and no events. The sample
   B80.5 ticker is not_found. No station was named, so nothing was scored
   and no strike was substituted. Nothing is promoted.
+- **Phase 4.97**: Amsterdam `KXHIGHTEHAM` lists six Celsius markets and
+  no B80.5 market. The Fahrenheit bracket was not applied. Nothing was
+  scored. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -365,16 +369,17 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.97 — read `KXHIGHTEHAM` before applying the frozen rules. A
-listed sample is Celsius ("at least 22°"). Do not convert 80.5 F into
-another strike. Request B80.5 only. If that contract is not the
-Fahrenheit 80-81 bracket, do not score it as that bracket. Do not
-promote. Do not score a holdout. No live order.
+Phase 4.98 — score the next listed daily-high series after
+`KXHIGHTEHAM`, `KXHIGHHOU`, with the same frozen rules. Read the station
+from the contract. If the contract is not Fahrenheit between 80 and 81,
+do not apply that bracket to a different unit or strike. Missing B80.5
+markets stay not_found. Do not change 0.40, 15:00 UTC, or 80.5 after a
+score. Do not promote. Do not score a holdout. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.96: ruff clean, mypy strict
-clean, pytest 236 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.97: ruff clean, mypy strict
+clean, pytest 237 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
@@ -403,7 +408,8 @@ public KXHIGHAUS pull the same way. All 40 requested B80.5 markets were
 not_found. No order was sent. Phase 4.95 stored a public KXHIGHTOKC
 pull the same way. All 40 requested B80.5 markets were not_found. No
 order was sent. Phase 4.96 found no Mexico City markets or events. No
-order was sent.
+order was sent. Phase 4.97 stored the Amsterdam B80.5 misses and the
+Celsius samples. No order was sent.
 
 ## How to resume (fresh agent)
 
