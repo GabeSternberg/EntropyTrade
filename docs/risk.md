@@ -20,7 +20,10 @@ accepts.
 `StrategySpec.risk_overrides_allowed` is the literal `"none"`. There is no other legal
 value. Position sizing is `fixed_contracts`, `fixed_dollars`, or `fractional_kelly`, and a
 Kelly fraction above one half is rejected by the type. That is the "no unrestricted Kelly"
-rule, encoded early; Phase 2 still applies the real caps, fees and shrinkage.
+rule. `RiskEngine` applies the caps: per trade, per event, total deployed, bankroll,
+realized loss, realized drawdown, book age, spread, and displayed liquidity. A cap clips
+the approved quantity. A failed check rejects the intent, and `seal` will not build an
+`ApprovedOrderIntent` from that decision.
 
 `CapitalEnvelope` on a `Deployment` is the money bound. A live deployment cannot be
 `approved` or `active` without a human `approved_by`.
@@ -37,20 +40,21 @@ that transition even if an approval object is attached. Moving down (`live` to `
 anything to `paused` or `retired`) needs no approval, so a halt is not stuck waiting for a
 person.
 
-## Kill switches, later
+## Kill switches
 
-Phase 2 implements the five stops from the spec: dashboard pause, a database flag, a
-`HALT` sentinel file, the environment flag, and an automatic risk halt. Tripping one
-rejects new orders immediately. Cancelling resting orders is a separate, explicit action.
-Resuming after an automatic halt is also explicit. None of this exists yet; the mode gate
-above is the only stop in Phase 0.
+`RiskEngine.halted` is true when any of these is on: the in-process kill switch
+(`kill` / `resume`), `trading_enabled=False` (the flag a later database row will store),
+a `HALT` file at the path the engine was given, or `ENTROPYTRADE_TRADING_ENABLED` set to
+anything other than `true` in the environ mapping passed in. A halt rejects new orders.
+It does not cancel resting orders and it does not liquidate. `resume` clears only the
+in-process switch. There is no dashboard button yet; that button will call `kill`.
 
 ## Limits the engine will enforce
 
-Per order, per contract, per event, per series, total deployed capital, correlated
-exposure, daily and weekly loss, drawdown, open-order count, order rate, minimum
-liquidity, maximum spread, maximum slippage, minimum net edge, data age, model age, time
-since reconciliation, and unresolved `unknown` orders. No martingale. The correlated-event
+Phase 2 enforces per-trade, per-event, total deployed, and bankroll caps, plus realized
+loss, realized drawdown, book age, spread, and minimum displayed liquidity. Still open:
+per series, correlated exposure, open-order count, order rate, maximum slippage, minimum
+net edge, model age, and time since reconciliation. No martingale. The correlated-event
 cap matters for weather: every strike of one city-day is the same bet.
 
 `EdgeEstimate` keeps the pieces separate. `raw_edge` is model probability minus the

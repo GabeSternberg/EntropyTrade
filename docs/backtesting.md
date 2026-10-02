@@ -17,7 +17,9 @@ the audited engines are not that engine.
   separates them from `best_price_to_buy`.
 - Fees are a `FeeModelRef` (type, multiplier, whether the maker pays, effective date),
   not a constant. KXHIGH* is `quadratic` with multiplier 1, so makers pay nothing there;
-  other series differ, including `quadratic_with_maker_fees`. The formula itself is Phase 2.
+  other series differ, including `quadratic_with_maker_fees`. `trade_fee` takes the
+quadratic coefficient from the schedule. Makers pay only when `maker_pays` is set.
+There is no built-in 7 cent coefficient. Flat series fees are not computed.
 - Settlement pays the contract, and payouts are bounded by quantity. An open position
   marked at the last trade is not a settlement.
 

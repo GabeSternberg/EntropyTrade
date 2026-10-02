@@ -3,7 +3,8 @@
 Private, single-user research, backtesting and (eventually) automated trading for Kalshi
 prediction markets. Not a SaaS product. Phase 0 is complete: domain types, architecture
 and an audit of the open-source projects the design builds on. Phase 1 is a read-only
-Kalshi gateway and a SQLite recorder. It does not trade. Phase 2 has not been started.
+Kalshi gateway and a SQLite recorder. Phase 2 is paper accounting and the risk gate.
+It does not send exchange orders. Phase 3 has not been started.
 
 The requirements are in [`docs/project-spec.md`](docs/project-spec.md). Where the project
 actually is, and how to resume it, is [`STATUS.md`](STATUS.md).

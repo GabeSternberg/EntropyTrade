@@ -126,5 +126,6 @@ second read of the same text is the same version.
 ## What is deliberately not here yet
 
 No Parquet layout and no feature store. DuckDB/Parquet for analytical data is still the
-planned store for the backtester (Phase 3). Account, order, and fill tables are Phase 2.
-Raw data is append-only; `data/raw/` is gitignored.
+planned store for the backtester (Phase 3). The paper account is one SQLite row
+(`LedgerStore`) holding cash, positions, fills, orders, and collateral. Reloading it does
+not replay a fill. Raw market data stays append-only; `data/raw/` is gitignored.

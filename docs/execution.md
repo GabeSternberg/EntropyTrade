@@ -13,6 +13,14 @@ positive quantity no larger than the request, decided at or after the intent. Ou
 before the call and is the idempotency key. Resubmitting the same id must not create a
 second order.
 
+`PaperBroker.submit` accepts only an `ApprovedOrderIntent`. It walks the current
+`OrderBook`, charges `trade_fee` on taker slices, and records the fill on a `Ledger`.
+Good-till-canceled remainder rests as collateral. Fill-or-kill and immediate-or-cancel
+cancel what they cannot take. The broker does not call `KalshiGateway.submit_order`.
+A later book does not fill an order that is already resting; that matching loop is still
+open. Reconciliation compares snapshots and adopts an `unknown` order only along a legal
+transition, keyed by `client_order_id`.
+
 ## State machine
 
 ```text

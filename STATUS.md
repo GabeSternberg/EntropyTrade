@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 1 — complete**. Next is Phase 2.
+Last updated: 2026-10-02 · Current phase: **Phase 2 — complete**. Next is Phase 3.
 
 ## What this project is
 
@@ -45,7 +45,7 @@ holds trading credentials.
 | --- | --- | --- | --- |
 | 0 | Open-source audit + project skeleton | **complete** | [phase-0.md](docs/phase-reports/phase-0.md) |
 | 1 | Read-only Kalshi gateway + market recorder | **complete** | [phase-1.md](docs/phase-reports/phase-1.md) |
-| 2 | Accounting + paper broker + risk foundation | planned | — |
+| 2 | Accounting + paper broker + risk foundation | **complete** | [phase-2.md](docs/phase-reports/phase-2.md) |
 | 3 | Point-in-time backtesting engine | planned | — |
 | 4 | First weather dataset + baseline models | planned | — |
 | 5 | Agentic research pipeline (PydanticAI) | planned | — |
@@ -86,27 +86,24 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 2 — accounting, paper broker, and the risk foundation. The exact plan is
-the last section of [`docs/phase-reports/phase-1.md`](docs/phase-reports/phase-1.md).
+Phase 3 — point-in-time backtesting. The exact plan is the last section of
+[`docs/phase-reports/phase-2.md`](docs/phase-reports/phase-2.md).
 
-Scope: account, positions, orders, fills, settlements, P&L, capital-at-risk,
-execution intents, `PaperBroker` against the Phase 1 book, and a deterministic
-risk engine (bankroll, per-trade, per-event, total deployed, loss, drawdown,
-stale data, minimum liquidity, maximum spread, kill switch). Property tests
-for accounting. Tests that a strategy cannot bypass risk. Crash/restart
-reconciliation against fixtures. No production trading. No trading key in
-research code. No live or demo order submission.
+Scope: replay recorded frames through the paper broker, fees and a latency
+shift, settlement, a deterministic run artifact, and walk-forward splits.
+A strategy that reads data from after the decision time must be blocked.
+Do not vendor `prediction-market-backtester`. No live or demo orders.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 1: ruff clean, mypy strict clean,
-pytest 71 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 2: ruff clean, mypy strict clean,
+pytest 89 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 
 Unverified for lack of credentials: a multi-hour demo or read-only production
-session, and a real Kalshi WebSocket handshake. No production trading
-credentials are in the repo.
+session, a real Kalshi WebSocket handshake, and reconciliation against a live
+demo account. No production trading credentials are in the repo.
 
 ## How to resume (fresh agent)
 
