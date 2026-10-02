@@ -64,6 +64,27 @@ class FeedHealth(DomainModel):
     lag_seconds: float | None = None
 
 
+class HealthFlags(DomainModel):
+    """Booleans a monitor can read without interpreting the raw health fields."""
+
+    connected: bool
+    stale: bool
+    gapped: bool
+    lagging: bool
+
+
+def health_flags(health: FeedHealth, *, lag_limit_seconds: float) -> HealthFlags:
+    """Stale, gapped, and lagging are separate. A quiet disconnected feed is only disconnected."""
+    lag = health.lag_seconds
+    gapped = health.last_gap is not None or health.missing_sequence_frames > 0
+    return HealthFlags(
+        connected=health.connected,
+        stale=bool(health.stale_tickers),
+        gapped=gapped,
+        lagging=lag is not None and lag > lag_limit_seconds,
+    )
+
+
 StreamEffect = AppliedBook | AppliedTrade | AppliedLifecycle | GapEffect | StaleBook
 
 

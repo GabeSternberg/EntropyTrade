@@ -18,8 +18,11 @@ from entropytrade.exchange.feed import (
     AppliedBook,
     AppliedTrade,
     CollectorFeed,
+    FeedHealth,
     GapEffect,
+    HealthFlags,
     StaleBook,
+    health_flags,
 )
 from entropytrade.exchange.frames import (
     BookDeltaFrame,
@@ -258,6 +261,53 @@ def test_recorder_restart_does_not_duplicate_rows(tmp_path: Path) -> None:
     reopened.close()
     assert rules.rules_hash.startswith("sha256:")
     json.loads(payloads[0])
+
+
+def test_health_flags_separate_disconnect_stale_gap_and_lag() -> None:
+    quiet = FeedHealth(
+        connected=False,
+        last_message_at=None,
+        last_gap=None,
+        stale_tickers=(),
+        missing_sequence_frames=0,
+        lag_seconds=None,
+    )
+    assert health_flags(quiet, lag_limit_seconds=5.0) == HealthFlags(
+        connected=False,
+        stale=False,
+        gapped=False,
+        lagging=False,
+    )
+    gap = GapEffect(channel="trade", sid=1, expected=2, received=4, kind=GapKind.GAP)
+    noisy = FeedHealth(
+        connected=True,
+        last_message_at=WHEN,
+        last_gap=gap,
+        stale_tickers=(TICKER,),
+        missing_sequence_frames=2,
+        lag_seconds=9.0,
+    )
+    assert health_flags(noisy, lag_limit_seconds=5.0) == HealthFlags(
+        connected=True,
+        stale=True,
+        gapped=True,
+        lagging=True,
+    )
+    inside = noisy.revalidated(
+        last_gap=None,
+        stale_tickers=(),
+        missing_sequence_frames=0,
+        lag_seconds=5.0,
+    )
+    flagged = health_flags(inside, lag_limit_seconds=5.0)
+    assert flagged.gapped is False
+    assert flagged.stale is False
+    assert flagged.lagging is False
+    feed = CollectorFeed()
+    feed.note_reconnect(WHEN)
+    live = health_flags(feed.health(WHEN), lag_limit_seconds=5.0)
+    assert live.connected is True
+    assert live.lagging is False
 
 
 def test_adapter_source_does_not_call_from_env() -> None:
