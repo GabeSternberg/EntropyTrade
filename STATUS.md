@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.123 — complete**. Next is Phase 4.124.
+Last updated: 2026-10-02 · Current phase: **Phase 4.124 — complete**. Next is Phase 4.125.
 
 ## What this project is
 
@@ -130,6 +130,7 @@ holds trading credentials.
 | 4.121 | `KXHIGHTLFPG` not scored | **complete** | [phase-4.121.md](docs/phase-reports/phase-4.121.md) |
 | 4.122 | `KXHIGHUS` not scored | **complete** | [phase-4.122.md](docs/phase-reports/phase-4.122.md) |
 | 4.123 | Newark, NJ (EWR) Daily Max Temp `KXHIGHTEWR` scored | **complete** | [phase-4.123.md](docs/phase-reports/phase-4.123.md) |
+| 4.124 | Trenton, NJ Daily Max Temp `KXHIGHTTTN` scored | **complete** | [phase-4.124.md](docs/phase-reports/phase-4.124.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -393,6 +394,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.121**: `KXHIGHTLFPG`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 4.122**: `KXHIGHUS`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 4.123**: `KXHIGHTEWR`. 8 of 40 B80.5 markets exist. Optimistic equity is 100.000000, 100.600000, 100.000000, 99.960000. Validation optimistic equity is 100.000000, 100.000000, 100.000000, 99.980000. Base and conservative stay 100.000000. The holdout is not scored. Nothing is promoted.
+- **Phase 4.124**: `KXHIGHTTTN`. 9 of 40 B80.5 markets exist. Optimistic equity is 99.820000, 100.970000, 100.000000, 101.000000. Validation optimistic equity is 99.820000, 100.000000, 100.000000, 100.570000. Base and conservative stay 100.000000. The holdout is not scored. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -428,11 +430,11 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.124 — next stored ticker `KXHIGHTTTN`. Same frozen rules. If the series or its B80.5 markets 404, store the error and do not substitute a strike. Do not change 0.40, 15:00 UTC, or 80.5. Do not score a holdout. Do not promote. No live order.
+Phase 4.125 — next stored ticker `KXHIGHTZSPD`. Same frozen rules. If the series or its B80.5 markets 404, store the error and do not substitute a strike. Do not change 0.40, 15:00 UTC, or 80.5. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.123: ruff clean, mypy strict
+On 2026-10-02, `make check` passed for Phase 4.124: ruff clean, mypy strict
 clean, pytest 242 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
