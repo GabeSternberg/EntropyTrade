@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.80 — complete**. Next is Phase 4.81.
+Last updated: 2026-10-02 · Current phase: **Phase 4.81 — complete**. Next is Phase 4.82.
 
 ## What this project is
 
@@ -87,6 +87,7 @@ holds trading credentials.
 | 4.78 | Feature manifest versus spec section 27 | **complete** | [phase-4.78.md](docs/phase-reports/phase-4.78.md) |
 | 4.79 | Feature hash omits two row keys | **complete** | [phase-4.79.md](docs/phase-reports/phase-4.79.md) |
 | 4.80 | Chicago rule walk-forward, holdout unscored | **complete** | [phase-4.80.md](docs/phase-reports/phase-4.80.md) |
+| 4.81 | Chicago days absent from the feature manifest | **complete** | [phase-4.81.md](docs/phase-reports/phase-4.81.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -252,6 +253,9 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   validation equity is 100.000000, 100.000000, 100.000000, and 99.920000.
   Base and conservative stay at 100. Nothing is promoted. Thresholds
   stay 80, 81, 0.40, 80.5, and 15:00.
+- **Phase 4.81**: Chicago has 40 CLI labels. The feature manifest has 39
+  rows, all station CLIPHL. Zero prediction records name KXHIGHCHI. No
+  Chicago probability was built. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -287,14 +291,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.81 — the feature manifest rows are station CLIPHL. Chicago has
-40 CLI labels and no prediction record. Say that from the stored rows.
-Do not build a Chicago probability. Do not promote. No live order.
+Phase 4.82 — spec section 28 stores a calibration version on each
+prediction. The 39 CLI records leave that field empty. Say so from the
+stored rows. Do not invent a calibration version. Do not promote. No
+live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.80: ruff clean, mypy strict
-clean, pytest 217 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.81: ruff clean, mypy strict
+clean, pytest 218 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

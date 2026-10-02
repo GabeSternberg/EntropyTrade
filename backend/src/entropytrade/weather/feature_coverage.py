@@ -11,6 +11,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 
+from entropytrade.weather.chicago_rules import load_chicago_score
 from entropytrade.weather.provenance import load_feature_manifest, load_prediction_records
 
 _SPEC = Path("docs/project-spec.md")
@@ -34,6 +35,34 @@ class FeatureCoverage:
     sized_book_false: int
     spec_features: tuple[str, ...]
     absent_spec_features: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ChicagoManifestGap:
+    """Chicago labels beside the CLIPHL manifest. No Chicago probability."""
+
+    chicago_label_days: int
+    manifest_rows: int
+    manifest_station: str
+    chicago_prediction_records: int
+
+
+def load_chicago_manifest_gap(root: Path) -> ChicagoManifestGap:
+    """Count Chicago CLI days and Chicago tickers in the stored prediction file."""
+    chicago = load_chicago_score(root)
+    manifest = load_feature_manifest(root)
+    rows = _rows(manifest.get("rows"))
+    stations = {_text(row.get("station"), "station") for row in rows}
+    if len(stations) != 1:
+        raise ValueError("feature rows do not share one station")
+    records = load_prediction_records(root)
+    named = sum(1 for record in records if record.market_ticker.startswith("KXHIGHCHI"))
+    return ChicagoManifestGap(
+        chicago_label_days=chicago.label_days,
+        manifest_rows=len(rows),
+        manifest_station=stations.pop(),
+        chicago_prediction_records=named,
+    )
 
 
 def load_feature_coverage(root: Path) -> FeatureCoverage:
