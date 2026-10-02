@@ -118,6 +118,29 @@ def load_calibration_gap(root: Path) -> CalibrationGap:
     return CalibrationGap(records=len(records), calibration_version_empty=empty)
 
 
+@dataclass(frozen=True)
+class PredictionStrategy:
+    """The strategy name on the stored records. Not a StrategySpec."""
+
+    records: int
+    strategy_id: str
+    strategy_version: int
+
+
+def load_prediction_strategy(root: Path) -> PredictionStrategy:
+    """Read the strategy id the records already cite. Does not write a spec."""
+    records = load_prediction_records(root)
+    ids = {record.strategy_id for record in records}
+    versions = {record.strategy_version for record in records}
+    if len(ids) != 1 or len(versions) != 1:
+        raise ValueError("prediction records do not share one strategy")
+    return PredictionStrategy(
+        records=len(records),
+        strategy_id=ids.pop(),
+        strategy_version=versions.pop(),
+    )
+
+
 def load_feature_hash_gap(root: Path) -> FeatureHashGap:
     """Name the row keys left out of the stored feature hash. The hash stays put."""
     payload = build_feature_payload(root)
