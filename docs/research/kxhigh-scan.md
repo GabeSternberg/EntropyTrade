@@ -59,3 +59,5 @@ the day before for the earlier field. A print is not a fill. Nothing
 was promoted.
 
 Philadelphia `forecast_revision_up`. Train fires: 0. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Chicago `forecast_revision_up`. Train fires: 0. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.

@@ -11,6 +11,7 @@ from entropytrade.weather.revision_rule import (
     DECISION_HOUR_UTC,
     REVISION_MINIMUM_F,
     _fold,
+    load_chicago_revision,
     load_philadelphia_revision,
     revision_lines,
 )
@@ -59,6 +60,30 @@ def test_philadelphia_revision_does_not_fill() -> None:
     assert "Nothing was promoted." in note
     assert "Philadelphia `forecast_revision_up`." in note
     assert "Validation optimistic equity: 100.000000." in note
+
+
+def test_chicago_revision_uses_the_same_thresholds() -> None:
+    score = load_chicago_revision(ROOT)
+    assert score.place == "Chicago"
+    assert score.clock == "rule"
+    assert score.promoted is False
+    assert score.holdout_scored is False
+    assert score.train_days == 20
+    assert score.validation_days == 10
+    assert score.holdout_days == 10
+    for fold in (score.train, score.validation):
+        assert fold.fires == 0
+        assert fold.optimistic_fills == 0
+        assert fold.optimistic_equity == Decimal("100.000000")
+        assert fold.base_equity == Decimal("100.000000")
+        assert fold.conservative_equity == Decimal("100.000000")
+        assert fold.base_fills == 0
+        assert fold.conservative_fills == 0
+    assert "run=" not in (ROOT / "chicago" / "revision-vintages.manifest.json").read_text(
+        encoding="utf-8"
+    )
+    note = "\n".join(revision_lines(ROOT))
+    assert "Chicago `forecast_revision_up`." in note
 
 
 def test_revision_fires_only_on_the_frozen_pair() -> None:

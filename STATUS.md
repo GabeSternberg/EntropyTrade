@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.142 — complete**. Next is Phase 4.143.
+Last updated: 2026-10-02 · Current phase: **Phase 4.143 — complete**. No third city.
 
 ## What this project is
 
@@ -149,6 +149,7 @@ holds trading credentials.
 | 4.140 | `KXHIGHTHOU` not scored | **complete** | [phase-4.140.md](docs/phase-reports/phase-4.140.md) |
 | 4.141 | Philadelphia revision, two vintages missing | **complete** | [phase-4.141.md](docs/phase-reports/phase-4.141.md) |
 | 4.142 | Philadelphia revision on previous-day fields | **complete** | [phase-4.142.md](docs/phase-reports/phase-4.142.md) |
+| 4.143 | Chicago revision on the same fields | **complete** | [phase-4.143.md](docs/phase-reports/phase-4.143.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -431,6 +432,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.140**: `KXHIGHTHOU`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 4.141**: `forecast_revision_up` is one hypothesis. Two vintages are not on disk. Previous-runs refused a model run with HTTP 400, `Parameter 'run' must not be set`. Fires, fills, optimistic equity, and validation equity were not computed. Chicago was not scored. Nothing is promoted.
 - **Phase 4.142**: Philadelphia `forecast_revision_up` uses `temperature_2m_previous_day1` and `temperature_2m_previous_day2`. `run` was not sent. The clock is a rule. Train and validation each fired 0 times. Optimistic, base, and conservative equity are 100.000000. The holdout is not scored. Nothing is promoted.
+- **Phase 4.143**: Chicago uses the same fields and thresholds. `previous_day2` returned HTTP 200. Train and validation each fired 0 times. Optimistic, base, and conservative equity are 100.000000. The holdout is not scored. Nothing is promoted. No third city.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -466,12 +468,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.143 — repeat the identical revision fields and thresholds on the stored Chicago point. Do not change 2°F or 0.40. Do not send `run`. Do not score a holdout. Do not promote. No live order. No third city.
+No third city. The revision rule stays at 2°F and 0.40. Do not send `run`. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.142: ruff clean, mypy strict
-clean, pytest 244 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.143: ruff clean, mypy strict
+clean, pytest 245 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
