@@ -1,0 +1,15 @@
+{
+  "fetched_at": "2026-10-02T18:26:01.861142+00:00",
+  "series": "KXHIGHTMMMX",
+  "title": "Daily high temp Mexico City",
+  "listed_after": "KXHIGHTOKC",
+  "markets_listed": 0,
+  "events_listed": 0,
+  "sample_ticker": "KXHIGHTMMMX-26AUG23-B80.5",
+  "sample_http_status": 404,
+  "sample_error_code": "not_found",
+  "station_named": false,
+  "scored": false,
+  "promoted": false,
+  "reason": "No market or event was listed, so the contract did not name a station. The sample B80.5 ticker is not_found. No strike was substituted and no forecast was requested."
+}
