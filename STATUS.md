@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 5 — complete**. Next is Phase 6.
+Last updated: 2026-10-02 · Current phase: **Phase 6 — complete**. Next is Phase 7.
 
 ## What this project is
 
@@ -49,7 +49,7 @@ holds trading credentials.
 | 3 | Point-in-time backtesting engine | **complete** | [phase-3.md](docs/phase-reports/phase-3.md) |
 | 4 | First weather dataset + baseline models | **complete** | [phase-4.md](docs/phase-reports/phase-4.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
-| 6 | Strategy registry + experiment tracking + dashboard | planned | — |
+| 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | planned | — |
 | 8 | Live paper + shadow validation | planned | — |
 | 9 | Live-small execution (explicit approval required) | planned | — |
@@ -86,26 +86,25 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 6 — strategy registry, experiment tracking, and a read-only dashboard.
-The exact plan is the last section of
-[`docs/phase-reports/phase-5.md`](docs/phase-reports/phase-5.md).
+Phase 7 — the structural scanner. The exact plan is the last section of
+[`docs/phase-reports/phase-6.md`](docs/phase-reports/phase-6.md).
 
-Scope: SQLite lineage, the existing promotion table, a local MLflow directory,
-and a page that lists specs. No live orders, no trading key, and `configs/live`
-stays unloaded. Agents still cannot approve real capital.
+Scope: executable-price violations inside one event, fees from the series
+schedule, and paper intents only. No LLM, no trading key, no live submit.
+A live WebSocket session stays unverified.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 5: ruff clean, mypy strict clean,
-pytest 115 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 6: ruff clean, mypy strict clean,
+pytest 120 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 
 Unverified for lack of credentials: a multi-hour demo or read-only production
 session, a real Kalshi WebSocket handshake, reconciliation against a live demo
 account, any live NWS, Weather Company, or Open-Meteo request, and any live
-Anthropic or OpenAI call. Provider model requests are blocked.
-No production trading credentials are in the repo.
+Anthropic or OpenAI call. Provider model requests are blocked. The MLflow UI
+server is not started. No production trading credentials are in the repo.
 
 ## How to resume (fresh agent)
 

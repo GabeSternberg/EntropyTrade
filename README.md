@@ -7,6 +7,7 @@ Kalshi gateway and a SQLite recorder. Phase 2 is paper accounting and the risk g
 Phase 3 replays recorded books without showing the strategy future rows. Phase 4 scores
 daily-high baselines from recorded weather bodies. Phase 5 turns a prompt into
 StrategySpecs and backtests the ones that pass the critic and the interpreter.
+Phase 6 stores those specs and serves a read-only registry page.
 None of this sends exchange orders.
 
 The requirements are in [`docs/project-spec.md`](docs/project-spec.md). Where the project
@@ -45,8 +46,9 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 
 ## Status
 
-Phase 5 is complete. Phase 6 (registry, experiment log, dashboard) is next. See
+Phase 6 is complete. Phase 7 (the structural scanner) is next. See
 [`STATUS.md`](STATUS.md) before starting anything else. Daily-high scoring is
 in [`docs/weather.md`](docs/weather.md). The research pipeline is in
-[`docs/research.md`](docs/research.md).
+[`docs/research.md`](docs/research.md). The registry page is in
+[`docs/registry.md`](docs/registry.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).

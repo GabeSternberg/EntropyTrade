@@ -49,6 +49,7 @@ protocol so a dropped socket does not share a lifetime with a REST call. Ruff ba
 `backtest`, `risk`, `execution`, `weather`, and `agents` have behaviour. Phases are
 listed in [`../STATUS.md`](../STATUS.md). Weather parsers read recorded bodies only.
 Research agents use PydanticAI's TestModel; provider requests are blocked on import.
+The strategy registry is SQLite. Its page is read-only and has no order route.
 
 ## What the audit changed
 

@@ -1,1 +1,1 @@
-"""Strategy versions, lineage, lifecycle transitions and approvals. Phase 6."""
+"""Strategy versions, lineage, and the read-only registry page."""

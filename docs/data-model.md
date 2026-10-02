@@ -132,4 +132,6 @@ No Parquet layout and no feature store. Replay still takes books and features fr
 caller; the recorder is not the replay reader. The paper account is one SQLite row
 (`LedgerStore`) holding cash, positions, fills, orders, and collateral. Reloading it does
 not replay a fill. Raw market data stays append-only; `data/raw/` is gitignored. Weather
-rows are not in the recorder.
+rows are not in the recorder. Strategy lineage is a separate SQLite file
+(`Registry`): one row per spec hash, a current lifecycle state, a verdict, and
+an optional replay digest. Re-recording a hash does not create a version.
