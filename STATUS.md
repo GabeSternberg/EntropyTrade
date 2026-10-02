@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.103 — complete**. Next is Phase 4.104.
+Last updated: 2026-10-02 · Current phase: **Phase 4.104 — complete**. Next is Phase 4.105.
 
 ## What this project is
 
@@ -110,6 +110,7 @@ holds trading credentials.
 | 4.101 | `KXHIGHTLTFM` not scored | **complete** | [phase-4.101.md](docs/phase-reports/phase-4.101.md) |
 | 4.102 | `KXHIGHTNOLA` not scored | **complete** | [phase-4.102.md](docs/phase-reports/phase-4.102.md) |
 | 4.103 | Highest temperature in Denver `KXHIGHDEN` scored | **complete** | [phase-4.103.md](docs/phase-reports/phase-4.103.md) |
+| 4.104 | `KXHIGHTEDDB` not scored | **complete** | [phase-4.104.md](docs/phase-reports/phase-4.104.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -353,6 +354,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.101**: `KXHIGHTLTFM`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 4.102**: `KXHIGHTNOLA`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 4.103**: `KXHIGHDEN`. 7 of 40 B80.5 markets exist. Optimistic equity is 100.000000, 100.000000, 100.000000, 99.620000. Validation optimistic equity is 100.000000, 100.000000, 100.000000, 99.930000. Base and conservative stay 100.000000. The holdout is not scored. Nothing is promoted.
+- **Phase 4.104**: `KXHIGHTEDDB`. 0 markets found, 40 missing. Nothing was scored. No strike was substituted. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -388,11 +390,11 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.104 — next stored ticker `KXHIGHTEDDB`. Same frozen rules. If the series or its B80.5 markets 404, store the error and do not substitute a strike. Do not change 0.40, 15:00 UTC, or 80.5. Do not score a holdout. Do not promote. No live order.
+Phase 4.105 — next stored ticker `KXHIGHTSDF`. Same frozen rules. If the series or its B80.5 markets 404, store the error and do not substitute a strike. Do not change 0.40, 15:00 UTC, or 80.5. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.103: ruff clean, mypy strict
+On 2026-10-02, `make check` passed for Phase 4.104: ruff clean, mypy strict
 clean, pytest 242 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
