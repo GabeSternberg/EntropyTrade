@@ -1,0 +1,49 @@
+# Feature manifest coverage
+
+This note records the stored CLI rescore feature manifest. It does not fit a model. Nothing was promoted.
+
+The manifest has 39 rows. Every row is station CLIPHL. The decision clock
+is 15:00:00Z. The named columns are forecast_high,
+point_in_time_climatology, and prints_at_decision.
+
+The row keys are climatology, decision_time, forecast_available_at,
+forecast_high_f, market_listed, market_ticker, prints_at_decision,
+raw_probability, sized_book, station, and valid_on. sized_book is false
+on all 39 rows.
+
+The previous-runs file's hourly fields are time and
+temperature_2m_previous_day1. Bid is empty on 39 prediction records. Ask
+is empty on 39 prediction records.
+
+Spec section 27 names the features below. None of those names is a
+manifest column or a previous-runs hourly field.
+
+| Spec feature | Stored value |
+| --- | --- |
+| NWS forecast | no stored value |
+| GFS ensemble | no stored value |
+| HRRR where available | no stored value |
+| ECMWF where available | no stored value |
+| forecast mean | no stored value |
+| forecast dispersion | no stored value |
+| forecast changes/revisions | no stored value |
+| hours until resolution | no stored value |
+| hour of day | no stored value |
+| recent observed temperature | no stored value |
+| dew point | no stored value |
+| humidity | no stored value |
+| cloud cover | no stored value |
+| wind | no stored value |
+| precipitation | no stored value |
+| seasonality | no stored value |
+| historical station/model bias | no stored value |
+| previous day's errors | no stored value |
+| Kalshi bid | no stored value |
+| Kalshi ask | no stored value |
+| spread | no stored value |
+| market probability | no stored value |
+| market price change | no stored value |
+| trade volume | no stored value |
+| open interest | no stored value |
+| order-book imbalance | no stored value |
+| related temperature strikes | no stored value |
