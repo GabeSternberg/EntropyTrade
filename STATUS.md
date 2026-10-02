@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.87 — complete**. Next is Phase 4.88.
+Last updated: 2026-10-02 · Current phase: **Phase 4.88 — complete**. Next is Phase 4.89.
 
 ## What this project is
 
@@ -94,6 +94,7 @@ holds trading credentials.
 | 4.85 | Chicago print-guess walk-forward, holdout unscored | **complete** | [phase-4.85.md](docs/phase-reports/phase-4.85.md) |
 | 4.86 | The Chicago print that misses the CLI bracket | **complete** | [phase-4.86.md](docs/phase-reports/phase-4.86.md) |
 | 4.87 | Chicago listed results versus the CLI bracket | **complete** | [phase-4.87.md](docs/phase-reports/phase-4.87.md) |
+| 4.88 | Chicago settlement dollars and expiration values | **complete** | [phase-4.88.md](docs/phase-reports/phase-4.88.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -284,6 +285,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   6 yes and 5 no. All 11 match the CLI bracket. The 29 missing markets
   have no result field. Nothing was invented for them. Nothing is
   promoted.
+- **Phase 4.88**: a compact table of the 11 listed markets. Settlement
+  dollars are exactly 1 on yes and exactly 0 on no. Expiration value and
+  the between strike agree with the result on all 11. The 29 missing
+  markets are not in the table. Nothing is promoted. No URL was retried.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -319,16 +324,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.88 — the stored raw pages for those 11 markets include
-settlement_value_dollars and expiration_value. Write a compact table and
-compare them to the stored result and the 80-81 strike. Do not invent
-values for the 29 missing markets. Do not retry a URL. Do not promote.
-No live order.
+Phase 4.89 — compare the 11 stored Chicago expiration values with the
+CLI high in degrees. A bracket match is not the same as an equal high.
+Do not treat CLI as the settlement source. Do not invent values for the
+29 missing markets. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.87: ruff clean, mypy strict
-clean, pytest 224 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.88: ruff clean, mypy strict
+clean, pytest 225 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

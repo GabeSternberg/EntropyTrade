@@ -1,0 +1,101 @@
+[
+  {
+    "cap_strike": 81,
+    "expiration_value": "76.00",
+    "floor_strike": 80,
+    "result": "no",
+    "settlement_value_dollars": "0.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26AUG23-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "81.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26AUG25-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "81.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26AUG27-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "84.00",
+    "floor_strike": 80,
+    "result": "no",
+    "settlement_value_dollars": "0.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26AUG28-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "82.00",
+    "floor_strike": 80,
+    "result": "no",
+    "settlement_value_dollars": "0.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26AUG29-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "80.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP07-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "80.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP09-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "81.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP11-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "85.00",
+    "floor_strike": 80,
+    "result": "no",
+    "settlement_value_dollars": "0.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP15-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "82.00",
+    "floor_strike": 80,
+    "result": "no",
+    "settlement_value_dollars": "0.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP17-B80.5"
+  },
+  {
+    "cap_strike": 81,
+    "expiration_value": "80.00",
+    "floor_strike": 80,
+    "result": "yes",
+    "settlement_value_dollars": "1.0000",
+    "strike_type": "between",
+    "ticker": "KXHIGHCHI-26SEP29-B80.5"
+  }
+]

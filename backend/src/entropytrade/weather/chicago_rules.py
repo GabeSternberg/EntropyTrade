@@ -28,6 +28,7 @@ from entropytrade.weather.cli_print_guess import (
     print_disagreements,
     score_cli_print_guess,
 )
+from entropytrade.weather.expiration_check import _yes
 from entropytrade.weather.informational_rules import (
     BRACKET_CAP,
     BRACKET_FLOOR,
@@ -38,6 +39,7 @@ from entropytrade.weather.informational_rules import (
     score_rules,
 )
 from entropytrade.weather.recorded import RecordedBodyError, parse_cli_daily_high
+from entropytrade.weather.settlement_value import _side
 from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
 _STATION = "CLIMDW"
@@ -162,6 +164,83 @@ def load_chicago_result_check(root: Path) -> ChicagoResultCheck:
         no_results=no_results,
         agreements=agreements,
         disagreements=disagreements,
+        promoted=False,
+    )
+
+
+@dataclass(frozen=True)
+class ChicagoSettlementCheck:
+    """Settlement dollars and expiration value for the 11 listed markets."""
+
+    listed: int
+    omitted: int
+    settlement_agreements: int
+    settlement_mismatches: int
+    settlement_unevaluable: int
+    expiration_agreements: int
+    expiration_mismatches: int
+    expiration_unevaluable: int
+    promoted: bool
+
+
+def load_chicago_settlement_check(root: Path) -> ChicagoSettlementCheck:
+    """Read the compact table. Missing markets are not given a value."""
+    folder = root / "chicago"
+    listed = {
+        _text(row.get("ticker"), "ticker")
+        for row in _markets(folder / "markets.json")
+        if row.get("http_status") == 200
+    }
+    omitted = {
+        _text(row.get("ticker"), "ticker")
+        for row in _markets(folder / "markets.json")
+        if row.get("http_status") == 404
+    }
+    payload: object = json.loads(
+        (folder / "settlements.json").read_text(encoding="utf-8"),
+        parse_float=Decimal,
+    )
+    if not isinstance(payload, list):
+        raise ValueError("Chicago settlements are not a list")
+    rows = tuple(_object_value(item, "settlement") for item in payload)
+    tickers = {_text(row.get("ticker"), "ticker") for row in rows}
+    if tickers != listed:
+        raise ValueError("the compact table is not the 11 listed markets")
+    if tickers & omitted:
+        raise ValueError("a missing Chicago market was given a settlement")
+    settlement_agreements = 0
+    settlement_mismatches = 0
+    settlement_unevaluable = 0
+    expiration_agreements = 0
+    expiration_mismatches = 0
+    expiration_unevaluable = 0
+    for row in rows:
+        result = row.get("result")
+        if result not in ("yes", "no"):
+            raise ValueError("a compact settlement row has no yes/no result")
+        side = _side(row.get("settlement_value_dollars"))
+        if side is None:
+            settlement_unevaluable += 1
+        elif side == result:
+            settlement_agreements += 1
+        else:
+            settlement_mismatches += 1
+        yes = _yes(row)
+        if yes is None:
+            expiration_unevaluable += 1
+        elif yes == (result == "yes"):
+            expiration_agreements += 1
+        else:
+            expiration_mismatches += 1
+    return ChicagoSettlementCheck(
+        listed=len(listed),
+        omitted=len(omitted),
+        settlement_agreements=settlement_agreements,
+        settlement_mismatches=settlement_mismatches,
+        settlement_unevaluable=settlement_unevaluable,
+        expiration_agreements=expiration_agreements,
+        expiration_mismatches=expiration_mismatches,
+        expiration_unevaluable=expiration_unevaluable,
         promoted=False,
     )
 
