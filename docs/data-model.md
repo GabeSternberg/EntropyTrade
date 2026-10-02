@@ -84,8 +84,11 @@ window. Newer forecast runs are new records, never overwrites.
 
 `select_as_of(records, decision_time, key)` returns the latest record per key with
 `available_at <= decision_time`. Adding records that became available later does not change
-the result. This is the primitive Phase 3's replay engine must use; joins on date alone
-are not allowed.
+the result. Replay uses this primitive. Joins on date alone are not allowed.
+
+A CLI or Weather Company daily high is a label, not a forecast. `DailyHigh.available_at`
+must fall on a later calendar day than `valid_on`. The value is the MAXIMUM line (or the
+recorded `high_f` string), never the max of hourly temperatures in the same body.
 
 ## Strategy, research, runs
 
@@ -125,7 +128,8 @@ second read of the same text is the same version.
 
 ## What is deliberately not here yet
 
-No Parquet layout and no feature store. DuckDB/Parquet for analytical data is still the
-planned store for the backtester (Phase 3). The paper account is one SQLite row
+No Parquet layout and no feature store. Replay still takes books and features from the
+caller; the recorder is not the replay reader. The paper account is one SQLite row
 (`LedgerStore`) holding cash, positions, fills, orders, and collateral. Reloading it does
-not replay a fill. Raw market data stays append-only; `data/raw/` is gitignored.
+not replay a fill. Raw market data stays append-only; `data/raw/` is gitignored. Weather
+rows are not in the recorder.

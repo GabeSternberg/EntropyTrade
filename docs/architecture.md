@@ -46,8 +46,9 @@ that package. `KalshiGateway` is read-only: it constructs `KalshiConfig.demo()` 
 protocol so a dropped socket does not share a lifetime with a REST call. Ruff bans
 `kalshi` and `pydantic_ai` imports everywhere else.
 
-Other packages (`backtest`, `risk`, `execution`, `agents`, ...) exist as named boundaries
-with a docstring and no behaviour. Their phases are listed in [`../STATUS.md`](../STATUS.md).
+`backtest`, `risk`, `execution`, and `weather` have behaviour. `agents` is still a
+named boundary until Phase 5. Phases are listed in [`../STATUS.md`](../STATUS.md).
+Weather parsers read recorded bodies only; they do not call a forecast API.
 
 ## What the audit changed
 

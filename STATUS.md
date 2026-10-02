@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 3 — complete**. Next is Phase 4.
+Last updated: 2026-10-02 · Current phase: **Phase 4 — complete**. Next is Phase 5.
 
 ## What this project is
 
@@ -47,7 +47,7 @@ holds trading credentials.
 | 1 | Read-only Kalshi gateway + market recorder | **complete** | [phase-1.md](docs/phase-reports/phase-1.md) |
 | 2 | Accounting + paper broker + risk foundation | **complete** | [phase-2.md](docs/phase-reports/phase-2.md) |
 | 3 | Point-in-time backtesting engine | **complete** | [phase-3.md](docs/phase-reports/phase-3.md) |
-| 4 | First weather dataset + baseline models | planned | — |
+| 4 | First weather dataset + baseline models | **complete** | [phase-4.md](docs/phase-reports/phase-4.md) |
 | 5 | Agentic research pipeline (PydanticAI) | planned | — |
 | 6 | Strategy registry + experiment tracking + dashboard | planned | — |
 | 7 | Structural / arbitrage scanner | planned | — |
@@ -86,24 +86,25 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4 — the first weather dataset and baseline models. The exact plan is the
-last section of [`docs/phase-reports/phase-3.md`](docs/phase-reports/phase-3.md).
+Phase 5 — the agentic research pipeline. The exact plan is the last section of
+[`docs/phase-reports/phase-4.md`](docs/phase-reports/phase-4.md).
 
-Scope: daily high temperature, point-in-time forecasts, a baseline that does
-not train on the settlement, and both a forecast score and a paper trading
-score. Philadelphia `KXHIGHPHIL` / CLIPHL is in scope. Settlement source follows
-the contract text and the 2026-08-14 cutover. No live orders.
+Scope: PydanticAI only inside `agents/`, `TestModel` with model requests
+disabled, StrategySpec output, a predicate interpreter, and fixture backtests.
+No holdout access, no order tool, no trading key. A missing LLM key does not
+block the phase; live provider calls stay unverified.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 3: ruff clean, mypy strict clean,
-pytest 94 passed. `uv sync` then `make check`. Default mode is `read_only`.
+On 2026-10-02, `make check` passed for Phase 4: ruff clean, mypy strict clean,
+pytest 109 passed. `uv sync` then `make check`. Default mode is `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
 
 Unverified for lack of credentials: a multi-hour demo or read-only production
-session, a real Kalshi WebSocket handshake, and reconciliation against a live
-demo account. No production trading credentials are in the repo.
+session, a real Kalshi WebSocket handshake, reconciliation against a live demo
+account, and any live NWS, Weather Company, or Open-Meteo request. No
+production trading credentials are in the repo.
 
 ## How to resume (fresh agent)
 
