@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.71 — complete**. Next is Phase 4.72.
+Last updated: 2026-10-02 · Current phase: **Phase 4.72 — complete**. Next is Phase 4.73.
 
 ## What this project is
 
@@ -78,6 +78,7 @@ holds trading credentials.
 | 4.69 | Print before close versus the stored result | **complete** | [phase-4.69.md](docs/phase-reports/phase-4.69.md) |
 | 4.70 | Second pull of the 18 markets short of volume | **complete** | [phase-4.70.md](docs/phase-reports/phase-4.70.md) |
 | 4.71 | Live trades for the 18 markets short of volume | **complete** | [phase-4.71.md](docs/phase-reports/phase-4.71.md) |
+| 4.72 | Pre-decision B80.5 print versus the CLI bracket | **complete** | [phase-4.72.md](docs/phase-reports/phase-4.72.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -206,6 +207,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.71**: `/markets/trades` returned an empty list for each of
   those 18 markets. The rows were not added to the historical table. The
   missing size is not invented. Nothing is promoted.
+- **Phase 4.72**: 10 of 40 CLI days have a B80.5 print at or before 15:00
+  UTC. None of those prints are at or above 0.50. 9 match the bracket.
+  The miss is 25 August, print 0.1000, CLI high 80. Nothing is promoted.
+  Replay equity stays 100.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -241,16 +246,15 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.72 — on the 2026 CLI days, take the last `B80.5` trade print at or
-before 15:00 UTC that is also before the label's `available_at`. A price at
-or above 0.50 is a YES guess. Days with no such print get no guess. Keep
-the 0.50 line and the 15:00 decision. The print is not a guaranteed fill.
-Do not promote. No live order.
+Phase 4.73 — walk-forward the Phase 4.72 guess with the existing split.
+Train and validation only. Do not score the holdout. Do not change 0.50 or
+15:00. The print is not a guaranteed fill. Do not promote. No LLM call. No
+live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.71: ruff clean, mypy strict
-clean, pytest 207 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.72: ruff clean, mypy strict
+clean, pytest 209 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
