@@ -47,7 +47,8 @@ person.
 a `HALT` file from `halt_sentinel` (the name is `HALT`), or `ENTROPYTRADE_TRADING_ENABLED` set to
 anything other than `true` in the environ mapping passed in. A halt rejects new orders.
 It does not cancel resting orders and it does not liquidate. `resume` clears only the
-in-process switch. There is no dashboard button yet; that button will call `kill`.
+in-process switch. The registry page can write that file with `POST /halt` when it
+was given a directory. That request does not submit an order. `POST /` stays refused.
 
 ## Limits the engine will enforce
 

@@ -92,6 +92,30 @@ def test_the_page_is_served_and_post_is_refused(tmp_path: Path) -> None:
     assert posted.status == 405
 
 
+def test_pause_writes_halt_and_post_root_stays_refused(tmp_path: Path) -> None:
+    registry = Registry(tmp_path / "registry.sqlite")
+    server = open_server(registry, halt_directory=tmp_path)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    address = server.server_address
+    connection = http.client.HTTPConnection(str(address[0]), int(address[1]), timeout=5)
+    connection.request("GET", "/")
+    page = connection.getresponse().read().decode()
+    connection.request("POST", "/halt")
+    paused = connection.getresponse()
+    paused.read()
+    connection.request("POST", "/", body=b"{}")
+    posted = connection.getresponse()
+    server.shutdown()
+    server.server_close()
+    registry.close()
+    assert "Pause new orders" in page
+    assert "cannot submit an order" in page
+    assert paused.status == 204
+    assert (tmp_path / "HALT").read_text(encoding="utf-8") == "pause\n"
+    assert posted.status == 405
+
+
 def test_mlflow_logs_equity_as_text(tmp_path: Path) -> None:
     from mlflow.tracking import MlflowClient
 

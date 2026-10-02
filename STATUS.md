@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 2.53 — complete**. Next is Phase 6.51.
+Last updated: 2026-10-02 · Current phase: **Phase 6.51 — complete**. Next is Phase 2.54.
 
 ## What this project is
 
@@ -65,6 +65,7 @@ holds trading credentials.
 | 4.56 | Rescore on the broader tape; equity stays 100 | **complete** | [phase-4.56.md](docs/phase-reports/phase-4.56.md) |
 | 5.50 | Walk-forward on stored CLI days | **complete** | [phase-5.50.md](docs/phase-reports/phase-5.50.md) |
 | 6.50 | Feature manifest and rescore prediction records | **complete** | [phase-6.50.md](docs/phase-reports/phase-6.50.md) |
+| 6.51 | Registry pause writes the HALT sentinel | **complete** | [phase-6.51.md](docs/phase-reports/phase-6.51.md) |
 | 5 | Agentic research pipeline (PydanticAI) | **complete** | [phase-5.md](docs/phase-reports/phase-5.md) |
 | 6 | Strategy registry + experiment tracking + dashboard | **complete** | [phase-6.md](docs/phase-reports/phase-6.md) |
 | 7 | Structural / arbitrage scanner | **complete** | [phase-7.md](docs/phase-reports/phase-7.md) |
@@ -138,6 +139,8 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
   rescore. Probability is 0. Bid, ask, and net edge are empty. Nine records
   name a stored B80.5 market. The other days name the series because that
   strike was not listed.
+- **Phase 6.51**: the registry page can write the HALT sentinel with
+  `POST /halt`. `POST /` stays refused. The page still cannot submit an order.
 - **Phase 5**: Research → Hypothesis → Quant → Critic agents producing
   StrategySpecs, auto-backtested; no holdout access, no trading.
 - **Phase 6**: lineage, versioning, MLflow, promotion states, approvals, dashboard.
@@ -152,13 +155,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 6.51 — a registry-page control that writes the local HALT sentinel
-and does not submit an order. `POST /` stays refused. No live order.
+Phase 2.54 — optional cap on orders already placed in the current window.
+The caller supplies the count. Leave the check off unless the limit is set.
+No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 2.53: ruff clean, mypy strict
-clean, pytest 171 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 6.51: ruff clean, mypy strict
+clean, pytest 172 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

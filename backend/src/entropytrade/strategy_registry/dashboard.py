@@ -1,8 +1,14 @@
-"""Read-only HTML for the strategy registry. There is no write route."""
+"""HTML for the strategy registry. It cannot submit an order.
+
+``POST /halt`` writes the local HALT sentinel when a directory was configured.
+``POST /`` stays refused. Nothing here reaches an exchange.
+"""
 
 import html
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
+from entropytrade.risk.engine import halt_sentinel
 from entropytrade.strategy_registry.store import Registry, RegistryRow
 
 _PAGE = """<!DOCTYPE html>
@@ -25,17 +31,26 @@ td.narrow {{ word-break: break-all; }}
 </head>
 <body>
 <h1>Strategy registry</h1>
-<p>Read only. This page cannot submit an order or approve live capital.</p>
+<p>This page cannot submit an order or approve live capital.</p>
+{pause}
 {body}
 </body>
 </html>
 """
 
+_PAUSE = (
+    '<form method="post" action="/halt">'
+    '<button type="submit">Pause new orders</button>'
+    "</form>"
+    "<p>Pause writes a HALT file. It does not submit an order.</p>"
+)
 
-def render_page(registry: Registry) -> str:
+
+def render_page(registry: Registry, *, pause: bool = False) -> str:
     rows = registry.rows()
     body = "<p>No strategies have been recorded.</p>" if not rows else _table(rows)
-    return _PAGE.format(body=body)
+    control = _PAUSE if pause else ""
+    return _PAGE.format(pause=control, body=body)
 
 
 def open_server(
@@ -43,8 +58,9 @@ def open_server(
     *,
     host: str = "127.0.0.1",
     port: int = 0,
+    halt_directory: Path | None = None,
 ) -> ThreadingHTTPServer:
-    return ThreadingHTTPServer((host, port), _handler(registry))
+    return ThreadingHTTPServer((host, port), _handler(registry, halt_directory))
 
 
 def serve(registry: Registry, *, host: str = "127.0.0.1", port: int = 43127) -> None:
@@ -80,13 +96,16 @@ def _tr(row: RegistryRow) -> str:
     return f"<tr>{rendered}</tr>"
 
 
-def _handler(registry: Registry) -> type[BaseHTTPRequestHandler]:
+def _handler(
+    registry: Registry,
+    halt_directory: Path | None,
+) -> type[BaseHTTPRequestHandler]:
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self) -> None:
             if self.path.split("?", maxsplit=1)[0] != "/":
                 self.send_error(404)
                 return
-            payload = render_page(registry).encode()
+            payload = render_page(registry, pause=halt_directory is not None).encode()
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Content-Length", str(len(payload)))
@@ -94,7 +113,13 @@ def _handler(registry: Registry) -> type[BaseHTTPRequestHandler]:
             self.wfile.write(payload)
 
         def do_POST(self) -> None:
-            self.send_error(405)
+            path = self.path.split("?", maxsplit=1)[0]
+            if path != "/halt" or halt_directory is None:
+                self.send_error(405)
+                return
+            halt_sentinel(halt_directory).write_text("pause\n", encoding="utf-8")
+            self.send_response(204)
+            self.end_headers()
 
         def log_message(self, format: str, *args: object) -> None:
             del format, args
