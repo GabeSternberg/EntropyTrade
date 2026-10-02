@@ -431,6 +431,38 @@ def test_max_open_orders_leaves_room_for_one_more() -> None:
     assert all(check.check_name != "max_open_orders" for check in unset.checks)
 
 
+def test_order_rate_rejects_a_full_window() -> None:
+    intent = _intent(quantity="1.00", price="0.4500")
+    limited = _limits().model_copy(update={"max_order_rate": 1})
+    full = RiskEngine(limited).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+        orders_in_window=1,
+    )
+    assert any(check.check_name == "order_rate" and not check.passed for check in full.checks)
+    assert not full.approved
+    room = RiskEngine(_limits().model_copy(update={"max_order_rate": 2})).evaluate(
+        intent,
+        portfolio=Ledger(Decimal("100"), as_of=NOW).snapshot(),
+        book=_book(),
+        now=NOW,
+        event_deployed=ZERO,
+        realized_pnl=ZERO,
+        peak_equity=Decimal("100"),
+        equity=Decimal("100"),
+        orders_in_window=1,
+    )
+    assert room.approved
+    unset = _decide(intent, _limits())
+    assert all(check.check_name != "order_rate" for check in unset.checks)
+
+
 def test_halt_file_and_the_environment_flag_reject_new_orders(tmp_path: Path) -> None:
     intent = _intent(quantity="1.00", price="0.4500")
     halt = halt_sentinel(tmp_path)

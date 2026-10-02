@@ -51,6 +51,7 @@ class RiskLimits(DomainModel):
     max_spread: Price
     min_net_edge: ExactDecimal | None = None
     max_open_orders: int | None = Field(default=None, ge=0)
+    max_order_rate: int | None = Field(default=None, ge=0)
     config_version: str
 
 
@@ -108,9 +109,10 @@ class RiskEngine:
         peak_equity: Decimal,
         equity: Decimal,
         open_orders: int = 0,
+        orders_in_window: int = 0,
     ) -> RiskDecision:
-        if isinstance(open_orders, bool) or open_orders < 0:
-            raise ValueError("open_orders must be a non-negative count")
+        _count(open_orders, "open_orders")
+        _count(orders_in_window, "orders_in_window")
         checks: list[RiskCheckResult] = []
         blocked = _gate(
             checks,
@@ -123,6 +125,7 @@ class RiskEngine:
             peak_equity=peak_equity,
             equity=equity,
             open_orders=open_orders,
+            orders_in_window=orders_in_window,
         )
         if blocked:
             return _decision(
@@ -200,6 +203,7 @@ def _gate(
     peak_equity: Decimal,
     equity: Decimal,
     open_orders: int,
+    orders_in_window: int,
 ) -> bool:
     checks.append(
         RiskCheckResult(
@@ -260,6 +264,15 @@ def _gate(
             limit=str(limits.min_liquidity),
         )
     )
+    if limits.max_order_rate is not None:
+        checks.append(
+            RiskCheckResult(
+                check_name="order_rate",
+                passed=orders_in_window < limits.max_order_rate,
+                observed=str(orders_in_window),
+                limit=str(limits.max_order_rate),
+            )
+        )
     if limits.max_open_orders is not None:
         checks.append(
             RiskCheckResult(
@@ -314,6 +327,12 @@ def _sized(
         )
         quantity = allowed
     return quantity
+
+
+def _count(value: int, what: str) -> int:
+    if isinstance(value, bool) or value < 0:
+        raise ValueError(f"{what} must be a non-negative count")
+    return value
 
 
 def _qty_for_room(price_per: Decimal, room: Decimal, cap: Decimal) -> Decimal:
