@@ -50,7 +50,7 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 
 ## Status
 
-Phase 10 is complete as a fixture-tested gate. It does not submit. See
-[`STATUS.md`](STATUS.md) before starting anything else.
+Phase 10 is complete as a fixture-tested gate. It does not submit. Phase 11
+is deferred. See [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).

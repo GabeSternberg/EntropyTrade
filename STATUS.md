@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 10 — complete**. Next is the Phase 11 deferral.
+Last updated: 2026-10-02 · Current phase: **Phase 10 — complete**. Phase 11 is deferred. Next is Phase 4.50.
 
 ## What this project is
 
@@ -54,7 +54,7 @@ holds trading credentials.
 | 8 | Live paper + shadow validation | **complete** | [phase-8.md](docs/phase-reports/phase-8.md) |
 | 9 | Live-small execution (explicit approval required) | **complete** (gate only; no order sent) | [phase-9.md](docs/phase-reports/phase-9.md) |
 | 10 | Live decay detection + automatic downsizing | **complete** (comparisons only; no order sent) | [phase-10.md](docs/phase-reports/phase-10.md) |
-| 11 | Optional expansion (more markets, cross-venue, FIX, DL) | planned | — |
+| 11 | Optional expansion (more markets, cross-venue, FIX, DL) | **deferred** | [phase-11.md](docs/phase-reports/phase-11.md) |
 
 Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
@@ -84,13 +84,18 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 10**: decay from paper and shadow comparisons, a downward lifecycle
   move, and a size cut that never increases a limit. Model drift, calibration,
   feature drift, and live-versus-backtest divergence are not scored.
-- **Phase 11**: optional expansion. Not started.
+- **Phase 11**: optional expansion. **Deferred.** pmxt, FIX, deep learning,
+  cross-exchange execution, and automatic retraining were not added.
 
 ## Next steps
 
-Record Phase 11 as deferred. Do not add pmxt, FIX, deep learning,
-cross-exchange execution, or automatic retraining. The exact plan is the last
-section of [`docs/phase-reports/phase-10.md`](docs/phase-reports/phase-10.md).
+Phase 4.50 — one real public dataset, not another stub. Unauthenticated HTTP
+only (Open-Meteo previous-runs, and Kalshi public REST only if it is not a
+production host). Persist immutable rows with `available_at`, source, and
+endpoint. Run the existing baselines and replay on those rows and answer the
+Phase 4 research questions from them. If a call fails, record the failure and
+the response body. Do not invent rows. No API key, no WebSocket, no order path.
+
 
 ## Checks
 
