@@ -19,6 +19,7 @@ from entropytrade.domain.observations import Forecast
 from entropytrade.exchange.historical_trades import _decode_time
 from entropytrade.exchange.trade_prints import TradePrint
 from entropytrade.weather.cli_observations import CliLabel
+from entropytrade.weather.cli_print_guess import CliPrintGuess, score_cli_print_guess
 from entropytrade.weather.informational_rules import (
     BRACKET_CAP,
     BRACKET_FLOOR,
@@ -93,6 +94,15 @@ def load_chicago_score(root: Path) -> ChicagoScore:
         promoted=False,
         rules=rules,
     )
+
+
+def load_chicago_print_guess(root: Path) -> CliPrintGuess:
+    """Last B80.5 print at or before 15:00 UTC. The 0.50 line is not changed."""
+    labels, _forecasts, prints, _found, _missing = _inputs(root)
+    guess = score_cli_print_guess(labels, prints)
+    if guess.promoted or guess.guaranteed_fill:
+        raise ValueError("the Chicago print guess is not a fill and is not promoted")
+    return guess
 
 
 def load_chicago_walk_forward(root: Path) -> ChicagoWalkForward:

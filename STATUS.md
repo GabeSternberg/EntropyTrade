@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-02 · Current phase: **Phase 4.83 — complete**. Next is Phase 4.84.
+Last updated: 2026-10-02 · Current phase: **Phase 4.84 — complete**. Next is Phase 4.85.
 
 ## What this project is
 
@@ -90,6 +90,7 @@ holds trading credentials.
 | 4.81 | Chicago days absent from the feature manifest | **complete** | [phase-4.81.md](docs/phase-reports/phase-4.81.md) |
 | 4.82 | Empty calibration version on the rescore records | **complete** | [phase-4.82.md](docs/phase-reports/phase-4.82.md) |
 | 4.83 | cli-aligned has no stored StrategySpec | **complete** | [phase-4.83.md](docs/phase-reports/phase-4.83.md) |
+| 4.84 | Chicago pre-decision print versus the CLI bracket | **complete** | [phase-4.84.md](docs/phase-reports/phase-4.84.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -263,6 +264,10 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.83**: the 39 records name strategy_id cli-aligned at version 1.
   The stored research specs do not include that id. No StrategySpec was
   written. Nothing is promoted.
+- **Phase 4.84**: 11 of 40 Chicago days have a B80.5 print at or before
+  15:00 UTC. 5 of those prints are at or above 0.50. 10 match the bracket.
+  Philadelphia stays at 10 prints, 0 YES guesses, and 9 agreements. Nothing
+  is promoted. 0.50 and 15:00 stay put.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -298,14 +303,14 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.84 — score Chicago's last B80.5 print at or before 15:00 UTC
-against the CLI bracket, using the same 0.50 YES line as Philadelphia.
-Do not change 0.50 or 15:00. Do not promote. No live order.
+Phase 4.85 — walk the Chicago pre-decision print guess forward with the
+same 20/10/10 split. Score train and validation only. Do not score the
+holdout. Do not change 0.50 or 15:00. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-02, `make check` passed for Phase 4.83: ruff clean, mypy strict
-clean, pytest 220 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-02, `make check` passed for Phase 4.84: ruff clean, mypy strict
+clean, pytest 221 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
