@@ -1,0 +1,136 @@
+{
+  "fetched_at": "2026-10-02T17:24:31.312471+00:00",
+  "finished_at": "2026-10-02T17:24:34.885076+00:00",
+  "endpoint": "https://api.elections.kalshi.com/trade-api/v2/markets/trades",
+  "tickers": [
+    {
+      "ticker": "KXHIGHPHIL-25AUG13-B92.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25AUG14-B91.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25JUN07-B77.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25JUN07-B81.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25MAY15-B76.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25MAY28-T59",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT07-B81.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT17-B63.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT23-B60.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT24-B61.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT27-T61",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25OCT28-B58.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP18-T84",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP21-B77.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP25-B78.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP27-B79.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP27-B81.5",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    },
+    {
+      "ticker": "KXHIGHPHIL-25SEP27-T82",
+      "pages": 1,
+      "trades": 0,
+      "fresh_sum": "0",
+      "cursor_empty": true
+    }
+  ],
+  "added_to_historical_table": false,
+  "joined_to_cli_replay": false,
+  "note": "Live /markets/trades for the 18 markets short of historical volume. Not fills. Not added to the historical table."
+}
