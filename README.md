@@ -128,7 +128,10 @@ exactly 0.00. That zero is not a missing volume and is not a size at the
 touch. One stored open-interest value is exactly 1.00. That one is not a
 size at the touch. The stored NWS hourly forecast minus the stored HRRR
 forecast, at equal UTC instants, is recorded. The NWS polygon was not
-snapped to the HRRR grid. That difference is not a threshold.
+snapped to the HRRR grid. That difference is not a threshold. The same
+NWS series minus the stored ECMWF forecast is recorded the same way.
+The NWS polygon was not snapped to the ECMWF grid. That difference is
+not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
