@@ -27,8 +27,16 @@ not promote. No live order. The CLI coverage row for NWS forecast stays
 
 ## Result
 
-Pending. The value has not been read.
+The stored value is an object, so it was skipped as `astronomical data is
+not a string`. 0 strings were recorded. The object keys, in alphabetical
+order, are `astronomicalTwilightBegin`, `astronomicalTwilightEnd`,
+`civilTwilightBegin`, `civilTwilightEnd`, `nauticalTwilightBegin`,
+`nauticalTwilightEnd`, `sunrise`, `sunset`, and `transit`. Those nested
+values were not read. The forecast body and the hourly body were not used.
+A URL was not fetched. It was not compared to 0.40 or to 2°F. The CLI
+coverage row for NWS forecast still says no stored value. Nothing was
+traded. `2°F` and `0.40` were not changed. Nothing was promoted.
 
 ## Tests
 
-Pending.
+`make check` on 2026-10-03: ruff clean, mypy strict clean, pytest 505 passed.
