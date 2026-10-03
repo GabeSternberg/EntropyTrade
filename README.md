@@ -104,7 +104,9 @@ grids and is not a threshold. On the previous day, GFS minus ECMWF is
 recorded on the two stored grids and is not a threshold. The unrounded
 ensemble mean minus the stored HRRR forecast is recorded on those two
 grids and is not a threshold. The same unrounded mean minus the stored
-ECMWF forecast is recorded on those two grids and is not a threshold.
+ECMWF forecast is recorded on those two grids and is not a threshold. The
+same unrounded mean minus the ensemble control is recorded on the stored
+ensemble grid and is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
