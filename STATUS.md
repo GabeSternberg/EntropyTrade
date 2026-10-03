@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.222 — complete**. Next is Phase 4.223.
+Last updated: 2026-10-03 · Current phase: **Phase 4.223 — complete**. Next is Phase 4.224.
 
 ## What this project is
 
@@ -229,6 +229,7 @@ holds trading credentials.
 | 4.220 | Distinct candlestick open interest, 0.00 not invented | **complete** | [phase-4.220.md](docs/phase-reports/phase-4.220.md) |
 | 4.221 | Candlestick bids of exactly 0.0000, not a fill | **complete** | [phase-4.221.md](docs/phase-reports/phase-4.221.md) |
 | 4.222 | Candlestick asks of exactly 1.0000, not a settlement | **complete** | [phase-4.222.md](docs/phase-reports/phase-4.222.md) |
+| 4.223 | Candlestick volumes of exactly 0.00, not a missing field | **complete** | [phase-4.223.md](docs/phase-reports/phase-4.223.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -610,12 +611,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.223 — count stored Philadelphia candlesticks whose volume is exactly 0.00. This rule is written before the count. A volume counts when `volume_fp` parses as the decimal 0. Record the count and the first and last ticker-hour that has that volume. Do not treat 0.00 as a missing volume. Do not treat volume as a size at the touch. Do not compare it to 0.40. Do not align a volume to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for trade volume stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.224 — count stored Philadelphia candlesticks whose open interest is exactly 1.00. This rule is written before the count. An open-interest value counts when `open_interest_fp` parses as the decimal 1. Record the count and the first and last ticker-hour that has that value. Do not treat 1.00 as a size at the touch. Do not compare it to 0.40. Do not align a value to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for open interest stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.222: ruff clean, mypy strict
-clean, pytest 373 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.223: ruff clean, mypy strict
+clean, pytest 375 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

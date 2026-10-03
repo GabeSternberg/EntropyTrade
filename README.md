@@ -123,7 +123,9 @@ candlestick open interest has 3846 distinct values. 0.00 is absent and
 was not invented. Open interest is not a size at the touch. 1912 stored
 bid closes are exactly 0.0000. That zero is not a fill and the count was
 not compared to 0.40. 143 stored ask closes are exactly 1.0000. That one
-is not a settlement and is not a probability.
+is not a settlement and is not a probability. 1465 stored volumes are
+exactly 0.00. That zero is not a missing volume and is not a size at the
+touch.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
