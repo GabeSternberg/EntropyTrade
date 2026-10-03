@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.224 — complete**. Next is Phase 4.225.
+Last updated: 2026-10-03 · Current phase: **Phase 4.225 — complete**. Next is Phase 4.226.
 
 ## What this project is
 
@@ -231,6 +231,7 @@ holds trading credentials.
 | 4.222 | Candlestick asks of exactly 1.0000, not a settlement | **complete** | [phase-4.222.md](docs/phase-reports/phase-4.222.md) |
 | 4.223 | Candlestick volumes of exactly 0.00, not a missing field | **complete** | [phase-4.223.md](docs/phase-reports/phase-4.223.md) |
 | 4.224 | Open interest of exactly 1.00, not a size at the touch | **complete** | [phase-4.224.md](docs/phase-reports/phase-4.224.md) |
+| 4.225 | NWS hourly minus HRRR at equal UTC instants, not a threshold | **complete** | [phase-4.225.md](docs/phase-reports/phase-4.225.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -577,6 +578,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.204**: the stored ECMWF previous-day temperature minus the stored HRRR previous-day temperature, hour by hour. 24 hours are eligible and 0 are skipped. The grids were not snapped together. The differences were not aligned to the CLI decision clock and were not used as a threshold. The CLI coverage row for forecast changes/revisions still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.205**: the public previous-runs API with `models=gfs_seamless`, `past_days=1`, and `forecast_days=0` returned HTTP 200. 24 hours of `temperature_2m_previous_day1`, 0 nulls, first hour 2026-10-02T00:00. `run` and `start_date` were not sent. The response timezone is GMT. The response grid point was stored as returned and was not snapped to the ensemble grid. It was not aligned to the CLI decision clock. The CLI coverage row for GFS ensemble still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.206**: the stored GFS previous-day temperature minus the stored HRRR previous-day temperature, hour by hour. 24 hours are eligible, 0 are skipped, and every difference is 0°F. The stored response grids are equal and were not rewritten. The differences were not aligned to the CLI decision clock and were not used as a threshold. The CLI coverage row for forecast changes/revisions still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.225**: the stored NWS hourly temperature minus the stored HRRR temperature at equal UTC instants. 17 hours are eligible and 139 periods are skipped because they do not land on a stored HRRR hour. The first eligible hour is 2026-10-03T07:00 and the difference is 3.0°F. The last eligible hour is 2026-10-03T23:00 and the difference is 4.6°F. Hours of 2.1°F, 2.6°F, 2.9°F, 3.5°F, 4.6°F, and 6.1°F are in the record. They are not a new threshold. The NWS polygon was not snapped to the HRRR grid. The differences were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -612,12 +614,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.225 — compare the stored Philadelphia NWS hourly forecast with the stored Philadelphia HRRR forecast at equal UTC instants. This rule is written before the differences are computed. An NWS period start is read with its offset and converted to UTC. The HRRR series is `temperature_2m` in `ncep-hrrr-conus.json`. When that UTC instant equals an HRRR timestamp, the difference is the NWS temperature minus the HRRR temperature. A period that does not land on a stored HRRR hour, or an hour with a null, is skipped and named. Do not align either series to the CLI decision clock. Do not snap grid points. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.226 — compare the stored Philadelphia NWS hourly forecast with the stored Philadelphia ECMWF forecast at equal UTC instants. This rule is written before the differences are computed. An NWS period start is read with its offset and converted to UTC. The ECMWF series is `temperature_2m` in `ecmwf-ifs.json`. When that UTC instant equals an ECMWF timestamp, the difference is the NWS temperature minus the ECMWF temperature. A period that does not land on a stored ECMWF hour, or an hour with a null, is skipped and named. Do not align either series to the CLI decision clock. Do not snap grid points. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.224: ruff clean, mypy strict
-clean, pytest 377 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.225: ruff clean, mypy strict
+clean, pytest 379 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

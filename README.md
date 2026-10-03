@@ -126,7 +126,9 @@ not compared to 0.40. 143 stored ask closes are exactly 1.0000. That one
 is not a settlement and is not a probability. 1465 stored volumes are
 exactly 0.00. That zero is not a missing volume and is not a size at the
 touch. One stored open-interest value is exactly 1.00. That one is not a
-size at the touch.
+size at the touch. The stored NWS hourly forecast minus the stored HRRR
+forecast, at equal UTC instants, is recorded. The NWS polygon was not
+snapped to the HRRR grid. That difference is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
