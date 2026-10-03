@@ -214,7 +214,8 @@ parsed into a clock. It was not compared to 0.40 or to 2°F. The stored
 forecast `validTimes` string was recorded. A duration was not computed
 and it was not compared to 0.40 or to 2°F. The stored forecast generator
 string was recorded and was not rewritten. It was not compared to 0.40
-or to 2°F.
+or to 2°F. The stored forecast units string is `us`. It was not
+converted into another scale and was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
