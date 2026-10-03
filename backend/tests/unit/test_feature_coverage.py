@@ -1,8 +1,16 @@
 """The feature note quotes stored columns and does not fill in spec features."""
 
+from decimal import Decimal
 from pathlib import Path
 
-from entropytrade.weather.feature_coverage import load_feature_coverage
+from entropytrade.weather.feature_coverage import (
+    load_feature_coverage,
+    revision_coverage_note,
+    revision_manifest_features,
+)
+from entropytrade.weather.informational_rules import PRICE_THRESHOLD
+from entropytrade.weather.revision_records import build_revision_payload
+from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
 
 ROOT = Path(__file__).resolve().parents[3]
 PUBLIC = ROOT / "data" / "public"
@@ -46,3 +54,12 @@ def test_the_note_matches_the_stored_manifest() -> None:
         assert f"| {name} | no stored value |" in text
     for column in coverage.manifest_features:
         assert column in text
+    features = revision_manifest_features(PUBLIC)
+    assert features == build_revision_payload(PUBLIC)["features"]
+    note = revision_coverage_note(PUBLIC)
+    assert note in text
+    assert "They are not CLI rescore columns." in note
+    assert "They are not a new threshold." in note
+    assert "The holdout is not scored." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD

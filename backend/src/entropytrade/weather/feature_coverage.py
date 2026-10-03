@@ -16,6 +16,7 @@ from entropytrade.weather.provenance import load_feature_manifest, load_predicti
 
 _SPEC = Path("docs/project-spec.md")
 _PREVIOUS_RUNS = Path("open-meteo/previous-runs.json")
+_REVISION_MANIFEST = Path("features/revision-bracket-manifest.json")
 _MARKER = "Potential features:"
 
 
@@ -97,6 +98,32 @@ def load_feature_coverage(root: Path) -> FeatureCoverage:
         sized_book_false=sized_false,
         spec_features=spec,
         absent_spec_features=absent,
+    )
+
+
+def revision_manifest_features(root: Path) -> tuple[str, ...]:
+    """Feature names on the revision-bracket manifest. Not a CLI column."""
+    payload = json.loads((root / _REVISION_MANIFEST).read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("the revision manifest is not an object")
+    if payload.get("promoted") is not False:
+        raise ValueError("the revision manifest is promoted")
+    if payload.get("holdout_recorded") is not False:
+        raise ValueError("the revision manifest records a holdout")
+    return _strings(payload.get("features"), "features")
+
+
+def revision_coverage_note(root: Path) -> str:
+    """One sentence. It does not add a threshold or a CLI column."""
+    names = ", ".join(revision_manifest_features(root))
+    return " ".join(
+        (
+            f"The revision-bracket manifest stores these features: {names}.",
+            "They are not CLI rescore columns.",
+            "They are not a new threshold.",
+            "The holdout is not scored.",
+            "Nothing was promoted.",
+        )
     )
 
 

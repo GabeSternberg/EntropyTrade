@@ -47,3 +47,5 @@ manifest column or a previous-runs hourly field.
 | open interest | no stored value |
 | order-book imbalance | no stored value |
 | related temperature strikes | no stored value |
+
+The revision-bracket manifest stores these features: later_max, earlier_max, revision. They are not CLI rescore columns. They are not a new threshold. The holdout is not scored. Nothing was promoted.
