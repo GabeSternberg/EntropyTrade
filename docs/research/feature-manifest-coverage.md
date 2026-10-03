@@ -63,3 +63,5 @@ The Philadelphia precipitation archive stores 960 hours of precipitation_previou
 The Philadelphia observed-temperature archive stores 960 hours of temperature_2m. 0 of those hours are null. The first hour is 2026-08-24T00:00. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia hour-of-day record has 960 hours taken from the observed-temperature timestamps. The hour is the hour in the timestamp. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia seasonality record has 960 months taken from the observed-temperature timestamps. The month is the month in the timestamp. Months are not bucketed into named seasons. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.

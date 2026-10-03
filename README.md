@@ -61,7 +61,8 @@ Neither rule scores a holdout or sends an order. Philadelphia dew point,
 relative humidity, cloud cover, wind speed, and precipitation from the
 public previous-runs API are stored and are not trades. Observed
 temperature for the same dates is stored from the public archive API and
-is not a trade. The hour of day is the hour in those timestamps.
+is not a trade. The hour of day is the hour in those timestamps, and
+the calendar month is the month in those timestamps.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
