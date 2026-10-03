@@ -31,8 +31,13 @@ when a position is stored.
 
 ## Result
 
-Pending. The coordinates have not been counted.
+1 position was stored and 2 numbers were in that position. A longitude was
+not recorded and a latitude was not recorded. The forecast body and the
+hourly body were not used. The point was not snapped to the
+HRRR/ECMWF/ensemble grid. The count was not compared to 0.40 or to 2°F.
+The CLI coverage row for NWS forecast still says no stored value. Nothing
+was traded. `2°F` and `0.40` were not changed. Nothing was promoted.
 
 ## Tests
 
-Pending.
+`make check` on 2026-10-03: ruff clean, mypy strict clean, pytest 497 passed.

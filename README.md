@@ -256,6 +256,9 @@ is `Feature`. Geometry was not read and the string was not rewritten.
 It was not compared to 0.40 or to 2°F. The stored NWS points geometry
 type string is `Point`. Coordinates were not read and the point was
 not snapped to a model grid. It was not compared to 0.40 or to 2°F.
+Those points coordinates have 1 position and 2 numbers. A longitude
+and a latitude were not recorded and the count was not compared to
+0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
