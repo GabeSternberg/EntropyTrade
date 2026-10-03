@@ -96,7 +96,9 @@ request for `ecmwf_ifs` is stored on its own grid point. The hour-by-hour
 difference of those two previous-day series is recorded and is not a
 threshold. One previous-runs day of `gfs_seamless` is stored the same way
 and was not snapped to the ensemble grid. On that previous day, GFS minus
-HRRR is 0°F at every stored hour. That zero is not a threshold.
+HRRR is 0°F at every stored hour. That zero is not a threshold. The
+hour-by-hour difference of the GFS ensemble control and the HRRR forecast
+is recorded on the two stored grids and is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

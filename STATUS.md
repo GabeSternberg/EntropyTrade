@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.206 — complete**. Next is Phase 4.207.
+Last updated: 2026-10-03 · Current phase: **Phase 4.207 — complete**. Next is Phase 4.208.
 
 ## What this project is
 
@@ -213,6 +213,7 @@ holds trading credentials.
 | 4.204 | ECMWF minus HRRR on the stored previous day, grids not snapped | **complete** | [phase-4.204.md](docs/phase-reports/phase-4.204.md) |
 | 4.205 | GFS previous-day temperature for `gfs_seamless` | **complete** | [phase-4.205.md](docs/phase-reports/phase-4.205.md) |
 | 4.206 | GFS minus HRRR on the stored previous day, grids not rewritten | **complete** | [phase-4.206.md](docs/phase-reports/phase-4.206.md) |
+| 4.207 | Ensemble control minus HRRR, grids not snapped | **complete** | [phase-4.207.md](docs/phase-reports/phase-4.207.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -594,12 +595,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.207 — compare the stored Philadelphia GFS ensemble control series with the stored Philadelphia HRRR forecast series. This rule is written before the differences are computed. The ensemble series is `temperature_2m` in `gfs-ensemble.json`. The HRRR series is `temperature_2m` in `ncep-hrrr-conus.json`. At each timestamp present in both series, the difference is the ensemble control minus the HRRR temperature. A timestamp missing from either series, or an hour with a null, is skipped and named. Do not snap the grid points together. Do not align the difference to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for forecast changes/revisions stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.208 — compare the stored Philadelphia GFS ensemble control series with the stored Philadelphia ECMWF forecast series. This rule is written before the differences are computed. The ensemble series is `temperature_2m` in `gfs-ensemble.json`. The ECMWF series is `temperature_2m` in `ecmwf-ifs.json`. At each timestamp present in both series, the difference is the ensemble control minus the ECMWF temperature. A timestamp missing from either series, or an hour with a null, is skipped and named. Do not snap the grid points together. Do not align the difference to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for forecast changes/revisions stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.206: ruff clean, mypy strict
-clean, pytest 341 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.207: ruff clean, mypy strict
+clean, pytest 343 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
