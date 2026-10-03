@@ -238,13 +238,22 @@ def load_remaining_down(root: Path) -> tuple[BracketRevision, ...]:
 
 def load_revision_decisions(root: Path) -> tuple[RevisionDecision, ...]:
     """Train and validation days only. A missing vintage is not a decision."""
+    return _load_decisions(root, "up")
+
+
+def load_down_decisions(root: Path) -> tuple[RevisionDecision, ...]:
+    """Train and validation days for the downward rule. The holdout is absent."""
+    return _load_decisions(root, "down")
+
+
+def _load_decisions(root: Path, direction: str) -> tuple[RevisionDecision, ...]:
     rows: list[RevisionDecision] = []
     seen: set[str] = set()
     for city in _cities(root):
         if city.place in seen:
             raise ValueError(f"{city.place} is already a revision decision place")
         seen.add(city.place)
-        rows.extend(_decisions(city))
+        rows.extend(_decisions(city, direction))
     return tuple(rows)
 
 
@@ -426,12 +435,12 @@ def _splits(
     return train, validation, holdout, later, earlier
 
 
-def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
+def _decisions(city: _City, direction: str = "up") -> tuple[RevisionDecision, ...]:
     train, validation, _holdout, later, earlier = _splits(city)
     rows: list[RevisionDecision] = []
     for fold, labels in (("train", train), ("validation", validation)):
         for label in labels:
-            row = _decision_row(city, label, fold, later, earlier)
+            row = _decision_row(city, label, fold, later, earlier, direction)
             if row is not None:
                 rows.append(row)
     return tuple(rows)
@@ -478,13 +487,14 @@ def _decision_row(
     fold: str,
     later: Mapping[date, Decimal],
     earlier: Mapping[date, Decimal],
+    direction: str = "up",
 ) -> RevisionDecision | None:
     if _skip_reason(label, later, earlier) is not None:
         return None
     later_max = later[label.valid_on]
     earlier_max = earlier[label.valid_on]
     revision = later_max - earlier_max
-    fired = revision >= REVISION_MINIMUM_F
+    fired = _revision_fires(revision, direction)
     ticker = NO_STORED_BRACKET
     if fired:
         chosen = _choose(city.brackets.get(label.valid_on, ()), later_max, city.tape)

@@ -14,6 +14,7 @@ from entropytrade.weather.revision_bracket import (
     load_austin_bracket,
     load_chicago_bracket,
     load_dallas_bracket,
+    load_down_decisions,
     load_newyork_bracket,
     load_oklahomacity_bracket,
     load_philadelphia_bracket,
@@ -22,6 +23,8 @@ from entropytrade.weather.revision_bracket import (
     load_skipped_revision_days,
 )
 from entropytrade.weather.revision_records import (
+    down_records_note,
+    load_down_records,
     load_revision_empty_fields,
     load_revision_hash_gap,
     load_revision_records,
@@ -133,6 +136,39 @@ def test_skipped_revision_days_are_missing_vintages() -> None:
     assert "Vintage clock at or after the label: 0." in note
     assert "A vintage max is missing: 17." in note
     assert "The holdout is not listed." in note
+    assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_down_records_keep_the_frozen_fire() -> None:
+    records = load_down_records(ROOT)
+    decisions = load_down_decisions(ROOT)
+    upward = revision_prediction_ids(ROOT)
+    cli = {record.prediction_id for record in load_prediction_records(ROOT)}
+    downward = {record.prediction_id for record in records}
+    assert len(records) == 551
+    assert len(decisions) == 551
+    assert len(downward) == 551
+    assert sum(record.probability_yes == Decimal(1) for record in records) == 227
+    assert sum(item.fired for item in decisions) == 227
+    assert sum(item.fired and item.place == "Philadelphia" for item in decisions) == 18
+    assert downward.isdisjoint(upward)
+    assert downward.isdisjoint(cli)
+    for record in records:
+        assert record.strategy_id == "forecast_revision_down"
+        assert record.probability_yes in {Decimal(0), Decimal(1)}
+        assert record.market_yes_bid is None
+        assert record.market_yes_ask is None
+        assert record.net_edge_estimate is None
+        assert record.calibration_version is None
+        assert record.uncertainty is None
+        if record.probability_yes == Decimal(0):
+            assert record.market_ticker == "no-stored-bracket"
+    assert len(load_revision_records(ROOT)) == 551
+    note = down_records_note(ROOT)
+    assert "Fires: 227." in note
+    assert "The holdout is not recorded." in note
     assert "Nothing was promoted." in note
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD

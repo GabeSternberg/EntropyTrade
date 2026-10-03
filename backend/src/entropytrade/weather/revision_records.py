@@ -17,10 +17,12 @@ from uuid import UUID, uuid5
 from entropytrade.domain.ids import canonical_json, content_hash
 from entropytrade.domain.signals import PredictionRecord
 from entropytrade.weather.revision_bracket import (
+    DOWN_NAME,
     NO_STORED_BRACKET,
     RULE_NAME,
     RevisionDecision,
     SkippedRevisionDay,
+    load_down_decisions,
     load_revision_decisions,
     load_skipped_revision_days,
 )
@@ -30,6 +32,9 @@ VERSION = "revision-bracket-records-v1"
 _NAMESPACE = UUID("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
 _MANIFEST = Path("features/revision-bracket-manifest.json")
 _PREDICTIONS = Path("features/revision-bracket-predictions.json")
+_DOWN_MANIFEST = Path("features/revision-down-manifest.json")
+_DOWN_PREDICTIONS = Path("features/revision-down-predictions.json")
+_DOWN_VERSION = "revision-down-records-v1"
 _FEATURES = ("later_max", "earlier_max", "revision")
 _OMITTED_FROM_FEATURE_HASH = ("fired", "fold", "ticker")
 
@@ -61,6 +66,67 @@ class RevisionEmptyFields:
     uncertainty_empty: int
 
 
+def build_down_payload(root: Path) -> dict[str, object]:
+    """Source manifest for the downward rule. Holdout days are absent."""
+    rows = tuple(_row(item, DOWN_NAME) for item in load_down_decisions(root))
+    return {
+        "decision": "15:00:00Z",
+        "features": _FEATURES,
+        "holdout_recorded": False,
+        "promoted": False,
+        "rows": rows,
+        "rule": DOWN_NAME,
+        "version": _DOWN_VERSION,
+    }
+
+
+def build_down_records(root: Path) -> tuple[PredictionRecord, ...]:
+    """One downward record per decision. No bid, ask, or net edge."""
+    return _records(build_down_payload(root), DOWN_NAME)
+
+
+def load_down_records(root: Path) -> tuple[PredictionRecord, ...]:
+    """Read the downward records and refuse a file that does not match a rebuild."""
+    fresh = build_down_records(root)
+    payload = build_down_payload(root)
+    _require_stored(root / _DOWN_PREDICTIONS, root / _DOWN_MANIFEST, fresh, payload)
+    return fresh
+
+
+def write_down_records(root: Path) -> None:
+    """Write the downward manifest and records. The upward files stay put."""
+    payload = build_down_payload(root)
+    digest = content_hash(payload)
+    document = dict(payload)
+    document["manifest_hash"] = digest
+    _write(root / _DOWN_MANIFEST, document)
+    records = build_down_records(root)
+    _write(
+        root / _DOWN_PREDICTIONS,
+        {
+            "holdout_recorded": False,
+            "promoted": False,
+            "records": tuple(record.model_dump(mode="json") for record in records),
+            "source_data_manifest_hash": digest,
+        },
+    )
+
+
+def down_records_note(root: Path) -> str:
+    """One scan-note sentence for the downward records."""
+    records = build_down_records(root)
+    fires = sum(1 for record in records if record.probability_yes == Decimal(1))
+    return " ".join(
+        (
+            f"Downward revision records: {len(records)} train and validation days.",
+            f"Fires: {fires}.",
+            "The holdout is not recorded.",
+            "Bid, ask, and net edge are empty.",
+            "Nothing was promoted.",
+        )
+    )
+
+
 def build_revision_payload(root: Path) -> dict[str, object]:
     """The source manifest. Holdout days are absent. Equity is absent."""
     rows = tuple(_row(item) for item in load_revision_decisions(root))
@@ -77,7 +143,10 @@ def build_revision_payload(root: Path) -> dict[str, object]:
 
 def build_revision_records(root: Path) -> tuple[PredictionRecord, ...]:
     """One record per decision. No bid, ask, or net edge."""
-    payload = build_revision_payload(root)
+    return _records(build_revision_payload(root), RULE_NAME)
+
+
+def _records(payload: dict[str, object], rule: str) -> tuple[PredictionRecord, ...]:
     digest = content_hash(payload)
     rows = payload["rows"]
     if not isinstance(rows, tuple):
@@ -86,8 +155,30 @@ def build_revision_records(root: Path) -> tuple[PredictionRecord, ...]:
     for raw in rows:
         if not isinstance(raw, dict):
             raise ValueError("a revision row is not an object")
-        records.append(_record(raw, digest))
+        records.append(_record(raw, digest, rule))
     return tuple(records)
+
+
+def _require_stored(
+    predictions: Path,
+    manifest: Path,
+    fresh: tuple[PredictionRecord, ...],
+    payload: dict[str, object],
+) -> None:
+    digest = content_hash(payload)
+    stored = _read(predictions)
+    expected = {
+        "holdout_recorded": False,
+        "promoted": False,
+        "records": tuple(record.model_dump(mode="json") for record in fresh),
+        "source_data_manifest_hash": digest,
+    }
+    if canonical_json(stored) != canonical_json(expected):
+        raise ValueError("the stored revision records do not match a rebuild")
+    document = dict(payload)
+    document["manifest_hash"] = digest
+    if canonical_json(_read(manifest)) != canonical_json(document):
+        raise ValueError("the stored revision manifest does not match a rebuild")
 
 
 def load_revision_records(root: Path) -> tuple[PredictionRecord, ...]:
@@ -239,7 +330,7 @@ def _reason_count(skipped: tuple[SkippedRevisionDay, ...], reason: str) -> int:
     return sum(1 for item in skipped if item.reason == reason)
 
 
-def _row(item: RevisionDecision) -> dict[str, object]:
+def _row(item: RevisionDecision, rule: str = RULE_NAME) -> dict[str, object]:
     if item.fold not in {"train", "validation"}:
         raise ValueError("a holdout day was recorded")
     if item.ticker == "":
@@ -251,13 +342,13 @@ def _row(item: RevisionDecision) -> dict[str, object]:
         "later_max": item.later_max,
         "place": item.place,
         "revision": item.revision,
-        "rule": RULE_NAME,
+        "rule": rule,
         "ticker": item.ticker,
         "valid_on": item.valid_on.isoformat(),
     }
 
 
-def _record(row: dict[str, object], digest: str) -> PredictionRecord:
+def _record(row: dict[str, object], digest: str, rule: str = RULE_NAME) -> PredictionRecord:
     place = _text(row.get("place"), "place")
     valid_on = date.fromisoformat(_text(row.get("valid_on"), "valid_on"))
     fired = row.get("fired")
@@ -267,8 +358,8 @@ def _record(row: dict[str, object], digest: str) -> PredictionRecord:
     if not fired and ticker != NO_STORED_BRACKET:
         raise ValueError("a day that did not fire names a market")
     return PredictionRecord(
-        prediction_id=uuid5(_NAMESPACE, f"{RULE_NAME}:{place}:{valid_on.isoformat()}"),
-        strategy_id=RULE_NAME,
+        prediction_id=uuid5(_NAMESPACE, f"{rule}:{place}:{valid_on.isoformat()}"),
+        strategy_id=rule,
         strategy_version=1,
         model_version="previous_day1-minus-previous_day2",
         calibration_version=None,

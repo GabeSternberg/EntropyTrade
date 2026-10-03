@@ -142,3 +142,5 @@ Seattle `forecast_revision_down`. Train fires: 8. Train fills: 0. Train optimist
 Las Vegas `forecast_revision_down`. Train fires: 0. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Atlanta `forecast_revision_down`. Train fires: 6. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 7. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Downward revision records: 551 train and validation days. Fires: 227. The holdout is not recorded. Bid, ask, and net edge are empty. Nothing was promoted.
