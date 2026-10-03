@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.172 — complete**. Next is Phase 4.173.
+Last updated: 2026-10-03 · Current phase: **Phase 4.173 — complete**. Next is Phase 4.174.
 
 ## What this project is
 
@@ -179,6 +179,7 @@ holds trading credentials.
 | 4.170 | Philadelphia downward revision on the containing bracket | **complete** | [phase-4.170.md](docs/phase-reports/phase-4.170.md) |
 | 4.171 | Chicago downward revision on the containing bracket | **complete** | [phase-4.171.md](docs/phase-reports/phase-4.171.md) |
 | 4.172 | New York downward revision on the containing bracket | **complete** | [phase-4.172.md](docs/phase-reports/phase-4.172.md) |
+| 4.173 | Remaining stored cities on the downward revision | **complete** | [phase-4.173.md](docs/phase-reports/phase-4.173.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -491,6 +492,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.170**: `forecast_revision_down` on Philadelphia. The fire is revision <= -2°F. The market is the stored between-contract that contains the later max. Train fired 13 times, 3 optimistic fills, equity 99.760000. Validation fired 5 times, 1 optimistic fill, equity 99.860000. Base and conservative stay 100.000000 with 0 fills. The holdout is not scored. `2°F` and `0.40` were not changed. Nothing is promoted.
 - **Phase 4.171**: the same rule on Chicago. Train fired 3 times, 1 claim hit, 1 optimistic fill, equity 100.750000. Validation fired 4 times with 0 fills and equity 100.000000. Base and conservative stay 100.000000 with 0 fills. The holdout is not scored. `2°F` and `0.40` were not changed. Nothing is promoted.
 - **Phase 4.172**: the same rule on New York. Train fired 17 times and validation fired 5 times. No stored between-contract contained those later maxima, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. `2°F` and `0.40` were not changed. Nothing is promoted.
+- **Phase 4.173**: the same rule on the remaining stored cities that already have both previous-day fields. Los Angeles train optimistic equity is 99.990000 with 1 fill. Trenton validation optimistic equity is 99.820000 with 1 fill. The other optimistic equities on those cities stay 100.000000. Base and conservative stay 100.000000 with 0 fills. The holdout is not scored. `2°F` and `0.40` were not changed. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -526,12 +528,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.173 — the same `forecast_revision_down` rule on the remaining stored cities that already have both previous-day fields. Do not change 2°F or 0.40. Do not score a holdout. Do not promote. No live order. Do not pull a city that has no stored coordinates.
+Phase 4.174 — prediction records for the `forecast_revision_down` decisions already scored. Do not add a threshold. Do not score a holdout. Do not promote. No live order. Do not rewrite the upward revision records.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.172: ruff clean, mypy strict
-clean, pytest 275 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.173: ruff clean, mypy strict
+clean, pytest 276 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

@@ -15,6 +15,7 @@ from entropytrade.weather.revision_bracket import (
     load_newyork_down,
     load_philadelphia_bracket,
     load_philadelphia_down,
+    load_remaining_down,
 )
 from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
 
@@ -113,6 +114,67 @@ def test_newyork_down_keeps_the_frozen_thresholds() -> None:
         assert fold.conservative_fills == 0
         assert fold.base_equity == Decimal("100.000000")
         assert fold.conservative_equity == Decimal("100.000000")
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_remaining_down_keeps_the_frozen_thresholds() -> None:
+    scores = {item.place: item for item in load_remaining_down(ROOT)}
+    expected = {
+        "Austin": (20, 10, 10, 16, 0, 0, "100.000000", 9, 0, 0, "100.000000"),
+        "Oklahoma City": (19, 9, 11, 17, 0, 0, "100.000000", 7, 0, 0, "100.000000"),
+        "Dallas": (20, 10, 10, 11, 0, 0, "100.000000", 6, 0, 0, "100.000000"),
+        "Denver": (20, 10, 10, 2, 0, 0, "100.000000", 2, 0, 0, "100.000000"),
+        "Louisville": (20, 10, 10, 2, 0, 0, "100.000000", 1, 0, 0, "100.000000"),
+        "Boston": (20, 10, 10, 1, 0, 0, "100.000000", 0, 0, 0, "100.000000"),
+        "Minneapolis": (20, 10, 10, 16, 0, 0, "100.000000", 8, 0, 0, "100.000000"),
+        "San Francisco": (20, 10, 10, 5, 0, 0, "100.000000", 7, 0, 0, "100.000000"),
+        "San Diego": (20, 10, 10, 2, 0, 0, "100.000000", 0, 0, 0, "100.000000"),
+        "Newark": (20, 10, 10, 13, 1, 0, "100.000000", 2, 0, 0, "100.000000"),
+        "Trenton": (20, 10, 10, 8, 0, 0, "100.000000", 5, 0, 1, "99.820000"),
+        "Los Angeles": (20, 10, 10, 4, 0, 1, "99.990000", 3, 0, 0, "100.000000"),
+        "Washington DC": (20, 10, 10, 4, 0, 0, "100.000000", 3, 0, 0, "100.000000"),
+        "Seattle": (20, 10, 10, 8, 0, 0, "100.000000", 5, 0, 0, "100.000000"),
+        "Las Vegas": (20, 10, 10, 0, 0, 0, "100.000000", 0, 0, 0, "100.000000"),
+        "Atlanta": (20, 10, 10, 6, 0, 0, "100.000000", 7, 0, 0, "100.000000"),
+    }
+    assert set(scores) == set(expected)
+    for place, row in expected.items():
+        score = scores[place]
+        (
+            train_days,
+            validation_days,
+            holdout_days,
+            train_fires,
+            train_hits,
+            train_fills,
+            train_equity,
+            val_fires,
+            val_hits,
+            val_fills,
+            val_equity,
+        ) = row
+        assert score.name == DOWN_NAME
+        assert score.promoted is False
+        assert score.holdout_scored is False
+        assert score.guaranteed_fill is False
+        assert score.hypotheses == 1
+        assert score.train_days == train_days
+        assert score.validation_days == validation_days
+        assert score.holdout_days == holdout_days
+        assert score.train.fires == train_fires
+        assert score.train.claim_hits == train_hits
+        assert score.train.optimistic_fills == train_fills
+        assert score.train.optimistic_equity == Decimal(train_equity)
+        assert score.validation.fires == val_fires
+        assert score.validation.claim_hits == val_hits
+        assert score.validation.optimistic_fills == val_fills
+        assert score.validation.optimistic_equity == Decimal(val_equity)
+        for fold in (score.train, score.validation):
+            assert fold.base_fills == 0
+            assert fold.conservative_fills == 0
+            assert fold.base_equity == Decimal("100.000000")
+            assert fold.conservative_equity == Decimal("100.000000")
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD
 

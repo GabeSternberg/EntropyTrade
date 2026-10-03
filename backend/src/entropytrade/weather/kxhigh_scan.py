@@ -28,7 +28,7 @@ from entropytrade.weather.informational_rules import (
     score_rules,
 )
 from entropytrade.weather.recorded import RecordedBodyError, parse_cli_daily_high
-from entropytrade.weather.revision_bracket import bracket_note
+from entropytrade.weather.revision_bracket import bracket_note, down_note
 from entropytrade.weather.revision_records import records_note, skipped_note
 from entropytrade.weather.revision_rule import revision_lines
 from entropytrade.weather.walk_forward import _thirds, reject_holdout
@@ -87,6 +87,8 @@ def render_kxhigh_scan(root: Path) -> str:
     lines.append(records_note(root))
     lines.append("")
     lines.append(skipped_note(root))
+    lines.append("")
+    lines.extend(down_note(root))
     lines.append("")
     return "\n".join(lines)
 

@@ -103,3 +103,42 @@ Atlanta `forecast_revision_bracket`. Train fires: 4. Train fills: 0. Train optim
 Revision-bracket prediction records: 551 train and validation days. Fires: 91. The holdout is not recorded. Bid, ask, and net edge are empty. Nothing was promoted.
 
 Train and validation days left out of the revision records: 17. Vintage clock after 15:00 UTC: 0. Vintage clock at or after the label: 0. A vintage max is missing: 17. The holdout is not listed. Nothing was promoted.
+
+
+Philadelphia `forecast_revision_down`. Train fires: 13. Train fills: 3. Train optimistic equity: 99.760000. Validation fires: 5. Validation fills: 1. Validation optimistic equity: 99.860000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Chicago `forecast_revision_down`. Train fires: 3. Train fills: 1. Train optimistic equity: 100.750000. Validation fires: 4. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+New York `forecast_revision_down`. Train fires: 17. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 5. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Austin `forecast_revision_down`. Train fires: 16. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 9. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Oklahoma City `forecast_revision_down`. Train fires: 17. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 7. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Dallas `forecast_revision_down`. Train fires: 11. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 6. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Denver `forecast_revision_down`. Train fires: 2. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 2. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Louisville `forecast_revision_down`. Train fires: 2. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Boston `forecast_revision_down`. Train fires: 1. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Minneapolis `forecast_revision_down`. Train fires: 16. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 8. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+San Francisco `forecast_revision_down`. Train fires: 5. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 7. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+San Diego `forecast_revision_down`. Train fires: 2. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Newark `forecast_revision_down`. Train fires: 13. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 2. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Trenton `forecast_revision_down`. Train fires: 8. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 5. Validation fills: 1. Validation optimistic equity: 99.820000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Los Angeles `forecast_revision_down`. Train fires: 4. Train fills: 1. Train optimistic equity: 99.990000. Validation fires: 3. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Washington DC `forecast_revision_down`. Train fires: 4. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 3. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Seattle `forecast_revision_down`. Train fires: 8. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 5. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Las Vegas `forecast_revision_down`. Train fires: 0. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Atlanta `forecast_revision_down`. Train fires: 6. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 7. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.

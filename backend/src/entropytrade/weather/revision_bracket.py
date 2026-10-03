@@ -205,6 +205,37 @@ def load_scan_bracket(root: Path, ticker: str) -> BracketRevision:
     return _score_from_city(city, prints)
 
 
+def load_remaining_down(root: Path) -> tuple[BracketRevision, ...]:
+    """Score the downward rule on stored cities not yet scored that way."""
+    named = (
+        (_austin, _austin_prints, "austin"),
+        (_oklahomacity, _oklahomacity_prints, "oklahomacity"),
+        (_dallas, _dallas_prints, "dallas"),
+    )
+    found: list[BracketRevision] = []
+    for builder, prints_of, folder_name in named:
+        folder = root / folder_name
+        found.append(
+            _score_from_city(
+                builder(root),
+                prints_of(folder),
+                rule_name=DOWN_NAME,
+                direction="down",
+            )
+        )
+    for ticker in SCAN_TICKERS:
+        city, prints = _scan(root, ticker)
+        found.append(
+            _score_from_city(
+                city,
+                prints,
+                rule_name=DOWN_NAME,
+                direction="down",
+            )
+        )
+    return tuple(found)
+
+
 def load_revision_decisions(root: Path) -> tuple[RevisionDecision, ...]:
     """Train and validation days only. A missing vintage is not a decision."""
     rows: list[RevisionDecision] = []
@@ -685,6 +716,39 @@ def _prints_by_ticker(
     for item in prints:
         grouped.setdefault(item.ticker, []).append(item)
     return {ticker: tuple(items) for ticker, items in grouped.items()}
+
+
+def down_note(root: Path) -> tuple[str, ...]:
+    """Scan-note lines for the downward rule. They do not retune 2°F."""
+    scores = (
+        load_philadelphia_down(root),
+        load_chicago_down(root),
+        load_newyork_down(root),
+        *load_remaining_down(root),
+    )
+    lines: list[str] = []
+    for score in scores:
+        lines.extend(("", _down_sentence(score)))
+    return tuple(lines)
+
+
+def _down_sentence(score: BracketRevision) -> str:
+    if score.promoted or score.holdout_scored or score.name != DOWN_NAME:
+        raise ValueError("the downward note must not invent a score")
+    train = score.train
+    validation = score.validation
+    return " ".join(
+        (
+            f"{score.place} `{score.name}`.",
+            f"Train fires: {train.fires}. Train fills: {train.optimistic_fills}.",
+            f"Train optimistic equity: {format(train.optimistic_equity, 'f')}.",
+            f"Validation fires: {validation.fires}.",
+            f"Validation fills: {validation.optimistic_fills}.",
+            f"Validation optimistic equity: {format(validation.optimistic_equity, 'f')}.",
+            "Base and conservative equity: 100.000000.",
+            "Nothing was promoted.",
+        )
+    )
 
 
 def _sentence(score: BracketRevision) -> str:
