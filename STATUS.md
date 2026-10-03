@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.215 — complete**. Next is Phase 4.216.
+Last updated: 2026-10-03 · Current phase: **Phase 4.216 — complete**. Next is Phase 4.217.
 
 ## What this project is
 
@@ -222,6 +222,7 @@ holds trading credentials.
 | 4.213 | Ensemble control rank, not divided and not a probability | **complete** | [phase-4.213.md](docs/phase-reports/phase-4.213.md) |
 | 4.214 | Distinct candlestick spreads, not compared to 0.40 | **complete** | [phase-4.214.md](docs/phase-reports/phase-4.214.md) |
 | 4.215 | Distinct candlestick price closes, not a probability | **complete** | [phase-4.215.md](docs/phase-reports/phase-4.215.md) |
+| 4.216 | Distinct consecutive candlestick price changes, not compared to 0.40 | **complete** | [phase-4.216.md](docs/phase-reports/phase-4.216.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -603,12 +604,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.216 — count the distinct stored Philadelphia candlestick price changes. This rule is written before the count. A change is the close minus the previous close when both `price.close_dollars` fields are decimal strings. Record how many distinct change values occur, and name the smallest and the largest in numeric order. A missing change is not filled in. Do not compare a change to 0.40. Do not treat the count as a threshold. Do not align a change to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for market price change stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.217 — count the distinct stored Philadelphia candlestick bid closes. This rule is written before the count. A bid counts only when `yes_bid.close_dollars` is a decimal string, including `0.0000`. Record how many distinct bid values occur, and name the smallest and the largest in numeric order. A missing bid is not filled in. Do not compare a bid to 0.40. Do not treat a candle as an order book. Do not treat the count as a threshold. Do not align a bid to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for Kalshi bid stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.215: ruff clean, mypy strict
-clean, pytest 359 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.216: ruff clean, mypy strict
+clean, pytest 361 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
