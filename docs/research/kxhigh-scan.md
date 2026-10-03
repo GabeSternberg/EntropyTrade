@@ -81,3 +81,5 @@ Louisville `forecast_revision_bracket`. Train fires: 1. Train fills: 0. Train op
 Boston `forecast_revision_bracket`. Train fires: 12. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 5. Validation fills: 1. Validation optimistic equity: 99.980000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Minneapolis `forecast_revision_bracket`. Train fires: 0. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+San Francisco `forecast_revision_bracket`. Train fires: 6. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
