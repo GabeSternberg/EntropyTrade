@@ -203,7 +203,7 @@ def bracket_note(root: Path) -> tuple[str, ...]:
     ):
         if path.exists():
             lines.extend(("", _sentence(loader(root))))
-    for ticker in ("KXHIGHDEN",):
+    for ticker in ("KXHIGHDEN", "KXHIGHTSDF"):
         path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
         if path.exists():
             lines.extend(("", _sentence(load_scan_bracket(root, ticker))))
