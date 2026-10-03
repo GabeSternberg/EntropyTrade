@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.266 — complete**. Next is Phase 4.267.
+Last updated: 2026-10-03 · Current phase: **Phase 4.267 — complete**. Next is Phase 4.268.
 
 ## What this project is
 
@@ -651,6 +651,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.264**: the stored NWS forecast `forecastGenerator` string is `BaselineForecastGenerator`. The hourly body was not used. The string was not rewritten into another word. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.265**: the stored NWS forecast `units` string is `us`. The hourly body was not used. The unit was not converted into another scale. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.266**: the stored NWS forecast elevation number is `0.9144` and the stored unit is `wmoUnit:m`. The hourly body was not used. The number was not converted and a unit was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.267**: the stored NWS forecast document `type` string is `Feature`. The hourly body was not used. Geometry was not read. The string was not rewritten into another word. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -686,12 +687,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.267 — record the stored top-level `type` string in the Philadelphia NWS forecast body `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the string is read. The value counts when it is a non-empty string. A missing or empty string is skipped and named. Any other value is skipped and named. Do not rewrite the string into another word. Do not read `geometry`. Do not invent a missing string. Do not compare it to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.268 — record the stored `geometry.type` string in the Philadelphia NWS forecast body `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the string is read. The value counts when it is a non-empty string. A missing geometry is skipped as `missing geometry`. A missing or empty type is skipped and named. Any other value is skipped and named. Do not read `coordinates`. Do not snap the polygon to a model grid. Do not rewrite the string into another word. Do not invent a missing string. Do not compare it to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`. The NWS polygon was not snapped to the HRRR/ECMWF/ensemble grid.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.266: ruff clean, mypy strict
-clean, pytest 461 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.267: ruff clean, mypy strict
+clean, pytest 463 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
