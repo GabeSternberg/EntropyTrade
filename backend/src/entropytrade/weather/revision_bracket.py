@@ -164,6 +164,33 @@ def load_oklahomacity_bracket(root: Path) -> BracketRevision:
     )
 
 
+def load_scan_bracket(root: Path, ticker: str) -> BracketRevision:
+    """Score one stored scan city on the same rule. Thresholds stay put."""
+    folder = root / "kxhigh-scan" / ticker
+    manifest = _object(folder / "manifest.json")
+    if manifest.get("series") != ticker or manifest.get("scored") is not True:
+        raise ValueError(f"{ticker} is not a scored scan city")
+    if manifest.get("promoted") is not False:
+        raise ValueError(f"{ticker} is promoted")
+    from entropytrade.weather.kxhigh_scan import _labels as scan_labels
+    from entropytrade.weather.kxhigh_scan import _prints as scan_prints
+
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    prints = scan_prints(folder)
+    labels = scan_labels(
+        folder / "cli.txt",
+        _text(manifest.get("station"), "station"),
+        _text(manifest.get("header_office"), "header_office"),
+        ingested,
+    )
+    return _score_registered(
+        folder,
+        _text(manifest.get("place"), "place"),
+        labels,
+        prints,
+    )
+
+
 def bracket_note(root: Path) -> tuple[str, ...]:
     """Scan-note paragraphs. They do not invent a neighbor."""
     lines = ["", _sentence(load_philadelphia_bracket(root))]
@@ -176,6 +203,10 @@ def bracket_note(root: Path) -> tuple[str, ...]:
     ):
         if path.exists():
             lines.extend(("", _sentence(loader(root))))
+    for ticker in ("KXHIGHDEN",):
+        path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
+        if path.exists():
+            lines.extend(("", _sentence(load_scan_bracket(root, ticker))))
     return tuple(lines)
 
 
