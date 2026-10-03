@@ -115,3 +115,5 @@ The Philadelphia GFS previous-day archive stores 24 hours of temperature_2m_prev
 The Philadelphia GFS-minus-HRRR previous-day record has 24 eligible hours and 0 skipped hours. The difference is the GFS temperature minus the HRRR temperature. The stored response grids are equal and were not rewritten. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia ensemble-control-minus-HRRR record has 24 eligible hours and 0 skipped hours. The difference is the ensemble control temperature minus the HRRR temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia ensemble-control-minus-ECMWF record has 24 eligible hours and 0 skipped hours. The difference is the ensemble control temperature minus the ECMWF temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
