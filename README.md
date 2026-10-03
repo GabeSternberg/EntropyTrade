@@ -205,7 +205,9 @@ not compared to 0.40 or to 2°F. Those periods have 14 distinct period
 numbers, the integers 1 through 14. A missing number was not invented
 and the count was not compared to 0.40 or to 2°F. Those periods have 14
 distinct end-time strings. A duration was not computed and the count
-was not compared to 0.40 or to 2°F.
+was not compared to 0.40 or to 2°F. Those periods have 14 distinct
+start-time strings. A duration was not computed and the count was not
+compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
