@@ -142,7 +142,10 @@ stored mean. That difference is not a threshold. The stored NWS hourly
 temperatures have 28 distinct values, from 46 through 73. That count
 was not compared to 0.40 and is not a threshold. The stored NWS forecast
 periods, not the hourly body, minus the stored HRRR forecast at equal
-UTC instants are recorded. That difference is not a threshold.
+UTC instants are recorded. That difference is not a threshold. Those
+same forecast periods have 12 distinct temperatures, from 45 to 73.
+Missing integers were not invented. The count was not compared to 0.40
+and is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
