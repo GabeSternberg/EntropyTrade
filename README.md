@@ -236,7 +236,10 @@ computed and it was not compared to 0.40 or to 2°F. The stored hourly
 forecast generator string is `HourlyForecastGenerator`. It was not
 rewritten and was not compared to 0.40 or to 2°F. The stored hourly units
 string is `us`. It was not converted into another scale and was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. The stored hourly elevation number is
+`0.9144` with unit `wmoUnit:m`. The 14-period forecast body was not
+used. The number was not converted and was not compared to 0.40 or to
+2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
