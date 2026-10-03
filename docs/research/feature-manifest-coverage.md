@@ -71,3 +71,5 @@ The Philadelphia previous-day error record has 39 eligible days and 2 skipped da
 The Philadelphia station-bias record is the mean of 39 eligible previous-day errors. The mean is 0.6333333333333333333333333333 °F. It is not subtracted from a forecast. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia hours-until-resolution record has 40 labels and 0 negative spans. The decision time is 15:00 UTC on the valid day. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia NWS archive stores the points response and one forecast. The forecast has 14 periods. The first period starts at 2026-10-02T19:00:00-04:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.

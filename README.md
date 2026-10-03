@@ -67,7 +67,8 @@ temperature errors compare the observed daily maximum with the stored
 previous-day maximum and are not a trade. Their unrounded mean is stored
 as a station bias and is not subtracted from a forecast. Hours until
 resolution are the hours from 15:00 UTC on the valid day until the stored
-CLI label time.
+CLI label time. A public NWS points response and the one forecast
+it names are stored and are not aligned to that clock.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

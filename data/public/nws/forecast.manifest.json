@@ -1,0 +1,8 @@
+{
+  "points_url": "https://api.weather.gov/points/39.87,-75.23",
+  "points_status": 200,
+  "forecast_url": "https://api.weather.gov/gridpoints/PHI/48,75/forecast",
+  "forecast_status": 200,
+  "promoted": false,
+  "traded": false
+}
