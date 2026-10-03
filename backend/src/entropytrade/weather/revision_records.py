@@ -122,6 +122,15 @@ def write_revision_records(root: Path) -> None:
     )
 
 
+def revision_prediction_ids(root: Path) -> frozenset[UUID]:
+    """Ids on the revision records. Does not rewrite the CLI rescore file."""
+    records = load_revision_records(root)
+    found = tuple(record.prediction_id for record in records)
+    if len(found) != len(set(found)):
+        raise ValueError("revision prediction ids collide")
+    return frozenset(found)
+
+
 def load_revision_strategy(root: Path) -> RevisionStrategy:
     """Read the strategy id the records already cite. Does not write a spec."""
     records = load_revision_records(root)

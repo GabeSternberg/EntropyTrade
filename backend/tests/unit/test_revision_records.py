@@ -7,6 +7,7 @@ from pathlib import Path
 from entropytrade.agents.fixture import demo_specs
 from entropytrade.weather.cli_observations import load_comparison
 from entropytrade.weather.informational_rules import PRICE_THRESHOLD
+from entropytrade.weather.provenance import load_prediction_records
 from entropytrade.weather.revision_bracket import (
     NO_STORED_BRACKET,
     SCAN_TICKERS,
@@ -25,6 +26,7 @@ from entropytrade.weather.revision_records import (
     load_revision_records,
     load_revision_strategy,
     records_note,
+    revision_prediction_ids,
     skipped_note,
 )
 from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
@@ -131,6 +133,18 @@ def test_skipped_revision_days_are_missing_vintages() -> None:
     assert "A vintage max is missing: 17." in note
     assert "The holdout is not listed." in note
     assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_revision_ids_do_not_collide_with_the_cli_rescore() -> None:
+    revision = revision_prediction_ids(ROOT)
+    cli = load_prediction_records(ROOT)
+    cli_ids = {record.prediction_id for record in cli}
+    assert len(revision) == 551
+    assert len(cli) == 39
+    assert len(cli_ids) == 39
+    assert revision.isdisjoint(cli_ids)
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD
 
