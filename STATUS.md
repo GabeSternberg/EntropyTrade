@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.213 — complete**. Next is Phase 4.214.
+Last updated: 2026-10-03 · Current phase: **Phase 4.214 — complete**. Next is Phase 4.215.
 
 ## What this project is
 
@@ -220,6 +220,7 @@ holds trading credentials.
 | 4.211 | Ensemble mean minus ECMWF, mean formula unchanged | **complete** | [phase-4.211.md](docs/phase-reports/phase-4.211.md) |
 | 4.212 | Ensemble mean minus ensemble control, grid not rewritten | **complete** | [phase-4.212.md](docs/phase-reports/phase-4.212.md) |
 | 4.213 | Ensemble control rank, not divided and not a probability | **complete** | [phase-4.213.md](docs/phase-reports/phase-4.213.md) |
+| 4.214 | Distinct candlestick spreads, not compared to 0.40 | **complete** | [phase-4.214.md](docs/phase-reports/phase-4.214.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -601,12 +602,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.214 — count the distinct stored Philadelphia candlestick spreads. This rule is written before the count. A spread is the already stored ask close minus the bid close. Record how many distinct spread values occur, and name the smallest and the largest in numeric order. Do not compare a spread to 0.40. Do not treat the count as a threshold. Do not align a spread to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for spread stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.215 — count the distinct stored Philadelphia candlestick price closes. This rule is written before the count. A close counts only when `price.close_dollars` is a decimal string. Record how many distinct close values occur, and name the smallest and the largest in numeric order. A missing close is not filled in and is not called a probability. Do not compare a close to 0.40. Do not treat the count as a threshold. Do not align a close to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for market probability stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.213: ruff clean, mypy strict
-clean, pytest 355 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.214: ruff clean, mypy strict
+clean, pytest 357 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
