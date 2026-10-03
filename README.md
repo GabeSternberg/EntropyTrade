@@ -251,7 +251,9 @@ strings were recorded. A URL was not fetched and the value was not
 compared to 0.40 or to 2°F. The stored NWS points `id` string is
 `https://api.weather.gov/points/39.87,-75.23`. A URL was not fetched.
 The forecast body and the hourly body were not used. It was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. The stored NWS points document type string
+is `Feature`. Geometry was not read and the string was not rewritten.
+It was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
