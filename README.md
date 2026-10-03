@@ -131,7 +131,9 @@ forecast, at equal UTC instants, is recorded. The NWS polygon was not
 snapped to the HRRR grid. That difference is not a threshold. The same
 NWS series minus the stored ECMWF forecast is recorded the same way.
 The NWS polygon was not snapped to the ECMWF grid. That difference is
-not a threshold.
+not a threshold. The same NWS series minus the ensemble control is
+recorded on the stored ensemble grid. Member series are not in that
+difference. It is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
