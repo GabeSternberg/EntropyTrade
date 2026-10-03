@@ -1,0 +1,7 @@
+{
+  "url": "https://ensemble-api.open-meteo.com/v1/ensemble?latitude=39.87&longitude=-75.23&hourly=temperature_2m&models=gfs_seamless&temperature_unit=fahrenheit&timezone=UTC&forecast_days=1",
+  "http_status": 200,
+  "model": "gfs_seamless",
+  "promoted": false,
+  "traded": false
+}
