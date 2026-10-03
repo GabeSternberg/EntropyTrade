@@ -49,3 +49,5 @@ manifest column or a previous-runs hourly field.
 | related temperature strikes | no stored value |
 
 The revision-bracket manifest stores these features: later_max, earlier_max, revision. They are not CLI rescore columns. They are not a new threshold. The holdout is not scored. Nothing was promoted.
+
+The Philadelphia dew-point archive stores 960 hours of dew_point_2m_previous_day1. 0 of those hours are null. The first hour is 2026-08-24T00:00. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
