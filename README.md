@@ -162,7 +162,10 @@ hourly periods have 81 daytime periods and 75 nighttime periods. Daytime
 was not treated as a trading session and the counts were not compared to
 0.40. The stored NWS hourly detailed forecasts have 0 distinct strings.
 Every stored string was empty and was not filled in. A forecast was not
-rewritten and the count was not compared to 0.40.
+rewritten and the count was not compared to 0.40. The stored NWS hourly
+temperature trends have 0 distinct strings. Every stored value was null
+and was not filled in. A trend was not rewritten and the count was not
+compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
