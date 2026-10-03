@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.180 — complete**. Next is Phase 4.181.
+Last updated: 2026-10-03 · Current phase: **Phase 4.181 — complete**. Next is Phase 4.182.
 
 ## What this project is
 
@@ -187,6 +187,7 @@ holds trading credentials.
 | 4.178 | Philadelphia wind archive, not a trade | **complete** | [phase-4.178.md](docs/phase-reports/phase-4.178.md) |
 | 4.179 | Philadelphia precipitation archive, not a trade | **complete** | [phase-4.179.md](docs/phase-reports/phase-4.179.md) |
 | 4.180 | Philadelphia observed-temperature archive, not a trade | **complete** | [phase-4.180.md](docs/phase-reports/phase-4.180.md) |
+| 4.181 | Hour of day from stored observed-temperature timestamps | **complete** | [phase-4.181.md](docs/phase-reports/phase-4.181.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -507,6 +508,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.178**: Philadelphia `wind_speed_10m_previous_day1` from the same public previous-runs API and coordinates, with `wind_speed_unit=mph` chosen before the request. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00. The response unit is `mp/h`. The response timezone is GMT. 2026-08-23 is not in the body and was not invented. The CLI coverage row for wind still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.179**: Philadelphia `precipitation_previous_day1` from the same public previous-runs API and coordinates, with `precipitation_unit=inch` chosen before the request. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00. The response unit is inch. The response timezone is GMT. 2026-08-23 is not in the body and was not invented. The CLI coverage row for precipitation still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.180**: Philadelphia observed `temperature_2m` from the public archive API at the same requested coordinates. The window is 2026-08-24 through 2026-10-02. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00, unit °F. The response coordinates differ from the previous-runs grid point and were stored as returned. The response timezone is GMT. 2026-08-23 was not requested and is not in the body. The CLI coverage row for recent observed temperature still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.181**: the hour of day is the hour in each stored observed-temperature timestamp. 960 hours. The first hour is 0 and the last hour is 23. Each hour from 0 through 23 appears 40 times. That count is not a threshold. The CLI coverage row for hour of day still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -542,12 +544,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.181 — record the hour of day from each stored Philadelphia observed-temperature timestamp. The hour is the hour in that timestamp. Do not invent a decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.182 — record the calendar month from each stored Philadelphia observed-temperature timestamp. The month is the month in that timestamp. Do not invent a season bucket. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.180: ruff clean, mypy strict
-clean, pytest 289 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.181: ruff clean, mypy strict
+clean, pytest 291 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
