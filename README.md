@@ -88,7 +88,9 @@ is a decimal string. A missing close is not filled in and is not called
 a probability. Where both the close and the previous close are decimal
 strings, the change is the close minus the previous and is not compared
 to 0.40. Candlestick tickers have 65 distinct strike suffixes. `B80.5`
-is absent from those tickers and was not invented.
+is absent from those tickers and was not invented. Stored CLI-window
+order books do not have both a yes level and a no level, so no imbalance
+was computed.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
