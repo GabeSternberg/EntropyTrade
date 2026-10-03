@@ -44,6 +44,26 @@ class TradeTape:
 
 def load_trade_tape(root: Path) -> TradeTape:
     """Read ``kalshi-public/trades``. Empty pages add no prints."""
+    prints, total, manifest = _load_prints(root)
+    b805 = tuple(item for item in prints if item.ticker.endswith("-B80.5"))
+    return TradeTape(
+        fetched_at=_stamp(_text(manifest.get("fetched_at"), "fetched_at")),
+        host=_text(manifest.get("host"), "host"),
+        tickers=_count(manifest.get("tickers"), "tickers"),
+        trade_count=total,
+        tickers_with_trades=_count(manifest.get("tickers_with_trades"), "tickers_with_trades"),
+        failed_calls=_count(manifest.get("failed_calls"), "failed_calls"),
+        b805_prints=b805,
+    )
+
+
+def load_all_prints(root: Path) -> tuple[TradePrint, ...]:
+    """Every stored print. A print is not a fill."""
+    prints, _total, _manifest = _load_prints(root)
+    return prints
+
+
+def _load_prints(root: Path) -> tuple[tuple[TradePrint, ...], int, Mapping[str, object]]:
     folder = root / _RELATIVE
     manifest = _mapping(_read(folder / "manifest.json"), "manifest")
     calls = _seq(manifest.get("calls"), "calls")
@@ -55,22 +75,17 @@ def load_trade_tape(root: Path) -> TradeTape:
         stamp = item.get("fetched_at")
         if isinstance(path, str) and isinstance(url, str) and isinstance(stamp, str):
             fetched_by_path[path] = (_stamp(stamp), url)
-    total = 0
-    b805: list[TradePrint] = []
+    found: list[TradePrint] = []
     for path in sorted((folder / "pages").glob("*.json")):
         relative = path.relative_to(root).as_posix()
         fetched_at, endpoint = fetched_by_path[relative]
         body = _mapping(_read(path), path.name)
         for trade in _seq(body.get("trades"), "trades"):
             row = _mapping(trade, "trade")
-            total += 1
-            ticker = _text(row.get("ticker"), "ticker")
-            if not ticker.endswith("-B80.5"):
-                continue
-            b805.append(
+            found.append(
                 TradePrint(
                     trade_id=_text(row.get("trade_id"), "trade_id"),
-                    ticker=ticker,
+                    ticker=_text(row.get("ticker"), "ticker"),
                     created_at=_stamp(_text(row.get("created_time"), "created_time")),
                     fetched_at=fetched_at,
                     endpoint=endpoint,
@@ -79,17 +94,9 @@ def load_trade_tape(root: Path) -> TradeTape:
                 )
             )
     declared = _count(manifest.get("trade_count"), "trade_count")
-    if total != declared:
+    if len(found) != declared:
         raise ValueError("stored pages do not match the trade count")
-    return TradeTape(
-        fetched_at=_stamp(_text(manifest.get("fetched_at"), "fetched_at")),
-        host=_text(manifest.get("host"), "host"),
-        tickers=_count(manifest.get("tickers"), "tickers"),
-        trade_count=total,
-        tickers_with_trades=_count(manifest.get("tickers_with_trades"), "tickers_with_trades"),
-        failed_calls=_count(manifest.get("failed_calls"), "failed_calls"),
-        b805_prints=tuple(b805),
-    )
+    return tuple(found), len(found), manifest
 
 
 def _read(path: Path) -> object:
