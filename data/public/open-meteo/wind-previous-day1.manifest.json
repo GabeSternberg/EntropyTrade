@@ -1,0 +1,7 @@
+{
+  "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=wind_speed_10m_previous_day1&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=UTC&past_days=40&forecast_days=0",
+  "http_status": 200,
+  "field": "wind_speed_10m_previous_day1",
+  "promoted": false,
+  "traded": false
+}
