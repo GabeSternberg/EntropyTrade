@@ -172,7 +172,9 @@ period names have 0 distinct strings. Every stored string was empty and
 was not filled in. A name was not rewritten and the count was not
 compared to 0.40 or to 2°F. The stored NWS hourly icon strings have 13
 distinct values. An icon was not fetched, a string was not rewritten,
-and the count was not compared to 0.40 or to 2°F.
+and the count was not compared to 0.40 or to 2°F. The stored NWS hourly
+period numbers are the integers 1 through 156. A missing number was not
+invented and the count was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
