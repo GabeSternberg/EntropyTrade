@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.220 — complete**. Next is Phase 4.221.
+Last updated: 2026-10-03 · Current phase: **Phase 4.221 — complete**. Next is Phase 4.222.
 
 ## What this project is
 
@@ -227,6 +227,7 @@ holds trading credentials.
 | 4.218 | Distinct candlestick ask closes, 0.0000 not invented | **complete** | [phase-4.218.md](docs/phase-reports/phase-4.218.md) |
 | 4.219 | Distinct candlestick volumes, not a size at the touch | **complete** | [phase-4.219.md](docs/phase-reports/phase-4.219.md) |
 | 4.220 | Distinct candlestick open interest, 0.00 not invented | **complete** | [phase-4.220.md](docs/phase-reports/phase-4.220.md) |
+| 4.221 | Candlestick bids of exactly 0.0000, not a fill | **complete** | [phase-4.221.md](docs/phase-reports/phase-4.221.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -608,12 +609,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.221 — count stored Philadelphia candlesticks whose bid close is exactly 0.0000. This rule is written before the count. A bid counts when `yes_bid.close_dollars` parses as the decimal 0. Record the count and the first and last ticker-hour that has that bid. Do not treat 0.0000 as a fill. Do not compare it to 0.40. Do not treat a candle as an order book. Do not align a bid to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for Kalshi bid stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.222 — count stored Philadelphia candlesticks whose ask close is exactly 1.0000. This rule is written before the count. An ask counts when `yes_ask.close_dollars` parses as the decimal 1. Record the count and the first and last ticker-hour that has that ask. Do not treat 1.0000 as a settlement. Do not call it a probability. Do not compare it to 0.40. Do not treat a candle as an order book. Do not align an ask to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for Kalshi ask stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.220: ruff clean, mypy strict
-clean, pytest 369 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.221: ruff clean, mypy strict
+clean, pytest 371 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
