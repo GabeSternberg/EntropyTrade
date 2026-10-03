@@ -51,8 +51,11 @@ requires `ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in the execution process envir
 ## Status
 
 Phase 10 is complete as a fixture-tested gate. It does not submit. Phase 11
-is deferred. Phase 4.55 stored a broader public KXHIGHPHIL tape and found no
-sized book before the CLI label. See [`STATUS.md`](STATUS.md) before starting
-anything else.
+is deferred. Weather research scores stored daily-high tapes. The frozen
+revision rules use 2°F and a 0.40 print. `forecast_revision_bracket` buys
+the stored between-contract that contains a later maximum revised up by at
+least 2°F. `forecast_revision_down` uses the same magnitude with the sign
+flipped. Neither rule scores a holdout or sends an order. See
+[`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
 The reuse decisions are in [`docs/external-repositories.md`](docs/external-repositories.md).

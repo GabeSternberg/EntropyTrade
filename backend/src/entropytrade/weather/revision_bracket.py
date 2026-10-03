@@ -45,6 +45,7 @@ from entropytrade.weather.revision_rule import (
 from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
 RULE_NAME = "forecast_revision_bracket"
+DOWN_NAME = "forecast_revision_down"
 FIDELITY = "trade-print"
 NO_STORED_BRACKET = "no-stored-bracket"
 SCAN_TICKERS = (
@@ -134,6 +135,16 @@ class BracketRevision:
 def load_philadelphia_bracket(root: Path) -> BracketRevision:
     """Score Philadelphia. Thresholds stay at 2°F and 0.40."""
     return _score_from_city(_philadelphia(root), load_all_prints(root))
+
+
+def load_philadelphia_down(root: Path) -> BracketRevision:
+    """Score a downward revision on Philadelphia. 2°F and 0.40 stay put."""
+    return _score_from_city(
+        _philadelphia(root),
+        load_all_prints(root),
+        rule_name=DOWN_NAME,
+        direction="down",
+    )
 
 
 def load_chicago_bracket(root: Path) -> BracketRevision:
@@ -321,7 +332,13 @@ def _registered_city(
     )
 
 
-def _score_from_city(city: _City, prints: tuple[TradePrint, ...]) -> BracketRevision:
+def _score_from_city(
+    city: _City,
+    prints: tuple[TradePrint, ...],
+    *,
+    rule_name: str = RULE_NAME,
+    direction: str = "up",
+) -> BracketRevision:
     _frozen()
     return _score_city(
         city.vintages,
@@ -330,6 +347,8 @@ def _score_from_city(city: _City, prints: tuple[TradePrint, ...]) -> BracketRevi
         city.brackets,
         city.tape,
         prints,
+        rule_name=rule_name,
+        direction=direction,
     )
 
 
@@ -437,6 +456,9 @@ def _score_city(
     brackets: Mapping[date, tuple[StoredBracket, ...]],
     tape: frozenset[str],
     prints: tuple[TradePrint, ...],
+    *,
+    rule_name: str = RULE_NAME,
+    direction: str = "up",
 ) -> BracketRevision:
     later, earlier, clock = _maxes(_object(path))
     if clock != "rule":
@@ -448,12 +470,12 @@ def _score_city(
         {label.valid_on for label in holdout},
     )
     by_ticker = _prints_by_ticker(prints)
-    train_fold = _fold(train, brackets, tape, by_ticker, later, earlier)
-    validation_fold = _fold(validation, brackets, tape, by_ticker, later, earlier)
+    train_fold = _fold(train, brackets, tape, by_ticker, later, earlier, direction)
+    validation_fold = _fold(validation, brackets, tape, by_ticker, later, earlier, direction)
     _require_flat(train_fold, place)
     _require_flat(validation_fold, place)
     return BracketRevision(
-        name=RULE_NAME,
+        name=rule_name,
         place=place,
         hypotheses=1,
         scored=True,
@@ -476,6 +498,7 @@ def _fold(
     by_ticker: Mapping[str, tuple[TradePrint, ...]],
     later: Mapping[date, Decimal],
     earlier: Mapping[date, Decimal],
+    direction: str = "up",
 ) -> RevisionFold:
     fires = 0
     hits = 0
@@ -491,7 +514,7 @@ def _fold(
         earlier_max = earlier.get(label.valid_on)
         if later_max is None or earlier_max is None:
             continue
-        if later_max - earlier_max < REVISION_MINIMUM_F:
+        if not _revision_fires(later_max - earlier_max, direction):
             continue
         fires += 1
         chosen = _choose(brackets.get(label.valid_on, ()), later_max, tape)
@@ -669,6 +692,14 @@ def _require_flat(fold: RevisionFold, place: str) -> None:
         raise ValueError(f"{place} base or conservative took a fill")
     if fold.base_equity != flat or fold.conservative_equity != flat:
         raise ValueError(f"{place} base or conservative equity moved")
+
+
+def _revision_fires(revision: Decimal, direction: str) -> bool:
+    if direction == "up":
+        return revision >= REVISION_MINIMUM_F
+    if direction == "down":
+        return revision <= -REVISION_MINIMUM_F
+    raise ValueError("the revision direction is not frozen")
 
 
 def _frozen() -> None:
