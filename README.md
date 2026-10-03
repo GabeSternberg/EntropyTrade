@@ -170,7 +170,9 @@ compared to 0.40 or to 2°F. The stored NWS hourly temperature units have
 and the count was not compared to 0.40 or to 2°F. The stored NWS hourly
 period names have 0 distinct strings. Every stored string was empty and
 was not filled in. A name was not rewritten and the count was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. The stored NWS hourly icon strings have 13
+distinct values. An icon was not fetched, a string was not rewritten,
+and the count was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
