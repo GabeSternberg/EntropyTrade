@@ -57,9 +57,9 @@ the stored between-contract that contains a later maximum revised up by at
 least 2°F. `forecast_revision_down` uses the same magnitude with the sign
 flipped. Every stored city that already has both previous-day fields is scored
 on that downward rule. Those decisions have prediction records.
-Neither rule scores a holdout or sends an order. Philadelphia dew-point
-and relative-humidity series from the same public previous-runs API are
-stored and are not trades.
+Neither rule scores a holdout or sends an order. Philadelphia dew point,
+relative humidity, and cloud cover from the same public previous-runs API
+are stored and are not trades.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

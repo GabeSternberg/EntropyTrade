@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.176 — complete**. Next is Phase 4.177.
+Last updated: 2026-10-03 · Current phase: **Phase 4.177 — complete**. Next is Phase 4.178.
 
 ## What this project is
 
@@ -183,6 +183,7 @@ holds trading credentials.
 | 4.174 | Prediction records for downward revision decisions | **complete** | [phase-4.174.md](docs/phase-reports/phase-4.174.md) |
 | 4.175 | Philadelphia dew-point archive, not a trade | **complete** | [phase-4.175.md](docs/phase-reports/phase-4.175.md) |
 | 4.176 | Philadelphia humidity archive, not a trade | **complete** | [phase-4.176.md](docs/phase-reports/phase-4.176.md) |
+| 4.177 | Philadelphia cloud-cover archive, not a trade | **complete** | [phase-4.177.md](docs/phase-reports/phase-4.177.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -499,6 +500,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.174**: prediction records for the scored `forecast_revision_down` days. 551 train and validation days are stored. 227 have probability 1, including 18 Philadelphia fires. Days that did not fire use `no-stored-bracket`. The upward records were not rewritten. Bid, ask, and net edge are empty. The holdout is not recorded. Nothing is promoted.
 - **Phase 4.175**: Philadelphia `dew_point_2m_previous_day1` from the public previous-runs API at latitude 39.87 and longitude -75.23. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00. The response timezone is GMT. 2026-08-23 is not in the body and was not invented. The CLI coverage row for dew point still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.176**: Philadelphia `relative_humidity_2m_previous_day1` from the same public previous-runs API and coordinates. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00, unit percent. The response timezone is GMT. 2026-08-23 is not in the body and was not invented. The CLI coverage row for humidity still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.177**: Philadelphia `cloud_cover_previous_day1` from the same public previous-runs API and coordinates. HTTP 200. 960 hours, 0 nulls, first hour 2026-08-24T00:00, unit percent. The response timezone is GMT. 2026-08-23 is not in the body and was not invented. The CLI coverage row for cloud cover still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -534,12 +536,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.177 — archive Philadelphia cloud cover from the public previous-runs API at the stored coordinates, latitude 39.87 and longitude -75.23. The hourly field is `cloud_cover_previous_day1`. Do not send `run` or a start date. Do not invent the value if the source cannot supply it. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.178 — archive Philadelphia wind speed from the public previous-runs API at the stored coordinates, latitude 39.87 and longitude -75.23. The hourly field is `wind_speed_10m_previous_day1`. Do not send `run` or a start date. Do not invent the value if the source cannot supply it. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.176: ruff clean, mypy strict
-clean, pytest 281 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.177: ruff clean, mypy strict
+clean, pytest 283 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
