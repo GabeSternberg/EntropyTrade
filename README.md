@@ -83,7 +83,9 @@ a threshold. Stored Philadelphia candlesticks have bid and ask close
 strings. A candle is not an order book. The same files store volume and
 open interest as strings, and volume is not a size at the touch. The
 ask close minus the bid close is stored as a spread and is not compared
-to 0.40.
+to 0.40. A candlestick price close is counted only when the stored field
+is a decimal string. A missing close is not filled in and is not called
+a probability.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
