@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.260 — complete**. Next is Phase 4.261.
+Last updated: 2026-10-03 · Current phase: **Phase 4.261 — complete**. Next is Phase 4.262.
 
 ## What this project is
 
@@ -645,6 +645,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.258**: the stored NWS forecast period numbers have 14 distinct integers, 1 through 14, in ascending order. The hourly body was not used. 14 periods were read and 0 numbers were missing. A missing number was not invented. The integer 2 is a period number and was not used as the `2°F` revision threshold. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.259**: the stored NWS forecast period end times have 14 distinct strings. The hourly body was not used. 14 periods were read and 0 end times were missing. In alphabetical order the first is `2026-10-03T06:00:00-04:00` and the last is `2026-10-09T18:00:00-04:00`. A duration was not computed from `startTime`. A string was not used as a decision clock. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.260**: the stored NWS forecast period start times have 14 distinct strings. The hourly body was not used. 14 periods were read and 0 start times were missing. In alphabetical order the first is `2026-10-02T19:00:00-04:00` and the last is `2026-10-09T06:00:00-04:00`. `endTime` was not read. A duration was not computed. A string was not invented as a model vintage and was not used as a decision clock. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.261**: the stored NWS forecast `generatedAt` string is `2026-10-02T23:33:15+00:00`. The hourly body was not used. The string was not parsed into a clock and was not used as a decision clock. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -680,12 +681,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.261 — record the stored `properties.generatedAt` string in the Philadelphia NWS forecast body `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the string is read. The value counts when it is a non-empty string. A missing or empty string is skipped and named. Do not parse the string into a clock. Do not use it as a decision clock. Do not invent a missing string. Do not compare it to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.262 — record the stored `properties.updateTime` string in the Philadelphia NWS forecast body `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the string is read. The value counts when it is a non-empty string. A missing or empty string is skipped and named. Do not parse the string into a clock. Do not use it as a decision clock. Do not invent a missing string. Do not compare it to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.260: ruff clean, mypy strict
-clean, pytest 449 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.261: ruff clean, mypy strict
+clean, pytest 451 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
