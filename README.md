@@ -198,7 +198,10 @@ temperature-unit string, `F`. The unit was not converted into another
 scale and the count was not compared to 0.40 or to 2°F. Those periods
 have 0 distinct temperature-trend strings. Every stored value was null
 and was not filled in. A trend was not rewritten and the count was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. Those periods have 6 distinct
+precipitation-probability integers, from 0 to 66. A value was not
+divided by 100 and was not called a market probability. The count was
+not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
