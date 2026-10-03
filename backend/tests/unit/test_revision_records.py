@@ -19,7 +19,12 @@ from entropytrade.weather.revision_bracket import (
     load_scan_bracket,
     load_skipped_revision_days,
 )
-from entropytrade.weather.revision_records import load_revision_records, records_note, skipped_note
+from entropytrade.weather.revision_records import (
+    load_revision_hash_gap,
+    load_revision_records,
+    records_note,
+    skipped_note,
+)
 from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
 from entropytrade.weather.walk_forward import _thirds
 
@@ -124,5 +129,15 @@ def test_skipped_revision_days_are_missing_vintages() -> None:
     assert "A vintage max is missing: 17." in note
     assert "The holdout is not listed." in note
     assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_revision_feature_hash_omits_ticker_fold_and_fired() -> None:
+    gap = load_revision_hash_gap(ROOT)
+    assert gap.omitted_keys == ("fired", "fold", "ticker")
+    assert "high_f" not in gap.row_keys
+    assert "yes_price" not in gap.row_keys
+    assert gap.hashed_keys == tuple(key for key in gap.row_keys if key not in gap.omitted_keys)
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD

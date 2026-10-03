@@ -8,6 +8,7 @@ This module does not open a socket.
 """
 
 import json
+from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
 from pathlib import Path
@@ -30,6 +31,16 @@ _NAMESPACE = UUID("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
 _MANIFEST = Path("features/revision-bracket-manifest.json")
 _PREDICTIONS = Path("features/revision-bracket-predictions.json")
 _FEATURES = ("later_max", "earlier_max", "revision")
+_OMITTED_FROM_FEATURE_HASH = ("fired", "fold", "ticker")
+
+
+@dataclass(frozen=True)
+class RevisionHashGap:
+    """Row keys left out of the feature hash. The hash is not rewritten."""
+
+    row_keys: tuple[str, ...]
+    hashed_keys: tuple[str, ...]
+    omitted_keys: tuple[str, ...]
 
 
 def build_revision_payload(root: Path) -> dict[str, object]:
@@ -99,6 +110,40 @@ def write_revision_records(root: Path) -> None:
             "records": tuple(record.model_dump(mode="json") for record in records),
             "source_data_manifest_hash": digest,
         },
+    )
+
+
+def load_revision_hash_gap(root: Path) -> RevisionHashGap:
+    """Name the row keys left out of the stored feature hash. The hash stays put."""
+    payload = build_revision_payload(root)
+    records = load_revision_records(root)
+    rows = payload.get("rows")
+    if not isinstance(rows, tuple) or len(rows) != len(records):
+        raise ValueError("revision rows and prediction records disagree")
+    first: dict[str, object] | None = None
+    for raw, record in zip(rows, records, strict=True):
+        if not isinstance(raw, dict):
+            raise ValueError("a revision row is not an object")
+        row = {str(key): value for key, value in raw.items()}
+        if first is None:
+            first = row
+        elif tuple(row) != tuple(first):
+            raise ValueError("revision rows do not share one set of keys")
+        if content_hash(_feature_vector(row)) != record.feature_vector_hash:
+            raise ValueError("the feature hash is not the row minus the omitted keys")
+        if content_hash(row) == record.feature_vector_hash:
+            raise ValueError("the feature hash already covers the whole row")
+    if first is None:
+        raise ValueError("no revision rows")
+    if "high_f" in first or "yes_price" in first:
+        raise ValueError("an outcome or a print price is in the revision row")
+    omitted = tuple(key for key in first if key not in _feature_vector(first))
+    if omitted != _OMITTED_FROM_FEATURE_HASH:
+        raise ValueError("omitted revision feature keys drifted")
+    return RevisionHashGap(
+        row_keys=tuple(first),
+        hashed_keys=tuple(_feature_vector(first)),
+        omitted_keys=omitted,
     )
 
 
