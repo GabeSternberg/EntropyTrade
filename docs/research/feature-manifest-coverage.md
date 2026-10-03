@@ -99,3 +99,5 @@ The stored Philadelphia candlestick spreads cover 5529 candlesticks. 0 spreads a
 The stored Philadelphia candlestick price closes cover 4064 candlesticks. 1465 closes were missing and were not filled in. A close was not divided. A close was not compared to 0.40. It was not called a probability. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The stored Philadelphia candlestick price changes cover 4064 candlesticks. 1237 changes are zero and 1433 are negative. 1465 fields were missing and were not filled in. A change was not compared to 0.40. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The stored Philadelphia candlestick tickers have 65 distinct strikes across 230 files. 0 files had no ticker and were not filled in. B80.5 is absent. No neighbor bracket was invented. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
