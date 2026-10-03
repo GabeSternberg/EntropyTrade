@@ -1,0 +1,7 @@
+{
+  "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m_previous_day1&models=ecmwf_ifs&temperature_unit=fahrenheit&timezone=UTC&past_days=1&forecast_days=0",
+  "http_status": 200,
+  "model": "ecmwf_ifs",
+  "promoted": false,
+  "traded": false
+}

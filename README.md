@@ -91,7 +91,8 @@ to 0.40. Candlestick tickers have 65 distinct strike suffixes. `B80.5`
 is absent from those tickers and was not invented. Stored CLI-window
 order books do not have both a yes level and a no level, so no imbalance
 was computed. One previous-runs day of `ncep_hrrr_conus`
-`temperature_2m_previous_day1` is stored and is not a threshold.
+`temperature_2m_previous_day1` is stored and is not a threshold. The same
+request for `ecmwf_ifs` is stored on its own grid point.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
