@@ -93,3 +93,5 @@ Trenton `forecast_revision_bracket`. Train fires: 2. Train fills: 0. Train optim
 Los Angeles `forecast_revision_bracket`. Train fires: 6. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Washington DC `forecast_revision_bracket`. Train fires: 1. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Seattle `forecast_revision_bracket`. Train fires: 4. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.

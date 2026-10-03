@@ -1,0 +1,8 @@
+{
+  "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=47.60621&longitude=-122.33207&hourly=temperature_2m_previous_day1,temperature_2m_previous_day2&temperature_unit=fahrenheit&timezone=UTC&past_days=40&forecast_days=0",
+  "http_status": 200,
+  "clock": "rule",
+  "later": "temperature_2m_previous_day1",
+  "earlier": "temperature_2m_previous_day2",
+  "promoted": false
+}
