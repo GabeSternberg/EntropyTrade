@@ -93,3 +93,5 @@ The Philadelphia ECMWF-minus-HRRR record has 24 eligible hours and 0 skipped hou
 The stored Philadelphia candlestick files have 230 files and 5529 candlesticks. 5529 bids and 5529 asks are strings, including 0.0000. 0 fields were missing and were not filled in. A candle is not an order book. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The stored Philadelphia candlestick files have 230 files and 5529 candlesticks. 5529 volumes and 5529 open-interest values are strings, including 0.00. 0 fields were missing and were not filled in. Volume is not a size at the touch. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The stored Philadelphia candlestick spreads cover 5529 candlesticks. 0 spreads are zero and 0 are negative. 0 closes were not decimals and were not filled in. A zero spread is kept. The spread was not compared to 0.40. A candle is not an order book. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.

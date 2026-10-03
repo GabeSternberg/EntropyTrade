@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.196 — complete**. Next is Phase 4.197.
+Last updated: 2026-10-03 · Current phase: **Phase 4.197 — complete**. Next is Phase 4.198.
 
 ## What this project is
 
@@ -203,6 +203,7 @@ holds trading credentials.
 | 4.194 | ECMWF minus HRRR on stored hours, grids not snapped | **complete** | [phase-4.194.md](docs/phase-reports/phase-4.194.md) |
 | 4.195 | Stored candlestick bid and ask closes, not an order book | **complete** | [phase-4.195.md](docs/phase-reports/phase-4.195.md) |
 | 4.196 | Stored candlestick volume and open interest, not a touch size | **complete** | [phase-4.196.md](docs/phase-reports/phase-4.196.md) |
+| 4.197 | Stored candlestick spread, not compared to 0.40 | **complete** | [phase-4.197.md](docs/phase-reports/phase-4.197.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -539,6 +540,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.194**: the stored ECMWF temperature minus the stored HRRR temperature, hour by hour. 24 hours are eligible and 0 are skipped. The grids were not snapped together. The differences were not aligned to the CLI decision clock and were not used as a threshold. The CLI coverage row for forecast changes/revisions still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.195**: the already stored Philadelphia candlesticks have 230 files and 5529 candlesticks. Every candlestick has a bid close string and an ask close string, including `0.0000`. 0 fields were missing. A candle was not treated as an order book and was not aligned to 15:00 UTC. The CLI coverage rows for Kalshi bid and Kalshi ask still say no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.196**: the same candlesticks have a volume string and an open-interest string on all 5529 rows, including `0.00`. 0 fields were missing. Volume was not treated as a size at the touch and was not aligned to 15:00 UTC. The CLI coverage rows for trade volume and open interest still say no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.197**: the spread on those candlesticks is the ask close minus the bid close. 5529 spreads are stored. 0 are zero and 0 are negative. 0 closes were skipped. No spread was compared to `0.40`. A candle was not treated as an order book and was not aligned to 15:00 UTC. The CLI coverage row for spread still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -574,12 +576,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.197 — record the spread on the already stored Philadelphia candlesticks. This rule is written before the spreads are computed. When both `yes_ask.close_dollars` and `yes_bid.close_dollars` are decimal strings, the spread is the ask close minus the bid close. A string that is not a decimal is named and skipped. A zero spread is kept. Do not compare a spread to `0.40`. Do not treat a candle as an order book. Do not align a candle to 15:00 UTC. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for spread stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.198 — count `price.close_dollars` on the already stored Philadelphia candlesticks. This rule is written before the count. A candlestick has a price close when `price.close_dollars` is a decimal string. A missing close, or a string that is not a decimal, is named and not filled in. Do not divide the close by anything. Do not call a transformed number a probability. Do not compare a close to `0.40`. Do not align a candle to 15:00 UTC. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for market probability stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.196: ruff clean, mypy strict
-clean, pytest 321 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.197: ruff clean, mypy strict
+clean, pytest 323 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
