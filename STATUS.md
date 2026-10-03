@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.210 — complete**. Next is Phase 4.211.
+Last updated: 2026-10-03 · Current phase: **Phase 4.211 — complete**. Next is Phase 4.212.
 
 ## What this project is
 
@@ -217,6 +217,7 @@ holds trading credentials.
 | 4.208 | Ensemble control minus ECMWF, grids not snapped | **complete** | [phase-4.208.md](docs/phase-reports/phase-4.208.md) |
 | 4.209 | GFS minus ECMWF on the stored previous day, grids not snapped | **complete** | [phase-4.209.md](docs/phase-reports/phase-4.209.md) |
 | 4.210 | Ensemble mean minus HRRR, mean formula unchanged | **complete** | [phase-4.210.md](docs/phase-reports/phase-4.210.md) |
+| 4.211 | Ensemble mean minus ECMWF, mean formula unchanged | **complete** | [phase-4.211.md](docs/phase-reports/phase-4.211.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -598,12 +599,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.211 — compare the stored Philadelphia unrounded GFS ensemble mean with the stored Philadelphia ECMWF forecast. This rule is written before the differences are computed. The mean is the existing unrounded sum of the 31 `temperature_2m` series in `gfs-ensemble.json`, divided by 31. The ECMWF series is `temperature_2m` in `ecmwf-ifs.json`. At each timestamp present in both series, the difference is that mean minus the ECMWF temperature. A timestamp missing from either series, or an hour with a null, is skipped and named. Do not replace the mean formula. Do not snap the grid points together. Do not align the difference to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for forecast mean stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.212 — compare the stored Philadelphia unrounded GFS ensemble mean with the stored Philadelphia GFS ensemble control. This rule is written before the differences are computed. The mean is the existing unrounded sum of the 31 `temperature_2m` series in `gfs-ensemble.json`, divided by 31. The control is `temperature_2m` in that same file. At each timestamp present in both series, the difference is that mean minus the control temperature. A timestamp missing from either series, or an hour with a null, is skipped and named. Do not replace the mean formula. Do not rewrite the stored grid. Do not align the difference to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for forecast mean stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.210: ruff clean, mypy strict
-clean, pytest 349 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.211: ruff clean, mypy strict
+clean, pytest 351 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
