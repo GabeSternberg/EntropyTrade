@@ -12,6 +12,7 @@ from entropytrade.weather.revision_bracket import (
     StoredBracket,
     _fold,
     load_chicago_down,
+    load_newyork_down,
     load_philadelphia_bracket,
     load_philadelphia_down,
 )
@@ -78,6 +79,32 @@ def test_chicago_down_keeps_the_frozen_thresholds() -> None:
     assert score.train.optimistic_fills == 1
     assert score.train.optimistic_equity == Decimal("100.750000")
     assert score.validation.fires == 4
+    assert score.validation.claim_hits == 0
+    assert score.validation.optimistic_fills == 0
+    assert score.validation.optimistic_equity == Decimal("100.000000")
+    for fold in (score.train, score.validation):
+        assert fold.base_fills == 0
+        assert fold.conservative_fills == 0
+        assert fold.base_equity == Decimal("100.000000")
+        assert fold.conservative_equity == Decimal("100.000000")
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_newyork_down_keeps_the_frozen_thresholds() -> None:
+    score = load_newyork_down(ROOT)
+    assert score.name == DOWN_NAME
+    assert score.place == "New York"
+    assert score.promoted is False
+    assert score.holdout_scored is False
+    assert score.train_days == 20
+    assert score.validation_days == 10
+    assert score.holdout_days == 10
+    assert score.train.fires == 17
+    assert score.train.claim_hits == 0
+    assert score.train.optimistic_fills == 0
+    assert score.train.optimistic_equity == Decimal("100.000000")
+    assert score.validation.fires == 5
     assert score.validation.claim_hits == 0
     assert score.validation.optimistic_fills == 0
     assert score.validation.optimistic_equity == Decimal("100.000000")

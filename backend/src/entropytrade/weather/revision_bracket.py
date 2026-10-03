@@ -170,6 +170,17 @@ def load_newyork_bracket(root: Path) -> BracketRevision:
     return _score_from_city(_newyork(root), _newyork_prints(folder))
 
 
+def load_newyork_down(root: Path) -> BracketRevision:
+    """Score a downward revision on New York. 2°F and 0.40 stay put."""
+    folder = root / "newyork"
+    return _score_from_city(
+        _newyork(root),
+        _newyork_prints(folder),
+        rule_name=DOWN_NAME,
+        direction="down",
+    )
+
+
 def load_dallas_bracket(root: Path) -> BracketRevision:
     """Score Dallas on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "dallas"
