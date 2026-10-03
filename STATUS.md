@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.218 — complete**. Next is Phase 4.219.
+Last updated: 2026-10-03 · Current phase: **Phase 4.219 — complete**. Next is Phase 4.220.
 
 ## What this project is
 
@@ -225,6 +225,7 @@ holds trading credentials.
 | 4.216 | Distinct consecutive candlestick price changes, not compared to 0.40 | **complete** | [phase-4.216.md](docs/phase-reports/phase-4.216.md) |
 | 4.217 | Distinct candlestick bid closes, including 0.0000 | **complete** | [phase-4.217.md](docs/phase-reports/phase-4.217.md) |
 | 4.218 | Distinct candlestick ask closes, 0.0000 not invented | **complete** | [phase-4.218.md](docs/phase-reports/phase-4.218.md) |
+| 4.219 | Distinct candlestick volumes, not a size at the touch | **complete** | [phase-4.219.md](docs/phase-reports/phase-4.219.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -606,12 +607,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.219 — count the distinct stored Philadelphia candlestick volumes. This rule is written before the count. A volume counts only when `volume_fp` is a decimal string, including `0.00`. Record how many distinct volume values occur, and name the smallest and the largest in numeric order. A missing volume is not filled in. Volume is not a size at the touch. Do not compare a volume to 0.40. Do not treat the count as a threshold. Do not align a volume to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for trade volume stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.220 — count the distinct stored Philadelphia candlestick open-interest values. This rule is written before the count. An open-interest value counts only when `open_interest_fp` is a decimal string, including `0.00`. Record how many distinct values occur, and name the smallest and the largest in numeric order. A missing value is not filled in. Open interest is not a size at the touch. Do not compare a value to 0.40. Do not treat the count as a threshold. Do not align a value to 15:00 UTC. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for open interest stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.218: ruff clean, mypy strict
-clean, pytest 365 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.219: ruff clean, mypy strict
+clean, pytest 367 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

@@ -117,7 +117,8 @@ to 0.40. Stored candlestick bid closes have 100 distinct values, including
 0.0000. A candle is not an order book and the count was not compared to
 0.40. Stored candlestick ask closes have 100 distinct values. 0.0000 is
 absent from those asks and was not invented. The count was not compared
-to 0.40.
+to 0.40. Stored candlestick volumes have 3023 distinct values. Volume is
+not a size at the touch and the count was not compared to 0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
