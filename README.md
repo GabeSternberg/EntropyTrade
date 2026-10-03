@@ -85,7 +85,9 @@ open interest as strings, and volume is not a size at the touch. The
 ask close minus the bid close is stored as a spread and is not compared
 to 0.40. A candlestick price close is counted only when the stored field
 is a decimal string. A missing close is not filled in and is not called
-a probability.
+a probability. Where both the close and the previous close are decimal
+strings, the change is the close minus the previous and is not compared
+to 0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
