@@ -43,6 +43,15 @@ class RevisionHashGap:
     omitted_keys: tuple[str, ...]
 
 
+@dataclass(frozen=True)
+class RevisionStrategy:
+    """The strategy name on the revision records. Not a StrategySpec."""
+
+    records: int
+    strategy_id: str
+    strategy_version: int
+
+
 def build_revision_payload(root: Path) -> dict[str, object]:
     """The source manifest. Holdout days are absent. Equity is absent."""
     rows = tuple(_row(item) for item in load_revision_decisions(root))
@@ -110,6 +119,20 @@ def write_revision_records(root: Path) -> None:
             "records": tuple(record.model_dump(mode="json") for record in records),
             "source_data_manifest_hash": digest,
         },
+    )
+
+
+def load_revision_strategy(root: Path) -> RevisionStrategy:
+    """Read the strategy id the records already cite. Does not write a spec."""
+    records = load_revision_records(root)
+    ids = {record.strategy_id for record in records}
+    versions = {record.strategy_version for record in records}
+    if ids != {RULE_NAME} or versions != {1}:
+        raise ValueError("revision records do not share the frozen rule")
+    return RevisionStrategy(
+        records=len(records),
+        strategy_id=RULE_NAME,
+        strategy_version=1,
     )
 
 

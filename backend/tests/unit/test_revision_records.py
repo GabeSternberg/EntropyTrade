@@ -4,6 +4,7 @@ from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
+from entropytrade.agents.fixture import demo_specs
 from entropytrade.weather.cli_observations import load_comparison
 from entropytrade.weather.informational_rules import PRICE_THRESHOLD
 from entropytrade.weather.revision_bracket import (
@@ -22,6 +23,7 @@ from entropytrade.weather.revision_bracket import (
 from entropytrade.weather.revision_records import (
     load_revision_hash_gap,
     load_revision_records,
+    load_revision_strategy,
     records_note,
     skipped_note,
 )
@@ -129,6 +131,26 @@ def test_skipped_revision_days_are_missing_vintages() -> None:
     assert "A vintage max is missing: 17." in note
     assert "The holdout is not listed." in note
     assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_revision_strategy_is_not_a_stored_spec() -> None:
+    named = load_revision_strategy(ROOT)
+    assert named.records == 551
+    assert named.strategy_id == "forecast_revision_bracket"
+    assert named.strategy_version == 1
+    specs = {spec.strategy_id for spec in demo_specs()}
+    assert named.strategy_id not in specs
+    hits = sorted(
+        path
+        for path in ROOT.rglob("*.json")
+        if named.strategy_id in path.read_text(encoding="utf-8")
+    )
+    assert hits == [
+        ROOT / "features" / "revision-bracket-manifest.json",
+        ROOT / "features" / "revision-bracket-predictions.json",
+    ]
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD
 
