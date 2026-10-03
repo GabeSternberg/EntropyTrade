@@ -85,3 +85,5 @@ Minneapolis `forecast_revision_bracket`. Train fires: 0. Train fills: 0. Train o
 San Francisco `forecast_revision_bracket`. Train fires: 6. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 San Diego `forecast_revision_bracket`. Train fires: 11. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 1. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Newark `forecast_revision_bracket`. Train fires: 1. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.

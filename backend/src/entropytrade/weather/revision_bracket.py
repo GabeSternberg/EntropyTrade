@@ -210,6 +210,7 @@ def bracket_note(root: Path) -> tuple[str, ...]:
         "KXHIGHTMIN",
         "KXHIGHTSFO",
         "KXHIGHTSAN",
+        "KXHIGHTEWR",
     ):
         path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
         if path.exists():
