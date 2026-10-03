@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.183 — complete**. Next is Phase 4.184.
+Last updated: 2026-10-03 · Current phase: **Phase 4.184 — complete**. Next is Phase 4.185.
 
 ## What this project is
 
@@ -190,6 +190,7 @@ holds trading credentials.
 | 4.181 | Hour of day from stored observed-temperature timestamps | **complete** | [phase-4.181.md](docs/phase-reports/phase-4.181.md) |
 | 4.182 | Calendar month from stored observed-temperature timestamps | **complete** | [phase-4.182.md](docs/phase-reports/phase-4.182.md) |
 | 4.183 | Previous-day temperature errors from stored Philadelphia series | **complete** | [phase-4.183.md](docs/phase-reports/phase-4.183.md) |
+| 4.184 | Mean of the eligible previous-day errors, not a forecast adjustment | **complete** | [phase-4.184.md](docs/phase-reports/phase-4.184.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -513,6 +514,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.181**: the hour of day is the hour in each stored observed-temperature timestamp. 960 hours. The first hour is 0 and the last hour is 23. Each hour from 0 through 23 appears 40 times. That count is not a threshold. The CLI coverage row for hour of day still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.182**: the calendar month is the month in each stored observed-temperature timestamp. 960 months. The first month is 8 and the last month is 10. August has 192 hours, September 720, and October 48. Months are not bucketed into named seasons. Those counts are not a threshold. The CLI coverage row for seasonality still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.183**: the previous-day temperature error is the observed daily maximum minus the previous-day daily maximum, on dates where both stored series have the same timestamps and no null hour. 39 days are eligible. 2026-08-23 is missing from the observed series and 2026-10-02 is missing from the previous-day series. The response grid points were not snapped together. The errors are not a threshold. The CLI coverage row for previous day's errors still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.184**: the historical station/model bias for that pair is the unrounded mean of the 39 eligible errors, 0.6333333333333333333333333333 °F. Skipped days are not in the mean. The mean is not subtracted from a forecast. The CLI coverage row for historical station/model bias still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -548,12 +550,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.184 — record the arithmetic mean of the 39 eligible Philadelphia previous-day errors. That mean is the stored historical station/model bias for this pair of series. Do not subtract it from a forecast. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.185 — record hours until resolution for each stored Philadelphia CLI label. The decision time is 15:00 UTC on the label's valid day, which is the existing decision clock. Hours until resolution are the hours from that decision time until the label's stored `available_at`. A negative value is recorded. Do not drop it. Do not invent an `available_at`. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.183: ruff clean, mypy strict
-clean, pytest 295 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.184: ruff clean, mypy strict
+clean, pytest 297 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

@@ -64,7 +64,8 @@ temperature for the same dates is stored from the public archive API and
 is not a trade. The hour of day is the hour in those timestamps, and
 the calendar month is the month in those timestamps. Previous-day
 temperature errors compare the observed daily maximum with the stored
-previous-day maximum and are not a trade.
+previous-day maximum and are not a trade. Their unrounded mean is stored
+as a station bias and is not subtracted from a forecast.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

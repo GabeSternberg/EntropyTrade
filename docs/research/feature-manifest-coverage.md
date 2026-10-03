@@ -67,3 +67,5 @@ The Philadelphia hour-of-day record has 960 hours taken from the observed-temper
 The Philadelphia seasonality record has 960 months taken from the observed-temperature timestamps. The month is the month in the timestamp. Months are not bucketed into named seasons. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia previous-day error record has 39 eligible days and 2 skipped days. The error is the observed daily maximum minus the previous-day daily maximum. The grid points were not snapped together. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia station-bias record is the mean of 39 eligible previous-day errors. The mean is 0.6333333333333333333333333333 °F. It is not subtracted from a forecast. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
