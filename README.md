@@ -157,7 +157,10 @@ converted into degrees. The stored NWS hourly wind-speed strings have 3
 distinct values in alphabetical order: `0 mph`, `10 mph`, and `5 mph`.
 Those strings were not parsed into numbers. The stored NWS hourly
 short forecasts have 11 distinct strings. A forecast was not rewritten
-into another word and the count was not compared to 0.40.
+into another word and the count was not compared to 0.40. The stored NWS
+hourly periods have 81 daytime periods and 75 nighttime periods. Daytime
+was not treated as a trading session and the counts were not compared to
+0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
