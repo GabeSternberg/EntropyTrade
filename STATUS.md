@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.201 — complete**. Next is Phase 4.202.
+Last updated: 2026-10-03 · Current phase: **Phase 4.202 — complete**. Next is Phase 4.203.
 
 ## What this project is
 
@@ -208,6 +208,7 @@ holds trading credentials.
 | 4.199 | Stored candlestick price changes, not compared to 0.40 | **complete** | [phase-4.199.md](docs/phase-reports/phase-4.199.md) |
 | 4.200 | Distinct candlestick strike suffixes, no invented neighbor | **complete** | [phase-4.200.md](docs/phase-reports/phase-4.200.md) |
 | 4.201 | No order-book imbalance from empty stored books | **complete** | [phase-4.201.md](docs/phase-reports/phase-4.201.md) |
+| 4.202 | HRRR previous-day temperature for `ncep_hrrr_conus` | **complete** | [phase-4.202.md](docs/phase-reports/phase-4.202.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -549,6 +550,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.199**: when both the close and the previous close are decimal strings, the change is the close minus the previous. 4064 changes are stored. 1237 are zero and 1433 are negative. 1465 candlesticks are missing a field and were not filled in. No change was compared to `0.40`. Nothing was aligned to 15:00 UTC. The CLI coverage row for market price change still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.200**: the strike is the suffix after the last hyphen of a stored candlestick ticker. 230 files have a ticker and 65 suffixes are distinct. `B80.5` is absent and was not invented. No neighbor bracket was substituted. The CLI coverage row for related temperature strikes still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.201**: an imbalance is recorded only when a stored order book has a yes level and a no level. 240 CLI-window order-book calls are stored. 0 have both sides. 1 stored body is empty on both sides and 239 calls have no stored body. No level was invented and no ratio was computed. The CLI coverage row for order-book imbalance still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.202**: the public previous-runs API with `models=ncep_hrrr_conus`, `past_days=1`, and `forecast_days=0` returned HTTP 200. 24 hours of `temperature_2m_previous_day1`, 0 nulls, first hour 2026-10-02T00:00. `run` and `start_date` were not sent. The response timezone is GMT. The response grid point was stored as returned. It was not aligned to the CLI decision clock. The CLI coverage rows for HRRR and forecast changes/revisions still say no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -584,12 +586,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.202 — ask the public Open-Meteo previous-runs API once for HRRR temperature at latitude 39.87 and longitude -75.23. The documented model id, written down before the request, is `ncep_hrrr_conus`. The host is `https://previous-runs-api.open-meteo.com/v1/forecast`. The hourly field is `temperature_2m_previous_day1`. Use `temperature_unit=fahrenheit`, `timezone=UTC`, `past_days=1`, and `forecast_days=0`. Do not send `run`. Do not send `start_date`. Do not send a second model. Do not repeat `models=hrrr`. If the response is not HTTP 200, store the body and the status and do not invent temperatures. Do not align a successful body to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.203 — ask the public Open-Meteo previous-runs API once for ECMWF temperature at latitude 39.87 and longitude -75.23. The documented model id, written down before the request, is `ecmwf_ifs`. The host is `https://previous-runs-api.open-meteo.com/v1/forecast`. The hourly field is `temperature_2m_previous_day1`. Use `temperature_unit=fahrenheit`, `timezone=UTC`, `past_days=1`, and `forecast_days=0`. Do not send `run`. Do not send `start_date`. Do not send a second model. Do not repeat `models=hrrr`. If the response is not HTTP 200, store the body and the status and do not invent temperatures. Do not align a successful body to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.201: ruff clean, mypy strict
-clean, pytest 331 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.202: ruff clean, mypy strict
+clean, pytest 333 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

@@ -1,0 +1,7 @@
+{
+  "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m_previous_day1&models=ncep_hrrr_conus&temperature_unit=fahrenheit&timezone=UTC&past_days=1&forecast_days=0",
+  "http_status": 200,
+  "model": "ncep_hrrr_conus",
+  "promoted": false,
+  "traded": false
+}

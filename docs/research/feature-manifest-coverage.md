@@ -103,3 +103,5 @@ The stored Philadelphia candlestick price changes cover 4064 candlesticks. 1237 
 The stored Philadelphia candlestick tickers have 65 distinct strikes across 230 files. 0 files had no ticker and were not filled in. B80.5 is absent. No neighbor bracket was invented. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The stored Philadelphia CLI-window order books have 240 books. 0 have both a yes level and a no level, so no imbalance was computed. 240 books had an empty side or no stored body and were not filled in. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia HRRR previous-day archive stores 24 hours of temperature_2m_previous_day1 from ncep_hrrr_conus. 0 of those hours are null. The first hour is 2026-10-02T00:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
