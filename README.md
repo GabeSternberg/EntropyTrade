@@ -113,7 +113,9 @@ spreads have 20 distinct values. The count was not compared to 0.40.
 Stored candlestick price closes have 98 distinct values. A close was not
 called a probability and the count was not compared to 0.40. Consecutive
 candlestick closes have 94 distinct changes. That count was not compared
-to 0.40.
+to 0.40. Stored candlestick bid closes have 100 distinct values, including
+0.0000. A candle is not an order book and the count was not compared to
+0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
