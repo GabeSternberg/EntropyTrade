@@ -133,7 +133,10 @@ NWS series minus the stored ECMWF forecast is recorded the same way.
 The NWS polygon was not snapped to the ECMWF grid. That difference is
 not a threshold. The same NWS series minus the ensemble control is
 recorded on the stored ensemble grid. Member series are not in that
-difference. It is not a threshold.
+difference. It is not a threshold. The same NWS series minus the
+unrounded ensemble mean is recorded. The mean still uses all 31
+temperature series. That difference was not rounded and is not a
+threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

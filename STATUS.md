@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.227 — complete**. Next is Phase 4.228.
+Last updated: 2026-10-03 · Current phase: **Phase 4.228 — complete**. Next is Phase 4.229.
 
 ## What this project is
 
@@ -234,6 +234,7 @@ holds trading credentials.
 | 4.225 | NWS hourly minus HRRR at equal UTC instants, not a threshold | **complete** | [phase-4.225.md](docs/phase-reports/phase-4.225.md) |
 | 4.226 | NWS hourly minus ECMWF at equal UTC instants, not a threshold | **complete** | [phase-4.226.md](docs/phase-reports/phase-4.226.md) |
 | 4.227 | NWS hourly minus ensemble control at equal UTC instants, not a threshold | **complete** | [phase-4.227.md](docs/phase-reports/phase-4.227.md) |
+| 4.228 | NWS hourly minus unrounded ensemble mean, formula unchanged | **complete** | [phase-4.228.md](docs/phase-reports/phase-4.228.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -583,6 +584,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.225**: the stored NWS hourly temperature minus the stored HRRR temperature at equal UTC instants. 17 hours are eligible and 139 periods are skipped because they do not land on a stored HRRR hour. The first eligible hour is 2026-10-03T07:00 and the difference is 3.0°F. The last eligible hour is 2026-10-03T23:00 and the difference is 4.6°F. Hours of 2.1°F, 2.6°F, 2.9°F, 3.5°F, 4.6°F, and 6.1°F are in the record. They are not a new threshold. The NWS polygon was not snapped to the HRRR grid. The differences were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.226**: the stored NWS hourly temperature minus the stored ECMWF temperature at equal UTC instants. 17 hours are eligible and 139 periods are skipped because they do not land on a stored ECMWF hour. The first eligible hour is 2026-10-03T07:00 and the difference is 1.4°F. The last eligible hour is 2026-10-03T23:00 and the difference is 3.4°F. Hours of 3.2°F, 3.4°F, and 3.6°F are in the record. They are not a new threshold. The NWS polygon was not snapped to the ECMWF grid. The differences were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.227**: the stored NWS hourly temperature minus the stored ensemble control at equal UTC instants. 17 hours are eligible and 139 periods are skipped because they do not land on a stored control hour. The first eligible hour is 2026-10-03T07:00 and the difference is 1.2°F. The last eligible hour is 2026-10-03T23:00 and the difference is 3.4°F. Hours of -3.3°F, -2.8°F, -2.6°F, 2.2°F, 2.7°F, and 4.2°F are in the record. They are not a new threshold. Member series were not read. The NWS polygon was not snapped to the ensemble grid. The differences were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.228**: the stored NWS hourly temperature minus the stored unrounded ensemble mean at equal UTC instants. 17 hours are eligible and 139 periods are skipped because they do not land on a stored mean hour. The first eligible hour is 2026-10-03T07:00 and the unrounded difference is 2.02580645161290322580645161°F. The last eligible hour is 2026-10-03T23:00 and the unrounded difference is 3.68709677419354838709677419°F. The differences were not rounded. Hours above 2°F are not a new threshold. The mean still uses all 31 series. The NWS polygon was not snapped to the ensemble grid. The differences were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -618,12 +620,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.228 — compare the stored Philadelphia NWS hourly forecast with the stored unrounded Philadelphia ensemble mean at equal UTC instants. This rule is written before the differences are computed. An NWS period start is read with its offset and converted to UTC. The mean is the existing unrounded sum of all 31 temperature series divided by 31. When that UTC instant equals a mean timestamp, the difference is the NWS temperature minus the mean. A period that does not land on a stored mean hour, or an hour with a null, is skipped and named. Do not replace the mean formula. Do not align either series to the CLI decision clock. Do not snap grid points. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.229 — compare the stored Philadelphia NWS hourly forecast with the stored Philadelphia GFS ensemble member `temperature_2m_member01` at equal UTC instants. This rule is written before the differences are computed. An NWS period start is read with its offset and converted to UTC. The member series is `temperature_2m_member01` in `gfs-ensemble.json`. When that UTC instant equals a member timestamp, the difference is the NWS temperature minus the member temperature. A period that does not land on a stored member hour, or an hour with a null, is skipped and named. Do not drop the other members from the stored mean. Do not align either series to the CLI decision clock. Do not snap grid points. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.227: ruff clean, mypy strict
-clean, pytest 383 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.228: ruff clean, mypy strict
+clean, pytest 385 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
