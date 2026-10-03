@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.234 — complete**. Next is Phase 4.235.
+Last updated: 2026-10-03 · Current phase: **Phase 4.235 — complete**. Next is Phase 4.236.
 
 ## What this project is
 
@@ -241,6 +241,7 @@ holds trading credentials.
 | 4.232 | Distinct NWS forecast-period temperatures, hourly body not used | **complete** | [phase-4.232.md](docs/phase-reports/phase-4.232.md) |
 | 4.233 | Distinct NWS precipitation probabilities, not a market probability | **complete** | [phase-4.233.md](docs/phase-reports/phase-4.233.md) |
 | 4.234 | Distinct NWS relative humidity, not divided by 100 | **complete** | [phase-4.234.md](docs/phase-reports/phase-4.234.md) |
+| 4.235 | Distinct NWS dew points, unit not converted | **complete** | [phase-4.235.md](docs/phase-reports/phase-4.235.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -597,6 +598,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.232**: the stored NWS forecast periods have 12 distinct temperatures. The smallest is 45 and the largest is 73. 14 periods were read and 0 temperatures were null. The hourly body was not used. Missing integers between 45 and 73 were not invented. The count was not compared to `0.40` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.233**: the stored NWS hourly precipitation probabilities have 14 distinct values. The smallest is 0 and the largest is 66. 156 periods were read and 0 values were missing or null. Absent integers were not invented. A value was not divided by 100 and was not called a market probability. The count was not compared to `0.40` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.234**: the stored NWS hourly relative-humidity values have 40 distinct values. The smallest is 46 and the largest is 100. 156 periods were read and 0 values were missing or null. Absent integers were not invented. A value was not divided by 100. The count was not compared to `0.40` and was not aligned to the CLI decision clock. The CLI coverage row for humidity still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.235**: the stored NWS hourly dew-point values have 25 distinct values. The smallest is 3.888888888888889 and the largest is 17.22222222222222. 156 periods were read and 0 values were missing or null. Every stored unit code is `wmoUnit:degC`. The numbers were not converted and were not rounded. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for dew point still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -632,12 +634,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.235 — count the distinct dew-point values in the stored Philadelphia NWS hourly forecast. This rule is written before the distinct values are counted. The value is `dewpoint.value` when that field is a number. A missing object or a null value is skipped and named. Record the count of periods, the count of distinct values, the smallest, and the largest. Do not convert the unit. Do not invent a missing dew point. Do not compare a value to `2°F` or to `0.40`. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for dew point stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.236 — count the distinct wind directions in the stored Philadelphia NWS hourly forecast. This rule is written before the distinct values are counted. A direction counts when `windDirection` is a non-empty string. A missing or empty direction is skipped and named. Record the count of periods, the count of distinct values, and the values in alphabetical order. Do not convert a direction into degrees. Do not invent a missing direction. Do not compare a direction to `2°F` or to `0.40`. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for wind stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.234: ruff clean, mypy strict
-clean, pytest 397 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.235: ruff clean, mypy strict
+clean, pytest 399 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
