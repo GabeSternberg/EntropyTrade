@@ -193,7 +193,9 @@ degrees and the count was not compared to 0.40 or to 2°F. Those periods
 have 7 daytime periods and 7 nighttime periods. Daytime was not treated
 as a trading session and the counts were not compared to 0.40. Those
 periods have 9 distinct icon strings. An icon was not fetched and the
-count was not compared to 0.40 or to 2°F.
+count was not compared to 0.40 or to 2°F. Those periods have 1 distinct
+temperature-unit string, `F`. The unit was not converted into another
+scale and the count was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
