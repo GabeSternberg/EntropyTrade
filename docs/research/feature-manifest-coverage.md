@@ -135,3 +135,5 @@ The stored Philadelphia candlestick price closes have 98 distinct values. The sm
 The stored Philadelphia candlestick price changes have 94 distinct values. The smallest is -0.9700 and the largest is 0.9800. 2157 changes were missing and were not filled in. The count was not compared to 0.40. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The stored Philadelphia candlestick bid closes have 100 distinct values. The smallest is 0.0000 and the largest is 0.9900. 0 bids were missing and were not filled in. A candle is not an order book. The count was not compared to 0.40. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The stored Philadelphia candlestick ask closes have 100 distinct values. The smallest is 0.0100 and the largest is 1.0000. 0 asks were missing and were not filled in. A candle is not an order book. The count was not compared to 0.40. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
