@@ -220,6 +220,9 @@ stored forecast elevation number is `0.9144` with unit `wmoUnit:m`. The
 number was not converted and was not compared to 0.40 or to 2°F. The
 stored forecast document type string is `Feature`. Geometry was not read
 and the string was not rewritten. It was not compared to 0.40 or to 2°F.
+The stored forecast geometry type string is `Polygon`. Coordinates were
+not read and the polygon was not snapped to a model grid. It was not
+compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
