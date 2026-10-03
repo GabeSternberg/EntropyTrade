@@ -77,3 +77,5 @@ The Philadelphia NWS archive stores the points response and one forecast. The fo
 The Philadelphia NWS hourly archive stores 156 periods. 0 temperatures are null. The first period starts at 2026-10-03T03:00:00-04:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia GFS ensemble archive stores 24 hours and 31 temperature series. 0 values are null. The first hour is 2026-10-03T00:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia forecast-mean record has 24 unrounded hourly means. Each mean uses all 31 temperature series. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.

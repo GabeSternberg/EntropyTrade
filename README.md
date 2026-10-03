@@ -71,7 +71,8 @@ CLI label time. A public NWS points response and the one forecast
 it names are stored and are not aligned to that clock. The hourly
 forecast named by that points body is stored the same way. A one-day
 GFS ensemble from the public Open-Meteo ensemble API is stored and is
-not a trade.
+not a trade. The unrounded mean of those 31 series is stored and is not
+a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
