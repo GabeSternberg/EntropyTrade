@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.146 — complete**. Next is Phase 4.147.
+Last updated: 2026-10-03 · Current phase: **Phase 4.147 — complete**. Next is Phase 4.148.
 
 ## What this project is
 
@@ -153,6 +153,7 @@ holds trading credentials.
 | 4.144 | Philadelphia revision on the containing bracket | **complete** | [phase-4.144.md](docs/phase-reports/phase-4.144.md) |
 | 4.145 | Chicago revision on the containing bracket | **complete** | [phase-4.145.md](docs/phase-reports/phase-4.145.md) |
 | 4.146 | New York revision on the containing bracket | **complete** | [phase-4.146.md](docs/phase-reports/phase-4.146.md) |
+| 4.147 | Austin revision on the containing bracket | **complete** | [phase-4.147.md](docs/phase-reports/phase-4.147.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -439,6 +440,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.144**: `forecast_revision_bracket` fires when revision >= 2°F and trades the stored between-contract that contains the later max. Train fired once, one optimistic fill, equity 99.770000. Validation fired 0 times, equity 100.000000. Base and conservative stay 100.000000. The holdout is not scored. Nothing is promoted.
 - **Phase 4.145**: the same rule on the stored Chicago tape. Train fired 7 times and validation fired 3 times. No stored between-contract contained those later maxima, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. Nothing is promoted.
 - **Phase 4.146**: the same rule on New York. Both previous-day fields returned HTTP 200. Train fired once and validation fired 0 times. No stored between-contract contained the later max, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. Nothing is promoted.
+- **Phase 4.147**: the same rule on Austin. Both previous-day fields returned HTTP 200. Train fired once and validation fired 0 times. Every stored market is HTTP 404, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -474,12 +476,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.147 — the same frozen bracket rule on Austin, pulling both previous-day fields with no key and no `run`. Do not change 2°F or 0.40. Stop the city scan if the pull 404s. Do not score a holdout. Do not promote. No live order.
+Phase 4.148 — the same frozen bracket rule on Oklahoma City, pulling both previous-day fields with no key and no `run`. Do not change 2°F or 0.40. Stop the city scan if the pull 404s. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.146: ruff clean, mypy strict
-clean, pytest 249 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.147: ruff clean, mypy strict
+clean, pytest 250 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

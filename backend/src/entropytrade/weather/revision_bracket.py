@@ -19,6 +19,8 @@ from entropytrade.domain.market import Strike
 from entropytrade.domain.numeric import parse_money
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint, load_all_prints
+from entropytrade.weather.austin_rules import _labels as _austin_labels
+from entropytrade.weather.austin_rules import _prints as _austin_prints
 from entropytrade.weather.chicago_rules import _labels as _chicago_labels
 from entropytrade.weather.chicago_rules import _prints as _chicago_prints
 from entropytrade.weather.cli_observations import CliLabel, load_comparison
@@ -116,13 +118,30 @@ def load_newyork_bracket(root: Path) -> BracketRevision:
     )
 
 
+def load_austin_bracket(root: Path) -> BracketRevision:
+    """Score Austin on the same rule. Thresholds stay at 2°F and 0.40."""
+    folder = root / "austin"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    prints = _austin_prints(folder)
+    return _score_registered(
+        folder,
+        "Austin",
+        _austin_labels(folder / "cliaus-afos.txt", ingested),
+        prints,
+    )
+
+
 def bracket_note(root: Path) -> tuple[str, ...]:
     """Scan-note paragraphs. They do not invent a neighbor."""
     lines = ["", _sentence(load_philadelphia_bracket(root))]
-    if (root / _CHICAGO).exists():
-        lines.extend(("", _sentence(load_chicago_bracket(root))))
-    if (root / "newyork" / "revision-vintages.json").exists():
-        lines.extend(("", _sentence(load_newyork_bracket(root))))
+    for loader, path in (
+        (load_chicago_bracket, root / _CHICAGO),
+        (load_newyork_bracket, root / "newyork" / "revision-vintages.json"),
+        (load_austin_bracket, root / "austin" / "revision-vintages.json"),
+    ):
+        if path.exists():
+            lines.extend(("", _sentence(loader(root))))
     return tuple(lines)
 
 
