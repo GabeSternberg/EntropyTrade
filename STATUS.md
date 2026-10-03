@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.192 — complete**. Next is Phase 4.193.
+Last updated: 2026-10-03 · Current phase: **Phase 4.193 — complete**. Next is Phase 4.194.
 
 ## What this project is
 
@@ -199,6 +199,7 @@ holds trading credentials.
 | 4.190 | Range of the stored GFS ensemble, not a standard deviation | **complete** | [phase-4.190.md](docs/phase-reports/phase-4.190.md) |
 | 4.191 | HRRR model id `hrrr` stored as HTTP 400, no invented temperature | **complete** | [phase-4.191.md](docs/phase-reports/phase-4.191.md) |
 | 4.192 | HRRR model id `ncep_hrrr_conus`, not aligned to the CLI clock | **complete** | [phase-4.192.md](docs/phase-reports/phase-4.192.md) |
+| 4.193 | ECMWF model id `ecmwf_ifs`, not aligned to the CLI clock | **complete** | [phase-4.193.md](docs/phase-reports/phase-4.193.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -531,6 +532,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.190**: the forecast dispersion at each of those 24 hours is the maximum of the 31 temperatures minus the minimum. No series was dropped. A standard deviation was not used. The ranges were not aligned to the CLI decision clock. The CLI coverage row for forecast dispersion still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.191**: the public Open-Meteo forecast API with `models=hrrr` returned HTTP 400. The body says the string `hrrr` is an invalid model value. No temperature series was invented. A second model was not sent. The CLI coverage row for HRRR still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.192**: the same forecast API with the documented model id `ncep_hrrr_conus` returned HTTP 200. 24 hours of `temperature_2m`, 0 nulls, first hour 2026-10-03T00:00. The response timezone is GMT. The response grid point was stored as returned. It was not aligned to the CLI decision clock. The HTTP 400 body for `models=hrrr` was not overwritten. The CLI coverage row for HRRR still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.193**: the same forecast API with the documented model id `ecmwf_ifs` returned HTTP 200. 24 hours of `temperature_2m`, 0 nulls, first hour 2026-10-03T00:00. The response timezone is GMT. The response grid point was stored as returned and was not snapped to the HRRR grid. It was not aligned to the CLI decision clock. The CLI coverage row for ECMWF still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -566,12 +568,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.193 — ask the public Open-Meteo forecast API once for ECMWF temperature at latitude 39.87 and longitude -75.23. The documented model id, written down before the request, is `ecmwf_ifs`. The host is `https://api.open-meteo.com/v1/forecast`. The hourly field is `temperature_2m`. Use `temperature_unit=fahrenheit`, `timezone=UTC`, and `forecast_days=1`. Do not send a second model. Do not repeat `models=hrrr`. If the response is not HTTP 200, store the body and the status and do not invent temperatures. Do not align a successful body to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.194 — compare the stored Philadelphia ECMWF series with the stored Philadelphia HRRR series. This rule is written before the differences are computed. At each timestamp present in both series, the difference is the ECMWF temperature minus the HRRR temperature. A timestamp missing from either series, or an hour with a null, is skipped and named. Do not snap the grid points together. Do not align the difference to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for forecast changes/revisions stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.192: ruff clean, mypy strict
-clean, pytest 313 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.193: ruff clean, mypy strict
+clean, pytest 315 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
