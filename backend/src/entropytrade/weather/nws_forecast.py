@@ -12,6 +12,8 @@ from pathlib import Path
 _POINTS = Path("nws/points-39.87--75.23.json")
 _FORECAST = Path("nws/forecast-phi-48-75.json")
 _MANIFEST = Path("nws/forecast.manifest.json")
+_HOURLY = Path("nws/forecast-hourly-phi-48-75.json")
+_HOURLY_MANIFEST = Path("nws/hourly.manifest.json")
 _POINTS_URL = "https://api.weather.gov/points/39.87,-75.23"
 _HOST = "https://api.weather.gov/"
 
@@ -74,6 +76,87 @@ def load_nws_forecast(root: Path) -> NwsForecast:
         last_start=_text(last.get("startTime"), "startTime"),
         traded=False,
         promoted=False,
+    )
+
+
+@dataclass(frozen=True)
+class NwsHourly:
+    """The stored hourly body. ``traded`` and ``promoted`` stay false."""
+
+    http_status: int
+    url: str
+    periods: int
+    null_temperatures: int
+    first_start: str
+    first_temperature: Decimal
+    temperature_unit: str
+    last_start: str
+    traded: bool
+    promoted: bool
+
+
+def load_nws_hourly(root: Path) -> NwsHourly:
+    """Read the hourly body named by the stored points response."""
+    manifest = _object(root / _HOURLY_MANIFEST)
+    url = _text(manifest.get("url"), "url")
+    if not url.startswith(_HOST):
+        raise ValueError("the NWS hourly url left the points host")
+    if manifest.get("http_status") != 200:
+        raise ValueError("the NWS hourly archive is not HTTP 200")
+    if manifest.get("promoted") is not False or manifest.get("traded") is not False:
+        raise ValueError("the NWS hourly archive was traded or promoted")
+    points = _object(root / _POINTS)
+    named = _text(
+        _mapping(points.get("properties"), "properties").get("forecastHourly"),
+        "forecastHourly",
+    )
+    if named != url:
+        raise ValueError("the stored hourly url is not the points url")
+    forecast = _object(root / _HOURLY)
+    periods = _sequence(
+        _mapping(forecast.get("properties"), "properties").get("periods"),
+        "periods",
+    )
+    if not periods:
+        raise ValueError("the NWS hourly forecast has no periods")
+    first = _mapping(periods[0], "period")
+    last = _mapping(periods[-1], "period")
+    nulls = 0
+    for item in periods:
+        period = _mapping(item, "period")
+        if period.get("temperature") is None:
+            nulls += 1
+    return NwsHourly(
+        http_status=200,
+        url=url,
+        periods=len(periods),
+        null_temperatures=nulls,
+        first_start=_text(first.get("startTime"), "startTime"),
+        first_temperature=_decimal(first.get("temperature"), "temperature"),
+        temperature_unit=_text(first.get("temperatureUnit"), "temperatureUnit"),
+        last_start=_text(last.get("startTime"), "startTime"),
+        traded=False,
+        promoted=False,
+    )
+
+
+def nws_hourly_note(root: Path) -> str:
+    """One sentence. The CLI coverage row stays unchanged."""
+    found = load_nws_hourly(root)
+    if found.traded or found.promoted:
+        raise ValueError("the NWS hourly note must not trade")
+    return " ".join(
+        (
+            "The Philadelphia NWS hourly archive stores",
+            f"{found.periods} periods.",
+            f"{found.null_temperatures} temperatures are null.",
+            f"The first period starts at {found.first_start}.",
+            "It was not aligned to the CLI decision clock.",
+            "It is not a CLI rescore column.",
+            "It is not a threshold.",
+            "Nothing was traded.",
+            "Nothing was promoted.",
+        )
     )
 
 

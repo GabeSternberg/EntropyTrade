@@ -1,0 +1,6 @@
+{
+  "url": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+  "http_status": 200,
+  "promoted": false,
+  "traded": false
+}
