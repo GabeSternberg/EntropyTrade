@@ -260,7 +260,9 @@ Those points coordinates have 1 position and 2 numbers. A longitude
 and a latitude were not recorded and the count was not compared to
 0.40 or to 2°F. The stored NWS points `@context` value is a list of a
 string and an object, so 0 strings were recorded. A URL was not fetched
-and the value was not compared to 0.40 or to 2°F.
+and the value was not compared to 0.40 or to 2°F. The stored NWS points
+property `@id` string is `https://api.weather.gov/points/39.87,-75.23`.
+A URL was not fetched. It was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
