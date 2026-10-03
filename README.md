@@ -72,7 +72,8 @@ it names are stored and are not aligned to that clock. The hourly
 forecast named by that points body is stored the same way. A one-day
 GFS ensemble from the public Open-Meteo ensemble API is stored and is
 not a trade. The unrounded mean of those 31 series is stored and is not
-a threshold.
+a threshold. The range of those series, maximum minus minimum, is stored
+the same way.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
