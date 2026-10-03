@@ -267,7 +267,9 @@ NWS points property `@type` string is `wx:Point`. It was not rewritten
 and was not compared to 0.40 or to 2°F. The stored NWS points
 `astronomicalData` value is an object, so no string was recorded. A URL
 was not fetched and the nested values were not read. It was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. The stored astronomical twilight begin
+string is `2026-10-02T05:28:37-04:00`. It was not parsed into a clock
+and was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

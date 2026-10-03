@@ -1,0 +1,37 @@
+---
+cursor:
+  subagentId: "bc-f01883ed-f91d-5370-84f2-d6aa0527e162"
+---
+
+# Phase 4.290 checkpoint
+
+Date: 2026-10-03. Phase 4.290 is off-plan work. No order was sent. Nothing
+was promoted. `2°F` and `0.40` were not changed.
+
+A copy of this file is in the repository at `docs/phase-reports/phase-4.290.md`.
+
+## Rule
+
+This record rule was written before the stored astronomical twilight end
+value was read.
+
+Record the stored `properties.astronomicalData.astronomicalTwilightEnd`
+value in the Philadelphia NWS points body `points-39.87--75.23.json`. The
+forecast body and the hourly body are not used. The value counts when it
+is a non-empty string. A missing parent object is skipped as `missing
+astronomical data`. A missing or empty string is skipped as `missing
+astronomical twilight end`. Any other value is skipped as `astronomical
+twilight end is not a string`. Do not parse the string into a clock. Do
+not use it as a decision clock. Do not fetch a URL. Do not rewrite the
+string. Do not invent a missing string. Do not compare it to `0.40` or to
+`2°F`. Do not trade. Do not score a holdout. Do not promote. No live order.
+The CLI coverage row for NWS forecast stays "no stored value". Do not
+change `2°F` or `0.40`.
+
+## Result
+
+Pending. The value has not been read.
+
+## Tests
+
+Pending.
