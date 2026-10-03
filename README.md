@@ -75,6 +75,8 @@ not a trade. The unrounded mean of those 31 series is stored and is not
 a threshold. The range of those series, maximum minus minimum, is stored
 the same way. A forecast-API request with `models=hrrr` returned HTTP 400
 and is stored as an error. No temperature was invented from that body.
+The documented model id `ncep_hrrr_conus` returned one day of temperature
+and is stored the same way, not aligned to the CLI clock.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

@@ -83,3 +83,5 @@ The Philadelphia forecast-mean record has 24 unrounded hourly means. Each mean u
 The Philadelphia forecast-dispersion record has 24 hourly ranges. Each range is the maximum minus the minimum of all 31 series. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia HRRR request returned HTTP 400. No temperature series was invented. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia HRRR archive stores 24 hours of temperature_2m from ncep_hrrr_conus. 0 of those hours are null. The first hour is 2026-10-03T00:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
