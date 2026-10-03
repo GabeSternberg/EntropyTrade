@@ -80,7 +80,8 @@ and is stored the same way, not aligned to the CLI clock. The documented
 model id `ecmwf_ifs` is stored the same way, on its own grid point. The
 hour-by-hour difference of those two stored series is recorded and is not
 a threshold. Stored Philadelphia candlesticks have bid and ask close
-strings. A candle is not an order book.
+strings. A candle is not an order book. The same files store volume and
+open interest as strings, and volume is not a size at the touch.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

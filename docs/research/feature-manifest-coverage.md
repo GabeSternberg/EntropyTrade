@@ -91,3 +91,5 @@ The Philadelphia ECMWF archive stores 24 hours of temperature_2m from ecmwf_ifs.
 The Philadelphia ECMWF-minus-HRRR record has 24 eligible hours and 0 skipped hours. The difference is the ECMWF temperature minus the HRRR temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The stored Philadelphia candlestick files have 230 files and 5529 candlesticks. 5529 bids and 5529 asks are strings, including 0.0000. 0 fields were missing and were not filled in. A candle is not an order book. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The stored Philadelphia candlestick files have 230 files and 5529 candlesticks. 5529 volumes and 5529 open-interest values are strings, including 0.00. 0 fields were missing and were not filled in. Volume is not a size at the touch. It was not aligned to 15:00 UTC. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
