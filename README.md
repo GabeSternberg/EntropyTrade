@@ -100,7 +100,8 @@ HRRR is 0°F at every stored hour. That zero is not a threshold. The
 hour-by-hour difference of the GFS ensemble control and the HRRR forecast
 is recorded on the two stored grids and is not a threshold. The same
 control series minus the stored ECMWF forecast is recorded on those two
-grids and is not a threshold.
+grids and is not a threshold. On the previous day, GFS minus ECMWF is
+recorded on the two stored grids and is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

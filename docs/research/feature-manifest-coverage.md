@@ -117,3 +117,5 @@ The Philadelphia GFS-minus-HRRR previous-day record has 24 eligible hours and 0 
 The Philadelphia ensemble-control-minus-HRRR record has 24 eligible hours and 0 skipped hours. The difference is the ensemble control temperature minus the HRRR temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia ensemble-control-minus-ECMWF record has 24 eligible hours and 0 skipped hours. The difference is the ensemble control temperature minus the ECMWF temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia GFS-minus-ECMWF previous-day record has 24 eligible hours and 0 skipped hours. The difference is the GFS temperature minus the ECMWF temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
