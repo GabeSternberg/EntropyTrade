@@ -29,8 +29,14 @@ or `0.40`.
 
 ## Result
 
-Pending. The value has not been read.
+The stored value is a list of one string and one object, so it was skipped
+as `context is not a string`. 0 strings were recorded. The string inside
+the list was not extracted. The forecast body and the hourly body were not
+used. A URL was not fetched. A string was not rewritten. It was not
+compared to 0.40 or to 2°F. The CLI coverage row for NWS forecast still
+says no stored value. Nothing was traded. `2°F` and `0.40` were not
+changed. Nothing was promoted.
 
 ## Tests
 
-Pending.
+`make check` on 2026-10-03: ruff clean, mypy strict clean, pytest 499 passed.
