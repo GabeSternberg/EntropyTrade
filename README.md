@@ -185,7 +185,9 @@ compared to 0.40 or to 2°F. Those same forecast periods have 7 distinct
 short forecasts. A forecast was not rewritten and the count was not
 compared to 0.40 or to 2°F. Those periods also have 13 distinct detailed
 forecasts. A forecast was not rewritten and the count was not compared
-to 0.40 or to 2°F.
+to 0.40 or to 2°F. Those periods have 4 distinct wind-speed strings in
+alphabetical order. A string was not parsed into a number and the count
+was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
