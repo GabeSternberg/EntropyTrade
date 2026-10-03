@@ -107,3 +107,5 @@ The stored Philadelphia CLI-window order books have 240 books. 0 have both a yes
 The Philadelphia HRRR previous-day archive stores 24 hours of temperature_2m_previous_day1 from ncep_hrrr_conus. 0 of those hours are null. The first hour is 2026-10-02T00:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia ECMWF previous-day archive stores 24 hours of temperature_2m_previous_day1 from ecmwf_ifs. 0 of those hours are null. The first hour is 2026-10-02T00:00. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia ECMWF-minus-HRRR previous-day record has 24 eligible hours and 0 skipped hours. The difference is the ECMWF temperature minus the HRRR temperature. The grid points were not snapped together. It was not aligned to the CLI decision clock. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
