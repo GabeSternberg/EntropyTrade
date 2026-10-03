@@ -309,6 +309,29 @@ def test_sanfrancisco_bracket_keeps_the_same_thresholds() -> None:
     assert Decimal("0.4000") == PRICE_THRESHOLD
 
 
+def test_sandiego_bracket_keeps_the_same_thresholds() -> None:
+    score = load_scan_bracket(ROOT, "KXHIGHTSAN")
+    assert score.place == "San Diego"
+    assert score.promoted is False
+    assert score.holdout_scored is False
+    assert score.train_days == 20
+    assert score.validation_days == 10
+    assert score.holdout_days == 10
+    assert score.train.fires == 11
+    assert score.train.claim_hits == 0
+    assert score.train.optimistic_fills == 0
+    assert score.train.optimistic_equity == Decimal("100.000000")
+    assert score.validation.fires == 1
+    assert score.validation.claim_hits == 0
+    assert score.validation.optimistic_fills == 0
+    assert score.validation.optimistic_equity == Decimal("100.000000")
+    for fold in (score.train, score.validation):
+        assert fold.base_equity == Decimal("100.000000")
+        assert fold.conservative_equity == Decimal("100.000000")
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
 def test_a_missing_or_shared_bracket_is_not_traded() -> None:
     label = CliLabel(
         available_at=datetime(2026, 8, 24, 5, 55, tzinfo=UTC),
