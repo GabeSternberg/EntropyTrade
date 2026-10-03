@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.252 — complete**. Next is Phase 4.253.
+Last updated: 2026-10-03 · Current phase: **Phase 4.253 — complete**. Next is Phase 4.254.
 
 ## What this project is
 
@@ -259,6 +259,7 @@ holds trading credentials.
 | 4.250 | Distinct NWS forecast detailed texts, hourly body not used | **complete** | [phase-4.250.md](docs/phase-reports/phase-4.250.md) |
 | 4.251 | Distinct NWS forecast wind speeds, not parsed | **complete** | [phase-4.251.md](docs/phase-reports/phase-4.251.md) |
 | 4.252 | Distinct NWS forecast wind directions, not converted | **complete** | [phase-4.252.md](docs/phase-reports/phase-4.252.md) |
+| 4.253 | NWS forecast daytime counts, not a trading session | **complete** | [phase-4.253.md](docs/phase-reports/phase-4.253.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -633,6 +634,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.250**: the stored NWS forecast period detailed forecasts have 13 distinct strings. The hourly body was not used. 14 periods were read and 0 strings were missing. In alphabetical order the first is `Clear, with a low around 45.` and the last is `Sunny, with a high near 71.` A forecast was not rewritten into another word. Words inside a sentence were not extracted as a threshold. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.251**: the stored NWS forecast period wind-speed strings have 4 distinct values. The hourly body was not used. 14 periods were read and 0 speeds were missing. In alphabetical order they are `0 to 10 mph`, `0 to 5 mph`, `5 mph`, and `5 to 10 mph`. The strings were not parsed into numbers and were not reordered numerically. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for wind still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.252**: the stored NWS forecast period wind directions have 6 distinct values. The hourly body was not used. 14 periods were read and 0 directions were missing. In alphabetical order they are E, N, NE, NW, SW, and W. A direction was not converted into degrees. Missing directions were not invented. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for wind still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.253**: the stored NWS forecast periods have 7 daytime periods and 7 nighttime periods. The hourly body was not used. 14 periods were read and 0 values were not a boolean. Daytime was not treated as a trading session. The counts were not compared to `0.40` and were not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -668,12 +670,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.253 — count the stored Philadelphia NWS forecast periods in `forecast-phi-48-75.json` whose `isDaytime` field is true and whose field is false. The hourly body is not used. This rule is written before the counts are computed. A period counts as daytime when `isDaytime` is the boolean true, and as nighttime when it is the boolean false. Any other value is skipped and named. Record both counts. Do not treat daytime as a trading session. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.254 — count the distinct `icon` strings in the stored Philadelphia NWS forecast periods in `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the distinct strings are counted. An icon counts when `icon` is a non-empty string. A missing or empty string is skipped and named. Record the count of periods, the count of distinct strings, and the strings in alphabetical order. Do not fetch an icon. Do not rewrite a string into another word. Do not invent a missing icon. Do not compare a string to `0.40` or to `2°F`. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.252: ruff clean, mypy strict
-clean, pytest 433 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.253: ruff clean, mypy strict
+clean, pytest 435 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

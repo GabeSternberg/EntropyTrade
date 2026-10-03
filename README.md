@@ -189,7 +189,9 @@ to 0.40 or to 2°F. Those periods have 4 distinct wind-speed strings in
 alphabetical order. A string was not parsed into a number and the count
 was not compared to 0.40 or to 2°F. Those periods have 6 distinct wind
 directions in alphabetical order. A direction was not converted into
-degrees and the count was not compared to 0.40 or to 2°F.
+degrees and the count was not compared to 0.40 or to 2°F. Those periods
+have 7 daytime periods and 7 nighttime periods. Daytime was not treated
+as a trading session and the counts were not compared to 0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
