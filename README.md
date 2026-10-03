@@ -243,7 +243,9 @@ used. The number was not converted and was not compared to 0.40 or to
 not read and the string was not rewritten. It was not compared to 0.40
 or to 2°F. The stored hourly geometry type string is `Polygon`.
 Coordinates were not read and the polygon was not snapped to a model
-grid. It was not compared to 0.40 or to 2°F.
+grid. It was not compared to 0.40 or to 2°F. Those hourly coordinates
+have 1 ring and 5 positions. A longitude and a latitude were not
+recorded and the count was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

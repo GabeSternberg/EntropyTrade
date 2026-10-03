@@ -31,8 +31,14 @@ stored." even if the ring count is 1.
 
 ## Result
 
-Pending. The positions have not been counted.
+1 ring was stored and 5 positions were lists of numbers. 0 positions were
+not lists of numbers. The note sentence stays "1 rings were stored." The
+14-period forecast body was not used. A longitude was not recorded and a
+latitude was not recorded. The polygon was not snapped to the
+HRRR/ECMWF/ensemble grid. The count was not compared to 0.40 or to 2°F.
+The CLI coverage row for NWS forecast still says no stored value. Nothing
+was traded. `2°F` and `0.40` were not changed. Nothing was promoted.
 
 ## Tests
 
-Pending.
+`make check` on 2026-10-03: ruff clean, mypy strict clean, pytest 487 passed.

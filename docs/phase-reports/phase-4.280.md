@@ -1,0 +1,36 @@
+---
+cursor:
+  subagentId: "bc-f01883ed-f91d-5370-84f2-d6aa0527e162"
+---
+
+# Phase 4.280 checkpoint
+
+Date: 2026-10-03. Phase 4.280 is off-plan work. No order was sent. Nothing
+was promoted. `2°F` and `0.40` were not changed.
+
+A copy of this file is in the repository at `docs/phase-reports/phase-4.280.md`.
+
+## Rule
+
+This record rule was written before the stored hourly `@context` value was
+read.
+
+Record the stored top-level `@context` value in the Philadelphia NWS hourly
+body `forecast-hourly-phi-48-75.json`. The 14-period forecast body is not
+used. A non-empty string is recorded. A list of non-empty strings is
+recorded in alphabetical order. A missing or empty value is skipped as
+`missing context`. Any other shape, including a list that is not entirely
+non-empty strings, is skipped as `context is not a string`. Do not fetch a
+URL. Do not rewrite a string. Do not extract a string from a mixed list
+after seeing the shape. Do not compare the value to `0.40` or to `2°F`. Do
+not trade. Do not score a holdout. Do not promote. No live order. The CLI
+coverage row for NWS forecast stays "no stored value". Do not change `2°F`
+or `0.40`.
+
+## Result
+
+Pending. The value has not been read.
+
+## Tests
+
+Pending.
