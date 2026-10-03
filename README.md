@@ -151,7 +151,9 @@ divided by 100 and was not called a market probability. The stored NWS
 hourly relative-humidity values have 40 distinct values, from 46 to 100.
 A value was not divided by 100 and the count was not compared to 0.40.
 The stored NWS hourly dew-point values have 25 distinct values. The unit
-was not converted and the count was not compared to 0.40.
+was not converted and the count was not compared to 0.40. The stored NWS
+hourly wind directions have 7 distinct values. A direction was not
+converted into degrees.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
