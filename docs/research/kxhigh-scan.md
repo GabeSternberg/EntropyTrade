@@ -101,3 +101,5 @@ Las Vegas `forecast_revision_bracket`. Train fires: 7. Train fills: 0. Train opt
 Atlanta `forecast_revision_bracket`. Train fires: 4. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Revision-bracket prediction records: 551 train and validation days. Fires: 91. The holdout is not recorded. Bid, ask, and net edge are empty. Nothing was promoted.
+
+Train and validation days left out of the revision records: 17. Vintage clock after 15:00 UTC: 0. Vintage clock at or after the label: 0. A vintage max is missing: 17. The holdout is not listed. Nothing was promoted.

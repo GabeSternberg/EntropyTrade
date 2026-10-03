@@ -19,7 +19,9 @@ from entropytrade.weather.revision_bracket import (
     NO_STORED_BRACKET,
     RULE_NAME,
     RevisionDecision,
+    SkippedRevisionDay,
     load_revision_decisions,
+    load_skipped_revision_days,
 )
 from entropytrade.weather.revision_rule import _decision
 
@@ -100,6 +102,26 @@ def write_revision_records(root: Path) -> None:
     )
 
 
+def skipped_note(root: Path) -> str:
+    """Name why train and validation days were left out. The holdout is not listed."""
+    skipped = load_skipped_revision_days(root)
+    late = _reason_count(skipped, "vintage clock is after 15:00 UTC")
+    labeled = _reason_count(skipped, "vintage clock is at or after the label")
+    missing = _reason_count(skipped, "a vintage max is missing")
+    if late + labeled + missing != len(skipped):
+        raise ValueError("a skipped day has an unknown reason")
+    return " ".join(
+        (
+            f"Train and validation days left out of the revision records: {len(skipped)}.",
+            f"Vintage clock after 15:00 UTC: {late}.",
+            f"Vintage clock at or after the label: {labeled}.",
+            f"A vintage max is missing: {missing}.",
+            "The holdout is not listed.",
+            "Nothing was promoted.",
+        )
+    )
+
+
 def records_note(root: Path) -> str:
     """One scan-note sentence. It does not score the holdout."""
     records = build_revision_records(root)
@@ -113,6 +135,10 @@ def records_note(root: Path) -> str:
             "Nothing was promoted.",
         )
     )
+
+
+def _reason_count(skipped: tuple[SkippedRevisionDay, ...], reason: str) -> int:
+    return sum(1 for item in skipped if item.reason == reason)
 
 
 def _row(item: RevisionDecision) -> dict[str, object]:

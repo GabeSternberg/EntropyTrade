@@ -17,8 +17,9 @@ from entropytrade.weather.revision_bracket import (
     load_philadelphia_bracket,
     load_revision_decisions,
     load_scan_bracket,
+    load_skipped_revision_days,
 )
-from entropytrade.weather.revision_records import load_revision_records, records_note
+from entropytrade.weather.revision_records import load_revision_records, records_note, skipped_note
 from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
 from entropytrade.weather.walk_forward import _thirds
 
@@ -83,6 +84,45 @@ def test_revision_records_match_the_scored_days() -> None:
     assert "cli-aligned" in _RESCORE.read_text(encoding="utf-8")
     note = records_note(ROOT)
     assert "The holdout is not recorded." in note
+    assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_skipped_revision_days_are_missing_vintages() -> None:
+    decisions = load_revision_decisions(ROOT)
+    skipped = load_skipped_revision_days(ROOT)
+    scores = (
+        load_philadelphia_bracket(ROOT),
+        load_chicago_bracket(ROOT),
+        load_newyork_bracket(ROOT),
+        load_austin_bracket(ROOT),
+        load_oklahomacity_bracket(ROOT),
+        load_dallas_bracket(ROOT),
+        *(load_scan_bracket(ROOT, ticker) for ticker in SCAN_TICKERS),
+    )
+    window = sum(score.train_days + score.validation_days for score in scores)
+    assert len(decisions) + len(skipped) == window
+    assert len(skipped) == 17
+    assert {item.reason for item in skipped} == {"a vintage max is missing"}
+    assert {item.fold for item in skipped} == {"train"}
+    assert {item.valid_on for item in skipped} == {date(2026, 8, 23)}
+    assert "Philadelphia" not in {item.place for item in skipped}
+    assert "Chicago" not in {item.place for item in skipped}
+    recorded = {(item.place, item.valid_on) for item in decisions}
+    left_out = {(item.place, item.valid_on) for item in skipped}
+    assert recorded.isdisjoint(left_out)
+    labels, _comparison = load_comparison(ROOT)
+    ordered = tuple(sorted(labels, key=lambda label: (label.valid_on, label.available_at)))
+    _train, _validation, holdout = _thirds(ordered)
+    holdout_days = {label.valid_on for label in holdout}
+    assert holdout_days.isdisjoint(item.valid_on for item in skipped)
+    note = skipped_note(ROOT)
+    assert "Train and validation days left out of the revision records: 17." in note
+    assert "Vintage clock after 15:00 UTC: 0." in note
+    assert "Vintage clock at or after the label: 0." in note
+    assert "A vintage max is missing: 17." in note
+    assert "The holdout is not listed." in note
     assert "Nothing was promoted." in note
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD

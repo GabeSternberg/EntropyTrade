@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.163 — complete**. Next is Phase 4.164.
+Last updated: 2026-10-03 · Current phase: **Phase 4.164 — complete**. Next is Phase 4.165.
 
 ## What this project is
 
@@ -170,6 +170,7 @@ holds trading credentials.
 | 4.161 | Las Vegas revision on the containing bracket | **complete** | [phase-4.161.md](docs/phase-reports/phase-4.161.md) |
 | 4.162 | Atlanta revision on the containing bracket | **complete** | [phase-4.162.md](docs/phase-reports/phase-4.162.md) |
 | 4.163 | Prediction records for revision-bracket decisions | **complete** | [phase-4.163.md](docs/phase-reports/phase-4.163.md) |
+| 4.164 | Train and validation days left out of revision records | **complete** | [phase-4.164.md](docs/phase-reports/phase-4.164.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -473,6 +474,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.161**: the same rule on Las Vegas. Both previous-day fields returned HTTP 200. Train fired 7 times and validation fired 5 times. No stored between-contract contained those later maxima, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. Nothing is promoted.
 - **Phase 4.162**: the same rule on Atlanta. Both previous-day fields returned HTTP 200. Train fired 4 times and validation fired 0 times. No stored between-contract contained those later maxima, so there were 0 fills. Optimistic, base, and conservative equity stay 100.000000. The holdout is not scored. Nothing is promoted. No further stored city has coordinates for this pull. No city returned HTTP 404.
 - **Phase 4.163**: prediction records for the scored `forecast_revision_bracket` days. 551 train and validation days are stored. 91 have probability 1. Days that did not fire, and fires with no containing contract, use `no-stored-bracket`, which is not a Kalshi market. Three fires name a stored contract. Bid, ask, and net edge are empty. The holdout is not recorded. Nothing is promoted.
+- **Phase 4.164**: 17 train days did not become a revision record. Each one is 2026-08-23 and the stored vintage max is missing. Philadelphia and Chicago are not in that list. No day was skipped for a late clock. The holdout is not listed. Nothing is promoted.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -508,12 +510,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.164 — name the train and validation days that did not become a revision-bracket prediction record, and why. Do not record the holdout. Do not add a threshold. Do not promote. No live order.
+Phase 4.165 — record that the revision-bracket manifest stores later max, earlier max, and revision, without treating that as a new threshold and without changing the CLI rescore columns. Do not score a holdout. Do not promote. No live order.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.163: ruff clean, mypy strict
-clean, pytest 266 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.164: ruff clean, mypy strict
+clean, pytest 267 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

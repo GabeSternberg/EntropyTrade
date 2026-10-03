@@ -92,6 +92,16 @@ class RevisionDecision:
 
 
 @dataclass(frozen=True)
+class SkippedRevisionDay:
+    """A train or validation label that did not become a record."""
+
+    place: str
+    valid_on: date
+    fold: str
+    reason: str
+
+
+@dataclass(frozen=True)
 class _City:
     """Labels, vintages, and the stored between-contracts for one place."""
 
@@ -171,6 +181,14 @@ def load_revision_decisions(root: Path) -> tuple[RevisionDecision, ...]:
             raise ValueError(f"{city.place} is already a revision decision place")
         seen.add(city.place)
         rows.extend(_decisions(city))
+    return tuple(rows)
+
+
+def load_skipped_revision_days(root: Path) -> tuple[SkippedRevisionDay, ...]:
+    """Name each train or validation day that did not become a record."""
+    rows: list[SkippedRevisionDay] = []
+    for city in _cities(root):
+        rows.extend(_skipped(city))
     return tuple(rows)
 
 
@@ -315,7 +333,15 @@ def _score_from_city(city: _City, prints: tuple[TradePrint, ...]) -> BracketRevi
     )
 
 
-def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
+def _splits(
+    city: _City,
+) -> tuple[
+    tuple[CliLabel, ...],
+    tuple[CliLabel, ...],
+    tuple[CliLabel, ...],
+    Mapping[date, Decimal],
+    Mapping[date, Decimal],
+]:
     later, earlier, clock = _maxes(_object(city.vintages))
     if clock != "rule":
         raise ValueError("the revision clock is not the stored rule")
@@ -325,6 +351,11 @@ def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
         {label.valid_on for label in train} | {label.valid_on for label in validation},
         {label.valid_on for label in holdout},
     )
+    return train, validation, holdout, later, earlier
+
+
+def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
+    train, validation, _holdout, later, earlier = _splits(city)
     rows: list[RevisionDecision] = []
     for fold, labels in (("train", train), ("validation", validation)):
         for label in labels:
@@ -334,6 +365,41 @@ def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
     return tuple(rows)
 
 
+def _skipped(city: _City) -> tuple[SkippedRevisionDay, ...]:
+    train, validation, _holdout, later, earlier = _splits(city)
+    rows: list[SkippedRevisionDay] = []
+    for fold, labels in (("train", train), ("validation", validation)):
+        for label in labels:
+            reason = _skip_reason(label, later, earlier)
+            if reason is None:
+                continue
+            rows.append(
+                SkippedRevisionDay(
+                    place=city.place,
+                    valid_on=label.valid_on,
+                    fold=fold,
+                    reason=reason,
+                )
+            )
+    return tuple(rows)
+
+
+def _skip_reason(
+    label: CliLabel,
+    later: Mapping[date, Decimal],
+    earlier: Mapping[date, Decimal],
+) -> str | None:
+    decision = _decision(label.valid_on)
+    later_at, earlier_at = _clock(label.valid_on)
+    if later_at > decision or earlier_at > decision:
+        return "vintage clock is after 15:00 UTC"
+    if later_at >= label.available_at or earlier_at >= label.available_at:
+        return "vintage clock is at or after the label"
+    if later.get(label.valid_on) is None or earlier.get(label.valid_on) is None:
+        return "a vintage max is missing"
+    return None
+
+
 def _decision_row(
     city: _City,
     label: CliLabel,
@@ -341,16 +407,10 @@ def _decision_row(
     later: Mapping[date, Decimal],
     earlier: Mapping[date, Decimal],
 ) -> RevisionDecision | None:
-    decision = _decision(label.valid_on)
-    later_at, earlier_at = _clock(label.valid_on)
-    if later_at > decision or earlier_at > decision:
+    if _skip_reason(label, later, earlier) is not None:
         return None
-    if later_at >= label.available_at or earlier_at >= label.available_at:
-        return None
-    later_max = later.get(label.valid_on)
-    earlier_max = earlier.get(label.valid_on)
-    if later_max is None or earlier_max is None:
-        return None
+    later_max = later[label.valid_on]
+    earlier_max = earlier[label.valid_on]
     revision = later_max - earlier_max
     fired = revision >= REVISION_MINIMUM_F
     ticker = NO_STORED_BRACKET
