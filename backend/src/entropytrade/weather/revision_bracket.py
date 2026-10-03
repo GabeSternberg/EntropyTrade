@@ -46,6 +46,22 @@ from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
 RULE_NAME = "forecast_revision_bracket"
 FIDELITY = "trade-print"
+NO_STORED_BRACKET = "no-stored-bracket"
+SCAN_TICKERS = (
+    "KXHIGHDEN",
+    "KXHIGHTSDF",
+    "KXHIGHTBOS",
+    "KXHIGHTMIN",
+    "KXHIGHTSFO",
+    "KXHIGHTSAN",
+    "KXHIGHTEWR",
+    "KXHIGHTTTN",
+    "KXHIGHLAX",
+    "KXHIGHTDC",
+    "KXHIGHTSEA",
+    "KXHIGHTLV",
+    "KXHIGHTATL",
+)
 _ONE = Decimal(1)
 _VINTAGES = Path("open-meteo/revision-vintages.json")
 _CHICAGO = Path("chicago/revision-vintages.json")
@@ -59,6 +75,31 @@ class StoredBracket:
     valid_on: date
     floor: Decimal
     cap: Decimal
+
+
+@dataclass(frozen=True)
+class RevisionDecision:
+    """One train or validation day. The holdout is not a decision."""
+
+    place: str
+    valid_on: date
+    fold: str
+    later_max: Decimal
+    earlier_max: Decimal
+    revision: Decimal
+    fired: bool
+    ticker: str
+
+
+@dataclass(frozen=True)
+class _City:
+    """Labels, vintages, and the stored between-contracts for one place."""
+
+    place: str
+    vintages: Path
+    labels: tuple[CliLabel, ...]
+    brackets: Mapping[date, tuple[StoredBracket, ...]]
+    tape: frozenset[str]
 
 
 @dataclass(frozen=True)
@@ -82,90 +123,148 @@ class BracketRevision:
 
 def load_philadelphia_bracket(root: Path) -> BracketRevision:
     """Score Philadelphia. Thresholds stay at 2°F and 0.40."""
-    _frozen()
-    labels, _comparison = load_comparison(root)
-    return _score_city(
-        root / _VINTAGES,
-        "Philadelphia",
-        labels,
-        _brackets(root / "kalshi-public"),
-        _tape(root / "kalshi-public" / "trades" / "manifest.json"),
-        load_all_prints(root),
-    )
+    return _score_from_city(_philadelphia(root), load_all_prints(root))
 
 
 def load_chicago_bracket(root: Path) -> BracketRevision:
     """Score Chicago on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "chicago"
-    manifest = _object(folder / "manifest.json")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _chicago_prints(folder)
-    return _score_registered(
-        folder,
-        "Chicago",
-        _chicago_labels(folder / "climdw-afos.txt", ingested),
-        prints,
-    )
+    return _score_from_city(_chicago(root), _chicago_prints(folder))
 
 
 def load_newyork_bracket(root: Path) -> BracketRevision:
     """Score New York on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "newyork"
-    manifest = _object(folder / "manifest.json")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _newyork_prints(folder)
-    return _score_registered(
-        folder,
-        "New York",
-        _newyork_labels(folder / "clinyc-afos.txt", ingested),
-        prints,
-    )
+    return _score_from_city(_newyork(root), _newyork_prints(folder))
 
 
 def load_dallas_bracket(root: Path) -> BracketRevision:
     """Score Dallas on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "dallas"
-    manifest = _object(folder / "manifest.json")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _dallas_prints(folder)
-    return _score_registered(
-        folder,
-        "Dallas",
-        _dallas_labels(folder / "clidfw-afos.txt", ingested),
-        prints,
-    )
+    return _score_from_city(_dallas(root), _dallas_prints(folder))
 
 
 def load_austin_bracket(root: Path) -> BracketRevision:
     """Score Austin on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "austin"
-    manifest = _object(folder / "manifest.json")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _austin_prints(folder)
-    return _score_registered(
-        folder,
-        "Austin",
-        _austin_labels(folder / "cliaus-afos.txt", ingested),
-        prints,
-    )
+    return _score_from_city(_austin(root), _austin_prints(folder))
 
 
 def load_oklahomacity_bracket(root: Path) -> BracketRevision:
     """Score Oklahoma City on the same rule. Thresholds stay at 2°F and 0.40."""
     folder = root / "oklahomacity"
-    manifest = _object(folder / "manifest.json")
-    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _oklahomacity_prints(folder)
-    return _score_registered(
-        folder,
-        "Oklahoma City",
-        _oklahomacity_labels(folder / "cliokc-afos.txt", ingested),
-        prints,
-    )
+    return _score_from_city(_oklahomacity(root), _oklahomacity_prints(folder))
 
 
 def load_scan_bracket(root: Path, ticker: str) -> BracketRevision:
     """Score one stored scan city on the same rule. Thresholds stay put."""
+    city, prints = _scan(root, ticker)
+    return _score_from_city(city, prints)
+
+
+def load_revision_decisions(root: Path) -> tuple[RevisionDecision, ...]:
+    """Train and validation days only. A missing vintage is not a decision."""
+    rows: list[RevisionDecision] = []
+    seen: set[str] = set()
+    for city in _cities(root):
+        if city.place in seen:
+            raise ValueError(f"{city.place} is already a revision decision place")
+        seen.add(city.place)
+        rows.extend(_decisions(city))
+    return tuple(rows)
+
+
+def bracket_note(root: Path) -> tuple[str, ...]:
+    """Scan-note paragraphs. They do not invent a neighbor."""
+    lines = ["", _sentence(load_philadelphia_bracket(root))]
+    for loader, path in (
+        (load_chicago_bracket, root / _CHICAGO),
+        (load_newyork_bracket, root / "newyork" / "revision-vintages.json"),
+        (load_austin_bracket, root / "austin" / "revision-vintages.json"),
+        (load_oklahomacity_bracket, root / "oklahomacity" / "revision-vintages.json"),
+        (load_dallas_bracket, root / "dallas" / "revision-vintages.json"),
+    ):
+        if path.exists():
+            lines.extend(("", _sentence(loader(root))))
+    for ticker in SCAN_TICKERS:
+        path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
+        if path.exists():
+            lines.extend(("", _sentence(load_scan_bracket(root, ticker))))
+    return tuple(lines)
+
+
+def _cities(root: Path) -> tuple[_City, ...]:
+    found = [_philadelphia(root)]
+    named = (
+        (_chicago, root / _CHICAGO),
+        (_newyork, root / "newyork" / "revision-vintages.json"),
+        (_austin, root / "austin" / "revision-vintages.json"),
+        (_oklahomacity, root / "oklahomacity" / "revision-vintages.json"),
+        (_dallas, root / "dallas" / "revision-vintages.json"),
+    )
+    for loader, path in named:
+        if path.exists():
+            found.append(loader(root))
+    for ticker in SCAN_TICKERS:
+        path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
+        if path.exists():
+            city, _prints = _scan(root, ticker)
+            found.append(city)
+    return tuple(found)
+
+
+def _philadelphia(root: Path) -> _City:
+    labels, _comparison = load_comparison(root)
+    return _City(
+        place="Philadelphia",
+        vintages=root / _VINTAGES,
+        labels=labels,
+        brackets=_brackets(root / "kalshi-public"),
+        tape=_tape(root / "kalshi-public" / "trades" / "manifest.json"),
+    )
+
+
+def _chicago(root: Path) -> _City:
+    folder = root / "chicago"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _chicago_labels(folder / "climdw-afos.txt", ingested)
+    return _registered_city(folder, "Chicago", labels, _chicago_prints(folder))
+
+
+def _newyork(root: Path) -> _City:
+    folder = root / "newyork"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _newyork_labels(folder / "clinyc-afos.txt", ingested)
+    return _registered_city(folder, "New York", labels, _newyork_prints(folder))
+
+
+def _dallas(root: Path) -> _City:
+    folder = root / "dallas"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _dallas_labels(folder / "clidfw-afos.txt", ingested)
+    return _registered_city(folder, "Dallas", labels, _dallas_prints(folder))
+
+
+def _austin(root: Path) -> _City:
+    folder = root / "austin"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _austin_labels(folder / "cliaus-afos.txt", ingested)
+    return _registered_city(folder, "Austin", labels, _austin_prints(folder))
+
+
+def _oklahomacity(root: Path) -> _City:
+    folder = root / "oklahomacity"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    labels = _oklahomacity_labels(folder / "cliokc-afos.txt", ingested)
+    return _registered_city(folder, "Oklahoma City", labels, _oklahomacity_prints(folder))
+
+
+def _scan(root: Path, ticker: str) -> tuple[_City, tuple[TradePrint, ...]]:
     folder = root / "kxhigh-scan" / ticker
     manifest = _object(folder / "manifest.json")
     if manifest.get("series") != ticker or manifest.get("scored") is not True:
@@ -183,45 +282,92 @@ def load_scan_bracket(root: Path, ticker: str) -> BracketRevision:
         _text(manifest.get("header_office"), "header_office"),
         ingested,
     )
-    return _score_registered(
-        folder,
-        _text(manifest.get("place"), "place"),
-        labels,
+    city = _registered_city(folder, _text(manifest.get("place"), "place"), labels, prints)
+    return city, prints
+
+
+def _registered_city(
+    folder: Path,
+    place: str,
+    labels: tuple[CliLabel, ...],
+    prints: tuple[TradePrint, ...],
+) -> _City:
+    _frozen()
+    _require_call(folder / "revision-vintages.manifest.json")
+    return _City(
+        place=place,
+        vintages=folder / "revision-vintages.json",
+        labels=labels,
+        brackets=_registered_brackets(folder / "markets.json"),
+        tape=frozenset(item.ticker for item in prints),
+    )
+
+
+def _score_from_city(city: _City, prints: tuple[TradePrint, ...]) -> BracketRevision:
+    _frozen()
+    return _score_city(
+        city.vintages,
+        city.place,
+        city.labels,
+        city.brackets,
+        city.tape,
         prints,
     )
 
 
-def bracket_note(root: Path) -> tuple[str, ...]:
-    """Scan-note paragraphs. They do not invent a neighbor."""
-    lines = ["", _sentence(load_philadelphia_bracket(root))]
-    for loader, path in (
-        (load_chicago_bracket, root / _CHICAGO),
-        (load_newyork_bracket, root / "newyork" / "revision-vintages.json"),
-        (load_austin_bracket, root / "austin" / "revision-vintages.json"),
-        (load_oklahomacity_bracket, root / "oklahomacity" / "revision-vintages.json"),
-        (load_dallas_bracket, root / "dallas" / "revision-vintages.json"),
-    ):
-        if path.exists():
-            lines.extend(("", _sentence(loader(root))))
-    for ticker in (
-        "KXHIGHDEN",
-        "KXHIGHTSDF",
-        "KXHIGHTBOS",
-        "KXHIGHTMIN",
-        "KXHIGHTSFO",
-        "KXHIGHTSAN",
-        "KXHIGHTEWR",
-        "KXHIGHTTTN",
-        "KXHIGHLAX",
-        "KXHIGHTDC",
-        "KXHIGHTSEA",
-        "KXHIGHTLV",
-        "KXHIGHTATL",
-    ):
-        path = root / "kxhigh-scan" / ticker / "revision-vintages.json"
-        if path.exists():
-            lines.extend(("", _sentence(load_scan_bracket(root, ticker))))
-    return tuple(lines)
+def _decisions(city: _City) -> tuple[RevisionDecision, ...]:
+    later, earlier, clock = _maxes(_object(city.vintages))
+    if clock != "rule":
+        raise ValueError("the revision clock is not the stored rule")
+    ordered = tuple(sorted(city.labels, key=lambda label: (label.valid_on, label.available_at)))
+    train, validation, holdout = _thirds(ordered)
+    reject_holdout(
+        {label.valid_on for label in train} | {label.valid_on for label in validation},
+        {label.valid_on for label in holdout},
+    )
+    rows: list[RevisionDecision] = []
+    for fold, labels in (("train", train), ("validation", validation)):
+        for label in labels:
+            row = _decision_row(city, label, fold, later, earlier)
+            if row is not None:
+                rows.append(row)
+    return tuple(rows)
+
+
+def _decision_row(
+    city: _City,
+    label: CliLabel,
+    fold: str,
+    later: Mapping[date, Decimal],
+    earlier: Mapping[date, Decimal],
+) -> RevisionDecision | None:
+    decision = _decision(label.valid_on)
+    later_at, earlier_at = _clock(label.valid_on)
+    if later_at > decision or earlier_at > decision:
+        return None
+    if later_at >= label.available_at or earlier_at >= label.available_at:
+        return None
+    later_max = later.get(label.valid_on)
+    earlier_max = earlier.get(label.valid_on)
+    if later_max is None or earlier_max is None:
+        return None
+    revision = later_max - earlier_max
+    fired = revision >= REVISION_MINIMUM_F
+    ticker = NO_STORED_BRACKET
+    if fired:
+        chosen = _choose(city.brackets.get(label.valid_on, ()), later_max, city.tape)
+        if chosen is not None:
+            ticker = chosen.ticker
+    return RevisionDecision(
+        place=city.place,
+        valid_on=label.valid_on,
+        fold=fold,
+        later_max=later_max,
+        earlier_max=earlier_max,
+        revision=revision,
+        fired=fired,
+        ticker=ticker,
+    )
 
 
 def _score_city(
@@ -373,24 +519,6 @@ def _brackets(folder: Path) -> dict[date, tuple[StoredBracket, ...]]:
     for bracket in found.values():
         grouped.setdefault(bracket.valid_on, []).append(bracket)
     return {day: tuple(items) for day, items in grouped.items()}
-
-
-def _score_registered(
-    folder: Path,
-    place: str,
-    labels: tuple[CliLabel, ...],
-    prints: tuple[TradePrint, ...],
-) -> BracketRevision:
-    _frozen()
-    _require_call(folder / "revision-vintages.manifest.json")
-    return _score_city(
-        folder / "revision-vintages.json",
-        place,
-        labels,
-        _registered_brackets(folder / "markets.json"),
-        frozenset(item.ticker for item in prints),
-        prints,
-    )
 
 
 def _registered_brackets(path: Path) -> dict[date, tuple[StoredBracket, ...]]:

@@ -99,3 +99,5 @@ Seattle `forecast_revision_bracket`. Train fires: 4. Train fills: 0. Train optim
 Las Vegas `forecast_revision_bracket`. Train fires: 7. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 5. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Atlanta `forecast_revision_bracket`. Train fires: 4. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+Revision-bracket prediction records: 551 train and validation days. Fires: 91. The holdout is not recorded. Bid, ask, and net edge are empty. Nothing was promoted.
