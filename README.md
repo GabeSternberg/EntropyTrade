@@ -147,7 +147,9 @@ same forecast periods have 12 distinct temperatures, from 45 to 73.
 Missing integers were not invented. The count was not compared to 0.40
 and is not a threshold. The stored NWS hourly precipitation
 probabilities have 14 distinct values, from 0 to 66. A value was not
-divided by 100 and was not called a market probability.
+divided by 100 and was not called a market probability. The stored NWS
+hourly relative-humidity values have 40 distinct values, from 46 to 100.
+A value was not divided by 100 and the count was not compared to 0.40.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
