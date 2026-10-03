@@ -138,7 +138,9 @@ unrounded ensemble mean is recorded. The mean still uses all 31
 temperature series. That difference was not rounded and is not a
 threshold. The same NWS series minus ensemble member
 `temperature_2m_member01` is recorded. The other members stay in the
-stored mean. That difference is not a threshold.
+stored mean. That difference is not a threshold. The stored NWS hourly
+temperatures have 28 distinct values, from 46 through 73. That count
+was not compared to 0.40 and is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
