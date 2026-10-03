@@ -19,9 +19,12 @@ from entropytrade.domain.market import Strike
 from entropytrade.domain.numeric import parse_money
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint, load_all_prints
-from entropytrade.weather.chicago_rules import _labels, _prints
+from entropytrade.weather.chicago_rules import _labels as _chicago_labels
+from entropytrade.weather.chicago_rules import _prints as _chicago_prints
 from entropytrade.weather.cli_observations import CliLabel, load_comparison
 from entropytrade.weather.informational_rules import BRACKET_CAP, BRACKET_FLOOR, PRICE_THRESHOLD
+from entropytrade.weather.newyork_rules import _labels as _newyork_labels
+from entropytrade.weather.newyork_rules import _prints as _newyork_prints
 from entropytrade.weather.revision_rule import (
     DECISION_HOUR_UTC,
     REVISION_MINIMUM_F,
@@ -40,7 +43,6 @@ FIDELITY = "trade-print"
 _ONE = Decimal(1)
 _VINTAGES = Path("open-meteo/revision-vintages.json")
 _CHICAGO = Path("chicago/revision-vintages.json")
-_CHICAGO_CALL = Path("chicago/revision-vintages.manifest.json")
 
 
 @dataclass(frozen=True)
@@ -88,18 +90,28 @@ def load_philadelphia_bracket(root: Path) -> BracketRevision:
 
 def load_chicago_bracket(root: Path) -> BracketRevision:
     """Score Chicago on the same rule. Thresholds stay at 2°F and 0.40."""
-    _frozen()
-    _require_call(root / _CHICAGO_CALL)
     folder = root / "chicago"
     manifest = _object(folder / "manifest.json")
     ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
-    prints = _prints(folder)
-    return _score_city(
-        root / _CHICAGO,
+    prints = _chicago_prints(folder)
+    return _score_registered(
+        folder,
         "Chicago",
-        _labels(folder / "climdw-afos.txt", ingested),
-        _registered_brackets(folder / "markets.json"),
-        frozenset(item.ticker for item in prints),
+        _chicago_labels(folder / "climdw-afos.txt", ingested),
+        prints,
+    )
+
+
+def load_newyork_bracket(root: Path) -> BracketRevision:
+    """Score New York on the same rule. Thresholds stay at 2°F and 0.40."""
+    folder = root / "newyork"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    prints = _newyork_prints(folder)
+    return _score_registered(
+        folder,
+        "New York",
+        _newyork_labels(folder / "clinyc-afos.txt", ingested),
         prints,
     )
 
@@ -109,6 +121,8 @@ def bracket_note(root: Path) -> tuple[str, ...]:
     lines = ["", _sentence(load_philadelphia_bracket(root))]
     if (root / _CHICAGO).exists():
         lines.extend(("", _sentence(load_chicago_bracket(root))))
+    if (root / "newyork" / "revision-vintages.json").exists():
+        lines.extend(("", _sentence(load_newyork_bracket(root))))
     return tuple(lines)
 
 
@@ -263,6 +277,24 @@ def _brackets(folder: Path) -> dict[date, tuple[StoredBracket, ...]]:
     return {day: tuple(items) for day, items in grouped.items()}
 
 
+def _score_registered(
+    folder: Path,
+    place: str,
+    labels: tuple[CliLabel, ...],
+    prints: tuple[TradePrint, ...],
+) -> BracketRevision:
+    _frozen()
+    _require_call(folder / "revision-vintages.manifest.json")
+    return _score_city(
+        folder / "revision-vintages.json",
+        place,
+        labels,
+        _registered_brackets(folder / "markets.json"),
+        frozenset(item.ticker for item in prints),
+        prints,
+    )
+
+
 def _registered_brackets(path: Path) -> dict[date, tuple[StoredBracket, ...]]:
     payload: object = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, list):
@@ -273,7 +305,7 @@ def _registered_brackets(path: Path) -> dict[date, tuple[StoredBracket, ...]]:
             raise ValueError(f"{path.name} has a market that is not an object")
         ticker = raw.get("ticker")
         if not isinstance(ticker, str) or not ticker.endswith("-B80.5"):
-            raise ValueError("a stored Chicago market is not the registered bracket")
+            raise ValueError("a stored market is not the registered bracket")
         status = raw.get("http_status")
         if status == 404:
             continue

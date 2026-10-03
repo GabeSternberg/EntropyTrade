@@ -65,3 +65,5 @@ Chicago `forecast_revision_up`. Train fires: 0. Train fills: 0. Train optimistic
 Philadelphia `forecast_revision_bracket`. Train fires: 1. Train fills: 1. Train optimistic equity: 99.770000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
 
 Chicago `forecast_revision_bracket`. Train fires: 7. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 3. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
+
+New York `forecast_revision_bracket`. Train fires: 1. Train fills: 0. Train optimistic equity: 100.000000. Validation fires: 0. Validation fills: 0. Validation optimistic equity: 100.000000. Base and conservative equity: 100.000000. Nothing was promoted.
