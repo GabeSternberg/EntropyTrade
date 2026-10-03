@@ -178,7 +178,10 @@ invented and the count was not compared to 0.40 or to 2°F. The stored
 NWS hourly end times have 156 distinct strings. A duration was not
 computed and the count was not compared to 0.40 or to 2°F. The stored
 NWS hourly start times have 156 distinct strings. A duration was not
-computed and the count was not compared to 0.40 or to 2°F.
+computed and the count was not compared to 0.40 or to 2°F. The stored
+NWS forecast period names, not the hourly body, have 14 distinct strings
+in alphabetical order. A name was not rewritten and the count was not
+compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
