@@ -27,6 +27,8 @@ from entropytrade.weather.cli_observations import CliLabel, load_comparison
 from entropytrade.weather.informational_rules import BRACKET_CAP, BRACKET_FLOOR, PRICE_THRESHOLD
 from entropytrade.weather.newyork_rules import _labels as _newyork_labels
 from entropytrade.weather.newyork_rules import _prints as _newyork_prints
+from entropytrade.weather.oklahomacity_rules import _labels as _oklahomacity_labels
+from entropytrade.weather.oklahomacity_rules import _prints as _oklahomacity_prints
 from entropytrade.weather.revision_rule import (
     DECISION_HOUR_UTC,
     REVISION_MINIMUM_F,
@@ -132,6 +134,20 @@ def load_austin_bracket(root: Path) -> BracketRevision:
     )
 
 
+def load_oklahomacity_bracket(root: Path) -> BracketRevision:
+    """Score Oklahoma City on the same rule. Thresholds stay at 2°F and 0.40."""
+    folder = root / "oklahomacity"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    prints = _oklahomacity_prints(folder)
+    return _score_registered(
+        folder,
+        "Oklahoma City",
+        _oklahomacity_labels(folder / "cliokc-afos.txt", ingested),
+        prints,
+    )
+
+
 def bracket_note(root: Path) -> tuple[str, ...]:
     """Scan-note paragraphs. They do not invent a neighbor."""
     lines = ["", _sentence(load_philadelphia_bracket(root))]
@@ -139,6 +155,7 @@ def bracket_note(root: Path) -> tuple[str, ...]:
         (load_chicago_bracket, root / _CHICAGO),
         (load_newyork_bracket, root / "newyork" / "revision-vintages.json"),
         (load_austin_bracket, root / "austin" / "revision-vintages.json"),
+        (load_oklahomacity_bracket, root / "oklahomacity" / "revision-vintages.json"),
     ):
         if path.exists():
             lines.extend(("", _sentence(loader(root))))
