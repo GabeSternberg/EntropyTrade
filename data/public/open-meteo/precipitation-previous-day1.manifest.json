@@ -1,0 +1,7 @@
+{
+  "url": "https://previous-runs-api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=precipitation_previous_day1&temperature_unit=fahrenheit&precipitation_unit=inch&timezone=UTC&past_days=40&forecast_days=0",
+  "http_status": 200,
+  "field": "precipitation_previous_day1",
+  "promoted": false,
+  "traded": false
+}
