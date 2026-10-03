@@ -22,6 +22,7 @@ from entropytrade.weather.revision_bracket import (
     load_skipped_revision_days,
 )
 from entropytrade.weather.revision_records import (
+    load_revision_empty_fields,
     load_revision_hash_gap,
     load_revision_records,
     load_revision_strategy,
@@ -133,6 +134,19 @@ def test_skipped_revision_days_are_missing_vintages() -> None:
     assert "A vintage max is missing: 17." in note
     assert "The holdout is not listed." in note
     assert "Nothing was promoted." in note
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
+
+
+def test_revision_calibration_and_uncertainty_stay_empty() -> None:
+    gap = load_revision_empty_fields(ROOT)
+    assert gap.records == 551
+    assert gap.calibration_version_empty == 551
+    assert gap.uncertainty_empty == 551
+    spec = Path(__file__).resolve().parents[3] / "docs" / "project-spec.md"
+    text = spec.read_text(encoding="utf-8")
+    assert "calibration version" in text
+    assert "uncertainty" in text
     assert Decimal(2) == REVISION_MINIMUM_F
     assert Decimal("0.4000") == PRICE_THRESHOLD
 

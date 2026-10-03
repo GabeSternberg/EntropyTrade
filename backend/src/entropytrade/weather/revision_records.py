@@ -52,6 +52,15 @@ class RevisionStrategy:
     strategy_version: int
 
 
+@dataclass(frozen=True)
+class RevisionEmptyFields:
+    """Empty calibration and uncertainty. Neither value is invented."""
+
+    records: int
+    calibration_version_empty: int
+    uncertainty_empty: int
+
+
 def build_revision_payload(root: Path) -> dict[str, object]:
     """The source manifest. Holdout days are absent. Equity is absent."""
     rows = tuple(_row(item) for item in load_revision_decisions(root))
@@ -119,6 +128,18 @@ def write_revision_records(root: Path) -> None:
             "records": tuple(record.model_dump(mode="json") for record in records),
             "source_data_manifest_hash": digest,
         },
+    )
+
+
+def load_revision_empty_fields(root: Path) -> RevisionEmptyFields:
+    """Count empty calibration and uncertainty. Does not invent either."""
+    records = load_revision_records(root)
+    empty_calibration = sum(1 for record in records if record.calibration_version is None)
+    empty_uncertainty = sum(1 for record in records if record.uncertainty is None)
+    return RevisionEmptyFields(
+        records=len(records),
+        calibration_version_empty=empty_calibration,
+        uncertainty_empty=empty_uncertainty,
     )
 
 
