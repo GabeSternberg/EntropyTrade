@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.279 — complete**. Next is Phase 4.280.
+Last updated: 2026-10-03 · Current phase: **Phase 4.280 — complete**. Next is Phase 4.281.
 
 ## What this project is
 
@@ -664,6 +664,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.277**: the stored NWS hourly document `type` string is `Feature`. The 14-period forecast body was not used. Geometry was not read. The string was not rewritten into another word. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.278**: the stored NWS hourly geometry type string is `Polygon`. The 14-period forecast body was not used. Coordinates were not read. The polygon was not snapped to the HRRR/ECMWF/ensemble grid. The string was not rewritten into another word. A missing string was not invented. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.279**: the stored NWS hourly geometry has 1 ring and 5 coordinate positions. The 14-period forecast body was not used. 0 positions were not lists of numbers. A longitude was not recorded and a latitude was not recorded. The polygon was not snapped to the HRRR/ECMWF/ensemble grid. The count was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.280**: the stored NWS hourly `@context` value is a list of one string and one object, so it was skipped as `context is not a string`. 0 strings were recorded. The 14-period forecast body was not used. A URL was not fetched. A string was not rewritten and was not extracted from the mixed list. It was not compared to `0.40` or to `2°F`. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -699,12 +700,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.280 — record the stored top-level `@context` value in the Philadelphia NWS hourly body `forecast-hourly-phi-48-75.json`. The 14-period forecast body is not used. This rule is written before the value is read. A non-empty string is recorded. A list of non-empty strings is recorded in alphabetical order. A missing or empty value is skipped as `missing context`. Any other shape, including a list that is not entirely non-empty strings, is skipped as `context is not a string`. Do not fetch a URL. Do not rewrite a string. Do not extract a string from a mixed list after seeing the shape. Do not compare the value to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.281 — record the stored top-level `id` value in the Philadelphia NWS points body `points-39.87--75.23.json`. The forecast body and the hourly body are not used. This rule is written before the value is read. The value counts when it is a non-empty string. A missing or empty string is skipped as `missing id`. Any other value is skipped as `id is not a string`. Do not fetch a URL. Do not rewrite the string. Do not invent a missing string. Do not compare it to `0.40` or to `2°F`. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.279: ruff clean, mypy strict
-clean, pytest 487 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.280: ruff clean, mypy strict
+clean, pytest 489 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

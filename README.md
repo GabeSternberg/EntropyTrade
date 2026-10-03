@@ -245,7 +245,10 @@ or to 2°F. The stored hourly geometry type string is `Polygon`.
 Coordinates were not read and the polygon was not snapped to a model
 grid. It was not compared to 0.40 or to 2°F. Those hourly coordinates
 have 1 ring and 5 positions. A longitude and a latitude were not
-recorded and the count was not compared to 0.40 or to 2°F.
+recorded and the count was not compared to 0.40 or to 2°F. The stored
+hourly `@context` value is a list of a string and an object, so 0
+strings were recorded. A URL was not fetched and the value was not
+compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
