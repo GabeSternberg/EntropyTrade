@@ -176,6 +176,8 @@ and the count was not compared to 0.40 or to 2°F. The stored NWS hourly
 period numbers are the integers 1 through 156. A missing number was not
 invented and the count was not compared to 0.40 or to 2°F. The stored
 NWS hourly end times have 156 distinct strings. A duration was not
+computed and the count was not compared to 0.40 or to 2°F. The stored
+NWS hourly start times have 156 distinct strings. A duration was not
 computed and the count was not compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.

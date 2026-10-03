@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.246 — complete**. Next is Phase 4.247.
+Last updated: 2026-10-03 · Current phase: **Phase 4.247 — complete**. Next is Phase 4.248.
 
 ## What this project is
 
@@ -253,6 +253,7 @@ holds trading credentials.
 | 4.244 | Distinct NWS icon strings, not fetched | **complete** | [phase-4.244.md](docs/phase-reports/phase-4.244.md) |
 | 4.245 | Distinct NWS period numbers, not a threshold | **complete** | [phase-4.245.md](docs/phase-reports/phase-4.245.md) |
 | 4.246 | Distinct NWS end times, duration not computed | **complete** | [phase-4.246.md](docs/phase-reports/phase-4.246.md) |
+| 4.247 | Distinct NWS start times, duration not computed | **complete** | [phase-4.247.md](docs/phase-reports/phase-4.247.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -621,6 +622,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.244**: the stored NWS hourly icon strings have 13 distinct values. 156 periods were read and 0 icons were missing. In alphabetical order the first is `https://api.weather.gov/icons/land/day/bkn?size=small` and the last is `https://api.weather.gov/icons/land/night/skc?size=small`. An icon was not fetched and a string was not rewritten. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.245**: the stored NWS hourly period numbers have 156 distinct integers, 1 through 156, in ascending order. 156 periods were read and 0 numbers were missing. A missing number was not invented. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.246**: the stored NWS hourly end times have 156 distinct strings. 156 periods were read and 0 end times were missing. In alphabetical order the first is `2026-10-03T04:00:00-04:00` and the last is `2026-10-09T15:00:00-04:00`. A duration was not computed from `startTime`. The last string was not used as a decision clock. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.247**: the stored NWS hourly start times have 156 distinct strings. 156 periods were read and 0 start times were missing. In alphabetical order the first is `2026-10-03T03:00:00-04:00` and the last is `2026-10-09T14:00:00-04:00`. Those strings were not invented as model vintages. A duration was not computed. The count was not compared to `0.40` or to `2°F` and was not aligned to the CLI decision clock. The CLI coverage row for NWS forecast still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -656,12 +658,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.247 — count the distinct `startTime` strings in the stored Philadelphia NWS hourly forecast. This rule is written before the distinct strings are counted. A start time counts when `startTime` is a non-empty string. A missing or empty string is skipped and named. Record the count of periods, the count of distinct strings, and the strings in alphabetical order. Do not compute a duration from `endTime`. Do not rewrite a string. Do not invent a missing start time. Do not compare a string to `0.40` or to `2°F`. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
+Phase 4.248 — count the distinct `name` strings in the stored Philadelphia NWS forecast periods in `forecast-phi-48-75.json`. The hourly body is not used. This rule is written before the distinct strings are counted. A name counts when `name` is a non-empty string. A missing or empty string is skipped and named. Record the count of periods, the count of distinct strings, and the strings in alphabetical order. Do not rewrite a name into another word. Do not invent a missing name. Do not compare a string to `0.40` or to `2°F`. Do not align a period to the CLI decision clock. Do not trade. Do not score a holdout. Do not promote. No live order. The CLI coverage row for NWS forecast stays "no stored value". Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.246: ruff clean, mypy strict
-clean, pytest 421 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.247: ruff clean, mypy strict
+clean, pytest 423 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.
