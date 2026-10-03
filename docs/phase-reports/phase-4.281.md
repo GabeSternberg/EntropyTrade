@@ -26,8 +26,13 @@ or `0.40`.
 
 ## Result
 
-Pending. The value has not been read.
+The stored string is `https://api.weather.gov/points/39.87,-75.23`. It was
+not missing. The forecast body and the hourly body were not used. A URL
+was not fetched. The string was not rewritten into another word. A missing
+string was not invented. It was not compared to 0.40 or to 2°F. The CLI
+coverage row for NWS forecast still says no stored value. Nothing was
+traded. `2°F` and `0.40` were not changed. Nothing was promoted.
 
 ## Tests
 
-Pending.
+`make check` on 2026-10-03: ruff clean, mypy strict clean, pytest 491 passed.

@@ -248,6 +248,9 @@ have 1 ring and 5 positions. A longitude and a latitude were not
 recorded and the count was not compared to 0.40 or to 2°F. The stored
 hourly `@context` value is a list of a string and an object, so 0
 strings were recorded. A URL was not fetched and the value was not
+compared to 0.40 or to 2°F. The stored NWS points `id` string is
+`https://api.weather.gov/points/39.87,-75.23`. A URL was not fetched.
+The forecast body and the hourly body were not used. It was not
 compared to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
