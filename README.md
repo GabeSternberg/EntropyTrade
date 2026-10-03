@@ -106,7 +106,9 @@ ensemble mean minus the stored HRRR forecast is recorded on those two
 grids and is not a threshold. The same unrounded mean minus the stored
 ECMWF forecast is recorded on those two grids and is not a threshold. The
 same unrounded mean minus the ensemble control is recorded on the stored
-ensemble grid and is not a threshold.
+ensemble grid and is not a threshold. The control's rank inside the 31
+series is 1 plus the number of series strictly colder than the control.
+That rank is not divided and is not a probability.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
