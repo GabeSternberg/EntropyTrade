@@ -73,7 +73,8 @@ forecast named by that points body is stored the same way. A one-day
 GFS ensemble from the public Open-Meteo ensemble API is stored and is
 not a trade. The unrounded mean of those 31 series is stored and is not
 a threshold. The range of those series, maximum minus minimum, is stored
-the same way.
+the same way. A forecast-API request with `models=hrrr` returned HTTP 400
+and is stored as an error. No temperature was invented from that body.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).

@@ -5,7 +5,7 @@
 > phase: mark the phase complete, link its checkpoint report, and move
 > **Next steps** to the next phase.
 
-Last updated: 2026-10-03 · Current phase: **Phase 4.190 — complete**. Next is Phase 4.191.
+Last updated: 2026-10-03 · Current phase: **Phase 4.191 — complete**. Next is Phase 4.192.
 
 ## What this project is
 
@@ -197,6 +197,7 @@ holds trading credentials.
 | 4.188 | GFS ensemble archive, not a CLI vintage | **complete** | [phase-4.188.md](docs/phase-reports/phase-4.188.md) |
 | 4.189 | Unrounded mean of the stored GFS ensemble | **complete** | [phase-4.189.md](docs/phase-reports/phase-4.189.md) |
 | 4.190 | Range of the stored GFS ensemble, not a standard deviation | **complete** | [phase-4.190.md](docs/phase-reports/phase-4.190.md) |
+| 4.191 | HRRR model id `hrrr` stored as HTTP 400, no invented temperature | **complete** | [phase-4.191.md](docs/phase-reports/phase-4.191.md) |
 | 8.50 | Shadow versus paper comparison records | **complete** | [phase-8.50.md](docs/phase-reports/phase-8.50.md) |
 | 1.50 | Collector health flags | **complete** | [phase-1.50.md](docs/phase-reports/phase-1.50.md) |
 | 4.54 | Published fee fractions, no invented coefficient | **complete** | [phase-4.54.md](docs/phase-reports/phase-4.54.md) |
@@ -527,6 +528,7 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 - **Phase 4.188**: the public Open-Meteo ensemble API with `models=gfs_seamless` returned HTTP 200. 24 hours and 31 temperature series, 0 nulls. The first hour is 2026-10-03T00:00. The response grid point is 39.75, -75.25 and was not snapped to the request. It was not aligned to the CLI decision clock. The CLI coverage row for GFS ensemble still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.189**: the forecast mean at each of those 24 hours is the unrounded arithmetic mean of all 31 series. No series was dropped. The means were not rounded and were not aligned to the CLI decision clock. The CLI coverage row for forecast mean still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 4.190**: the forecast dispersion at each of those 24 hours is the maximum of the 31 temperatures minus the minimum. No series was dropped. A standard deviation was not used. The ranges were not aligned to the CLI decision clock. The CLI coverage row for forecast dispersion still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
+- **Phase 4.191**: the public Open-Meteo forecast API with `models=hrrr` returned HTTP 400. The body says the string `hrrr` is an invalid model value. No temperature series was invented. A second model was not sent. The CLI coverage row for HRRR still says no stored value. Nothing was traded. Nothing is promoted. `2°F` and `0.40` were not changed.
 - **Phase 8.50**: a record compares the paper fill price with the shadow
   price on the same book. Shadow still does not fill.
 - **Phase 1.50**: health flags for connected, stale, gapped, and lagging.
@@ -562,12 +564,12 @@ Phase definitions are in spec §40. Summary of each phase's acceptance bar:
 
 ## Next steps
 
-Phase 4.191 — ask the public Open-Meteo forecast API for HRRR temperature at latitude 39.87 and longitude -75.23. The model parameter is `hrrr`. The hourly field is `temperature_2m`. Use `temperature_unit=fahrenheit`, `timezone=UTC`, and `forecast_days=1`. Do not send a second model. If the response is not HTTP 200, store the body and the status and do not invent temperatures. Do not align it to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
+Phase 4.192 — ask the public Open-Meteo forecast API once for HRRR temperature at latitude 39.87 and longitude -75.23. The documented model id, written down before the request, is `ncep_hrrr_conus` (Open-Meteo open-data model list). It is not the string `hrrr`, which already returned HTTP 400. The host is `https://api.open-meteo.com/v1/forecast`. The hourly field is `temperature_2m`. Use `temperature_unit=fahrenheit`, `timezone=UTC`, and `forecast_days=1`. Do not send a second model. Do not repeat `models=hrrr`. If the response is not HTTP 200, store the body and the status and do not invent temperatures. Do not align a successful body to the CLI decision clock. Do not add a threshold. Do not trade. Do not score a holdout. Do not promote. No live order. Do not change `2°F` or `0.40`.
 
 ## Checks
 
-On 2026-10-03, `make check` passed for Phase 4.190: ruff clean, mypy strict
-clean, pytest 309 passed. `uv sync` then `make check`. Default mode is
+On 2026-10-03, `make check` passed for Phase 4.191: ruff clean, mypy strict
+clean, pytest 311 passed. `uv sync` then `make check`. Default mode is
 `read_only`.
 `uv` is not on the default `PATH` in every shell; it lives at
 `~/.local/bin/uv` (0.12.22) in the environment that built this.

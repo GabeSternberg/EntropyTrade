@@ -1,0 +1,7 @@
+{
+  "url": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&models=hrrr&temperature_unit=fahrenheit&timezone=UTC&forecast_days=1",
+  "http_status": 400,
+  "model": "hrrr",
+  "promoted": false,
+  "traded": false
+}
