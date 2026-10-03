@@ -10,7 +10,7 @@ open a socket.
 import json
 from collections.abc import Mapping
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, datetime
 from decimal import Decimal
 from pathlib import Path
 
@@ -19,8 +19,9 @@ from entropytrade.domain.market import Strike
 from entropytrade.domain.numeric import parse_money
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.exchange.trade_prints import TradePrint, load_all_prints
+from entropytrade.weather.chicago_rules import _labels, _prints
 from entropytrade.weather.cli_observations import CliLabel, load_comparison
-from entropytrade.weather.informational_rules import PRICE_THRESHOLD
+from entropytrade.weather.informational_rules import BRACKET_CAP, BRACKET_FLOOR, PRICE_THRESHOLD
 from entropytrade.weather.revision_rule import (
     DECISION_HOUR_UTC,
     REVISION_MINIMUM_F,
@@ -29,6 +30,8 @@ from entropytrade.weather.revision_rule import (
     _decision,
     _maxes,
     _object,
+    _require_call,
+    _text,
 )
 from entropytrade.weather.walk_forward import _thirds, reject_holdout
 
@@ -36,6 +39,8 @@ RULE_NAME = "forecast_revision_bracket"
 FIDELITY = "trade-print"
 _ONE = Decimal(1)
 _VINTAGES = Path("open-meteo/revision-vintages.json")
+_CHICAGO = Path("chicago/revision-vintages.json")
+_CHICAGO_CALL = Path("chicago/revision-vintages.manifest.json")
 
 
 @dataclass(frozen=True)
@@ -81,10 +86,30 @@ def load_philadelphia_bracket(root: Path) -> BracketRevision:
     )
 
 
+def load_chicago_bracket(root: Path) -> BracketRevision:
+    """Score Chicago on the same rule. Thresholds stay at 2°F and 0.40."""
+    _frozen()
+    _require_call(root / _CHICAGO_CALL)
+    folder = root / "chicago"
+    manifest = _object(folder / "manifest.json")
+    ingested = datetime.fromisoformat(_text(manifest.get("finished_at"), "finished_at"))
+    prints = _prints(folder)
+    return _score_city(
+        root / _CHICAGO,
+        "Chicago",
+        _labels(folder / "climdw-afos.txt", ingested),
+        _registered_brackets(folder / "markets.json"),
+        frozenset(item.ticker for item in prints),
+        prints,
+    )
+
+
 def bracket_note(root: Path) -> tuple[str, ...]:
-    """One scan-note paragraph. It does not invent a neighbor."""
-    score = load_philadelphia_bracket(root)
-    return ("", _sentence(score))
+    """Scan-note paragraphs. They do not invent a neighbor."""
+    lines = ["", _sentence(load_philadelphia_bracket(root))]
+    if (root / _CHICAGO).exists():
+        lines.extend(("", _sentence(load_chicago_bracket(root))))
+    return tuple(lines)
 
 
 def _score_city(
@@ -238,6 +263,41 @@ def _brackets(folder: Path) -> dict[date, tuple[StoredBracket, ...]]:
     return {day: tuple(items) for day, items in grouped.items()}
 
 
+def _registered_brackets(path: Path) -> dict[date, tuple[StoredBracket, ...]]:
+    payload: object = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise ValueError(f"{path.name} is not a list")
+    found: dict[str, StoredBracket] = {}
+    for raw in payload:
+        if not isinstance(raw, dict):
+            raise ValueError(f"{path.name} has a market that is not an object")
+        ticker = raw.get("ticker")
+        if not isinstance(ticker, str) or not ticker.endswith("-B80.5"):
+            raise ValueError("a stored Chicago market is not the registered bracket")
+        status = raw.get("http_status")
+        if status == 404:
+            continue
+        if status != 200:
+            raise ValueError(f"{ticker} has an unexpected status")
+        valid_on = ticker_target_date(ticker)
+        if valid_on is None:
+            raise ValueError(f"{ticker} has no valid day")
+        bracket = StoredBracket(
+            ticker=ticker,
+            valid_on=valid_on,
+            floor=BRACKET_FLOOR,
+            cap=BRACKET_CAP,
+        )
+        prior = found.get(ticker)
+        if prior is not None and (prior.floor != bracket.floor or prior.cap != bracket.cap):
+            raise ValueError(f"{ticker} has two stored brackets")
+        found[ticker] = bracket
+    grouped: dict[date, list[StoredBracket]] = {}
+    for bracket in found.values():
+        grouped.setdefault(bracket.valid_on, []).append(bracket)
+    return {day: tuple(items) for day, items in grouped.items()}
+
+
 def _tape(path: Path) -> frozenset[str]:
     body = _read_object(path)
     calls = body.get("calls")
@@ -294,6 +354,8 @@ def _require_flat(fold: RevisionFold, place: str) -> None:
 
 
 def _frozen() -> None:
+    if Decimal(80) != BRACKET_FLOOR or Decimal(81) != BRACKET_CAP:
+        raise ValueError("the registered bracket was changed")
     if Decimal("0.4000") != PRICE_THRESHOLD:
         raise ValueError("the price threshold was changed")
     if Decimal(2) != REVISION_MINIMUM_F:

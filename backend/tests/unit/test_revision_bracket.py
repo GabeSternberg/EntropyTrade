@@ -12,6 +12,7 @@ from entropytrade.weather.revision_bracket import (
     StoredBracket,
     _fold,
     bracket_note,
+    load_chicago_bracket,
     load_philadelphia_bracket,
 )
 from entropytrade.weather.revision_rule import REVISION_MINIMUM_F
@@ -55,6 +56,35 @@ def test_philadelphia_bracket_equity_stays_unfitted() -> None:
     assert "Philadelphia `forecast_revision_bracket`." in note
     assert "Train optimistic equity: 99.770000." in note
     assert "Nothing was promoted." in note
+    assert "Chicago `forecast_revision_bracket`." in note
+
+
+def test_chicago_bracket_keeps_the_same_thresholds() -> None:
+    score = load_chicago_bracket(ROOT)
+    assert score.place == "Chicago"
+    assert score.hypotheses == 1
+    assert score.scored is True
+    assert score.promoted is False
+    assert score.holdout_scored is False
+    assert score.guaranteed_fill is False
+    assert score.train_days == 20
+    assert score.validation_days == 10
+    assert score.holdout_days == 10
+    assert score.train.fires == 7
+    assert score.train.claim_hits == 0
+    assert score.train.optimistic_fills == 0
+    assert score.train.optimistic_equity == Decimal("100.000000")
+    assert score.validation.fires == 3
+    assert score.validation.claim_hits == 0
+    assert score.validation.optimistic_fills == 0
+    assert score.validation.optimistic_equity == Decimal("100.000000")
+    for fold in (score.train, score.validation):
+        assert fold.base_fills == 0
+        assert fold.conservative_fills == 0
+        assert fold.base_equity == Decimal("100.000000")
+        assert fold.conservative_equity == Decimal("100.000000")
+    assert Decimal(2) == REVISION_MINIMUM_F
+    assert Decimal("0.4000") == PRICE_THRESHOLD
 
 
 def test_a_missing_or_shared_bracket_is_not_traded() -> None:
