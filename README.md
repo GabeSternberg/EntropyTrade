@@ -183,7 +183,9 @@ NWS forecast period names, not the hourly body, have 14 distinct strings
 in alphabetical order. A name was not rewritten and the count was not
 compared to 0.40 or to 2°F. Those same forecast periods have 7 distinct
 short forecasts. A forecast was not rewritten and the count was not
-compared to 0.40 or to 2°F.
+compared to 0.40 or to 2°F. Those periods also have 13 distinct detailed
+forecasts. A forecast was not rewritten and the count was not compared
+to 0.40 or to 2°F.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
