@@ -68,7 +68,7 @@ def load_precipitation(root: Path) -> PrecipitationArchive:
     if _query(url, "precipitation_unit") != "inch":
         raise ValueError("the precipitation unit was changed")
     if _query(url, "past_days") != "40" or _query(url, "forecast_days") != "0":
-        raise ValueError("the precipitation precipitationow was changed")
+        raise ValueError("the precipitation window was changed")
     body = _object(root / _BODY)
     hourly = _mapping(body.get("hourly"), "hourly")
     units = _mapping(body.get("hourly_units"), "hourly_units")

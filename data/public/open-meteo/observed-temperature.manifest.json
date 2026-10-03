@@ -1,0 +1,7 @@
+{
+  "url": "https://archive-api.open-meteo.com/v1/archive?latitude=39.87&longitude=-75.23&start_date=2026-08-24&end_date=2026-10-02&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC",
+  "http_status": 200,
+  "field": "temperature_2m",
+  "promoted": false,
+  "traded": false
+}

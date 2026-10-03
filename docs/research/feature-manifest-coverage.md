@@ -59,3 +59,5 @@ The Philadelphia cloud-cover archive stores 960 hours of cloud_cover_previous_da
 The Philadelphia wind archive stores 960 hours of wind_speed_10m_previous_day1. 0 of those hours are null. The first hour is 2026-08-24T00:00. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
 
 The Philadelphia precipitation archive stores 960 hours of precipitation_previous_day1. 0 of those hours are null. The first hour is 2026-08-24T00:00. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
+
+The Philadelphia observed-temperature archive stores 960 hours of temperature_2m. 0 of those hours are null. The first hour is 2026-08-24T00:00. It is not a CLI rescore column. It is not a threshold. Nothing was traded. Nothing was promoted.
