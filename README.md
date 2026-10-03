@@ -136,7 +136,9 @@ recorded on the stored ensemble grid. Member series are not in that
 difference. It is not a threshold. The same NWS series minus the
 unrounded ensemble mean is recorded. The mean still uses all 31
 temperature series. That difference was not rounded and is not a
-threshold.
+threshold. The same NWS series minus ensemble member
+`temperature_2m_member01` is recorded. The other members stay in the
+stored mean. That difference is not a threshold.
 See
 [`STATUS.md`](STATUS.md) before starting anything else.
 The scanner is described in [`docs/scanner.md`](docs/scanner.md).
