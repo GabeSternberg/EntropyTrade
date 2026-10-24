@@ -1,6 +1,6 @@
 # StrategySpec
 
-Research agents, when they exist in Phase 5, return a `StrategySpec`. They do not return
+The current scripted research agents return a `StrategySpec`. They do not return
 Python and they do not return orders. The spec is a frozen pydantic model; `spec_hash()`
 is its identity, and `StrategyVersion` chains hashes so an old version is never overwritten.
 
@@ -30,6 +30,10 @@ is its identity, and `StrategyVersion` chains hashes so an old version is never 
 `StrategyVersion.from_spec` checks the hash and the parent link.
 
 ## What this is not
+
+R0 audit: some stored spec fields/exit predicates are not enforced, and the interpreter
+checks gross probability-minus-ask rather than costed net edge. The accepted subset is
+therefore not yet a complete semantic guarantee. See [capabilities](capabilities.md).
 
 It is not a trading strategy by itself. `entropytrade.strategies.interpret` can run a
 subset: informational specs, fixed contract size, an immediate order, a

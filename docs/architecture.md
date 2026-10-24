@@ -1,95 +1,71 @@
 # Architecture
 
-EntropyTrade is one user's private research and trading system for Kalshi. The long-term
-workflow is discover, formalize, collect, model, price, backtest, validate, approve, paper
-trade, risk-check, execute, monitor, adapt. Phase 0 builds none of the engines. It fixes the
-types and the boundaries those engines have to respect.
+EntropyTrade is a private single-user research system. The intended workflow and safety
+principles remain in [project-spec.md](project-spec.md). [Capabilities](capabilities.md)
+records implemented/tested/external/operational status; [roadmap](roadmap.md) governs work.
 
-The full requirements are [`project-spec.md`](project-spec.md). This file records the
-architecture as it stands after the open-source audit, including where the spec's plan was
-adjusted. The audit itself is [`external-repositories.md`](external-repositories.md).
-
-## Boundary
+## Boundaries
 
 ```text
-research agents  ->  StrategySpec  ->  backtest / validation  ->  human approval
-                                                                    |
-                                                                    v
-strategy evaluator  ->  OrderIntent  ->  risk engine  ->  ApprovedOrderIntent
-                                                                    |
-                                                                    v
-                                          execution engine  ->  ExchangeGateway  ->  Kalshi
+research agents -> StrategySpec -> deterministic experiments -> human approval
+strategy evaluator -> OrderIntent -> risk gate -> ApprovedOrderIntent -> paper broker
+                                                                    -> future executor
 ```
 
-Agents never receive an order-placing tool and never see production credentials. The risk
-engine is a deterministic gate: a `RiskDecision` cannot be approved while any check failed.
-The execution engine is the only process that holds a trading key, and it accepts only an
-`ApprovedOrderIntent`.
+Agents have no order tool. Production keys belong only in an eventual isolated execution
+process. Authenticated public WebSockets require a separate read-scoped collector key.
+`KalshiGateway` always reports `read_only` and refuses submit/cancel. The mock submit gate
+only accepts demo mode; production submission is unwired even when a live flag is present.
+Mode types and approval records are safeguards, not evidence of a working live executor.
 
-`TradingMode` defaults to `read_only`. Only `demo` and `live` may submit orders, and `live`
-additionally requires the production environment plus
-`ENTROPYTRADE_LIVE_TRADING_ENABLED=true` in that process.
+## Implemented package seams
 
-## Packages
+- `backend/src/entropytrade/domain/` owns venue-neutral Pydantic models, exact Decimal
+  grids (price 4 dp, quantity 2 dp, money 6 dp), UTC timestamps, orders, rules, StrategySpecs,
+  run provenance and lifecycle approvals. Content hashes identify versioned records.
+- `exchange/gateway.py` defines the protocol. SDK objects stay in `exchange/kalshi/` and
+  are mapped to domain types. The pin is `kalshi-sdk==17.1.0`, retries are disabled, and
+  environment/host selection is explicit. Portfolio/order/fill reads remain unimplemented.
+- `exchange/{feed,book,sequence}.py` maintain replayable state; `kalshi/{wire,stream}.py`
+  decode envelopes and integrate SDK book sequence checks. `session.run_connections`
+  accepts supplied iterators. It is not a live socket/recorder service.
+- `storage/recorder.py` writes SQLite WAL raw bodies, metadata/rules and frames/trades.
+  Session identities and unsequenced persistence need repair before continuous operation.
+- `portfolio/`, `execution/paper.py` and `risk/` implement the ledger, simulated fills,
+  caps and kill/HALT gate. Reconciliation compares supplied snapshots, not a real account.
+- `backtest/replay.py` offers as-of decision views and paper replay; its chronology,
+  capacity and split-bound limitations are recorded in capabilities. Holdout is refused
+  at this interface; there is no final holdout evaluator yet.
+- `weather/` contains recorded-source parsers and studies. Ten legacy metadata loaders
+  now share `nws_metadata.py`; other exploratory families await consumer-driven consolidation.
+  `features/` and `ml/` contain no pipeline or fitted-model implementation.
+- `agents/` owns all PydanticAI imports. TestModel supplies scripted outputs and provider
+  calls are blocked. `strategy_registry/` stores local lineage and exports MLflow parameters;
+  its simple HTML registry/HALT endpoint is not the intended dashboard.
 
-`backend/src/entropytrade/domain/` is venue-neutral. Money is `Decimal` on fixed grids
-(prices 4 dp, contract counts 2 dp, money 6 dp, matching Kalshi's wire formats). Timestamps
-are timezone-aware and stored as UTC. Identifiers that cross a process boundary are
-client-generated UUIDs. Content hashes (`sha256:`) identify specs, rule texts and, later,
-dataset manifests.
+Ruff and architecture tests enforce SDK/agent import boundaries. These are code-level
+boundaries, not OS credential isolation. No arbitrary generated Python is accepted.
 
-`exchange/gateway.py` defines `ExchangeGateway`. `kalshi-sdk==17.1.0` is imported only
-under `exchange/kalshi/`, and SDK models are converted to domain types before they leave
-that package. `KalshiGateway` is read-only: it constructs `KalshiConfig.demo()` or
-`.production()`, never `from_env()`, refuses `KALSHI_ALLOW_UNKNOWN_HOST`, and sets
-`max_retries=0`. Streaming frames, the local book, and the recorder live beside the
-protocol so a dropped socket does not share a lifetime with a REST call. Ruff bans
-`kalshi` and `pydantic_ai` imports everywhere else.
+## Data and time
 
-`backtest`, `risk`, `execution`, `weather`, and `agents` have behaviour. Phases are
-listed in [`../STATUS.md`](../STATUS.md). Weather parsers read recorded bodies only.
-Research agents use PydanticAI's TestModel; provider requests are blocked on import.
-The strategy registry is SQLite. Its page is read-only and has no order route.
+Immutable raw receipts should feed normalized datasets, versioned features, fitted models
+and experiment artifacts. This is the target architecture; currently the public study tree
+is the main committed data source. SQLite serves transactional local state; bulk analytics
+may use Parquet/DuckDB/Polars after a concrete R1 need. Do not add distributed infrastructure.
 
-## What the audit changed
+`select_as_of` filters availability and revisions, and `Clock` supports injected/system/
+simulated time. A provider clock must first be verified: legacy rules assigning midnight
+availability do not become factual because they satisfy the type. Prints/candles must retain
+lower execution fidelity and cannot imply displayed size. Preserve settlement source and
+rules versions; CLI weather observations do not override a Weather Company contract.
 
-- **Transport.** `kalshi-sdk` 17.1.0 (import name `kalshi`) is the right dependency, pinned
-  exactly, with its own retries turned off so a rate-limit budgeter can see every 429.
-  Its WebSocket sequence tracking covers only the order book and order-group channels.
-  Fills and user orders have no sequence numbers and are lossy by default, so REST
-  reconciliation stays mandatory. FIX exists but is not a reason to adopt the SDK.
-- **Credentials.** Kalshi authenticates every WebSocket, including public market data.
-  "Only the execution process holds credentials" therefore means two keys: a read-scoped
-  key for the collector and a trading key for execution. The SDK defaults to production
-  and honours `KALSHI_ALLOW_UNKNOWN_HOST`; the gateway must construct the environment
-  explicitly and refuse to start if that variable is set.
-- **Order outcomes.** A successful order response that fails SDK validation raises a raw
-  pydantic `ValidationError` after the order is live, and the SDK drops Kalshi's error
-  `code`. Any submit that is not a definite 4xx is an unknown outcome and is resolved by
-  `client_order_id`.
-- **Weather settlement.** KXHIGH* markets, including Philadelphia (`KXHIGHPHIL`, station
-  CLIPHL), settle on The Weather Company as of the 2026-08-14 contracts, not the NWS
-  Daily Climate Report the spec assumed. Rules text is versioned data. A strategy does
-  not trade a contract whose resolution source it cannot parse.
-- **Nothing audited is our backtester, paper broker, or risk engine.** Those repos are
-  references for loop shape, reconciliation posture and run artifacts. Their accounting
-  and fill models have correctness bugs (see the audit). We reimplement behind our types.
-- **PydanticAI** is the agent layer, as the slim package with Anthropic and OpenAI, and
-  only inside `agents/`. It is not a dependency until Phase 5. The application is ordinary
-  Python orchestration, not an agent graph.
-- **pmxt** is not a dependency. Its Kalshi trading adapter is wrong, money is float, and
-  credentials would cross a Node sidecar. A few schema ideas (venue field, outcome as its
-  own entity, build-then-submit) are already reflected in the domain types.
+## Processes and operations
 
-## Processes
+The eventual local processes are API/dashboard, read-only collector, research/backtest
+worker and isolated executor. Compose names these but currently runs the CLI version
+command in all four and exits. No persistent service is established by that configuration.
+R1 builds the dataset command and collector; later milestones add models/agents/experiments,
+shadow operation and a private FastAPI/React UI. No SaaS, Kafka, Redis or Kubernetes needed.
 
-Docker Compose names four processes that share one image: `api`, `collector`, `research`,
-`execution`. Phase 0 runs the same version command in each. Later, the collector and the
-execution worker are the only processes with Kalshi keys, and they are different keys.
-No Kubernetes, Kafka, or Redis.
-
-## Clocks and replay
-
-Code that needs the current time takes a `Clock`. `SystemClock` is wall time.
-`SimulatedClock` only moves forward and is what the backtester will use. A backtest must
-not call `datetime.now`.
+The historical [reuse audit](external-repositories.md) explains package/reference choices.
+Recheck current API, license and compatibility before substantial new reuse or upgrades.

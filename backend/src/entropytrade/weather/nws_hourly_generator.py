@@ -6,14 +6,10 @@ string is skipped and named. The string is not rewritten into another
 word. The string is not compared to 0.40 or to 2°F. Nothing is traded.
 """
 
-import json
 from dataclasses import dataclass
 from pathlib import Path
 
-from entropytrade.weather.nws_forecast import load_nws_hourly
-
-_HOURLY = Path("nws/forecast-hourly-phi-48-75.json")
-_MISSING = "missing forecastGenerator"
+from entropytrade.weather.nws_metadata import read_nws_metadata
 
 
 @dataclass(frozen=True)
@@ -28,10 +24,7 @@ class NwsHourlyGenerator:
 
 def load_nws_hourly_generator(root: Path) -> NwsHourlyGenerator:
     """Read the stored string. A missing value is not invented."""
-    hourly = load_nws_hourly(root)
-    if hourly.traded or hourly.promoted:
-        raise ValueError("the NWS hourly archive was traded")
-    value, reason = _generator(root / _HOURLY)
+    value, reason = read_nws_metadata(root, source="hourly", field="forecastGenerator")
     return NwsHourlyGenerator(
         value=value,
         reason=reason,
@@ -63,30 +56,3 @@ def nws_hourly_generator_note(root: Path) -> str:
             "Nothing was promoted.",
         )
     )
-
-
-def _generator(path: Path) -> tuple[str | None, str | None]:
-    body = _object(path)
-    properties = _mapping(body.get("properties"), "properties")
-    raw = properties.get("forecastGenerator")
-    if raw is None or raw == "":
-        return None, _MISSING
-    if not isinstance(raw, str):
-        raise ValueError("forecastGenerator is not text")
-    return raw, None
-
-
-def _object(path: Path) -> dict[str, object]:
-    payload: object = json.loads(path.read_text(encoding="utf-8"))
-    return _mapping(payload, path.name)
-
-
-def _mapping(value: object, label: str) -> dict[str, object]:
-    if not isinstance(value, dict):
-        raise ValueError(f"{label} is not an object")
-    mapped: dict[str, object] = {}
-    for key, item in value.items():
-        if not isinstance(key, str):
-            raise ValueError(f"{label} has a non-string key")
-        mapped[key] = item
-    return mapped

@@ -1,5 +1,10 @@
 # Backtesting
 
+R0 correction: this file mixes implemented replay primitives with intended design.
+The complete artifact writer, realistic queue/capacity model and protected final evaluator
+are not implemented. See [capabilities](capabilities.md#correctness-risks-that-gate-future-claims)
+for fill chronology, split bounds, exposure and data-fidelity risks before using results.
+
 `entropytrade.backtest.replay` walks recorded books in time order. A strategy receives a
 `DecisionView`, which is `select_as_of` at the book's receive time, and nothing else.
 Holdout windows are not passed to the strategy. A fill uses the book at

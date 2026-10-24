@@ -66,8 +66,8 @@ than the cap fails. A model exactly at the cap is still fresh. When
 `max_reconciliation_age_seconds` is set, a missing reconciliation time fails,
 and a reconciliation older than the cap fails. Age equal to the cap still
 passes. The HALT file and `trading_enabled` already block new orders. Still
-open: per series, correlated exposure,
-model age, and time since reconciliation. No martingale. The correlated-event
+open: per-series and correlated exposure budgets and operationally sourced counts,
+model timestamps and reconciliation timestamps. No martingale. The correlated-event
 cap matters for weather: every strike of one city-day is the same bet.
 
 `EdgeEstimate` keeps the pieces separate. `raw_edge` is model probability minus the

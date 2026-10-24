@@ -1,9 +1,15 @@
 # External repositories
 
 Audit date: 2026-10-02. Each repository was cloned and read at the commit below.
-Nothing from these trees is vendored. The only runtime dependency in this
-checkout is pydantic. `kalshi-sdk` and `pydantic-ai-slim` are planned pins, not
-installed yet.
+Nothing from these trees was vendored as runtime implementation. **R0 clarification
+(2026-10-24):** this is a historical source audit, not a fresh upstream assessment.
+The current lock installs `kalshi-sdk` 17.1.0, `pydantic-ai-slim` 2.53.0,
+Pydantic 2.13.5 and MLflow 2.22.5. The CC0 Kalshi documentation reference is
+retained under `.agents/skills/kalshi-docs/`. No runtime dependency changed in R0.
+The SDK boundary and typed agent choice remain applicable; the agents are still
+scripted and bulk analytical/model libraries are not an implemented pipeline.
+Recheck upstream APIs, maturity, licensing and compatibility before R1/R2/R3
+implementation; the dated findings below are not current service verification.
 
 Full notes from the inspection live with the phase report. This file is the
 decision record: what the spec claimed, what the code actually does, and how

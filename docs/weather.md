@@ -1,5 +1,10 @@
 # Weather
 
+R0 clarification: these are recorded-body studies and fixture schemas, not verified
+point-in-time ingestion or fitted probability models. Assigned legacy availability clocks
+are assumptions. See [results](results.md) and [capabilities](capabilities.md) before
+interpreting the historical scores or trading simulations.
+
 Phase 4 scores daily-high brackets from recorded bodies. Nothing in
 `entropytrade.weather` opens a socket.
 
