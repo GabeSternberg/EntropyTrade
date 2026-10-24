@@ -22,7 +22,7 @@ class DomainModel(BaseModel):
 
     def revalidated(self, **changes: object) -> Self:
         """Return a copy with ``changes`` applied and all validators re-run."""
-        data = self.model_dump()
+        data = self.model_dump(exclude_computed_fields=True)
         for name in type(self).model_computed_fields:
             data.pop(name, None)
         return type(self).model_validate({**data, **changes})

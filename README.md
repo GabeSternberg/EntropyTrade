@@ -5,9 +5,10 @@ trading under explicit approval and deterministic risk limits. Daily-high temper
 markets are the first vertical. The goal is a reproducible scientific workflow that can
 reject weak strategies as reliably as it can find promising ones.
 
-**Current state:** tested foundations and stored-data studies; no operational end-to-end
-research system, fitted probability models, continuous collector, or continuous shadow
-trading. The Kalshi gateway refuses order submission. Production trading remains disabled.
+**Current state:** runnable read-only collector and generic point-in-time Parquet dataset
+commands, with a verified two-city public REST demonstration. Authenticated continuous
+collection still needs read-key verification. Fitted models, real agent research, automated
+experiments and continuous shadow trading remain later work. The Kalshi gateway refuses order submission. Production trading remains disabled.
 
 ## Setup and checks
 
@@ -19,8 +20,8 @@ uv run entropytrade
 make check                 # Ruff lint/format, strict mypy, pytest + Hypothesis
 ```
 
-The CLI prints the version and default mode (`read_only`); it does not start a collector
-or research run. `.env.example` lists configuration names; no credentials are required
+Without arguments the CLI prints the version and default mode (`read_only`).
+See [data commands](docs/data-platform.md) for `collect`, `health`, `dataset` and `inspect`. `.env.example` lists configuration names; no credentials are required
 for the offline suite. In a workspace with a read-only home cache, set
 `UV_CACHE_DIR=/tmp/entropytrade-uv`. The Compose services currently run the same version
 command and exit. They are process placeholders.
@@ -36,6 +37,7 @@ strategy -> OrderIntent -> deterministic risk -> paper execution
 `backend/src/entropytrade/domain/` owns exact Decimal accounting, UTC timestamps, market
 semantics and lifecycle types. `exchange/kalshi/` contains the pinned SDK boundary;
 `storage/`, `portfolio/`, `risk/`, `backtest/` and `execution/` provide reusable primitives.
+`data/` now builds generic point-in-time datasets; `collector/` runs the read-only feed.
 `weather/` includes recorded-data research, including legacy exploratory helpers.
 `agents/` currently uses scripted PydanticAI TestModel outputs. `features/` and `ml/` are
 placeholders. `strategy_registry/` provides SQLite lineage and a small local HTML view;

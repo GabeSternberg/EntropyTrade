@@ -28,7 +28,7 @@ def frame_from_wire(envelope: object, *, received_at: datetime) -> MarketFrame |
     if not isinstance(envelope, dict):
         raise GatewayError("websocket envelope is not an object")
     kind = envelope.get("type")
-    if kind in {"subscribed", "ok", "unsubscribed"}:
+    if kind in {"subscribed", "ok", "unsubscribed", "event_fee_update"}:
         return None
     if kind == "orderbook_snapshot":
         snapshot = OrderbookSnapshotMessage.model_validate(envelope)
@@ -50,7 +50,11 @@ def frame_from_wire(envelope: object, *, received_at: datetime) -> MarketFrame |
             price=delta.msg.price,
             delta=delta.msg.delta,
             received_at=received_at,
-            exchange_ts=delta.msg.ts,
+            exchange_ts=(
+                datetime.fromtimestamp(delta.msg.ts_ms / 1000, tz=UTC)
+                if delta.msg.ts_ms is not None
+                else delta.msg.ts
+            ),
         )
     if kind == "trade":
         trade = TradeMessage.model_validate(envelope)
@@ -62,7 +66,7 @@ def frame_from_wire(envelope: object, *, received_at: datetime) -> MarketFrame |
             yes_price=trade.msg.yes_price,
             quantity=trade.msg.count,
             taker_side=OutcomeSide(trade.msg.taker_outcome_side),
-            executed_at=datetime.fromtimestamp(trade.msg.ts, tz=UTC),
+            executed_at=datetime.fromtimestamp(trade.msg.ts_ms / 1000, tz=UTC),
             received_at=received_at,
             is_block_trade=trade.msg.is_block_trade,
         )

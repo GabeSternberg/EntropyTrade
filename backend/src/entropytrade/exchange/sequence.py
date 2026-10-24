@@ -52,6 +52,11 @@ class SequenceWatch:
         self._last.clear()
         self._awaiting_snapshot.clear()
 
+    def seed_snapshot(self, sid: int, seq: int) -> None:
+        """An authoritative snapshot establishes a new valid book baseline."""
+        self._last[sid] = seq
+        self._awaiting_snapshot.discard(sid)
+
     def observe(self, channel: str, sid: int, seq: int | None) -> SequenceGap | None:
         if seq is None:
             self.missing_seq += 1

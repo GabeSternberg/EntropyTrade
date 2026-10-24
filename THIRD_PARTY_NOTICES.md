@@ -1,7 +1,8 @@
 # Third-party notices
 
 Phase 0 copies no third-party source into this repository except the Kalshi
-documentation skill, which is CC0. Runtime code depends only on pydantic.
+documentation skill, which is CC0. Runtime dependencies now include Pydantic, kalshi-sdk, PydanticAI slim,
+MLflow and PyArrow; historical planned-pin notes below record the original audit.
 Everything else below is recorded so a later copy or dependency has a place
 to land, and so the audit's copyright holders are not forgotten.
 
@@ -70,3 +71,18 @@ commit, and a notice is added here.
 
 Development tools (ruff, mypy, pytest, Hypothesis, pre-commit, uv) are
 dev-only and are pinned in `uv.lock` or `.pre-commit-config.yaml`.
+
+## R1 analytical dependency
+
+### Apache Arrow / PyArrow
+
+- Project: https://arrow.apache.org/
+- License: Apache License 2.0 (Apache Software Foundation).
+- Version: `pyarrow>=19,<20`, locked to 19.0.1. Already installed through MLflow;
+  R1 makes the dependency explicit for Parquet dataset writing/inspection.
+- Used as a package dependency; no upstream implementation source was copied.
+
+R1 continues to use `kalshi-sdk==17.1.0` inside the existing SDK boundary,
+including its authentication, connection manager, wire models and pagination
+transport. Narrow response compatibility code is our own. No additional
+third-party repository implementation was vendored.

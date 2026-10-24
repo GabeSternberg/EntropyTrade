@@ -117,3 +117,35 @@ that all temperature strategies are unprofitable.
 Next questions: which actual listed contracts have usable decision-time quote/depth data;
 which providers expose verifiable forecast vintages; how settlement values are obtained;
 and whether sufficient independent events remain after quality gates and temporal splits.
+
+## R1 real-data demonstration (2026-10-24)
+
+Public read-only SDK acquisition retrieved **36 actual contracts / six events** for
+Philadelphia (`KXHIGHPHIL`) and Chicago (`KXHIGHCHI`), September 1–3, 2026, plus **1,060
+hourly candle observations**. Eighteen contracts/three events per city; no acquisition
+failures in the verified pull. Contracts were discovered from actual event responses,
+not a fixed B80.5 request. Source receipts/raw bodies are in `data/r1-source/`.
+
+The deterministic sample has 36 rows at 15:00 UTC and 36 finalized Kalshi YES/NO targets.
+All rows have candle context; none has a certified historical rule snapshot, strict
+forecast feature or executable historical book. The 1,920 legacy hourly forecast records
+are preserved separately with units/valid times and unknown availability, not invented
+issue times. Late contract snapshots do not prove historical rules or universe completeness.
+These are data/coverage findings, not strategy or model results. Modeling a forecast-revision
+edge remains unsupported until defensible vintages and enough independent events exist.
+
+The sample manifest/version and row hash reproduce across frozen-source builds. See
+[data platform commands](data-platform.md) and `data/r1-demo/` for Parquet, coverage,
+provenance and checksums. The R1 operating guide also records the synthetic replay/restart
+and mock transport evidence. No authenticated WebSocket handshake or multi-hour real feed
+was verified: dedicated read credentials were absent.
+
+Live REST verification exposed two compatibility facts: historical discovery rejects
+simultaneous series/event filters, and public market bodies omit the SDK's required but
+unused liquidity field. R1 handles both at the pinned SDK boundary, preserving missing
+liquidity as None. Failed exploratory responses were retained locally under `data/cache/`
+without altering the original Phase 4 inputs. No exchange order or LLM request was made.
+
+R1 frozen demonstration version: `sha256:7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14`; row hash: `sha256:03dcb5e0af1d5b4b7382f1ae89054f3eb9dab12345136cad26f0bde4a92d596b`.
+The [committed manifest](../data/r1-demo/7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14/manifest.json)
+records exact inputs, coverage, code hashes and limitations.

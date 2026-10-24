@@ -10,6 +10,7 @@ from datetime import datetime
 from pydantic import Field
 
 from entropytrade.domain.base import DomainModel
+from entropytrade.domain.ids import content_hash
 from entropytrade.domain.market_data import OrderBook, TradePrint
 from entropytrade.domain.time import UtcDatetime
 from entropytrade.exchange.book import BookError, LocalBook, signed_quantity
@@ -36,6 +37,12 @@ class AppliedLifecycle(DomainModel):
     event_type: str
     sequence: int | None
     exchange_index: int | None
+    received_at: UtcDatetime
+
+
+class BookInvalidated(DomainModel):
+    market_ticker: str
+    reason: str
     received_at: UtcDatetime
 
 
@@ -85,7 +92,9 @@ def health_flags(health: FeedHealth, *, lag_limit_seconds: float) -> HealthFlags
     )
 
 
-StreamEffect = AppliedBook | AppliedTrade | AppliedLifecycle | GapEffect | StaleBook
+StreamEffect = (
+    AppliedBook | AppliedTrade | AppliedLifecycle | GapEffect | StaleBook | BookInvalidated
+)
 
 
 class CollectorFeed:
@@ -96,6 +105,8 @@ class CollectorFeed:
         self._sid_tickers: dict[int, set[str]] = {}
         self._stale: set[str] = set()
         self._watch = SequenceWatch()
+        self._updated: dict[str, datetime] = {}
+        self._identities: dict[int, tuple[int, str]] = {}
         self.connected = False
         self.last_message_at: datetime | None = None
         self.last_gap: GapEffect | None = None
@@ -104,6 +115,7 @@ class CollectorFeed:
         self.connected = False
         self.last_message_at = at
         self._watch.reset()
+        self._identities.clear()
         for ticker, book in self._books.items():
             book.wipe()
             self._stale.add(ticker)
@@ -116,10 +128,24 @@ class CollectorFeed:
         local = self._books.get(market_ticker)
         if local is None or not local.ready or local.sequence is None:
             return None
-        received = self.last_message_at
+        received = self._updated.get(market_ticker)
         if received is None:
             return None
         return local.view(received_at=received)
+
+    def expect(self, tickers: tuple[str, ...]) -> None:
+        self._stale.update(tickers)
+
+    def expire(self, now: datetime, max_age_seconds: float) -> tuple[str, ...]:
+        expired = tuple(
+            t
+            for t, at in self._updated.items()
+            if (now - at).total_seconds() > max_age_seconds and t not in self._stale
+        )
+        for ticker in expired:
+            self._books[ticker].wipe()
+            self._stale.add(ticker)
+        return expired
 
     def health(self, now: datetime) -> FeedHealth:
         lag = None
@@ -135,6 +161,23 @@ class CollectorFeed:
         )
 
     def apply(self, frame: MarketFrame) -> tuple[StreamEffect, ...]:
+        if frame.seq is not None:
+            semantic = frame.model_dump(mode="json")
+            semantic.pop("received_at", None)
+            digest = content_hash(semantic)
+            prior = self._identities.get(frame.sid)
+            if prior is not None and prior[0] == frame.seq and prior[1] != digest:
+                self._invalidate(frame.sid)
+                effect = GapEffect(
+                    channel=frame.channel,
+                    sid=frame.sid,
+                    expected=frame.seq + 1,
+                    received=frame.seq,
+                    kind=GapKind.RESET,
+                )
+                self.last_gap = effect
+                return (effect,)
+            self._identities[frame.sid] = (frame.seq, digest)
         # A delta before the post-reconnect snapshot must not move the watermark.
         # The snapshot that follows is the new sequence, often starting again at 1.
         if isinstance(frame, BookDeltaFrame) and not self._book_ready(frame.market_ticker):
@@ -150,6 +193,9 @@ class CollectorFeed:
                 return (effect,)
             if frame.channel in BOOK_CHANNELS:
                 self._invalidate(frame.sid)
+                if isinstance(frame, BookSnapshotFrame):
+                    self._watch.seed_snapshot(frame.sid, frame.seq)
+                    return (effect, *self._apply_payload(frame))
                 return (effect,)
             # Trade and lifecycle gaps are recorded, then the frame is still stored:
             # the hole is real, and dropping the message we did receive would hide it.
@@ -181,6 +227,7 @@ class CollectorFeed:
             )
             self._sid_tickers.setdefault(frame.sid, set()).add(frame.market_ticker)
             self._stale.discard(frame.market_ticker)
+            self._updated[frame.market_ticker] = frame.received_at
             return (AppliedBook(book=book),)
         if isinstance(frame, BookDeltaFrame):
             if not self._book_ready(frame.market_ticker):
@@ -196,6 +243,7 @@ class CollectorFeed:
                     exchange_ts=frame.exchange_ts,
                 )
             except BookError:
+                self._invalidate(frame.sid)
                 return (
                     StaleBook(
                         market_ticker=frame.market_ticker,
@@ -203,6 +251,7 @@ class CollectorFeed:
                         sequence=frame.seq,
                     ),
                 )
+            self._updated[frame.market_ticker] = frame.received_at
             return (AppliedBook(book=book),)
         if isinstance(frame, TradeFrame):
             trade = TradePrint(
@@ -217,7 +266,21 @@ class CollectorFeed:
             )
             return (AppliedTrade(trade=trade),)
         lifecycle = frame
+        invalidation: tuple[BookInvalidated, ...] = ()
+        if lifecycle.market_ticker in self._books or lifecycle.market_ticker in self._stale:
+            lifecycle_book = self._books.get(lifecycle.market_ticker)
+            if lifecycle_book is not None:
+                lifecycle_book.wipe()
+            self._stale.add(lifecycle.market_ticker)
+            invalidation = (
+                BookInvalidated(
+                    market_ticker=lifecycle.market_ticker,
+                    reason=lifecycle.event_type,
+                    received_at=lifecycle.received_at,
+                ),
+            )
         return (
+            *invalidation,
             AppliedLifecycle(
                 market_ticker=lifecycle.market_ticker,
                 event_type=lifecycle.event_type,

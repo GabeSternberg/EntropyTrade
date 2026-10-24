@@ -72,7 +72,9 @@ class LocalBook:
         if side not in ("yes", "no"):
             raise BookError(f"unknown book side {side!r}")
         updated = levels.get(price, ZERO) + delta
-        if updated <= ZERO:
+        if updated < ZERO:
+            raise BookError("delta would make displayed quantity negative")
+        if updated == ZERO:
             levels.pop(price, None)
         else:
             levels[price] = updated

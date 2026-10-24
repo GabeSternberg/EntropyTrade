@@ -28,9 +28,11 @@ Mode types and approval records are safeguards, not evidence of a working live e
   environment/host selection is explicit. Portfolio/order/fill reads remain unimplemented.
 - `exchange/{feed,book,sequence}.py` maintain replayable state; `kalshi/{wire,stream}.py`
   decode envelopes and integrate SDK book sequence checks. `session.run_connections`
-  accepts supplied iterators. It is not a live socket/recorder service.
+  accepts supplied iterators. R1 `collector/service.py` and `kalshi/socket.py` add the live SDK connection/raw-receipt
+  service with recovery, freshness, rate pacing and bounded resources.
 - `storage/recorder.py` writes SQLite WAL raw bodies, metadata/rules and frames/trades.
-  Session identities and unsequenced persistence need repair before continuous operation.
+  R1 adds session-aware receipts/facts, unsequenced persistence, atomic integrity evidence
+  and an explicit v1→v2 migration; authenticated sustained operation still needs verification.
 - `portfolio/`, `execution/paper.py` and `risk/` implement the ledger, simulated fills,
   caps and kill/HALT gate. Reconciliation compares supplied snapshots, not a real account.
 - `backtest/replay.py` offers as-of decision views and paper replay; its chronology,
@@ -38,7 +40,8 @@ Mode types and approval records are safeguards, not evidence of a working live e
   at this interface; there is no final holdout evaluator yet.
 - `weather/` contains recorded-source parsers and studies. Ten legacy metadata loaders
   now share `nws_metadata.py`; other exploratory families await consumer-driven consolidation.
-  `features/` and `ml/` contain no pipeline or fitted-model implementation.
+  `data/` now provides generic point-in-time Parquet datasets and a consistent collector
+  snapshot reader. `features/` and `ml/` still contain no feature registry or fitted models.
 - `agents/` owns all PydanticAI imports. TestModel supplies scripted outputs and provider
   calls are blocked. `strategy_registry/` stores local lineage and exports MLflow parameters;
   its simple HTML registry/HALT endpoint is not the intended dashboard.

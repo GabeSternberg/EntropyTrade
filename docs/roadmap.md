@@ -2,7 +2,7 @@
 
 Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
 continuation, while preserving the [original product specification](project-spec.md).
-Only R0 is authorized in the current handoff. Stop at each milestone for review unless
+R0 was approved and R1 authorized; R1 now awaits review. R2 is not authorized. Stop at each milestone for review unless
 explicitly authorized to cross milestones. A commit, city, JSON field or negative
 experiment is not a software milestone.
 
@@ -30,7 +30,11 @@ system; implemented/tested/external/operational states are explicit. No new feat
 
 ## R1 — Generic market/data platform and continuous recording
 
-**First priority after R0 approval:** start accumulating reliable live books while building
+**R1 checkpoint:** public REST/dataset demonstration verified; collector implementation and
+mock/replay integration verified; authenticated sustained WS session blocked without a read key.
+See [operating guide](data-platform.md). Sufficient certified weather history is still missing.
+
+**Purpose:** start accumulating reliable live books while building
 reusable research datasets. Retain the existing SDK boundary and local storage approach.
 
 - Repair session identities and dedup semantics; retain unsequenced trade/lifecycle

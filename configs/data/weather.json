@@ -1,0 +1,9 @@
+{
+  "locations": [
+    {"name": "Philadelphia", "series": "KXHIGHPHIL", "station": "CLIPHL", "timezone": "America/New_York", "latitude": "39.87", "longitude": "-75.23", "forecast_file": "open-meteo/previous-runs.json"},
+    {"name": "Chicago", "series": "KXHIGHCHI", "station": "CLIMDW", "timezone": "America/Chicago", "latitude": "41.79", "longitude": "-87.75", "forecast_file": "chicago/previous-runs.json"}
+  ],
+  "start": "2026-09-01", "end": "2026-09-03",
+  "decision_utc": ["15:00"], "max_age_seconds": 300,
+  "sources": ["kalshi", "open-meteo", "nws"]
+}

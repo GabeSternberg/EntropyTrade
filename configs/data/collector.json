@@ -1,0 +1,2 @@
+{"series": ["KXHIGHPHIL"], "refresh_seconds": 300, "stale_seconds": 120,
+ "health_seconds": 10, "max_markets": 128, "max_bytes": 5000000000, "max_failures": 6}

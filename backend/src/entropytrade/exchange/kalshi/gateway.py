@@ -5,17 +5,15 @@ The trading key is not accepted here. ``submit_order`` and ``cancel_order`` call
 the only mode this class constructs. SDK exceptions are translated before they leave.
 """
 
+import asyncio
+import os
 from collections.abc import Awaitable, Callable, Coroutine, Mapping
-from typing import TYPE_CHECKING, cast
 from uuid import UUID
 
 import httpx
 from kalshi import AsyncKalshiClient
 from kalshi.errors import KalshiError, KalshiRateLimitError
 from pydantic import ValidationError
-
-if TYPE_CHECKING:
-    from kalshi.models.markets import MarketStatusLiteral
 
 from entropytrade.domain.enums import KalshiEnvironment, MarketStatus, Venue
 from entropytrade.domain.historical import ApiOrigin, HistoricalCutoff
@@ -44,6 +42,7 @@ from entropytrade.exchange.kalshi.mapping import (
     status_query,
     trade_from_sdk,
 )
+from entropytrade.exchange.kalshi.recorded import CurrentMarket
 from entropytrade.exchange.kalshi.transport import ObservingTransport, RawCapture
 
 _DEFAULT_READ_COST = 10
@@ -64,8 +63,10 @@ class KalshiGateway:
         self,
         *,
         environment: KalshiEnvironment,
-        key_id: str,
-        private_key_pem: str,
+        key_id: str | None = None,
+        private_key_pem: str | None = None,
+        capture: Callable[[RawCapture], None] | None = None,
+        wait_for_budget: bool = False,
         clock: Clock | None = None,
         transport: httpx.AsyncBaseTransport | None = None,
         environ: Mapping[str, str] | None = None,
@@ -74,15 +75,24 @@ class KalshiGateway:
         self._environment = environment
         self._clock: Clock = clock if clock is not None else SystemClock()
         self._config = kalshi_config_for(environment)
-        inner = transport if transport is not None else httpx.AsyncHTTPTransport()
-        self._observing = ObservingTransport(inner)
+        inner = (
+            transport
+            if transport is not None
+            else httpx.AsyncHTTPTransport(proxy=os.environ.get("HTTPS_PROXY"))
+        )
+        self._observing = ObservingTransport(inner, capture=capture, clock=self._clock)
         self._client = AsyncKalshiClient(
             key_id=key_id,
             private_key=private_key_pem,
             config=self._config,
             transport=self._observing,
         )
-        self._budget: ReadBudget | None = None
+        self._wait_for_budget = wait_for_budget
+        self._budget: ReadBudget | None = (
+            ReadBudget(TokenBucket(refill_per_second=20, capacity=20), now=self._now())
+            if wait_for_budget
+            else None
+        )
         self._default_cost = _DEFAULT_READ_COST
 
     @property
@@ -111,6 +121,17 @@ class KalshiGateway:
 
     async def aclose(self) -> None:
         await self._client.close()
+
+    async def require_read_scope(self, key_id: str) -> None:
+        """Fail closed if the explicitly supplied collector key has any write permission."""
+        response = await self._guard(self._client.api_keys.list(), path="/api_keys")
+        key = next((item for item in response.api_keys if item.api_key_id == key_id), None)
+        if (
+            key is None
+            or "read" not in key.scopes
+            or any(scope != "read" and not scope.startswith("read::") for scope in key.scopes)
+        ):
+            raise GatewayError("collector requires a verified read-only scoped key")
 
     async def get_exchange_status(self) -> ExchangeStatus:
         raw = await self._guard(self._client.exchange.status(), path="/exchange/status")
@@ -164,7 +185,8 @@ class KalshiGateway:
         return self._domain(event_from_sdk, raw)
 
     async def get_market(self, ticker: str) -> Market:
-        raw = await self._guard(self._client.markets.get(ticker))
+        payload = await self._guard(self._client.markets._get(f"/markets/{ticker}"))
+        raw = CurrentMarket.model_validate(payload.get("market", payload))
         return self._domain(
             lambda item: market_from_sdk(item, captured_at=self._now(), series_ticker=None),
             raw,
@@ -179,38 +201,41 @@ class KalshiGateway:
         origin: ApiOrigin = ApiOrigin.LIVE,
     ) -> tuple[Market, ...]:
         query = status_query(status)
-        if origin is ApiOrigin.HISTORICAL:
+        cursor: str | None = None
+        seen: set[str] = set()
+        markets: dict[str, Market] = {}
+        for _ in range(1000):
+            path = "/historical/markets" if origin is ApiOrigin.HISTORICAL else "/markets"
+            params: dict[str, object] = {"limit": 200}
+            if cursor:
+                params["cursor"] = cursor
+            if event_ticker:
+                params["event_ticker"] = event_ticker
+            elif series_ticker:
+                params["series_ticker"] = series_ticker
+            if query is not None and origin is not ApiOrigin.HISTORICAL:
+                params["status"] = query
+            # Pinned SDK transport/pagination with a narrowly compatible market schema.
+            # Its generated resource method hardcodes the parent model with required liquidity.
             page = await self._guard(
-                self._client.historical.markets(
-                    series_ticker=series_ticker,
-                    event_ticker=event_ticker,
-                    limit=200,
-                )
+                self._client.markets._list(path, CurrentMarket, "markets", params=params), path=path
             )
-        else:
-            page = await self._guard(
-                self._client.markets.list(
-                    status=cast("MarketStatusLiteral", query) if query is not None else None,
-                    series_ticker=series_ticker,
-                    event_ticker=event_ticker,
-                    limit=200,
-                )
-            )
-        captured_at = self._now()
-        markets = tuple(
-            self._domain(
-                lambda item: market_from_sdk(
+            for item in page.items:
+                market = self._domain(
+                    lambda raw: market_from_sdk(
+                        raw, captured_at=self._now(), series_ticker=series_ticker
+                    ),
                     item,
-                    captured_at=captured_at,
-                    series_ticker=series_ticker,
-                ),
-                item,
-            )
-            for item in page.items
-        )
-        if status is None:
-            return markets
-        return tuple(market for market in markets if market.status is status)
+                )
+                if status is None or market.status is status:
+                    markets[market.ticker] = market
+            cursor = page.cursor
+            if not cursor:
+                return tuple(markets.values())
+            if cursor in seen:
+                raise GatewayError("pagination cursor repeated")
+            seen.add(cursor)
+        raise GatewayError("market discovery exceeded 1000 pages; narrow the universe")
 
     async def get_order_book(self, ticker: str) -> OrderBook:
         raw = await self._guard(self._client.markets.orderbook(ticker))
@@ -223,18 +248,63 @@ class KalshiGateway:
         start: UtcDatetime | None = None,
         end: UtcDatetime | None = None,
     ) -> tuple[TradePrint, ...]:
-        page = await self._guard(
-            self._client.markets.list_trades(
-                ticker=ticker,
-                min_ts=int(start.timestamp()) if start is not None else None,
-                max_ts=int(end.timestamp()) if end is not None else None,
-                limit=200,
+        cursor: str | None = None
+        seen: set[str] = set()
+        trades: dict[str, TradePrint] = {}
+        for _ in range(1000):
+            page = await self._guard(
+                self._client.markets.list_trades(
+                    ticker=ticker,
+                    min_ts=int(start.timestamp()) if start is not None else None,
+                    max_ts=int(end.timestamp()) if end is not None else None,
+                    limit=200,
+                    cursor=cursor,
+                ),
+                path="/markets/trades",
             )
-        )
-        return tuple(
-            self._domain(lambda item: trade_from_sdk(item, received_at=self._now()), item)
-            for item in page.items
-        )
+            for item in page.items:
+                trade = self._domain(lambda raw: trade_from_sdk(raw, received_at=self._now()), item)
+                trades[trade.trade_id] = trade
+            cursor = page.cursor
+            if not cursor:
+                return tuple(trades.values())
+            if cursor in seen:
+                raise GatewayError("pagination cursor repeated")
+            seen.add(cursor)
+        raise GatewayError("trade discovery exceeded 1000 pages")
+
+    async def get_candles(
+        self,
+        ticker: str,
+        *,
+        series: str,
+        start: UtcDatetime,
+        end: UtcDatetime,
+        historical: bool = False,
+    ) -> tuple[dict[str, object], ...]:
+        """Candles stay candle observations; never create book levels from volume."""
+        if historical:
+            values = await self._guard(
+                self._client.historical.candlesticks(
+                    ticker,
+                    start_ts=int(start.timestamp()),
+                    end_ts=int(end.timestamp()),
+                    period_interval=60,
+                ),
+                path="/historical/markets/candlesticks",
+            )
+        else:
+            values = await self._guard(
+                self._client.markets.candlesticks(
+                    series,
+                    ticker,
+                    start_ts=int(start.timestamp()),
+                    end_ts=int(end.timestamp()),
+                    period_interval=60,
+                ),
+                path="/series/markets/candlesticks",
+            )
+        return tuple(item.model_dump(mode="json") for item in values)
 
     async def get_portfolio(self) -> PortfolioSnapshot:
         raise GatewayError("portfolio reads belong to Phase 2; this gateway does not load them")
@@ -268,7 +338,14 @@ class KalshiGateway:
 
     async def _guard[T](self, awaitable: Awaitable[T], *, method: str = "GET", path: str = "") -> T:
         try:
-            self._spend(self._cost_for(method, path))
+            while True:
+                try:
+                    self._spend(self._cost_for(method, path))
+                    break
+                except RateLimitedError as exc:
+                    if not self._wait_for_budget:
+                        raise
+                    await asyncio.sleep(float(exc.retry_after or "1"))
         except RateLimitedError:
             # The SDK call is already a coroutine. Closing it avoids an un-awaited warning
             # when the local budget refuses the read before any HTTP is sent.
@@ -282,6 +359,8 @@ class KalshiGateway:
             if self._observing.last is not None:
                 retry_after = self._observing.last.headers.get("retry-after")
             raise RateLimitedError(str(exc), retry_after=retry_after) from exc
+        except ValidationError as exc:
+            raise GatewayError("SDK payload validation failed") from exc
         except KalshiError as exc:
             raise GatewayError(str(exc)) from exc
 
@@ -296,7 +375,9 @@ class KalshiGateway:
         try:
             self._budget.take(cost, self._now())
         except RateLimitExceededError as exc:
-            raise RateLimitedError(str(exc), retry_after=None) from exc
+            raise RateLimitedError(
+                str(exc), retry_after=str(exc.retry_after.total_seconds())
+            ) from exc
 
     def _now(self) -> UtcDatetime:
         return self._clock.now()
