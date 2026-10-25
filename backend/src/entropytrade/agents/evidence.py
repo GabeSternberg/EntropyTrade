@@ -6,14 +6,17 @@ import time
 from collections import Counter
 from datetime import date
 from pathlib import Path
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 import pyarrow.parquet as pq  # type: ignore[import-untyped]
 from pydantic import Field
 
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.base import DomainModel
-from entropytrade.features.registry import FEATURE_NAMES, feature_schema, scientific_hash
+from entropytrade.features.registry import FEATURE_NAMES, scientific_hash
+
+if TYPE_CHECKING:
+    from entropytrade.experiments.data import ExperimentData
 
 
 class EvidenceConfig(DomainModel):
@@ -22,6 +25,13 @@ class EvidenceConfig(DomainModel):
     model_results: str | None = None
     # Explicit protection boundary; agent arguments cannot change this.
     holdout_start: date
+    model_families: tuple[str, ...] = (
+        "climatology",
+        "raw_forecast",
+        "forecast_error",
+        "ridge",
+        "boosting",
+    )
     max_rows: int = Field(default=100_000, ge=1, le=200_000)
     load_timeout_seconds: int = Field(default=20, ge=1, le=60)
 
@@ -68,6 +78,9 @@ class ResearchEvidence:
             if not item.resolve().is_relative_to(config.root.resolve()):
                 raise ValueError("evidence symlink escaped root")
         manifest = _json(directory / "manifest.json")
+        self.catalog = manifest["schema"]
+        self.registered_names = tuple(f["name"] for f in self.catalog["features"])
+        self.registered_versions = {f["name"]: f["version"] for f in self.catalog["features"]}
         manifest_payload = dict(manifest)
         version = manifest_payload.pop("feature_version")
         if scientific_hash(manifest_payload) != version:
@@ -174,23 +187,22 @@ class ResearchEvidence:
             "timing": "features require receipt/publication evidence; hourly maxima are proxies",
             "interpreter_capabilities": {
                 "supported_subset": [
-                    "informational YES",
-                    "fixed contracts",
-                    "immediate orders",
-                    "feature conjunctions",
-                    "explicit hold-to-settlement marker",
+                    "informational YES/NO; explicit feature/model versions",
+                    "fixed contracts or fixed dollars including estimated fees",
+                    "immediate orders with time/date/price/spread/size limits",
+                    "feature and model probability conjunctions; minimum net edge",
+                    "hold to settlement or simple predicate exits",
                 ],
-                "requires_R4": [
-                    "NO entries",
-                    "per-spec spread limits",
-                    "fees/net edge",
+                "unsupported": [
                     "hedging",
-                    "holding-period exits",
-                    "other exit predicates",
-                    "realistic replay chronology and shared liquidity",
+                    "fractional Kelly",
+                    "holding-duration exits",
+                    "resting or post-only orders",
                 ],
-                "minimum_edge_basis": "legacy gross probability minus ask, not net of fees",
-                "execution_in_R3": False,
+                "minimum_edge_basis": (
+                    "side probability minus limit cost, bounded fees and uncertainty reserve"
+                ),
+                "execution_in_research": False,
             },
         }
         self.models: dict[str, Any] = {"status": "not_supplied", "models": {}}
@@ -221,13 +233,7 @@ class ResearchEvidence:
                 for name, item in result["models"].items()
             }
             for name, diagnostic in self.models["models"].items():
-                permitted_names = {
-                    "climatology",
-                    "raw_forecast",
-                    "forecast_error",
-                    "ridge",
-                    "boosting",
-                }
+                permitted_names = set(config.model_families)
                 available = False
                 if name in permitted_names:
                     artifact = _path(
@@ -242,6 +248,11 @@ class ResearchEvidence:
                 diagnostic["validation_is_permitted"] = validation_allowed
             self.models["source_hash"] = file_hash(_path(config, config.model_results))
         self.coverage["by_series"] = {}
+        if manifest["data_kind"] == "synthetic":
+            self.coverage["configured_source_kinds"] = sorted(
+                {"synthetic-kalshi"}
+                | {source for row in rows for source in row["known_forecast_sources"]}
+            )
         for series in sorted({m["series"] for m in self.markets}):
             scoped = [r for r in rows if r["event_id"].split("-")[0] == series]
             self.coverage["by_series"][series] = {
@@ -250,7 +261,16 @@ class ResearchEvidence:
                     {r["event_id"] for r in scoped if r["temperature_target_f"] is not None}
                 ),
                 "source_counts": dict(
-                    Counter(source for row in scoped for source in row["known_forecast_sources"])
+                    Counter(
+                        source
+                        for row in scoped
+                        for source in (
+                            *row["known_forecast_sources"],
+                            "synthetic-kalshi"
+                            if manifest["data_kind"] == "synthetic"
+                            else "kalshi",
+                        )
+                    )
                 ),
                 "features": dict(
                     Counter(
@@ -266,6 +286,98 @@ class ResearchEvidence:
         if time.monotonic() - started > config.load_timeout_seconds:
             raise TimeoutError("research evidence load exceeded deadline")
 
+    @classmethod
+    def from_data(
+        cls,
+        data: "ExperimentData",
+        *,
+        holdout_start: date,
+        model_families: tuple[str, ...],
+        history: list[dict[str, Any]] | None = None,
+    ) -> "ResearchEvidence":
+        """Family-neutral registered-adapter boundary; no labels enter the projection.
+
+        The ordinary weather loader is one adapter. Other families provide the same
+        contract samples and feature catalog without importing weather parsers/models.
+        """
+        instance = cls.__new__(cls)
+        instance.config = EvidenceConfig(
+            root=Path(),
+            features="registered-adapter",
+            holdout_start=holdout_start,
+            model_families=model_families,
+        )
+        instance.catalog = data.feature_definitions
+        instance.registered_names = tuple(f["name"] for f in instance.catalog["features"])
+        instance.registered_versions = {
+            f["name"]: f["version"] for f in instance.catalog["features"]
+        }
+        permitted = [
+            s
+            for s in data.samples
+            if s.event_id not in data.protected_events and s.target_date < holdout_start
+        ]
+        if len(permitted) > instance.config.max_rows:
+            raise ValueError("adapter projection exceeds row budget")
+        instance.markets = [
+            {
+                "event_id": s.event_id,
+                "market_ticker": s.ticker,
+                "series": s.family,
+                "city": s.family,
+                "station": s.family,
+                "target_date": s.target_date.isoformat(),
+                "decision_time": s.decision_time.isoformat(),
+                "rules_known": s.rules_known,
+                "rules": {"settlement_basis": "contract_text" if s.rules_known else "unknown"},
+                "exists": True,
+                "eligible": s.eligible,
+                "execution_fidelity": s.fidelity,
+                "relationships": "dependent event outcomes; completeness unverified",
+            }
+            for s in permitted
+        ]
+        instance.feature_counts = Counter(
+            n for s in permitted for n in instance.registered_names if s.features.get(n) is not None
+        )
+        instance.coverage = {
+            "data_kind": data.data_kind,
+            "source_dataset": data.dataset_version,
+            "feature_version": data.feature_version,
+            "independent_events": len({s.event_id for s in permitted}),
+            "date_blocks": len({s.target_date for s in permitted}),
+            "contracts": len({s.ticker for s in permitted}),
+            "rows": len(permitted),
+            "dates": sorted({s.target_date.isoformat() for s in permitted}),
+            "eligible_events": len({s.event_id for s in permitted if s.eligible}),
+            "scalar_label_events": len({s.event_id for s in permitted if s.outcome is not None}),
+            "feature_nonmissing_rows": dict(instance.feature_counts),
+            "configured_source_kinds": data.provenance.get("source_kinds", []),
+            "by_series": {},
+            "label_semantics": "adapter-defined official outcome; values withheld",
+        }
+        for family in {s.family for s in permitted}:
+            selected = [s for s in permitted if s.family == family]
+            instance.coverage["by_series"][family] = {
+                "eligible_events": len({s.event_id for s in selected if s.eligible}),
+                "scalar_label_events": len({s.event_id for s in selected if s.outcome is not None}),
+                "features": dict(
+                    Counter(
+                        n
+                        for s in selected
+                        for n in instance.registered_names
+                        if s.features.get(n) is not None
+                    )
+                ),
+                "source_counts": {
+                    source: len(selected) for source in data.provenance.get("source_kinds", [])
+                },
+            }
+        instance.models = {"status": "not_supplied", "models": {}, "data_kind": data.data_kind}
+        instance.history = history or []
+        instance.calls = []
+        return instance
+
     def inspect(self, query: EvidenceQuery) -> dict[str, Any]:
         if len(self.calls) >= 32:
             raise ValueError("research tool-call budget exhausted")
@@ -273,7 +385,7 @@ class ResearchEvidence:
             value: Any = self.coverage
         elif query.topic == "features":
             value = {
-                **feature_schema(),
+                **self.catalog,
                 "prediction_interface": {
                     "name": "model_yes_probability",
                     "version": "r2-prediction-v1",

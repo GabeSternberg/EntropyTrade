@@ -1,0 +1,15 @@
+{
+  "root": "/workspace/EntropyTrade/data/cache/r4-final-synthetic",
+  "features": "inputs/features/fce0188057c4095c37ece1f0bc61111dfffbe07d7e4f3f9fa2127cace3141c13",
+  "model_results": "models/b8c7d08465961972c397507c0234bc3ddb5ca91d7d5e28035b8d02062eb51657/results.json",
+  "holdout_start": "2025-07-12",
+  "model_families": [
+    "climatology",
+    "raw_forecast",
+    "forecast_error",
+    "ridge",
+    "boosting"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

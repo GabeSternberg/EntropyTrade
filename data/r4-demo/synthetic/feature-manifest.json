@@ -1,0 +1,157 @@
+{
+  "code_hashes": {
+    "__init__.py": "sha256:42e1c5913176bd25a0c2a80ddef57fa14b9b92a88620ef0bddc6127d011a03e8",
+    "pipeline.py": "sha256:8630fadc8ad0971c432b87fabe5d0de925b37604f09e1d5cee466a569fc170ae",
+    "registry.py": "sha256:b43d84a247f5abb7fb06fc9d13e0ce7885351469715e875543a7f4e3bcaa6cd3"
+  },
+  "cutoff_rule": "each row uses only information available by its decision time",
+  "data_kind": "synthetic",
+  "eligible_events": 480,
+  "events_with_scalar_labels": 480,
+  "feature_version": "sha256:fce0188057c4095c37ece1f0bc61111dfffbe07d7e4f3f9fa2127cace3141c13",
+  "forecast_proxy": "maximum hourly forecast, not a claim of exact settlement measurement",
+  "independent_events": 480,
+  "observations_hash": "sha256:8e868feee7733ed5e10d051642c2a8c7a43ccfec7320b4438b8cdfba88c46cf6",
+  "rows": 1920,
+  "rows_hash": "sha256:2ea63fa658dd80a8e7b1bf5481bf4769c13fdaff8377c3bd85af08abd33e2554",
+  "schema": {
+    "features": [
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "forecast_high_f",
+        "source_requirements": [
+          "forecast"
+        ],
+        "transformation": "mean of latest full-local-day hourly maximum proxies per provider/model",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "revision_f",
+        "source_requirements": [
+          "two distinct forecast vintages"
+        ],
+        "transformation": "mean latest minus preceding maximum per model; distinct receipt/revision required",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "model_disagreement_f",
+        "source_requirements": [
+          "two forecast models"
+        ],
+        "transformation": "population standard deviation of model maximum proxies",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_mean_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "mean member maxima",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_std_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "population member spread",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [
+          "forecast_high_f"
+        ],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "station_bias_f",
+        "source_requirements": [
+          "prior verified settlement highs"
+        ],
+        "transformation": "mean prior scalar target minus its frozen decision-time forecast",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "observed_temperature_f",
+        "source_requirements": [
+          "observed temperature"
+        ],
+        "transformation": "last observation valid and available by decision",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "hours_to_close",
+        "source_requirements": [
+          "contract rules"
+        ],
+        "transformation": "close minus decision",
+        "unit": "hour",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_sin",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual sine",
+        "unit": "dimensionless",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_cos",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual cosine",
+        "unit": "dimensionless",
+        "version": "1"
+      }
+    ],
+    "schema_version": "weather-features-v1"
+  },
+  "source_dataset": "sha256:152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6",
+  "source_rows_hash": "sha256:2cf6f7d35e09da1d996db6146eb4c1fb9ace07aa766a968c18ffed59b860f67d",
+  "weather_archives": []
+}

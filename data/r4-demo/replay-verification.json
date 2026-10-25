@@ -1,0 +1,46 @@
+{
+  "real": {
+    "experiment_id": "sha256:457e803b6ae8be4c69ba8ef5e55d3b14b4d09f9e5b691fcf45f9b41bc375cdab",
+    "replayed_identically": true,
+    "statuses": [
+      [
+        "c0",
+        "INSUFFICIENT_DATA"
+      ],
+      [
+        "c1",
+        "INSUFFICIENT_DATA"
+      ],
+      [
+        "c2",
+        "UNSUPPORTED"
+      ]
+    ]
+  },
+  "synthetic": {
+    "experiment_id": "sha256:9b5220f27f1584d1920e44d9ee6bd284f91918de8293df71fa6c77662cdcf435",
+    "replayed_identically": true,
+    "statuses": [
+      [
+        "c0",
+        "REJECTED"
+      ],
+      [
+        "c1",
+        "BACKTESTED"
+      ],
+      [
+        "c2",
+        "UNSUPPORTED"
+      ],
+      [
+        "negative-control",
+        "REJECTED"
+      ]
+    ]
+  },
+  "search_trials": {
+    "real": 9,
+    "synthetic": 12
+  }
+}

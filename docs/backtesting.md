@@ -1,65 +1,36 @@
 # Backtesting
 
-R0 correction: this file mixes implemented replay primitives with intended design.
-The complete artifact writer, realistic queue/capacity model and protected final evaluator
-are not implemented. See [capabilities](capabilities.md#correctness-risks-that-gate-future-claims)
-for fill chronology, split bounds, exposure and data-fidelity risks before using results.
+R4 repaired replay chronology and connected strategy experiments. See
+[experiment operations](experiments.md) for commands, supported StrategySpecs, artifacts,
+statistics and exact execution/fee assumptions.
 
-`entropytrade.backtest.replay` walks recorded books in time order. A strategy receives a
-`DecisionView`, which is `select_as_of` at the book's receive time, and nothing else.
-Holdout windows are not passed to the strategy. A fill uses the book at
-`decision_time + latency`, with prices clamped so the run cannot buy a better touch
-than the one it saw. Settlement inside the split window goes through `Ledger.settle`.
-The artifact hash covers the spec hash, the fill ids, and ending equity. Fees are
-`trade_fee`. The audited backtester is still not imported.
+`backtest/replay.py` runs a timestamp-ordered event queue: books update first, settlements
+resolve exposure, eligible orders execute after latency, then decisions occur. A zero-latency
+order executes before later decisions at that timestamp. `DecisionView` filters each feature
+by actual availability and supplies the current ledger, fee schedule and pending quantities.
+Only the latest already-received book can fill an order, within split/close/expiry/age bounds.
+Final holdout runs refuse execution.
 
-## Rules already encoded
+Existing `Ledger`, `PaperBroker` and `RiskEngine` own Decimal accounting, side complements,
+netting, fees, collateral, approval and settlement. Pending orders reserve cash and contribute
+to event/portfolio exposure; a fill appears only at execution time. Used depth cannot be
+reused in the same snapshot state. Changed snapshots or advancing non-null sequence numbers
+reset modeled capacity. This is a simulation assumption, not proof of liquidity replenishment.
+Partial/unfilled immediate orders cancel, with an audit of risk and freshness rejections.
 
-- A decision at time `t` may use a record only when `available_at <= t`, via
-  `select_as_of`. Tests construct a future observation and show it cannot change the
-  selection.
-- Every run will be a `BacktestRun`: strategy spec hash, git SHA, config hash, dataset
-  manifest hash, feature version, fee model, execution model version, fill scenario
-  (`optimistic`, `base`, `conservative`), execution fidelity, seed, and
-  train/validation/holdout windows that cannot overlap.
-- Fidelity is explicit. A run on candles is `candles_only` and is not treated as a book
-  replay. Last trade and midpoint are not executable prices; the domain's book type
-  separates them from `best_price_to_buy`.
-- Fees are a `FeeModelRef` (type, multiplier, whether the maker pays, effective date),
-  not a constant. A replay that is given `series_fees` replaces the broker schedule
-  with the stored series: KXHIGHPHIL is `quadratic` with multiplier 1, so makers pay
-  nothing. `KXNHL` is `quadratic_with_maker_fees` (maker fraction 0.25). The quadratic
-  coefficient is still the number already on the broker, because the series payload
-  does not contain it and the fee-schedule PDF fetch returned HTTP 429. The run
-  records fee-model version `series-fields-v1`. Flat series fees are not computed.
-- Settlement pays the contract, and payouts are bounded by quantity. An open position
-  marked at the last trade is not a settlement.
+Optimistic permits observed price improvement; base clamps it to the decision touch;
+conservative shifts prices adversely, halves size and (in experiments) stresses fees.
+Unknown queues, order competition and venue fills are not modeled. At-cost equity/drawdown
+between settlements must not be presented as market-marked risk. Unresolved positions
+prevent final P&L claims. Candles/trade prints/size-free quotes never become executable books.
 
-## What we will not adopt
+R4 real experiments require explicit historical fee certification, evidence hash and
+information/effective clocks. The legacy `SeriesFeeTable` path retains supplied coefficients
+and stored type/multiplier semantics for old studies; it does not establish real historical
+fees. R4 defaults to no real fee policy. Unsupported fee formulas/spec semantics reject.
+Legacy candle-volume pseudo-books remain preserved but are excluded from the new workflow.
 
-`Quentin-Piot/prediction-market-backtester` has the right artifact idea and a useful
-post-run coherence check (recompute metrics from the written files and require them to
-match). Its execution core is not safe to port:
-
-- cash-at-risk is inverted, and the tests assert the inverted numbers,
-- cash can go negative and a short credits cash instead of locking collateral,
-- `limit_price` is ignored,
-- there is no settlement,
-- fills use the bar's last trade, at the same bar by default,
-- batch run directories collide when two markets finish in the same second,
-- the vendored Kalshi indexer reads integer price fields Kalshi removed on 2026-03-12
-  and does not call `/historical/*`.
-
-`karshincheo/kalshi-trading` and `Viprasol-Tech/kalshi-trading-bot` are weaker still:
-mid fills or fills at the order's own limit, missing or zero fees, and in one case a
-walk-forward engine that never sees its data. Details and the reuse decision are in
-[`external-repositories.md`](external-repositories.md).
-
-## Phase 3 shape
-
-Replay domain events in `available_at` order under a `SimulatedClock`. Strategies see a
-book or a labelled lower-fidelity quote, never the future. Fills come from a versioned
-execution model with optimistic, base and conservative scenarios. A strategy that passes
-only the optimistic scenario does not get promoted. Each run writes an atomic directory
-(`results.json`, config, trades, equity, manifest) and a coherence check recomputes the
-totals from the files. The holdout window is not readable by the research agents.
+The reuse audit remains applicable: external backtesters' artifact/coherence ideas are useful,
+but their midpoint fills, incorrect cash-at-risk, ignored limits, obsolete indexers and missing
+settlement are not adopted. R4 reuses our ledger/broker/risk and mature NumPy/scikit-learn,
+PyArrow, SQLite and MLflow. No new dependency or external execution engine was introduced.

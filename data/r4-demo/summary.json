@@ -1,0 +1,216 @@
+{
+  "real": {
+    "agent_mode": "offline_mock",
+    "candidates": [
+      {
+        "id": "c0",
+        "rank": null,
+        "reasons": [
+          "required source provenance is unavailable at decision time"
+        ],
+        "scenarios": [],
+        "status": "INSUFFICIENT_DATA",
+        "validation_events": null
+      },
+      {
+        "id": "c1",
+        "rank": null,
+        "reasons": [
+          "required source provenance is unavailable at decision time"
+        ],
+        "scenarios": [],
+        "status": "INSUFFICIENT_DATA",
+        "validation_events": null
+      },
+      {
+        "id": "c2",
+        "rank": null,
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "scenarios": [],
+        "status": "UNSUPPORTED",
+        "validation_events": null
+      }
+    ],
+    "data_kind": "real",
+    "dataset": "sha256:7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14",
+    "experiment_id": "sha256:457e803b6ae8be4c69ba8ef5e55d3b14b4d09f9e5b691fcf45f9b41bc375cdab",
+    "feature_version": "sha256:6f2e30de36a274fa221cd642646b471a6894389b2e69e0600db09095a7f1c931",
+    "models": [
+      {
+        "run_id": "7f974e4eb85a7aa7e7968bc6d800a1fc947f1dd26373e2698fa8a5e30e572b3d",
+        "source_checksums": {
+          "predictions.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "predictions.parquet": "sha256:e6258dd3dd7e8832b85f7c29c7b98ac331e8483fb73a1429bc36729a7f748793",
+          "report.md": "sha256:9cd7bd0cdda7965d083d6e661100f3b7f61c1d12c1e0eddb8186ec2f05f409bb",
+          "results.json": "sha256:37a7f658723d45aa2db9676f832de9747b065564db7403b0af57764422242ae1"
+        }
+      }
+    ],
+    "prompt": "Investigate Philadelphia forecast revisions and Chicago model disagreement; reject unsupported conclusions.",
+    "requested_trials": 9,
+    "research_decisions": [
+      [
+        "c0",
+        "INSUFFICIENT_DATA"
+      ],
+      [
+        "c1",
+        "INSUFFICIENT_DATA"
+      ],
+      [
+        "c2",
+        "UNSUPPORTED"
+      ]
+    ],
+    "research_permitted_events": 6,
+    "research_run": "0457e3c1-f306-4e7f-9a4e-488495bf472a"
+  },
+  "synthetic": {
+    "agent_mode": "offline_mock",
+    "candidates": [
+      {
+        "id": "c0",
+        "rank": 1,
+        "reasons": [
+          "too few modeled fills for trading evidence"
+        ],
+        "scenarios": [
+          {
+            "fees_paid": "0.100000",
+            "fills": 6,
+            "net_pnl": "1.730000",
+            "scenario": "optimistic"
+          },
+          {
+            "fees_paid": "0.100000",
+            "fills": 6,
+            "net_pnl": "1.730000",
+            "scenario": "base"
+          },
+          {
+            "fees_paid": "0.000000",
+            "fills": 0,
+            "net_pnl": "0.000000",
+            "scenario": "conservative"
+          }
+        ],
+        "status": "REJECTED",
+        "validation_events": 48
+      },
+      {
+        "id": "c1",
+        "rank": 1,
+        "reasons": [],
+        "scenarios": [
+          {
+            "fees_paid": "0.190000",
+            "fills": 11,
+            "net_pnl": "3.340000",
+            "scenario": "optimistic"
+          },
+          {
+            "fees_paid": "0.190000",
+            "fills": 11,
+            "net_pnl": "3.340000",
+            "scenario": "base"
+          },
+          {
+            "fees_paid": "0.000000",
+            "fills": 0,
+            "net_pnl": "0.000000",
+            "scenario": "conservative"
+          }
+        ],
+        "status": "BACKTESTED",
+        "validation_events": 48
+      },
+      {
+        "id": "c2",
+        "rank": null,
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "scenarios": [],
+        "status": "UNSUPPORTED",
+        "validation_events": null
+      },
+      {
+        "id": "negative-control",
+        "rank": 1,
+        "reasons": [
+          "too few modeled fills for trading evidence"
+        ],
+        "scenarios": [
+          {
+            "fees_paid": "0.000000",
+            "fills": 0,
+            "net_pnl": "0.000000",
+            "scenario": "optimistic"
+          },
+          {
+            "fees_paid": "0.000000",
+            "fills": 0,
+            "net_pnl": "0.000000",
+            "scenario": "base"
+          },
+          {
+            "fees_paid": "0.000000",
+            "fills": 0,
+            "net_pnl": "0.000000",
+            "scenario": "conservative"
+          }
+        ],
+        "status": "REJECTED",
+        "validation_events": 48
+      }
+    ],
+    "data_kind": "synthetic",
+    "dataset": "sha256:152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6",
+    "experiment_id": "sha256:9b5220f27f1584d1920e44d9ee6bd284f91918de8293df71fa6c77662cdcf435",
+    "feature_version": "sha256:fce0188057c4095c37ece1f0bc61111dfffbe07d7e4f3f9fa2127cace3141c13",
+    "models": [
+      {
+        "run_id": "b8c7d08465961972c397507c0234bc3ddb5ca91d7d5e28035b8d02062eb51657",
+        "source_checksums": {
+          "boosting.joblib": "sha256:08784c2819183fedd2ae480965070d5032eef75e9bd700be1dbc6fc836ea73a6",
+          "climatology.joblib": "sha256:17db8ab87f683e7da1d4dbf811a3232bd8ac76c05ab19308a4c98b5c802323b5",
+          "forecast_error.joblib": "sha256:1734ba65c84bd12f8d88ee4681be5c00277fb565a74cbb20570ca833231ca480",
+          "predictions.jsonl": "sha256:274749b5e2cb7ab6449d5abeb76f3310aeabc2bea4e7400326f6bbb6e96325da",
+          "predictions.parquet": "sha256:b0efd4c606df410c0cfbf5500540aebdd36b23e72bae6fa1d2515c3876090a01",
+          "raw_forecast.joblib": "sha256:d635672bc76cdabe13ec58b3e09e0a21eed8bcaa36f88b7720545962aa972ac1",
+          "report.md": "sha256:6b429b7493256fc7e8061921b1fb60aad6a3f62cca7a5cd1fc277f524e662863",
+          "results.json": "sha256:39693424b7aa9ab0c7f89532a5ddc64d05b56e78cd3e30b4acc56f915097892f",
+          "ridge.joblib": "sha256:17b4844d7cc7fdc271277b8518d860b8ad323cf965e40d9ef718d1aa1e074545",
+          "walk-1-forecast_error.joblib": "sha256:6fabec2be680c1dce920a89bd719694a3b80a0ba3ef388bf074ad4e87d7a3f97",
+          "walk-1-ridge.joblib": "sha256:182cf3686c36cdf4b332941b569fa5fd419f0040e30eb432825c5cdc3acd1184",
+          "walk-2-forecast_error.joblib": "sha256:155bba949dca8dced7025b67740201f6e2c6053a481d2be836c5ef192aacee64",
+          "walk-2-ridge.joblib": "sha256:2f7d9e3364ade3697a400ebb24b95c7a43c6933082c17e2c8ee19413c3722061"
+        }
+      }
+    ],
+    "prompt": "Investigate Philadelphia forecast revisions and model disagreement; compare hypotheses and retain negative controls.",
+    "requested_trials": 12,
+    "research_decisions": [
+      [
+        "c0",
+        "READY_FOR_EXPERIMENT"
+      ],
+      [
+        "c1",
+        "READY_FOR_EXPERIMENT"
+      ],
+      [
+        "c2",
+        "UNSUPPORTED"
+      ],
+      [
+        "negative-control",
+        "READY_FOR_EXPERIMENT"
+      ]
+    ],
+    "research_permitted_events": 384,
+    "research_run": "c115f9e2-7584-46d4-afe5-eae45f5f4809"
+  }
+}

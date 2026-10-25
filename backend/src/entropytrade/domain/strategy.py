@@ -5,7 +5,7 @@ A research agent emits a :class:`StrategySpec`, never an order and never executa
 ``spec_hash()`` is the immutable identity of a spec's content.
 """
 
-from datetime import timedelta
+from datetime import date, timedelta
 from decimal import Decimal
 from enum import StrEnum
 from typing import Literal, Self
@@ -14,7 +14,7 @@ from uuid import UUID
 from pydantic import Field, model_validator
 
 from entropytrade.domain.base import DomainModel
-from entropytrade.domain.enums import ActorKind, StrategyFamily, TimeInForce, Venue
+from entropytrade.domain.enums import ActorKind, OutcomeSide, StrategyFamily, TimeInForce, Venue
 from entropytrade.domain.ids import ContentHash, content_hash
 from entropytrade.domain.lifecycle import Actor
 from entropytrade.domain.numeric import ZERO, ExactDecimal, PositiveQuantity
@@ -142,6 +142,32 @@ class Citation(DomainModel):
     observed_at: UtcDatetime | None = None
 
 
+class EntryWindow(DomainModel):
+    """UTC instants and event target dates, both inclusive start / exclusive end."""
+
+    start: UtcDatetime | None = None
+    end: UtcDatetime | None = None
+    target_start: date | None = None
+    target_end: date | None = None
+
+    @model_validator(mode="after")
+    def ordered(self) -> Self:
+        if self.start is not None and self.end is not None and self.end <= self.start:
+            raise ValueError("entry window end must follow start")
+        if (
+            self.target_start is not None
+            and self.target_end is not None
+            and self.target_end <= self.target_start
+        ):
+            raise ValueError("target date end must follow start")
+        return self
+
+
+class ProbabilityModelRef(DomainModel):
+    family: str = Field(min_length=1)
+    version: ContentHash
+
+
 class StrategySpec(DomainModel):
     """A testable strategy. Downstream code consumes this model, not free-form prose."""
 
@@ -152,6 +178,15 @@ class StrategySpec(DomainModel):
     hypothesis: str = Field(min_length=1)
     strategy_family: StrategyFamily
     market_universe: MarketUniverse
+    side: OutcomeSide = OutcomeSide.YES
+    entry_window: EntryWindow = EntryWindow()
+    probability_feature: str | None = None
+    model_ref: ProbabilityModelRef | None = None
+    max_entry_price: ExactDecimal | None = None
+    min_displayed_quantity: PositiveQuantity | None = None
+    uncertainty_allowance: ExactDecimal = ZERO
+    slippage_allowance: ExactDecimal = ZERO
+    exit_mode: Literal["hold_to_settlement", "predicate"] = "hold_to_settlement"
     required_sources: tuple[str, ...] = Field(min_length=1)
     features: tuple[FeatureRequirement, ...] = ()
     model_kind: ModelKind = ModelKind.NONE
@@ -174,6 +209,10 @@ class StrategySpec(DomainModel):
 
     @model_validator(mode="after")
     def _check(self) -> Self:
+        if self.max_entry_price is not None and not ZERO < self.max_entry_price <= 1:
+            raise ValueError("maximum entry price must be in (0,1]")
+        if self.uncertainty_allowance < ZERO or self.slippage_allowance < ZERO:
+            raise ValueError("cost allowances must be nonnegative")
         if self.minimum_edge <= ZERO:
             raise ValueError("minimum_edge must be positive: a zero edge is not a trade")
         if self.generated_by.kind is ActorKind.AGENT and self.generation_run_id is None:

@@ -18,6 +18,10 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.domain.time import ensure_utc
 
 _SCHEMA = """
+CREATE TABLE IF NOT EXISTS strategy_experiments (
+    experiment_id TEXT PRIMARY KEY, payload TEXT NOT NULL,
+    trials INTEGER NOT NULL, data_kind TEXT NOT NULL);
+
 CREATE TABLE IF NOT EXISTS agent_hypotheses (
     signature TEXT NOT NULL, run_id TEXT NOT NULL, PRIMARY KEY(signature, run_id));
 CREATE TABLE IF NOT EXISTS agent_research_runs (run_id TEXT PRIMARY KEY, payload TEXT NOT NULL);
@@ -89,6 +93,28 @@ class Registry:
 
     def close(self) -> None:
         self._db.close()
+
+    def record_experiment(
+        self, experiment_id: str, payload: str, trials: int, data_kind: str
+    ) -> None:
+        with self._db:
+            previous = self._db.execute(
+                "SELECT payload FROM strategy_experiments WHERE experiment_id=?", (experiment_id,)
+            ).fetchone()
+            if previous is not None and previous[0] != payload:
+                raise RegistryError("experiment identity reused with different content")
+            self._db.execute(
+                "INSERT OR IGNORE INTO strategy_experiments VALUES (?, ?, ?, ?)",
+                (experiment_id, payload, trials, data_kind),
+            )
+
+    def experiment_trials(self, data_kind: str) -> int:
+        return int(
+            self._db.execute(
+                "SELECT COALESCE(SUM(trials),0) FROM strategy_experiments WHERE data_kind=?",
+                (data_kind,),
+            ).fetchone()[0]
+        )
 
     def agent_run(self, run_id: str) -> str | None:
         row = self._db.execute(

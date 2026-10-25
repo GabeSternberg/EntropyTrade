@@ -7,8 +7,10 @@ import pytest
 
 from entropytrade.agents.fixture import TICKER, demo_specs, philadelphia_records
 from entropytrade.backtest.replay import DecisionView
+from entropytrade.domain.enums import FeeType
 from entropytrade.domain.market_data import OrderBook, OrderBookLevel
 from entropytrade.domain.strategy import SizingMethod
+from entropytrade.execution.fees import FeeSchedule
 from entropytrade.strategies.interpret import UnsupportedSpecError, compile_strategy
 
 
@@ -26,7 +28,16 @@ def test_a_later_cli_high_is_not_a_reason_to_trade() -> None:
     compiled = compile_strategy(spec)
     early = DecisionView(philadelphia_records(), datetime(2026, 10, 2, 7, tzinfo=UTC))
     assert compiled(early, _book()) is None
-    visible = DecisionView(philadelphia_records(), datetime(2026, 10, 2, 15, tzinfo=UTC))
+    visible = DecisionView(
+        philadelphia_records(),
+        datetime(2026, 10, 2, 15, tzinfo=UTC),
+        schedule=FeeSchedule(
+            fee_type=FeeType.QUADRATIC,
+            fee_multiplier=Decimal(1),
+            maker_pays=False,
+            quadratic_coefficient=Decimal(0),
+        ),
+    )
     intent = compiled(visible, _book())
     assert intent is not None
     assert intent.yes_price == Decimal("0.4000")

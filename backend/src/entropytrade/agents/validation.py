@@ -6,7 +6,7 @@ from typing import Any
 from entropytrade.agents.evidence import ResearchEvidence
 from entropytrade.agents.outputs import CandidateBatch, HypothesisBatch, ResearchCritique
 from entropytrade.domain.strategy import ModelKind
-from entropytrade.features.registry import FEATURE_NAMES, scientific_hash
+from entropytrade.features.registry import scientific_hash
 from entropytrade.strategies.interpret import UnsupportedSpecError, compile_strategy
 
 
@@ -27,6 +27,7 @@ def validate_candidates(
     *,
     run_id: str | None = None,
 ) -> list[dict[str, Any]]:
+    registered_names = set(evidence.registered_names)
     known = {h.hypothesis_id: h for h in hypotheses.hypotheses}
     if len(known) != len(hypotheses.hypotheses):
         raise ValueError("duplicate hypothesis IDs")
@@ -74,6 +75,8 @@ def validate_candidates(
         if spec:
             required.update(f.name for f in spec.features)
             required.update(p.feature for p in spec.entry_rules.all_of)
+            if spec.exit_mode == "predicate":
+                required.update(p.feature for p in spec.exit_rules.all_of)
             universe = spec.market_universe
             if (
                 not set(universe.market_tickers) <= markets
@@ -95,7 +98,9 @@ def validate_candidates(
             if any(
                 f.version
                 not in (
-                    {None, "r2-prediction-v1"} if f.name == "model_yes_probability" else {None, "1"}
+                    {None, "r2-prediction-v1"}
+                    if f.name == "model_yes_probability"
+                    else {None, evidence.registered_versions.get(f.name)}
                 )
                 for f in spec.features
             ):
@@ -110,21 +115,11 @@ def validate_candidates(
                 compile_strategy(spec)  # Validate only; never invoke the returned replay callable.
             except UnsupportedSpecError as exc:
                 unsupported.append(str(exc))
-            if spec.execution.max_spread is not None:
-                unsupported.append("per-spec spread enforcement requires R4")
-            if (
-                spec.position_sizing.dollars is not None
-                or spec.position_sizing.kelly_fraction is not None
-            ):
-                unsupported.append(
-                    "extra sizing fields are not enforced by the fixed-contract interpreter"
-                )
-            if spec.hedging_rules or spec.maximum_holding_period_seconds is not None:
-                unsupported.append("hedging/holding-period enforcement requires R4")
-            # The legacy interpreter ignores exit predicates; only the explicit settlement
-            # marker is safe.
-            if any(
-                p.feature != "settlement" or p.op.value != "eq" or p.threshold != 1
+            # compile_strategy rejects unsupported sizing, hedging and exit semantics.
+            if spec.exit_mode == "hold_to_settlement" and any(
+                p.feature not in {"settlement", "hold_to_settlement"}
+                or p.op.value != "eq"
+                or p.threshold != 1
                 for p in spec.exit_rules.all_of
             ):
                 unsupported.append("exit predicates are not implemented")
@@ -138,27 +133,21 @@ def validate_candidates(
             )
         if spec and candidate.missing_capability:
             unsupported.append(candidate.missing_capability)
-        if required - set(FEATURE_NAMES) - {"model_yes_probability"}:
+        builtins = {"model_yes_probability", "yes_bid", "yes_ask"}
+        if required - registered_names - builtins:
             invalid.append(
                 "unknown feature references: "
-                + ", ".join(sorted(required - set(FEATURE_NAMES) - {"model_yes_probability"}))
+                + ", ".join(sorted(required - registered_names - builtins))
             )
         scoped_coverage = evidence.coverage["by_series"].get(
             hypothesis.market_family if hypothesis else "", {}
         )
         missing.extend(
             "no point-in-time observations for " + name
-            for name in sorted(required & set(FEATURE_NAMES))
+            for name in sorted(required & registered_names)
             if scoped_coverage.get("features", {}).get(name, 0) == 0
         )
-        if candidate.model_family not in {
-            "none",
-            "climatology",
-            "raw_forecast",
-            "forecast_error",
-            "ridge",
-            "boosting",
-        }:
+        if candidate.model_family not in {"none", *evidence.config.model_families}:
             invalid.append("unknown model family")
         elif candidate.model_family != "none" or "model_yes_probability" in required:
             diagnostic = evidence.models.get("models", {}).get(candidate.model_family, {})
@@ -166,7 +155,7 @@ def validate_candidates(
                 missing.append("required real fitted probability artifact is unavailable")
             if not diagnostic.get("validation_is_permitted"):
                 missing.append("model validation coverage is not permitted by the research cutoff")
-            if evidence.models.get("data_kind") != "real":
+            if evidence.models.get("data_kind") != evidence.coverage.get("data_kind"):
                 missing.append("synthetic diagnostics cannot substantiate real candidates")
         missing.extend(
             "no certified decision-time coverage for source " + source
@@ -174,13 +163,17 @@ def validate_candidates(
             if source not in {"kalshi", "weather-company", "nws-cli"}
             and scoped_coverage.get("source_counts", {}).get(source, 0) == 0
         )
-        if set(candidate.required_sources) - {
-            "kalshi",
-            "open-meteo",
-            "nws",
-            "weather-company",
-            "nws-cli",
-        }:
+        if (
+            set(candidate.required_sources)
+            - set(evidence.coverage["configured_source_kinds"])
+            - {
+                "kalshi",
+                "open-meteo",
+                "nws",
+                "weather-company",
+                "nws-cli",
+            }
+        ):
             invalid.append("unknown source adapter")
         scoped = [
             r for r in evidence.markets if hypothesis and r["series"] == hypothesis.market_family
@@ -234,10 +227,11 @@ def analyst_report(run: dict[str, Any]) -> str:
         f"Question: {run['prompt']}",
         "",
         "Known data (protected dates excluded):",
-        f"{coverage['independent_events']} city/day events across {coverage['date_blocks']} dates; "
+        f"{coverage['independent_events']} independent events "
+        f"across {coverage['date_blocks']} dates; "
         f"{coverage['contracts']} contracts; "
-        f"{coverage['eligible_events']} eligible forecast events; "
-        f"{coverage['scalar_label_events']} source-matched scalar-label events.",
+        f"{coverage['eligible_events']} eligible feature events; "
+        f"{coverage['scalar_label_events']} source-matched outcome-label events.",
         "No backtest was run. No predictive or trading edge is established.",
         "",
         "Candidate hypotheses (unverified agent proposals):",
@@ -256,9 +250,9 @@ def analyst_report(run: dict[str, Any]) -> str:
         ]
     lines += [
         "",
-        "Next experiments: collect certified decision-time forecast vintages and actual rule "
-        "snapshots; obtain the contract's named scalar settlement source; accumulate independent "
-        "events; fit/calibrate with R2 temporal gates before R4 execution experiments.",
+        "Next experiments: collect certified decision-time source vintages and actual rule "
+        "snapshots; obtain the contract's named settlement source; accumulate independent "
+        "events; fit/calibrate through temporal gates before execution experiments.",
         "Candidate readiness does not imply profitability, validation or permission to trade.",
     ]
     return "\n".join(lines) + "\n"

@@ -34,7 +34,7 @@ class ModelingConfig(DomainModel):
     min_evaluation_events: int = Field(default=20, ge=20)
     min_boosting_events: int = Field(default=200, ge=100)
     raw_sigma_f: float = Field(default=3.0, gt=0)
-    calibration: Literal["platt", "isotonic"] = "platt"
+    calibration: Literal["none", "platt", "isotonic"] = "platt"
     walk_forward: bool = True
     evaluate_holdout: bool = False
 
@@ -216,7 +216,7 @@ def _run_modeling(
                 result["refusals"][kind] = str(exc)
                 continue
             calibration_note = "uncalibrated baseline"
-            if kind in {"forecast_error", "ridge", "boosting"}:
+            if kind in {"forecast_error", "ridge", "boosting"} and config.calibration != "none":
                 try:
                     model.calibrate(
                         calibration,
@@ -292,12 +292,13 @@ def _run_modeling(
                                 asof=fold.fit_asof,
                                 min_events=config.min_train_events,
                             )
-                            model.calibrate(
-                                _examples(rows, fold.calibration, fold.calibration_asof),
-                                asof=fold.calibration_asof,
-                                method=config.calibration,
-                                min_events=config.min_calibration_events,
-                            )
+                            if config.calibration != "none":
+                                model.calibrate(
+                                    _examples(rows, fold.calibration, fold.calibration_asof),
+                                    asof=fold.calibration_asof,
+                                    method=config.calibration,
+                                    min_events=config.min_calibration_events,
+                                )
                     except InsufficientHistoryError as exc:
                         fold_result["refusals"][fold_kind] = str(exc)
                         continue

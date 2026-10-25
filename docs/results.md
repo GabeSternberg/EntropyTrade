@@ -187,3 +187,12 @@ and model/prediction/feature hashes reproduce. Training uses one frozen decision
 not four independent examples for its four contracts. Synthetic performance is exclusively
 implementation verification. See the [frozen evidence and summaries](../data/r2-demo/README.md)
 and [operating guide](weather-modeling.md); no empirical edge follows from that proof.
+
+## R4 integrated evidence (2026-10-25)
+
+The integrated offline research-to-experiment run over the existing real sample cleanly
+returns two INSUFFICIENT_DATA candidates and an unsupported proposal. No new empirical
+forecasting metrics, fills or P&L were established. Full software verification is separately
+synthetic/mock; conservative execution produces no fills. Frozen audits, probability records,
+ledger results and exact-replay identities are in [R4 evidence](../data/r4-demo/README.md).
+These are integration findings, not a revision to the historical data/edge conclusions.

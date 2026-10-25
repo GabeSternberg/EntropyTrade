@@ -2,8 +2,10 @@
 
 Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
 continuation, while preserving the [original product specification](project-spec.md).
-R0–R2 were approved and integrated into main at `b9cbaa8`. R3 is authorized and active. Stop at each milestone for review unless
-explicitly authorized to cross milestones. A commit, city, JSON field or negative
+R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
+branch/main merge and push are authorized. Stop before the next milestone.
+The R4 approval request revises the next priorities: minimal localhost website, second real
+market family, then continuous paper/shadow. A commit, city, JSON field or negative
 experiment is not a software milestone.
 
 The target is **Discover → Formalize → Collect → Model → Price → Backtest → Validate →
@@ -95,8 +97,7 @@ learning, agents, strategy tuning, production orders or dashboard work in R2.
 
 ## R3 — Provider-backed research
 
-R3 is complete for review on `recovery/r3`, based on `b9cbaa8`. It is **not merged into
-main**; the latest user instruction requires separate merge approval for this phase.
+R3 is approved and integrated at `624d442`. Previous recovery branches remain intact.
 
 Delivered: explicit OpenAI/Anthropic configuration with dedicated research credentials and
 live opt-in, bounded read-only evidence tools, typed multi-hypothesis Research → Hypothesis
@@ -118,47 +119,46 @@ research worker per isolated process because the framework permission switch is 
 R4 acceptance must attach deterministic experiments to these hypotheses/spec hashes while
 preserving the final holdout boundary. Count every search, including related threshold
 variants. Complete/validate interpreter semantics before interpreting backtest returns;
-repair chronology, liquidity reuse, fees and event exposure. Do not start R4 until review.
+repair chronology, liquidity reuse, fees and event exposure. These requirements are implemented in R4 below.
 
 ## R4 — Strategy execution and automated experiments
 
-Support explicit market selection, feature/model probability predicates, costed net edge,
-entry windows, YES/NO, size limits, simple exits and settlement. Reject every unsupported
-field/semantic explicitly. Repair replay chronology, split bounds, stale fill horizons,
-shared liquidity capacity, event exposure and fees before calling results realistic.
-Connect candidates to deterministic runs with complete lineage and MLflow/application
-registry links. Count every candidate/search, preserve temporal train/validation/protected
-holdout and walk-forward discipline, independent-event minima, useful bootstrap intervals,
-selection/multiple-testing warnings, baselines and fee/slippage/fill scenarios.
-Acceptance: multiple specs can be evaluated and weak/unsupported ones rejected with
-reproducible evidence, trades/equity/artifact coherence and no fabricated metrics.
+**Checkpoint:** complete integrated CLI, bounded faithful StrategySpecs, R2 prediction
+selection, chronological/capacity/risk/fee-aware replay, forecast/trading diagnostics,
+ranking/rejection, date-block uncertainty, search accounting and SQLite/MLflow/Parquet lineage.
+The generic adapter boundary is tested on non-weather mentions. Actual historical weather
+candidates return insufficient data; full modeling/execution is proved separately on
+synthetic inputs/mock agents. Final holdout stays untouched. See [guide](experiments.md).
+No empirical edge or trading readiness follows from this milestone.
 
-## R5 — End-to-end research V0
+## R5 — Minimal local research website
 
-One command/API must handle: “Research Philadelphia daily-high markets; investigate
-forecast revisions and model disagreement, and propose other plausible signals.” It must
-inspect data/missingness, generate falsifiable hypotheses/specs, train/select justified
-models, run deterministic experiments, reject unsupported/overfit candidates, summarize
-validation and preserve full lineage. Acceptance: a useful real-data research report;
-no passing strategy is an acceptable result. Stop for V0 review.
+**Next after R4 review.** FastAPI plus a minimal React/Vite local interface over existing
+research/experiment services: type an idea, explicitly choose provider/data/mock mode,
+start a bounded worker, inspect progress/history, hypotheses/specs, probabilities,
+forecast/backtest metrics, fidelity and rejection reasons. Preserve protected evidence,
+credential isolation, reports and lineage. No SaaS, trading activation or broad dashboard.
+Acceptance: open localhost → research idea → saved, reviewable candidates/results. Real
+insufficient-data reports and explicit synthetic demonstrations must both be usable.
 
-## R6 — Continuous paper/shadow and structural scanning
+## R6 — Second real market family
 
-Use the read-only live feed for eligible strategies and verified related-contract scans.
-Record each decision's time, strategy/model/data versions, available information, prediction,
-bid/ask/depth, estimated edge, intent, risk decision, execution evidence, subsequent prices
-and settlement. Compare expected execution with observed conditions. Scan structural
-relationships using executable prices, fees, size and non-atomic leg/partial-fill risk.
-Acceptance: continuous paper/shadow/scanner processes and reviewable records with no
-exchange order submission. Prints still do not establish actual fills.
+Implement one useful non-weather family through the existing registered adapter/sample/
+feature/prediction interfaces. Inspect actual listed contracts, settlement definitions,
+point-in-time sources, outcome and execution coverage. Demonstrate the same research and
+experiment workflow without rebuilding shared engines. A negative result is acceptable;
+real ingestion/coverage evidence must be distinguished from R4's controlled mentions fixture.
+Choose the family after reviewing source feasibility; do not build all families at once.
 
-## R7 — Private research/control dashboard
+## R7 — Continuous paper/shadow and structural scanning
 
-Use FastAPI and minimal React/Vite once workflows exist. Expose prompts/results,
-agent/experiment history, candidates, model/backtest/calibration metrics, P&L/drawdown,
-paper/shadow signals, books/relationships, risk/exposure, collector health, lineage and
-global pause. Acceptance: one private interface operates research through shadow.
-No accounts/billing or unnecessary infrastructure.
+Connect eligible strategies to the read-only live feed. Persist each decision's versions,
+available information, probability, executable bid/ask/depth, edge, intended order, risk,
+simulated/observed evidence, later prices and settlement. Compare expected vs observed
+conditions; verified structural groups use fees/size/non-atomic leg risk. Add basic collector,
+exposure, pause and audit views to the local website only where operationally useful.
+Acceptance: recoverable continuous paper/shadow/scanner processes with no exchange orders.
+Prints never establish fills. Broader dashboards follow actual operational needs.
 
 ## R8 — Live readiness review
 

@@ -1,0 +1,101 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "c0",
+      "coverage": {
+        "books": 0,
+        "eligible_events": 0,
+        "events": 3
+      },
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "original_spec_hash": "sha256:518c857e071c0424a4877803c383b5b7fb98abdc0f003dc07cbdf0c37b7610a0",
+      "rank": null,
+      "reasons": [
+        "required source provenance is unavailable at decision time"
+      ],
+      "scenarios": [],
+      "status": "INSUFFICIENT_DATA",
+      "tested": false
+    },
+    {
+      "candidate_id": "c1",
+      "coverage": {
+        "books": 0,
+        "eligible_events": 0,
+        "events": 3
+      },
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "original_spec_hash": "sha256:d0853a37629055e964311f5c35e7927e709a5022a03f56e21bfe916bf3bc9a9a",
+      "rank": null,
+      "reasons": [
+        "required source provenance is unavailable at decision time"
+      ],
+      "scenarios": [],
+      "status": "INSUFFICIENT_DATA",
+      "tested": false
+    },
+    {
+      "candidate_id": "c2",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "no executable StrategySpec was supplied"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    }
+  ],
+  "code": {
+    "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+    "backtest/replay.py": "sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970",
+    "data.py": "sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153",
+    "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de",
+    "engine.py": "sha256:af49bdd10ff602699da3a03d470d8f19fb366a7e2465764456309856acb26178",
+    "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+    "execution/paper.py": "sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172",
+    "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+    "strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+    "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+    "workflow.py": "sha256:bee502bf0689533359be2f1dc041434c911d2b7b370d58f995cd87075bea53fe"
+  },
+  "config": {
+    "bootstrap_samples": 500,
+    "fee_policy": null,
+    "latency_seconds": 1,
+    "max_book_age_seconds": 60,
+    "min_events": 20,
+    "min_trades": 10,
+    "per_event": "100",
+    "per_trade": "25",
+    "scenarios": [
+      "optimistic",
+      "base",
+      "conservative"
+    ],
+    "seed": 17,
+    "starting_cash": "1000",
+    "total_deployed": "500"
+  },
+  "data_kind": "real",
+  "dataset": "sha256:7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14",
+  "experiment_id": "sha256:457e803b6ae8be4c69ba8ef5e55d3b14b4d09f9e5b691fcf45f9b41bc375cdab",
+  "feature_version": "sha256:6f2e30de36a274fa221cd642646b471a6894389b2e69e0600db09095a7f1c931",
+  "final_holdout_evaluated": false,
+  "normalized_data_hash": "sha256:2715f8f9179981902b4224055cecf2817c8df2f198b1ec9230886ed515d55840",
+  "requested_trial_count": 9,
+  "research_hash": "sha256:8b152fad5e2f0df23315728cba3c16f502e955390bf0d1ea1026f4f11660eef1",
+  "research_run": "0457e3c1-f306-4e7f-9a4e-488495bf472a",
+  "resolved_models": {
+    "c0": "sha256:37a7f658723d45aa2db9676f832de9747b065564db7403b0af57764422242ae1",
+    "c1": "sha256:37a7f658723d45aa2db9676f832de9747b065564db7403b0af57764422242ae1"
+  },
+  "warnings": [
+    "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+    "Snapshot fills model taker execution, not queues or observed fills.",
+    "Synthetic results verify software only; ranking is not deployment authorization."
+  ]
+}

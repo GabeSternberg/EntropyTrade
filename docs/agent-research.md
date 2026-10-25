@@ -131,16 +131,15 @@ secret provider messages or headers. Keep the registry path the same across sess
 retain prior research. R2 MLflow artifacts remain accessible through approved diagnostics;
 R3 uses SQLite for narrative lineage rather than duplicating it in another service.
 
-## Next: R4 after review
+## Integrated experiments and remaining data needs
 
 The current real coverage remains six city/day events, three dates, 36 contracts, zero
 eligible forecast events and zero source-matched scalar highs. Both real fitted models
 and executable historical depth are absent. Collect actual forecast vintages, historical
 rules and Weather Company settlement evidence; NWS CLI cannot replace that authority.
 
-R4 must implement faithful YES/NO, model/feature predicates, actual universe/time selection,
-sizing, exits, fee/net-edge and fill semantics; reject everything it cannot enforce.
-Repair replay chronology, split horizons, stale fills, shared liquidity and event exposure
-before trading inference. Attach deterministic event-aware train/validation/walk-forward
-experiments to these candidate/spec/source hashes, count all searches, preserve a separate
-protected final evaluator and quantify selection uncertainty. R3 runs no such search.
+R4 now provides `research-and-test`: bounded YES/NO StrategySpecs, temporal model predictions,
+chronological capacity/risk/fee-aware replay, validation rankings and registry/MLflow lineage.
+The standalone `research` command still performs no backtest. See [experiment operations](experiments.md).
+Real data remains insufficient; the full integration proof uses explicitly synthetic data
+and mocked agents. The next approved direction is a minimal local research website.

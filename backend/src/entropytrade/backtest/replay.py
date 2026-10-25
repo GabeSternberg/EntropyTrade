@@ -6,11 +6,20 @@ prices are clamped back to that earlier touch, so the run cannot buy the
 improvement.
 """
 
-from collections.abc import Callable, Sequence
-from datetime import datetime, timedelta
-from decimal import Decimal
+from collections.abc import Callable, Mapping, Sequence
+from datetime import date, datetime, timedelta
+from decimal import ROUND_CEILING, ROUND_DOWN, Decimal
+from heapq import heappop, heappush
+from itertools import count
+from typing import TYPE_CHECKING, cast
 
-from entropytrade.domain.enums import MarketResult
+from entropytrade.domain.enums import (
+    ExecutionFidelity,
+    FillScenario,
+    LiquidityRole,
+    MarketResult,
+    OutcomeSide,
+)
 from entropytrade.domain.fees import FeeModelRef
 from entropytrade.domain.market_data import OrderBook, OrderBookLevel
 from entropytrade.domain.numeric import ZERO
@@ -18,10 +27,15 @@ from entropytrade.domain.observations import FeatureObservation, select_as_of
 from entropytrade.domain.orders import OrderIntent
 from entropytrade.domain.runs import BacktestRun, SampleSplit, SplitWindow
 from entropytrade.domain.time import ensure_utc
+from entropytrade.execution.fees import FeeSchedule, trade_fee
 from entropytrade.execution.paper import PaperBroker
 from entropytrade.execution.series_fees import SeriesFeeTable
-from entropytrade.portfolio.ledger import Ledger
+from entropytrade.portfolio.ledger import Ledger, LedgerError
 from entropytrade.risk.engine import RiskEngine, RiskRejectedError, seal
+
+if TYPE_CHECKING:
+    from uuid import UUID
+
 
 Strategy = Callable[["DecisionView", OrderBook], OrderIntent | None]
 
@@ -33,7 +47,20 @@ class ReplayError(ValueError):
 class DecisionView:
     """Features whose ``available_at`` is at or before the decision."""
 
-    def __init__(self, records: Sequence[FeatureObservation], decision_time: datetime) -> None:
+    def __init__(
+        self,
+        records: Sequence[FeatureObservation],
+        decision_time: datetime,
+        *,
+        ledger: Ledger | None = None,
+        schedule: FeeSchedule | None = None,
+        pending: Mapping[tuple[str, OutcomeSide], Decimal] | None = None,
+        target_date: date | None = None,
+    ) -> None:
+        self.ledger = ledger
+        self.schedule = schedule
+        self.pending = pending or {}
+        self.target_date = target_date
         self.decision_time = ensure_utc(decision_time)
         self._visible = select_as_of(
             records,
@@ -56,6 +83,9 @@ class ReplayResult:
         fee_model_version: str | None = None,
         fee_models: tuple[FeeModelRef, ...] = (),
     ) -> None:
+        self.audit: list[dict[str, object]] = []
+        self.equity_curve: list[tuple[datetime, Decimal]] = []
+        self.event_pnl: dict[str, Decimal] = {}
         self.fill_ids = fill_ids
         self.ending_equity = ending_equity
         self.fee_model_version = fee_model_version
@@ -88,42 +118,228 @@ def run_replay(
     window: SplitWindow,
     settlements: Sequence[tuple[datetime, str, MarketResult]] = (),
     series_fees: SeriesFeeTable | None = None,
+    max_book_age: timedelta = timedelta(hours=1),
+    event_ids: Mapping[str, str] | None = None,
+    close_times: Mapping[str, datetime] | None = None,
+    target_dates: Mapping[str, date] | None = None,
+    scenario: FillScenario = FillScenario.BASE,
+    fidelity: ExecutionFidelity = ExecutionFidelity.ORDER_BOOK,
 ) -> ReplayResult:
-    """Walk books inside ``window``. Holdout is not a trading split.
+    """Chronological snapshot-taker simulation. No future books or cross-split fills.
 
-    When ``series_fees`` is set, each book replaces the broker schedule with
-    that series' stored fee type, multiplier, and maker rule. The quadratic
-    coefficient stays the one already on the broker. It is not in the payload.
+    Unknown queues are not modeled. Identical book payloads do not replenish consumed
+    capacity unless a non-null exchange sequence advances. Resting remainders cancel.
     """
     if window.split is SampleSplit.HOLDOUT:
         raise ReplayError("holdout rows are not passed to the strategy")
-    ordered = tuple(sorted(books, key=lambda book: (book.received_at, book.market_ticker)))
+    if latency < timedelta(0) or max_book_age < timedelta(0):
+        raise ReplayError("latency and maximum book age must be nonnegative")
+    if fidelity is not ExecutionFidelity.ORDER_BOOK:
+        raise ReplayError("execution P&L requires sized order-book evidence")
+    events: list[tuple[datetime, int, int, str, object]] = []
+    serial = count()
+    ordered = sorted(books, key=lambda b: (b.received_at, b.market_ticker))
+    seen_books: dict[tuple[str, datetime], OrderBook] = {}
+    for book in ordered:
+        key = book.market_ticker, book.received_at
+        if key in seen_books:
+            if seen_books[key] != book:
+                raise ReplayError("conflicting books at one receipt time")
+            continue
+        seen_books[key] = book
+        if window.start <= book.received_at < window.end:
+            heappush(events, (book.received_at, 0, next(serial), "book", book))
+            heappush(events, (book.received_at, 3, next(serial), "decision", book))
+    for stamp, ticker, outcome in settlements:
+        if window.start <= stamp < window.end:
+            heappush(events, (stamp, 1, next(serial), "settle", (ticker, outcome)))
     known = {fill.fill_id for fill in ledger.fills()}
     applied: dict[str, FeeModelRef] = {}
-    for book in ordered:
-        if book.received_at < window.start or book.received_at >= window.end:
+    current: dict[str, OrderBook] = {}
+    remaining: dict[str, OrderBook] = {}
+    pending: dict[UUID, tuple[OrderIntent, OrderBook]] = {}
+    resolved: set[str] = set()
+    audit: list[dict[str, object]] = []
+    curve: list[tuple[datetime, Decimal]] = [(window.start, ledger.equity())]
+    event_pnl: dict[str, Decimal] = {}
+
+    def event(ticker: str) -> str:
+        return (event_ids or {}).get(ticker, ticker.rsplit("-", 1)[0])
+
+    def exposure(ticker: str) -> Decimal:
+        return sum(
+            (
+                p.total_cost
+                for p in ledger.positions
+                if event(p.contract.market_ticker) == event(ticker)
+            ),
+            ZERO,
+        ) + sum(
+            (
+                o.max_cost
+                for o, _ in pending.values()
+                if event(o.contract.market_ticker) == event(ticker)
+            ),
+            ZERO,
+        )
+
+    while events:
+        stamp, _, _, kind, payload = heappop(events)
+        if stamp >= window.end:
+            continue
+        if kind == "book":
+            book = cast("OrderBook", payload)
+            previous = current.get(book.market_ticker)
+            if (
+                previous is None
+                or previous.bids != book.bids
+                or previous.asks != book.asks
+                or (
+                    book.sequence is not None
+                    and previous.sequence is not None
+                    and book.sequence > previous.sequence
+                )
+            ):
+                remaining[book.market_ticker] = book
+            else:
+                remaining[book.market_ticker] = remaining[book.market_ticker].revalidated(
+                    received_at=stamp, exchange_ts=book.exchange_ts, sequence=book.sequence
+                )
+            current[book.market_ticker] = book
+            continue
+        if kind == "settle":
+            ticker, outcome = cast("tuple[str, MarketResult]", payload)
+            resolved.add(ticker)
+            if ledger.position(ticker) is not None:
+                before = ledger.realized_pnl
+                ledger.settle(ticker, outcome, at=stamp)
+                event_pnl[event(ticker)] = (
+                    event_pnl.get(event(ticker), ZERO) + ledger.realized_pnl - before
+                )
+                curve.append((stamp, ledger.equity()))
+            continue
+        if kind == "decision":
+            book = cast("OrderBook", payload)
+            ticker = book.market_ticker
+            if ticker in resolved or stamp >= (close_times or {}).get(ticker, window.end):
+                continue
+            if series_fees is not None:
+                _apply_series_fee(broker, series_fees, ticker, applied)
+            quantities: dict[tuple[str, OutcomeSide], Decimal] = {}
+            for order, _ in pending.values():
+                pending_key = order.contract.market_ticker, order.contract.side
+                quantities[pending_key] = quantities.get(pending_key, ZERO) + order.quantity
+            view = DecisionView(
+                records,
+                stamp,
+                ledger=ledger,
+                schedule=broker.schedule,
+                pending=quantities,
+                target_date=(target_dates or {}).get(ticker),
+            )
+            intent = strategy(view, book)
+            if intent is None:
+                continue
+            if intent.decision_time != stamp or intent.contract.market_ticker != ticker:
+                raise ReplayError("intent must identify its exact decision time and book market")
+            if intent.intent_id in pending or ledger.order(intent.intent_id) is not None:
+                audit.append(
+                    {"time": stamp.isoformat(), "status": "duplicate_intent", "ticker": ticker}
+                )
+                continue
+            decision = engine.evaluate(
+                intent,
+                portfolio=ledger.snapshot(),
+                book=book,
+                now=stamp,
+                event_deployed=exposure(ticker),
+                realized_pnl=ledger.realized_pnl,
+                peak_equity=ledger.peak_equity,
+                equity=ledger.equity(),
+            )
+            try:
+                approved = seal(intent, decision)
+            except RiskRejectedError:
+                audit.append(
+                    {"time": stamp.isoformat(), "status": "risk_rejected", "ticker": ticker}
+                )
+                continue
+            eligible = stamp + latency
+            if eligible >= window.end or eligible >= (close_times or {}).get(ticker, window.end):
+                audit.append(
+                    {
+                        "time": stamp.isoformat(),
+                        "status": "outside_execution_window",
+                        "ticker": ticker,
+                    }
+                )
+                continue
+            intent = intent.revalidated(quantity=approved.quantity)
+            reserve = intent.max_cost + trade_fee(
+                broker.schedule,
+                yes_price=intent.yes_price,
+                quantity=intent.quantity,
+                role=LiquidityRole.TAKER,
+            )
+            try:
+                ledger.reserve(intent.intent_id, reserve)
+            except LedgerError:
+                audit.append(
+                    {"time": stamp.isoformat(), "status": "insufficient_cash", "ticker": ticker}
+                )
+                continue
+            pending[intent.intent_id] = intent, book
+            heappush(events, (eligible, 2, next(serial), "execute", intent.intent_id))
+            continue
+        identifier = cast("UUID", payload)
+        intent, decision_book = pending.pop(identifier)
+        ledger.release(identifier)
+        ticker = intent.contract.market_ticker
+        execution_book = remaining.get(ticker)
+        if (
+            execution_book is None
+            or execution_book.received_at > stamp
+            or stamp - execution_book.received_at > max_book_age
+            or ticker in resolved
+            or execution_book.is_crossed
+            or (intent.expires_at is not None and stamp >= intent.expires_at)
+        ):
+            audit.append(
+                {"time": stamp.isoformat(), "status": "unfilled_stale_or_closed", "ticker": ticker}
+            )
             continue
         if series_fees is not None:
-            _apply_series_fee(broker, series_fees, book.market_ticker, applied)
-        _settle_due(ledger, settlements, book.received_at, window)
-        view = DecisionView(records, book.received_at)
-        intent = strategy(view, book)
-        if intent is None:
-            continue
-        if intent.decision_time > book.received_at:
-            raise ReplayError("an intent cannot be decided after the book it saw")
-        if intent.contract.market_ticker != book.market_ticker:
-            raise ReplayError("intent market does not match the book")
-        later = _book_at(ordered, book.market_ticker, book.received_at + latency)
-        if later is None or later.is_crossed:
-            continue
-        fill_book = clamp_to_decision(book, later)
+            _apply_series_fee(broker, series_fees, ticker, applied)
+        fill_book = (
+            execution_book
+            if scenario is FillScenario.OPTIMISTIC
+            else clamp_to_decision(decision_book, execution_book)
+        )
+        if scenario is FillScenario.CONSERVATIVE:
+            fill_book = _conservative(fill_book)
+        if intent.edge is not None:
+            level_count = len(
+                fill_book.asks if intent.contract.side is OutcomeSide.YES else fill_book.bids
+            )
+            estimate = trade_fee(
+                broker.schedule,
+                yes_price=Decimal("0.5"),
+                quantity=intent.quantity,
+                role=LiquidityRole.TAKER,
+            ) + max(0, level_count - 1) * Decimal("0.01")
+            intent = intent.revalidated(
+                edge=intent.edge.revalidated(
+                    fee_per_contract=(estimate / intent.quantity).quantize(
+                        Decimal("0.000001"), rounding=ROUND_CEILING
+                    )
+                )
+            )
         decision = engine.evaluate(
             intent,
             portfolio=ledger.snapshot(),
-            book=book,
-            now=book.received_at,
-            event_deployed=ZERO,
+            book=fill_book,
+            now=stamp,
+            event_deployed=exposure(ticker),
             realized_pnl=ledger.realized_pnl,
             peak_equity=ledger.peak_equity,
             equity=ledger.equity(),
@@ -131,16 +347,70 @@ def run_replay(
         try:
             approved = seal(intent, decision)
         except RiskRejectedError:
+            audit.append(
+                {"time": stamp.isoformat(), "status": "execution_risk_rejected", "ticker": ticker}
+            )
             continue
-        broker.submit(approved, fill_book, now=later.received_at)
-    _settle_due(ledger, settlements, window.end, window)
-    fresh = tuple(fill.fill_id for fill in ledger.fills() if fill.fill_id not in known)
-    version = None if series_fees is None else series_fees.version
-    return ReplayResult(
-        fill_ids=fresh,
+        before = ledger.realized_pnl
+        before_ids = {f.fill_id for f in ledger.fills()}
+        completed_order = broker.submit(approved, fill_book, now=stamp)
+        if not completed_order.state.is_terminal:
+            completed_order = broker.cancel(completed_order.client_order_id, now=stamp)
+        fresh = [f for f in ledger.fills() if f.fill_id not in before_ids]
+        consumed = sum((f.quantity for f in fresh), ZERO)
+        remaining[ticker] = _consume(
+            execution_book, intent.contract.side, intent.yes_price, consumed
+        )
+        event_pnl[event(ticker)] = event_pnl.get(event(ticker), ZERO) + ledger.realized_pnl - before
+        audit.append(
+            {
+                "time": stamp.isoformat(),
+                "decision_time": intent.decision_time.isoformat(),
+                "status": completed_order.state.value,
+                "ticker": ticker,
+                "requested": str(intent.quantity),
+                "filled": str(completed_order.filled_quantity),
+            }
+        )
+        curve.append((stamp, ledger.equity()))
+    result = ReplayResult(
+        fill_ids=tuple(f.fill_id for f in ledger.fills() if f.fill_id not in known),
         ending_equity=ledger.equity(),
-        fee_model_version=version,
+        fee_model_version=None if series_fees is None else series_fees.version,
         fee_models=tuple(applied.values()),
+    )
+    result.audit = audit
+    result.equity_curve = curve
+    result.event_pnl = event_pnl
+    return result
+
+
+def _consume(book: OrderBook, side: OutcomeSide, limit: Decimal, quantity: Decimal) -> OrderBook:
+    levels = book.asks if side is OutcomeSide.YES else book.bids
+    updated = []
+    for level in levels:
+        available = level.quantity
+        if level.price <= limit if side is OutcomeSide.YES else level.price >= limit:
+            taken = min(quantity, available)
+            quantity -= taken
+            available -= taken
+        if available > ZERO:
+            updated.append(level.revalidated(quantity=available))
+    return book.revalidated(**{"asks" if side is OutcomeSide.YES else "bids": tuple(updated)})
+
+
+def _conservative(book: OrderBook) -> OrderBook:
+    def levels(items: tuple[OrderBookLevel, ...], side: OutcomeSide) -> tuple[OrderBookLevel, ...]:
+        changed = []
+        for level in items:
+            quantity = (level.quantity / 2).quantize(Decimal("0.01"), rounding=ROUND_DOWN)
+            price = level.price + (Decimal("0.01") if side is OutcomeSide.YES else Decimal("-0.01"))
+            if quantity > ZERO and ZERO < price < 1:
+                changed.append(level.revalidated(price=price, quantity=quantity))
+        return tuple(changed)
+
+    return book.revalidated(
+        asks=levels(book.asks, OutcomeSide.YES), bids=levels(book.bids, OutcomeSide.NO)
     )
 
 
@@ -226,10 +496,8 @@ def clamp_to_decision(decision: OrderBook, later: OrderBook) -> OrderBook:
 
 
 def _book_at(books: Sequence[OrderBook], ticker: str, when: datetime) -> OrderBook | None:
-    for book in books:
-        if book.market_ticker == ticker and book.received_at >= when:
-            return book
-    return None
+    eligible = [b for b in books if b.market_ticker == ticker and b.received_at <= when]
+    return max(eligible, key=lambda b: b.received_at) if eligible else None
 
 
 def _merge(

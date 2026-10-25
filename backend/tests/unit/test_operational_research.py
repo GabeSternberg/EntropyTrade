@@ -210,7 +210,7 @@ def test_root_escape_and_oversized_partition_refused(tmp_path: Path) -> None:
         ("source", "REJECTED"),
         ("model", "REJECTED"),
         ("exit", "UNSUPPORTED"),
-        ("spread", "UNSUPPORTED"),
+        ("spread", "INSUFFICIENT_DATA"),
     ],
 )
 def test_deterministic_gates_override_accepting_critic(corruption: str, expected: str) -> None:

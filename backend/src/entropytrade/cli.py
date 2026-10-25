@@ -82,6 +82,23 @@ def _parser() -> argparse.ArgumentParser:
     research.add_argument("--offline", action="store_true")
     research.add_argument("--registry", type=Path, required=True)
     research.add_argument("--output", type=Path, required=True)
+    integrated = commands.add_parser(
+        "research-and-test", help="prompt to deterministic protected strategy experiments"
+    )
+    integrated.add_argument("--prompt", required=True)
+    integrated.add_argument("--config", type=Path)
+    integrated.add_argument("--experiment-config", type=Path)
+    integrated.add_argument("--output", type=Path, required=True)
+    integrated.add_argument("--registry", type=Path, required=True)
+    integrated.add_argument("--tracking", type=Path, required=True)
+    integrated.add_argument("--provider", choices=["openai", "anthropic"])
+    integrated.add_argument("--model")
+    integrated.add_argument("--enable-provider", action="store_true")
+    integrated.add_argument("--offline", action="store_true")
+    integrated.add_argument("--synthetic", action="store_true")
+    integrated.add_argument("--days", type=int, default=240)
+    integrated.add_argument("--research-run", type=Path)
+    integrated.add_argument("--json", action="store_true", help="include full structured results")
     return parser
 
 
@@ -160,6 +177,48 @@ def main() -> None:
     args = _parser().parse_args()
     if args.command is None:
         print(f"entropytrade {__version__} (default trading mode: {DEFAULT_TRADING_MODE.value})")
+    elif args.command == "research-and-test":
+        from entropytrade.agents.provider import ResearchProviderConfig
+        from entropytrade.experiments.engine import ExperimentConfig
+        from entropytrade.experiments.workflow import research_and_test
+
+        selected = (
+            None
+            if args.offline or args.research_run
+            else ResearchProviderConfig(provider=args.provider, model_name=args.model)
+        )
+        result = research_and_test(
+            prompt=args.prompt,
+            evidence_config=args.config,
+            output=args.output,
+            registry=args.registry,
+            tracking=args.tracking,
+            provider=selected,
+            offline=args.offline,
+            enable_provider=args.enable_provider,
+            synthetic=args.synthetic,
+            days=args.days,
+            research_run=args.research_run,
+            experiment_config=None
+            if args.experiment_config is None
+            else ExperimentConfig.model_validate_json(args.experiment_config.read_text()),
+        )
+        if result.get("report_path"):
+            print(Path(result["report_path"]).read_text())
+        summary = (
+            result
+            if args.json
+            else {
+                key: result[key]
+                for key in ("experiment_id", "research_run", "report_path", "research_artifact")
+                if key in result
+            }
+        )
+        print(json.dumps(summary, sort_keys=True, indent=2))
+        if result.get("status") == "RESEARCH_FAILED":
+            raise SystemExit(
+                "Research failed; configure the research key and explicit provider opt-in."
+            )
     elif args.command == "research":
         from entropytrade.agents.evidence import EvidenceConfig, ResearchEvidence, previous_research
         from entropytrade.agents.pipeline import run_research

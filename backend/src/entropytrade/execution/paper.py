@@ -123,6 +123,15 @@ class PaperBroker:
             return self._finish(order, OrderState.CANCELLED, now=now)
         return self._rest(order, now=now)
 
+    def cancel(self, client_order_id: UUID, *, now: UtcDatetime) -> Order:
+        """Cancel a simulated remainder; no venue interaction."""
+        order = self._ledger.order(client_order_id)
+        if order is None:
+            raise PaperBrokerError("unknown paper order")
+        if order.state.is_terminal:
+            return order
+        return self._finish(order, OrderState.CANCELLED, now=now)
+
     def _fill(
         self,
         order: Order,

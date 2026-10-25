@@ -1,0 +1,16 @@
+{
+  "added_r4_cases": 31,
+  "base_r3_commit": "624d442242340cba06456950ecaeab834fa7dd9c",
+  "command": "UV_CACHE_DIR=/tmp/entropytrade-uv make check",
+  "date": "2026-10-25",
+  "mypy_files": 463,
+  "production_submission": "disabled",
+  "pytest_passed": 626,
+  "pytest_seconds": 233.31,
+  "r3_tests_preserved": 595,
+  "real_kalshi_authenticated_websocket": "not verified; no read key configured",
+  "real_provider_session": "not verified; no research key configured",
+  "ruff_format": "passed",
+  "ruff_lint": "passed",
+  "strict_mypy": "passed"
+}

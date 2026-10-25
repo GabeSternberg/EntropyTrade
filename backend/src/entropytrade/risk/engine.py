@@ -335,7 +335,7 @@ def _gate(
                 limit=str(limits.max_slippage),
             )
         )
-    if limits.min_net_edge is not None:
+    if limits.min_net_edge is not None and not intent.reduce_only:
         edge = None if intent.edge is None else intent.edge.net_edge
         checks.append(
             RiskCheckResult(
@@ -357,6 +357,30 @@ def _sized(
     event_deployed: Decimal,
     limits: RiskLimits,
 ) -> Decimal:
+    if intent.reduce_only:
+        held = next(
+            (
+                p
+                for p in portfolio.positions
+                if p.contract.market_ticker == intent.contract.market_ticker
+            ),
+            None,
+        )
+        quantity = (
+            ZERO
+            if held is None or held.contract.side is intent.contract.side
+            else min(intent.quantity, held.quantity)
+        )
+        quantity = min(quantity, _take_size(book, intent.contract.side, intent.yes_price))
+        checks.append(
+            RiskCheckResult(
+                check_name="reduce_only_position",
+                passed=quantity > ZERO,
+                observed=str(quantity),
+                limit="existing opposite holding",
+            )
+        )
+        return quantity
     price = cost_per_contract(intent.contract.side, intent.yes_price)
     deployed = portfolio.capital_at_risk
     rooms = (
