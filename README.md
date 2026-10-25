@@ -5,10 +5,12 @@ trading under explicit approval and deterministic risk limits. Daily-high temper
 markets are the first vertical. The goal is a reproducible scientific workflow that can
 reject weak strategies as reliably as it can find promising ones.
 
-**Current state:** runnable read-only collector and generic point-in-time Parquet dataset
-commands, with a verified two-city public REST demonstration. Authenticated continuous
-collection still needs read-key verification. Fitted models, real agent research, automated
-experiments and continuous shadow trading remain later work. The Kalshi gateway refuses order submission. Production trading remains disabled.
+**Current state:** read-only market collection, generic point-in-time Parquet datasets,
+real forward weather capture, versioned features and event-level probability models.
+The real historical sample remains too small and lacks certified forecasts/scalar labels;
+complete fitting/calibration is verified separately on synthetic data. Real agent research,
+automated strategy experiments and continuous shadow remain later work. Production trading
+is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks
 
@@ -21,8 +23,10 @@ make check                 # Ruff lint/format, strict mypy, pytest + Hypothesis
 ```
 
 Without arguments the CLI prints the version and default mode (`read_only`).
-See [data commands](docs/data-platform.md) for `collect`, `health`, `dataset` and `inspect`. `.env.example` lists configuration names; no credentials are required
-for the offline suite. In a workspace with a read-only home cache, set
+See [data commands](docs/data-platform.md) for `collect`, `health`, `dataset` and `inspect`.
+`.env.example` lists configuration names; no credentials are required
+for the offline suite. [Weather/model commands](docs/weather-modeling.md) cover forward capture,
+features, real-data insufficiency diagnostics and the explicitly synthetic full proof. In a workspace with a read-only home cache, set
 `UV_CACHE_DIR=/tmp/entropytrade-uv`. The Compose services currently run the same version
 command and exit. They are process placeholders.
 
@@ -39,8 +43,9 @@ semantics and lifecycle types. `exchange/kalshi/` contains the pinned SDK bounda
 `storage/`, `portfolio/`, `risk/`, `backtest/` and `execution/` provide reusable primitives.
 `data/` now builds generic point-in-time datasets; `collector/` runs the read-only feed.
 `weather/` includes recorded-data research, including legacy exploratory helpers.
-`agents/` currently uses scripted PydanticAI TestModel outputs. `features/` and `ml/` are
-placeholders. `strategy_registry/` provides SQLite lineage and a small local HTML view;
+`features/` builds causal matrices; `ml/` fits/calibrates temperature distributions and
+translates them to contract probabilities. `agents/` still uses scripted PydanticAI TestModel
+outputs. `strategy_registry/` provides SQLite lineage and a small local HTML view;
 `frontend/` is a placeholder.
 
 LLMs never control money. Historical information requires verified availability at the

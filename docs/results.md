@@ -149,3 +149,41 @@ without altering the original Phase 4 inputs. No exchange order or LLM request w
 R1 frozen demonstration version: `sha256:7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14`; row hash: `sha256:03dcb5e0af1d5b4b7382f1ae89054f3eb9dab12345136cad26f0bde4a92d596b`.
 The [committed manifest](../data/r1-demo/7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14/manifest.json)
 records exact inputs, coverage, code hashes and limitations.
+
+## R2 forecast capture and modeling (2026-10-24–25)
+
+Public **Open-Meteo GFS seamless** and **NWS hourly** collection completed three polls
+across a clean stop/process restart for Philadelphia/Chicago, October 24 at 23:55–23:57 UTC.
+The frozen archive contains **18 raw HTTP receipts, four distinct provider/location
+vintages, 648 hourly points and zero failures**. Repeated products retained their original
+first-seen times. Open-Meteo valid hours span October 24–30 UTC; NWS spans October 24–31.
+There are 24 complete-local-day forecast maximum proxies available by the last receipt,
+including source/hash evidence. These are forecast values, not verified scalar settlements.
+Only one distinct vintage per provider/city was captured; real changing revisions and
+long-running availability coverage have not yet accumulated.
+
+Availability is the actual first retained receipt. Open-Meteo's captured response supplies
+no model initialization or publication time. NWS update/generation clocks are product
+metadata, not model initialization. The official [historical API documentation](https://open-meteo.com/en/docs/historical-forecast-api)
+describes stitching the first hours of runs into a continuous series; the [previous-runs API](https://open-meteo.com/en/docs/previous-runs-api)
+describes fixed 24/48-hour lead offsets. Neither by itself proves when a particular forecast
+was published. These historical sources remain excluded from strict availability claims.
+[NOAA/NWS API documentation](https://www.weather.gov/documentation/services-web-api) supports
+the points → gridpoint hourly workflow. Forward receipt certification avoids a fabricated
+historical publication clock; it does not recover missed upstream runs.
+
+The **real R1 dataset diagnostic** now executes the connected feature/model/registry/MLflow
+workflow. It has **six city/day events, three date blocks and 36 contracts**, but **zero
+eligible forecast events and zero source-matched scalar-temperature targets**. October
+captures cannot supply September features. All five model candidates explicitly refuse
+fitting/evaluation. There are no empirical model scores, trading returns or promotions.
+Weather Company integer settlement highs, matching historic rules, more independent aligned
+events and execution-depth evidence remain missing. NWS CLI labels are not substituted.
+
+Separately, an **explicitly synthetic** 300-date/two-city fixture proves all five models
+fit, separate monotone calibration works, strict/inclusive contract probabilities are
+coherent, validation/explicit fixture holdout and pre-holdout walk-forward runs execute,
+and model/prediction/feature hashes reproduce. Training uses one frozen decision per city/day,
+not four independent examples for its four contracts. Synthetic performance is exclusively
+implementation verification. See the [frozen evidence and summaries](../data/r2-demo/README.md)
+and [operating guide](weather-modeling.md); no empirical edge follows from that proof.

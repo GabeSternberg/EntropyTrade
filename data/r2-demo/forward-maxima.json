@@ -1,0 +1,413 @@
+{
+  "basis": "Real complete-local-day hourly forecast maxima; forecasts, not settlement observations",
+  "rows": [
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-24",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 64.3,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-25",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 66.2,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-25",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 67.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-26",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 68.9,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-26",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 71.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-27",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 64.8,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-27",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 66.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-28",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 62.8,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-28",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 66.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.393486+00:00",
+      "date": "2026-10-29",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 66.4,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:55ce307c787818feed9062ba9ccf43359e4987570f810c52e1c910297bae062d"
+      ],
+      "raw_refs": [
+        "weather-receipt:8d3a8695-7d67-4be3-bff4-abc597b88953"
+      ],
+      "revision": "sha256:0978e1172da0c6d4ab7c6198c81c9daf8c172d37a5a0c7ac521830c89dd635cd",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-29",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 70.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.806990+00:00",
+      "date": "2026-10-30",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 74.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:8726ca0cbd4782cdb0d16861718986b99d6f25ec823ed1f732b4ac6d55376f46"
+      ],
+      "raw_refs": [
+        "weather-receipt:332f382c-e7a8-4871-ba93-8e4bb73f5a26"
+      ],
+      "revision": "sha256:d8b4fe53e6ab71302879d43eb6f6b8c22ad118f09857ee5edf3f854f1e9414cf",
+      "station": "CLIPHL"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-24",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 69.0,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-25",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 72.7,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-25",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 75.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-26",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 62.1,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-26",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 65.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-27",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 69.7,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-27",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 69.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-28",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 71.8,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-28",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 74.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:55:59.989617+00:00",
+      "date": "2026-10-29",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 70.8,
+      "model": "gfs_seamless",
+      "provider": "open-meteo",
+      "raw_hashes": [
+        "sha256:356a7a61ecae58624d61fc5c39f1146a56fef1d420ced5a8a4fd26031ebfe047"
+      ],
+      "raw_refs": [
+        "weather-receipt:f57c3c82-059e-475b-9934-89f5938a1a47"
+      ],
+      "revision": "sha256:6a0e40aeeebccf45ff65f4ff8be2a58aeb42ba236d8e3a284a48b9335c813515",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-29",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 74.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    },
+    {
+      "available_at": "2026-10-24T23:56:00.417161+00:00",
+      "date": "2026-10-30",
+      "decision_time": "2026-10-24T23:57:05.928666+00:00",
+      "ensemble": false,
+      "high_f": 74.0,
+      "model": "nws-hourly",
+      "provider": "nws",
+      "raw_hashes": [
+        "sha256:00211937b34da723b86ec2b45d3685d71240a15d002f0d429b0deb71748bdcd6"
+      ],
+      "raw_refs": [
+        "weather-receipt:2bbf3415-f050-452c-b944-5a3073626263"
+      ],
+      "revision": "sha256:e5b57a33e695c9d7a3abe8dd6157ea098dd17033cdd38ef9fb222776f5f9ddd5",
+      "station": "CLIMDW"
+    }
+  ]
+}

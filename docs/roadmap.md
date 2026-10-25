@@ -2,7 +2,7 @@
 
 Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
 continuation, while preserving the [original product specification](project-spec.md).
-R0 was approved and R1 authorized; R1 now awaits review. R2 is not authorized. Stop at each milestone for review unless
+R0 and R1 were approved. R2 is complete for review; R3 is not authorized. Stop at each milestone for review unless
 explicitly authorized to cross milestones. A commit, city, JSON field or negative
 experiment is not a software milestone.
 
@@ -62,17 +62,34 @@ finish implementation and setup instructions and mark that integration explicitl
 No LLM/model work or live order transport in R1. Replay-risk repair is required before R4
 can claim realistic evaluation; do not run R1 data through legacy pseudo-book studies.
 
-## R2 — Features and fitted probability models
+## R2 — Point-in-time weather features and probability models
 
-Implement a versioned feature registry/pipeline for forecast values/revisions, HRRR/GFS/
-ECMWF and ensemble disagreement, error/bias, humidity/dew point/cloud/wind, observations,
-time-to-close, market spread/depth and related contracts where real timing/coverage permits.
-Use temporal fitting and mature libraries (start with scikit-learn): climatology, market,
-raw forecast, regularized logistic models, justified boosting and learned calibration.
-Store model/calibrator versions, train ranges, dataset manifests and predictions.
-Acceptance: reproducible real-contract probability comparisons with Brier/log loss and
-baselines, calibration diagnostics and explicit missing-data exclusions. No deep learning
-by default. Better prediction alone does not qualify a strategy.
+**R2 checkpoint:** real Open-Meteo GFS seamless + NWS hourly forward capture/restart,
+versioned causal features, event-level statistical/ML models, coherent contract probabilities,
+separate temporal calibration/evaluation, fixed pre-holdout walk-forward diagnostics and
+SQLite/MLflow artifacts are implemented. All five candidates fit in the explicitly synthetic
+proof. The real six-event/three-date sample has zero eligible forecasts/scalar targets;
+no empirical probability or trading advantage is established. See [operating guide](weather-modeling.md).
+
+Forward capture takes priority over unbounded historical-source searches. Valid time,
+initialization, product update, publication and receipt are distinct. Stitched historical
+series and lead-offset fields remain assumption-based until availability can be proven.
+No historical release clock is invented. Accumulate actual forecast vintages, known market
+rules and source-matched resolved highs; NWS CLI cannot replace Weather Company settlement.
+
+Feature families cover complete-day forecast maximum proxies, revisions, model/ensemble
+disagreement, past resolved error/bias, observations and known deadline/calendar. Secondary
+weather variables wait for clean useful data. Models use mature scikit-learn: empirical
+frequency, raw forecast with explicit spread assumption, learned error distribution,
+regularized regression, justified boosting and monotone logistic/isotonic CDF calibration.
+Fit one frozen observation per city/day; translate its temperature distribution to related
+contracts rather than fitting correlated contracts as independent weather outcomes.
+
+Acceptance is reproducible, leakage-tested fitting/evaluation/prediction/artifact plumbing,
+real provider capture and either defensible real evaluation or an explicit end-to-end
+insufficiency diagnostic. Gate independent event counts and date partitions; final holdout
+stays protected by default. Better probability scores do not qualify a strategy. No deep
+learning, agents, strategy tuning, production orders or dashboard work in R2.
 
 ## R3 — Provider-backed research
 

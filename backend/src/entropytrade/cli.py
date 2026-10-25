@@ -48,6 +48,29 @@ def _parser() -> argparse.ArgumentParser:
     inspect.add_argument("dataset", type=Path)
     inspect.add_argument("--day", required=True)
     inspect.add_argument("--limit", type=int, default=10)
+    weather = commands.add_parser("weather-collect", help="append-only forward weather archive")
+    weather.add_argument("--config", type=Path, required=True)
+    weather.add_argument("--db", type=Path, required=True)
+    weather.add_argument("--once", action="store_true")
+    weather.add_argument("--seconds", type=int)
+    export = commands.add_parser("weather-export", help="export retained receipts and observations")
+    export.add_argument("--db", type=Path, required=True)
+    export.add_argument("--output", type=Path, required=True)
+    features = commands.add_parser(
+        "features", help="versioned point-in-time weather feature matrix"
+    )
+    features.add_argument("--dataset", type=Path, required=True)
+    features.add_argument("--archive", type=Path, action="append", default=[])
+    features.add_argument("--output", type=Path, required=True)
+    model = commands.add_parser("model", help="grouped temporal probability modeling")
+    model.add_argument("--features", type=Path, required=True)
+    model.add_argument("--output", type=Path, required=True)
+    model.add_argument("--registry", type=Path, required=True)
+    model.add_argument("--tracking", type=Path, required=True)
+    model.add_argument("--config", type=Path)
+    demo = commands.add_parser("model-demo", help="explicitly synthetic complete pipeline proof")
+    demo.add_argument("--output", type=Path, required=True)
+    demo.add_argument("--days", type=int, default=300)
     return parser
 
 
@@ -155,6 +178,105 @@ def main() -> None:
             json.dumps(
                 build_dataset(
                     config=config, sources=sources, output=args.output, recorder=args.recorder
+                ),
+                sort_keys=True,
+                indent=2,
+            )
+        )
+    elif args.command == "weather-collect":
+        from entropytrade.storage.forecast_archive import ForecastArchive
+        from entropytrade.weather.collection import WeatherConfig, poll_weather
+
+        weather_config = WeatherConfig.model_validate_json(args.config.read_text())
+        args.db.parent.mkdir(parents=True, exist_ok=True)
+        with Path(str(args.db) + ".lock").open("a") as lock:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            archive = ForecastArchive(args.db)
+
+            async def run_weather() -> None:
+                stop = asyncio.Event()
+                loop = asyncio.get_running_loop()
+                for sig in (signal.SIGINT, signal.SIGTERM):
+                    loop.add_signal_handler(sig, stop.set)
+                timer = None if args.seconds is None else loop.call_later(args.seconds, stop.set)
+                try:
+                    await poll_weather(
+                        config=weather_config,
+                        archive=archive,
+                        stop=stop,
+                        once=args.once,
+                        emit=print,
+                    )
+                finally:
+                    if timer is not None:
+                        timer.cancel()
+                    for sig in (signal.SIGINT, signal.SIGTERM):
+                        loop.remove_signal_handler(sig)
+
+            try:
+                asyncio.run(run_weather())
+                print(json.dumps(archive.snapshot()[1], sort_keys=True))
+            finally:
+                archive.close()
+    elif args.command == "weather-export":
+        from entropytrade.storage.forecast_archive import ForecastArchive
+
+        archive = ForecastArchive(args.db, read_only=True)
+        try:
+            archive.export(args.output)
+        finally:
+            archive.close()
+    elif args.command == "features":
+        from entropytrade.features.pipeline import build_features
+
+        print(
+            json.dumps(
+                build_features(dataset=args.dataset, archives=args.archive, output=args.output),
+                sort_keys=True,
+                indent=2,
+            )
+        )
+    elif args.command == "model":
+        from entropytrade.ml.experiment import ModelingConfig, run_modeling
+
+        model_config = (
+            ModelingConfig()
+            if args.config is None
+            else ModelingConfig.model_validate_json(args.config.read_text())
+        )
+        args.registry.parent.mkdir(parents=True, exist_ok=True)
+        print(
+            json.dumps(
+                run_modeling(
+                    features=args.features,
+                    output=args.output,
+                    registry_path=args.registry,
+                    tracking=args.tracking,
+                    config=model_config,
+                ),
+                sort_keys=True,
+                indent=2,
+            )
+        )
+    elif args.command == "model-demo":
+        from entropytrade.features.pipeline import build_features
+        from entropytrade.ml.experiment import ModelingConfig, run_modeling
+        from entropytrade.ml.synthetic import synthetic_dataset
+
+        dataset = synthetic_dataset(args.output / "synthetic-dataset", days=args.days)
+        features = build_features(
+            dataset=dataset, archives=[], output=args.output / "features", data_kind="synthetic"
+        )
+        feature_dir = args.output / "features" / features["feature_version"].removeprefix("sha256:")
+        print(
+            json.dumps(
+                run_modeling(
+                    features=feature_dir,
+                    output=args.output / "models",
+                    registry_path=args.output / "registry.sqlite",
+                    tracking=args.output / "mlflow",
+                    config=ModelingConfig(evaluate_holdout=True),
+                    data_kind="synthetic",
                 ),
                 sort_keys=True,
                 indent=2,

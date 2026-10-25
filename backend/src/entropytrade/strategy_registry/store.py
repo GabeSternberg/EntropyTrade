@@ -18,6 +18,11 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.domain.time import ensure_utc
 
 _SCHEMA = """
+CREATE TABLE IF NOT EXISTS probability_runs (run_id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS probability_models (model_hash TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS probability_predictions (
+    prediction_id TEXT PRIMARY KEY, model_hash TEXT NOT NULL, event_id TEXT NOT NULL,
+    decision_time TEXT NOT NULL, payload TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS specs (
     spec_hash TEXT PRIMARY KEY,
     strategy_id TEXT NOT NULL,
@@ -81,6 +86,41 @@ class Registry:
 
     def close(self) -> None:
         self._db.close()
+
+    def record_probability_run(
+        self,
+        run_id: str,
+        payload: str,
+        models: dict[str, str],
+        predictions: list[dict[str, object]],
+    ) -> None:
+        import json
+
+        with self._db:
+            old = self._db.execute(
+                "SELECT payload FROM probability_runs WHERE run_id=?", (run_id,)
+            ).fetchone()
+            if old is not None and old[0] != payload:
+                raise RegistryError("probability run identity reused with different content")
+            self._db.execute(
+                "INSERT OR IGNORE INTO probability_runs VALUES (?, ?)", (run_id, payload)
+            )
+            for digest, model_payload in models.items():
+                self._db.execute(
+                    "INSERT OR IGNORE INTO probability_models VALUES (?, ?)",
+                    (digest, model_payload),
+                )
+            for record in predictions:
+                self._db.execute(
+                    "INSERT OR IGNORE INTO probability_predictions VALUES (?, ?, ?, ?, ?)",
+                    (
+                        record["prediction_id"],
+                        record["model_hash"],
+                        record["event_id"],
+                        record["decision_time"],
+                        json.dumps(record, sort_keys=True),
+                    ),
+                )
 
     def register(self, spec: StrategySpec, *, parent_hash: str | None = None) -> str:
         """Insert ``spec`` once. A second call with the same hash is a no-op."""

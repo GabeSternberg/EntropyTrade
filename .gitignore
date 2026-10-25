@@ -16,3 +16,9 @@ data/features/**
 data/backtests/**
 data/cache/**
 !data/**/.gitkeep
+
+# Transient SQLite/process locks; frozen evidence databases remain explicit artifacts.
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite.lock
+**/.writer.lock

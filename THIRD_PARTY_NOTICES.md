@@ -86,3 +86,20 @@ R1 continues to use `kalshi-sdk==17.1.0` inside the existing SDK boundary,
 including its authentication, connection manager, wire models and pagination
 transport. Narrow response compatibility code is our own. No additional
 third-party repository implementation was vendored.
+
+## R2 statistical and capture dependencies
+
+R2 makes packages already present in the locked dependency graph explicit dependencies:
+scikit-learn (BSD-3-Clause), NumPy (BSD-3-Clause), joblib (BSD-3-Clause), threadpoolctl
+(BSD-3-Clause), HTTPX (BSD-3-Clause). Versions remain pinned by `uv.lock`; no implementation
+source was copied. scikit-learn supplies imputation, scaling, regularized regression,
+histogram gradient boosting, logistic/isotonic calibration and scoring. joblib stores
+trusted local models; threadpoolctl bounds numerical worker threads. Existing PyArrow,
+SQLite and MLflow handle analytical data, application state and experiment tracking.
+
+Forecast source attribution: [Open-Meteo](https://open-meteo.com/) GFS seamless forecasts
+and [NOAA/National Weather Service](https://www.weather.gov/documentation/services-web-api)
+hourly forecasts. Source URLs, grid/units and actual receipt provenance remain in the raw
+archive. Open-Meteo data is offered under CC BY 4.0 with API usage terms; check current
+provider terms when changing deployment or usage. These are forecast products, not an
+interchangeable settlement authority for Weather Company contracts.
