@@ -316,6 +316,7 @@ async def run_research(
     offline: bool = False,
     enable_provider: bool = False,
     models: tuple[Model, ...] | None = None,
+    local_templates: bool = False,
     run_id: str | None = None,
     timeout_seconds: float = 180,
 ) -> dict[str, Any]:
@@ -356,6 +357,8 @@ async def run_research(
         raise ValueError("real research requires explicit --enable-provider")
     if offline and enable_provider:
         raise ValueError("offline and provider opt-in are mutually exclusive")
+    if local_templates and (not offline or models is not None or provider is not None):
+        raise ValueError("local templates require offline mode without provider or injected models")
     if models is not None and (
         not offline
         or len(models) != 4
@@ -375,7 +378,7 @@ async def run_research(
         "run_id": identifier,
         "prompt": prompt,
         "started_at": utc_now().isoformat(),
-        "mode": "offline_mock" if offline else "provider",
+        "mode": "local_templates" if local_templates else "offline_mock" if offline else "provider",
         "status": "started",
         "provider": provider.model_dump(mode="json") if provider else None,
         "instruction_version": RESEARCH_INSTRUCTIONS_VERSION,
@@ -426,7 +429,12 @@ async def run_research(
             evidence.inspect(EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10))
             for topic in ("coverage", "markets", "features", "models", "history")
         ]
-        if offline and models is None:
+        template_outputs = None
+        if local_templates:
+            from entropytrade.agents.templates import formulate_templates
+
+            template_outputs = formulate_templates(prompt, evidence, identifier)
+        elif offline and models is None:
             from entropytrade.agents.fixture import operational_models
 
             models = operational_models(prompt, evidence, identifier)
@@ -448,7 +456,7 @@ async def run_research(
             "research_timestamp": result["started_at"],
             "retrieved_evidence": initial,
         }
-        if models is None:
+        if models is None and template_outputs is None:
             raise ValueError("no research models were configured")
         roles: tuple[tuple[str, type[DomainModel], str], ...] = (
             (
@@ -494,34 +502,43 @@ async def run_research(
                     if len(message) > 100_000:
                         raise ValueError("research context exceeds character budget")
                     before = len(evidence.calls)
-                    outcome = await agent.run(
-                        message,
-                        deps=evidence,
-                        model=models[index],
-                        usage=usage,
-                        usage_limits=limits,
-                        model_settings={
-                            "max_tokens": 3500,
-                            "timeout": 30,
-                            "parallel_tool_calls": False,
-                        },
-                    )
-                    if not offline and usage.cost is None:
-                        raise ValueError(
-                            "provider cost unavailable; refusing further research requests"
+                    returned_models: list[dict[str, Any]]
+                    if template_outputs is not None:
+                        if index == 0:
+                            evidence.inspect(EvidenceQuery(topic="coverage", limit=1))
+                        payload = template_outputs[index].model_dump(mode="json")
+                        returned_models = []
+                    else:
+                        if models is None:
+                            raise ValueError("no research models were configured")
+                        outcome = await agent.run(
+                            message,
+                            deps=evidence,
+                            model=models[index],
+                            usage=usage,
+                            usage_limits=limits,
+                            model_settings={
+                                "max_tokens": 3500,
+                                "timeout": 30,
+                                "parallel_tool_calls": False,
+                            },
                         )
-                    from pydantic_ai.messages import ModelResponse
+                        if not offline and usage.cost is None:
+                            raise ValueError(
+                                "provider cost unavailable; refusing further research requests"
+                            )
+                        from pydantic_ai.messages import ModelResponse
 
-                    returned_models = [
-                        {
-                            "model_name": m.model_name,
-                            "provider_name": m.provider_name,
-                            "provider_response_id": m.provider_response_id,
-                        }
-                        for m in outcome.all_messages()
-                        if isinstance(m, ModelResponse)
-                    ]
-                    payload = outcome.output.model_dump(mode="json")
+                        returned_models = [
+                            {
+                                "model_name": m.model_name,
+                                "provider_name": m.provider_name,
+                                "provider_response_id": m.provider_response_id,
+                            }
+                            for m in outcome.all_messages()
+                            if isinstance(m, ModelResponse)
+                        ]
+                        payload = outcome.output.model_dump(mode="json")
                     if index == 0 and len(evidence.calls) == before:
                         raise ValueError("research agent must inspect evidence through a tool")
                     seen = {entry["evidence_id"] for entry in evidence.calls}

@@ -7,6 +7,7 @@ under ``data/raw``. This module does not open a socket.
 
 import json
 import sqlite3
+from contextlib import closing
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -124,7 +125,7 @@ def _rows(root: Path) -> tuple[dict[str, object], ...]:
 def _stored_sums(root: Path) -> dict[str, Decimal]:
     database = root / "kalshi-public" / "historical-trades" / "prints.sqlite"
     found: dict[str, Decimal] = {}
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         query = """
             select tickers.ticker, sum(prints.count)
             from prints

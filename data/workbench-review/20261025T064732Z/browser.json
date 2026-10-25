@@ -1,0 +1,29 @@
+{
+  "limitations": [
+    "No browser surfaces are available.",
+    "The actual installed entrypoint fails at socket.bind with PermissionError errno 1.",
+    "Subprocess and HTTP handler tests do not establish browser or visual verification."
+  ],
+  "observations": [
+    {
+      "call": "cua.createBrowserTab(\"chrome\", \"http://127.0.0.1:43128\", {sessionName: \"\ud83d\udd2c Workbench\"})",
+      "result": "Browser is not available: chrome"
+    },
+    {
+      "call": "cua.listBrowsers()",
+      "result": []
+    }
+  ],
+  "recorded_at": "2026-10-25T06:48:32.241983+00:00",
+  "status": "blocked",
+  "tool": "mcp__cua_repl.js",
+  "workflow_status": {
+    "cancellation": "not exercised in browser",
+    "fresh public Bitcoin": "not exercised in browser",
+    "fresh public weather": "not exercised in browser",
+    "recorded weather": "not exercised in browser",
+    "restart/history": "not exercised in browser",
+    "synthetic replay": "not exercised in browser",
+    "text and JSON downloads": "not exercised in browser"
+  }
+}

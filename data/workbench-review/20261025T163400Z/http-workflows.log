@@ -1,0 +1,7 @@
+javascript-syntax: exit 0
+frontend-check: exit 0
+diff-check: exit 0
+recorded-weather: completed
+synthetic-weather: completed
+public-weather: completed
+public-bitcoin: completed

@@ -9,6 +9,7 @@ is fixed. This module does not open a socket.
 import json
 import sqlite3
 from collections.abc import Mapping
+from contextlib import closing
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -98,7 +99,7 @@ def _last_prices(root: Path) -> Mapping[str, Decimal]:
         group by tickers.ticker
     """
     found: dict[str, Decimal] = {}
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         for ticker, scaled in conn.execute(query):
             found[str(ticker)] = Decimal(int(scaled)) / _PRICE
     return found

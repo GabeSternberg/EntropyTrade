@@ -2,6 +2,7 @@
 
 import json
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 from typing import Any
 
@@ -62,7 +63,7 @@ def test_complete_models_and_predictions_are_grouped_and_holdout_protected(
         assert set(fold["validation_events"]).isdisjoint(holdout)
         assert fold["models"]
     assert all(p["net_edge"] is None and p["executable_price"] is None for p in predictions)
-    with sqlite3.connect(root / "registry.sqlite") as connection:
+    with closing(sqlite3.connect(root / "registry.sqlite")) as connection, connection:
         assert connection.execute("SELECT COUNT(*) FROM probability_runs").fetchone()[0] == 1
         assert connection.execute("SELECT COUNT(*) FROM probability_predictions").fetchone()[
             0
@@ -99,7 +100,7 @@ def test_repeated_builds_and_separate_runs_reproduce_hashes_and_registry(
         data_kind="synthetic",
     )
     assert cached == result
-    with sqlite3.connect(root / "registry.sqlite") as connection:
+    with closing(sqlite3.connect(root / "registry.sqlite")) as connection, connection:
         assert connection.execute("SELECT COUNT(*) FROM probability_runs").fetchone()[0] == 1
 
 

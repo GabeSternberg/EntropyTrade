@@ -10,7 +10,10 @@ real forward weather capture, versioned features and event-level probability mod
 The real historical sample remains too small and lacks certified forecasts/scalar labels;
 complete fitting/calibration is verified separately on synthetic data. Provider-backed agent research is configurable with bounded evidence tools; real provider
 verification needs a dedicated research key. The integrated `research-and-test` command now connects candidates, models, replay and
-ranked diagnostics. Continuous shadow remains later work. Production trading
+ranked diagnostics. A template-only local research website and Bitcoin forward adapter are implemented
+with passing listener/worker tests and successful weather/Bitcoin public ingestion. Browser
+acceptance remains blocked by unavailable browser access; see
+[operation and exact limitations](docs/workbench.md). Continuous shadow remains later work. Production trading
 is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks
@@ -20,6 +23,7 @@ Requires Python 3.12+, [uv](https://docs.astral.sh/uv/), and Make.
 ```bash
 uv sync --locked
 uv run entropytrade
+uv run entropytrade-web    # private localhost website; requires provisioned dependencies
 make check                 # Ruff lint/format, strict mypy, pytest + Hypothesis
 ```
 
@@ -50,7 +54,7 @@ semantics and lifecycle types. `exchange/kalshi/` contains the pinned SDK bounda
 `features/` builds causal matrices; `ml/` fits/calibrates temperature distributions and
 translates them to contract probabilities. `agents/` now runs configurable typed research; TestModel remains the explicit mock mode. `experiments/` connects family-neutral adapters,
 model predictions, replay and statistical comparison. `strategy_registry/` provides SQLite lineage and a small local HTML view;
-`frontend/` is a placeholder.
+`frontend/` contains the local research workbench.
 
 LLMs never control money. Historical information requires verified availability at the
 decision time. Candles and prints never establish executable liquidity. No profitable

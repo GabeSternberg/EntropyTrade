@@ -1,0 +1,13 @@
+# Research-to-experiment report
+
+Data: real. Research run: d039ac0b-15c5-4b5d-9d1b-08caf6ed7b5a
+Final holdout: not evaluated. No trading authorization.
+
+template-c0: INSUFFICIENT_DATA
+required source provenance is unavailable at decision time
+template-c1: INSUFFICIENT_DATA
+required source provenance is unavailable at decision time
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

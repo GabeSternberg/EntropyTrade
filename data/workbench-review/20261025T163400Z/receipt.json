@@ -1,0 +1,148 @@
+{
+  "commands": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "elapsed_seconds": 0.047,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T16:33:35.001635+00:00",
+      "log": "javascript-syntax.log",
+      "name": "javascript-syntax",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_at": "2026-10-25T16:33:34.954294+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "frontend/tests/acquisition.test.cjs"
+      ],
+      "elapsed_seconds": 0.088,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T16:33:35.090514+00:00",
+      "log": "frontend-check.log",
+      "name": "frontend-check",
+      "sha256": "sha256:ad614173c4bf45451cb7d1165c6be0f0a2ea937484d02cf616c335dfe665727a",
+      "started_at": "2026-10-25T16:33:35.002341+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "elapsed_seconds": 0.032,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T16:33:35.122955+00:00",
+      "log": "diff-check.log",
+      "name": "diff-check",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_at": "2026-10-25T16:33:35.090826+00:00"
+    }
+  ],
+  "finished_at": "2026-10-25T16:43:04.918458+00:00",
+  "runs": [
+    {
+      "artifact_hashes_verified": 12,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "INSUFFICIENT_DATA",
+        "INSUFFICIENT_DATA"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T16:33:39.500753+00:00",
+      "job_id": "eb4b9396-d65c-44e7-a8b9-482f2868bcfe",
+      "label": "recorded-weather",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T16:33:35.154108+00:00",
+      "status": "completed",
+      "submission": "actual loopback HTTP; not a browser interaction"
+    },
+    {
+      "artifact_hashes_verified": 18,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "REJECTED",
+        "BACKTESTED",
+        "UNSUPPORTED",
+        "REJECTED"
+      ],
+      "data_kind": "synthetic",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T16:33:51.745189+00:00",
+      "job_id": "d47fa277-523f-4e1e-ba5e-68ded4246dd7",
+      "label": "synthetic-weather",
+      "probability_count": 192,
+      "reasoning": "offline_mock",
+      "started_at": "2026-10-25T16:33:39.507484+00:00",
+      "status": "completed",
+      "submission": "actual loopback HTTP; not a browser interaction"
+    },
+    {
+      "artifact_hashes_verified": 7,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "INSUFFICIENT_DATA",
+        "INSUFFICIENT_DATA"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; public acquisition complete (0 failures); forward ingestion only",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T16:33:57.145877+00:00",
+      "job_id": "38d73bae-4511-480f-aa5b-db0365e6a5ab",
+      "label": "public-weather",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T16:33:51.763595+00:00",
+      "status": "completed",
+      "submission": "actual loopback HTTP; not a browser interaction"
+    },
+    {
+      "artifact_hashes_verified": 7,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "INSUFFICIENT_DATA",
+        "INSUFFICIENT_DATA"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; public acquisition complete (0 failures); forward ingestion only",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T16:34:02.346452+00:00",
+      "job_id": "3da6c039-3797-4a8b-8def-428977bdd2aa",
+      "label": "public-bitcoin",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T16:33:57.165590+00:00",
+      "status": "completed",
+      "submission": "actual loopback HTTP; not a browser interaction"
+    },
+    {
+      "artifact_hashes_verified": 7,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "UNSUPPORTED",
+        "UNSUPPORTED"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; public acquisition incomplete (2 failures); forward ingestion only",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T16:43:04.918407+00:00",
+      "job_id": "11bff6d6-723e-4a11-b02c-335e9aea1a79",
+      "label": "blocked-network-bitcoin",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T16:42:58.217210+00:00",
+      "status": "completed",
+      "submission": "isolated worker under ordinary network-restricted sandbox; not a browser or HTTP submission",
+      "workspace": "data/cache/workbench-failure-20261025T163400Z"
+    }
+  ],
+  "started_at": "2026-10-25T16:33:34.954154+00:00"
+}

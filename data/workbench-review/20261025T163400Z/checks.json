@@ -1,0 +1,60 @@
+{
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "exit_code": 0,
+      "log": "lock-check.log",
+      "log_last_modified_at": "2026-10-25T16:32:24.124017+00:00",
+      "name": "lock-check",
+      "sha256": "sha256:adb4d43c8d5fc4cf35cd2411056f78cf9a35eb99a851fd7e41aae984a0c7f061"
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "exit_code": 0,
+      "log": "dependency-sync.log",
+      "log_last_modified_at": "2026-10-25T16:32:24.168290+00:00",
+      "name": "dependency-sync",
+      "sha256": "sha256:a01c9768f9a147354a9ed1572cf06bd3d38832fed28827031edd1208cfcfcf66"
+    },
+    {
+      "command": [
+        ".venv/bin/entropytrade-web",
+        "--help"
+      ],
+      "exit_code": 0,
+      "log": "entrypoint-help.log",
+      "log_last_modified_at": "2026-10-25T16:32:24.280441+00:00",
+      "name": "entrypoint-help",
+      "sha256": "sha256:67ea655ae7fc475a2793e1fae3aaa5f1ab156102d8f42c56a40071d43822abf1"
+    },
+    {
+      "command": [
+        "env",
+        "UV_CACHE_DIR=data/cache/uv-verification",
+        "UV_OFFLINE=1",
+        "OMP_NUM_THREADS=1",
+        "OPENBLAS_NUM_THREADS=1",
+        "LOKY_MAX_CPU_COUNT=1",
+        "PYTEST_ADDOPTS=--tb=short",
+        "make",
+        "check"
+      ],
+      "exit_code": 0,
+      "log": "make-check.log",
+      "log_last_modified_at": "2026-10-25T16:35:06.693578+00:00",
+      "name": "make-check",
+      "sha256": "sha256:005063e17ddd437e30778e5e986951cd2f0a1b77480a87be5ccd504897acf93a"
+    }
+  ],
+  "frontend_checks": "frontend-check.log; nine passing presentation cases",
+  "listener_and_network_permissions": "Normal per-command auto-reviewed approval; no sandbox bypass",
+  "recorded_at": "2026-10-25T16:45:52.094589+00:00"
+}

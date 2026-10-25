@@ -2,6 +2,7 @@
 
 import http.client
 import threading
+from contextlib import closing
 from pathlib import Path
 
 import pytest
@@ -75,40 +76,52 @@ def test_empty_and_populated_pages_have_no_order_form(tmp_path: Path) -> None:
 
 
 def test_the_page_is_served_and_post_is_refused(tmp_path: Path) -> None:
-    registry = Registry(tmp_path / "registry.sqlite")
-    server = open_server(registry)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    address = server.server_address
-    connection = http.client.HTTPConnection(str(address[0]), int(address[1]), timeout=5)
-    connection.request("GET", "/")
-    body = connection.getresponse().read().decode()
-    connection.request("POST", "/", body=b"{}")
-    posted = connection.getresponse()
-    server.shutdown()
-    server.server_close()
-    registry.close()
+    with (
+        closing(Registry(tmp_path / "registry.sqlite")) as registry,
+        open_server(registry) as server,
+    ):
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            address = server.server_address
+            with closing(
+                http.client.HTTPConnection(str(address[0]), int(address[1]), timeout=5)
+            ) as connection:
+                connection.request("GET", "/")
+                body = connection.getresponse().read().decode()
+                connection.request("POST", "/", body=b"{}")
+                posted = connection.getresponse()
+                posted.read()
+        finally:
+            server.shutdown()
+            thread.join(timeout=5)
     assert "No strategies have been recorded." in body
     assert posted.status == 405
 
 
 def test_pause_writes_halt_and_post_root_stays_refused(tmp_path: Path) -> None:
-    registry = Registry(tmp_path / "registry.sqlite")
-    server = open_server(registry, halt_directory=tmp_path)
-    thread = threading.Thread(target=server.serve_forever, daemon=True)
-    thread.start()
-    address = server.server_address
-    connection = http.client.HTTPConnection(str(address[0]), int(address[1]), timeout=5)
-    connection.request("GET", "/")
-    page = connection.getresponse().read().decode()
-    connection.request("POST", "/halt")
-    paused = connection.getresponse()
-    paused.read()
-    connection.request("POST", "/", body=b"{}")
-    posted = connection.getresponse()
-    server.shutdown()
-    server.server_close()
-    registry.close()
+    with (
+        closing(Registry(tmp_path / "registry.sqlite")) as registry,
+        open_server(registry, halt_directory=tmp_path) as server,
+    ):
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            address = server.server_address
+            with closing(
+                http.client.HTTPConnection(str(address[0]), int(address[1]), timeout=5)
+            ) as connection:
+                connection.request("GET", "/")
+                page = connection.getresponse().read().decode()
+                connection.request("POST", "/halt")
+                paused = connection.getresponse()
+                paused.read()
+                connection.request("POST", "/", body=b"{}")
+                posted = connection.getresponse()
+                posted.read()
+        finally:
+            server.shutdown()
+            thread.join(timeout=5)
     assert "Pause new orders" in page
     assert "cannot submit an order" in page
     assert paused.status == 204

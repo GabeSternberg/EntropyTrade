@@ -10,6 +10,7 @@ does not open a socket.
 import json
 import sqlite3
 from collections.abc import Mapping
+from contextlib import closing
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -86,7 +87,7 @@ def load_volume_check(root: Path) -> VolumeCheck:
 def _print_sums(root: Path) -> Mapping[str, Decimal]:
     database = root / "kalshi-public" / "historical-trades" / "prints.sqlite"
     found: dict[str, Decimal] = {}
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         rows = conn.execute(
             """
             select tickers.ticker, sum(prints.count)

@@ -7,6 +7,7 @@ on disk under ``data/raw`` and are not part of the commit.
 
 import json
 import sqlite3
+from contextlib import closing
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
@@ -50,7 +51,7 @@ def load_historical_tape(root: Path) -> HistoricalTape:
     manifest = _read_manifest(folder / "manifest.json")
     endpoint = _text(manifest.get("endpoint"), "endpoint")
     declared = _count(manifest.get("trade_count"), "trade_count")
-    with sqlite3.connect(folder / _TABLE) as conn:
+    with closing(sqlite3.connect(folder / _TABLE)) as conn, conn:
         row = conn.execute("select count(*) from prints").fetchone()
         distinct = conn.execute("select count(*) from tickers").fetchone()
         stored_endpoint = conn.execute("select url from endpoint").fetchone()
@@ -81,7 +82,7 @@ def load_historical_print(root: Path, *, ticker: str, created_at: str) -> Histor
     """One stored print. Used to prove a row was not invented."""
     folder = root / _RELATIVE
     micros = _encode_time(created_at)
-    with sqlite3.connect(folder / _TABLE) as conn:
+    with closing(sqlite3.connect(folder / _TABLE)) as conn, conn:
         row = conn.execute(
             """
             select tickers.ticker, prints.created_us, prints.yes_price, prints.count, endpoint.url

@@ -5,10 +5,66 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Objective and checkpoint
 
-**R4 — automated strategy experiments — is complete for review.** The user authorized
-merging and pushing the tested R4 branch and main. Stop before the next milestone.
-The next priority is a minimal local research website, followed by a second real market
-family and continuous paper/shadow. Production trading remains disabled.
+**R4 is the last fully verified checkpoint.** The current continuation adds a template-only
+local research website and an explicit Bitcoin family extension, reusing R2–R4 engines and completing the
+partial API/public-capture scaffold already present in the working tree. This implementation
+has **passing full checks, real listener/worker coverage and successful weather/Bitcoin public
+ingestion**. Browser acceptance is blocked by unavailable browser access. It is not a completed
+empirical research product. The current instruction reserves all Git mutations for the supervisor;
+no branch, staging, commit, merge or push was attempted.
+Production trading remains disabled.
+
+## Current local workbench continuation
+
+- Buildless localhost interface: idea submission, explicit real recorded/public/synthetic
+  modes, durable queue/progress/history, cancellation, candidate gates/specs, validation
+  probabilities, simulated scenario diagnostics, exact rules and lineage/report downloads.
+- Credential-free local formulation recognizes documented signal words and exact feature
+  AND-only comparisons with an optional Test/Research prefix. The complete expression
+  must match; XOR, unless, unsupported connectors, grouping and surrounding comparison
+  prose are rejected. Arbitrary prose is not fully interpreted. Unsupported requests remain
+  proposals with reasons. Synthetic mode retains fixed mock proposals and negative control.
+  Complete numeric tokens are checked before Decimal construction; excess precision,
+  scientific notation and thousands separators cannot silently become prefix thresholds.
+- Weather public capture reuses forecast archives/full-local-day features. Bitcoin adds
+  KXBTC rules and receipt-clock Coinbase spot/strike covariates through the same registered
+  sample/provider/experiment boundary. Spot never becomes a settlement label. Authority mentions
+  preserve their exact rule text/field separately from verified settlement sources, including
+  negated or ambiguous mentions. All Bitcoin settlement sources and settlement basis stay
+  unresolved; forward-only data cannot fit a model or create backtest returns.
+  Bitcoin always keeps `rules_known=false` until complete resolution semantics are verified.
+  Partial weather captures expose source response/failure clocks and stay incomplete.
+- HTTP assets/jobs/reviews use a fixed route allowlist, loopback binding, same-origin and
+  CSRF checks. One bounded isolated worker receives an environment allowlist. No credential
+  or trading endpoints were added; no risk limits or existing tests were loosened.
+- Acquisition completeness, HTTP receipt/contract/observation counts and clocked failure
+  summaries now appear prominently on every result tab and in downloaded text reports.
+  Empty listings and failed/partial captures cannot be presented as complete ingestion.
+- **Latest verification (`20261025T163400Z`):** locked setup passes. The complete unchanged
+  `make check` passes: Ruff lint/format, strict mypy across 477 files, **733 pytest tests
+  passed in 154.68 seconds**. All listener cases pass with normal per-command approval.
+  Five new public-worker cases verify HTTP/connection failures, partial/complete/empty
+  acquisition and persisted report/settlement/evaluation boundaries. Nine Node presentation
+  regressions pass across all tabs. No tests, risk limits or policies were weakened.
+- Actual localhost HTTP submissions saved recorded insufficiency and synthetic replay
+  (192 permitted validation records; negative control zero fills in three scenarios).
+  Successful public weather ingestion retained 8 HTTP receipts, 24 contracts and 648
+  observations; Bitcoin retained 3 receipts, 318 contracts and one spot observation.
+  Neither family has historical evaluation or fitted empirical probabilities. Every Bitcoin
+  rule gate remains false and verified settlement sources remain empty.
+- Actual HTTP cancellation during modeling, worker-slot reuse, shutdown with active/pending
+  jobs, interrupted restart history and identical exported review/report bytes all pass.
+  A separate ordinary-sandbox Bitcoin attempt retained two clocked acquisition failures,
+  zero responses/data and the new incomplete report. All 51 workflow artifact hashes and
+  protected projections are rechecked. These are HTTP/worker checks, not browser acceptance.
+- **Remaining gate:** Computer Use rejected Chrome access, no connected browser sessions
+  were listed and the in-app browser was unavailable. Chrome access was requested. No
+  browser observations, screenshots or browser downloads are claimed. All documented
+  browser steps remain pending. Commit-based reproduction is reserved for the supervisor;
+  HEAD remains `30bed8e`. [Receipts and checksums](data/workbench-review/README.md) retain
+  precise results. No Git write, permission bypass or supervisor-control change occurred.
+
+See [workbench operation and verification limits](docs/workbench.md).
 
 ## Delivered capabilities
 
@@ -79,8 +135,10 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Review R4's [operating guide](docs/experiments.md), frozen evidence and branch/main commits.
-After approval, build a small localhost UI over the existing research/experiment workflow:
-submit an idea, select explicit real/offline data/provider mode, inspect progress, candidates,
-probabilities, modeled backtests and rejection reasons. No trading controls or SaaS features.
-Continue collecting trustworthy data in parallel; do not block usability on more field exploration.
+Enable an approved browser and execute every browser acceptance step in `docs/workbench.md`:
+recorded insufficiency, synthetic replay/negative control, both public ingestions, visible
+acquisition summaries/failures on every tab, active cancellation, restart/history and
+checksummed browser downloads. The automated suite and actual successful ingestion now pass.
+The supervisor must commit the reviewed implementation and receipts and verify reproduction
+from that commit before integration. Do not create branches, stage, commit, merge or push in
+this continuation. Official Bitcoin outcomes/history and continuous shadow remain later work.

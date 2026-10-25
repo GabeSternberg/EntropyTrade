@@ -1,0 +1,296 @@
+{
+  "started_at": "2026-10-25T16:42:06.387354+00:00",
+  "browser_verified": false,
+  "before_restart_exports": [
+    {
+      "job_id": "eb4b9396-d65c-44e7-a8b9-482f2868bcfe",
+      "label": "recorded-weather",
+      "browser_download": false,
+      "review_sha256": "1ff21c026439c51962ab80067978b7f8abbb0019eceadf5d7b2dad7daf3ffc39",
+      "report_sha256": "4d59e0a9174451c469f1ff25921a7855ea641c8085df1fbafc017e9e2419ae58"
+    },
+    {
+      "job_id": "d47fa277-523f-4e1e-ba5e-68ded4246dd7",
+      "label": "synthetic-weather",
+      "browser_download": false,
+      "review_sha256": "01689b4aba2be0ae65a82a66c5875d15d6bc66f001d782779b7cb54fa72c4afc",
+      "report_sha256": "9f48fdc16df9ddcde59e9fa76516de46d710feea2881dbd54848653b5ea1495b"
+    },
+    {
+      "job_id": "38d73bae-4511-480f-aa5b-db0365e6a5ab",
+      "label": "public-weather",
+      "browser_download": false,
+      "review_sha256": "8db6c70bbf57fb223edd0cbd6c9ccab8fb6e72c5a1f6668559fa652caa000918",
+      "report_sha256": "cb6c7608751165f47c5b232e18ea2bd9849890e57bf32e35796a0de4da4eabd9"
+    },
+    {
+      "job_id": "3da6c039-3797-4a8b-8def-428977bdd2aa",
+      "label": "public-bitcoin",
+      "browser_download": false,
+      "review_sha256": "de092abc099811e4983bf75550c16a8158b8f4d44871bd8d6939259dbb4e1214",
+      "report_sha256": "f9e41563dc38dd8a23bb4e9428f26279952c8554290ef929655e53bd32555953"
+    }
+  ],
+  "cancelled_while_active": {
+    "observed_at": "2026-10-25T16:42:10.015000+00:00",
+    "before": {
+      "id": "c87cb2ea-1fab-4451-aaac-9d4bc7f6a63a",
+      "request": {
+        "idea": "HTTP acceptance: cancel active synthetic fitting",
+        "family": "weather",
+        "mode": "synthetic"
+      },
+      "status": "running",
+      "created_at": "2026-10-25T16:42:06.419743+00:00",
+      "updated_at": "2026-10-25T16:42:09.985998+00:00",
+      "detail": "Fitting synthetic weather models; software demonstration only",
+      "result": null,
+      "events": [
+        {
+          "sequence": 28,
+          "at": "2026-10-25T16:42:06.419743+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 29,
+          "at": "2026-10-25T16:42:06.659699+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 30,
+          "at": "2026-10-25T16:42:09.985054+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 31,
+          "at": "2026-10-25T16:42:09.985998+00:00",
+          "stage": "modeling",
+          "detail": "Fitting synthetic weather models; software demonstration only"
+        }
+      ]
+    },
+    "after": {
+      "id": "c87cb2ea-1fab-4451-aaac-9d4bc7f6a63a",
+      "request": {
+        "idea": "HTTP acceptance: cancel active synthetic fitting",
+        "family": "weather",
+        "mode": "synthetic"
+      },
+      "status": "cancelled",
+      "created_at": "2026-10-25T16:42:06.419743+00:00",
+      "updated_at": "2026-10-25T16:42:10.013919+00:00",
+      "detail": "Cancelled by user",
+      "result": null,
+      "events": [
+        {
+          "sequence": 28,
+          "at": "2026-10-25T16:42:06.419743+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 29,
+          "at": "2026-10-25T16:42:06.659699+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 30,
+          "at": "2026-10-25T16:42:09.985054+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 31,
+          "at": "2026-10-25T16:42:09.985998+00:00",
+          "stage": "modeling",
+          "detail": "Fitting synthetic weather models; software demonstration only"
+        },
+        {
+          "sequence": 32,
+          "at": "2026-10-25T16:42:10.013919+00:00",
+          "stage": "cancelled",
+          "detail": "Cancelled by user"
+        }
+      ]
+    }
+  },
+  "slot_reuse": {
+    "job_id": "a55a6357-e3d7-4ac0-80a5-686339848232",
+    "status": "completed",
+    "observed_at": "2026-10-25T16:42:13.257422+00:00"
+  },
+  "restart_active_id": "d84632e7-53cc-4c01-a046-c4c662537659",
+  "restart_pending_id": "26b5ef55-5393-4d00-8f4f-648d8dd16754",
+  "before_shutdown": {
+    "observed_at": "2026-10-25T16:42:16.261438+00:00",
+    "active": {
+      "id": "d84632e7-53cc-4c01-a046-c4c662537659",
+      "request": {
+        "idea": "HTTP acceptance: interrupt active synthetic fitting",
+        "family": "weather",
+        "mode": "synthetic"
+      },
+      "status": "running",
+      "created_at": "2026-10-25T16:42:13.257931+00:00",
+      "updated_at": "2026-10-25T16:42:16.230277+00:00",
+      "detail": "Fitting synthetic weather models; software demonstration only",
+      "result": null,
+      "events": [
+        {
+          "sequence": 39,
+          "at": "2026-10-25T16:42:13.257931+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 40,
+          "at": "2026-10-25T16:42:14.017498+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 41,
+          "at": "2026-10-25T16:42:16.229487+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 42,
+          "at": "2026-10-25T16:42:16.230277+00:00",
+          "stage": "modeling",
+          "detail": "Fitting synthetic weather models; software demonstration only"
+        }
+      ]
+    },
+    "pending": {
+      "id": "26b5ef55-5393-4d00-8f4f-648d8dd16754",
+      "request": {
+        "idea": "HTTP acceptance: pending request during shutdown",
+        "family": "weather",
+        "mode": "recorded"
+      },
+      "status": "queued",
+      "created_at": "2026-10-25T16:42:16.259142+00:00",
+      "updated_at": "2026-10-25T16:42:16.259142+00:00",
+      "detail": "Waiting for worker",
+      "result": null,
+      "events": [
+        {
+          "sequence": 43,
+          "at": "2026-10-25T16:42:16.259142+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        }
+      ]
+    }
+  },
+  "after_restart": {
+    "restart_active_id": {
+      "id": "d84632e7-53cc-4c01-a046-c4c662537659",
+      "request": {
+        "idea": "HTTP acceptance: interrupt active synthetic fitting",
+        "family": "weather",
+        "mode": "synthetic"
+      },
+      "status": "interrupted",
+      "created_at": "2026-10-25T16:42:13.257931+00:00",
+      "updated_at": "2026-10-25T16:42:19.904772+00:00",
+      "detail": "Worker stopped with the server",
+      "result": null,
+      "events": [
+        {
+          "sequence": 39,
+          "at": "2026-10-25T16:42:13.257931+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 40,
+          "at": "2026-10-25T16:42:14.017498+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 41,
+          "at": "2026-10-25T16:42:16.229487+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 42,
+          "at": "2026-10-25T16:42:16.230277+00:00",
+          "stage": "modeling",
+          "detail": "Fitting synthetic weather models; software demonstration only"
+        },
+        {
+          "sequence": 44,
+          "at": "2026-10-25T16:42:19.904772+00:00",
+          "stage": "interrupted",
+          "detail": "Worker stopped with the server"
+        }
+      ]
+    },
+    "restart_pending_id": {
+      "id": "26b5ef55-5393-4d00-8f4f-648d8dd16754",
+      "request": {
+        "idea": "HTTP acceptance: pending request during shutdown",
+        "family": "weather",
+        "mode": "recorded"
+      },
+      "status": "interrupted",
+      "created_at": "2026-10-25T16:42:16.259142+00:00",
+      "updated_at": "2026-10-25T16:42:27.906639+00:00",
+      "detail": "Server stopped; submit a new run to retry",
+      "result": null,
+      "events": [
+        {
+          "sequence": 43,
+          "at": "2026-10-25T16:42:16.259142+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 45,
+          "at": "2026-10-25T16:42:27.906639+00:00",
+          "stage": "interrupted",
+          "detail": "Server stopped; submit a new run to retry"
+        }
+      ]
+    }
+  },
+  "after_restart_exports": [
+    {
+      "job_id": "eb4b9396-d65c-44e7-a8b9-482f2868bcfe",
+      "label": "recorded-weather",
+      "browser_download": false,
+      "review_sha256": "1ff21c026439c51962ab80067978b7f8abbb0019eceadf5d7b2dad7daf3ffc39",
+      "report_sha256": "4d59e0a9174451c469f1ff25921a7855ea641c8085df1fbafc017e9e2419ae58"
+    },
+    {
+      "job_id": "d47fa277-523f-4e1e-ba5e-68ded4246dd7",
+      "label": "synthetic-weather",
+      "browser_download": false,
+      "review_sha256": "01689b4aba2be0ae65a82a66c5875d15d6bc66f001d782779b7cb54fa72c4afc",
+      "report_sha256": "9f48fdc16df9ddcde59e9fa76516de46d710feea2881dbd54848653b5ea1495b"
+    },
+    {
+      "job_id": "38d73bae-4511-480f-aa5b-db0365e6a5ab",
+      "label": "public-weather",
+      "browser_download": false,
+      "review_sha256": "8db6c70bbf57fb223edd0cbd6c9ccab8fb6e72c5a1f6668559fa652caa000918",
+      "report_sha256": "cb6c7608751165f47c5b232e18ea2bd9849890e57bf32e35796a0de4da4eabd9"
+    },
+    {
+      "job_id": "3da6c039-3797-4a8b-8def-428977bdd2aa",
+      "label": "public-bitcoin",
+      "browser_download": false,
+      "review_sha256": "de092abc099811e4983bf75550c16a8158b8f4d44871bd8d6939259dbb4e1214",
+      "report_sha256": "f9e41563dc38dd8a23bb4e9428f26279952c8554290ef929655e53bd32555953"
+    }
+  ],
+  "finished_at": "2026-10-25T16:42:30.536913+00:00"
+}

@@ -1,0 +1,29 @@
+# Research-to-experiment report
+
+Data: synthetic. Research run: 78055d1d-ab14-46fa-bfd3-fb52e7c7325c
+Final holdout: not evaluated. No trading authorization.
+
+c0: REJECTED
+too few modeled fills for trading evidence
+Forecast metrics: {"brier": 0.047699376472459955, "calibration_intercept": -2.9803716512128396e-05, "calibration_slope": 0.9506962835510472, "contracts": 192, "independent_date_blocks": 48, "independent_events": 48, "log_loss": 0.14164271518557103, "predictions": 192, "reliability_bins": [{"lower": 0.0, "observed": 0.0, "predicted": 0.0034737174855990634, "predictions": 124}, {"lower": 0.1, "observed": 0.2, "predicted": 0.1453016465460917, "predictions": 5}, {"lower": 0.2, "observed": 0.3333333333333333, "predicted": 0.2389728754452228, "predictions": 6}, {"lower": 0.3, "observed": 0.25, "predicted": 0.3610481996501185, "predictions": 4}, {"lower": 0.4, "observed": 0.6, "predicted": 0.46099066843826025, "predictions": 5}, {"lower": 0.5, "observed": 0.4, "predicted": 0.539009331561738, "predictions": 5}, {"lower": 0.6, "observed": 0.75, "predicted": 0.6389518003498713, "predictions": 4}, {"lower": 0.7, "observed": 0.6666666666666666, "predicted": 0.7610271245546173, "predictions": 6}, {"lower": 0.8, "observed": 0.8, "predicted": 0.8546983534513177, "predictions": 5}, {"lower": 0.9, "observed": 1.0, "predicted": 0.9846163939928456, "predictions": 28}], "status": "evaluated"}
+optimistic: fills=8, net P&L=0.940000, fees=0.120000; modeled fills.
+base: fills=8, net P&L=0.940000, fees=0.120000; modeled fills.
+conservative: fills=0, net P&L=0.000000, fees=0.000000; modeled fills.
+c1: BACKTESTED
+Completed deterministic validation experiment.
+Forecast metrics: {"brier": 0.047699376472459955, "calibration_intercept": -2.9803716512128396e-05, "calibration_slope": 0.9506962835510472, "contracts": 192, "independent_date_blocks": 48, "independent_events": 48, "log_loss": 0.14164271518557103, "predictions": 192, "reliability_bins": [{"lower": 0.0, "observed": 0.0, "predicted": 0.0034737174855990634, "predictions": 124}, {"lower": 0.1, "observed": 0.2, "predicted": 0.1453016465460917, "predictions": 5}, {"lower": 0.2, "observed": 0.3333333333333333, "predicted": 0.2389728754452228, "predictions": 6}, {"lower": 0.3, "observed": 0.25, "predicted": 0.3610481996501185, "predictions": 4}, {"lower": 0.4, "observed": 0.6, "predicted": 0.46099066843826025, "predictions": 5}, {"lower": 0.5, "observed": 0.4, "predicted": 0.539009331561738, "predictions": 5}, {"lower": 0.6, "observed": 0.75, "predicted": 0.6389518003498713, "predictions": 4}, {"lower": 0.7, "observed": 0.6666666666666666, "predicted": 0.7610271245546173, "predictions": 6}, {"lower": 0.8, "observed": 0.8, "predicted": 0.8546983534513177, "predictions": 5}, {"lower": 0.9, "observed": 1.0, "predicted": 0.9846163939928456, "predictions": 28}], "status": "evaluated"}
+optimistic: fills=16, net P&L=1.480000, fees=0.260000; modeled fills.
+base: fills=16, net P&L=1.480000, fees=0.260000; modeled fills.
+conservative: fills=0, net P&L=0.000000, fees=0.000000; modeled fills.
+c2: UNSUPPORTED
+no executable StrategySpec was supplied
+negative-control: REJECTED
+too few modeled fills for trading evidence
+Forecast metrics: {"brier": 0.047699376472459955, "calibration_intercept": -2.9803716512128396e-05, "calibration_slope": 0.9506962835510472, "contracts": 192, "independent_date_blocks": 48, "independent_events": 48, "log_loss": 0.14164271518557103, "predictions": 192, "reliability_bins": [{"lower": 0.0, "observed": 0.0, "predicted": 0.0034737174855990634, "predictions": 124}, {"lower": 0.1, "observed": 0.2, "predicted": 0.1453016465460917, "predictions": 5}, {"lower": 0.2, "observed": 0.3333333333333333, "predicted": 0.2389728754452228, "predictions": 6}, {"lower": 0.3, "observed": 0.25, "predicted": 0.3610481996501185, "predictions": 4}, {"lower": 0.4, "observed": 0.6, "predicted": 0.46099066843826025, "predictions": 5}, {"lower": 0.5, "observed": 0.4, "predicted": 0.539009331561738, "predictions": 5}, {"lower": 0.6, "observed": 0.75, "predicted": 0.6389518003498713, "predictions": 4}, {"lower": 0.7, "observed": 0.6666666666666666, "predicted": 0.7610271245546173, "predictions": 6}, {"lower": 0.8, "observed": 0.8, "predicted": 0.8546983534513177, "predictions": 5}, {"lower": 0.9, "observed": 1.0, "predicted": 0.9846163939928456, "predictions": 28}], "status": "evaluated"}
+optimistic: fills=0, net P&L=0.000000, fees=0.000000; modeled fills.
+base: fills=0, net P&L=0.000000, fees=0.000000; modeled fills.
+conservative: fills=0, net P&L=0.000000, fees=0.000000; modeled fills.
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

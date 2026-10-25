@@ -1,0 +1,33 @@
+{
+  "base_commit": "30bed8e30cf07201124deee609a21f7f01e47735",
+  "branch": "supervisor/20261025-014400",
+  "commit_deferred": "Explicit current user instruction reserves all Git mutations for the supervisor; no staging or commit attempted",
+  "commit_reproduction_verified": false,
+  "final_diff_check_exit_code": 0,
+  "new_commit": null,
+  "new_source_files": [
+    "backend/src/entropytrade/agents/adapter_fixture.py",
+    "backend/src/entropytrade/agents/templates.py",
+    "backend/src/entropytrade/api/jobs.py",
+    "backend/src/entropytrade/api/runner.py",
+    "backend/src/entropytrade/api/server.py",
+    "backend/src/entropytrade/api/worker.py",
+    "backend/src/entropytrade/families/__init__.py",
+    "backend/src/entropytrade/families/public.py",
+    "backend/tests/integration/test_workbench_listener.py",
+    "backend/tests/integration/test_workbench_process.py",
+    "backend/tests/unit/test_local_templates.py",
+    "backend/tests/unit/test_public_families.py",
+    "backend/tests/unit/test_workbench_http.py",
+    "backend/tests/unit/test_workbench_workflow.py",
+    "docs/workbench.md",
+    "frontend/src/app.js",
+    "frontend/src/index.html",
+    "frontend/src/style.css",
+    "frontend/tests/acquisition.test.cjs"
+  ],
+  "recorded_at": "2026-10-25T16:47:47.785530+00:00",
+  "reverse_patch_check_exit_code": 0,
+  "source_patch_bytes": 228759,
+  "source_patch_sha256": "sha256:e3006d11b6ec94d65dbf189a3e9032112cdb9a0b88649b2de2ea284d532b9da0"
+}

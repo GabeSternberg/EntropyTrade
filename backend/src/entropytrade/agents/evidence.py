@@ -369,9 +369,7 @@ class ResearchEvidence:
                         if s.features.get(n) is not None
                     )
                 ),
-                "source_counts": {
-                    source: len(selected) for source in data.provenance.get("source_kinds", [])
-                },
+                "source_counts": dict(Counter(source for s in selected for source in s.sources)),
             }
         instance.models = {"status": "not_supplied", "models": {}, "data_kind": data.data_kind}
         instance.history = history or []

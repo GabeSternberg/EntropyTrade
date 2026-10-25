@@ -1,0 +1,469 @@
+{
+  "created_at": "2026-10-25T07:10:10.947914+00:00",
+  "detail": "Review saved; inspect candidate gates and evidence limitations",
+  "events": [
+    {
+      "at": "2026-10-25T07:10:10.947914+00:00",
+      "detail": "Request saved; local templates or explicit synthetic mock reasoning",
+      "sequence": 14,
+      "stage": "queued"
+    },
+    {
+      "at": "2026-10-25T07:10:10.949663+00:00",
+      "detail": "Starting isolated research worker",
+      "sequence": 15,
+      "stage": "starting"
+    },
+    {
+      "at": "2026-10-25T07:10:13.107160+00:00",
+      "detail": "Fetching bounded public contract rules and forward source receipts",
+      "sequence": 16,
+      "stage": "fetching"
+    },
+    {
+      "at": "2026-10-25T07:10:13.162881+00:00",
+      "detail": "Preparing versioned inputs and protected event boundaries",
+      "sequence": 17,
+      "stage": "data"
+    },
+    {
+      "at": "2026-10-25T07:10:13.167217+00:00",
+      "detail": "Formulating typed hypotheses, specifications and independent criticism",
+      "sequence": 18,
+      "stage": "research"
+    },
+    {
+      "at": "2026-10-25T07:10:13.188096+00:00",
+      "detail": "Running protected model, execution, fee and minimum-evidence gates",
+      "sequence": 19,
+      "stage": "experiments"
+    },
+    {
+      "at": "2026-10-25T07:10:13.867606+00:00",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "sequence": 20,
+      "stage": "completed"
+    }
+  ],
+  "id": "08ff0e6a-6eab-4a32-b7e5-13f09fd45362",
+  "request": {
+    "family": "weather",
+    "idea": "Research forecast_high_f > 70",
+    "mode": "public"
+  },
+  "result": {
+    "artifacts": [
+      {
+        "bytes": 272,
+        "path": "experiments/6e35f48180536c0bc83b84c7a29b0420f3e637668c46b616499257a54dc8cb5c/checksums.json",
+        "sha256": "sha256:ca4dea5739d99e2b320ba113d3db480baedbc1c54c7906dc60a40a32f0bb34e3"
+      },
+      {
+        "bytes": 519,
+        "path": "experiments/6e35f48180536c0bc83b84c7a29b0420f3e637668c46b616499257a54dc8cb5c/report.md",
+        "sha256": "sha256:be294445c0dad11897f433323e02ab2688634e6c32fc7d014524e6af9ca642d2"
+      },
+      {
+        "bytes": 2974,
+        "path": "experiments/6e35f48180536c0bc83b84c7a29b0420f3e637668c46b616499257a54dc8cb5c/results.json",
+        "sha256": "sha256:99048bd94331e2717afe3f26c5137b281e1068aa9fa7ecbde67665ead35ef59f"
+      },
+      {
+        "bytes": 365,
+        "path": "experiments/6e35f48180536c0bc83b84c7a29b0420f3e637668c46b616499257a54dc8cb5c/trades.parquet",
+        "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef"
+      },
+      {
+        "bytes": 175,
+        "path": "research/0e680c83-b8c8-4fa5-9558-8090e622ffc3/checksums.json",
+        "sha256": "sha256:9f70682a44dcc6c6f99e8449b292965d88f15648f5b18648f0ce32326d16d4a7"
+      },
+      {
+        "bytes": 2394,
+        "path": "research/0e680c83-b8c8-4fa5-9558-8090e622ffc3/report.md",
+        "sha256": "sha256:78c10a906a5f0b521ac132c0d103802bc55c40a2e873e1910dba233bab1bb630"
+      },
+      {
+        "bytes": 96760,
+        "path": "research/0e680c83-b8c8-4fa5-9558-8090e622ffc3/run.json",
+        "sha256": "sha256:79b25a108642032764ad5d6d99e6e1d6223f854e200c78a34a89d19c5a3e300e"
+      }
+    ],
+    "candidates": [
+      {
+        "candidate_id": "template-c0",
+        "data_kind": "real",
+        "forecast_metrics": null,
+        "rank": null,
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "scenarios": [],
+        "status": "UNSUPPORTED",
+        "tested": false
+      },
+      {
+        "candidate_id": "template-c1",
+        "data_kind": "real",
+        "forecast_metrics": null,
+        "rank": null,
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "scenarios": [],
+        "status": "UNSUPPORTED",
+        "tested": false
+      }
+    ],
+    "coverage": {
+      "by_series": {},
+      "configured_source_kinds": [],
+      "contracts": 0,
+      "data_kind": "real",
+      "date_blocks": 0,
+      "dates": [],
+      "eligible_events": 0,
+      "feature_nonmissing_rows": {},
+      "feature_version": "sha256:baf347f179f499683328e2b98334e129bf03707d2ed790719d777389a2ab089d",
+      "independent_events": 0,
+      "label_semantics": "adapter-defined official outcome; values withheld",
+      "rows": 0,
+      "scalar_label_events": 0,
+      "source_dataset": "sha256:2db341789b8a09711355357c6dcb94382326c0f5f030c8aea4ed06764b6d0823"
+    },
+    "data_kind": "real",
+    "decisions": [
+      {
+        "candidate_id": "template-c0",
+        "critic": {
+          "accept_for_experiment": false,
+          "candidate_id": "template-c0",
+          "concerns": [
+            "No LLM critique or empirical edge follows from local formulation."
+          ],
+          "reason": "Local rule checks only; independent evidence and experiment gates apply."
+        },
+        "hypothesis_signature": "sha256:8b2264214add02b79744d9a74faeb4649e0190fed14ec21b3bc7b6f1311a2ac8",
+        "previous_search_count": 0,
+        "previously_searched": false,
+        "reasons": [
+          "hypothesis market family is absent from the permitted universe",
+          "No actual listed contracts are available in the captured evidence",
+          "no point-in-time observations for forecast_high_f",
+          "required real fitted probability artifact is unavailable",
+          "model validation coverage is not permitted by the research cutoff",
+          "historical rules and settlement semantics are not certified",
+          "insufficient independent eligible events/source-matched scalar labels",
+          "no executable historical depth; candles/prints cannot establish fills"
+        ],
+        "scope": "research eligibility only; no trading approval or proven edge",
+        "spec_hash": null,
+        "status": "REJECTED",
+        "structurally_valid": false
+      },
+      {
+        "candidate_id": "template-c1",
+        "critic": {
+          "accept_for_experiment": false,
+          "candidate_id": "template-c1",
+          "concerns": [
+            "No LLM critique or empirical edge follows from local formulation."
+          ],
+          "reason": "Local rule checks only; independent evidence and experiment gates apply."
+        },
+        "hypothesis_signature": "sha256:559b55312f42c54eff136aa390bc89a285a97159def3767cad4e9eb1b2d7a238",
+        "previous_search_count": 0,
+        "previously_searched": false,
+        "reasons": [
+          "hypothesis market family is absent from the permitted universe",
+          "No actual listed contracts are available in the captured evidence",
+          "no point-in-time observations for forecast_high_f",
+          "no point-in-time observations for hours_to_close",
+          "required real fitted probability artifact is unavailable",
+          "model validation coverage is not permitted by the research cutoff",
+          "historical rules and settlement semantics are not certified",
+          "insufficient independent eligible events/source-matched scalar labels",
+          "no executable historical depth; candles/prints cannot establish fills"
+        ],
+        "scope": "research eligibility only; no trading approval or proven edge",
+        "spec_hash": null,
+        "status": "REJECTED",
+        "structurally_valid": false
+      }
+    ],
+    "experiment_id": "sha256:6e35f48180536c0bc83b84c7a29b0420f3e637668c46b616499257a54dc8cb5c",
+    "final_holdout_evaluated": false,
+    "formulation": {
+      "evidence_ids": [
+        "sha256:d65fc08cd1e72666dc24ad31282d9a44c2e588d69500453ad43ec80cc409c426",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+      ],
+      "limitations": [
+        "No language model is used; arbitrary prose is not fully understood.",
+        "Two model comparisons are not causal tests or feature ablations.",
+        "No actual listed contracts are available in the captured evidence"
+      ],
+      "market_understanding": "Local templates select signals and literal feature comparisons.",
+      "mechanisms": [
+        "The requested signal forecast_high_f may improve contract probabilities.",
+        "A forecast-error baseline may be more stable than regression for this signal."
+      ]
+    },
+    "hypotheses": [
+      {
+        "direction": "Test probability accuracy; association and sign remain unverified",
+        "evidence_ids": [
+          "sha256:d65fc08cd1e72666dc24ad31282d9a44c2e588d69500453ad43ec80cc409c426",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+        "hypothesis_id": "template-h0",
+        "market_family": "UNAVAILABLE",
+        "mechanism": "The requested signal forecast_high_f may improve contract probabilities.",
+        "necessary_evidence": [
+          "Point-in-time source vintages and source-matched official outcomes",
+          "Independent date blocks, historical sized books and effective fees"
+        ],
+        "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+        "variables": [
+          "forecast_high_f"
+        ],
+        "window": "Frozen decision-time inputs before each actual contract close"
+      },
+      {
+        "direction": "Test probability accuracy; association and sign remain unverified",
+        "evidence_ids": [
+          "sha256:d65fc08cd1e72666dc24ad31282d9a44c2e588d69500453ad43ec80cc409c426",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+        "hypothesis_id": "template-h1",
+        "market_family": "UNAVAILABLE",
+        "mechanism": "A forecast-error baseline may be more stable than regression for this signal.",
+        "necessary_evidence": [
+          "Point-in-time source vintages and source-matched official outcomes",
+          "Independent date blocks, historical sized books and effective fees"
+        ],
+        "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+        "variables": [
+          "forecast_high_f",
+          "hours_to_close"
+        ],
+        "window": "Frozen decision-time inputs before each actual contract close"
+      }
+    ],
+    "lineage": {
+      "code": {
+        "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+        "backtest/replay.py": "sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970",
+        "data.py": "sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153",
+        "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de",
+        "engine.py": "sha256:af49bdd10ff602699da3a03d470d8f19fb366a7e2465764456309856acb26178",
+        "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+        "execution/paper.py": "sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172",
+        "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+        "strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+        "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+        "workflow.py": "sha256:1d1eda965badb947213934d6f7b1cc1ed8f4bcb4352a8c2aa63c92e6a0f371a4"
+      },
+      "config": {
+        "bootstrap_samples": 500,
+        "fee_policy": null,
+        "latency_seconds": 1,
+        "max_book_age_seconds": 60,
+        "min_events": 20,
+        "min_trades": 10,
+        "per_event": "100",
+        "per_trade": "25",
+        "scenarios": [
+          "optimistic",
+          "base",
+          "conservative"
+        ],
+        "seed": 17,
+        "starting_cash": "1000",
+        "total_deployed": "500"
+      },
+      "dataset": "sha256:2db341789b8a09711355357c6dcb94382326c0f5f030c8aea4ed06764b6d0823",
+      "feature_version": "sha256:baf347f179f499683328e2b98334e129bf03707d2ed790719d777389a2ab089d",
+      "normalized_data_hash": "sha256:be712cd778dc474151f979a028610e95c938ed8a5e86b367a3b471a0d30b63bb",
+      "requested_trial_count": 6,
+      "research_hash": "sha256:1553597cd673da755e08241321cf17e95cef96f28c3226062cbb23bbe8a5abfb",
+      "resolved_models": {}
+    },
+    "probabilities": [],
+    "probability_count": 0,
+    "probability_limit": 100,
+    "proposals": [
+      {
+        "candidate_id": "template-c0",
+        "evidence_ids": [
+          "sha256:d65fc08cd1e72666dc24ad31282d9a44c2e588d69500453ad43ec80cc409c426",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "hypothesis_id": "template-h0",
+        "missing_capability": "No actual listed contracts are available in the captured evidence",
+        "model_family": "forward_only",
+        "required_features": [
+          "forecast_high_f"
+        ],
+        "required_sources": [
+          "kalshi"
+        ],
+        "spec": null
+      },
+      {
+        "candidate_id": "template-c1",
+        "evidence_ids": [
+          "sha256:d65fc08cd1e72666dc24ad31282d9a44c2e588d69500453ad43ec80cc409c426",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "hypothesis_id": "template-h1",
+        "missing_capability": "No actual listed contracts are available in the captured evidence",
+        "model_family": "forward_only",
+        "required_features": [
+          "forecast_high_f",
+          "hours_to_close"
+        ],
+        "required_sources": [
+          "kalshi"
+        ],
+        "spec": null
+      }
+    ],
+    "public_evidence": {
+      "adapter": "public-forward-v1:weather",
+      "capture": {
+        "decision_time": "2026-10-25T07:10:13.159624+00:00",
+        "failures": [
+          {
+            "failed_at": "2026-10-25T07:10:13.147090+00:00",
+            "failure": "GatewayError",
+            "source": "KXHIGHPHIL"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.147705+00:00",
+            "failure": "GatewayError",
+            "source": "KXHIGHCHI"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.156536+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.156689+00:00",
+            "failure": "NoForecastVintage",
+            "source": "weather:open-meteo:CLIPHL"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.157103+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.weather.gov/points/39.87,-75.23"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.157624+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.157723+00:00",
+            "failure": "NoForecastVintage",
+            "source": "weather:open-meteo:CLIMDW"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.158065+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.weather.gov/points/41.79,-87.75"
+          },
+          {
+            "failed_at": "2026-10-25T07:10:13.158778+00:00",
+            "failure": "IncompleteCapture",
+            "source": "weather"
+          }
+        ],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 0,
+        "observations": 0,
+        "receipts": [],
+        "started_at": "2026-10-25T07:10:13.108251+00:00",
+        "truncated_universe": true,
+        "universe_complete": false
+      },
+      "configured_sources": [
+        "kalshi",
+        "open-meteo",
+        "nws"
+      ],
+      "contracts": [],
+      "decision_time": "2026-10-25T07:10:13.159624+00:00",
+      "limitations": [
+        "Forward evidence only; no historical release clocks or outcomes inferred.",
+        "No historical sized books or certified fee schedule; no execution returns.",
+        "Full-day hourly forecast maxima are proxies, not official settlement highs."
+      ],
+      "source_kinds": []
+    },
+    "public_manifest": {
+      "checksums": {
+        "capture.json": "sha256:7522c4bd16be2e73c6b7f0e906441b81467abe10bf4fa6e2b0f9c739b8183ab0",
+        "markets.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "weather.sqlite": "sha256:9607d7e8fb906625f8219c8b2723c414e6ff30f34c5b6e3a14f582089122add9",
+        "weather/manifest.json": "sha256:98d921503056ac75e168e19652748fb26bf63ef00d7f04fb6b0182b3db45d402",
+        "weather/observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "dataset_version": "sha256:2db341789b8a09711355357c6dcb94382326c0f5f030c8aea4ed06764b6d0823",
+      "decision_time": "2026-10-25T07:10:13.159624+00:00",
+      "family": "weather",
+      "ingestion_code_hash": "sha256:583edee174a465551b5442a7886fc634d2002c5536d1db662dd95d229352074b",
+      "weather_config": {
+        "attempts": 3,
+        "interval_seconds": 900,
+        "locations": [
+          {
+            "forecast_file": null,
+            "latitude": "39.87",
+            "longitude": "-75.23",
+            "name": "Philadelphia",
+            "series": "KXHIGHPHIL",
+            "station": "CLIPHL",
+            "timezone": "America/New_York"
+          },
+          {
+            "forecast_file": null,
+            "latitude": "41.79",
+            "longitude": "-87.75",
+            "name": "Chicago",
+            "series": "KXHIGHCHI",
+            "station": "CLIMDW",
+            "timezone": "America/Chicago"
+          }
+        ],
+        "max_bytes": 5000000000,
+        "providers": [
+          "open-meteo",
+          "nws"
+        ]
+      }
+    },
+    "reasoning": "local_templates",
+    "reasoning_limit": "Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation.",
+    "report": "# Research-to-experiment report\n\nData: real. Research run: 0e680c83-b8c8-4fa5-9558-8090e622ffc3\nFinal holdout: not evaluated. No trading authorization.\n\ntemplate-c0: UNSUPPORTED\nno executable StrategySpec was supplied\ntemplate-c1: UNSUPPORTED\nno executable StrategySpec was supplied\n\nEach candidate/scenario counts as a trial. Intervals are descriptive after selection.\nSnapshot fills model taker execution, not queues or observed fills.\nSynthetic results verify software only; ranking is not deployment authorization.\n",
+    "research_run": "0e680c83-b8c8-4fa5-9558-8090e622ffc3",
+    "schema": "workbench-review-v1",
+    "warnings": [
+      "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+      "Snapshot fills model taker execution, not queues or observed fills.",
+      "Synthetic results verify software only; ranking is not deployment authorization."
+    ]
+  },
+  "status": "completed",
+  "updated_at": "2026-10-25T07:10:13.867606+00:00"
+}

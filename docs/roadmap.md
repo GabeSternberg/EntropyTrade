@@ -4,6 +4,13 @@ Active from R0 (2026-10-24). This replaces the historical phase sequence and Pha
 continuation, while preserving the [original product specification](project-spec.md).
 R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
 branch/main merge and push are authorized. Stop before the next milestone.
+The current continuation authorizes local website/second-family implementation and testing;
+all Git mutations, including commits, belong to the supervisor. The full unchanged suite now
+passes: Ruff lint/format and strict mypy across 477 files, 733 pytest tests in 154.68 seconds,
+plus nine Node presentation checks. Actual localhost weather/Bitcoin ingestion and HTTP
+cancellation/restart/export checks pass. Browser acceptance remains blocked by unavailable
+browser access, and commit-based reproduction remains for the supervisor; see
+[status](../STATUS.md) and the [workbench guide](workbench.md).
 The R4 approval request revises the next priorities: minimal localhost website, second real
 market family, then continuous paper/shadow. A commit, city, JSON field or negative
 experiment is not a software milestone.
@@ -22,6 +29,8 @@ changes, verify main and push both branches. Never force-push. Stop for review b
 next major phase. Record experiments as runs with lineage and search
 counts. Keep raw data/provenance immutable. Prefer mature packages behind our interfaces.
 No SaaS, distributed-system expansion, arbitrary agent Python or new trading permissions.
+The current continuation overrides the general integration workflow: implement/test on the
+existing branch, return for review and leave all Git mutations to the supervisor.
 Production submission stays disabled until separate explicit approval after R8.
 
 ## R0 — Audit, consolidate and simplify
@@ -133,7 +142,15 @@ No empirical edge or trading readiness follows from this milestone.
 
 ## R5 — Minimal local research website
 
-**Next after R4 review.** FastAPI plus a minimal React/Vite local interface over existing
+**Template-only implementation; full automated checks and actual HTTP workflows pass.**
+Locked setup, all 733 pytest tests (including real listeners), strict mypy and Ruff pass.
+Acquisition completeness/counts/failures are prominent on every result tab and text report;
+nine frontend presentation regressions pass. A buildless local interface and standard-library
+HTTP control plane reuse the existing engines without new web dependencies. Browser
+acceptance is pending approved browser access; Git writes belong to the supervisor.
+See the [operating guide](workbench.md).
+
+Original scope: FastAPI plus a minimal React/Vite local interface over existing
 research/experiment services: type an idea, explicitly choose provider/data/mock mode,
 start a bounded worker, inspect progress/history, hypotheses/specs, probabilities,
 forecast/backtest metrics, fidelity and rejection reasons. Preserve protected evidence,
@@ -142,6 +159,17 @@ Acceptance: open localhost → research idea → saved, reviewable candidates/re
 insufficient-data reports and explicit synthetic demonstrations must both be usable.
 
 ## R6 — Second real market family
+
+**Bitcoin adapter and successful forward ingestion verified; empirical evaluation absent.**
+KXBTC public rules and Coinbase spot are a distinct registered forward-evidence family.
+Bitcoin's `rules_known` remains false and settlement sources/basis stay unresolved because
+complete resolution semantics are unverified. Exact authority mentions, including negated
+or ambiguous text, are retained separately as unverified provenance.
+The latest actual HTTP run retained 3 successful receipts, 318 listed contracts and one
+Coinbase spot observation. A separate denied-network attempt retained explicit failures
+and zero data. Neither is a historical probability/returns evaluation.
+Official source-matched outcomes, independent historical training/evaluation and sized
+execution evidence are absent. This does not satisfy an empirical R6 completion claim.
 
 Implement one useful non-weather family through the existing registered adapter/sample/
 feature/prediction interfaces. Inspect actual listed contracts, settlement definitions,

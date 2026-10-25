@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Private point-in-time market research, experiments and evidence.">
+  <title>EntropyTrade · Research workbench</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/" aria-label="EntropyTrade home"><span class="mark">E</span>EntropyTrade</a><span class="private">● PRIVATE · LOCALHOST</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">THE RESEARCH DESK</p><h1>From an idea to evidence.</h1><p class="lede">Formulate a hypothesis. Test what the data can support. Keep the full lineage.</p></div><span class="boundary">Research only · execution disabled</span></div>
+    <div class="workspace">
+      <aside>
+        <section class="panel compose" aria-labelledby="compose-title">
+          <p class="eyebrow">01 / NEW EXPERIMENT</p><h2 id="compose-title">What would you like to test?</h2>
+          <form id="research-form">
+            <label for="idea">Research idea</label>
+            <textarea id="idea" name="idea" rows="5" maxlength="6000" required placeholder="Do upward forecast revisions improve weather contract probabilities?">Do upward forecast revisions improve weather contract probabilities?</textarea>
+            <div class="examples"><button type="button" data-example="weather">Weather</button><button type="button" data-example="bitcoin">Bitcoin</button><button type="button" data-example="synthetic">Software demo</button></div>
+            <label for="family">Market family</label><select id="family" name="family"><option value="weather">Weather · daily high temperature</option><option value="bitcoin">Bitcoin · KXBTC contracts</option></select>
+            <label for="mode">Data source</label><select id="mode" name="mode"><option value="recorded">Recorded real weather evidence</option><option value="public">Fetch public sources now</option><option value="synthetic">Synthetic weather demonstration</option></select>
+            <p id="mode-help" class="hint"></p>
+            <label for="reasoning">Hypothesis formulation</label><select id="reasoning" disabled><option>Local templates · no provider credentials</option></select>
+            <p id="reasoning-help" class="hint">Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f &gt;= 1.25 and hours_to_close &lt; 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only.</p>
+            <button class="primary" id="submit" type="submit">Start research <span aria-hidden="true">↗</span></button>
+            <p id="form-message" role="status" class="hint"></p>
+          </form>
+        </section>
+        <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
+      </aside>
+      <section class="results" aria-label="Research results">
+        <div id="connection" role="status"></div>
+        <div id="run-header"></div>
+        <div id="progress" aria-live="polite"></div>
+        <nav id="tabs" class="tabs" aria-label="Result sections" hidden><button type="button" data-tab="review" aria-pressed="true">Review</button><button type="button" data-tab="probabilities" aria-pressed="false">Probabilities</button><button type="button" data-tab="lineage" aria-pressed="false">Evidence &amp; lineage</button></nav>
+        <div id="result-content"><section class="panel empty"><span class="empty-mark" aria-hidden="true">↗</span><p class="eyebrow">A REJECTION IS A RESULT</p><h2>Put your next idea to the test.</h2><p>Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.</p><div class="empty-grid"><div><strong>01</strong><h3>Source &amp; formulate</h3><p>Actual contract rules, bounded source receipts, typed hypotheses.</p></div><div><strong>02</strong><h3>Model &amp; evaluate</h3><p>Temporal training gates, realistic simulated execution, explicit refusals.</p></div><div><strong>03</strong><h3>Inspect &amp; trace</h3><p>Candidate decisions, validation probabilities, immutable input identities.</p></div></div><p class="hint">Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.</p></section></div>
+      </section>
+    </div>
+    <footer>EntropyTrade / private research workspace<span>Protected holdout stays closed. No trading approval is implied.</span></footer>
+  </main>
+</body>
+</html>

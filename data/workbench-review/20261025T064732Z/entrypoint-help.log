@@ -1,0 +1,8 @@
+usage: entropytrade-web [-h] [--port PORT] [--workspace WORKSPACE]
+
+EntropyTrade private localhost workbench
+
+options:
+  -h, --help            show this help message and exit
+  --port PORT
+  --workspace WORKSPACE

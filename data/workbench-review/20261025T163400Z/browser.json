@@ -1,0 +1,24 @@
+{
+  "attempts": [
+    {
+      "result": "Computer Use was not approved to use Google Chrome",
+      "surface": "native Google Chrome"
+    },
+    {
+      "result": "Browser is not available: iab",
+      "surface": "in-app browser"
+    }
+  ],
+  "browser_acceptance_finished_at": null,
+  "browser_acceptance_started_at": null,
+  "browser_downloads": [],
+  "connected_browser_inventory": [],
+  "inspected_browser_tabs": [],
+  "limitations": [
+    "No browser acceptance step was executed; HTTP and worker verification are separate evidence"
+  ],
+  "recorded_at": "2026-10-25T16:45:52.086789+00:00",
+  "screenshots": [],
+  "status": "blocked_no_approved_available_browser",
+  "user_input_requested": "Enable Chrome access; request remained pending while independent work continued"
+}

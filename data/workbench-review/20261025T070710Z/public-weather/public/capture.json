@@ -1,0 +1,58 @@
+{
+  "decision_time": "2026-10-25T07:10:13.159624+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-10-25T07:10:13.147090+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHPHIL"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.147705+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHCHI"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.156536+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.156689+00:00",
+      "failure": "NoForecastVintage",
+      "source": "weather:open-meteo:CLIPHL"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.157103+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.weather.gov/points/39.87,-75.23"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.157624+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.157723+00:00",
+      "failure": "NoForecastVintage",
+      "source": "weather:open-meteo:CLIMDW"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.158065+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.weather.gov/points/41.79,-87.75"
+    },
+    {
+      "failed_at": "2026-10-25T07:10:13.158778+00:00",
+      "failure": "IncompleteCapture",
+      "source": "weather"
+    }
+  ],
+  "family": "weather",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-10-25T07:10:13.108251+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}

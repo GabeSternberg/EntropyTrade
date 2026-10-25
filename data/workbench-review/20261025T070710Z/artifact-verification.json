@@ -1,0 +1,72 @@
+{
+  "limitations": [
+    "No listener/browser acceptance or browser downloads; these are local exports",
+    "Both public acquisitions failed without response receipts, contracts or observations",
+    "No local commit: staging denied at .git/index.lock"
+  ],
+  "recorded_at": "2026-10-25T07:15:07.441918+00:00",
+  "runs": [
+    {
+      "browser_verified": false,
+      "job_id": "e3773bc1-7c83-40cc-aa65-8ded0e7516be",
+      "label": "recorded-weather",
+      "protected_projection_verified": true,
+      "public_copy": null,
+      "report_sha256": "sha256:a3890cbf080f3b6a15adfe7c13e9efc694a31ca9c6badd9710d9bfb5d1caaf65",
+      "review_sha256": "sha256:70f10067695050446562a3f7335de9aa71da17b1537e32c7b8061cc0790d4c45",
+      "workflow_artifacts_verified": 12
+    },
+    {
+      "browser_verified": false,
+      "job_id": "2a1eec1a-3973-4154-bfa6-11edf7197fa3",
+      "label": "synthetic-weather",
+      "protected_projection_verified": true,
+      "public_copy": null,
+      "report_sha256": "sha256:9e6e51c6333eccaed77311a4578c4e6ecabb55d7d48443fb0f558fa049da4a76",
+      "review_sha256": "sha256:9e36d6f6dc20bce7644721e4e032a8850df0ddfda69aff1bb1f04419b5215f94",
+      "workflow_artifacts_verified": 18
+    },
+    {
+      "browser_verified": false,
+      "job_id": "08ff0e6a-6eab-4a32-b7e5-13f09fd45362",
+      "label": "public-weather",
+      "protected_projection_verified": true,
+      "public_copy": {
+        "contracts": 0,
+        "dataset": "sha256:2db341789b8a09711355357c6dcb94382326c0f5f030c8aea4ed06764b6d0823",
+        "failures": 9,
+        "feature_version": "sha256:baf347f179f499683328e2b98334e129bf03707d2ed790719d777389a2ab089d",
+        "manifest_checksums_verified": true,
+        "observations": 0,
+        "receipts": 0,
+        "universe_complete": false
+      },
+      "report_sha256": "sha256:be294445c0dad11897f433323e02ab2688634e6c32fc7d014524e6af9ca642d2",
+      "review_sha256": "sha256:2b57a7f65e7e4898b78e47301302ab783873ab8a047da1e96d37b13ddbfc6d23",
+      "workflow_artifacts_verified": 7
+    },
+    {
+      "browser_verified": false,
+      "job_id": "77d05e5d-75ab-4c0c-a824-20758d441663",
+      "label": "public-bitcoin",
+      "protected_projection_verified": true,
+      "public_copy": {
+        "contracts": 0,
+        "dataset": "sha256:210ea331e6551a0c36092d5a8468ec13464afc9d6cfe96ca8808f866fc3133de",
+        "failures": 2,
+        "feature_version": "sha256:ef285b4d7580ccb1260cc4009411795aa0d682ef03c9147c7d1f3d8b79f21692",
+        "manifest_checksums_verified": true,
+        "observations": 0,
+        "receipts": 0,
+        "universe_complete": false
+      },
+      "report_sha256": "sha256:5548ecc9dc59f807c0cccfff883f54c4175d1e54325320d1f2f6b8954f6cfaf5",
+      "review_sha256": "sha256:016c23b51b26cec9ec5ac714486d6f0983e6653f22326f6dd69788b956feee37",
+      "workflow_artifacts_verified": 7
+    }
+  ],
+  "source_files_verified": 492,
+  "source_manifest_sha256": "sha256:1f4e176d06305e2fecb2aedd100542e15f63ad61839d5151463dcc599c02bc6b",
+  "status": "local_checks_passed_acceptance_blocked",
+  "workflow_artifacts_verified": 44
+}

@@ -1,0 +1,28 @@
+{
+  "base_commit": "30bed8e30cf07201124deee609a21f7f01e47735",
+  "branch": "supervisor/20261025-014400",
+  "commit_attempted": false,
+  "merge_attempted": false,
+  "new_commit": null,
+  "push_attempted": false,
+  "reason": "Staging denied: Git cannot create .git/index.lock. No alternate index, Git directory, approval escalation or permission bypass was attempted.",
+  "recorded_at": "2026-10-25T07:11:21.183292+00:00",
+  "stage_attempt": {
+    "command": [
+      "git",
+      "add",
+      "--",
+      "README.md",
+      "STATUS.md",
+      "backend",
+      "frontend",
+      "docs",
+      "pyproject.toml",
+      "data/workbench-review"
+    ],
+    "exit_code": 128,
+    "log": "git-stage.log",
+    "started_at": "2026-10-25T07:11:21.168514+00:00"
+  },
+  "workaround_attempted": false
+}

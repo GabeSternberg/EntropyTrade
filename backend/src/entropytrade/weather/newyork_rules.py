@@ -11,6 +11,7 @@ promoted. This module does not open a socket.
 import json
 import re
 import sqlite3
+from contextlib import closing
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
@@ -145,7 +146,7 @@ def _markets(path: Path) -> tuple[dict[str, object], ...]:
 def _prints(folder: Path) -> tuple[TradePrint, ...]:
     database = folder / "prints.sqlite"
     found: list[TradePrint] = []
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         endpoint = conn.execute("select url from endpoint").fetchone()
         if endpoint is None:
             raise ValueError("New York prints have no endpoint")

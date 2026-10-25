@@ -1,0 +1,63 @@
+{
+  "limitations": [
+    "No listener or browser verification",
+    "Public acquisition failed with no response bodies or source observations",
+    "No new commit could be created"
+  ],
+  "recorded_at": "2026-10-25T06:53:02.052903+00:00",
+  "runs": [
+    {
+      "job_id": "81c14e20-cef5-4ff8-8e1c-b78317b96c22",
+      "label": "recorded-weather",
+      "protected_projection_verified": true,
+      "public_copy": null,
+      "report_sha256": "sha256:d58a92cbc5f37bd6943173004dd25a2684c25cc9679fc9f276624e67f84e6baa",
+      "review_sha256": "sha256:89ce93d1d55eafb4d1591a9b408efeb4373e1a0d6933fb5d69d2ab84ef07ac17",
+      "workflow_artifacts_verified": 12
+    },
+    {
+      "job_id": "93f548f3-3672-465c-b6a7-659885ded601",
+      "label": "synthetic-weather",
+      "protected_projection_verified": true,
+      "public_copy": null,
+      "report_sha256": "sha256:7533774c48c4e4ce1506c99fbf8986d84ca4dac34890f8001f3ac2fbed03dd01",
+      "review_sha256": "sha256:a76c657941ac24a0692ed32b3240b3206f25cd2a878be9b54c9799f87580c996",
+      "workflow_artifacts_verified": 18
+    },
+    {
+      "job_id": "8a4809a1-cc8b-4843-9eea-7301e747f4c0",
+      "label": "public-weather",
+      "protected_projection_verified": true,
+      "public_copy": {
+        "contracts": 0,
+        "dataset": "sha256:faee70a1265ae6e929ddc0c4d5c1adecce712427bdd5b31fe585a51df64ada68",
+        "failures": 9,
+        "feature_version": "sha256:389ffde08a86d1b60379731a8671e0ec935c9ee5b1bb29515078f470df892300",
+        "manifest_checksums_verified": true,
+        "receipts": 0
+      },
+      "report_sha256": "sha256:6ad6acbf3368a8a2348799eb474225450ac00826657c32fefbfb4212c665fef5",
+      "review_sha256": "sha256:f169b340ff9859a29f2e9600f0494a28f448d6378128efc5853fa25d23b8671e",
+      "workflow_artifacts_verified": 7
+    },
+    {
+      "job_id": "e7bb7cfd-8c7f-4974-bdb0-3e39105e4088",
+      "label": "public-bitcoin",
+      "protected_projection_verified": true,
+      "public_copy": {
+        "contracts": 0,
+        "dataset": "sha256:d3e99ec53319c555d51082bc2f1cc6f57918e55338741d0dbb111498ec09eedf",
+        "failures": 2,
+        "feature_version": "sha256:5b012d98f6e1d0d05849913398d8a40b46ea8c80d3eaf3a5769aa4c76f424c89",
+        "manifest_checksums_verified": true,
+        "receipts": 0
+      },
+      "report_sha256": "sha256:4b2c94694d5621ce15464a25101df79279b8586ce8213fc53a6ead9ed13d64a2",
+      "review_sha256": "sha256:b76b7612f9f3e13d72e5acecbf681e86304e82869517654c3d53b7f914f1a29a",
+      "workflow_artifacts_verified": 7
+    }
+  ],
+  "source_files_verified": 488,
+  "status": "passed",
+  "workflow_artifacts_verified": 44
+}

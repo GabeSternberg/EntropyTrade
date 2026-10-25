@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -40,8 +41,15 @@ def research_and_test(
     research_run: Path | None = None,
     adapters: AdapterRegistry | None = None,
     market_family: str = "weather",
+    progress: Callable[[str, str], None] | None = None,
+    local_templates: bool = False,
 ) -> dict[str, Any]:
+    def emit(stage: str, detail: str) -> None:
+        if progress is not None:
+            progress(stage, detail)
+
     output.mkdir(parents=True, exist_ok=True)
+    emit("data", "Preparing versioned inputs and protected event boundaries")
     if not offline and not enable_provider and research_run is None:
         raise ValueError("real research requires explicit provider opt-in; no mock fallback")
     predictor: PredictionProvider
@@ -59,6 +67,7 @@ def research_and_test(
     elif market_family != "weather":
         raise ValueError("non-weather families require an explicitly registered adapter")
     elif synthetic:
+        emit("modeling", "Fitting synthetic weather models; software demonstration only")
         features = prepare_synthetic(output / "inputs", days=days)
         data = weather_data(features)
         predictor = WeatherPredictions(
@@ -144,13 +153,23 @@ def research_and_test(
     else:
         models = None
         run_id = None
-        if synthetic and offline:
+        if adapters is not None and offline and not local_templates:
+            from uuid import uuid4
+
+            from entropytrade.agents.adapter_fixture import adapter_models
+
+            run_id = str(uuid4())
+            for topic in ("coverage", "markets", "features", "models", "history"):
+                evidence.inspect(EvidenceQuery.model_validate({"topic": topic, "limit": 1}))
+            models = adapter_models(evidence, run_id)
+        if synthetic and offline and not local_templates:
             from uuid import uuid4
 
             run_id = str(uuid4())
             for topic in ("coverage", "markets", "features", "models", "history"):
                 evidence.inspect(EvidenceQuery.model_validate({"topic": topic, "limit": 1}))
             models = integration_models(prompt, evidence, run_id)
+        emit("research", "Formulating typed hypotheses, specifications and independent criticism")
         research = asyncio.run(
             run_research(
                 prompt=prompt,
@@ -162,6 +181,7 @@ def research_and_test(
                 enable_provider=enable_provider,
                 models=models,
                 run_id=run_id,
+                local_templates=local_templates,
             )
         )
     if research["status"] != "completed":
@@ -172,6 +192,7 @@ def research_and_test(
         }
     if research["coverage"]["feature_version"] != data.feature_version:
         raise ValueError("research and experiment feature manifests differ")
+    emit("experiments", "Running protected model, execution, fee and minimum-evidence gates")
     result = run_experiments(
         research=research,
         data=data,

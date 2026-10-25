@@ -10,6 +10,7 @@ not open a socket.
 import json
 import sqlite3
 from collections.abc import Mapping
+from contextlib import closing
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -98,7 +99,7 @@ def _markets(root: Path) -> tuple[dict[str, str], dict[str, int]]:
 
 def _late_prints(root: Path, cutoffs: Mapping[str, int]) -> int:
     database = root / "kalshi-public" / "historical-trades" / "prints.sqlite"
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         _cutoff_table(conn, cutoffs)
         row = conn.execute(
             """
@@ -142,7 +143,7 @@ def _prices_before(root: Path, cutoffs: Mapping[str, int]) -> Mapping[str, Decim
         group by tickers.ticker
     """
     found: dict[str, Decimal] = {}
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         _cutoff_table(conn, cutoffs)
         for ticker, scaled in conn.execute(query):
             found[str(ticker)] = Decimal(int(scaled)) / _PRICE

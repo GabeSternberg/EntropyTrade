@@ -1,0 +1,37 @@
+{
+  "browser_gate": "blocked",
+  "browser_steps": [
+    {
+      "automated_evidence": "Actual HTTP recorded review: typed conjunction, real insufficiency, no probabilities or holdout; HTTP exports verified",
+      "status": "not_executed",
+      "step": 1
+    },
+    {
+      "automated_evidence": "Actual HTTP synthetic review: 192 validation records, negative control zero fills; Node tests verify synthetic banner on all tabs",
+      "status": "not_executed",
+      "step": 2
+    },
+    {
+      "automated_evidence": "Successful actual HTTP weather and Bitcoin ingestion; checksum-verified raw receipts, unresolved Bitcoin rules; separate actual worker failure; Node failure presentation tests",
+      "status": "not_executed",
+      "step": 3
+    },
+    {
+      "automated_evidence": "Actual HTTP active cancellation, slot reuse, restart interruption, identical exported review/report bytes; no browser downloads",
+      "status": "not_executed",
+      "step": 4
+    }
+  ],
+  "commit_reproduction_gate": "deferred_to_supervisor_by_explicit_user_instruction",
+  "final_holdout_excluded": true,
+  "full_make_check_exit_code": 0,
+  "implementation": "acquisition completeness/counts/failures prominent across result tabs and text reports",
+  "no_empirical_returns_or_fitted_real_data_models": true,
+  "no_git_mutations": true,
+  "no_tests_skipped_or_weakened": true,
+  "node_presentation_tests_passed": 9,
+  "pytest_elapsed_seconds": 154.68,
+  "pytest_passed": 733,
+  "recorded_at": "2026-10-25T16:45:52.087041+00:00",
+  "strict_mypy_files": 477
+}

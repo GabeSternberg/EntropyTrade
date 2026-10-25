@@ -1,0 +1,28 @@
+{
+  "decision_time": "2026-10-25T06:44:44.662653+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-10-25T06:44:44.646927+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHPHIL"
+    },
+    {
+      "failed_at": "2026-10-25T06:44:44.647615+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHCHI"
+    },
+    {
+      "failed_at": "2026-10-25T06:44:44.661875+00:00",
+      "failure": "IncompleteCapture",
+      "source": "weather"
+    }
+  ],
+  "family": "weather",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-10-25T06:44:44.576263+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}

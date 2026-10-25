@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/Users/gabriel/Projects/EntropyTrade/.venv/bin/entropytrade-web", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/gabriel/Projects/EntropyTrade/backend/src/entropytrade/api/server.py", line 186, in main
+    server = WorkbenchServer(repo, workspace, port=args.port)
+  File "/Users/gabriel/Projects/EntropyTrade/backend/src/entropytrade/api/server.py", line 45, in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/miniconda3/lib/python3.13/http/server.py", line 140, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/miniconda3/lib/python3.13/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

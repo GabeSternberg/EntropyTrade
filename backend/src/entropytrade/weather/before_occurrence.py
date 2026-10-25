@@ -10,6 +10,7 @@ does not open a socket.
 import json
 import sqlite3
 from collections.abc import Mapping
+from contextlib import closing
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -114,7 +115,7 @@ def _prices_before(root: Path, cutoffs: Mapping[str, int]) -> Mapping[str, Decim
         group by tickers.ticker
     """
     found: dict[str, Decimal] = {}
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         conn.execute(
             "create temp table cutoff (ticker text primary key, occurrence_us integer not null)"
         )

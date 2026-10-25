@@ -20,6 +20,7 @@ dependencies = [
 
 [project.scripts]
 entropytrade = "entropytrade.cli:main"
+entropytrade-web = "entropytrade.api.server:main"
 
 [dependency-groups]
 dev = [

@@ -1,0 +1,38 @@
+{
+  "all_five_failures": "PermissionError at real socket bind",
+  "base_commit": "30bed8e30cf07201124deee609a21f7f01e47735",
+  "browser_acceptance": "not_exercised",
+  "javascript_syntax": "passed",
+  "local_commit": "blocked_at_git_index_lock",
+  "locked_setup": "passed",
+  "merge_attempted": false,
+  "phase_branch": "supervisor/20261025-014400",
+  "public_captures": {
+    "bitcoin": "failed_acquisition",
+    "weather": "failed_acquisition"
+  },
+  "push_attempted": false,
+  "pytest": {
+    "collected": 728,
+    "failed": 5,
+    "passed": 723,
+    "seconds": 128.11,
+    "skipped": 0,
+    "xfail": 0
+  },
+  "recorded_at": "2026-10-25T07:14:41.369825+00:00",
+  "required_suite_exit_code": 2,
+  "ruff_format": "passed",
+  "ruff_lint": "passed",
+  "strict_mypy": {
+    "files": 477,
+    "status": "passed"
+  },
+  "tests_weakened": false,
+  "workbench_cases": {
+    "additional_regressions": 38,
+    "failed_at_bind": 3,
+    "passed": 99,
+    "total": 102
+  }
+}

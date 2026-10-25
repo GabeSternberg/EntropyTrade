@@ -1,0 +1,187 @@
+{
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "elapsed_seconds": 0.083,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T06:47:46.214731+00:00",
+      "log": "lock-check.log",
+      "name": "lock-check",
+      "sha256": "sha256:e03e1aad27af55011b24d7a3ea8484bdb2c56258e9011d3fc3886e9aea45ef4c",
+      "started_at": "2026-10-25T06:47:46.131382+00:00"
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "elapsed_seconds": 0.037,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T06:47:46.252237+00:00",
+      "log": "dependency-sync.log",
+      "name": "dependency-sync",
+      "sha256": "sha256:6703720abd309f137644af0059646fa69d62289f530571128b191c9825f3496a",
+      "started_at": "2026-10-25T06:47:46.215057+00:00"
+    },
+    {
+      "command": [
+        "/Users/gabriel/Projects/EntropyTrade/.venv/bin/entropytrade-web",
+        "--help"
+      ],
+      "elapsed_seconds": 0.077,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T06:47:46.329662+00:00",
+      "log": "entrypoint-help.log",
+      "name": "entrypoint-help",
+      "sha256": "sha256:67ea655ae7fc475a2793e1fae3aaa5f1ab156102d8f42c56a40071d43822abf1",
+      "started_at": "2026-10-25T06:47:46.252551+00:00"
+    },
+    {
+      "command": [
+        "/Users/gabriel/Projects/EntropyTrade/.venv/bin/entropytrade-web",
+        "--port",
+        "43128",
+        "--workspace",
+        "/Users/gabriel/Projects/EntropyTrade/data/cache/workbench-verification-20261025T064732Z"
+      ],
+      "elapsed_seconds": 0.074,
+      "exit_code": 1,
+      "finished_at": "2026-10-25T06:47:46.403553+00:00",
+      "log": "listener-launch.log",
+      "name": "listener-launch",
+      "sha256": "sha256:b020f2b19d73c13b687c92c00fef2aa924ef0bf8422a55109fde39fbb05e730b",
+      "started_at": "2026-10-25T06:47:46.329999+00:00"
+    },
+    {
+      "command": [
+        "/usr/bin/env",
+        "UV_CACHE_DIR=data/cache/uv-verification",
+        "UV_OFFLINE=1",
+        "OMP_NUM_THREADS=1",
+        "OPENBLAS_NUM_THREADS=1",
+        "LOKY_MAX_CPU_COUNT=1",
+        "PYTEST_ADDOPTS=--tb=short",
+        "make",
+        "check"
+      ],
+      "elapsed_seconds": 142.071,
+      "exit_code": 2,
+      "finished_at": "2026-10-25T06:50:08.475380+00:00",
+      "log": "make-check.log",
+      "name": "make-check",
+      "sha256": "sha256:bc6e9179ad046397e2b6d84f614c05adcdf17f7b8103fb87b28f1cb6a8eca000",
+      "started_at": "2026-10-25T06:47:46.403885+00:00"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "elapsed_seconds": 0.028,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T06:50:08.504265+00:00",
+      "log": "javascript-syntax.log",
+      "name": "javascript-syntax",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_at": "2026-10-25T06:50:08.475975+00:00"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "elapsed_seconds": 0.028,
+      "exit_code": 0,
+      "finished_at": "2026-10-25T06:50:08.532534+00:00",
+      "log": "diff-check.log",
+      "name": "diff-check",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_at": "2026-10-25T06:50:08.504592+00:00"
+    }
+  ],
+  "finished_at": "2026-10-25T06:50:32.265479+00:00",
+  "runs": [
+    {
+      "artifact_hashes_verified": 12,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "INSUFFICIENT_DATA",
+        "INSUFFICIENT_DATA"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T06:50:14.499235+00:00",
+      "job_id": "81c14e20-cef5-4ff8-8e1c-b78317b96c22",
+      "label": "recorded-weather",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T06:50:08.533793+00:00",
+      "status": "completed"
+    },
+    {
+      "artifact_hashes_verified": 18,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "REJECTED",
+        "BACKTESTED",
+        "UNSUPPORTED",
+        "REJECTED"
+      ],
+      "data_kind": "synthetic",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T06:50:25.284443+00:00",
+      "job_id": "93f548f3-3672-465c-b6a7-659885ded601",
+      "label": "synthetic-weather",
+      "probability_count": 192,
+      "reasoning": "offline_mock",
+      "started_at": "2026-10-25T06:50:14.500512+00:00",
+      "status": "completed"
+    },
+    {
+      "artifact_hashes_verified": 7,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "UNSUPPORTED",
+        "UNSUPPORTED"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T06:50:28.880138+00:00",
+      "job_id": "8a4809a1-cc8b-4843-9eea-7301e747f4c0",
+      "label": "public-weather",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T06:50:25.290618+00:00",
+      "status": "completed"
+    },
+    {
+      "artifact_hashes_verified": 7,
+      "browser_verified": false,
+      "candidate_statuses": [
+        "UNSUPPORTED",
+        "UNSUPPORTED"
+      ],
+      "data_kind": "real",
+      "detail": "Review saved; inspect candidate gates and evidence limitations",
+      "final_holdout_evaluated": false,
+      "finished_at": "2026-10-25T06:50:32.263220+00:00",
+      "job_id": "e7bb7cfd-8c7f-4974-bdb0-3e39105e4088",
+      "label": "public-bitcoin",
+      "probability_count": 0,
+      "reasoning": "local_templates",
+      "started_at": "2026-10-25T06:50:28.883192+00:00",
+      "status": "completed"
+    }
+  ],
+  "started_at": "2026-10-25T06:47:46.131226+00:00"
+}

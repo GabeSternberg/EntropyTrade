@@ -1,0 +1,27 @@
+{
+  "browser_verified": false,
+  "downloads": [],
+  "inventory": {
+    "connected_browsers": [],
+    "native_chrome_in_earlier_app_inventory": true,
+    "observed_at": "2026-10-25T07:10:14.545Z",
+    "operation": "cua.listBrowsers"
+  },
+  "listener_evidence": "listener-launch.log",
+  "reason": "Installed workbench launch exits 1 at socket.bind with PermissionError. No UI flow could be reached.",
+  "recorded_at": "2026-10-25T07:14:41.369579+00:00",
+  "screenshots": [],
+  "status": "blocked_not_exercised",
+  "steps": {
+    "active_cancellation_and_slot_reuse": "not_exercised",
+    "checksummed_browser_json_and_report_downloads": "not_exercised",
+    "recorded_weather_insufficiency_and_spec": "not_exercised",
+    "server_restart_interrupted_history_and_completed_run_reopen": "not_exercised",
+    "successful_public_bitcoin_capture": "not_exercised",
+    "successful_public_weather_capture": "not_exercised",
+    "synthetic_replay_all_tabs_and_control": "not_exercised",
+    "visible_acquisition_failures": "not_exercised",
+    "visual_rendering": "not_exercised"
+  },
+  "worker_evidence_is_not_browser_acceptance": true
+}
