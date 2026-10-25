@@ -41,9 +41,11 @@ Mode types and approval records are safeguards, not evidence of a working live e
 - `weather/` contains recorded-source parsers and studies. Ten legacy metadata loaders
   now share `nws_metadata.py`; other exploratory families await consumer-driven consolidation.
   `data/` now provides generic point-in-time Parquet datasets and a consistent collector
-  snapshot reader. `features/` and `ml/` still contain no feature registry or fitted models.
-- `agents/` owns all PydanticAI imports. TestModel supplies scripted outputs and provider
-  calls are blocked. `strategy_registry/` stores local lineage and exports MLflow parameters;
+  snapshot reader. R2 `features/` and `ml/` provide a versioned causal matrix and fitted probability/calibration
+  pipeline; real empirical fitting is still data-blocked.
+- `agents/` owns all PydanticAI imports. Operational research uses configurable providers, restricted evidence projections,
+  typed multi-hypothesis/spec/critic output and independent gates. Explicit opt-in scopes
+  provider calls in one isolated worker; tests retain TestModel and default refusal. `strategy_registry/` stores local lineage and exports MLflow parameters;
   its simple HTML registry/HALT endpoint is not the intended dashboard.
 
 Ruff and architecture tests enforce SDK/agent import boundaries. These are code-level

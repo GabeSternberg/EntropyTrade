@@ -273,3 +273,154 @@ def scripted_models() -> tuple[TestModel, TestModel, TestModel, TestModel]:
         TestModel(custom_output_args=batch.model_dump(mode="json")),
         TestModel(custom_output_args=critique.model_dump(mode="json")),
     )
+
+
+def operational_models(prompt: str, evidence: object, run_id: str) -> tuple[TestModel, ...]:
+    """Explicit mock answers over real coverage, never presented as provider research."""
+    from typing import Any, cast
+
+    from entropytrade.agents.outputs import (
+        CandidateBatch,
+        CandidateVerdict,
+        EvidenceNote,
+        HypothesisBatch,
+        ResearchCandidate,
+        ResearchCritique,
+        ResearchHypothesis,
+    )
+
+    data = cast("Any", evidence)
+    citations = tuple(c["evidence_id"] for c in data.calls[:3])
+    requested = [m for m in data.markets if m["city"].casefold() in prompt.casefold()]
+    family = (requested or data.markets)[0]["series"] if data.markets else "UNKNOWN"
+    variables = ["revision_f", "model_disagreement_f", "station_bias_f"]
+    if "disagreement" in prompt.lower() and "revision" not in prompt.lower():
+        variables = ["model_disagreement_f", "station_bias_f", "revision_f"]
+    mechanisms = {
+        "revision_f": "Revisions may identify probability changes before market repricing.",
+        "model_disagreement_f": "Disagreement may flag unreliable probabilities for filtering.",
+        "station_bias_f": "Previously resolved station errors may improve forecast calibration.",
+    }
+    hypotheses = HypothesisBatch(
+        hypotheses=tuple(
+            ResearchHypothesis(
+                hypothesis_id=f"h{i}",
+                mechanism=mechanisms[name],
+                market_family=family,
+                window="15:00 UTC on target date before market close",
+                variables=(name,),
+                direction={
+                    "revision_f": "upward revisions increase upper-threshold YES probability",
+                    "model_disagreement_f": "high disagreement worsens raw probability calibration",
+                    "station_bias_f": "positive prior forecast bias raises predicted daily highs",
+                }[name],
+                test=(
+                    "Compare event-weighted validation Brier and log loss against "
+                    "predeclared baselines."
+                ),
+                falsification=(
+                    "Reject if there is no reliable out-of-sample improvement across "
+                    "independent dates."
+                ),
+                necessary_evidence=(
+                    "Certified vintages and actual source-matched settlement highs",
+                ),
+                evidence_ids=citations,
+            )
+            for i, name in enumerate(variables)
+        )
+    )
+    candidates = []
+    baseline = demo_specs()[0]
+    for i, name in enumerate(variables):
+        spec = None
+        if i < 2 and data.markets:
+            spec = baseline.revalidated(
+                strategy_id=f"offline-candidate-{i}",
+                name=f"{family} informational {name}",
+                description=mechanisms[name],
+                market_universe=MarketUniverse(
+                    series_tickers=(family,), description="Actual permitted series"
+                ),
+                hypothesis=mechanisms[name],
+                features=(
+                    FeatureRequirement(name=name, version="1", description=mechanisms[name]),
+                ),
+                required_sources=("kalshi", "open-meteo"),
+                exit_rules=RuleSet(
+                    description="hold to settlement",
+                    all_of=(
+                        Predicate(feature="settlement", op=ComparisonOp.EQ, threshold=Decimal(1)),
+                    ),
+                ),
+                model_kind="domain_statistical",
+                generation_run_id=UUID(run_id),
+            )
+            # Existing typed probability predicate is rebound to the R2 prediction interface.
+            spec = spec.revalidated(
+                entry_rules=RuleSet(
+                    description="Informational YES entry when modeled probability meets threshold",
+                    all_of=(
+                        Predicate(
+                            feature="model_yes_probability",
+                            op=ComparisonOp.GT,
+                            threshold=Decimal("0.55"),
+                        ),
+                        Predicate(
+                            feature=name,
+                            op=ComparisonOp.LE
+                            if name == "model_disagreement_f"
+                            else ComparisonOp.GT,
+                            threshold=Decimal(5) if name == "model_disagreement_f" else Decimal(0),
+                        ),
+                    ),
+                )
+            )
+        candidates.append(
+            ResearchCandidate(
+                candidate_id=f"c{i}",
+                hypothesis_id=f"h{i}",
+                spec=spec,
+                missing_capability="experiment-only proposal; comparison orchestration requires R4"
+                if i == 2
+                else "",
+                required_features=(name,),
+                required_sources=("kalshi", "open-meteo"),
+                model_family="ridge",
+                evidence_ids=citations,
+            )
+        )
+    note = EvidenceNote(
+        market_understanding=(
+            "Actual listed daily-high contracts exist, but eligible forecast "
+            "history and scalar labels are missing."
+        ),
+        mechanisms=tuple(mechanisms[v] for v in variables),
+        limitations=("No empirical forecast model or executable historical depth is available.",),
+        evidence_ids=citations,
+    )
+    critique = ResearchCritique(
+        verdicts=tuple(
+            CandidateVerdict(
+                candidate_id=c.candidate_id,
+                accept_for_experiment=True,
+                reason=(
+                    "Plausible research proposal only; deterministic data and semantics "
+                    "checks must gate any experiment."
+                ),
+                concerns=(
+                    "Forecast clocks, scalar labels and independent-event counts are insufficient.",
+                ),
+            )
+            for c in candidates
+        )
+    )
+    return (
+        TestModel(custom_output_args=note.model_dump(mode="json"), call_tools=["inspect_evidence"]),
+        TestModel(custom_output_args=hypotheses.model_dump(mode="json"), call_tools=[]),
+        TestModel(
+            custom_output_args=CandidateBatch(candidates=tuple(candidates)).model_dump(mode="json"),
+            call_tools=[],
+        ),
+        TestModel(custom_output_args=critique.model_dump(mode="json"), call_tools=[]),
+    )

@@ -5,15 +5,10 @@ R2 is on `recovery/r2`, branched from R1. Previous branches are preserved.
 
 ## Objective and checkpoint
 
-R0–R2 are merged and pushed to main at `b9cbaa8`. Main's working tree was clean;
-`make check` passed: 561 tests in 187.86s, Ruff lint/format and strict mypy.
-
-**R3 is authorized and started on `recovery/r3` from updated main.** Initial explicit
-OpenAI/Anthropic model construction uses only `ENTROPYTRADE_RESEARCH_API_KEY` and fixed
-provider endpoints. It does not enable provider requests. Full orchestration/tools and
-real provider verification remain outstanding; no research key is configured.
-Initial R3 checks: Ruff clean, strict mypy clean (451 files), eight provider/legacy-agent
-tests passed. This is a starting commit, not R3 completion.
+**R3 — operational agentic research — is complete for review on `recovery/r3`.**
+R0–R2 remain on main at `b9cbaa8`. R3 must be pushed separately and not merged without
+approval. No R4 work or production trading is authorized. Real LLM provider execution
+remains externally blocked because no dedicated research key is configured.
 
 ## What now works
 
@@ -37,8 +32,30 @@ tests passed. This is a starting commit, not R3 completion.
   untouched. Predictions/artifacts have input/schema/code/runtime hashes, SQLite lineage,
   checksums and local MLflow tracking. No prices imply fills or trading P&L.
 
+- `research` now runs typed PydanticAI Research → Hypothesis → Quant → Critic with full
+  evidence/spec semantics, then independent validation and a deterministic analyst report.
+  Explicit OpenAI/Anthropic configuration, request opt-in, dedicated credentials, finite
+  budgets and fail-closed restoration preserve the existing mock demonstration.
+- Read-only tools project actual markets/rules/relationships, coverage, feature definitions,
+  approved pre-holdout model diagnostics and prior research. Protected rows/outcomes,
+  holdout scores, arbitrary files/SQL/network, model loading and trading tools are absent.
+- Completed and failed agent runs, prompts, tool output hashes, hypotheses, candidate/spec
+  hashes, critiques, gate decisions and provider identity/usage remain immutable in the
+  existing SQLite Registry and checksummed JSON/Markdown. Idempotent replay recovers files;
+  normalized search signatures track prior attempts without promoting lifecycle states.
+
 ## Evidence and checks
 
+- R3 release checks: **595 tests passed in 197.48s**, Ruff lint/format clean,
+  strict mypy clean (455 files). All 561 R2 tests remain; 34 R3 cases cover provider
+  opt-in/failure, bounded/protected evidence, invalid proposals, audit replay and prompt variation.
+- Two **mock** research runs over actual R1/R2 data cover Philadelphia revisions and Chicago
+  model disagreement. Each returns three hypotheses, two typed candidates with
+  INSUFFICIENT_DATA and one UNSUPPORTED proposal. No backtest or model fitting ran.
+  Frozen full audit/report artifacts: `data/r3-demo/`.
+- The actual OpenAI SDK/PydanticAI protocol is verified through HTTP mocks: evidence tool
+  consumption, full critic input, structured outputs and provider failure with no fallback.
+  This is not real LLM research; neither provider has a credential-backed verified session.
 - R1 baseline rerun: **528 tests passed**, Ruff clean, strict mypy clean.
 - R2 final `make check`: **561 tests passed in 203.52s**, Ruff lint/format clean,
   strict mypy clean (449 files). All 528 R1 tests remain; 33 new cases include
@@ -69,19 +86,20 @@ books remain unavailable. These are substantive modeling/validation blockers.
 
 Authenticated sustained Kalshi WS verification still needs a dedicated read-only key;
 R1 mock/replay evidence is unchanged. Replay chronology/capacity/fees and the narrow
-StrategySpec interpreter remain R4 work. Real LLM agents, automated strategy experiments,
-continuous shadow and the dashboard are not operational. Production submission stays
+StrategySpec interpreter remain R4 work. Provider-backed research is configurable but externally unverified. Automated strategy
+experiments, continuous shadow and the dashboard are not operational. Production submission stays
 blocked; no order transport or trading credentials were added. Legacy research/data and
 previous branches remain intact.
 
 ## Exact next action
 
-Continue R3: build bounded read-only market/rule, coverage, feature and pre-holdout model
-views; connect Research → Hypothesis → Quant → Critic using actual prompts and full typed
-specs. Persist tool/provenance/output audit trails, enforce request budgets and test actual
-provider adapters with mock transports. Keep TestModel for fixtures. No arbitrary model
-deserialization, holdout targets or trading credentials may reach agents. Broader strategy
-experimentation remains R4. A real provider run needs a dedicated research API key.
+Review R3 and [agent operating guide](docs/agent-research.md). For real provider verification,
+configure `ENTROPYTRADE_RESEARCH_API_KEY` and use an explicit provider/model plus
+`--enable-provider`; otherwise use the clearly labeled offline command. Continue forward
+weather/market collection and obtain the actual settlement authority's scalar highs.
 
-After R3 acceptance and checks, merge into current main, push both branches and stop for
-review before R4. The repository-level AGENTS.md records the user's ongoing workflow.
+Recommended R4: faithful StrategySpec universe/time/model/feature predicates, YES/NO,
+sizing and exits; actual fee/net-edge semantics; replay chronology, split/freshness bounds,
+shared liquidity and event exposure; deterministic candidate experiments with event/date
+splits, calibration/baselines, selection/search accounting and protected final evaluation.
+Use existing registry/spec/data hashes and MLflow. Do not start R4 or merge R3 until approval.

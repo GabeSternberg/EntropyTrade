@@ -18,6 +18,9 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.domain.time import ensure_utc
 
 _SCHEMA = """
+CREATE TABLE IF NOT EXISTS agent_hypotheses (
+    signature TEXT NOT NULL, run_id TEXT NOT NULL, PRIMARY KEY(signature, run_id));
+CREATE TABLE IF NOT EXISTS agent_research_runs (run_id TEXT PRIMARY KEY, payload TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS probability_runs (run_id TEXT PRIMARY KEY, payload TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS probability_models (model_hash TEXT PRIMARY KEY, payload TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS probability_predictions (
@@ -86,6 +89,42 @@ class Registry:
 
     def close(self) -> None:
         self._db.close()
+
+    def agent_run(self, run_id: str) -> str | None:
+        row = self._db.execute(
+            "SELECT payload FROM agent_research_runs WHERE run_id=?", (run_id,)
+        ).fetchone()
+        return None if row is None else str(row[0])
+
+    def hypothesis_count(self, signature: str) -> int:
+        return int(
+            self._db.execute(
+                "SELECT COUNT(*) FROM agent_hypotheses WHERE signature=?", (signature,)
+            ).fetchone()[0]
+        )
+
+    def record_agent_run(self, run_id: str, payload: str) -> None:
+        """Completed and failed operational research attempts are immutable."""
+        import json
+
+        from entropytrade.agents.validation import hypothesis_signature
+
+        with self._db:
+            previous = self._db.execute(
+                "SELECT payload FROM agent_research_runs WHERE run_id=?", (run_id,)
+            ).fetchone()
+            if previous is not None and previous[0] != payload:
+                raise RegistryError("research run identity reused with different content")
+            self._db.execute(
+                "INSERT OR IGNORE INTO agent_research_runs VALUES (?, ?)", (run_id, payload)
+            )
+            for hypothesis in json.loads(payload).get("hypotheses", []):
+                signature = hypothesis_signature(
+                    hypothesis["mechanism"], tuple(hypothesis["variables"])
+                )
+                self._db.execute(
+                    "INSERT OR IGNORE INTO agent_hypotheses VALUES (?, ?)", (signature, run_id)
+                )
 
     def record_probability_run(
         self,

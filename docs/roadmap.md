@@ -95,23 +95,30 @@ learning, agents, strategy tuning, production orders or dashboard work in R2.
 
 ## R3 — Provider-backed research
 
-Active branch: `recovery/r3`, from updated main `b9cbaa8`. Initial provider configuration
-constructs OpenAI/Anthropic models using only `ENTROPYTRADE_RESEARCH_API_KEY`, without
-enabling requests. No research key is configured in this environment.
+R3 is complete for review on `recovery/r3`, based on `b9cbaa8`. It is **not merged into
+main**; the latest user instruction requires separate merge approval for this phase.
 
-Remaining acceptance: restricted evidence/feature/model tools, prompt-driven four-role
-orchestration, genuinely distinct hypotheses, full-spec critic input, bounded provider
-calls, audit persistence, mocked integration and a real call when credentials are available.
-Protected holdout outcomes and trading capabilities must remain unavailable to agents.
+Delivered: explicit OpenAI/Anthropic configuration with dedicated research credentials and
+live opt-in, bounded read-only evidence tools, typed multi-hypothesis Research → Hypothesis
+→ Quant → Critic orchestration, full-spec criticism, independent candidate gates, factual
+analyst reports and immutable SQLite audit/search lineage. The original fixture backtest
+remains a regression demonstration and is never run by operational research.
 
-Replace production TestModel-only wiring with explicit isolated provider configuration;
-retain TestModel for tests. A real prompt and evidence must drive Research → Hypothesis →
-Quant → Critic → distinct typed StrategySpec candidates. Supply read-only market/rule,
-dataset/feature, external-evidence and past-experiment tools and deterministic experiment
-requests. Pass full candidate semantics to the critic. Agents cannot see protected holdout
-outcomes, order tools or trading credentials. Acceptance: a configured actual provider
-runs the prompt and yields auditable distinct hypotheses; without an LLM key, deliver a
-configurable adapter, mocked tests and an explicit external-verification blocker.
+Actual recorded Philadelphia/Chicago coverage is inspectable. Mock research and an actual
+OpenAI SDK/PydanticAI HTTP-mock protocol run are verified; **external provider execution is
+blocked without a research API key**. Mock reasoning is never an empirical autonomous
+research claim. See [operating guide](agent-research.md) for exact live/offline commands.
+The six-event real dataset still lacks eligible forecasts/scalar labels; no edge is proved.
+
+Holdout protection is enforced through filtered/allowlisted projections, not merely prompts.
+No arbitrary paths, SQL, shell, network fetching, joblib loading or execution tools exist.
+Token/request/time/cost budgets stop failures without a fixture fallback. Run one live
+research worker per isolated process because the framework permission switch is global.
+
+R4 acceptance must attach deterministic experiments to these hypotheses/spec hashes while
+preserving the final holdout boundary. Count every search, including related threshold
+variants. Complete/validate interpreter semantics before interpreting backtest returns;
+repair chronology, liquidity reuse, fees and event exposure. Do not start R4 until review.
 
 ## R4 — Strategy execution and automated experiments
 

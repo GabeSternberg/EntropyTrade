@@ -6,6 +6,8 @@ recovery branches and unrelated changes. Work independently within the approved 
 After completing a phase, run Ruff lint/format, strict mypy and pytest. Fetch origin,
 integrate current main without rewriting history, verify the resulting main and push both
 the phase branch and main. The user explicitly authorized this workflow on 2026-10-25.
+For R3 specifically, the latest instruction requires pushing only recovery/r3 and leaving
+main unchanged until the user approves a merge.
 Never force-push. Stop for review before starting the next major phase unless the user
 explicitly authorizes it. Initial work on an incomplete phase stays on its feature branch.
 

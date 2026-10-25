@@ -71,6 +71,17 @@ def _parser() -> argparse.ArgumentParser:
     demo = commands.add_parser("model-demo", help="explicitly synthetic complete pipeline proof")
     demo.add_argument("--output", type=Path, required=True)
     demo.add_argument("--days", type=int, default=300)
+    research = commands.add_parser(
+        "research", help="bounded read-only agent research; no backtest execution"
+    )
+    research.add_argument("--prompt", required=True)
+    research.add_argument("--config", type=Path, required=True)
+    research.add_argument("--provider", choices=["openai", "anthropic"])
+    research.add_argument("--model")
+    research.add_argument("--enable-provider", action="store_true")
+    research.add_argument("--offline", action="store_true")
+    research.add_argument("--registry", type=Path, required=True)
+    research.add_argument("--output", type=Path, required=True)
     return parser
 
 
@@ -149,6 +160,48 @@ def main() -> None:
     args = _parser().parse_args()
     if args.command is None:
         print(f"entropytrade {__version__} (default trading mode: {DEFAULT_TRADING_MODE.value})")
+    elif args.command == "research":
+        from entropytrade.agents.evidence import EvidenceConfig, ResearchEvidence, previous_research
+        from entropytrade.agents.pipeline import run_research
+        from entropytrade.agents.provider import ResearchProviderConfig
+
+        if not args.offline and (not args.provider or not args.model):
+            raise ValueError(
+                "select --provider and --model, set ENTROPYTRADE_RESEARCH_API_KEY, "
+                "and pass --enable-provider"
+            )
+        evidence = ResearchEvidence(
+            EvidenceConfig.model_validate_json(args.config.read_text()),
+            history=previous_research(args.registry),
+        )
+        result = asyncio.run(
+            run_research(
+                prompt=args.prompt,
+                evidence=evidence,
+                provider=None
+                if args.offline
+                else ResearchProviderConfig(provider=args.provider, model_name=args.model),
+                registry_path=args.registry,
+                output=args.output,
+                offline=args.offline,
+                enable_provider=args.enable_provider,
+            )
+        )
+        print(result["report"])
+        print(
+            json.dumps(
+                {
+                    "run_id": result["run_id"],
+                    "status": result["status"],
+                    "artifact_path": str(args.output / result["run_id"]),
+                }
+            )
+        )
+        if result["status"] == "failed":
+            raise SystemExit(
+                "Research failed; inspect the run. For live use set "
+                "ENTROPYTRADE_RESEARCH_API_KEY and opt in explicitly."
+            )
     elif args.command == "collect":
         args.db.parent.mkdir(parents=True, exist_ok=True)
         with Path(str(args.db) + ".lock").open("a", encoding="utf-8") as lock:

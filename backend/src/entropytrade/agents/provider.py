@@ -32,11 +32,9 @@ def research_model(config: ResearchProviderConfig) -> Model:
     if not key:
         raise ValueError(f"set {RESEARCH_KEY_VARIABLE} for provider-backed research")
     if config.provider == "openai":
-        return OpenAIChatModel(
-            config.model_name,
-            provider=OpenAIProvider(api_key=key, base_url="https://api.openai.com/v1"),
-        )
-    return AnthropicModel(
-        config.model_name,
-        provider=AnthropicProvider(api_key=key, base_url="https://api.anthropic.com"),
-    )
+        selected = OpenAIProvider(api_key=key, base_url="https://api.openai.com/v1")
+        selected.client.max_retries = 0
+        return OpenAIChatModel(config.model_name, provider=selected)
+    anthropic = AnthropicProvider(api_key=key, base_url="https://api.anthropic.com")
+    anthropic.client.max_retries = 0
+    return AnthropicModel(config.model_name, provider=anthropic)

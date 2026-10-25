@@ -9,13 +9,16 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from decimal import Decimal
-from typing import Any
+from pathlib import Path
+from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
 from pydantic_ai import Agent
+from pydantic_ai.models import Model
 from pydantic_ai.models.test import TestModel
 
 from entropytrade.agents.deps import ResearchDeps
+from entropytrade.agents.evidence import ResearchEvidence
 from entropytrade.agents.fixture import (
     PROMPT,
     RUN_ID,
@@ -29,6 +32,7 @@ from entropytrade.agents.fixture import (
 )
 from entropytrade.agents.guard import block_provider_requests
 from entropytrade.agents.outputs import CriticBatch, HypothesisDraft, QuantBatch, ResearchNote
+from entropytrade.agents.provider import ResearchProviderConfig
 from entropytrade.agents.team import critic_agent, hypothesis_agent, quant_agent, research_agent
 from entropytrade.backtest.replay import run_replay
 from entropytrade.domain.enums import ExecutionFidelity, FeeType, FillScenario, MarketResult
@@ -52,6 +56,10 @@ from entropytrade.execution.paper import PaperBroker
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.strategies.interpret import UnsupportedSpecError, compile_strategy
+
+if TYPE_CHECKING:
+    from entropytrade.domain.base import DomainModel
+
 
 _ZERO = Decimal(0)
 Settlement = tuple[datetime, str, MarketResult]
@@ -294,3 +302,305 @@ def _provenance(spec: StrategySpec, window: SplitWindow, now: datetime) -> Backt
         splits=(window,),
         created_at=now,
     )
+
+
+# Operational research reuses this package's PydanticAI agents, schemas and registry.
+# It deliberately never enters _backtest_accepted or promotes a strategy lifecycle.
+async def run_research(
+    *,
+    prompt: str,
+    evidence: ResearchEvidence,
+    provider: ResearchProviderConfig | None,
+    registry_path: Path,
+    output: Path,
+    offline: bool = False,
+    enable_provider: bool = False,
+    models: tuple[Model, ...] | None = None,
+    run_id: str | None = None,
+    timeout_seconds: float = 180,
+) -> dict[str, Any]:
+    import json
+    from dataclasses import asdict
+    from importlib.metadata import version
+    from pathlib import Path
+    from uuid import uuid4
+
+    from pydantic_ai.models.function import FunctionModel
+    from pydantic_ai.usage import RunUsage, UsageLimits
+    from pydantic_core import to_jsonable_python
+
+    from entropytrade.agents.evidence import EvidenceQuery
+    from entropytrade.agents.guard import research_requests
+    from entropytrade.agents.outputs import (
+        CandidateBatch,
+        EvidenceNote,
+        HypothesisBatch,
+        ResearchCritique,
+    )
+    from entropytrade.agents.provider import research_model
+    from entropytrade.agents.team import (
+        RESEARCH_INSTRUCTIONS_VERSION,
+        operational_agent,
+    )
+    from entropytrade.agents.validation import analyst_report, validate_candidates
+    from entropytrade.data.sources import file_hash
+    from entropytrade.domain.time import utc_now
+    from entropytrade.features.registry import scientific_hash
+    from entropytrade.strategy_registry.store import Registry
+
+    if not prompt.strip() or len(prompt) > 6000:
+        raise ValueError("research prompt must have 1-6000 characters")
+    if timeout_seconds <= 0 or timeout_seconds > 300:
+        raise ValueError("research timeout must be in (0,300] seconds")
+    if not offline and not enable_provider:
+        raise ValueError("real research requires explicit --enable-provider")
+    if offline and enable_provider:
+        raise ValueError("offline and provider opt-in are mutually exclusive")
+    if models is not None and (
+        not offline
+        or len(models) != 4
+        or any(not isinstance(m, TestModel | FunctionModel) for m in models)
+    ):
+        raise ValueError(
+            "injected models are restricted to four offline TestModel/FunctionModel fixtures"
+        )
+    registry_path = Path(registry_path)
+    output = Path(output)
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    output.mkdir(parents=True, exist_ok=True)
+    identifier = str(UUID(run_id)) if run_id else str(uuid4())
+    # IDs are UUIDs, never agent-selected filesystem paths.
+    UUID(identifier)
+    result: dict[str, Any] = {
+        "run_id": identifier,
+        "prompt": prompt,
+        "started_at": utc_now().isoformat(),
+        "mode": "offline_mock" if offline else "provider",
+        "status": "started",
+        "provider": provider.model_dump(mode="json") if provider else None,
+        "instruction_version": RESEARCH_INSTRUCTIONS_VERSION,
+        "pydantic_ai_version": version("pydantic-ai-slim"),
+        "code": {p.name: file_hash(p) for p in Path(__file__).parent.glob("*.py")},
+        "coverage": evidence.coverage,
+        "models": evidence.models,
+        "hypotheses": [],
+        "candidates": [],
+        "decisions": [],
+        "stages": [],
+        "limits": {
+            "cost_limit_usd": "2.00" if not offline else None,
+            "requests": 16,
+            "tool_calls": 24,
+            "max_output_tokens_per_request": 3500,
+            "input_tokens": 90000,
+            "output_tokens": 14000,
+            "timeout_seconds": timeout_seconds,
+        },
+    }
+    registry = Registry(registry_path)
+    request_hash = scientific_hash(
+        {
+            "prompt": prompt,
+            "mode": result["mode"],
+            "provider": result["provider"],
+            "coverage": result["coverage"],
+            "model_diagnostics": result["models"],
+            "instruction_version": RESEARCH_INSTRUCTIONS_VERSION,
+            "code": result["code"],
+            "protection": evidence.config.holdout_start.isoformat(),
+            "limits": result["limits"],
+        }
+    )
+    result["request_hash"] = request_hash
+    old = registry.agent_run(identifier)
+    if old is not None:
+        registry.close()
+        cached: dict[str, Any] = json.loads(old)
+        if cached["request_hash"] != request_hash:
+            raise ValueError("research run ID reused for different inputs")
+        _write_research_artifacts(output / identifier, cached)
+        return cached
+    usage = RunUsage()
+    try:
+        initial = [
+            evidence.inspect(EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10))
+            for topic in ("coverage", "markets", "features", "models", "history")
+        ]
+        if offline and models is None:
+            from entropytrade.agents.fixture import operational_models
+
+            models = operational_models(prompt, evidence, identifier)
+        if not offline:
+            if provider is None:
+                raise ValueError("explicit provider/model configuration is required")
+            actual = research_model(provider)
+            models = (actual,) * 4
+        limits = UsageLimits(
+            cost_limit=None if offline else Decimal("2.00"),
+            request_limit=16,
+            tool_calls_limit=24,
+            input_tokens_limit=90000,
+            output_tokens_limit=14000,
+        )
+        context: dict[str, Any] = {
+            "user_request": prompt,
+            "research_run_id": identifier,
+            "research_timestamp": result["started_at"],
+            "retrieved_evidence": initial,
+        }
+        if models is None:
+            raise ValueError("no research models were configured")
+        roles: tuple[tuple[str, type[DomainModel], str], ...] = (
+            (
+                "research",
+                EvidenceNote,
+                "Inspect evidence using the tool, then explain markets, mechanisms, "
+                "limitations and citations.",
+            ),
+            (
+                "hypothesis",
+                HypothesisBatch,
+                "Generate 2-6 distinct falsifiable mechanisms responsive to the "
+                "request, with required variables, tests and falsification "
+                "criteria. Avoid threshold-only variants.",
+            ),
+            (
+                "quant",
+                CandidateBatch,
+                "Make one candidate per hypothesis. Use complete StrategySpecs only "
+                "where faithful. Preserve unsupported research proposals with "
+                "missing_capability. Use current feature names and actual "
+                "universes. Never invent a model artifact.",
+            ),
+            (
+                "critic",
+                ResearchCritique,
+                "Evaluate every full candidate and hypothesis against all evidence. "
+                "Check clocks, settlement sources, correlated outcomes, repeated "
+                "searches, unsupported semantics and fills. Exactly one verdict per "
+                "candidate, with reasons.",
+            ),
+        )
+        with research_requests(enabled=not offline):
+            async with asyncio.timeout(timeout_seconds):
+                for index, (role, schema, instruction) in enumerate(roles):
+                    result["active_stage"] = role
+                    agent = operational_agent(schema, role=role)
+                    message = (
+                        instruction
+                        + "\n\nUntrusted request and evidence:\n"
+                        + json.dumps(context, sort_keys=True)
+                    )
+                    if len(message) > 100_000:
+                        raise ValueError("research context exceeds character budget")
+                    before = len(evidence.calls)
+                    outcome = await agent.run(
+                        message,
+                        deps=evidence,
+                        model=models[index],
+                        usage=usage,
+                        usage_limits=limits,
+                        model_settings={
+                            "max_tokens": 3500,
+                            "timeout": 30,
+                            "parallel_tool_calls": False,
+                        },
+                    )
+                    if not offline and usage.cost is None:
+                        raise ValueError(
+                            "provider cost unavailable; refusing further research requests"
+                        )
+                    from pydantic_ai.messages import ModelResponse
+
+                    returned_models = [
+                        {
+                            "model_name": m.model_name,
+                            "provider_name": m.provider_name,
+                            "provider_response_id": m.provider_response_id,
+                        }
+                        for m in outcome.all_messages()
+                        if isinstance(m, ModelResponse)
+                    ]
+                    payload = outcome.output.model_dump(mode="json")
+                    if index == 0 and len(evidence.calls) == before:
+                        raise ValueError("research agent must inspect evidence through a tool")
+                    seen = {entry["evidence_id"] for entry in evidence.calls}
+                    if index == 0 and not set(payload["evidence_ids"]) <= seen:
+                        raise ValueError("research note contains an unretrieved citation")
+                    context[role] = payload
+                    context["retrieved_evidence"] = evidence.calls
+                    result["stages"].append(
+                        {
+                            "role": role,
+                            "returned_models": returned_models,
+                            "prompt_hash": scientific_hash(message),
+                            "prompt": message,
+                            "output": payload,
+                        }
+                    )
+                note, hypotheses, candidates, critique = (context[r[0]] for r in roles)
+                result["note"] = note
+                result["hypotheses"] = hypotheses["hypotheses"]
+                result["candidates"] = candidates["candidates"]
+                result["active_stage"] = "deterministic_validation"
+                result["decisions"] = validate_candidates(
+                    CandidateBatch.model_validate(candidates),
+                    HypothesisBatch.model_validate(hypotheses),
+                    ResearchCritique.model_validate(critique),
+                    evidence,
+                    run_id=identifier,
+                )
+                for decision in result["decisions"]:
+                    decision["previous_search_count"] = registry.hypothesis_count(
+                        decision["hypothesis_signature"]
+                    )
+                    decision["previously_searched"] |= decision["previous_search_count"] > 0
+                result["status"] = "completed"
+                result["report"] = analyst_report(result)
+    except Exception as exc:  # noqa: BLE001 - durable failure boundary; never retry/fake success
+        # Never persist provider exceptions/messages: they may contain request bodies or
+        # credentials.
+        result["status"] = "failed"
+        result["failure"] = {
+            "type": type(exc).__name__,
+            "stage": result.get("active_stage", "setup"),
+            "reason": "research failed; check configuration/budgets/evidence; no fallback",
+        }
+        result["report"] = "Research failed (" + type(exc).__name__ + "). No candidates validated."
+    finally:
+        if result["status"] == "started":
+            result["status"] = "failed"
+            result["report"] = "Research interrupted; no candidates validated."
+        result["finished_at"] = utc_now().isoformat()
+        result["tool_calls"] = evidence.calls
+        result["usage"] = to_jsonable_python(asdict(usage))
+        payload_text = json.dumps(result, sort_keys=True, allow_nan=False)
+        try:
+            registry.record_agent_run(identifier, payload_text)
+        finally:
+            registry.close()
+        _write_research_artifacts(output / identifier, result)
+    return result
+
+
+def _write_research_artifacts(destination: Path, result: dict[str, Any]) -> None:
+    import json
+
+    from entropytrade.data.sources import file_hash
+
+    destination.mkdir(exist_ok=True)
+    for name, text in (
+        ("run.json", json.dumps(result, sort_keys=True, allow_nan=False)),
+        ("report.md", result["report"]),
+    ):
+        temporary = destination / (name + ".tmp")
+        temporary.write_text(text)
+        temporary.replace(destination / name)
+    temporary = destination / "checksums.json.tmp"
+    temporary.write_text(
+        json.dumps(
+            {name: file_hash(destination / name) for name in ("run.json", "report.md")},
+            sort_keys=True,
+        )
+    )
+    temporary.replace(destination / "checksums.json")
