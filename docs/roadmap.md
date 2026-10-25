@@ -2,7 +2,7 @@
 
 Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
 continuation, while preserving the [original product specification](project-spec.md).
-R0 and R1 were approved. R2 is complete for review; R3 is not authorized. Stop at each milestone for review unless
+R0–R2 were approved and integrated into main at `b9cbaa8`. R3 is authorized and active. Stop at each milestone for review unless
 explicitly authorized to cross milestones. A commit, city, JSON field or negative
 experiment is not a software milestone.
 
@@ -15,7 +15,9 @@ No profitability target justifies invented data, leakage or implausible fills.
 Inspect existing implementations and the reuse audit first. Define measurable acceptance,
 reuse correct foundations, implement coherent capabilities, test failure/leakage cases,
 run `make check`, record actual external evidence separately from mocks, update concise
-docs, commit and stop for review. Record experiments as runs with lineage and search
+docs, commit on the phase branch, integrate current main without overwriting unrelated
+changes, verify main and push both branches. Never force-push. Stop for review before the
+next major phase. Record experiments as runs with lineage and search
 counts. Keep raw data/provenance immutable. Prefer mature packages behind our interfaces.
 No SaaS, distributed-system expansion, arbitrary agent Python or new trading permissions.
 Production submission stays disabled until separate explicit approval after R8.
@@ -92,6 +94,15 @@ stays protected by default. Better probability scores do not qualify a strategy.
 learning, agents, strategy tuning, production orders or dashboard work in R2.
 
 ## R3 — Provider-backed research
+
+Active branch: `recovery/r3`, from updated main `b9cbaa8`. Initial provider configuration
+constructs OpenAI/Anthropic models using only `ENTROPYTRADE_RESEARCH_API_KEY`, without
+enabling requests. No research key is configured in this environment.
+
+Remaining acceptance: restricted evidence/feature/model tools, prompt-driven four-role
+orchestration, genuinely distinct hypotheses, full-spec critic input, bounded provider
+calls, audit persistence, mocked integration and a real call when credentials are available.
+Protected holdout outcomes and trading capabilities must remain unavailable to agents.
 
 Replace production TestModel-only wiring with explicit isolated provider configuration;
 retain TestModel for tests. A real prompt and evidence must drive Research → Hypothesis →

@@ -5,10 +5,15 @@ R2 is on `recovery/r2`, branched from R1. Previous branches are preserved.
 
 ## Objective and checkpoint
 
-**R2 — point-in-time weather features and statistical probability modeling — is complete
-for review.** Real forecast capture works; empirical model evaluation is blocked by data.
-The goal remains reproducible research through paper/shadow, with honest rejection of
-unsupported claims. [Roadmap](docs/roadmap.md) is the active plan. Stop before R3 approval.
+R0–R2 are merged and pushed to main at `b9cbaa8`. Main's working tree was clean;
+`make check` passed: 561 tests in 187.86s, Ruff lint/format and strict mypy.
+
+**R3 is authorized and started on `recovery/r3` from updated main.** Initial explicit
+OpenAI/Anthropic model construction uses only `ENTROPYTRADE_RESEARCH_API_KEY` and fixed
+provider endpoints. It does not enable provider requests. Full orchestration/tools and
+real provider verification remain outstanding; no research key is configured.
+Initial R3 checks: Ruff clean, strict mypy clean (451 files), eight provider/legacy-agent
+tests passed. This is a starting commit, not R3 completion.
 
 ## What now works
 
@@ -71,14 +76,12 @@ previous branches remain intact.
 
 ## Exact next action
 
-Review R2 and [weather/model operating guide](docs/weather-modeling.md). Keep forward weather
-and read-only market capture running; obtain actual source-matched resolved scalar highs
-with defensible clocks and expand independent event history before empirical fitting.
+Continue R3: build bounded read-only market/rule, coverage, feature and pre-holdout model
+views; connect Research → Hypothesis → Quant → Critic using actual prompts and full typed
+specs. Persist tool/provenance/output audit trails, enforce request budgets and test actual
+provider adapters with mock transports. Keep TestModel for fixtures. No arbitrary model
+deserialization, holdout targets or trading credentials may reach agents. Broader strategy
+experimentation remains R4. A real provider run needs a dedicated research API key.
 
-Recommended **R3**: configurable provider-backed PydanticAI Research → Hypothesis → Quant →
-Critic → typed candidates, using bounded read-only tools for markets/rules, coverage,
-feature definitions, pre-holdout model diagnostics and prior runs. Agents receive honest
-insufficient-data responses; they cannot read protected holdout targets, deserialize
-arbitrary models, submit orders or access trading credentials. Deterministic modeling
-requests stay inside existing eligibility/temporal gates. No general strategy search
-engine until R4. Do not start R3 without approval.
+After R3 acceptance and checks, merge into current main, push both branches and stop for
+review before R4. The repository-level AGENTS.md records the user's ongoing workflow.
