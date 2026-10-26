@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-26T00:27:59.317737+00:00",
+  "attempts": [
+    {
+      "result": "not_started",
+      "reason": "The automatic permission approval review did not finish before its deadline.",
+      "retry": "Tool explicitly permits one retry; no unsafe action inference."
+    },
+    {
+      "result": "approved_and_executed",
+      "receipt": "listener-check.json",
+      "outcome": "Baseline passed all three listener tests, then stalled in native SQLite close; terminated after stack sampling."
+    }
+  ],
+  "candidate_rerun": {
+    "result": "approved_and_completed",
+    "receipt": "candidate-checks.json",
+    "exit_code": 0
+  },
+  "updated_at": "2026-10-26T03:17:40.080365+00:00"
+}

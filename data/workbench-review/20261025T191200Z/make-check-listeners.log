@@ -1,0 +1,23 @@
+uv run ruff check backend
+All checks passed!
+uv run ruff format --check backend
+477 files already formatted
+uv run mypy
+Success: no issues found in 477 source files
+uv run pytest
+============================= test session starts ==============================
+platform darwin -- Python 3.13.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/gabriel/Projects/EntropyTrade/.acceptance-20261025T191200Z
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: platformdirs-4.12.2, hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1
+collected 733 items
+
+backend/tests/architecture/test_boundaries.py ..                         [  0%]
+backend/tests/exchange/test_collector_service.py .......                 [  1%]
+backend/tests/exchange/test_feed_recorder.py ........                    [  2%]
+backend/tests/exchange/test_gateway_http.py .....                        [  3%]
+backend/tests/exchange/test_recording_v2.py .........                    [  4%]
+backend/tests/exchange/test_wire_session.py ..                           [  4%]
+backend/tests/integration/test_workbench_listener.py ...                 [  4%]
+backend/tests/integration/test_workbench_process.py make: *** [test] Error 143

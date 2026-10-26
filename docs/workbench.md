@@ -120,7 +120,9 @@ allowlist with local MLflow paths and CPU limits; no inherited credentials or HO
 Cancelling a job prevents a late worker result from overwriting it. Server shutdown kills
 its active worker; restarting marks unfinished jobs interrupted, rather than silently
 rerunning network work or searches. Submit a new job to retry. Partial artifacts remain
-available locally. Terminal results cannot be overwritten by subsequent worker updates.
+available locally. Terminal results cannot be overwritten by subsequent worker updates. The acceptance repair
+serializes job-database connections across threads and Jobs instances within a process;
+separate worker processes retain SQLite transaction locking.
 
 HTTP requests require an exact localhost Host and same origin; writes additionally require
 the per-server CSRF token, JSON content type and a size-bounded closed request schema.
@@ -159,68 +161,89 @@ listed contracts and observations; an incomplete capture is a separate failure-p
    report bytes against the retained reviews/reports, and checksum both downloads with the
    timestamped browser receipt.
 
-## Verification on 2026-10-25
+## Acceptance evidence and committed state
 
-The latest [review bundle](../data/workbench-review/README.md) is `20261025T163400Z`.
-The implementation remains uncommitted on `supervisor/20261025-014400`; the current
-instruction reserves **all Git mutations, including commits**, for the supervisor.
-No branch, staging, commit, merge or push was attempted in this continuation.
+The reviewed implementation is committed at
+`99e2fbc1b54d6af426496b3effbe7c47255650bd` on `supervisor/20261025-014400`.
+Local `main` is R4's `30bed8e30cf07201124deee609a21f7f01e47735`; no fetch or Git write
+was performed. Historical receipts describing an uncommitted tree remain accurate for
+their own earlier attempts, rather than the current checkout.
 
-`uv lock --check`, `uv sync --locked` and the installed entry-point help pass. With normal
-per-command approval for localhost listeners, the full unchanged `make check` passes:
-Ruff lint/format clean, strict mypy clean across 477 Python files, and **733 pytest tests
-passed in 154.68 seconds**. No skip, xfail, policy change or test weakening was used.
-The five new public-worker cases distinguish connection failures, HTTP errors, partial
-captures, complete ingestion and empty listings; they verify persisted reports and closed
-settlement/evaluation gates. Nine additional dependency-free Node presentation checks pass
-for visible failed/partial captures, literal source text and synthetic banners on all tabs.
-These DOM checks do not replace real browser acceptance.
+The [current bundle](../data/workbench-review/20261025T191200Z/README.md) retains exact
+commit/tree identity, UTC command clocks, locked setup logs and an unchanged-file manifest
+for a fresh read-only export of the reviewed commit. The environment pins the existing
+Python interpreter and uses a repo-local copy of the existing package cache, without
+credential access or dependency updates. This source export does not replace the
+supervisor's final independent clean-checkout sign-off. A cache-directory export that
+caused Ruff to skip files was explicitly excluded from acceptance evidence.
+
+The ordinary sandbox full check records five socket bind-denial failures. A normally
+approved listener-capable baseline run passed all three listener cases, then stalled with
+the main and queue threads in native SQLite connection-close mutex waits. Its
+[stack sample](../data/workbench-review/20261025T191200Z/pytest-sample.txt) and
+[terminated-run receipt](../data/workbench-review/20261025T191200Z/listener-check.json)
+remain failure evidence. The uncommitted acceptance repair serializes in-process Jobs
+connections across instances and adds a bounded real SQLite concurrency regression.
+The [candidate checks](../data/workbench-review/20261025T191200Z/candidate-checks.json)
+and [hashed patch](../data/workbench-review/20261025T191200Z/candidate.patch) explicitly
+identify the two-file source overlay; they cannot be attributed to the reviewed commit.
+The fixed candidate passes locked sync and the full unchanged `make check`: Ruff lint/format,
+strict mypy across 477 files and **734 pytest tests in 155.88 seconds**. JavaScript syntax
+and all nine frontend tests pass. No tests, warnings, risk caps or policies were weakened.
+
+To repeat the unchanged gates in a dependency-equipped clean checkout:
 
 ```bash
-UV_CACHE_DIR=data/cache/uv-verification UV_OFFLINE=1 \
+uv lock --check
+uv sync --locked
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LOKY_MAX_CPU_COUNT=1 \
 PYTEST_ADDOPTS=--tb=short make check
+node --check frontend/src/app.js
 node --test frontend/tests/acquisition.test.cjs
 ```
 
-The installed server actually ran at `http://127.0.0.1:43128` with isolated workspace
-`data/cache/workbench-browser-review-20261025T163400Z`. Actual HTTP submissions exercised:
+A listener-capable execution environment is required. Socket-binding denials must remain
+failures; do not skip listener tests, relax assertions or alter policies to make checks pass.
+
+### Retained actual HTTP and worker evidence
+
+The immutable [16:34 bundle](../data/workbench-review/20261025T163400Z/receipt.json) records
+these earlier runs; [current revalidation](../data/workbench-review/20261025T191200Z/retained-evidence.json)
+checks all 51 workflow artifacts, public manifests, protected reviews and export hashes.
+All 197 pre-existing bundle checksums passed before the current documentation updates.
+These are retained real HTTP/worker observations, not newly executed browser workflows.
 
 | Run | Observed result | Interpretation |
 | --- | --- | --- |
-| Recorded weather | 36 contracts, six events, three dates; zero eligible events/scalar labels; two INSUFFICIENT_DATA candidates | Historical insufficiency, without fitted probabilities, forecast metrics, scenarios or fills |
+| Recorded weather | 36 contracts, six events, three dates; zero eligible events/scalar labels; two INSUFFICIENT_DATA candidates | Historical insufficiency, no fitted probabilities, forecast metrics, scenarios or fills |
 | Synthetic weather | 192 permitted validation records, first 100 exposed; negative control zero fills in all three scenarios | Software replay only; no empirical performance claim |
-| Public weather | 8 successful HTTP receipts, 24 listed contracts, 648 observations, zero acquisition failures | Successful forward ingestion; two INSUFFICIENT_DATA candidates, no historical evaluation |
-| Public Bitcoin | 3 successful HTTP receipts, 318 listed contracts, one Coinbase spot observation, zero acquisition failures | Successful distinct-family ingestion; every rule gate stays closed and settlement sources remain empty |
-| Ordinary sandbox Bitcoin failure | Zero HTTP receipts/contracts/observations; clocked KXBTC GatewayError and Coinbase ConnectError | Actual incomplete acquisition in an isolated worker, not a browser submission |
+| Public weather | 8 successful HTTP receipts, 24 listed contracts, 648 observations, zero failures | Successful forward ingestion; no historical evaluation |
+| Public Bitcoin | 3 successful receipts, 318 contracts, one Coinbase observation, zero failures | Distinct-family forward ingestion; all rule gates closed and verified settlement sources empty |
+| Sandbox Bitcoin failure | Zero receipts/contracts/observations; two clocked acquisition failures | Incomplete acquisition; no fabricated response or data |
 
-Weather and Bitcoin captures ran at 16:33:55–16:34:00 UTC. Neither capture has historical
-labels, fitted probabilities, forecast validation metrics or simulated execution results.
-Every review keeps final holdout unevaluated. The additional denied-network attempt at
-16:43:01 UTC separately proves incomplete acquisition and the new text summary; no response
-receipt or market data was invented for that failure.
+The public captures occurred at 16:33:55–16:34:00 UTC on October 25. Neither family has
+historical labels, fitted probabilities, forecast-validation metrics or simulated execution
+results. Every saved review excludes final holdout. The separate failed worker attempt at
+16:43:01 UTC does not satisfy successful-ingestion acceptance.
 
-Actual HTTP controls also cancelled a synthetic run during modeling, reused its worker
-slot for a completed recorded run, stopped the server with another active and pending job,
-then restarted the same workspace. Both unfinished jobs became interrupted. All four
-completed runs reopened through HTTP, with identical review/report bytes and checksums
-across restart. These exports are HTTP-client downloads, **not browser downloads**.
-All 51 workflow artifact hashes and protected review projections are rechecked in the bundle;
-public inputs reload through the checksum-verifying adapter. No training/holdout labels
-are copied into the review bundle.
+Retained HTTP lifecycle evidence records cancellation during synthetic modeling, worker-slot
+reuse, shutdown with an active and pending job, interrupted restart history and identical
+review/report exports. Downloaded HTTP JSON parses identically to the retained review and
+text bytes match the retained report. Their hashes and original job IDs are rechecked.
+They remain HTTP-client exports, **not browser downloads**.
 
-**Browser acceptance is still blocked.** Computer Use listed no connected browser sessions,
-rejected native Chrome with “Computer Use was not approved to use Google Chrome,” and
-reported “Browser is not available: iab” for the in-app browser. Chrome access was requested
-while the unaffected work continued. No screenshots, visual inspections, browser submissions
-or browser downloads are claimed. Every browser step above remains pending, including
-visible failure presentation and browser cancellation/restart/history. The successful public
-captures and automated checks do not satisfy that requirement.
+### Browser blocker and handoff
 
-The bundle includes exact commands, source hashes, a reviewable source patch and retained
-receipt/artifact checksums. Reproduction from a commit remains for the supervisor after
-creating the requested implementation commit; HEAD is still the R4 base
-`30bed8e30cf07201124deee609a21f7f01e47735`. No Git write was tried. Earlier blocked attempts
-remain unchanged and describe their own environment, not this successful listener/network
-verification. Complete browser acceptance and commit-based reproduction before integration.
-Continuous shadow, official Bitcoin outcomes/history and Bitcoin training remain later work.
+**All browser acceptance steps above remain pending.** The current Computer Use inventory
+lists no connected browsers. Native Chrome returns “Computer Use was not approved to use
+Google Chrome”; the in-app browser returns “Browser is not available: iab.” The
+[browser receipt](../data/workbench-review/20261025T191200Z/browser.json) records the exact
+attempts and empty screenshot/download/job lists. No browser observation or visual
+verification is claimed, and no permission bypass was attempted.
+
+Return for review with that blocker. Once an approved browser is available, execute the
+entire procedure, including visible failures and synthetic banners on all tabs, protected
+holdout, active cancellation, worker reuse, restart/history and checksummed browser downloads.
+The supervisor handles final clean-checkout verification and all Git mutations. V1 remains
+incomplete; see [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md). Official Bitcoin outcomes/history,
+empirical second-family modeling and continuous paper/shadow remain outside this repair.

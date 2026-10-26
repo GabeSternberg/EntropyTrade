@@ -1,0 +1,59 @@
+{
+  "started_at": "2026-10-25T19:13:13.054342+00:00",
+  "commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "tree": "9c0cb3a82666def58d75594a13e3bd62fe906b63",
+  "source_status_before_export": "tracked tree clean; only this new evidence directory untracked",
+  "method": "git archive read-only export, no checkout/branch/index/ref mutation",
+  "checkout": "data/cache/acceptance-20261025T191200Z/checkout-python-pinned",
+  "archive_sha256": "38524fe2925a8726703b75bd02a1a1fd15e506f1d2399c47cf51763c0b3333f3",
+  "tracked_files": 2268,
+  "commands": [
+    {
+      "name": "lock-check",
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-python-pinned",
+      "started_at": "2026-10-25T19:13:13.102576+00:00",
+      "finished_at": "2026-10-25T19:13:13.191933+00:00",
+      "exit_code": 0,
+      "log": "lock-check.log",
+      "sha256": "7cbe9a95c5a988acf38814dc1b350ae2da201948e705988669c54cfd28292041"
+    },
+    {
+      "name": "dependency-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-python-pinned",
+      "started_at": "2026-10-25T19:13:13.192494+00:00",
+      "finished_at": "2026-10-25T19:13:13.244755+00:00",
+      "exit_code": 1,
+      "log": "dependency-sync.log",
+      "sha256": "86aadd279f03437eba1a528a12ad13a2ea60c84b9a34b60576beb9686cc47aed"
+    }
+  ],
+  "limitations": [
+    "A clean source export is not a supervisor-created independent Git checkout.",
+    "Browser acceptance blocked; no browser evidence is claimed."
+  ],
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/uv-verification",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "modified_exported_files": [],
+  "finished_at": "2026-10-25T19:13:13.370474+00:00"
+}

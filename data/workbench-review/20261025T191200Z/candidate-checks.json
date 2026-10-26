@@ -1,0 +1,85 @@
+{
+  "base_commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "base_tree": "9c0cb3a82666def58d75594a13e3bd62fe906b63",
+  "candidate": "uncommitted acceptance fix; not the reviewed commit",
+  "code_patch_sha256": "fc7ed2d0813a650f779dc3e6e8cfda81a0cc8de52f2d56c70c27f0870e493030",
+  "overlay": [
+    "backend/src/entropytrade/api/jobs.py",
+    "backend/tests/integration/test_workbench_process.py"
+  ],
+  "cwd": ".acceptance-20261025T191200Z",
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z/uv",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "permission": "Normal per-command localhost-listener approval; locked offline dependencies",
+  "started_at": "2026-10-26T03:02:11.983532+00:00",
+  "commands": [
+    {
+      "name": "candidate-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "started_at": "2026-10-26T03:02:11.983757+00:00",
+      "finished_at": "2026-10-26T03:02:12.133685+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "candidate-sync.log",
+      "sha256": "de6913954d0ced2c8f076b5dacf49fd2e139a1f58ac7dc140716eec270b0cfbf"
+    },
+    {
+      "name": "candidate-make-check",
+      "command": [
+        "make",
+        "check"
+      ],
+      "started_at": "2026-10-26T03:02:12.134016+00:00",
+      "finished_at": "2026-10-26T03:16:56.061097+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "candidate-make-check.log",
+      "sha256": "f51aad65d0d40bbe8e3ad60d94ea6d2ba8784b5c97129f0d2f2d7393e0b5b99c"
+    },
+    {
+      "name": "candidate-js-syntax",
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "started_at": "2026-10-26T03:16:56.062692+00:00",
+      "finished_at": "2026-10-26T03:16:56.108091+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "candidate-js-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "candidate-frontend",
+      "command": [
+        "node",
+        "--test",
+        "frontend/tests/acquisition.test.cjs"
+      ],
+      "started_at": "2026-10-26T03:16:56.108395+00:00",
+      "finished_at": "2026-10-26T03:16:56.196400+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "candidate-frontend.log",
+      "sha256": "9b8afe7f77f22998964a1d067d33ceb6db8a1884140ea2091c661acaa27cc044"
+    }
+  ],
+  "modified_exported_files": [],
+  "finished_at": "2026-10-26T03:16:56.458913+00:00"
+}

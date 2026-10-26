@@ -1,6 +1,8 @@
 """Real isolated workers, including model replay and process termination; no wire fixtures."""
 
 import json
+import subprocess
+import sys
 import time
 from collections.abc import Iterator
 from pathlib import Path
@@ -10,7 +12,7 @@ from typing import Any
 import pytest
 
 from entropytrade.api.jobs import TERMINAL, Jobs
-from entropytrade.api.runner import Runner
+from entropytrade.api.runner import Runner, worker_environment
 from entropytrade.data.sources import file_hash
 
 REPO = Path(__file__).resolve().parents[3]
@@ -35,6 +37,44 @@ def await_job(jobs: Jobs, job_id: str, *, stage: str | None = None) -> dict[str,
             return job
         time.sleep(0.05)
     pytest.fail(f"Worker did not reach {stage or 'a terminal status'}: {jobs.get(job_id)}")
+
+
+def test_concurrent_job_connections_finish_without_native_close_deadlock(workspace: Path) -> None:
+    # A child deadline bounds a native SQLite mutex stall, which Python thread timeouts
+    # cannot interrupt. Exercise both shared and independently constructed Jobs objects.
+    script = """
+import sys
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
+from entropytrade.api.jobs import Jobs
+
+root = Path(sys.argv[1])
+stores = [Jobs(root), Jobs(root)]
+request = {'idea': 'Concurrent status reads', 'family': 'weather', 'mode': 'recorded'}
+job_id = stores[0].create(request)
+def poll(index):
+    jobs = stores[index % len(stores)]
+    for step in range(100):
+        assert jobs.get(job_id)['status'] == 'queued'
+        assert jobs.queued() == job_id
+        assert jobs.history()[0]['id'] == job_id
+        with jobs.connect() as db:
+            assert db.execute('SELECT count(*) FROM jobs').fetchone()[0] == 1
+with ThreadPoolExecutor(max_workers=4) as pool:
+    list(pool.map(poll, range(4)))
+assert stores[0].update(job_id, 'completed', 'Finished concurrent polling', status='completed')
+assert not stores[1].update(job_id, 'late', 'Terminal result stays closed')
+assert stores[1].get(job_id)['status'] == 'completed'
+"""
+    subprocess.run(  # noqa: S603 - fixed test script, isolated environment, bounded child
+        [sys.executable, "-c", script, str(workspace)],
+        cwd=REPO,
+        env=worker_environment(REPO, workspace),
+        check=True,
+        timeout=30,
+        capture_output=True,
+        text=True,
+    )
 
 
 @pytest.mark.parametrize("mode", ["recorded", "synthetic"])

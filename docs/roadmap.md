@@ -4,13 +4,17 @@ Active from R0 (2026-10-24). This replaces the historical phase sequence and Pha
 continuation, while preserving the [original product specification](project-spec.md).
 R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
 branch/main merge and push are authorized. Stop before the next milestone.
-The current continuation authorizes local website/second-family implementation and testing;
-all Git mutations, including commits, belong to the supervisor. The full unchanged suite now
-passes: Ruff lint/format and strict mypy across 477 files, 733 pytest tests in 154.68 seconds,
-plus nine Node presentation checks. Actual localhost weather/Bitcoin ingestion and HTTP
-cancellation/restart/export checks pass. Browser acceptance remains blocked by unavailable
-browser access, and commit-based reproduction remains for the supervisor; see
-[status](../STATUS.md) and the [workbench guide](workbench.md).
+The current continuation is limited to acceptance of the implementation already committed
+at `99e2fbc1b54d6af426496b3effbe7c47255650bd`. All Git mutations belong to the supervisor.
+A clean source export exposed a native SQLite job-connection close stall; a bounded
+concurrency regression and serialized-connection acceptance fix now pass full checks
+(734 pytest tests, strict mypy, Ruff, and nine frontend cases); the supervisor's final
+independent clean-checkout sign-off remains required. Browser acceptance is blocked by
+unavailable approved browser access. Retained HTTP evidence and artifact hashes are
+rechecked; they do not establish browser usability or empirical model performance.
+See [status](../STATUS.md), [current evidence](../data/workbench-review/20261025T191200Z/README.md)
+and [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) for evidence-backed V1 gates. The user's
+current V1 sequence takes precedence over the older R5–R8 numbering below. V1 is incomplete.
 The R4 approval request revises the next priorities: minimal localhost website, second real
 market family, then continuous paper/shadow. A commit, city, JSON field or negative
 experiment is not a software milestone.
@@ -142,8 +146,10 @@ No empirical edge or trading readiness follows from this milestone.
 
 ## R5 — Minimal local research website
 
-**Template-only implementation; full automated checks and actual HTTP workflows pass.**
-Locked setup, all 733 pytest tests (including real listeners), strict mypy and Ruff pass.
+**Template-only implementation; job-database acceptance repair under review.**
+The uncommitted acceptance fix passes 734 pytest tests, strict mypy, Ruff and nine
+frontend presentation cases. The frozen baseline failure and fixed candidate are recorded
+separately in the acceptance bundle; the supervisor must review and commit the fix.
 Acquisition completeness/counts/failures are prominent on every result tab and text report;
 nine frontend presentation regressions pass. A buildless local interface and standard-library
 HTTP control plane reuse the existing engines without new web dependencies. Browser

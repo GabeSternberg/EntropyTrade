@@ -2,6 +2,7 @@
 
 import json
 import sqlite3
+import threading
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -10,6 +11,10 @@ from typing import Any
 from uuid import UUID, uuid4
 
 TERMINAL = frozenset({"completed", "failed", "cancelled", "interrupted"})
+# The queue and HTTP threads use separate connections, but native SQLite connection
+# teardown also shares process-wide mutexes. Keep open/use/close together across Jobs
+# instances; independent worker processes retain SQLite's normal transaction locking.
+_CONNECTION_LOCK = threading.RLock()
 
 
 def timestamp() -> str:
@@ -56,13 +61,14 @@ class Jobs:
 
     @contextmanager
     def connect(self) -> Iterator[sqlite3.Connection]:
-        db = sqlite3.connect(self.path, timeout=10)
-        db.row_factory = sqlite3.Row
-        try:
-            with db:
-                yield db
-        finally:
-            db.close()
+        with _CONNECTION_LOCK:
+            db = sqlite3.connect(self.path, timeout=10)
+            db.row_factory = sqlite3.Row
+            try:
+                with db:
+                    yield db
+            finally:
+                db.close()
 
     def create(self, request: object) -> str:
         clean = validate_request(request)

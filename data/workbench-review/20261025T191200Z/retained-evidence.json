@@ -1,0 +1,89 @@
+{
+  "recorded_at": "2026-10-25T19:14:21.789317+00:00",
+  "runs": [
+    {
+      "label": "recorded-weather",
+      "job_id": "eb4b9396-d65c-44e7-a8b9-482f2868bcfe",
+      "started_at": "2026-10-25T16:33:35.154108+00:00",
+      "finished_at": "2026-10-25T16:33:39.500753+00:00",
+      "protected_projection_verified": true,
+      "browser_verified": false,
+      "artifacts_verified": 12,
+      "review_sha256": "sha256:1fd3ab47ad74eb24bda21d24c3921b18db05e84a6e1dfcf6a6b8f0f5859aacb4",
+      "report_sha256": "sha256:4d59e0a9174451c469f1ff25921a7855ea641c8085df1fbafc017e9e2419ae58"
+    },
+    {
+      "label": "synthetic-weather",
+      "job_id": "d47fa277-523f-4e1e-ba5e-68ded4246dd7",
+      "started_at": "2026-10-25T16:33:39.507484+00:00",
+      "finished_at": "2026-10-25T16:33:51.745189+00:00",
+      "protected_projection_verified": true,
+      "browser_verified": false,
+      "artifacts_verified": 18,
+      "review_sha256": "sha256:ea334587f692ec7e01d208154b8378bca32d256ffa2aa20f44a77344a62d19c2",
+      "report_sha256": "sha256:9f48fdc16df9ddcde59e9fa76516de46d710feea2881dbd54848653b5ea1495b"
+    },
+    {
+      "label": "public-weather",
+      "job_id": "38d73bae-4511-480f-aa5b-db0365e6a5ab",
+      "started_at": "2026-10-25T16:33:51.763595+00:00",
+      "finished_at": "2026-10-25T16:33:57.145877+00:00",
+      "protected_projection_verified": true,
+      "browser_verified": false,
+      "artifacts_verified": 7,
+      "review_sha256": "sha256:3b21d15cdb355d18d19084934265c63c9302bc419e6169b93e7e6b311aef5cfe",
+      "report_sha256": "sha256:cb6c7608751165f47c5b232e18ea2bd9849890e57bf32e35796a0de4da4eabd9",
+      "capture": {
+        "status": "complete",
+        "receipt_count": 8,
+        "successful_response_count": 8,
+        "listed_contracts": 24,
+        "observations": 648,
+        "failure_count": 0
+      }
+    },
+    {
+      "label": "public-bitcoin",
+      "job_id": "3da6c039-3797-4a8b-8def-428977bdd2aa",
+      "started_at": "2026-10-25T16:33:57.165590+00:00",
+      "finished_at": "2026-10-25T16:34:02.346452+00:00",
+      "protected_projection_verified": true,
+      "browser_verified": false,
+      "artifacts_verified": 7,
+      "review_sha256": "sha256:100cce8ca46f0d06c5446f973e229d7665e82ab83d1701a5ea33d74aa9530702",
+      "report_sha256": "sha256:f9e41563dc38dd8a23bb4e9428f26279952c8554290ef929655e53bd32555953",
+      "capture": {
+        "status": "complete",
+        "receipt_count": 3,
+        "successful_response_count": 3,
+        "listed_contracts": 318,
+        "observations": 1,
+        "failure_count": 0
+      }
+    },
+    {
+      "label": "blocked-network-bitcoin",
+      "job_id": "11bff6d6-723e-4a11-b02c-335e9aea1a79",
+      "started_at": "2026-10-25T16:42:58.217210+00:00",
+      "finished_at": "2026-10-25T16:43:04.918407+00:00",
+      "protected_projection_verified": true,
+      "browser_verified": false,
+      "artifacts_verified": 7,
+      "review_sha256": "sha256:4042f1551f2adfc533bde27bcaddc9de793114e4a068afa361df0bc4dad5888a",
+      "report_sha256": "sha256:d6742cf153698ef346c571525bfcfbd00814cf07767a814f092b0d7ab733e175",
+      "capture": {
+        "status": "incomplete",
+        "receipt_count": 0,
+        "successful_response_count": 0,
+        "listed_contracts": 0,
+        "observations": 0,
+        "failure_count": 2
+      }
+    }
+  ],
+  "workflow_artifacts_verified": 51,
+  "lifecycle_receipt_sha256": "sha256:61b7324e69b4f429039f7b84185c24c2a2b4de950381a71b445b07f256b749b6",
+  "historical_http_lifecycle_verified": true,
+  "browser_verified": false,
+  "limitation": "Revalidation of retained HTTP/worker artifacts, not newly executed browser workflows."
+}

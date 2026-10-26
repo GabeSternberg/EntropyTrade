@@ -1,70 +1,67 @@
 # EntropyTrade — current status
 
-Updated 2026-10-25. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-10-26. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
 ## Objective and checkpoint
 
-**R4 is the last fully verified checkpoint.** The current continuation adds a template-only
-local research website and an explicit Bitcoin family extension, reusing R2–R4 engines and completing the
-partial API/public-capture scaffold already present in the working tree. This implementation
-has **passing full checks, real listener/worker coverage and successful weather/Bitcoin public
-ingestion**. Browser acceptance is blocked by unavailable browser access. It is not a completed
-empirical research product. The current instruction reserves all Git mutations for the supervisor;
-no branch, staging, commit, merge or push was attempted.
+**V1 is incomplete. Finish acceptance of the existing milestone before new features.**
+The starting checkout was clean on `supervisor/20261025-014400` at reviewed commit
+`99e2fbc1b54d6af426496b3effbe7c47255650bd`. That commit includes the local workbench and
+Bitcoin forward adapter; earlier statements that the implementation was uncommitted are
+obsolete. Local `main` remains the R4 checkpoint `30bed8e`; no remote freshness is claimed.
+All Git mutations belong to the supervisor. No branch, index, commit, merge or push was changed.
 Production trading remains disabled.
 
-## Current local workbench continuation
+## Current acceptance continuation
 
-- Buildless localhost interface: idea submission, explicit real recorded/public/synthetic
-  modes, durable queue/progress/history, cancellation, candidate gates/specs, validation
-  probabilities, simulated scenario diagnostics, exact rules and lineage/report downloads.
-- Credential-free local formulation recognizes documented signal words and exact feature
-  AND-only comparisons with an optional Test/Research prefix. The complete expression
-  must match; XOR, unless, unsupported connectors, grouping and surrounding comparison
-  prose are rejected. Arbitrary prose is not fully interpreted. Unsupported requests remain
-  proposals with reasons. Synthetic mode retains fixed mock proposals and negative control.
-  Complete numeric tokens are checked before Decimal construction; excess precision,
-  scientific notation and thousands separators cannot silently become prefix thresholds.
-- Weather public capture reuses forecast archives/full-local-day features. Bitcoin adds
-  KXBTC rules and receipt-clock Coinbase spot/strike covariates through the same registered
-  sample/provider/experiment boundary. Spot never becomes a settlement label. Authority mentions
-  preserve their exact rule text/field separately from verified settlement sources, including
-  negated or ambiguous mentions. All Bitcoin settlement sources and settlement basis stay
-  unresolved; forward-only data cannot fit a model or create backtest returns.
-  Bitcoin always keeps `rules_known=false` until complete resolution semantics are verified.
-  Partial weather captures expose source response/failure clocks and stay incomplete.
-- HTTP assets/jobs/reviews use a fixed route allowlist, loopback binding, same-origin and
-  CSRF checks. One bounded isolated worker receives an environment allowlist. No credential
-  or trading endpoints were added; no risk limits or existing tests were loosened.
-- Acquisition completeness, HTTP receipt/contract/observation counts and clocked failure
-  summaries now appear prominently on every result tab and in downloaded text reports.
-  Empty listings and failed/partial captures cannot be presented as complete ingestion.
-- **Latest verification (`20261025T163400Z`):** locked setup passes. The complete unchanged
-  `make check` passes: Ruff lint/format, strict mypy across 477 files, **733 pytest tests
-  passed in 154.68 seconds**. All listener cases pass with normal per-command approval.
-  Five new public-worker cases verify HTTP/connection failures, partial/complete/empty
-  acquisition and persisted report/settlement/evaluation boundaries. Nine Node presentation
-  regressions pass across all tabs. No tests, risk limits or policies were weakened.
-- Actual localhost HTTP submissions saved recorded insufficiency and synthetic replay
-  (192 permitted validation records; negative control zero fills in three scenarios).
-  Successful public weather ingestion retained 8 HTTP receipts, 24 contracts and 648
-  observations; Bitcoin retained 3 receipts, 318 contracts and one spot observation.
-  Neither family has historical evaluation or fitted empirical probabilities. Every Bitcoin
-  rule gate remains false and verified settlement sources remain empty.
-- Actual HTTP cancellation during modeling, worker-slot reuse, shutdown with active/pending
-  jobs, interrupted restart history and identical exported review/report bytes all pass.
-  A separate ordinary-sandbox Bitcoin attempt retained two clocked acquisition failures,
-  zero responses/data and the new incomplete report. All 51 workflow artifact hashes and
-  protected projections are rechecked. These are HTTP/worker checks, not browser acceptance.
-- **Remaining gate:** Computer Use rejected Chrome access, no connected browser sessions
-  were listed and the in-app browser was unavailable. Chrome access was requested. No
-  browser observations, screenshots or browser downloads are claimed. All documented
-  browser steps remain pending. Commit-based reproduction is reserved for the supervisor;
-  HEAD remains `30bed8e`. [Receipts and checksums](data/workbench-review/README.md) retain
-  precise results. No Git write, permission bypass or supervisor-control change occurred.
+The [current receipt](data/workbench-review/20261025T191200Z/README.md) binds checks to the
+reviewed commit, tree, UTC clocks and a manifest of 2,268 exported files. A fresh read-only
+source export and new virtual environment use the unchanged lockfile. No independent Git
+checkout was created; the supervisor's final clean-checkout sign-off remains required.
+The uncommitted acceptance repair serializes job-database connections across in-process
+threads and Jobs instances. An approved baseline run stalled with main and queue threads
+blocked in native SQLite connection close; the [stack sample](data/workbench-review/20261025T191200Z/pytest-sample.txt)
+and terminated-run receipt preserve that failure. A bounded four-thread regression with
+1,600 real connection cycles passes. The [candidate checks](data/workbench-review/20261025T191200Z/candidate-checks.json)
+and hashed two-file code patch are separate from the frozen reviewed commit. No baseline
+full-check success is inferred from the older passing suite.
 
-See [workbench operation and verification limits](docs/workbench.md).
+The fixed candidate passes the full unchanged `make check`: Ruff lint/format, strict mypy
+across 477 files and **734 pytest tests in 155.88 seconds**, with no skips or weakened tests.
+JavaScript syntax and all nine frontend presentation tests also pass. Locked sync passes;
+the candidate patch and source manifest are retained separately from the reviewed commit.
+
+The [restored project context](PROJECT_CONTEXT.md) maps implemented capability to the user's
+V1 gates rather than older milestone numbering.
+
+Browser acceptance remains **blocked**: Computer Use lists no connected browsers,
+Chrome returns “Computer Use was not approved to use Google Chrome,” and the in-app
+browser returns “Browser is not available: iab.” No new browser job IDs, screenshots,
+visual inspections or browser downloads exist. Every documented browser workflow remains
+pending, including visible acquisition failures and synthetic labeling on every result tab,
+protected holdout, active cancellation, worker reuse and restart/history. HTTP and DOM-double
+checks do not satisfy that requirement. No approval bypass was attempted.
+
+All 197 pre-existing receipt checksums passed before documentation reconciliation. Five
+retained reviews and 51 workflow artifacts were rechecked, including public manifests,
+validation-only probabilities, excluded holdout, synthetic negative-control zero fills,
+closed Bitcoin settlement gates, clocked failures and matching reports. Retained HTTP
+lifecycle evidence verifies active cancellation, worker reuse and interrupted restart
+history with identical exports. These are rechecked historical HTTP/worker results, not
+new browser workflows.
+
+The committed interface supports local signal templates or complete AND-only comparisons,
+recorded/public/synthetic modes, bounded isolated workers, durable history/cancellation,
+protected reviews and same-origin downloads. All result tabs and text reports expose public
+acquisition completeness, receipt/contract/observation counts and clocked failure summaries.
+Bitcoin remains forward-only: authority mentions are unverified provenance, settlement
+sources stay empty, settlement basis unresolved and every `rules_known` gate false.
+No real-data model performance or returns follow from either family's forward ingestion.
+
+See [operation and browser acceptance](docs/workbench.md), the
+[check receipt](data/workbench-review/20261025T191200Z/clean-root/checks.json) and
+[retained evidence](data/workbench-review/20261025T191200Z/retained-evidence.json).
 
 ## Delivered capabilities
 
@@ -135,10 +132,10 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Enable an approved browser and execute every browser acceptance step in `docs/workbench.md`:
-recorded insufficiency, synthetic replay/negative control, both public ingestions, visible
-acquisition summaries/failures on every tab, active cancellation, restart/history and
-checksummed browser downloads. The automated suite and actual successful ingestion now pass.
-The supervisor must commit the reviewed implementation and receipts and verify reproduction
-from that commit before integration. Do not create branches, stage, commit, merge or push in
-this continuation. Official Bitcoin outcomes/history and continuous shadow remain later work.
+Return for review with the concrete browser-access blocker. Once an approved browser is
+available, execute every step in `docs/workbench.md`, retaining UTC clocks, job IDs,
+screenshots and checksummed browser downloads. The supervisor must verify the final
+reviewed commit from a clean checkout with locked dependencies and full backend/frontend
+checks before integration. Do not create branches, stage, commit, merge or push in this
+continuation. Official Bitcoin outcomes/history and continuous paper/shadow are later work;
+V1 cannot be declared complete without its remaining product gates.

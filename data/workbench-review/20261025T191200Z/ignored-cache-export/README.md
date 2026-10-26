@@ -1,0 +1,1 @@
+This preliminary export was under ignored data/cache. Ruff reported no files, so its lint result does not count as acceptance. Its make check also failed the five sandbox-denied localhost listeners. The valid complete source checks are in ../clean-root and the approved listener-capable full check is recorded separately. These logs are retained as failed verification attempts.

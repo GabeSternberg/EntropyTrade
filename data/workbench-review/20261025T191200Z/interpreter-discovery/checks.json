@@ -1,0 +1,58 @@
+{
+  "started_at": "2026-10-25T19:12:42.801371+00:00",
+  "commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "tree": "9c0cb3a82666def58d75594a13e3bd62fe906b63",
+  "source_status_before_export": "tracked tree clean; only this new evidence directory untracked",
+  "method": "git archive read-only export, no checkout/branch/index/ref mutation",
+  "checkout": "data/cache/acceptance-20261025T191200Z/checkout",
+  "archive_sha256": "38524fe2925a8726703b75bd02a1a1fd15e506f1d2399c47cf51763c0b3333f3",
+  "tracked_files": 2268,
+  "commands": [
+    {
+      "name": "lock-check",
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout",
+      "started_at": "2026-10-25T19:12:42.844886+00:00",
+      "finished_at": "2026-10-25T19:12:44.408023+00:00",
+      "exit_code": 2,
+      "log": "lock-check.log",
+      "sha256": "6d0b3cadbae30ca4451879b090dd85bd1f0567544627c65b6ee2ab9754999e9c"
+    },
+    {
+      "name": "dependency-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout",
+      "started_at": "2026-10-25T19:12:44.408367+00:00",
+      "finished_at": "2026-10-25T19:12:44.586808+00:00",
+      "exit_code": 2,
+      "log": "dependency-sync.log",
+      "sha256": "6d0b3cadbae30ca4451879b090dd85bd1f0567544627c65b6ee2ab9754999e9c"
+    }
+  ],
+  "limitations": [
+    "A clean source export is not a supervisor-created independent Git checkout.",
+    "Browser acceptance blocked; no browser evidence is claimed."
+  ],
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/uv-verification",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "modified_exported_files": [],
+  "finished_at": "2026-10-25T19:12:44.713645+00:00"
+}

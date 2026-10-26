@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-10-25T19:12:38.390683+00:00",
+  "attempts_completed_before": "2026-10-25T19:11:51Z",
+  "observations": [
+    {
+      "action": "cua.getState()",
+      "connected_browsers": [],
+      "native_chrome_listed": true
+    },
+    {
+      "action": "cua.getApp(\"com.google.Chrome\")",
+      "result": "Computer Use was not approved to use Google Chrome"
+    },
+    {
+      "action": "cua.createBrowserTab(\"iab\", \"http://127.0.0.1:43128\", {visible: true})",
+      "result": "Browser is not available: iab"
+    }
+  ],
+  "status": "blocked",
+  "browser_steps_executed": [],
+  "job_ids": [],
+  "screenshots": [],
+  "browser_downloads": [],
+  "limitation": "No browser submissions or visible workflow observations were possible. HTTP and DOM-double tests cannot satisfy browser acceptance. No approval bypass or browser permission change attempted.",
+  "final_recheck": {
+    "checked_at_utc": "2026-10-26T04:01:52.301Z",
+    "connected_browsers": [],
+    "native_chrome_result": "Computer Use was not approved to use Google Chrome"
+  }
+}

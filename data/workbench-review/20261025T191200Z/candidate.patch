@@ -1,0 +1,112 @@
+diff --git a/backend/src/entropytrade/api/jobs.py b/backend/src/entropytrade/api/jobs.py
+index ef91717..eee3f72 100644
+--- a/backend/src/entropytrade/api/jobs.py
++++ b/backend/src/entropytrade/api/jobs.py
+@@ -2,6 +2,7 @@
+ 
+ import json
+ import sqlite3
++import threading
+ from collections.abc import Iterator
+ from contextlib import contextmanager
+ from datetime import UTC, datetime
+@@ -10,6 +11,10 @@ from typing import Any
+ from uuid import UUID, uuid4
+ 
+ TERMINAL = frozenset({"completed", "failed", "cancelled", "interrupted"})
++# The queue and HTTP threads use separate connections, but native SQLite connection
++# teardown also shares process-wide mutexes. Keep open/use/close together across Jobs
++# instances; independent worker processes retain SQLite's normal transaction locking.
++_CONNECTION_LOCK = threading.RLock()
+ 
+ 
+ def timestamp() -> str:
+@@ -56,13 +61,14 @@ class Jobs:
+ 
+     @contextmanager
+     def connect(self) -> Iterator[sqlite3.Connection]:
+-        db = sqlite3.connect(self.path, timeout=10)
+-        db.row_factory = sqlite3.Row
+-        try:
+-            with db:
+-                yield db
+-        finally:
+-            db.close()
++        with _CONNECTION_LOCK:
++            db = sqlite3.connect(self.path, timeout=10)
++            db.row_factory = sqlite3.Row
++            try:
++                with db:
++                    yield db
++            finally:
++                db.close()
+ 
+     def create(self, request: object) -> str:
+         clean = validate_request(request)
+diff --git a/backend/tests/integration/test_workbench_process.py b/backend/tests/integration/test_workbench_process.py
+index b99f332..4666bd5 100644
+--- a/backend/tests/integration/test_workbench_process.py
++++ b/backend/tests/integration/test_workbench_process.py
+@@ -1,6 +1,8 @@
+ """Real isolated workers, including model replay and process termination; no wire fixtures."""
+ 
+ import json
++import subprocess
++import sys
+ import time
+ from collections.abc import Iterator
+ from pathlib import Path
+@@ -10,7 +12,7 @@ from typing import Any
+ import pytest
+ 
+ from entropytrade.api.jobs import TERMINAL, Jobs
+-from entropytrade.api.runner import Runner
++from entropytrade.api.runner import Runner, worker_environment
+ from entropytrade.data.sources import file_hash
+ 
+ REPO = Path(__file__).resolve().parents[3]
+@@ -37,6 +39,44 @@ def await_job(jobs: Jobs, job_id: str, *, stage: str | None = None) -> dict[str,
+     pytest.fail(f"Worker did not reach {stage or 'a terminal status'}: {jobs.get(job_id)}")
+ 
+ 
++def test_concurrent_job_connections_finish_without_native_close_deadlock(workspace: Path) -> None:
++    # A child deadline bounds a native SQLite mutex stall, which Python thread timeouts
++    # cannot interrupt. Exercise both shared and independently constructed Jobs objects.
++    script = """
++import sys
++from concurrent.futures import ThreadPoolExecutor
++from pathlib import Path
++from entropytrade.api.jobs import Jobs
++
++root = Path(sys.argv[1])
++stores = [Jobs(root), Jobs(root)]
++request = {'idea': 'Concurrent status reads', 'family': 'weather', 'mode': 'recorded'}
++job_id = stores[0].create(request)
++def poll(index):
++    jobs = stores[index % len(stores)]
++    for step in range(100):
++        assert jobs.get(job_id)['status'] == 'queued'
++        assert jobs.queued() == job_id
++        assert jobs.history()[0]['id'] == job_id
++        with jobs.connect() as db:
++            assert db.execute('SELECT count(*) FROM jobs').fetchone()[0] == 1
++with ThreadPoolExecutor(max_workers=4) as pool:
++    list(pool.map(poll, range(4)))
++assert stores[0].update(job_id, 'completed', 'Finished concurrent polling', status='completed')
++assert not stores[1].update(job_id, 'late', 'Terminal result stays closed')
++assert stores[1].get(job_id)['status'] == 'completed'
++"""
++    subprocess.run(  # noqa: S603 - fixed test script, isolated environment, bounded child
++        [sys.executable, "-c", script, str(workspace)],
++        cwd=REPO,
++        env=worker_environment(REPO, workspace),
++        check=True,
++        timeout=30,
++        capture_output=True,
++        text=True,
++    )
++
++
+ @pytest.mark.parametrize("mode", ["recorded", "synthetic"])
+ def test_real_subprocess_saves_checksums_and_protected_review(workspace: Path, mode: str) -> None:
+     jobs = Jobs(workspace)

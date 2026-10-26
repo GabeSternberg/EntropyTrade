@@ -1,0 +1,116 @@
+{
+  "started_at": "2026-10-25T19:14:25.834324+00:00",
+  "commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "tree": "9c0cb3a82666def58d75594a13e3bd62fe906b63",
+  "source_status_before_export": "tracked tree clean; only this new evidence directory untracked",
+  "method": "git archive read-only export, no checkout/branch/index/ref mutation",
+  "checkout": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+  "archive_sha256": "38524fe2925a8726703b75bd02a1a1fd15e506f1d2399c47cf51763c0b3333f3",
+  "tracked_files": 2268,
+  "commands": [
+    {
+      "name": "lock-check",
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T19:14:25.877868+00:00",
+      "finished_at": "2026-10-25T19:14:25.965824+00:00",
+      "exit_code": 0,
+      "log": "lock-check.log",
+      "sha256": "dcf60e0b70297350fb5969074aa9bdf459eb7a0387da2b8cd96f4b100be9904b"
+    },
+    {
+      "name": "dependency-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T19:14:25.966098+00:00",
+      "finished_at": "2026-10-25T19:14:26.879395+00:00",
+      "exit_code": 0,
+      "log": "dependency-sync.log",
+      "sha256": "c4fe5a2e085421abd3fcad7790a6c68a43da159e1dae36c6f0c456e31c77abd8"
+    },
+    {
+      "name": "entrypoint-help",
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "entropytrade-web",
+        "--help"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T19:14:26.879665+00:00",
+      "finished_at": "2026-10-25T19:14:27.330691+00:00",
+      "exit_code": 0,
+      "log": "entrypoint-help.log",
+      "sha256": "67ea655ae7fc475a2793e1fae3aaa5f1ab156102d8f42c56a40071d43822abf1"
+    },
+    {
+      "name": "make-check",
+      "command": [
+        "make",
+        "check"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T19:14:27.330994+00:00",
+      "finished_at": "2026-10-25T20:37:32.234339+00:00",
+      "exit_code": 2,
+      "log": "make-check.log",
+      "sha256": "b0f9c5f7194bef81b888be4fd9883c99c0d22d8b26ebfda3bec6bf1fb9def8c4"
+    },
+    {
+      "name": "javascript-syntax",
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T20:37:32.235282+00:00",
+      "finished_at": "2026-10-25T20:37:32.274601+00:00",
+      "exit_code": 0,
+      "log": "javascript-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "frontend-check",
+      "command": [
+        "node",
+        "--test",
+        "frontend/tests/acquisition.test.cjs"
+      ],
+      "cwd": "data/cache/acceptance-20261025T191200Z/checkout-cached",
+      "started_at": "2026-10-25T20:37:32.274981+00:00",
+      "finished_at": "2026-10-25T20:37:32.348305+00:00",
+      "exit_code": 0,
+      "log": "frontend-check.log",
+      "sha256": "7cd57cb0060059a41c50814b6d5d99d1ac14d9848de5b87f184483ca1eaa7f70"
+    }
+  ],
+  "limitations": [
+    "A clean source export is not a supervisor-created independent Git checkout.",
+    "Browser acceptance blocked; no browser evidence is claimed."
+  ],
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z/uv",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "modified_exported_files": [],
+  "finished_at": "2026-10-25T20:37:32.623754+00:00"
+}

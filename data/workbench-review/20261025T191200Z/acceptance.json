@@ -1,0 +1,56 @@
+{
+  "recorded_at": "2026-10-26T03:54:26.204908+00:00",
+  "reviewed_commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "reviewed_commit_full_gate": "not_passed: ordinary sandbox socket denials, approved baseline native SQLite close stall",
+  "candidate": "uncommitted two-file acceptance deadlock fix; code patch and manifest retained",
+  "candidate_full_make_check_exit_code": 0,
+  "pytest_passed": 734,
+  "pytest_elapsed_seconds": 155.88,
+  "strict_mypy_files": 477,
+  "ruff_formatted_files_checked": 477,
+  "frontend_passed": 9,
+  "javascript_syntax_exit_code": 0,
+  "locked_dependencies_verified": true,
+  "no_tests_skipped_or_weakened": true,
+  "browser_gate": "blocked",
+  "browser_job_ids": [],
+  "screenshots": [],
+  "browser_downloads": [],
+  "browser_steps": [
+    {
+      "step": 1,
+      "status": "not_executed",
+      "requirement": "Recorded insufficiency, exact spec, empty probabilities, protected holdout and downloads"
+    },
+    {
+      "step": 2,
+      "status": "not_executed",
+      "requirement": "Synthetic banners on every tab, scenarios, probabilities, negative control and downloads"
+    },
+    {
+      "step": 3,
+      "status": "not_executed",
+      "requirement": "Both public families, visible acquisition counts/failures on every tab, rules/clocks and text downloads"
+    },
+    {
+      "step": 4,
+      "status": "not_executed",
+      "requirement": "Active cancellation, worker reuse, restart/history, reopened runs and checksummed browser downloads"
+    }
+  ],
+  "retained_evidence": {
+    "reviews": 5,
+    "workflow_artifacts": 51,
+    "initial_checksum_entries_passed": 197,
+    "http_lifecycle_rechecked": true,
+    "browser_verified": false
+  },
+  "supervisor_clean_checkout_signoff": "pending final reviewed commit, locked setup and full checks",
+  "v1_complete": false,
+  "next_action": "Return for review with browser blocker; no new milestone",
+  "production_submission_enabled": false,
+  "no_credential_access": true,
+  "no_git_mutations": true,
+  "no_supervisor_control_changes": true,
+  "latest_browser_check_utc": "2026-10-26T04:01:52.301Z"
+}

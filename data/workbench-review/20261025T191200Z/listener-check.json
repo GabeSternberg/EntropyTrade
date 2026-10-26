@@ -1,0 +1,29 @@
+{
+  "commit": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "tree": "9c0cb3a82666def58d75594a13e3bd62fe906b63",
+  "cwd": ".acceptance-20261025T191200Z",
+  "command": [
+    "make",
+    "check"
+  ],
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z/uv",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "permission": "Normal per-command approval for localhost listeners; no sandbox bypass",
+  "started_at": "2026-10-26T00:28:01.968393+00:00",
+  "finished_at": "2026-10-26T03:00:41.596356+00:00",
+  "exit_code": 2,
+  "log": "make-check-listeners.log",
+  "sha256": "7af4ce375479eaf8f40df5883a713b30c52c7dcf30e28abed70ea0003f64ea3a",
+  "all_exported_files_unchanged": true
+}

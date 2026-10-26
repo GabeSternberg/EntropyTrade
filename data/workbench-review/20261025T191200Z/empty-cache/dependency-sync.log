@@ -1,0 +1,9 @@
+Using CPython 3.13.12 interpreter at: /opt/miniconda3/bin/python3.13
+Creating virtual environment at: .venv
+Resolved 121 packages in 1ms
+  × Failed to download `pyarrow==19.0.1`
+  ╰─▶ Network connectivity is disabled, but the
+      requested data wasn't found in the cache for:
+      `https://files.pythonhosted.org/packages/2b/8d/275c58d4b00781bd36579501a259eacc5c6dfb369be4ddeb672ceb551d2d/pyarrow-19.0.1-cp313-cp313-macosx_12_0_arm64.whl`
+
+hint: `pyarrow` (v19.0.1) was included because `entropytrade` (v0.0.0) depends on `pyarrow`
