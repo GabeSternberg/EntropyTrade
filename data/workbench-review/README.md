@@ -1,32 +1,35 @@
 # Workbench acceptance receipts
 
-Latest attempt: [20261025T191200Z](20261025T191200Z/README.md), verifying reviewed commit
-`99e2fbc1b54d6af426496b3effbe7c47255650bd` from an initially clean working tree on
-`supervisor/20261025-014400`. The workbench and Bitcoin forward adapter are already in
-that commit. Local `main` remains R4's `30bed8e`; remote freshness was not checked.
-An acceptance-discovered native SQLite connection-close stall is repaired with serialized
-in-process Jobs connections and a bounded real concurrency test. That two-file code fix
-is uncommitted and identified separately from the reviewed commit. No branches, index
+Latest attempt: [20261026T041240Z](20261026T041240Z/README.md), on reviewed commit
+`ff3bcc9df40534396c774146405b4658f22f9753` from an initially clean working tree on
+`supervisor/20261025-014400`. The workbench, Bitcoin forward adapter and SQLite acceptance
+repair are committed. Local `main` remains R4's `30bed8e`; remote freshness was not checked.
+The committed repair's exact patch and two Python files match the historical candidate
+hashes. Its original receipts remain immutable records of an uncommitted overlay on
+`99e2fbc`, not final clean-checkout verification of `ff3bcc9`. No branches, index
 entries, commits, merges or pushes were changed in this continuation.
 
 **Browser acceptance remains blocked. V1 is incomplete.** Computer Use lists no connected
 browsers, denies native Chrome access and reports the in-app browser unavailable. No new
 browser job IDs, screenshots, visual inspections or browser downloads are claimed. All
 steps in [the browser procedure](../../docs/workbench.md#browser-acceptance-procedure)
-remain pending. Return for review with this specific blocker.
+remain pending. Automatic approval review rejected a repeat Chrome probe because Chrome
+access had already been denied; no further browser attempts or workaround followed.
+Return for review with this specific blocker.
 
-The current bundle binds the reviewed commit/tree to a manifest of 2,268 unchanged exported
+The [historical bundle](20261025T191200Z/README.md) binds the earlier `99e2fbc` commit/tree to a manifest of 2,268 unchanged exported
 files, a new virtual environment, locked setup, full unchanged backend checks and frontend
 checks. An ordinary sandbox run retains five localhost bind-denial failures; the normal
 per-command listener-capable baseline rerun then stalled in SQLite close and was terminated.
 The [candidate checks](20261025T191200Z/candidate-checks.json) and source patch separately
-identify the uncommitted acceptance fix. Its full `make check` passes: Ruff lint/format,
+identify the then-uncommitted acceptance fix. Its full `make check` passed: Ruff lint/format,
 strict mypy across 477 files and **734 pytest tests in 155.88s**. JavaScript syntax and
 all nine frontend presentation cases pass. No tests or policies were weakened. A source export is not the
 supervisor's final independent clean-checkout sign-off. Early interpreter/cache setup failures
 and an invalid ignored-directory Ruff attempt are retained and excluded from acceptance.
 
-All 197 pre-existing receipt checksums passed before these documentation updates.
+All 245 existing receipt checksums passed before this documentation update. The earlier
+receipt verified 197 pre-existing checksums.
 [Retained evidence revalidation](20261025T191200Z/retained-evidence.json) verifies five
 reviews, 51 workflow artifacts, public manifests, protected projections and HTTP lifecycle
 history without altering historical inputs or receipts. Original job IDs, UTC clocks and

@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.12, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: platformdirs-4.12.2, hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1
+collected 23 items
+
+backend/tests/unit/test_workbench_workflow.py ........                   [ 34%]
+backend/tests/unit/test_workbench_http.py ..............                 [ 95%]
+backend/tests/integration/test_workbench_process.py .                    [100%]
+
+============================= 23 passed in 13.18s ==============================

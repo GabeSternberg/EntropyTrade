@@ -1,0 +1,25 @@
+{
+  "recorded_at_utc": "2026-10-26T04:13:46.291464+00:00",
+  "branch": "supervisor/20261025-014400",
+  "commit": "ff3bcc9df40534396c774146405b4658f22f9753",
+  "tree": "04ec1334c8f931dc5970582eebc6e074c1a1c3ba",
+  "local_main": "30bed8e30cf07201124deee609a21f7f01e47735",
+  "remote_freshness_checked": false,
+  "initial_working_tree_clean": true,
+  "historical_candidate_base": "99e2fbc1b54d6af426496b3effbe7c47255650bd",
+  "committed_code_patch_sha256": "fc7ed2d0813a650f779dc3e6e8cfda81a0cc8de52f2d56c70c27f0870e493030",
+  "historical_candidate_patch_sha256": "fc7ed2d0813a650f779dc3e6e8cfda81a0cc8de52f2d56c70c27f0870e493030",
+  "files": [
+    {
+      "path": "backend/src/entropytrade/api/jobs.py",
+      "current_sha256": "2413eaa539af08937826b92f180950e464934604262e533b68978436049a2767",
+      "historical_candidate_sha256": "2413eaa539af08937826b92f180950e464934604262e533b68978436049a2767"
+    },
+    {
+      "path": "backend/tests/integration/test_workbench_process.py",
+      "current_sha256": "3fab2c8e6af7a6245236ef3843a0b527d5ea4a1583b1d7e455027a25da317e04",
+      "historical_candidate_sha256": "3fab2c8e6af7a6245236ef3843a0b527d5ea4a1583b1d7e455027a25da317e04"
+    }
+  ],
+  "limitation": "Read-only identity and candidate comparison; not final supervisor clean-checkout verification."
+}

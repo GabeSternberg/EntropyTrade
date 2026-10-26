@@ -7,30 +7,33 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 **V1 is incomplete. Finish acceptance of the existing milestone before new features.**
 The starting checkout was clean on `supervisor/20261025-014400` at reviewed commit
-`99e2fbc1b54d6af426496b3effbe7c47255650bd`. That commit includes the local workbench and
-Bitcoin forward adapter; earlier statements that the implementation was uncommitted are
-obsolete. Local `main` remains the R4 checkpoint `30bed8e`; no remote freshness is claimed.
+`ff3bcc9df40534396c774146405b4658f22f9753`. It includes the local workbench, Bitcoin
+forward adapter and committed SQLite acceptance repair. The earlier `99e2fbc` baseline
+and uncommitted-candidate receipts describe historical states. Local `main` remains the
+R4 checkpoint `30bed8e`; no remote freshness is claimed.
 All Git mutations belong to the supervisor. No branch, index, commit, merge or push was changed.
 Production trading remains disabled.
 
 ## Current acceptance continuation
 
-The [current receipt](data/workbench-review/20261025T191200Z/README.md) binds checks to the
-reviewed commit, tree, UTC clocks and a manifest of 2,268 exported files. A fresh read-only
-source export and new virtual environment use the unchanged lockfile. No independent Git
-checkout was created; the supervisor's final clean-checkout sign-off remains required.
-The uncommitted acceptance repair serializes job-database connections across in-process
-threads and Jobs instances. An approved baseline run stalled with main and queue threads
+The [current receipt](data/workbench-review/20261026T041240Z/README.md) records commit/tree
+identity, renewed browser-access failures and UTC check clocks. The committed repair's
+two Python files and exact patch match the retained candidate hashes. The supervisor's
+final clean-checkout locked setup and full backend/frontend sign-off remain required.
+
+The committed acceptance repair serializes job-database connections across in-process
+threads and Jobs instances. An earlier approved baseline run stalled with main and queue threads
 blocked in native SQLite connection close; the [stack sample](data/workbench-review/20261025T191200Z/pytest-sample.txt)
 and terminated-run receipt preserve that failure. A bounded four-thread regression with
-1,600 real connection cycles passes. The [candidate checks](data/workbench-review/20261025T191200Z/candidate-checks.json)
-and hashed two-file code patch are separate from the frozen reviewed commit. No baseline
-full-check success is inferred from the older passing suite.
+1,600 real connection cycles passes. The [historical candidate checks](data/workbench-review/20261025T191200Z/candidate-checks.json)
+and hashed two-file patch remain separate from current commit verification. No baseline
+full-check success is inferred from that candidate suite.
 
-The fixed candidate passes the full unchanged `make check`: Ruff lint/format, strict mypy
+The historical fixed candidate passed the full unchanged `make check`: Ruff lint/format, strict mypy
 across 477 files and **734 pytest tests in 155.88 seconds**, with no skips or weakened tests.
-JavaScript syntax and all nine frontend presentation tests also pass. Locked sync passes;
-the candidate patch and source manifest are retained separately from the reviewed commit.
+JavaScript syntax and all nine frontend presentation tests also passed. Those receipts
+still identify an uncommitted overlay on `99e2fbc`; they are not a fresh full run of `ff3bcc9`.
+The current receipt separately records locked setup, static checks and focused regressions.
 
 The [restored project context](PROJECT_CONTEXT.md) maps implemented capability to the user's
 V1 gates rather than older milestone numbering.
@@ -41,9 +44,12 @@ browser returns “Browser is not available: iab.” No new browser job IDs, scr
 visual inspections or browser downloads exist. Every documented browser workflow remains
 pending, including visible acquisition failures and synthetic labeling on every result tab,
 protected holdout, active cancellation, worker reuse and restart/history. HTTP and DOM-double
-checks do not satisfy that requirement. No approval bypass was attempted.
+checks do not satisfy that requirement. Automatic approval review rejected a repeat Chrome
+probe because access had already been denied; no further browser attempts or workaround
+followed. An approved browser session is required to proceed.
 
-All 197 pre-existing receipt checksums passed before documentation reconciliation. Five
+All 245 existing receipt checksums passed before this documentation update. The earlier
+receipt verified 197 pre-existing checksums. Five
 retained reviews and 51 workflow artifacts were rechecked, including public manifests,
 validation-only probabilities, excluded holdout, synthetic negative-control zero fills,
 closed Bitcoin settlement gates, clocked failures and matching reports. Retained HTTP

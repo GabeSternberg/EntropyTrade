@@ -11,8 +11,9 @@ The real historical sample remains too small and lacks certified forecasts/scala
 complete fitting/calibration is verified separately on synthetic data. Provider-backed agent research is configurable with bounded evidence tools; real provider
 verification needs a dedicated research key. The integrated `research-and-test` command now connects candidates, models, replay and
 ranked diagnostics. A template-only local research website and Bitcoin forward adapter are implemented
-in reviewed commit `99e2fbc`, with retained listener/worker tests and successful weather/Bitcoin
-public ingestion. V1 is incomplete; see [project context](PROJECT_CONTEXT.md). Browser
+in `99e2fbc`; current reviewed commit `ff3bcc9` also includes the SQLite acceptance repair.
+Retained listener/worker tests and successful weather/Bitcoin public ingestion are historical
+evidence, with no browser acceptance claimed. V1 is incomplete; see [project context](PROJECT_CONTEXT.md). Browser
 acceptance remains blocked by unavailable browser access; see
 [operation and exact limitations](docs/workbench.md). Continuous shadow remains later work. Production trading
 is disabled; the Kalshi gateway refuses orders.

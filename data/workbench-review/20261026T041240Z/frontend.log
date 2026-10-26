@@ -1,0 +1,17 @@
+✔ review: failed acquisition is visible without expanding details (2.4875ms)
+✔ review: partial acquisition is visible without expanding details (0.656083ms)
+✔ review: synthetic banner stays visible (0.571083ms)
+✔ probabilities: failed acquisition is visible without expanding details (1.13225ms)
+✔ probabilities: partial acquisition is visible without expanding details (0.481542ms)
+✔ probabilities: synthetic banner stays visible (0.399084ms)
+✔ lineage: failed acquisition is visible without expanding details (0.549083ms)
+✔ lineage: partial acquisition is visible without expanding details (0.591333ms)
+✔ lineage: synthetic banner stays visible (0.827ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 48.502875

@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-10-26T04:16:10.403682+00:00",
+  "commit": "ff3bcc9df40534396c774146405b4658f22f9753",
+  "status": "uncommitted documentation updates; no Git writes",
+  "files": {
+    "README.md": "82d7492ae66f1437dd903e347b54e434ab057b909b5e2ef0c7bf06727494ed4e",
+    "STATUS.md": "08d78271252ef684abba5095365de56f7131f41d311fa2d5620a09ec2801fe5d",
+    "PROJECT_CONTEXT.md": "5a81efaec8b4af82b28d4f78f3eb0f3f4f2a435488701aaedfef596f1fbb919b",
+    "docs/roadmap.md": "5c80e973bde1c19c5df4206dde2263910a59c22dd46a02aa2c3518726ecc5a0a",
+    "docs/workbench.md": "f59cf044ae8f2ee286621e4caa82d1ce872d296983375ef472cf1aa27df58563",
+    "data/workbench-review/README.md": "8e5e7f6611c2dfb927f7709f34ce0c6f536e83194633dbb4543b3428f6d4c0fa",
+    "data/workbench-review/20261026T041240Z/README.md": "2c50934bcc4d3d9c22ec16518d13175d1e27647a8e1b40e12a39590632416779"
+  }
+}

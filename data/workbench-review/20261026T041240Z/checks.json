@@ -1,0 +1,135 @@
+{
+  "commit": "ff3bcc9df40534396c774146405b4658f22f9753",
+  "cwd": "/Users/gabriel/Projects/EntropyTrade",
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z/uv",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC"
+  },
+  "scope": "Current working checkout; locked setup, static checks and focused unchanged regressions. Not the supervisor final clean-checkout/full-pytest sign-off or browser acceptance.",
+  "commands": [
+    {
+      "name": "lock-check",
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "started_at_utc": "2026-10-26T04:14:01.298693+00:00",
+      "log": "lock-check.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:01.372447+00:00",
+      "sha256": "90473d600b4e214b989c68fb8797c2625e09d73d3a5f53930e374f530c872924"
+    },
+    {
+      "name": "locked-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "started_at_utc": "2026-10-26T04:14:01.372863+00:00",
+      "log": "locked-sync.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:01.449524+00:00",
+      "sha256": "4a5034df9624e05c89c94ad7a755e63897de807b4c01ee9021b14c4f5b2cf92d"
+    },
+    {
+      "name": "ruff-lint",
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "ruff",
+        "check",
+        "backend"
+      ],
+      "started_at_utc": "2026-10-26T04:14:01.449921+00:00",
+      "log": "ruff-lint.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:01.525126+00:00",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "name": "ruff-format",
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "ruff",
+        "format",
+        "--check",
+        "backend"
+      ],
+      "started_at_utc": "2026-10-26T04:14:01.525460+00:00",
+      "log": "ruff-format.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:01.564986+00:00",
+      "sha256": "3bb85af2e485eaae782bc94176655f9e1c8016b399647baa8f9c10dc5e1d0544"
+    },
+    {
+      "name": "strict-mypy",
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "mypy"
+      ],
+      "started_at_utc": "2026-10-26T04:14:01.565438+00:00",
+      "log": "strict-mypy.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:03.468822+00:00",
+      "sha256": "c6fd4dde68784f209f0e8872ebdd24f5080e6cf03abf04d0e18207a30d4cfbaa"
+    },
+    {
+      "name": "workbench-regressions",
+      "command": [
+        "uv",
+        "run",
+        "--no-sync",
+        "pytest",
+        "backend/tests/unit/test_workbench_workflow.py",
+        "backend/tests/unit/test_workbench_http.py",
+        "backend/tests/integration/test_workbench_process.py::test_concurrent_job_connections_finish_without_native_close_deadlock"
+      ],
+      "started_at_utc": "2026-10-26T04:14:03.469535+00:00",
+      "log": "workbench-regressions.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:17.762355+00:00",
+      "sha256": "f69feea8fd826e5233d8d8d49459cd8029e5a37e67daef7e42e1e8600aa09201"
+    },
+    {
+      "name": "javascript-syntax",
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "started_at_utc": "2026-10-26T04:14:17.762879+00:00",
+      "log": "javascript-syntax.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:17.800925+00:00",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "frontend",
+      "command": [
+        "node",
+        "--test",
+        "frontend/tests/acquisition.test.cjs"
+      ],
+      "started_at_utc": "2026-10-26T04:14:17.801368+00:00",
+      "log": "frontend.log",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-26T04:14:17.930655+00:00",
+      "sha256": "2138b0d705b40b27ed04631c4adf9d5793ab2170acba9edfe046b92cd255a45f"
+    }
+  ]
+}

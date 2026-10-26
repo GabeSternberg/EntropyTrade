@@ -163,15 +163,19 @@ listed contracts and observations; an incomplete capture is a separate failure-p
 
 ## Acceptance evidence and committed state
 
-The reviewed implementation is committed at
-`99e2fbc1b54d6af426496b3effbe7c47255650bd` on `supervisor/20261025-014400`.
+The reviewed implementation and SQLite acceptance repair are committed at
+`ff3bcc9df40534396c774146405b4658f22f9753` (tree
+`04ec1334c8f931dc5970582eebc6e074c1a1c3ba`) on `supervisor/20261025-014400`.
 Local `main` is R4's `30bed8e30cf07201124deee609a21f7f01e47735`; no fetch or Git write
 was performed. Historical receipts describing an uncommitted tree remain accurate for
 their own earlier attempts, rather than the current checkout.
 
-The [current bundle](../data/workbench-review/20261025T191200Z/README.md) retains exact
-commit/tree identity, UTC command clocks, locked setup logs and an unchanged-file manifest
-for a fresh read-only export of the reviewed commit. The environment pins the existing
+The [current bundle](../data/workbench-review/20261026T041240Z/README.md) records the current
+commit/tree, browser blocker and focused checks. Its source comparison verifies that the
+committed two-file repair and exact patch match the historical candidate hashes.
+The [historical bundle](../data/workbench-review/20261025T191200Z/README.md) retains UTC
+command clocks, locked setup logs and an unchanged-file manifest for a read-only export
+of the earlier `99e2fbc` baseline. That environment pinned the existing
 Python interpreter and uses a repo-local copy of the existing package cache, without
 credential access or dependency updates. This source export does not replace the
 supervisor's final independent clean-checkout sign-off. A cache-directory export that
@@ -182,14 +186,17 @@ approved listener-capable baseline run passed all three listener cases, then sta
 the main and queue threads in native SQLite connection-close mutex waits. Its
 [stack sample](../data/workbench-review/20261025T191200Z/pytest-sample.txt) and
 [terminated-run receipt](../data/workbench-review/20261025T191200Z/listener-check.json)
-remain failure evidence. The uncommitted acceptance repair serializes in-process Jobs
+remain failure evidence for `99e2fbc`. The repair now committed in `ff3bcc9` serializes in-process Jobs
 connections across instances and adds a bounded real SQLite concurrency regression.
 The [candidate checks](../data/workbench-review/20261025T191200Z/candidate-checks.json)
 and [hashed patch](../data/workbench-review/20261025T191200Z/candidate.patch) explicitly
-identify the two-file source overlay; they cannot be attributed to the reviewed commit.
-The fixed candidate passes locked sync and the full unchanged `make check`: Ruff lint/format,
+identify the then-uncommitted two-file source overlay on `99e2fbc`; those receipts are
+immutable historical candidate evidence, not a clean-checkout full check of `ff3bcc9`.
+The fixed candidate passed locked sync and the full unchanged `make check`: Ruff lint/format,
 strict mypy across 477 files and **734 pytest tests in 155.88 seconds**. JavaScript syntax
-and all nine frontend tests pass. No tests, warnings, risk caps or policies were weakened.
+and all nine frontend tests passed. No tests, warnings, risk caps or policies were weakened.
+The supervisor must still complete final clean-checkout locked setup, Ruff lint/format,
+strict mypy, full pytest and frontend checks before integration.
 
 To repeat the unchanged gates in a dependency-equipped clean checkout:
 
@@ -237,9 +244,11 @@ They remain HTTP-client exports, **not browser downloads**.
 **All browser acceptance steps above remain pending.** The current Computer Use inventory
 lists no connected browsers. Native Chrome returns “Computer Use was not approved to use
 Google Chrome”; the in-app browser returns “Browser is not available: iab.” The
-[browser receipt](../data/workbench-review/20261025T191200Z/browser.json) records the exact
-attempts and empty screenshot/download/job lists. No browser observation or visual
-verification is claimed, and no permission bypass was attempted.
+[current browser receipt](../data/workbench-review/20261026T041240Z/browser.json) records
+the renewed attempts, UTC inventory clock and empty screenshot/download/job lists.
+Automatic approval review rejected a repeat Chrome probe because access had already
+been denied. No further browser attempts or workaround followed. No browser workflow
+observation or visual verification is claimed.
 
 Return for review with that blocker. Once an approved browser is available, execute the
 entire procedure, including visible failures and synthetic banners on all tabs, protected

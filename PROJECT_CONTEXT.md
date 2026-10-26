@@ -3,19 +3,20 @@
 Updated 2026-10-26. **V1 is incomplete; this milestone remains in acceptance review.**
 Finish the existing milestone before starting another feature phase. The current user
 instruction reserves branches, commits, merges and pushes for the supervisor and forbids
-changes to supervisor control files. This continuation repairs an acceptance-discovered job-database deadlock, adds a bounded
-concurrency regression and reconciles verification documentation; it adds no product scope. Production submission, real-money orders and live execution activation remain
+changes to supervisor control files. The job-database repair and bounded concurrency
+regression are now committed in `ff3bcc9`. This continuation rechecks browser access and
+reconciles verification documentation; it adds no product scope. Production submission, real-money orders and live execution activation remain
 disabled. No credential discovery or access is authorized.
 
 ## Verified baseline
 
 The checkout was clean at the start of this acceptance attempt on
 `supervisor/20261025-014400`, at reviewed commit
-`99e2fbc1b54d6af426496b3effbe7c47255650bd` (tree
-`9c0cb3a82666def58d75594a13e3bd62fe906b63`). Local `main` is R4 commit
+`ff3bcc9df40534396c774146405b4658f22f9753` (tree
+`04ec1334c8f931dc5970582eebc6e074c1a1c3ba`). Local `main` is R4 commit
 `30bed8e30cf07201124deee609a21f7f01e47735`. No remote freshness is claimed.
-The reviewed commit already includes the local workbench and Bitcoin forward adapter;
-earlier documentation describing them as uncommitted is stale. Historical receipts remain
+The reviewed commit includes the local workbench, Bitcoin forward adapter and SQLite
+acceptance repair. The earlier `99e2fbc` baseline and uncommitted-candidate receipts remain
 unchanged records of their own source state and UTC clocks.
 
 ## Product gates
@@ -39,27 +40,29 @@ excluded from research and review projections; synthetic performance is software
 
 ## Current acceptance evidence
 
-See the [current receipt](data/workbench-review/20261025T191200Z/README.md),
-[command clocks and commit identity](data/workbench-review/20261025T191200Z/clean-root/checks.json)
+See the [current receipt](data/workbench-review/20261026T041240Z/README.md),
+[historical baseline command clocks](data/workbench-review/20261025T191200Z/clean-root/checks.json)
 and [rechecked retained evidence](data/workbench-review/20261025T191200Z/retained-evidence.json).
-The baseline attempt uses an immutable read-only source export of the reviewed commit and
+The historical baseline attempt used an immutable read-only source export of `99e2fbc` and
 fresh locked dependencies. Its ordinary full check has five sandbox-denied listener failures;
 the listener-approved baseline then stalled with two threads in native SQLite connection
 close and was terminated. This is not a passing reviewed-commit gate.
 
-The uncommitted acceptance fix serializes each Jobs connection's open/use/close within a
+The acceptance fix committed in `ff3bcc9` serializes each Jobs connection's open/use/close within a
 process, across Jobs instances; separate workers retain SQLite transaction locking. A bounded
 four-thread regression with 1,600 real connection cycles passes. The source overlay is limited
 to `api/jobs.py` and its integration test. The [candidate checks](data/workbench-review/20261025T191200Z/candidate-checks.json)
-and [code patch](data/workbench-review/20261025T191200Z/candidate.patch) identify this candidate
-separately from the reviewed commit.
+and [code patch](data/workbench-review/20261025T191200Z/candidate.patch) identify the then-uncommitted
+candidate separately from current commit verification. The [current source comparison](data/workbench-review/20261026T041240Z/source.json)
+verifies that the exact repair patch and both Python files match those retained hashes.
 
-The fixed candidate passes locked sync and full `make check`: Ruff lint/format, strict
+The historical fixed candidate passed locked sync and full `make check`: Ruff lint/format, strict
 mypy across 477 files and 734 pytest tests in 155.88 seconds. JavaScript syntax and all
-nine frontend tests pass. No test was skipped or weakened. This source-export verification
+nine frontend tests passed. No test was skipped or weakened. This source-export verification
 does not replace the supervisor's final independent clean-checkout sign-off.
 
-All 197 pre-existing bundle checksums were verified before documentation reconciliation.
+All 245 existing bundle checksums passed before this documentation update; the earlier
+receipt verified 197 pre-existing checksums.
 Five retained real/synthetic/failed-acquisition reviews, 51 workflow artifacts and their
 public manifests were rechecked, including validation-only probability projections,
 excluded final holdout, synthetic negative-control zero fills, closed Bitcoin settlement
@@ -71,7 +74,9 @@ identical exports. These checks do not constitute new browser workflows.
 
 Computer Use lists no connected browsers. Chrome access returns
 `Computer Use was not approved to use Google Chrome`; creating an in-app tab returns
-`Browser is not available: iab`. No approval bypass was attempted. There are no new browser
+`Browser is not available: iab`. Automatic approval review rejected a repeat Chrome probe
+because access had already been denied. No further browser attempts or workaround followed.
+There are no new browser
 job IDs, screenshots or browser downloads, and no visual acceptance is claimed.
 
 Return for review with this blocker. Once an approved browser is available, execute every

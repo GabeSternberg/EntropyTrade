@@ -1,0 +1,8 @@
+{
+  "started_at_utc": "2026-10-26T04:13:46.341406+00:00",
+  "finished_at_utc": "2026-10-26T04:13:46.447991+00:00",
+  "exit_code": 0,
+  "log": "prior-checksums.log",
+  "verified_entries": 245,
+  "sha256": "315b5ea8934f491bf90300eb9bf2653cbe3ce6b503a0715be4832ba7807afd79"
+}
