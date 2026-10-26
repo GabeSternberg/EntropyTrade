@@ -1,0 +1,29 @@
+{
+  "recorded_at_utc": "2026-10-26T04:24:06.955626+00:00",
+  "observed_before_utc": "2026-10-26T04:22:30Z",
+  "clock_limitation": "Initial Computer Use actions preceded the first explicit UTC clock in this continuation; individual action start/end clocks were not captured. No procedure started.",
+  "commit": "c6d6d8b3e2c2e01ba2bde26424c556db66845f16",
+  "status": "blocked",
+  "actions": [
+    {
+      "action": "cua.getState()",
+      "connected_browsers": [],
+      "native_chrome_listed": true
+    },
+    {
+      "action": "cua.getApp(\"com.google.Chrome\")",
+      "result": "Computer Use was not approved to use Google Chrome"
+    }
+  ],
+  "followup": "No repeat probe, alternate browser or permission workaround after the denial.",
+  "browser_procedures": {
+    "1": "pending; approved browser unavailable",
+    "2": "pending; approved browser unavailable",
+    "3": "pending; approved browser unavailable",
+    "4": "pending; approved browser unavailable"
+  },
+  "job_ids": [],
+  "screenshots": [],
+  "browser_downloads": [],
+  "limitation": "No browser workflow, public capture, visual acceptance or browser downloads in this continuation. Automated tests do not satisfy the browser gate."
+}

@@ -1,0 +1,122 @@
+{
+  "started_at_utc": "2026-10-26T04:23:09.075864+00:00",
+  "commit": "c6d6d8b3e2c2e01ba2bde26424c556db66845f16",
+  "tree": "567398e97055bdcdb3b17628869bc716d3718a5e",
+  "branch": "supervisor/20261025-014400",
+  "method": "Read-only git archive export, no Git checkout, branch, index or ref mutation",
+  "checkout": ".acceptance-20261026T042230Z",
+  "archive_sha256": "bc2787cc045bca0701c769b06f144d64ae3e419e3127801f7e4a3cbad0ebf108",
+  "tracked_files": 2332,
+  "environment": {
+    "PATH": "/Users/gabriel/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "UV_CACHE_DIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z/uv",
+    "UV_OFFLINE": "1",
+    "UV_PYTHON_DOWNLOADS": "never",
+    "UV_PYTHON": "/opt/miniconda3/bin/python3.13",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTEST_ADDOPTS": "--tb=short",
+    "TZ": "UTC",
+    "TMPDIR": "/Users/gabriel/Projects/EntropyTrade/data/cache/acceptance-20261025T191200Z"
+  },
+  "commands": [
+    {
+      "name": "lock-check",
+      "command": [
+        "uv",
+        "lock",
+        "--check"
+      ],
+      "started_at_utc": "2026-10-26T04:23:09.240871+00:00",
+      "finished_at_utc": "2026-10-26T04:23:09.372388+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "lock-check.log",
+      "sha256": "ba58453218c293ecde6b428b8c892de0dc50089b2a43c16751703e71f830b6b8"
+    },
+    {
+      "name": "locked-sync",
+      "command": [
+        "uv",
+        "sync",
+        "--locked"
+      ],
+      "started_at_utc": "2026-10-26T04:23:09.372924+00:00",
+      "finished_at_utc": "2026-10-26T04:23:10.311022+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "locked-sync.log",
+      "sha256": "38f50b0bf522a4fabf2e2ccaf2c4cece651bf1bae4ff1843bc86bd145cced7b6"
+    },
+    {
+      "name": "entrypoint-help",
+      "command": [
+        "uv",
+        "run",
+        "--locked",
+        "entropytrade-web",
+        "--help"
+      ],
+      "started_at_utc": "2026-10-26T04:23:10.311761+00:00",
+      "finished_at_utc": "2026-10-26T04:23:10.656365+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "entrypoint-help.log",
+      "sha256": "67ea655ae7fc475a2793e1fae3aaa5f1ab156102d8f42c56a40071d43822abf1"
+    },
+    {
+      "name": "make-check",
+      "command": [
+        "make",
+        "check"
+      ],
+      "started_at_utc": "2026-10-26T04:23:20.900320+00:00",
+      "finished_at_utc": "2026-10-26T04:26:48.762331+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "make-check.log",
+      "sha256": "404d4ad112df3b314c71df9ed5d34c3cb3347d17f1af5957ead9cc216b2e6700"
+    },
+    {
+      "name": "javascript-syntax",
+      "command": [
+        "node",
+        "--check",
+        "frontend/src/app.js"
+      ],
+      "started_at_utc": "2026-10-26T04:26:48.763384+00:00",
+      "finished_at_utc": "2026-10-26T04:26:48.803224+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "javascript-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "frontend",
+      "command": [
+        "node",
+        "--test",
+        "frontend/tests/acquisition.test.cjs"
+      ],
+      "started_at_utc": "2026-10-26T04:26:48.803590+00:00",
+      "finished_at_utc": "2026-10-26T04:26:48.880448+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "deadline_seconds": 600,
+      "log": "frontend.log",
+      "sha256": "345746c09cf0ddc0bc47099473f3a4c50d3b636899eba09eafc79d2b2d19e9de"
+    }
+  ],
+  "limitations": [
+    "Clean source export is not the supervisor independent clean-checkout sign-off.",
+    "Browser access denied; no browser acceptance is claimed."
+  ],
+  "modified_exported_files": [],
+  "finished_at_utc": "2026-10-26T04:26:49.131986+00:00"
+}

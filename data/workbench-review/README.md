@@ -1,6 +1,17 @@
 # Workbench acceptance receipts
 
-Latest attempt: [20261026T041240Z](20261026T041240Z/README.md), on reviewed commit
+Latest continuation: [20261026T042230Z](20261026T042230Z/README.md), on reviewed commit
+`c6d6d8b3e2c2e01ba2bde26424c556db66845f16`. Chrome access was denied again in this
+new continuation, so all four browser procedures remain pending; no browser workaround
+was attempted. The bundle binds current-source locked setup and full backend/frontend
+checks to an isolated read-only export. It preserves UTC command clocks, a 2,332-file
+manifest and log checksums. All 260 existing receipt checksums passed before this
+documentation update. This does not replace the supervisor's independent clean-checkout
+sign-off or the unexecuted browser gate. No application source or tests were changed.
+The unchanged full gate passed Ruff lint/format, strict mypy and **734 pytest tests in
+184.23 seconds**; JavaScript syntax and all **nine frontend tests** passed with no skips.
+
+Previous attempt: [20261026T041240Z](20261026T041240Z/README.md), on reviewed commit
 `ff3bcc9df40534396c774146405b4658f22f9753` from an initially clean working tree on
 `supervisor/20261025-014400`. The workbench, Bitcoin forward adapter and SQLite acceptance
 repair are committed. Local `main` remains R4's `30bed8e`; remote freshness was not checked.

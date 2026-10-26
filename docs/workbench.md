@@ -163,6 +163,15 @@ listed contracts and observations; an incomplete capture is a separate failure-p
 
 ## Acceptance evidence and committed state
 
+The [latest continuation](../data/workbench-review/20261026T042230Z/README.md) verifies
+reviewed commit `c6d6d8b3e2c2e01ba2bde26424c556db66845f16` using an isolated read-only
+source export and locked offline setup. Ruff lint/format, strict mypy, **734 pytest tests**,
+JavaScript syntax and all **nine frontend tests** passed with no skips. Its clocks,
+source manifest and log hashes are retained. Chrome access was denied; all four browser
+procedures remain pending, with no browser job IDs, screenshots or downloads. This is
+additional automation evidence, not the supervisor's independent final clean-checkout
+sign-off. The following bundles describe their earlier source states.
+
 The reviewed implementation and SQLite acceptance repair are committed at
 `ff3bcc9df40534396c774146405b4658f22f9753` (tree
 `04ec1334c8f931dc5970582eebc6e074c1a1c3ba`) on `supervisor/20261025-014400`.
@@ -170,7 +179,7 @@ Local `main` is R4's `30bed8e30cf07201124deee609a21f7f01e47735`; no fetch or Git
 was performed. Historical receipts describing an uncommitted tree remain accurate for
 their own earlier attempts, rather than the current checkout.
 
-The [current bundle](../data/workbench-review/20261026T041240Z/README.md) records the current
+The [04:12 bundle](../data/workbench-review/20261026T041240Z/README.md) records its reviewed
 commit/tree, browser blocker and focused checks. Its source comparison verifies that the
 committed two-file repair and exact patch match the historical candidate hashes.
 The [historical bundle](../data/workbench-review/20261025T191200Z/README.md) retains UTC

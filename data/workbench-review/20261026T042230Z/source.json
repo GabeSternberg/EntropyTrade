@@ -1,0 +1,14 @@
+{
+  "verified_at_utc": "2026-10-26T04:28:01.855939+00:00",
+  "commit": "c6d6d8b3e2c2e01ba2bde26424c556db66845f16",
+  "tree": "567398e97055bdcdb3b17628869bc716d3718a5e",
+  "branch": "supervisor/20261025-014400",
+  "local_main": "30bed8e30cf07201124deee609a21f7f01e47735",
+  "remote_freshness_checked": false,
+  "exported_files_verified_unchanged": 2332,
+  "current_application_test_build_inputs_matching_export": 486,
+  "application_source_or_test_changes": [],
+  "git_mutations": [],
+  "permission": "The gates runner was executed with normal per-command require_escalated approval to permit localhost listener tests. This did not authorize browser access.",
+  "scope": "Current committed source export; not independent supervisor clean-checkout sign-off or browser acceptance."
+}
