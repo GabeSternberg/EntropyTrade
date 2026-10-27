@@ -1,0 +1,48 @@
+{
+  "recorded_at_utc": "2026-10-26T20:51:46.268870+00:00",
+  "individual_install_action_clocks": "Not captured; log modification timestamps below are filesystem metadata, not asserted action start/end clocks. Browser/backend and full-check action clocks are in their own receipts.",
+  "logs": [
+    {
+      "name": "npm-sandbox",
+      "log": "npm-install.log",
+      "exit_code": 1,
+      "sha256": "6a7403b747e3c8f18d778795c0afd3bd8b2455bb8e51efb63c82e49658c3d469",
+      "log_mtime_utc": "2026-10-26T20:38:42.998116+00:00"
+    },
+    {
+      "name": "npm-approved",
+      "log": "npm-install-approved.log",
+      "exit_code": 0,
+      "sha256": "b9442f33b00e1ecda7248e642768b49cae48dab81428c981ad9a3d0d75dc70e4",
+      "log_mtime_utc": "2026-10-26T20:38:21.236431+00:00"
+    },
+    {
+      "name": "chromium-install",
+      "log": "chromium-install.log",
+      "exit_code": 0,
+      "sha256": "e36ce023a6dfaa017e828c13727973cb253214c5a37a9d5381c483d8360840dc",
+      "log_mtime_utc": "2026-10-26T20:39:13.176321+00:00"
+    },
+    {
+      "name": "browser-attempt-1",
+      "log": "browser-attempt-1.log",
+      "exit_code": 1,
+      "sha256": "7fb16c6e0f883f84ada1a868547b1773deff344001c2f9d46db2587b13b76a5b",
+      "log_mtime_utc": "2026-10-26T20:41:39.063649+00:00"
+    },
+    {
+      "name": "browser-attempt-2",
+      "log": "browser-attempt-2.log",
+      "exit_code": 0,
+      "sha256": "043eff50053135b84dc2e478a53dfddfa598725a8227f97e9340db784814191c",
+      "log_mtime_utc": "2026-10-26T20:43:24.551458+00:00"
+    },
+    {
+      "name": "visual-review",
+      "log": "visual-review.log",
+      "exit_code": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_mtime_utc": "2026-10-26T20:45:12.988635+00:00"
+    }
+  ]
+}

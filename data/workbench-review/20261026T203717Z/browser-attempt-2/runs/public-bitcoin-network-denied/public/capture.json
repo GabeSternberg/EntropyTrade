@@ -1,0 +1,23 @@
+{
+  "decision_time": "2026-10-26T20:43:08.960585+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-10-26T20:43:08.956111+00:00",
+      "failure": "GatewayError",
+      "source": "KXBTC"
+    },
+    {
+      "failed_at": "2026-10-26T20:43:08.960540+00:00",
+      "failure": "ConnectError",
+      "source": "coinbase"
+    }
+  ],
+  "family": "bitcoin",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-10-26T20:43:08.917893+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}

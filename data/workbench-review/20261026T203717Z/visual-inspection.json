@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-10-26T20:50:17.472157+00:00",
+  "method": "Assistant viewed actual saved Playwright screenshots with view_image; supplemental images are native locator/viewport screenshots, unedited",
+  "inspected": [
+    "visual-review/public-bitcoin-network-denied-review-acquisition.png",
+    "visual-review/synthetic-negative-control.png",
+    "visual-review/bitcoin-contract-rules-authority-mentions.png",
+    "visual-review/synthetic-validation-probabilities.png"
+  ],
+  "observations": [
+    "Incomplete acquisition headline, counts, both clocked failures and unresolved settlement limitations are legible and uncollapsed.",
+    "Negative control has zero fills in optimistic, base and conservative scenarios.",
+    "Actual Bitcoin rules, empty verified settlement sources and separate unverified authority mentions are visible.",
+    "Synthetic banner, excluded final holdout and 100 of 192 permitted validation records are visible; null calibration displays an em dash."
+  ],
+  "outcome": "passed"
+}

@@ -1,0 +1,11 @@
+{
+  "root": "/Users/gabriel/Projects/EntropyTrade/data/cache/workbench-browser-review-20261026T203717Z-attempt-2/runs/1b2f949a-9fe2-4e0f-bae8-18438b079fcd",
+  "features": "public",
+  "model_results": null,
+  "holdout_start": "9999-12-31",
+  "model_families": [
+    "forward_only"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

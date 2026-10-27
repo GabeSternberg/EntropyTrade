@@ -11,11 +11,13 @@ The real historical sample remains too small and lacks certified forecasts/scala
 complete fitting/calibration is verified separately on synthetic data. Provider-backed agent research is configurable with bounded evidence tools; real provider
 verification needs a dedicated research key. The integrated `research-and-test` command now connects candidates, models, replay and
 ranked diagnostics. A template-only local research website and Bitcoin forward adapter are implemented
-in `99e2fbc`; current reviewed commit `ff3bcc9` also includes the SQLite acceptance repair.
-Retained listener/worker tests and successful weather/Bitcoin public ingestion are historical
-evidence, with no browser acceptance claimed. V1 is incomplete; see [project context](PROJECT_CONTEXT.md). Browser
-acceptance remains blocked by unavailable browser access; see
-[operation and exact limitations](docs/workbench.md). Continuous shadow remains later work. Production trading
+in `99e2fbc`; reviewed commit `18be50c` includes the SQLite acceptance repair and retained evidence.
+All four documented website workflows now pass through isolated Playwright Chromium against
+the real backend, including public captures, incomplete acquisition, downloads, cancellation
+and restart persistence. See the [browser evidence](data/workbench-review/20261026T203717Z/README.md)
+and [operation and exact limitations](docs/workbench.md). V1 is incomplete; see
+[project context](PROJECT_CONTEXT.md). Second-family historical evaluation and continuous
+shadow remain later work. Production trading
 is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks

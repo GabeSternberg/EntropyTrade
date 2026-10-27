@@ -1,0 +1,15 @@
+{
+  "root": "/Users/gabriel/Projects/EntropyTrade/data/cache/workbench-browser-review-20261026T203717Z-attempt-2/runs/e5a7e2fb-add9-45d8-b9de-d69256b7c676/workflow",
+  "features": "inputs/features/797e17205bf91b1093a37c37e6fb5458a1e0c3103d5d8ee485a0d2ad1a2739ac",
+  "model_results": "models/74053c402fde54b1563c918bfc7fafbd5b58f8eb2085b12b99c638c1fd029c01/results.json",
+  "holdout_start": "2025-07-12",
+  "model_families": [
+    "climatology",
+    "raw_forecast",
+    "forecast_error",
+    "ridge",
+    "boosting"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

@@ -1,0 +1,74 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "template-c0",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "no executable StrategySpec was supplied"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    },
+    {
+      "candidate_id": "template-c1",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "no executable StrategySpec was supplied"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    }
+  ],
+  "code": {
+    "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+    "backtest/replay.py": "sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970",
+    "data.py": "sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153",
+    "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de",
+    "engine.py": "sha256:af49bdd10ff602699da3a03d470d8f19fb366a7e2465764456309856acb26178",
+    "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+    "execution/paper.py": "sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172",
+    "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+    "strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+    "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+    "workflow.py": "sha256:1d1eda965badb947213934d6f7b1cc1ed8f4bcb4352a8c2aa63c92e6a0f371a4"
+  },
+  "config": {
+    "bootstrap_samples": 500,
+    "fee_policy": null,
+    "latency_seconds": 1,
+    "max_book_age_seconds": 60,
+    "min_events": 20,
+    "min_trades": 10,
+    "per_event": "100",
+    "per_trade": "25",
+    "scenarios": [
+      "optimistic",
+      "base",
+      "conservative"
+    ],
+    "seed": 17,
+    "starting_cash": "1000",
+    "total_deployed": "500"
+  },
+  "data_kind": "real",
+  "dataset": "sha256:c8d728c2032013f6b07c38d30da8ff26fc7dba99e7d77e80ebf30fd176d3c2dd",
+  "experiment_id": "sha256:86ede9ce6492276d6cbee77e43050c7a125c6c867195590e4395d6248dd65673",
+  "feature_version": "sha256:bbc83621362e96f739f617789aa30495d1299d2cfad7166f83102b89381a6714",
+  "final_holdout_evaluated": false,
+  "normalized_data_hash": "sha256:30641cced35384a53eac6019f615c4922b320955528745e90825308c89db7a1d",
+  "requested_trial_count": 6,
+  "research_hash": "sha256:5fecc7a4f9ff69bc7b0a7d2ddb28b7b36793d10676031e2dc5b6dded8325e183",
+  "research_run": "86bf26ec-9f10-41df-a472-a4c4cd5f4ac0",
+  "resolved_models": {},
+  "warnings": [
+    "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+    "Snapshot fills model taker execution, not queues or observed fills.",
+    "Synthetic results verify software only; ranking is not deployment authorization."
+  ]
+}

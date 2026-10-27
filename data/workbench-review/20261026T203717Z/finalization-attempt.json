@@ -1,0 +1,6 @@
+{
+  "recorded_at_utc": "2026-10-26T20:51:46.268402+00:00",
+  "outcome": "Initial index-refresh command did not execute because .venv/bin/python was resolved relative to data/workbench-review rather than the repository. A checksum check then used the old index and reported only its intentionally edited README.md as mismatched.",
+  "recovery": "Rerun index generation from repository root, verify all original receipt contents first, then verify the refreshed complete index.",
+  "application_or_historical_receipt_changes": false
+}

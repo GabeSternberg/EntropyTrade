@@ -1,0 +1,89 @@
+{
+  "started_at_utc": "2026-10-26T20:45:13.187Z",
+  "screenshots": [
+    {
+      "at_utc": "2026-10-26T20:45:14.749Z",
+      "file": "synthetic-negative-control.png",
+      "sha256": "e2380bf45e1862f6a1206210bf0dd190816f54e5e43741d82f09dc10ec44e7d7"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:14.949Z",
+      "file": "synthetic-validation-probabilities.png",
+      "sha256": "7582104320acafeef97f478280af4067575cae8216ff9136ba1a5e8fe2fec362"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:15.283Z",
+      "file": "public-weather-review-acquisition.png",
+      "sha256": "eb421626a2f8e0ea4f07706c7f5dbe36d624d816f83cd71ebd71416f02920673"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:15.481Z",
+      "file": "public-weather-probabilities-acquisition.png",
+      "sha256": "eb421626a2f8e0ea4f07706c7f5dbe36d624d816f83cd71ebd71416f02920673"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:15.648Z",
+      "file": "public-weather-evidence-acquisition.png",
+      "sha256": "eb421626a2f8e0ea4f07706c7f5dbe36d624d816f83cd71ebd71416f02920673"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:15.958Z",
+      "file": "public-bitcoin-review-acquisition.png",
+      "sha256": "a4e2ebd86c77b3de736590edf7f662428056277c05c843655634ff5da2c5e8e0"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:16.129Z",
+      "file": "public-bitcoin-probabilities-acquisition.png",
+      "sha256": "a4e2ebd86c77b3de736590edf7f662428056277c05c843655634ff5da2c5e8e0"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:16.325Z",
+      "file": "public-bitcoin-evidence-acquisition.png",
+      "sha256": "a4e2ebd86c77b3de736590edf7f662428056277c05c843655634ff5da2c5e8e0"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:16.531Z",
+      "file": "bitcoin-contract-rules-authority-mentions.png",
+      "sha256": "2152b6c25c28d4a4e6cda0b7a29dd3e8ad87cd5895c5661074cb45225aeb6e43"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:16.856Z",
+      "file": "public-bitcoin-network-denied-review-acquisition.png",
+      "sha256": "0b54b97f651b895aac4a3737e5c6814ad0ddf6e63385917b0a9e34db2e698869"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:17.032Z",
+      "file": "public-bitcoin-network-denied-probabilities-acquisition.png",
+      "sha256": "0b54b97f651b895aac4a3737e5c6814ad0ddf6e63385917b0a9e34db2e698869"
+    },
+    {
+      "at_utc": "2026-10-26T20:45:17.209Z",
+      "file": "public-bitcoin-network-denied-evidence-acquisition.png",
+      "sha256": "0b54b97f651b895aac4a3737e5c6814ad0ddf6e63385917b0a9e34db2e698869"
+    }
+  ],
+  "observations": [
+    {
+      "label": "synthetic-weather",
+      "job_id": "e5a7e2fb-add9-45d8-b9de-d69256b7c676",
+      "inspected_at_utc": "2026-10-26T20:45:14.950Z"
+    },
+    {
+      "label": "public-weather",
+      "job_id": "576f88be-e8bc-423e-9d8a-737636124be1",
+      "inspected_at_utc": "2026-10-26T20:45:15.648Z"
+    },
+    {
+      "label": "public-bitcoin",
+      "job_id": "f3d5c072-10f1-49a9-a730-b04550c218d5",
+      "inspected_at_utc": "2026-10-26T20:45:16.532Z"
+    },
+    {
+      "label": "public-bitcoin-network-denied",
+      "job_id": "1b2f949a-9fe2-4e0f-bae8-18438b079fcd",
+      "inspected_at_utc": "2026-10-26T20:45:17.209Z"
+    }
+  ],
+  "outcome": "passed",
+  "finished_at_utc": "2026-10-26T20:45:17.416Z"
+}

@@ -5,15 +5,17 @@ continuation, while preserving the [original product specification](project-spec
 R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
 branch/main merge and push are authorized. Stop before the next milestone.
 The current continuation is limited to acceptance of the implementation already committed
-at `ff3bcc9df40534396c774146405b4658f22f9753`. All Git mutations belong to the supervisor.
+at reviewed commit `18be50cee17f03ae3dbfa198ed22e7a23635af1b`. All Git mutations belong to the supervisor.
 A clean source export exposed a native SQLite job-connection close stall; a bounded
 concurrency regression and serialized-connection acceptance fix are now committed there.
 The historical candidate passed full checks (734 pytest tests, strict mypy, Ruff, and
 nine frontend cases); these receipts describe an overlay on `99e2fbc`. The supervisor's final
-independent clean-checkout sign-off remains required. Browser acceptance is blocked by
-unavailable approved browser access. Retained HTTP evidence and artifact hashes are
-rechecked; they do not establish browser usability or empirical model performance.
-See [status](../STATUS.md), [current evidence](../data/workbench-review/20261026T041240Z/README.md)
+independent clean-checkout sign-off remains required. All four documented browser procedures
+now pass using Playwright's separate Chromium and the actual localhost backend. The new
+receipt preserves successful public ingestion separately from deliberate OS network denial,
+checksummed browser downloads, screenshots, cancellation and restart history. No empirical
+model performance is inferred from forward capture.
+See [status](../STATUS.md), [current evidence](../data/workbench-review/20261026T203717Z/README.md)
 and [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) for evidence-backed V1 gates. The user's
 current V1 sequence takes precedence over the older R5–R8 numbering below. V1 is incomplete.
 The R4 approval request revises the next priorities: minimal localhost website, second real
@@ -147,7 +149,7 @@ No empirical edge or trading readiness follows from this milestone.
 
 ## R5 — Minimal local research website
 
-**Template-only implementation and job-database acceptance repair committed in `ff3bcc9`; acceptance pending.**
+**Implementation committed; documented browser acceptance passed on `18be50c`, pending supervisor sign-off.**
 The historical candidate passed 734 pytest tests, strict mypy, Ruff and nine
 frontend presentation cases. The frozen `99e2fbc` baseline failure and then-uncommitted
 candidate remain recorded separately; the supervisor must complete final clean-checkout
@@ -155,7 +157,10 @@ locked setup and full checks of the reviewed commit.
 Acquisition completeness/counts/failures are prominent on every result tab and text report;
 nine frontend presentation regressions pass. A buildless local interface and standard-library
 HTTP control plane reuse the existing engines without new web dependencies. Browser
-acceptance is pending approved browser access; Git writes belong to the supervisor.
+acceptance passed all four procedures through isolated Playwright Chromium, including
+actual public captures, visible failure summaries, downloads, active cancellation and
+restart persistence. Current-source full checks passed all 734 pytest and nine frontend
+tests, Ruff and strict mypy. Git writes belong to the supervisor; V1 remains incomplete.
 See the [operating guide](workbench.md).
 
 Original scope: FastAPI plus a minimal React/Vite local interface over existing
@@ -173,8 +178,8 @@ KXBTC public rules and Coinbase spot are a distinct registered forward-evidence 
 Bitcoin's `rules_known` remains false and settlement sources/basis stay unresolved because
 complete resolution semantics are unverified. Exact authority mentions, including negated
 or ambiguous text, are retained separately as unverified provenance.
-The latest actual HTTP run retained 3 successful receipts, 318 listed contracts and one
-Coinbase spot observation. A separate denied-network attempt retained explicit failures
+The latest browser run retained 3 successful receipts, 210 listed contracts and one
+Coinbase spot observation. A separate OS-denied browser run retained two explicit failures
 and zero data. Neither is a historical probability/returns evaluation.
 Official source-matched outcomes, independent historical training/evaluation and sized
 execution evidence are absent. This does not satisfy an empirical R6 completion claim.

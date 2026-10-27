@@ -7,7 +7,7 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 **V1 is incomplete. Finish acceptance of the existing milestone before new features.**
 The starting checkout was clean on `supervisor/20261025-014400` at reviewed commit
-`ff3bcc9df40534396c774146405b4658f22f9753`. It includes the local workbench, Bitcoin
+`18be50cee17f03ae3dbfa198ed22e7a23635af1b`. It includes the local workbench, Bitcoin
 forward adapter and committed SQLite acceptance repair. The earlier `99e2fbc` baseline
 and uncommitted-candidate receipts describe historical states. Local `main` remains the
 R4 checkpoint `30bed8e`; no remote freshness is claimed.
@@ -16,58 +16,42 @@ Production trading remains disabled.
 
 ## Current acceptance continuation
 
-The [current receipt](data/workbench-review/20261026T041240Z/README.md) records commit/tree
-identity, renewed browser-access failures and UTC check clocks. The committed repair's
-two Python files and exact patch match the retained candidate hashes. The supervisor's
-final clean-checkout locked setup and full backend/frontend sign-off remain required.
+**All four documented browser procedures passed** with isolated Playwright Chromium and
+the real localhost backend on October 26, 20:42:33–20:43:23 UTC. No Computer Use or personal
+Chrome was used. The [current bundle](data/workbench-review/20261026T203717Z/README.md)
+retains the passing [browser receipt](data/workbench-review/20261026T203717Z/browser-attempt-2/browser-receipt.json),
+26 screenshots, 24 checksummed browser downloads, JSON/JUnit results, a trace, actual source
+captures/reviews and final SQLite snapshots. Supplemental readable UI screenshots and the
+first failed harness attempt are preserved separately. The failure was a harness assumption
+about null calibration timestamps; no application change or weakened safety rule was needed.
 
-The committed acceptance repair serializes job-database connections across in-process
-threads and Jobs instances. An earlier approved baseline run stalled with main and queue threads
-blocked in native SQLite connection close; the [stack sample](data/workbench-review/20261025T191200Z/pytest-sample.txt)
-and terminated-run receipt preserve that failure. A bounded four-thread regression with
-1,600 real connection cycles passes. The [historical candidate checks](data/workbench-review/20261025T191200Z/candidate-checks.json)
-and hashed two-file patch remain separate from current commit verification. No baseline
-full-check success is inferred from that candidate suite.
+Recorded weather showed typed exact comparisons, real insufficiency, empty probabilities
+and excluded holdout. Synthetic mode exposed 100 of 192 validation records, banners on
+all result tabs and zero negative-control fills in all three scenarios. Public weather
+returned 8 successful HTTP receipts, 24 contracts and 648 observations; Bitcoin returned
+3 successful receipts, 210 contracts and one observation. All Bitcoin settlement gates
+remained closed, verified sources empty and 420 authority mentions separately unverified.
+A deliberately OS-denied backend run separately produced two clocked acquisition failures
+and zero receipts/data; its incomplete summaries remained visible on all three tabs and in
+the text report. Public capture provides no historical evaluation or real-data returns.
 
-The historical fixed candidate passed the full unchanged `make check`: Ruff lint/format, strict mypy
-across 477 files and **734 pytest tests in 155.88 seconds**, with no skips or weakened tests.
-JavaScript syntax and all nine frontend presentation tests also passed. Those receipts
-still identify an uncommitted overlay on `99e2fbc`; they are not a fresh full run of `ff3bcc9`.
-The current receipt separately records locked setup, static checks and focused regressions.
+Active cancellation, subsequent worker-slot reuse, shutdown of an active run, interrupted
+restart history and reopening all six completed reviews passed. Browser JSON and report
+downloads match retained protected results, with identical checksums after restart. One
+browser console resource 404 is retained; no JavaScript page errors or failed workflow
+requests occurred. See the [reproducible harness](frontend/browser/README.md).
 
-The [restored project context](PROJECT_CONTEXT.md) maps implemented capability to the user's
-V1 gates rather than older milestone numbering.
+An isolated read-only export of reviewed commit `18be50c` passed locked setup, Ruff
+lint/format, strict mypy across 477 files, **734 pytest tests in 184.91 seconds**, JavaScript
+syntax and all **nine frontend tests**, with no skips. All 2,347 exported files remained
+unchanged. All 275 pre-existing receipt checksums passed. Earlier source states, HTTP-only
+evidence, browser denials and SQLite stall/repair receipts remain immutable historical records.
+No application source, financial safety boundary or Git ref was changed.
 
-Browser acceptance remains **blocked**: Computer Use lists no connected browsers,
-Chrome returns “Computer Use was not approved to use Google Chrome,” and the in-app
-browser returns “Browser is not available: iab.” No new browser job IDs, screenshots,
-visual inspections or browser downloads exist. Every documented browser workflow remains
-pending, including visible acquisition failures and synthetic labeling on every result tab,
-protected holdout, active cancellation, worker reuse and restart/history. HTTP and DOM-double
-checks do not satisfy that requirement. Automatic approval review rejected a repeat Chrome
-probe because access had already been denied; no further browser attempts or workaround
-followed. An approved browser session is required to proceed.
-
-All 245 existing receipt checksums passed before this documentation update. The earlier
-receipt verified 197 pre-existing checksums. Five
-retained reviews and 51 workflow artifacts were rechecked, including public manifests,
-validation-only probabilities, excluded holdout, synthetic negative-control zero fills,
-closed Bitcoin settlement gates, clocked failures and matching reports. Retained HTTP
-lifecycle evidence verifies active cancellation, worker reuse and interrupted restart
-history with identical exports. These are rechecked historical HTTP/worker results, not
-new browser workflows.
-
-The committed interface supports local signal templates or complete AND-only comparisons,
-recorded/public/synthetic modes, bounded isolated workers, durable history/cancellation,
-protected reviews and same-origin downloads. All result tabs and text reports expose public
-acquisition completeness, receipt/contract/observation counts and clocked failure summaries.
-Bitcoin remains forward-only: authority mentions are unverified provenance, settlement
-sources stay empty, settlement basis unresolved and every `rules_known` gate false.
-No real-data model performance or returns follow from either family's forward ingestion.
-
-See [operation and browser acceptance](docs/workbench.md), the
-[check receipt](data/workbench-review/20261025T191200Z/clean-root/checks.json) and
-[retained evidence](data/workbench-review/20261025T191200Z/retained-evidence.json).
+The supervisor must review this evidence, complete independent final clean-checkout
+verification and handle every commit, merge and push. **V1 remains incomplete** because
+usable second-family history/semantics/evaluation and continuous paper/shadow remain open.
+See [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) and [the operating guide](docs/workbench.md).
 
 ## Delivered capabilities
 

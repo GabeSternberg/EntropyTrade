@@ -1,0 +1,181 @@
+{
+  "config": {
+    "configFile": "/Users/gabriel/Projects/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/Users/gabriel/Projects/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/Users/gabriel/Projects/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "workbench.spec.cjs",
+      "file": "workbench.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "four documented workbench workflows on the committed application",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 46983,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 7\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"2. synthetic modeling, gates, scenarios and validation probabilities: The expression evaluated to a falsy value:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+   assert(review.probabilities.every(p => p.split === \\\"validation\\\" && Date.parse(p.fit_asof) <= Date.parse(p.decision_time) && Date.parse(p.calibration_asof) <= Date.parse(p.decision_time)))\u001b[39m\n\u001b[31m+ \",\u001b[39m\n\u001b[31m+   \"4. active cancellation, slot reuse, interrupted restart and persistent downloads: Cannot read properties of undefined (reading 'json')\",\u001b[39m\n\u001b[31m+ ]\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 7\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"2. synthetic modeling, gates, scenarios and validation probabilities: The expression evaluated to a falsy value:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+   assert(review.probabilities.every(p => p.split === \\\"validation\\\" && Date.parse(p.fit_asof) <= Date.parse(p.decision_time) && Date.parse(p.calibration_asof) <= Date.parse(p.decision_time)))\u001b[39m\n\u001b[31m+ \",\u001b[39m\n\u001b[31m+   \"4. active cancellation, slot reuse, interrupted restart and persistent downloads: Cannot read properties of undefined (reading 'json')\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n    at /Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs:390:20",
+                    "location": {
+                      "file": "/Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs",
+                      "column": 20,
+                      "line": 390
+                    },
+                    "snippet": "  388 |     // Full reviews are saved separately and in actual browser downloads.\n  389 |     for (const run of receipt.runs) delete run.review;\n> 390 |     save();\n      |            ^\n  391 |     await info.attach(\"browser-receipt\", { path: path.join(evidence, \"browser-receipt.json\"), contentType: \"application/json\" });\n  392 |   }\n  393 |   expect(receipt.page_errors).toEqual([]);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs",
+                        "column": 20,
+                        "line": 390
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 7\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"2. synthetic modeling, gates, scenarios and validation probabilities: The expression evaluated to a falsy value:\u001b[39m\n\u001b[31m+\u001b[39m\n\u001b[31m+   assert(review.probabilities.every(p => p.split === \\\"validation\\\" && Date.parse(p.fit_asof) <= Date.parse(p.decision_time) && Date.parse(p.calibration_asof) <= Date.parse(p.decision_time)))\u001b[39m\n\u001b[31m+ \",\u001b[39m\n\u001b[31m+   \"4. active cancellation, slot reuse, interrupted restart and persistent downloads: Cannot read properties of undefined (reading 'json')\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  388 |     // Full reviews are saved separately and in actual browser downloads.\n  389 |     for (const run of receipt.runs) delete run.review;\n> 390 |     save();\n      |            ^\n  391 |     await info.attach(\"browser-receipt\", { path: path.join(evidence, \"browser-receipt.json\"), contentType: \"application/json\" });\n  392 |   }\n  393 |   expect(receipt.page_errors).toEqual([]);\n    at /Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs:390:20"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "steps": [
+                    {
+                      "title": "1. recorded weather, typed specification and protected downloads",
+                      "duration": 7623
+                    },
+                    {
+                      "title": "2. synthetic modeling, gates, scenarios and validation probabilities",
+                      "duration": 13458
+                    },
+                    {
+                      "title": "3. fresh public weather and Bitcoin acquisition through all result tabs",
+                      "duration": 14498
+                    },
+                    {
+                      "title": "4. active cancellation, slot reuse, interrupted restart and persistent downloads",
+                      "duration": 10088
+                    }
+                  ],
+                  "startTime": "2026-10-26T20:40:50.236Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "browser-receipt",
+                      "contentType": "application/json",
+                      "path": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-d037f9bb072d00965d4669dda0e171a85873268c.json"
+                    },
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/gabriel/Projects/EntropyTrade/data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs",
+                    "column": 20,
+                    "line": 390
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e1735e0a6e42817e4de2-daece9ed1d0549d297c8",
+          "file": "workbench.spec.cjs",
+          "line": 22,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-26T20:40:49.878Z",
+    "duration": 49183.801999999996,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

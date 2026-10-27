@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-10-26T20:50:17.416051+00:00",
+  "commit": "18be50cee17f03ae3dbfa198ed22e7a23635af1b",
+  "tree": "529aaaa9802045b1dcf9dc6a99235c6634b7fd28",
+  "branch": "supervisor/20261025-014400",
+  "application_test_config_build_files_checked": 494,
+  "application_inputs_unchanged": true,
+  "expected_documentation_updates": [
+    "PROJECT_CONTEXT.md",
+    "README.md",
+    "STATUS.md",
+    "data/workbench-review/README.md",
+    "docs/roadmap.md",
+    "docs/workbench.md"
+  ],
+  "new_browser_harness": {
+    "frontend/browser/workbench.spec.cjs": "ce8652017febeadc048ba9c1af4652ea037634109c1dd9d5eb5785258ef6e588",
+    "frontend/browser/README.md": "feb0e50803c44ea5e0a2753953d9061810aab99bd8a6ca43f0ececbbe8489c97",
+    "frontend/browser/.gitignore": "d47c74b15d8d15489f8d395081018d3a9e7604f82cc8451621a540c28a0bf4b9",
+    "frontend/browser/package-lock.json": "fd41a3af738c8724b58b5962eddc89bd965682f8d680270d6a1179cb654d6592",
+    "frontend/browser/package.json": "6c9c1848ffdbf8ac65f2233fe2bb70f298ea4c1c29b2df307cef435c092c534f",
+    "frontend/browser/playwright.config.cjs": "d7c4b1837b9f9dca675998170495c92528a56c3dc40744b301afb1256ea93f3e"
+  },
+  "git_mutations_performed": false,
+  "note": "Source comparison recorded before the separately expected evidence SHA256SUMS index refresh."
+}

@@ -1,0 +1,70 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition COMPLETE · bitcoin
+
+HTTP receipts: 3 (3 successful); listed contracts: 210; observations: 1; acquisition failures: 0.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+
+No acquisition failures recorded.
+
+Capture (UTC): 2026-10-26T20:41:23.946226+00:00 → 2026-10-26T20:41:24.288796+00:00. Universe complete: true. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+3
+Independent events
+3
+Date blocks
+3
+Eligible feature events
+0
+Source-matched labels
+Formulation limits
+No language model is used; arbitrary prose is not fully understood.
+Two model comparisons are not causal tests or feature ablations.
+KXBTC signal test 1
+INSUFFICIENT DATA
+
+The requested signal spot_minus_floor_usd may improve contract probabilities.
+
+EXPERIMENT DECISION
+
+no permitted validation predictions; insufficient point-in-time data/model history
+execution P&L is unavailable without certified rules, sized books and fee evidence
+
+FALSIFICATION
+
+Reject without validation improvement and fee-aware depth evidence.
+
+Typed hypothesis
+
+No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+
+Independent research gates and criticism
+Strategy specification
+KXBTC signal test 2
+INSUFFICIENT DATA
+
+A forecast-error baseline may be more stable than regression for this signal.
+
+EXPERIMENT DECISION
+
+no permitted validation predictions; insufficient point-in-time data/model history
+execution P&L is unavailable without certified rules, sized books and fee evidence
+
+FALSIFICATION
+
+Reject without validation improvement and fee-aware depth evidence.
+
+Typed hypothesis
+
+No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+
+Independent research gates and criticism
+Strategy specification
+Evaluation limits
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

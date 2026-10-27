@@ -1,0 +1,25 @@
+Public acquisition COMPLETE · weather
+HTTP receipts: 8 (8 successful); listed contracts: 24; observations: 648; acquisition failures: 0.
+Capture started (UTC): 2026-10-26T20:42:55.812606+00:00
+Decision / capture end (UTC): 2026-10-26T20:42:56.505535+00:00
+Universe complete: True; history complete: False
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+Acquisition failure summary:
+None recorded.
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Full-day hourly forecast maxima are proxies, not official settlement highs.
+
+# Research-to-experiment report
+
+Data: real. Research run: 0fa39178-491a-4bb3-9bb0-dfeeca52180c
+Final holdout: not evaluated. No trading authorization.
+
+template-c0: UNSUPPORTED
+no executable StrategySpec was supplied
+template-c1: UNSUPPORTED
+no executable StrategySpec was supplied
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

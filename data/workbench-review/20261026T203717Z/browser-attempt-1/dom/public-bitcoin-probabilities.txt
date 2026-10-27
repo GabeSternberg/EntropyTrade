@@ -1,0 +1,21 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition COMPLETE · bitcoin
+
+HTTP receipts: 3 (3 successful); listed contracts: 210; observations: 1; acquisition failures: 0.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+
+No acquisition failures recorded.
+
+Capture (UTC): 2026-10-26T20:41:23.946226+00:00 → 2026-10-26T20:41:24.288796+00:00. Universe complete: true. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Validation probabilities
+
+Showing 0 of 0 permitted prediction records (limit 100). Only validation probabilities used by the experiment are exposed.
+
+No eligible fitted probability records exist for this run. Current spot prices, forecasts and market quotes do not supply a probability model.
+Prediction identities and feature/model lineage

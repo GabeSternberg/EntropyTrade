@@ -1,0 +1,17 @@
+{
+  "verified_at_utc": "2026-10-26T20:50:47.310081+00:00",
+  "commit": "18be50cee17f03ae3dbfa198ed22e7a23635af1b",
+  "tree": "529aaaa9802045b1dcf9dc6a99235c6634b7fd28",
+  "outcome": "passed",
+  "documented_browser_procedures_passed": 4,
+  "completed_jobs": 6,
+  "cancelled_jobs": 1,
+  "interrupted_jobs": 1,
+  "workflow_artifact_hashes_verified": 63,
+  "full_page_screenshot_hashes_verified": 26,
+  "supplemental_screenshot_hashes_verified": 12,
+  "browser_downloads_verified": 24,
+  "full_check_commands_passed": 6,
+  "preserved_failed_attempt": "browser-attempt-1",
+  "v1_complete": false
+}

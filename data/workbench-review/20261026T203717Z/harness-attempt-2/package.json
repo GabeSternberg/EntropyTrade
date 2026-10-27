@@ -1,0 +1,13 @@
+{
+  "name": "entropytrade-browser-acceptance",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Real loopback workbench acceptance using isolated Playwright Chromium",
+  "scripts": {
+    "install:chromium": "playwright install chromium",
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

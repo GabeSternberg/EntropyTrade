@@ -1,0 +1,51 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 frontend/browser/workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application (47.0s)
+
+
+  1) frontend/browser/workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  - 1[39m
+    [31m+ Received  + 7[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "2. synthetic modeling, gates, scenarios and validation probabilities: The expression evaluated to a falsy value:[39m
+    [31m+[39m
+    [31m+   assert(review.probabilities.every(p => p.split === \"validation\" && Date.parse(p.fit_asof) <= Date.parse(p.decision_time) && Date.parse(p.calibration_asof) <= Date.parse(p.decision_time)))[39m
+    [31m+ ",[39m
+    [31m+   "4. active cancellation, slot reuse, interrupted restart and persistent downloads: Cannot read properties of undefined (reading 'json')",[39m
+    [31m+ ][39m
+
+      388 |     // Full reviews are saved separately and in actual browser downloads.
+      389 |     for (const run of receipt.runs) delete run.review;
+    > 390 |     save();
+          |            ^
+      391 |     await info.attach("browser-receipt", { path: path.join(evidence, "browser-receipt.json"), contentType: "application/json" });
+      392 |   }
+      393 |   expect(receipt.page_errors).toEqual([]);
+        at /Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs:390:20
+
+    attachment #1: browser-receipt (application/json) ──────────────────────────────────────────────
+    data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-d037f9bb072d00965d4669dda0e171a85873268c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+    Usage:
+
+        npx playwright show-trace data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/browser/workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application 

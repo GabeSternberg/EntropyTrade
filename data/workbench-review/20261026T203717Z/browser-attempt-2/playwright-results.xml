@@ -1,0 +1,13 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="54.04802899999999">
+<testsuite name="workbench.spec.cjs" timestamp="2026-10-26T20:42:30.562Z" hostname="" tests="1" failures="0" skipped="0" time="50.716" errors="0">
+<testcase name="four documented workbench workflows on the committed application" classname="workbench.spec.cjs" time="50.716">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-40647dc5ff043d7bd19adb2044d7f43de7496906.json]]
+
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

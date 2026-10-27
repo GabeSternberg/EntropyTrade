@@ -1,9 +1,28 @@
 # Workbench acceptance receipts
 
-Latest continuation: [20261026T042230Z](20261026T042230Z/README.md), on reviewed commit
-`c6d6d8b3e2c2e01ba2bde26424c556db66845f16`. Chrome access was denied again in this
-new continuation, so all four browser procedures remain pending; no browser workaround
-was attempted. The bundle binds current-source locked setup and full backend/frontend
+Latest continuation: [20261026T203717Z](20261026T203717Z/README.md), on reviewed commit
+`18be50cee17f03ae3dbfa198ed22e7a23635af1b`, tree
+`529aaaa9802045b1dcf9dc6a99235c6634b7fd28`, with an initially clean working tree on
+`supervisor/20261025-014400`. **All four documented browser procedures passed** using
+Playwright 1.56.1 and separately installed Chromium 141.0.7390.37 against the real localhost
+backend. No Computer Use or personal Chrome was used. The passing attempt retains 26
+screenshots, 24 browser downloads, JSON/JUnit results, a trace, actual public captures and
+restart-persistent reviews/history. A labeled OS network-denial test separately verifies
+incomplete acquisition. The initial harness failure is retained, with no passing claim.
+
+The same committed source passed locked setup and the unchanged full checks in a read-only
+export: Ruff lint/format, strict mypy across 477 files, **734 pytest tests in 184.91 seconds**,
+JavaScript syntax and all **nine frontend tests**, with no skips. All 2,347 exported files
+remained unchanged. All 275 pre-existing receipt checksums passed before updates. No
+application source, risk boundary, Git ref, index, commit, merge or push was changed.
+The supervisor's independent final clean-checkout sign-off and Git integration remain
+required. **V1 remains incomplete**: second-family history/evaluation and continuous
+paper/shadow are still open.
+
+Previous continuation: [20261026T042230Z](20261026T042230Z/README.md), on reviewed commit
+`c6d6d8b3e2c2e01ba2bde26424c556db66845f16`. Chrome access was denied at 04:22,
+so all four browser procedures remained pending at that time; no browser workaround
+was attempted. That bundle binds its source's locked setup and full backend/frontend
 checks to an isolated read-only export. It preserves UTC command clocks, a 2,332-file
 manifest and log checksums. All 260 existing receipt checksums passed before this
 documentation update. This does not replace the supervisor's independent clean-checkout
@@ -20,13 +39,14 @@ hashes. Its original receipts remain immutable records of an uncommitted overlay
 `99e2fbc`, not final clean-checkout verification of `ff3bcc9`. No branches, index
 entries, commits, merges or pushes were changed in this continuation.
 
-**Browser acceptance remains blocked. V1 is incomplete.** Computer Use lists no connected
-browsers, denies native Chrome access and reports the in-app browser unavailable. No new
-browser job IDs, screenshots, visual inspections or browser downloads are claimed. All
+**Historical browser blocker (superseded by the Playwright receipt above):** Computer Use
+listed no connected browsers, denied native Chrome access and reported the in-app browser
+unavailable. That continuation claimed no new browser job IDs, screenshots, visual
+inspections or browser downloads. All
 steps in [the browser procedure](../../docs/workbench.md#browser-acceptance-procedure)
-remain pending. Automatic approval review rejected a repeat Chrome probe because Chrome
+remained pending then. Automatic approval review rejected a repeat Chrome probe because Chrome
 access had already been denied; no further browser attempts or workaround followed.
-Return for review with this specific blocker.
+That attempt returned for review with this specific blocker.
 
 The [historical bundle](20261025T191200Z/README.md) binds the earlier `99e2fbc` commit/tree to a manifest of 2,268 unchanged exported
 files, a new virtual environment, locked setup, full unchanged backend checks and frontend

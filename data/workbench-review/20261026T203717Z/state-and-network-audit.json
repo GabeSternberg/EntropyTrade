@@ -1,0 +1,49 @@
+{
+  "at_utc": "2026-10-26T20:44:45.576481+00:00",
+  "state": [
+    {
+      "file": "browser-attempt-2/state/jobs.sqlite",
+      "sha256": "0dbb7960ff5343bc7f1d8dd20a2d902100629c30e7b4159bdac355314a8f880b"
+    },
+    {
+      "file": "browser-attempt-2/state/registry.sqlite",
+      "sha256": "c6cc0ce31a1c389f39ffe7db8ec1918fb29672f18140d216556f58e04bf0504e"
+    }
+  ],
+  "jobs": [
+    [
+      "c49061d6-61ea-4d84-b50d-fe56832634ee",
+      "completed"
+    ],
+    [
+      "e5a7e2fb-add9-45d8-b9de-d69256b7c676",
+      "completed"
+    ],
+    [
+      "576f88be-e8bc-423e-9d8a-737636124be1",
+      "completed"
+    ],
+    [
+      "f3d5c072-10f1-49a9-a730-b04550c218d5",
+      "completed"
+    ],
+    [
+      "1b2f949a-9fe2-4e0f-bae8-18438b079fcd",
+      "completed"
+    ],
+    [
+      "4161af54-ab3c-42cf-8ef3-4e3e5b3a09a7",
+      "cancelled"
+    ],
+    [
+      "b8c4685e-eb1e-4ae8-8f95-b3b280e1a391",
+      "completed"
+    ],
+    [
+      "01e35f87-7e15-410c-9166-296b0eb7eb44",
+      "interrupted"
+    ]
+  ],
+  "browser_http_errors": [],
+  "browser_receipt_outcome": "passed"
+}

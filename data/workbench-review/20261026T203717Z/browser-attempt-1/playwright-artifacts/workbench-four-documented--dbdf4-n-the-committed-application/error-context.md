@@ -1,0 +1,308 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "EntropyTrade home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e4]: E
+      - text: EntropyTrade
+    - generic [ref=e5]: ● PRIVATE · LOCALHOST
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: THE RESEARCH DESK
+        - heading "From an idea to evidence." [level=1] [ref=e10]
+        - paragraph [ref=e11]: Formulate a hypothesis. Test what the data can support. Keep the full lineage.
+      - generic [ref=e12]: Research only · execution disabled
+    - generic [ref=e13]:
+      - complementary [ref=e14]:
+        - region "What would you like to test?" [ref=e15]:
+          - paragraph [ref=e16]: 01 / NEW EXPERIMENT
+          - heading "What would you like to test?" [level=2] [ref=e17]
+          - generic [ref=e18]:
+            - generic [ref=e19]: Research idea
+            - textbox "Research idea" [ref=e20]:
+              - /placeholder: Do upward forecast revisions improve weather contract probabilities?
+              - text: Do upward forecast revisions improve weather contract probabilities?
+            - generic [ref=e21]:
+              - button "Weather" [ref=e22] [cursor=pointer]
+              - button "Bitcoin" [ref=e23] [cursor=pointer]
+              - button "Software demo" [ref=e24] [cursor=pointer]
+            - generic [ref=e25]: Market family
+            - combobox "Market family" [ref=e26]:
+              - option "Weather · daily high temperature" [selected]
+              - option "Bitcoin · KXBTC contracts"
+            - generic [ref=e27]: Data source
+            - combobox "Data source" [ref=e28]:
+              - option "Recorded real weather evidence" [selected]
+              - option "Fetch public sources now"
+              - option "Synthetic weather demonstration"
+            - paragraph [ref=e29]: Six historical city/day events across three dates. Certified forecast vintages and scalar highs are absent; expect an insufficient-data result.
+            - generic [ref=e30]: Hypothesis formulation
+            - combobox "Hypothesis formulation" [disabled] [ref=e31]:
+              - option "Local templates · no provider credentials" [selected]
+            - paragraph [ref=e32]: "Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f >= 1.25 and hours_to_close < 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only."
+            - button "Start research" [ref=e33] [cursor=pointer]:
+              - text: Start research
+              - generic [ref=e34]: ↗
+            - status
+        - region "Recent runs" [ref=e35]:
+          - generic [ref=e36]:
+            - heading "Recent runs" [level=2] [ref=e37]
+            - button "Refresh" [ref=e38] [cursor=pointer]
+          - generic [ref=e39]:
+            - button "Synthetic restart interruption browser acceptance interrupted weather · synthetic 10/26/2026, 8:41:34 PM" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]: Synthetic restart interruption browser acceptance
+              - generic [ref=e42]:
+                - generic [ref=e43]: interrupted
+                - generic [ref=e44]: weather · synthetic
+              - text: 10/26/2026, 8:41:34 PM
+            - button "Test revision_f >= 1.25 and hours_to_close < 8 completed weather · recorded 10/26/2026, 8:41:29 PM" [ref=e45] [cursor=pointer]:
+              - generic [ref=e46]: Test revision_f >= 1.25 and hours_to_close < 8
+              - generic [ref=e47]:
+                - generic [ref=e48]: completed
+                - generic [ref=e49]: weather · recorded
+              - text: 10/26/2026, 8:41:29 PM
+            - button "Synthetic cancellation browser acceptance cancelled weather · synthetic 10/26/2026, 8:41:28 PM" [ref=e50] [cursor=pointer]:
+              - generic [ref=e51]: Synthetic cancellation browser acceptance
+              - generic [ref=e52]:
+                - generic [ref=e53]: cancelled
+                - generic [ref=e54]: weather · synthetic
+              - text: 10/26/2026, 8:41:28 PM
+            - button "Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities? completed bitcoin · public 10/26/2026, 8:41:21 PM" [ref=e55] [cursor=pointer]:
+              - generic [ref=e56]: Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities?
+              - generic [ref=e57]:
+                - generic [ref=e58]: completed
+                - generic [ref=e59]: bitcoin · public
+              - text: 10/26/2026, 8:41:21 PM
+            - button "Do upward forecast revisions improve weather contract probabilities? completed weather · public 10/26/2026, 8:41:13 PM" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: Do upward forecast revisions improve weather contract probabilities?
+              - generic [ref=e62]:
+                - generic [ref=e63]: completed
+                - generic [ref=e64]: weather · public
+              - text: 10/26/2026, 8:41:13 PM
+            - button "Demonstrate temporal modeling and execution gates on explicitly synthetic weather data. completed weather · synthetic 10/26/2026, 8:41:00 PM" [ref=e65] [cursor=pointer]:
+              - generic [ref=e66]: Demonstrate temporal modeling and execution gates on explicitly synthetic weather data.
+              - generic [ref=e67]:
+                - generic [ref=e68]: completed
+                - generic [ref=e69]: weather · synthetic
+              - text: 10/26/2026, 8:41:00 PM
+            - button "revision_f >= 1.25 and hours_to_close < 8 completed weather · recorded 10/26/2026, 8:40:52 PM" [ref=e70] [cursor=pointer]:
+              - generic [ref=e71]: revision_f >= 1.25 and hours_to_close < 8
+              - generic [ref=e72]:
+                - generic [ref=e73]: completed
+                - generic [ref=e74]: weather · recorded
+              - text: 10/26/2026, 8:40:52 PM
+      - region "Research results" [ref=e75]:
+        - status
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - paragraph [ref=e79]: 02 / RESEARCH RUN
+            - generic [ref=e80]:
+              - link "Text report" [active] [ref=e81] [cursor=pointer]:
+                - /url: /api/jobs/15645f58-5446-4893-b077-5674b619b7ff/report
+              - link "Review JSON" [ref=e82] [cursor=pointer]:
+                - /url: /api/jobs/15645f58-5446-4893-b077-5674b619b7ff/review
+          - heading "Demonstrate temporal modeling and execution gates on explicitly synthetic weather data." [level=2] [ref=e83]
+          - generic [ref=e84]:
+            - generic [ref=e85]: completed
+            - generic [ref=e86]: SYNTHETIC
+            - generic [ref=e87]: weather · 10/26/2026, 8:41:00 PM
+          - paragraph [ref=e88]: Review saved; inspect candidate gates and evidence limitations
+        - group [ref=e90]:
+          - generic "Run progress · 7 recorded stages" [ref=e91] [cursor=pointer]
+        - navigation "Result sections" [ref=e92]:
+          - button "Review" [pressed] [ref=e93] [cursor=pointer]
+          - button "Probabilities" [ref=e94] [cursor=pointer]
+          - button "Evidence & lineage" [ref=e95] [cursor=pointer]
+        - generic [ref=e96]:
+          - generic [ref=e97]: SYNTHETIC SOFTWARE DEMONSTRATION. Predeclared mock proposals; the idea is recorded, not interpreted by an LLM. Final holdout is excluded.
+          - generic [ref=e98]:
+            - generic [ref=e99]:
+              - strong [ref=e100]: "384"
+              - text: Independent events
+            - generic [ref=e101]:
+              - strong [ref=e102]: "192"
+              - text: Date blocks
+            - generic [ref=e103]:
+              - strong [ref=e104]: "384"
+              - text: Eligible feature events
+            - generic [ref=e105]:
+              - strong [ref=e106]: "384"
+              - text: Source-matched labels
+          - generic [ref=e107]:
+            - heading "Formulation limits" [level=2] [ref=e108]
+            - list [ref=e109]:
+              - listitem [ref=e110]: No empirical forecast model or executable historical depth is available.
+          - article [ref=e111]:
+            - generic [ref=e112]:
+              - heading "SYNTHCHI informational revision_f" [level=2] [ref=e113]
+              - generic [ref=e114]: REJECTED
+            - paragraph [ref=e115]: Revisions may identify probability changes before market repricing.
+            - paragraph [ref=e116]: Experiment decision
+            - list [ref=e117]:
+              - listitem [ref=e118]: too few modeled fills for trading evidence
+            - paragraph [ref=e119]: Falsification
+            - paragraph [ref=e120]: Reject if there is no reliable out-of-sample improvement across independent dates.
+            - group [ref=e121]:
+              - generic "Typed hypothesis" [ref=e122] [cursor=pointer]
+            - group [ref=e123]:
+              - generic "Forecast validation metrics" [ref=e124] [cursor=pointer]
+            - paragraph [ref=e125]: Simulated execution scenarios · never observed fills
+            - table [ref=e127]:
+              - rowgroup [ref=e128]:
+                - row "Scenario Fills Simulated P&L Fees Drawdown at cost" [ref=e129]:
+                  - cell "Scenario" [ref=e130]
+                  - cell "Fills" [ref=e131]
+                  - cell "Simulated P&L" [ref=e132]
+                  - cell "Fees" [ref=e133]
+                  - cell "Drawdown at cost" [ref=e134]
+              - rowgroup [ref=e135]:
+                - row "optimistic 8 0.940000 0.120000 0.590000" [ref=e136]:
+                  - cell "optimistic" [ref=e137]
+                  - cell "8" [ref=e138]
+                  - cell "0.940000" [ref=e139]
+                  - cell "0.120000" [ref=e140]
+                  - cell "0.590000" [ref=e141]
+                - row "base 8 0.940000 0.120000 0.590000" [ref=e142]:
+                  - cell "base" [ref=e143]
+                  - cell "8" [ref=e144]
+                  - cell "0.940000" [ref=e145]
+                  - cell "0.120000" [ref=e146]
+                  - cell "0.590000" [ref=e147]
+                - row "conservative 0 0.000000 0.000000 0" [ref=e148]:
+                  - cell "conservative" [ref=e149]
+                  - cell "0" [ref=e150]
+                  - cell "0.000000" [ref=e151]
+                  - cell "0.000000" [ref=e152]
+                  - cell "0" [ref=e153]
+            - group [ref=e154]:
+              - generic "Full execution diagnostics" [ref=e155] [cursor=pointer]
+            - group [ref=e156]:
+              - generic "Independent research gates and criticism" [ref=e157] [cursor=pointer]
+            - group [ref=e158]:
+              - generic "Strategy specification" [ref=e159] [cursor=pointer]
+          - article [ref=e160]:
+            - generic [ref=e161]:
+              - heading "SYNTHCHI informational model_disagreement_f" [level=2] [ref=e162]
+              - generic [ref=e163]: BACKTESTED
+            - paragraph [ref=e164]: Disagreement may flag unreliable probabilities for filtering.
+            - paragraph [ref=e165]: Experiment decision
+            - list [ref=e166]:
+              - listitem [ref=e167]: Inspect validation and execution diagnostics below.
+            - paragraph [ref=e168]: Falsification
+            - paragraph [ref=e169]: Reject if there is no reliable out-of-sample improvement across independent dates.
+            - group [ref=e170]:
+              - generic "Typed hypothesis" [ref=e171] [cursor=pointer]
+            - group [ref=e172]:
+              - generic "Forecast validation metrics" [ref=e173] [cursor=pointer]
+            - paragraph [ref=e174]: Simulated execution scenarios · never observed fills
+            - table [ref=e176]:
+              - rowgroup [ref=e177]:
+                - row "Scenario Fills Simulated P&L Fees Drawdown at cost" [ref=e178]:
+                  - cell "Scenario" [ref=e179]
+                  - cell "Fills" [ref=e180]
+                  - cell "Simulated P&L" [ref=e181]
+                  - cell "Fees" [ref=e182]
+                  - cell "Drawdown at cost" [ref=e183]
+              - rowgroup [ref=e184]:
+                - row "optimistic 16 1.480000 0.260000 0.740000" [ref=e185]:
+                  - cell "optimistic" [ref=e186]
+                  - cell "16" [ref=e187]
+                  - cell "1.480000" [ref=e188]
+                  - cell "0.260000" [ref=e189]
+                  - cell "0.740000" [ref=e190]
+                - row "base 16 1.480000 0.260000 0.740000" [ref=e191]:
+                  - cell "base" [ref=e192]
+                  - cell "16" [ref=e193]
+                  - cell "1.480000" [ref=e194]
+                  - cell "0.260000" [ref=e195]
+                  - cell "0.740000" [ref=e196]
+                - row "conservative 0 0.000000 0.000000 0" [ref=e197]:
+                  - cell "conservative" [ref=e198]
+                  - cell "0" [ref=e199]
+                  - cell "0.000000" [ref=e200]
+                  - cell "0.000000" [ref=e201]
+                  - cell "0" [ref=e202]
+            - group [ref=e203]:
+              - generic "Full execution diagnostics" [ref=e204] [cursor=pointer]
+            - group [ref=e205]:
+              - generic "Independent research gates and criticism" [ref=e206] [cursor=pointer]
+            - group [ref=e207]:
+              - generic "Strategy specification" [ref=e208] [cursor=pointer]
+          - article [ref=e209]:
+            - generic [ref=e210]:
+              - heading "c2" [level=2] [ref=e211]
+              - generic [ref=e212]: UNSUPPORTED
+            - paragraph [ref=e213]: Previously resolved station errors may improve forecast calibration.
+            - paragraph [ref=e214]: Experiment decision
+            - list [ref=e215]:
+              - listitem [ref=e216]: no executable StrategySpec was supplied
+            - paragraph [ref=e217]: Falsification
+            - paragraph [ref=e218]: Reject if there is no reliable out-of-sample improvement across independent dates.
+            - group [ref=e219]:
+              - generic "Typed hypothesis" [ref=e220] [cursor=pointer]
+            - paragraph [ref=e221]: No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+            - group [ref=e222]:
+              - generic "Independent research gates and criticism" [ref=e223] [cursor=pointer]
+            - group [ref=e224]:
+              - generic "Unsupported proposal" [ref=e225] [cursor=pointer]
+          - article [ref=e226]:
+            - generic [ref=e227]:
+              - heading "SYNTHCHI informational revision_f" [level=2] [ref=e228]
+              - generic [ref=e229]: REJECTED
+            - paragraph [ref=e230]: An unattainable net edge is a control for execution rejection.
+            - paragraph [ref=e231]: Experiment decision
+            - list [ref=e232]:
+              - listitem [ref=e233]: too few modeled fills for trading evidence
+            - paragraph [ref=e234]: Falsification
+            - paragraph [ref=e235]: Reject any fill that cannot meet the declared net-edge hurdle.
+            - group [ref=e236]:
+              - generic "Typed hypothesis" [ref=e237] [cursor=pointer]
+            - group [ref=e238]:
+              - generic "Forecast validation metrics" [ref=e239] [cursor=pointer]
+            - paragraph [ref=e240]: Simulated execution scenarios · never observed fills
+            - table [ref=e242]:
+              - rowgroup [ref=e243]:
+                - row "Scenario Fills Simulated P&L Fees Drawdown at cost" [ref=e244]:
+                  - cell "Scenario" [ref=e245]
+                  - cell "Fills" [ref=e246]
+                  - cell "Simulated P&L" [ref=e247]
+                  - cell "Fees" [ref=e248]
+                  - cell "Drawdown at cost" [ref=e249]
+              - rowgroup [ref=e250]:
+                - row "optimistic 0 0.000000 0.000000 0" [ref=e251]:
+                  - cell "optimistic" [ref=e252]
+                  - cell "0" [ref=e253]
+                  - cell "0.000000" [ref=e254]
+                  - cell "0.000000" [ref=e255]
+                  - cell "0" [ref=e256]
+                - row "base 0 0.000000 0.000000 0" [ref=e257]:
+                  - cell "base" [ref=e258]
+                  - cell "0" [ref=e259]
+                  - cell "0.000000" [ref=e260]
+                  - cell "0.000000" [ref=e261]
+                  - cell "0" [ref=e262]
+                - row "conservative 0 0.000000 0.000000 0" [ref=e263]:
+                  - cell "conservative" [ref=e264]
+                  - cell "0" [ref=e265]
+                  - cell "0.000000" [ref=e266]
+                  - cell "0.000000" [ref=e267]
+                  - cell "0" [ref=e268]
+            - group [ref=e269]:
+              - generic "Full execution diagnostics" [ref=e270] [cursor=pointer]
+            - group [ref=e271]:
+              - generic "Independent research gates and criticism" [ref=e272] [cursor=pointer]
+            - group [ref=e273]:
+              - generic "Strategy specification" [ref=e274] [cursor=pointer]
+          - generic [ref=e275]:
+            - heading "Evaluation limits" [level=2] [ref=e276]
+            - list [ref=e277]:
+              - listitem [ref=e278]: Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+              - listitem [ref=e279]: Snapshot fills model taker execution, not queues or observed fills.
+              - listitem [ref=e280]: Synthetic results verify software only; ranking is not deployment authorization.
+    - generic [ref=e281]:
+      - text: EntropyTrade / private research workspace
+      - generic [ref=e282]: Protected holdout stays closed. No trading approval is implied.
+```

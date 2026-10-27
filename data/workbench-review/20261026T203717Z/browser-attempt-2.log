@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 frontend/browser/workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application (50.7s)
+
+  1 passed (54.0s)

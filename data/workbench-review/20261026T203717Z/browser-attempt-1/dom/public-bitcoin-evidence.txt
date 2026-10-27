@@ -1,0 +1,340 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition COMPLETE · bitcoin
+
+HTTP receipts: 3 (3 successful); listed contracts: 210; observations: 1; acquisition failures: 0.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+
+No acquisition failures recorded.
+
+Capture (UTC): 2026-10-26T20:41:23.946226+00:00 → 2026-10-26T20:41:24.288796+00:00. Universe complete: true. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Reproducible identities
+experiment_id
+sha256:a3817eadb39161e0387d49a85040f1e6e7c70ecd879bf0ea52e5702dc5f24aed
+research_run
+08c9af8b-0ca4-4134-aa17-a328b17396bd
+dataset
+sha256:92b9f1f2081b269866e55bcb8d6b24157b05d8249ae6fc5546bc91f908b8647e
+feature_version
+sha256:cf821942b5467e4e81734aa917ae83ec64947bcd2b476c5988876c3dda3c848e
+research_hash
+sha256:0dd6210f5e659e62fb2eb8f730ed31a807bb702f439c07b8acfb89b7504bdaf8
+normalized_data_hash
+sha256:7cb3a0d1d842b70c47548ab133455878c2459e80b9cb375173f818d7e850e598
+code
+{"synthetic.py":"sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759","__init__.py":"sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54","engine.py":"sha256:af49bdd10ff602699da3a03d470d8f19fb366a7e2465764456309856acb26178","workflow.py":"sha256:1d1eda965badb947213934d6f7b1cc1ed8f4bcb4352a8c2aa63c92e6a0f371a4","data.py":"sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153","backtest/replay.py":"sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970","strategies/interpret.py":"sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718","execution/paper.py":"sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172","execution/fees.py":"sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897","risk/engine.py":"sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb","domain/strategy.py":"sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de"}
+config
+{"fee_policy":null,"latency_seconds":1,"max_book_age_seconds":60,"starting_cash":"1000","per_trade":"25","per_event":"100","total_deployed":"500","min_events":20,"min_trades":10,"bootstrap_samples":500,"seed":17,"scenarios":["optimistic","base","conservative"]}
+resolved_models
+{"template-c0":"sha256:e0a27edb104d89dd758110230d9b3d631ebbd4fb45598ba22715da1791464b38","template-c1":"sha256:e0a27edb104d89dd758110230d9b3d631ebbd4fb45598ba22715da1791464b38"}
+requested_trial_count
+6
+
+6 candidate/scenario trials requested. Final holdout evaluated: false.
+
+Public source evidence
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Capture receipts, clocks and acquisition failures
+{
+  "decision_time": "2026-10-26T20:41:24.288796+00:00",
+  "failures": [],
+  "family": "bitcoin",
+  "history_complete": false,
+  "listed_contracts": 210,
+  "observations": 1,
+  "receipts": [
+    {
+      "hash": "sha256:138bfbff724f6b9791d38a3a75926443520c211899bedea18765abde156e9931",
+      "path": "/trade-api/v2/markets?limit=200&series_ticker=KXBTC&status=open",
+      "raw_ref": "raw/0001.json",
+      "received_at": "2026-10-26T20:41:24.080842+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:b1abf7f1292a6f4b3d8d3256f9bc86577dad0766f64afaf107ba0507e0b7aa7c",
+      "path": "/trade-api/v2/markets?limit=200&cursor=CgwI2MTs1gYQgNnI5gESFktYQlRDLTI2T0NUMzAxNy1CNzQ3NTA&series_ticker=KXBTC&status=open",
+      "raw_ref": "raw/0002.json",
+      "received_at": "2026-10-26T20:41:24.145006+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:571095ff73d0e328549e47d4b4cc2e0bcfc158811ad82523a3a31832c0b8edf0",
+      "path": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+      "raw_ref": "raw/0003.json",
+      "received_at": "2026-10-26T20:41:24.288235+00:00",
+      "status": 200
+    }
+  ],
+  "started_at": "2026-10-26T20:41:23.946226+00:00",
+  "truncated_universe": false,
+  "universe_complete": true
+}
+Bitcoin settlement sources remain unresolved and rules_known is false. Authority mentions preserve rule text; they do not verify settlement authority.
+KXBTC-26OCT2717-T89749.99 · actual rules and available features
+{
+  "ticker": "KXBTC-26OCT2717-T89749.99",
+  "title": "Bitcoin price range on Oct 27, 2026?",
+  "event": "KXBTC-26OCT2717",
+  "close_time": "2026-10-27T21:00:00+00:00",
+  "rules_hash": "sha256:259e4de082ee19624b46ed3b11a5253900b5ba5e3826b06d0d4f53f014421d00",
+  "rules_primary": "If the simple average of the sixty seconds of CF Benchmarks' Bitcoin Real-Time Index (BRTI) before 5 PM EDT is above 89749.99 at 5 PM EDT on Oct 27, 2026, then the market resolves to Yes.",
+  "rules_secondary": "Not all cryptocurrency price data is the same. While checking a source like Google or Coinbase may help guide your decision, the price used to determine this market is based on CF Benchmarks' corresponding Real Time Index (RTI). At the last minute before expiration, 60 RTI prices are collected. The official and final value is the average of these prices.",
+  "settlement_sources": [],
+  "authority_mentions": [
+    {
+      "name": "CF Benchmarks",
+      "rule_field": "rules_primary",
+      "text": "CF Benchmarks",
+      "status": "unverified_mention"
+    },
+    {
+      "name": "CF Benchmarks",
+      "rule_field": "rules_secondary",
+      "text": "CF Benchmarks",
+      "status": "unverified_mention"
+    }
+  ],
+  "settlement_basis": "unresolved",
+  "rules_known": false,
+  "features": {
+    "hours_to_close": "24.30991977888889",
+    "spot_usd": "79728.83",
+    "spot_minus_floor_usd": "-10021.16"
+  },
+  "available_at": "2026-10-26T20:41:24.288796+00:00",
+  "input_hashes": [
+    "sha256:138bfbff724f6b9791d38a3a75926443520c211899bedea18765abde156e9931",
+    "sha256:571095ff73d0e328549e47d4b4cc2e0bcfc158811ad82523a3a31832c0b8edf0"
+  ]
+}
+KXBTC-26OCT2717-T70250 · actual rules and available features
+KXBTC-26OCT2717-B89625 · actual rules and available features
+KXBTC-26OCT2717-B89375 · actual rules and available features
+KXBTC-26OCT2717-B89125 · actual rules and available features
+KXBTC-26OCT2717-B88875 · actual rules and available features
+KXBTC-26OCT2717-B88625 · actual rules and available features
+KXBTC-26OCT2717-B88375 · actual rules and available features
+KXBTC-26OCT2717-B88125 · actual rules and available features
+KXBTC-26OCT2717-B87875 · actual rules and available features
+KXBTC-26OCT2717-B87625 · actual rules and available features
+KXBTC-26OCT2717-B87375 · actual rules and available features
+KXBTC-26OCT2717-B87125 · actual rules and available features
+KXBTC-26OCT2717-B86875 · actual rules and available features
+KXBTC-26OCT2717-B86625 · actual rules and available features
+KXBTC-26OCT2717-B86375 · actual rules and available features
+KXBTC-26OCT2717-B86125 · actual rules and available features
+KXBTC-26OCT2717-B85875 · actual rules and available features
+KXBTC-26OCT2717-B85625 · actual rules and available features
+KXBTC-26OCT2717-B85375 · actual rules and available features
+KXBTC-26OCT2717-B85125 · actual rules and available features
+KXBTC-26OCT2717-B84875 · actual rules and available features
+KXBTC-26OCT2717-B84625 · actual rules and available features
+KXBTC-26OCT2717-B84375 · actual rules and available features
+KXBTC-26OCT2717-B84125 · actual rules and available features
+KXBTC-26OCT2717-B83875 · actual rules and available features
+KXBTC-26OCT2717-B83625 · actual rules and available features
+KXBTC-26OCT2717-B83375 · actual rules and available features
+KXBTC-26OCT2717-B83125 · actual rules and available features
+KXBTC-26OCT2717-B82875 · actual rules and available features
+KXBTC-26OCT2717-B82625 · actual rules and available features
+KXBTC-26OCT2717-B82375 · actual rules and available features
+KXBTC-26OCT2717-B82125 · actual rules and available features
+KXBTC-26OCT2717-B81875 · actual rules and available features
+KXBTC-26OCT2717-B81625 · actual rules and available features
+KXBTC-26OCT2717-B81375 · actual rules and available features
+KXBTC-26OCT2717-B81125 · actual rules and available features
+KXBTC-26OCT2717-B80875 · actual rules and available features
+KXBTC-26OCT2717-B80625 · actual rules and available features
+KXBTC-26OCT2717-B80375 · actual rules and available features
+KXBTC-26OCT2717-B80125 · actual rules and available features
+KXBTC-26OCT2717-B79875 · actual rules and available features
+KXBTC-26OCT2717-B79625 · actual rules and available features
+KXBTC-26OCT2717-B79375 · actual rules and available features
+KXBTC-26OCT2717-B79125 · actual rules and available features
+KXBTC-26OCT2717-B78875 · actual rules and available features
+KXBTC-26OCT2717-B78625 · actual rules and available features
+KXBTC-26OCT2717-B78375 · actual rules and available features
+KXBTC-26OCT2717-B78125 · actual rules and available features
+KXBTC-26OCT2717-B77875 · actual rules and available features
+KXBTC-26OCT2717-B77625 · actual rules and available features
+KXBTC-26OCT2717-B77375 · actual rules and available features
+KXBTC-26OCT2717-B77125 · actual rules and available features
+KXBTC-26OCT2717-B76875 · actual rules and available features
+KXBTC-26OCT2717-B76625 · actual rules and available features
+KXBTC-26OCT2717-B76375 · actual rules and available features
+KXBTC-26OCT2717-B76125 · actual rules and available features
+KXBTC-26OCT2717-B75875 · actual rules and available features
+KXBTC-26OCT2717-B75625 · actual rules and available features
+KXBTC-26OCT2717-B75375 · actual rules and available features
+KXBTC-26OCT2717-B75125 · actual rules and available features
+KXBTC-26OCT2717-B74875 · actual rules and available features
+KXBTC-26OCT2717-B74625 · actual rules and available features
+KXBTC-26OCT2717-B74375 · actual rules and available features
+KXBTC-26OCT2717-B74125 · actual rules and available features
+KXBTC-26OCT2717-B73875 · actual rules and available features
+KXBTC-26OCT2717-B73625 · actual rules and available features
+KXBTC-26OCT2717-B73375 · actual rules and available features
+KXBTC-26OCT2717-B73125 · actual rules and available features
+KXBTC-26OCT2717-B72875 · actual rules and available features
+KXBTC-26OCT2717-B72625 · actual rules and available features
+KXBTC-26OCT2717-B72375 · actual rules and available features
+KXBTC-26OCT2717-B72125 · actual rules and available features
+KXBTC-26OCT2717-B71875 · actual rules and available features
+KXBTC-26OCT2717-B71625 · actual rules and available features
+KXBTC-26OCT2717-B71375 · actual rules and available features
+KXBTC-26OCT2717-B71125 · actual rules and available features
+KXBTC-26OCT2717-B70875 · actual rules and available features
+KXBTC-26OCT2717-B70625 · actual rules and available features
+KXBTC-26OCT2717-B70375 · actual rules and available features
+KXBTC-26OCT2617-T89749.99 · actual rules and available features
+KXBTC-26OCT2617-T70250 · actual rules and available features
+KXBTC-26OCT2617-B89625 · actual rules and available features
+KXBTC-26OCT2617-B89375 · actual rules and available features
+KXBTC-26OCT2617-B89125 · actual rules and available features
+KXBTC-26OCT2617-B88875 · actual rules and available features
+KXBTC-26OCT2617-B88625 · actual rules and available features
+KXBTC-26OCT2617-B88375 · actual rules and available features
+KXBTC-26OCT2617-B88125 · actual rules and available features
+KXBTC-26OCT2617-B87875 · actual rules and available features
+KXBTC-26OCT2617-B87625 · actual rules and available features
+KXBTC-26OCT2617-B87375 · actual rules and available features
+KXBTC-26OCT2617-B87125 · actual rules and available features
+KXBTC-26OCT2617-B86875 · actual rules and available features
+KXBTC-26OCT2617-B86625 · actual rules and available features
+KXBTC-26OCT2617-B86375 · actual rules and available features
+KXBTC-26OCT2617-B86125 · actual rules and available features
+KXBTC-26OCT2617-B85875 · actual rules and available features
+KXBTC-26OCT2617-B85625 · actual rules and available features
+KXBTC-26OCT2617-B85375 · actual rules and available features
+KXBTC-26OCT2617-B85125 · actual rules and available features
+KXBTC-26OCT2617-B84875 · actual rules and available features
+KXBTC-26OCT2617-B84625 · actual rules and available features
+KXBTC-26OCT2617-B84375 · actual rules and available features
+KXBTC-26OCT2617-B84125 · actual rules and available features
+KXBTC-26OCT2617-B83875 · actual rules and available features
+KXBTC-26OCT2617-B83625 · actual rules and available features
+KXBTC-26OCT2617-B83375 · actual rules and available features
+KXBTC-26OCT2617-B83125 · actual rules and available features
+KXBTC-26OCT2617-B82875 · actual rules and available features
+KXBTC-26OCT2617-B82625 · actual rules and available features
+KXBTC-26OCT2617-B82375 · actual rules and available features
+KXBTC-26OCT2617-B82125 · actual rules and available features
+KXBTC-26OCT2617-B81875 · actual rules and available features
+KXBTC-26OCT2617-B81625 · actual rules and available features
+KXBTC-26OCT2617-B81375 · actual rules and available features
+KXBTC-26OCT2617-B81125 · actual rules and available features
+KXBTC-26OCT2617-B80875 · actual rules and available features
+KXBTC-26OCT2617-B80625 · actual rules and available features
+KXBTC-26OCT2617-B80375 · actual rules and available features
+KXBTC-26OCT2617-B80125 · actual rules and available features
+KXBTC-26OCT2617-B79875 · actual rules and available features
+KXBTC-26OCT2617-B79625 · actual rules and available features
+KXBTC-26OCT2617-B79375 · actual rules and available features
+KXBTC-26OCT2617-B79125 · actual rules and available features
+KXBTC-26OCT2617-B78875 · actual rules and available features
+KXBTC-26OCT2617-B78625 · actual rules and available features
+KXBTC-26OCT2617-B78375 · actual rules and available features
+KXBTC-26OCT2617-B78125 · actual rules and available features
+KXBTC-26OCT2617-B77875 · actual rules and available features
+KXBTC-26OCT2617-B77625 · actual rules and available features
+KXBTC-26OCT2617-B77375 · actual rules and available features
+KXBTC-26OCT2617-B77125 · actual rules and available features
+KXBTC-26OCT2617-B76875 · actual rules and available features
+KXBTC-26OCT2617-B76625 · actual rules and available features
+KXBTC-26OCT2617-B76375 · actual rules and available features
+KXBTC-26OCT2617-B76125 · actual rules and available features
+KXBTC-26OCT2617-B75875 · actual rules and available features
+KXBTC-26OCT2617-B75625 · actual rules and available features
+KXBTC-26OCT2617-B75375 · actual rules and available features
+KXBTC-26OCT2617-B75125 · actual rules and available features
+KXBTC-26OCT2617-B74875 · actual rules and available features
+KXBTC-26OCT2617-B74625 · actual rules and available features
+KXBTC-26OCT2617-B74375 · actual rules and available features
+KXBTC-26OCT2617-B74125 · actual rules and available features
+KXBTC-26OCT2617-B73875 · actual rules and available features
+KXBTC-26OCT2617-B73625 · actual rules and available features
+KXBTC-26OCT2617-B73375 · actual rules and available features
+KXBTC-26OCT2617-B73125 · actual rules and available features
+KXBTC-26OCT2617-B72875 · actual rules and available features
+KXBTC-26OCT2617-B72625 · actual rules and available features
+KXBTC-26OCT2617-B72375 · actual rules and available features
+KXBTC-26OCT2617-B72125 · actual rules and available features
+KXBTC-26OCT2617-B71875 · actual rules and available features
+KXBTC-26OCT2617-B71625 · actual rules and available features
+KXBTC-26OCT2617-B71375 · actual rules and available features
+KXBTC-26OCT2617-B71125 · actual rules and available features
+KXBTC-26OCT2617-B70875 · actual rules and available features
+KXBTC-26OCT2617-B70625 · actual rules and available features
+KXBTC-26OCT2617-B70375 · actual rules and available features
+KXBTC-26OCT3017-T93499.99 · actual rules and available features
+KXBTC-26OCT3017-T69500 · actual rules and available features
+KXBTC-26OCT3017-B93250 · actual rules and available features
+KXBTC-26OCT3017-B92750 · actual rules and available features
+KXBTC-26OCT3017-B92250 · actual rules and available features
+KXBTC-26OCT3017-B91750 · actual rules and available features
+KXBTC-26OCT3017-B91250 · actual rules and available features
+KXBTC-26OCT3017-B90750 · actual rules and available features
+KXBTC-26OCT3017-B90250 · actual rules and available features
+KXBTC-26OCT3017-B89750 · actual rules and available features
+KXBTC-26OCT3017-B89250 · actual rules and available features
+KXBTC-26OCT3017-B88750 · actual rules and available features
+KXBTC-26OCT3017-B88250 · actual rules and available features
+KXBTC-26OCT3017-B87750 · actual rules and available features
+KXBTC-26OCT3017-B87250 · actual rules and available features
+KXBTC-26OCT3017-B86750 · actual rules and available features
+KXBTC-26OCT3017-B86250 · actual rules and available features
+KXBTC-26OCT3017-B85750 · actual rules and available features
+KXBTC-26OCT3017-B85250 · actual rules and available features
+KXBTC-26OCT3017-B84750 · actual rules and available features
+KXBTC-26OCT3017-B84250 · actual rules and available features
+KXBTC-26OCT3017-B83750 · actual rules and available features
+KXBTC-26OCT3017-B83250 · actual rules and available features
+KXBTC-26OCT3017-B82750 · actual rules and available features
+KXBTC-26OCT3017-B82250 · actual rules and available features
+KXBTC-26OCT3017-B81750 · actual rules and available features
+KXBTC-26OCT3017-B81250 · actual rules and available features
+KXBTC-26OCT3017-B80750 · actual rules and available features
+KXBTC-26OCT3017-B80250 · actual rules and available features
+KXBTC-26OCT3017-B79750 · actual rules and available features
+KXBTC-26OCT3017-B79250 · actual rules and available features
+KXBTC-26OCT3017-B78750 · actual rules and available features
+KXBTC-26OCT3017-B78250 · actual rules and available features
+KXBTC-26OCT3017-B77750 · actual rules and available features
+KXBTC-26OCT3017-B77250 · actual rules and available features
+KXBTC-26OCT3017-B76750 · actual rules and available features
+KXBTC-26OCT3017-B76250 · actual rules and available features
+KXBTC-26OCT3017-B75750 · actual rules and available features
+KXBTC-26OCT3017-B75250 · actual rules and available features
+KXBTC-26OCT3017-B74750 · actual rules and available features
+KXBTC-26OCT3017-B74250 · actual rules and available features
+KXBTC-26OCT3017-B73750 · actual rules and available features
+KXBTC-26OCT3017-B73250 · actual rules and available features
+KXBTC-26OCT3017-B72750 · actual rules and available features
+KXBTC-26OCT3017-B72250 · actual rules and available features
+KXBTC-26OCT3017-B71750 · actual rules and available features
+KXBTC-26OCT3017-B71250 · actual rules and available features
+KXBTC-26OCT3017-B70750 · actual rules and available features
+KXBTC-26OCT3017-B70250 · actual rules and available features
+KXBTC-26OCT3017-B69750 · actual rules and available features
+Immutable public input manifest
+Saved artifact checksums
+
+Artifact paths are relative to this run's local workflow directory. Review downloads contain the protected result projection; the server does not expose arbitrary local files.
+
+Artifact	SHA-256	Bytes
+experiments/a3817eadb39161e0387d49a85040f1e6e7c70ecd879bf0ea52e5702dc5f24aed/checksums.json	sha256:f8823976f48641c44c40f859858b48f8f8585c05ba56f89e62d3b322e1c900aa	272
+experiments/a3817eadb39161e0387d49a85040f1e6e7c70ecd879bf0ea52e5702dc5f24aed/report.md	sha256:20cfe8d0dc67195c16c163f9a0f623116eddcbe18453fa598986aea0afa599bf	785
+experiments/a3817eadb39161e0387d49a85040f1e6e7c70ecd879bf0ea52e5702dc5f24aed/results.json	sha256:bfbae1c4b48fab9b8785d7aab5ace80c6309ec0a5e610c1b4d4e9d469e4f1527	4590
+experiments/a3817eadb39161e0387d49a85040f1e6e7c70ecd879bf0ea52e5702dc5f24aed/trades.parquet	sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef	365
+research/08c9af8b-0ca4-4134-aa17-a328b17396bd/checksums.json	sha256:17a654b6faa5ef35c317651672d4ad3ec2d8b7a82ad64d3fba6e2f93c4eb8d64	175
+research/08c9af8b-0ca4-4134-aa17-a328b17396bd/report.md	sha256:344bd5d3b5975da6e5fc5cdee6af228b4a4e6a3e86216b606eb239b980678c76	2174
+research/08c9af8b-0ca4-4134-aa17-a328b17396bd/run.json	sha256:1cc564589737a0397ecba3fccaac1560747b81c666014705754640cb5b5eee37	91631
+Coverage and point-in-time boundaries

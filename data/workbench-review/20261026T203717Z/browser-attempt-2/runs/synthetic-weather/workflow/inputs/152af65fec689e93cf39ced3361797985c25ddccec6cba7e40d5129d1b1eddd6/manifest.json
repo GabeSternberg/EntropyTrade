@@ -1,0 +1,40 @@
+{
+  "config": {
+    "decision_utc": [
+      "15:00"
+    ],
+    "end": "2025-08-28",
+    "locations": [
+      {
+        "forecast_file": null,
+        "latitude": null,
+        "longitude": null,
+        "name": "SYNTHETIC Philadelphia",
+        "series": "SYNTHPHL",
+        "station": "SYNTH-PHL",
+        "timezone": "America/New_York"
+      },
+      {
+        "forecast_file": null,
+        "latitude": null,
+        "longitude": null,
+        "name": "SYNTHETIC Chicago",
+        "series": "SYNTHCHI",
+        "station": "SYNTH-CHI",
+        "timezone": "America/Chicago"
+      }
+    ],
+    "max_age_seconds": 300,
+    "sources": [
+      "synthetic-gfs",
+      "synthetic-nws",
+      "weather-company"
+    ],
+    "start": "2025-01-01"
+  },
+  "data_kind": "synthetic",
+  "dataset_version": "sha256:152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6",
+  "days": 240,
+  "description": "SYNTHETIC R4 fixture; books use forecasts, never outcomes",
+  "seed": 17
+}

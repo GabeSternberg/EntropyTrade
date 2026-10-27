@@ -163,14 +163,22 @@ listed contracts and observations; an incomplete capture is a separate failure-p
 
 ## Acceptance evidence and committed state
 
-The [latest continuation](../data/workbench-review/20261026T042230Z/README.md) verifies
-reviewed commit `c6d6d8b3e2c2e01ba2bde26424c556db66845f16` using an isolated read-only
-source export and locked offline setup. Ruff lint/format, strict mypy, **734 pytest tests**,
-JavaScript syntax and all **nine frontend tests** passed with no skips. Its clocks,
-source manifest and log hashes are retained. Chrome access was denied; all four browser
-procedures remain pending, with no browser job IDs, screenshots or downloads. This is
-additional automation evidence, not the supervisor's independent final clean-checkout
-sign-off. The following bundles describe their earlier source states.
+The [latest continuation](../data/workbench-review/20261026T203717Z/README.md) verifies
+reviewed commit `18be50cee17f03ae3dbfa198ed22e7a23635af1b` on
+`supervisor/20261025-014400`. **All four browser procedures passed** on October 26,
+20:42:33–20:43:23 UTC using Playwright 1.56.1 and its separately installed Chromium
+141.0.7390.37, with the real localhost backend and workers. No Computer Use or personal
+Chrome was used. The [browser receipt](../data/workbench-review/20261026T203717Z/browser-attempt-2/browser-receipt.json)
+retains job IDs, UI inspections, 26 screenshots and 24 checksummed browser downloads.
+JSON/JUnit results, traces, raw public captures, retained reviews and final SQLite
+snapshots are preserved. The initial harness failure is retained separately; it is not
+counted as a pass.
+
+An isolated read-only export of the same commit passed locked setup, Ruff lint/format,
+strict mypy across **477 files**, **734 pytest tests in 184.91 seconds**, JavaScript syntax
+and all **nine frontend tests**, with no skips or modified exported files. This is additional
+verification; the supervisor still owns independent final clean-checkout sign-off and all
+Git integration. The following bundles describe their earlier source states.
 
 The reviewed implementation and SQLite acceptance repair are committed at
 `ff3bcc9df40534396c774146405b4658f22f9753` (tree
@@ -204,8 +212,8 @@ immutable historical candidate evidence, not a clean-checkout full check of `ff3
 The fixed candidate passed locked sync and the full unchanged `make check`: Ruff lint/format,
 strict mypy across 477 files and **734 pytest tests in 155.88 seconds**. JavaScript syntax
 and all nine frontend tests passed. No tests, warnings, risk caps or policies were weakened.
-The supervisor must still complete final clean-checkout locked setup, Ruff lint/format,
-strict mypy, full pytest and frontend checks before integration.
+The supervisor must still complete independent final clean-checkout locked setup, Ruff
+lint/format, strict mypy, full pytest and frontend checks before integration.
 
 To repeat the unchanged gates in a dependency-equipped clean checkout:
 
@@ -248,20 +256,37 @@ review/report exports. Downloaded HTTP JSON parses identically to the retained r
 text bytes match the retained report. Their hashes and original job IDs are rechecked.
 They remain HTTP-client exports, **not browser downloads**.
 
-### Browser blocker and handoff
+### Browser acceptance and supervisor handoff
 
-**All browser acceptance steps above remain pending.** The current Computer Use inventory
-lists no connected browsers. Native Chrome returns “Computer Use was not approved to use
-Google Chrome”; the in-app browser returns “Browser is not available: iab.” The
-[current browser receipt](../data/workbench-review/20261026T041240Z/browser.json) records
-the renewed attempts, UTC inventory clock and empty screenshot/download/job lists.
-Automatic approval review rejected a repeat Chrome probe because access had already
-been denied. No further browser attempts or workaround followed. No browser workflow
-observation or visual verification is claimed.
+The [reproducible harness](../frontend/browser/README.md) uses its own pinned Chromium,
+fresh browser context and credential-free backend environment. It submits through the
+form, opens every result tab and relevant details, downloads both artifacts, cancels an
+active synthetic job, verifies recorded-run slot reuse, stops an active run, restarts the
+same workspace and reopens all six completed reviews. All 12 original downloads match
+retained protected reviews/reports; all 12 downloads after restart have identical hashes.
+Recorded weather exposes exact comparisons and honest insufficiency. Synthetic mode
+exposes 100 of 192 validation predictions, with its banner on every tab and zero fills
+for the negative control in all three scenarios. Final holdout remains excluded.
 
-Return for review with that blocker. Once an approved browser is available, execute the
-entire procedure, including visible failures and synthetic banners on all tabs, protected
-holdout, active cancellation, worker reuse, restart/history and checksummed browser downloads.
-The supervisor handles final clean-checkout verification and all Git mutations. V1 remains
-incomplete; see [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md). Official Bitcoin outcomes/history,
-empirical second-family modeling and continuous paper/shadow remain outside this repair.
+| Fresh browser capture | Actual observations | Acceptance interpretation |
+| --- | --- | --- |
+| Public weather | 8 successful HTTP receipts, 24 contracts, 648 observations, zero failures | Complete forward ingestion; no historical evaluation |
+| Public Bitcoin | 3 successful receipts, 210 contracts, one observation, zero failures | Complete forward ingestion; all 210 rule gates false, settlement sources empty, 420 unverified authority mentions |
+| Deliberate OS network denial / Bitcoin | Zero HTTP receipts, contracts or observations; two timestamped failures | Expected incomplete failure path; never successful ingestion |
+
+Each public run's heading, counts, clocks, uncollapsed failure summaries and limitations
+were checked on all three tabs and in downloaded text. Public runs expose no historical
+labels, fitted probabilities, model performance or execution scenarios. The failure test
+uses real denied outbound connections from the backend/worker, without replacing responses
+or data. [Readable UI screenshots](../data/workbench-review/20261026T203717Z/visual-review/receipt.json)
+supplement the full-page screenshots and traces. One browser console resource 404 is
+retained; there were no JavaScript page errors or failed workflow requests.
+
+Earlier Computer Use/Chrome denials remain historical evidence in the immutable
+[04:12](../data/workbench-review/20261026T041240Z/browser.json) and
+[04:22](../data/workbench-review/20261026T042230Z/browser.json) receipts. The user's subsequent
+instruction explicitly authorized isolated Playwright Chromium and excluded personal Chrome.
+No application source, financial boundaries or Git refs were changed. Return to the supervisor
+for review and Git handling. **V1 remains incomplete**; see [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md).
+Official Bitcoin outcomes/history, empirical second-family modeling and continuous paper/shadow
+remain outside this acceptance continuation.

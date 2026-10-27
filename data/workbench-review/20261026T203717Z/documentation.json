@@ -1,0 +1,12 @@
+{
+  "recorded_at_utc": "2026-10-26T20:51:46.269876+00:00",
+  "files": {
+    "PROJECT_CONTEXT.md": "f931024ec91372256fe9922308e000e0f758ee8eda47b5f9a0969bf64b2e6eb1",
+    "README.md": "efcbdd5adbbda7e85887d145d03ee54da0945c01d1bad622456cf81ec51483df",
+    "STATUS.md": "ea1a0842146d529f33c84159f378d0ad6d06951cd817c6acf18f4b5accc643b5",
+    "data/workbench-review/README.md": "a24fef0389d7f5f45ab3702e314f58d993d154bd3ea54ba9c3f91301a93cbf6c",
+    "docs/roadmap.md": "8470b533a3799d7b4a07e236e9c1d61a111e40cbcafee92f3bef40860addd94b",
+    "docs/workbench.md": "72b9565e069fa5895b290a0fb6d77bb42eabda30a51198a8d111e8a10630666e"
+  },
+  "status": "Uncommitted documentation; supervisor owns Git integration"
+}

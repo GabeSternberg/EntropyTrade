@@ -1,0 +1,62 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="49.18380199999999">
+<testsuite name="workbench.spec.cjs" timestamp="2026-10-26T20:40:49.938Z" hostname="" tests="1" failures="1" skipped="0" time="46.983" errors="0">
+<testcase name="four documented workbench workflows on the committed application" classname="workbench.spec.cjs" time="46.983">
+<failure message="workbench.spec.cjs:22:1 four documented workbench workflows on the committed application" type="FAILURE">
+<![CDATA[  workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application ───────
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 7
+
+    - Array []
+    + Array [
+    +   "2. synthetic modeling, gates, scenarios and validation probabilities: The expression evaluated to a falsy value:
+    +
+    +   assert(review.probabilities.every(p => p.split === \"validation\" && Date.parse(p.fit_asof) <= Date.parse(p.decision_time) && Date.parse(p.calibration_asof) <= Date.parse(p.decision_time)))
+    + ",
+    +   "4. active cancellation, slot reuse, interrupted restart and persistent downloads: Cannot read properties of undefined (reading 'json')",
+    + ]
+
+      388 |     // Full reviews are saved separately and in actual browser downloads.
+      389 |     for (const run of receipt.runs) delete run.review;
+    > 390 |     save();
+          |            ^
+      391 |     await info.attach("browser-receipt", { path: path.join(evidence, "browser-receipt.json"), contentType: "application/json" });
+      392 |   }
+      393 |   expect(receipt.page_errors).toEqual([]);
+        at /Users/gabriel/Projects/EntropyTrade/frontend/browser/workbench.spec.cjs:390:20
+
+    attachment #1: browser-receipt (application/json) ──────────────────────────────────────────────
+    ../../data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-d037f9bb072d00965d4669dda0e171a85873268c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/workbench-review/20261026T203717Z/browser-attempt-1/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-d037f9bb072d00965d4669dda0e171a85873268c.json]]
+
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
