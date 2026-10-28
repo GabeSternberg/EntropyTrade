@@ -1,0 +1,37 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 frontend/browser/bitcoin-history.spec.cjs:10:1 › Bitcoin retained history: honest empty result, downloads and restart (3ms)
+
+
+  1) frontend/browser/bitcoin-history.spec.cjs:10:1 › Bitcoin retained history: honest empty result, downloads and restart 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-O6wDWI --remote-debugging-pipe --no-startup-window
+    <launched> pid=29
+    [pid=29][err] [29:29:1028/232233.568923:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+    [2m  - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-O6wDWI --remote-debugging-pipe --no-startup-window[22m
+    [2m  - <launched> pid=29[22m
+    [2m  - [pid=29][err] [29:29:1028/232233.568923:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)[22m
+    [2m  - [pid=29] <gracefully close start>[22m
+    [2m  - [pid=29] <kill>[22m
+    [2m  - [pid=29] <will force kill>[22m
+    [2m  - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>[22m
+    [2m  - [pid=29] starting temporary directories cleanup[22m
+    [2m  - [pid=29] finished temporary directories cleanup[22m
+    [2m  - [pid=29] <gracefully close end>[22m
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    data/bitcoin-history-review/20261028T232200Z/browser/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace data/bitcoin-history-review/20261028T232200Z/browser/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/browser/bitcoin-history.spec.cjs:10:1 › Bitcoin retained history: honest empty result, downloads and restart 

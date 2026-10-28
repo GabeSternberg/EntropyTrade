@@ -82,20 +82,23 @@ class BoundedTransport(httpx.AsyncBaseTransport):
         self.bytes = 0
         self.on_response, self.on_error = on_response, on_error
 
-    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
+    def permits_path(self, url: httpx.URL) -> bool:
         allowed = {
             "api.elections.kalshi.com": ("/trade-api/v2/markets",),
             "api.exchange.coinbase.com": ("/products/BTC-USD/ticker",),
             "api.open-meteo.com": ("/v1/forecast",),
             "api.weather.gov": ("/points/", "/gridpoints/"),
         }
+        return any(
+            url.path == p or (p.endswith("/") and url.path.startswith(p))
+            for p in allowed.get(url.host, ())
+        )
+
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         if (
             request.url.scheme != "https"
             or request.url.port not in {None, 443}
-            or not any(
-                request.url.path == p or (p.endswith("/") and request.url.path.startswith(p))
-                for p in allowed.get(request.url.host, ())
-            )
+            or not self.permits_path(request.url)
             or any(
                 "authorization" in h.lower()
                 or "api-key" in h.lower()

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.672" timestamp="2026-10-28T23:30:15.644987+00:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.integration.test_workbench_listener" name="test_listener_to_real_worker_review_and_downloads_survive_restart[recorded]" time="0.027"><failure message="PermissionError: [Errno 1] Operation not permitted">backend/tests/integration/test_workbench_listener.py:52: in test_listener_to_real_worker_review_and_downloads_survive_restart
+    with listening(workspace) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted</failure></testcase><testcase classname="backend.tests.integration.test_workbench_listener" name="test_listener_to_real_worker_review_and_downloads_survive_restart[synthetic]" time="0.027"><failure message="PermissionError: [Errno 1] Operation not permitted">backend/tests/integration/test_workbench_listener.py:52: in test_listener_to_real_worker_review_and_downloads_survive_restart
+    with listening(workspace) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted</failure></testcase><testcase classname="backend.tests.integration.test_workbench_listener" name="test_listener_cancellation_lock_and_restart_history" time="0.025"><failure message="PermissionError: [Errno 1] Operation not permitted">backend/tests/integration/test_workbench_listener.py:90: in test_listener_cancellation_lock_and_restart_history
+    with listening(workspace, workers=False) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted</failure></testcase></testsuite></testsuites>

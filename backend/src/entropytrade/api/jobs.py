@@ -35,10 +35,17 @@ def validate_request(value: object) -> dict[str, str]:
     idea, family, mode = value["idea"].strip(), value["family"], value["mode"]
     if not 1 <= len(idea) <= 6000:
         raise ValueError("idea must contain 1-6000 characters")
-    if family not in {"weather", "bitcoin"} or mode not in {"recorded", "public", "synthetic"}:
+    if family not in {"weather", "bitcoin"} or mode not in {
+        "recorded",
+        "public",
+        "synthetic",
+        "history",
+    }:
         raise ValueError("unknown family or data mode")
-    if family == "bitcoin" and mode != "public":
-        raise ValueError("Bitcoin currently supports public forward capture only")
+    if family == "bitcoin" and mode not in {"public", "history"}:
+        raise ValueError("Bitcoin supports public capture or retained Bitcoin history")
+    if mode == "history" and family != "bitcoin":
+        raise ValueError("retained history mode currently supports Bitcoin only")
     return {"idea": idea, "family": family, "mode": mode}
 
 
@@ -128,6 +135,34 @@ class Jobs:
                 "SELECT id FROM jobs WHERE status='queued' ORDER BY created_at LIMIT 1"
             ).fetchone()
             return str(row[0]) if row else None
+
+    def bitcoin_inputs(self) -> tuple[list[Path], list[Path]]:
+        """Fixed completed evidence paths, independent of the UI's 50-row history window."""
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT id, request FROM jobs WHERE status='completed' "
+                "AND json_extract(request, '$.family')='bitcoin' "
+                "AND json_extract(request, '$.mode') IN ('public', 'history') "
+                "ORDER BY created_at LIMIT 257"
+            ).fetchall()
+        captures: list[Path] = []
+        previous: list[Path] = []
+        for row in rows:
+            mode = json.loads(row["request"])["mode"]
+            path = (
+                self.root
+                / "runs"
+                / identifier(row["id"])
+                / ("public" if mode == "public" else "history")
+            )
+            if not path.resolve().is_relative_to(self.root.resolve()):
+                raise ValueError("history input escaped workspace")
+            (captures if mode == "public" else previous).append(path)
+        if len(captures) > 128 or len(previous) > 128:
+            raise ValueError(
+                "history exceeds 128 captures/snapshots; use an explicit CLI partition"
+            )
+        return captures, previous
 
     def update(
         self,

@@ -1,0 +1,88 @@
+{
+  "additional_per_file": {
+    "completed_junit_cases": {
+      "errors": 0,
+      "failed": 3,
+      "passed": 660,
+      "skipped": 0
+    },
+    "files_attempted": 207,
+    "files_passed": 198,
+    "previously_stalled_not_rerun": {
+      "backend/tests/exchange/test_collector_service.py": "prior bounded collector stall",
+      "backend/tests/unit/test_experiments_r4.py": "prior 45-second asyncio/AnyIO stack dump"
+    },
+    "timed_out_files": [
+      "backend/tests/exchange/test_gateway_http.py",
+      "backend/tests/integration/test_workbench_process.py",
+      "backend/tests/unit/test_model_workflow_r2.py",
+      "backend/tests/unit/test_operational_research.py",
+      "backend/tests/unit/test_registry.py",
+      "backend/tests/unit/test_research_pipeline.py",
+      "backend/tests/unit/test_research_transport.py",
+      "backend/tests/unit/test_workbench_workflow.py"
+    ]
+  },
+  "browser": {
+    "installation": "passed",
+    "launch": "EPERM setsockopt; SIGTRAP",
+    "page_interactions": "not executed",
+    "retry_after_permission_denial": false
+  },
+  "collected_tests": 751,
+  "complete": false,
+  "final_guard": "reject events spanning multiple target dates; covered by current 17-test run, static checks and current real offline replay; per-file sweep predates guard",
+  "format": "passed",
+  "frontend_assertions": {
+    "failed": 0,
+    "passed": 12
+  },
+  "full_make_check": "interrupted/stalled; not passed",
+  "latest_logs": {
+    "bitcoin": "bitcoin-tests-reviewed.log",
+    "collection": "collection-final.log",
+    "real": "real-reviewed-history.log",
+    "ruff": "ruff-reviewed.log",
+    "types": "static-types-final.log"
+  },
+  "live_outcomes": "unverified; attempted run interrupted without response receipts/result",
+  "milestone_acceptance_complete": false,
+  "new_bitcoin_tests": {
+    "passed": 17
+  },
+  "prior_evidence": {
+    "matches": 643,
+    "missing": [
+      "20261026T203717Z/browser-attempt-1/runs/recorded-after-cancel/workflow/models/.writer.lock",
+      "20261026T203717Z/browser-attempt-1/runs/recorded-weather/workflow/models/.writer.lock",
+      "20261026T203717Z/browser-attempt-2/runs/recorded-after-cancel/workflow/models/.writer.lock",
+      "20261026T203717Z/browser-attempt-2/runs/recorded-weather/workflow/models/.writer.lock",
+      "20261026T203717Z/browser-attempt-2/runs/synthetic-weather/workflow/models/.writer.lock",
+      "20261026T203717Z/browser-attempt-2/state/jobs.sqlite-shm",
+      "20261026T203717Z/browser-attempt-2/state/jobs.sqlite-wal"
+    ],
+    "missing_paths_tracked": []
+  },
+  "real_replay": {
+    "artifact": "real-reviewed-history",
+    "captures": 2,
+    "deferred_targets": 4,
+    "engine_code_hashes_match_current_source": true,
+    "events": 4,
+    "feature_version_matches_current_code": true,
+    "fetch_enabled": false,
+    "metrics": null,
+    "new_http_receipts": 0,
+    "outcomes": 0,
+    "probabilities": 0,
+    "samples": 4,
+    "scenarios": [],
+    "target_dates": 3
+  },
+  "ruff": "passed",
+  "strict_mypy": {
+    "files": 480,
+    "status": "passed"
+  },
+  "v1_complete": false
+}

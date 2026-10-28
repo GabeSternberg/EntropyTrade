@@ -1,0 +1,30 @@
+{
+  "attempts": {
+    "KXBTC-26OCT2513-T89799.99": "2026-10-28T23:23:03.093513+00:00",
+    "KXBTC-26OCT2517-T90249.99": "2026-10-28T23:23:34.537806+00:00",
+    "KXBTC-26OCT2617-T89749.99": "2026-10-28T23:24:05.931832+00:00"
+  },
+  "deferred": 0,
+  "failures": [
+    {
+      "failed_at": "2026-10-28T23:23:34.537791+00:00",
+      "failure": "GatewayError",
+      "ticker": "KXBTC-26OCT2513-T89799.99"
+    },
+    {
+      "failed_at": "2026-10-28T23:24:05.931816+00:00",
+      "failure": "GatewayError",
+      "ticker": "KXBTC-26OCT2517-T90249.99"
+    },
+    {
+      "failed_at": "2026-10-28T23:24:35.872770+00:00",
+      "failure": "TimeBudgetExceeded",
+      "ticker": "batch"
+    }
+  ],
+  "finished_at": "2026-10-28T23:24:35.872816+00:00",
+  "receipts": [],
+  "requested": 4,
+  "retained_receipts": 0,
+  "started_at": "2026-10-28T23:23:03.070771+00:00"
+}

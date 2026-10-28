@@ -381,7 +381,11 @@ def evaluate_candidate(
     ]
     if not predictions:
         result["reasons"] = [
-            "no permitted validation predictions; insufficient point-in-time data/model history",
+            bundle.refusals.get(
+                candidate["model_family"],
+                "no permitted validation predictions; "
+                "insufficient point-in-time data/model history",
+            ),
             "execution P&L is unavailable without certified rules, sized books and fee evidence",
         ]
         result["coverage"] = {
@@ -446,7 +450,8 @@ def evaluate_candidate(
     baseline = {
         (p.ticker, p.decision_time): p
         for p in bundle.records
-        if p.family == "climatology" and p.partition == "validation"
+        if p.family == bundle.model_metadata.get("baseline_family", "climatology")
+        and p.partition == "validation"
     }
     comparisons: list[dict[str, Any]] = []
     improvements: dict[str, list[float]] = defaultdict(list)
@@ -481,7 +486,7 @@ def evaluate_candidate(
             )
     result["benchmark"] = metrics(comparisons, min_events=config.min_events)
     result["benchmark"]["basis"] = (
-        "available quoted midpoint else training climatology; not executable fills"
+        "available quoted midpoint else registered training-only baseline; not executable fills"
     )
     result["brier_improvement_interval"] = _interval(
         [float(np.mean(v)) for v in improvements.values()], config

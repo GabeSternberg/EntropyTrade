@@ -1,0 +1,11 @@
+{
+  "attempts": {},
+  "deferred": 4,
+  "failures": [],
+  "fetch_enabled": false,
+  "finished_at": "2026-10-28T23:40:38.168832+00:00",
+  "receipts": [],
+  "requested": 0,
+  "retained_receipts": 0,
+  "started_at": "2026-10-28T23:40:38.145023+00:00"
+}

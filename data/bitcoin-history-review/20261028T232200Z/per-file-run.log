@@ -1,0 +1,9 @@
+{
+  "files": 209,
+  "executed_files": 207,
+  "passed_files": 198,
+  "not_rerun": {
+    "backend/tests/exchange/test_collector_service.py": "prior bounded collector stall",
+    "backend/tests/unit/test_experiments_r4.py": "prior 45-second asyncio/AnyIO stack dump"
+  }
+}

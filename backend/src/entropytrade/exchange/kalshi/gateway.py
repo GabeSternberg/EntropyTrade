@@ -192,6 +192,15 @@ class KalshiGateway:
             raw,
         )
 
+    async def get_archived_market(self, ticker: str) -> Market:
+        """Exact archived identity read after a live 404; no authentication or order API."""
+        path = f"/historical/markets/{ticker}"
+        payload = await self._guard(self._client.markets._get(path), path=path)
+        raw = CurrentMarket.model_validate(payload["market"])
+        return self._domain(
+            lambda item: market_from_sdk(item, captured_at=self._now(), series_ticker=None), raw
+        )
+
     async def list_markets(
         self,
         *,

@@ -172,6 +172,14 @@ def formulate_templates(
         model = "ridge" if index == 0 else "forecast_error"
         if "forward_only" in evidence.config.model_families:
             model = "forward_only"
+        elif "bitcoin_logistic" in evidence.config.model_families:
+            model = "bitcoin_logistic" if index == 0 else "bitcoin_frequency"
+            if index == 1:
+                mechanism = (
+                    "An event-weighted training frequency may be more stable "
+                    "than a moneyness regression."
+                )
+                hypotheses[-1] = hypothesis.revalidated(mechanism=mechanism)
         spec = None
         if not unsupported:
             spec = StrategySpec(

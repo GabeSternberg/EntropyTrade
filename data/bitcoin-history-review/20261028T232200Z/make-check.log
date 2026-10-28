@@ -1,0 +1,14 @@
+uv run ruff check backend
+E501 Line too long (101 > 100)
+   --> backend/src/entropytrade/experiments/engine.py:386:101
+    |
+384 |             bundle.refusals.get(
+385 |                 candidate["model_family"],
+386 |                 "no permitted validation predictions; insufficient point-in-time data/model history",
+    |                                                                                                     ^
+387 |             ),
+388 |             "execution P&L is unavailable without certified rules, sized books and fee evidence",
+    |
+
+Found 1 error.
+make: *** [Makefile:6: lint] Error 1

@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "baseline_family": "bitcoin_frequency",
+    "calibration": "none",
+    "data_kind": "real",
+    "final_holdout_evaluated": false,
+    "fit_date_blocks": 0,
+    "fit_events": 0,
+    "split": {
+      "calibration": [],
+      "fit": [
+        "KXBTC-26OCT2513",
+        "KXBTC-26OCT2517",
+        "KXBTC-26OCT2617",
+        "KXBTC-26OCT2717"
+      ],
+      "holdout": [],
+      "validation": []
+    },
+    "status": "INSUFFICIENT_DATA",
+    "target": "finalized Kalshi binary result; no reconstructed scalar price"
+  },
+  "records": [],
+  "refusals": {
+    "bitcoin_frequency": "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+    "bitcoin_logistic": "need 40 fit events on 20 dates with finalized labels received before fit cutoff"
+  }
+}

@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="1.3594560000000002">
+<testsuite name="bitcoin-history.spec.cjs" timestamp="2026-10-28T23:22:32.386Z" hostname="" tests="1" failures="1" skipped="0" time="0.003" errors="0">
+<testcase name="Bitcoin retained history: honest empty result, downloads and restart" classname="bitcoin-history.spec.cjs" time="0.003">
+<failure message="bitcoin-history.spec.cjs:10:1 Bitcoin retained history: honest empty result, downloads and restart" type="FAILURE">
+<![CDATA[  bitcoin-history.spec.cjs:10:1 › Bitcoin retained history: honest empty result, downloads and restart 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-O6wDWI --remote-debugging-pipe --no-startup-window
+    <launched> pid=29
+    [pid=29][err] [29:29:1028/232233.568923:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-O6wDWI --remote-debugging-pipe --no-startup-window
+      - <launched> pid=29
+      - [pid=29][err] [29:29:1028/232233.568923:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=29] <gracefully close start>
+      - [pid=29] <kill>
+      - [pid=29] <will force kill>
+      - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=29] starting temporary directories cleanup
+      - [pid=29] finished temporary directories cleanup
+      - [pid=29] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/bitcoin-history-review/20261028T232200Z/browser/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/bitcoin-history-review/20261028T232200Z/browser/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,0 +1,55 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_listener_to_real_worker_review_and_downloads_survive_restart[recorded] __
+backend/tests/integration/test_workbench_listener.py:52: in test_listener_to_real_worker_review_and_downloads_survive_restart
+    with listening(workspace) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted
+_ test_listener_to_real_worker_review_and_downloads_survive_restart[synthetic] _
+backend/tests/integration/test_workbench_listener.py:52: in test_listener_to_real_worker_review_and_downloads_survive_restart
+    with listening(workspace) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted
+_____________ test_listener_cancellation_lock_and_restart_history ______________
+backend/tests/integration/test_workbench_listener.py:90: in test_listener_cancellation_lock_and_restart_history
+    with listening(workspace, workers=False) as (server, client):
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:45: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+/usr/lib/python3.12/socket.py:233: in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+E   PermissionError: [Errno 1] Operation not permitted
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_to_real_worker_review_and_downloads_survive_restart[recorded]
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_to_real_worker_review_and_downloads_survive_restart[synthetic]
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_cancellation_lock_and_restart_history
+3 failed in 0.74s

@@ -117,7 +117,7 @@ class Handler(BaseHTTPRequestHandler):
                     "csrf_token": self.server.token,
                     "reasoning": "local_templates; synthetic mode uses explicit mock proposals",
                     "families": ["weather", "bitcoin"],
-                    "modes": ["recorded", "public", "synthetic"],
+                    "modes": ["recorded", "public", "synthetic", "history"],
                     "provider_enabled": False,
                     "submission_enabled": False,
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},

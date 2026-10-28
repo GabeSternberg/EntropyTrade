@@ -36,6 +36,16 @@ def _parser() -> argparse.ArgumentParser:
     collector.add_argument("--replay-wire", type=Path, help="offline wire JSONL; marked as replay")
     health = commands.add_parser("health")
     health.add_argument("--db", type=Path, required=True)
+    bitcoin = commands.add_parser(
+        "bitcoin-history", help="retained Bitcoin receipts to protected binary model experiments"
+    )
+    bitcoin.add_argument("--capture", type=Path, action="append", default=[])
+    bitcoin.add_argument("--previous", type=Path, action="append", default=[])
+    bitcoin.add_argument(
+        "--no-fetch", action="store_true", help="verify retained receipts without new network reads"
+    )
+    bitcoin.add_argument("--output", type=Path, required=True)
+    bitcoin.add_argument("--prompt", default="Test scaled_moneyness > 0")
     dataset = commands.add_parser("dataset", help="build a versioned daily-high Parquet dataset")
     dataset.add_argument("--config", type=Path, required=True)
     dataset.add_argument("--source", type=Path, action="append", required=True)
@@ -177,6 +187,54 @@ def main() -> None:
     args = _parser().parse_args()
     if args.command is None:
         print(f"entropytrade {__version__} (default trading mode: {DEFAULT_TRADING_MODE.value})")
+    elif args.command == "bitcoin-history":
+        from datetime import date
+
+        from entropytrade.agents.evidence import EvidenceConfig
+        from entropytrade.experiments.data import AdapterRegistry
+        from entropytrade.experiments.workflow import research_and_test
+        from entropytrade.families.bitcoin_history import build_history, history_data
+        from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions
+
+        args.output.mkdir(parents=True, exist_ok=False)
+        data = asyncio.run(
+            build_history(
+                args.output / "history",
+                args.capture,
+                previous=args.previous,
+                fetch=not args.no_fetch,
+            )
+        )
+        boundary = min(
+            (s.target_date for s in data.samples if s.event_id in data.protected_events),
+            default=date.max,
+        )
+        bitcoin_config = EvidenceConfig(
+            root=args.output.resolve(),
+            features="history",
+            holdout_start=boundary,
+            model_families=MODELS,
+        )
+        config_path = args.output / "evidence.json"
+        config_path.write_text(bitcoin_config.model_dump_json(indent=2))
+        adapters = AdapterRegistry()
+        adapters.register(
+            "bitcoin", history_data, BitcoinPredictions(data, args.output / "workflow/models")
+        )
+        result = research_and_test(
+            prompt=args.prompt,
+            evidence_config=config_path,
+            output=args.output / "workflow",
+            registry=args.output / "registry.sqlite",
+            tracking=args.output / "mlflow",
+            adapters=adapters,
+            market_family="bitcoin",
+            offline=True,
+            local_templates=True,
+        )
+        print(
+            json.dumps({"history": data.provenance, "experiment": result}, sort_keys=True, indent=2)
+        )
     elif args.command == "research-and-test":
         from entropytrade.agents.provider import ResearchProviderConfig
         from entropytrade.experiments.engine import ExperimentConfig

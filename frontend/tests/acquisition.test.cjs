@@ -88,4 +88,21 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     assert.ok(text(content).includes("SYNTHETIC SOFTWARE DEMONSTRATION"));
     assert.ok(text(content).includes("Final holdout is excluded."));
   });
+  test(`${tab}: retained Bitcoin gaps and reconciliation failures are visible`, () => {
+    const { context, content } = application();
+    const result = fixture(false);
+    delete result.acquisition;
+    result.bitcoin_history = {
+      capture_count: 2, retained_events: 4, retained_dates: 2, protected_events: 0,
+      limitations: ["No depth or certified fees; trading backtests and returns remain blocked."],
+      reconciliation: { requested: 2, deferred: 0, receipts: [],
+        failures: [{ ticker: "KXBTC-fixture", failure: "ConnectError", failed_at: "2026-10-28T23:00:00Z" }] },
+    };
+    context.show(result, tab);
+    assert.ok(text(content).includes("2 retained captures"));
+    assert.ok(text(content).includes("current failures: 1"));
+    assert.ok(text(content).includes("KXBTC-fixture: ConnectError"));
+    assert.ok(text(content).includes("trading backtests and returns remain blocked"));
+    assert.ok(text(content).includes("Final holdout is excluded."));
+  });
 }

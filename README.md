@@ -12,12 +12,16 @@ complete fitting/calibration is verified separately on synthetic data. Provider-
 verification needs a dedicated research key. The integrated `research-and-test` command now connects candidates, models, replay and
 ranked diagnostics. A template-only local research website and Bitcoin forward adapter are implemented
 in `99e2fbc`; reviewed commit `18be50c` includes the SQLite acceptance repair and retained evidence.
-All four documented website workflows now pass through isolated Playwright Chromium against
-the real backend, including public captures, incomplete acquisition, downloads, cancellation
-and restart persistence. See the [browser evidence](data/workbench-review/20261026T203717Z/README.md)
+The October 26 browser run passed all four then-documented website workflows through
+isolated Playwright Chromium against the real backend, including public captures,
+incomplete acquisition, downloads, cancellation and restart persistence. See the
+[browser evidence](data/workbench-review/20261026T203717Z/README.md)
 and [operation and exact limitations](docs/workbench.md). V1 is incomplete; see
-[project context](PROJECT_CONTEXT.md). Second-family historical evaluation and continuous
-shadow remain later work. Production trading
+[project context](PROJECT_CONTEXT.md). The [retained Bitcoin workflow](docs/bitcoin-history.md)
+now replays original receipts, reconciles later official binary results and conditionally
+fits temporal binary models through the same experiment engine. Actual inputs remain
+sparse and current browser/network acceptance is blocked; empirical second-family evaluation
+and continuous shadow remain incomplete. Production trading
 is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks

@@ -1,0 +1,12 @@
+{
+  "root": "/home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261028T232200Z/real-reviewed-history",
+  "features": "history",
+  "model_results": null,
+  "holdout_start": "9999-12-31",
+  "model_families": [
+    "bitcoin_logistic",
+    "bitcoin_frequency"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

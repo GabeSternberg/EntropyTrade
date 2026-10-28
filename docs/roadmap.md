@@ -1,5 +1,15 @@
 # Capability roadmap
 
+October 28 continuation: the website/browser milestone already exists in `9ba9b3d`.
+The current user instruction authorizes progress on the next unmet product gate, with
+all Git operations reserved for the supervisor. [Retained Bitcoin history](bitcoin-history.md)
+now connects real receipt replay and later official binary targets to fixed temporal models
+and the shared research/experiment engine. Its controlled software checks do not satisfy
+real-data evaluation. Browser/network permissions and complete current-suite verification
+remain review blockers; see [current evidence](../data/bitcoin-history-review/20261028T232200Z/README.md).
+V1 is incomplete, and continuous paper/shadow remains deferred. Earlier dated evidence below
+retains its original scope and acceptance meaning.
+
 Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
 continuation, while preserving the [original product specification](project-spec.md).
 R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
@@ -172,6 +182,14 @@ Acceptance: open localhost → research idea → saved, reviewable candidates/re
 insufficient-data reports and explicit synthetic demonstrations must both be usable.
 
 ## R6 — Second real market family
+
+**October 28 increment:** immutable history snapshots, bounded official-result reconciliation,
+receipt-time binary-target gates, fixed calendar holdout, event-weighted logistic/frequency
+models, CLI and website integration are implemented. The real retained inputs remain sparse;
+no empirical probability accuracy or trading returns are established. Exceptional resolution,
+depth and fees still block execution. The new browser procedure is executable but launch was
+OS-denied here; prior browser acceptance covers the earlier website. Review this coherent
+increment before authorizing another major milestone.
 
 **Bitcoin adapter and successful forward ingestion verified; empirical evaluation absent.**
 KXBTC public rules and Coinbase spot are a distinct registered forward-evidence family.

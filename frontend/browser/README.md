@@ -1,5 +1,16 @@
 # Real workbench browser acceptance
 
+The new Bitcoin retained-history procedure can be selected with
+`--grep 'Bitcoin retained history'`. Use a new absolute evidence directory and workspace
+as below. It runs `bitcoin-history.spec.cjs` against a real localhost server/worker,
+checks empty-history insufficiency across all tabs, downloads both artifacts, restarts
+the server and compares downloads. No public responses or completed jobs are replaced.
+It needs an actual permitted browser/listener; a launch denial remains failed acceptance.
+This procedure does not establish successful public ingestion or historical model accuracy.
+The [October 28 attempt](../../data/bitcoin-history-review/20261028T232200Z/README.md)
+retains its Chromium socket-permission failure before page interaction. The original
+four-workflow harness below can be selected with `--grep 'four documented'`.
+
 This harness automates all four procedures in `docs/workbench.md` against the actual
 loopback HTTP server, durable queue and isolated research workers. It clicks the form,
 tabs, details, downloads, cancellation and saved history. It stops/restarts its own server

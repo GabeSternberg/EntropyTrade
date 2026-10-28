@@ -38,11 +38,13 @@ async function api(path, body) {
 }
 function modeHelp() {
   const bitcoin = $("family").value === "bitcoin";
-  for (const option of $("mode").options) option.disabled = bitcoin && option.value !== "public";
-  if (bitcoin) $("mode").value = "public";
+  for (const option of $("mode").options) option.disabled = bitcoin ? !["public", "history"].includes(option.value) : option.value === "history";
+  if (bitcoin && !["public", "history"].includes($("mode").value)) $("mode").value = "public";
+  if (!bitcoin && $("mode").value === "history") $("mode").value = "recorded";
   const mode = $("mode").value;
   $("mode-help").textContent = mode === "synthetic" ?
-    "Generated weather data + mock proposals. Trains models and simulates backtests to verify software; no real performance evidence. May take a few minutes." : mode === "recorded" ?
+    "Generated weather data + mock proposals. Trains models and simulates backtests to verify software; no real performance evidence. May take a few minutes." : mode === "history" ?
+    "Reuse completed Bitcoin captures in this workspace, fetch up to ten later official results, and test binary models only with enough independent receipt-time history. Repeat captures on different dates; a current fetch cannot backfill old decisions. No execution returns." : mode === "recorded" ?
     "Six historical city/day events across three dates. Certified forecast vintages and scalar highs are absent; expect an insufficient-data result." : bitcoin ?
     "Fetch actual KXBTC contract rules and Coinbase BTC-USD spot. Spot is a covariate, never a settlement label. Forward capture only; no historical evaluation." :
     "Fetch Philadelphia/Chicago contract rules and current Open-Meteo/NWS forecast vintages. New receipts cannot backfill historical features or outcomes.";
@@ -106,6 +108,7 @@ function renderResult() {
   }
   content.append(notice(`${result.data_kind === "synthetic" ? "SYNTHETIC SOFTWARE DEMONSTRATION. " : "REAL EVIDENCE. "}${result.reasoning_limit} Final holdout is excluded.`));
   if (result.acquisition) renderAcquisition(content, result.acquisition);
+  if (result.bitcoin_history) renderBitcoinHistory(content, result.bitcoin_history);
   if (state.tab === "review") renderReview(content, result);
   if (state.tab === "probabilities") renderProbabilities(content, result);
   if (state.tab === "lineage") renderLineage(content, result);
@@ -117,6 +120,15 @@ function renderAcquisition(content, acquisition) {
   if (acquisition.failure_summaries.length) append(section, node("h3", "Acquisition failures"), list(acquisition.failure_summaries));
   else section.append(node("p", "No acquisition failures recorded.", "hint"));
   section.append(node("p", `Capture (UTC): ${acquisition.started_at} → ${acquisition.decision_time}. Universe complete: ${acquisition.universe_complete}. History complete: ${acquisition.history_complete}.`, "hint"), list(acquisition.limitations));
+  content.append(section);
+}
+function renderBitcoinHistory(content, history) {
+  const section = panel("Retained Bitcoin history");
+  const reconciliation = history.reconciliation;
+  section.append(node("p", `${history.capture_count} retained captures · ${history.retained_events} events on ${history.retained_dates} dates · ${history.protected_events} protected events.`),
+    node("p", `Official outcome reads: ${reconciliation.requested}; deferred by budget: ${reconciliation.deferred}; retained response receipts: ${reconciliation.receipts.length}; current failures: ${reconciliation.failures.length}.`), list(history.limitations));
+  if (reconciliation.failures.length) section.append(list(reconciliation.failures.map((failure) => `${failure.ticker}: ${failure.failure} (${failure.failed_at})`)));
+  section.append(detail("Outcome reconciliation clocks and response identities", reconciliation));
   content.append(section);
 }
 function renderReview(content, result) {
@@ -134,6 +146,7 @@ function renderReview(content, result) {
     if (hypothesis) append(card, node("p", "Falsification", "label"), node("p", hypothesis.falsification, "small"), detail("Typed hypothesis", hypothesis));
     if (candidate.forecast_metrics) card.append(detail("Forecast validation metrics", candidate.forecast_metrics));
     else card.append(node("p", "No eligible forecast validation metrics. Missing history is not replaced with estimated performance.", "hint"));
+    if (candidate.model_lineage) card.append(detail("Probability model lineage and refusals", candidate.model_lineage));
     if (candidate.scenarios?.length) {
       append(card, node("p", "Simulated execution scenarios · never observed fills", "label"), table(["Scenario", "Fills", "Simulated P&L", "Fees", "Drawdown at cost"], candidate.scenarios.map((s) => [s.scenario, s.fill_count, s.net_pnl, s.fees_paid, s.drawdown_at_cost])), detail("Full execution diagnostics", candidate.scenarios));
     }

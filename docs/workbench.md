@@ -1,5 +1,14 @@
 # Private research workbench
 
+October 28 addition: Bitcoin's **Retained Bitcoin history + official outcomes** mode
+reuses completed public captures in this workspace, preserves fixed calendar partitions
+and later receipt-time labels, and conditionally compares two binary models through the
+same research/experiment engine. [The operating guide](bitcoin-history.md) describes its
+narrow supported terms, offline CLI, data gates and outstanding acceptance. It establishes
+no empirical performance on the current sparse inputs. The new browser procedure could
+not launch under current socket permissions; earlier browser receipts below cover their
+original source state.
+
 Run from a dependency-equipped checkout (Python 3.12+):
 
 ```bash

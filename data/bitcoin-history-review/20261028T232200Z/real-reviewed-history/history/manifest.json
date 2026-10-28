@@ -1,0 +1,30 @@
+{
+  "captures": [
+    "captures/0000",
+    "captures/0001"
+  ],
+  "checksums": {
+    "captures/0000/capture.json": "sha256:c5acc2aaf8b6e4da3fd86f3c106e468f2f1f2dbf10e486ffa7771d242b87a883",
+    "captures/0000/manifest.json": "sha256:d081ad646afbcc49298db2f0e1fa5dbb5acef9c183423d37be8ae49875165c5b",
+    "captures/0000/markets.jsonl": "sha256:2e9008fb7ac55c8c07accdf4803f56183cbf6ea3f715a555651d7b5c95684f59",
+    "captures/0000/observations.jsonl": "sha256:3178bf3aeb7c0d88d8c6809e652aeffdfa16ebc3cb2ef89988de997be3f26fdb",
+    "captures/0000/raw/0001.json": "sha256:115c2894e220c4ac4070c38d2cb9053580cc66e839a5395aa0ad5ee318505ff8",
+    "captures/0000/raw/0002.json": "sha256:02ae92f7b4fedc1a7e70f12d86fc22f4088f961701f820cff0fc3ea38cb34a51",
+    "captures/0000/raw/0003.json": "sha256:f90ff505689dff597c2822ff251b6e311d616c31f1add21432144c5aa7419d0a",
+    "captures/0001/capture.json": "sha256:4369355c83731eb385daf75705b6ed7be1fcc103151706d0924f9f96e8490892",
+    "captures/0001/manifest.json": "sha256:c32495846f1cc8d0ba9027c19364d0979562c85df26e7210161c98439fe56903",
+    "captures/0001/markets.jsonl": "sha256:163b643dd5881589c331de85e08e530659cdf446a671e8b6aba6f502cd703e7c",
+    "captures/0001/observations.jsonl": "sha256:405552222c763036a74c00ad110cbf250ac626418065a34728ba200dd33c2ad6",
+    "captures/0001/raw/0001.json": "sha256:419fae00c5d8d2f13be52ae2f477f6c4beaa020379583eba2d2801d21030171c",
+    "captures/0001/raw/0002.json": "sha256:b1abf7f1292a6f4b3d8d3256f9bc86577dad0766f64afaf107ba0507e0b7aa7c",
+    "captures/0001/raw/0003.json": "sha256:e2f8b82c4778d9e30118b99a1c27a50118ccea7aa93e9009b2e0c300a6e3f58b",
+    "outcomes/receipts.json": "sha256:dd16b9be6af99e7c37bee995ddce390e2093546994850d5ecac2ebe9a9b79594"
+  },
+  "dataset_version": "sha256:e10c84487927dea0e394e1cfdcd9b02e5dea91285c016b42218259fd4458c221",
+  "partition": {
+    "anchor": "2026-10-25",
+    "fit_before": "2026-12-24",
+    "holdout_start": "2027-01-23"
+  },
+  "schema": "bitcoin-history-v1"
+}

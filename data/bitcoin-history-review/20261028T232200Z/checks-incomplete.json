@@ -1,0 +1,6 @@
+{
+  "full_check": "interrupted after stalling at first collector test; lint, format and strict mypy had passed",
+  "collector_diagnostic": "20-second faulthandler dump, terminated after 45 seconds plus five-second kill grace",
+  "browser": "Chromium installed; launch denied by setsockopt EPERM/SIGTRAP before page interaction",
+  "real_history": "interrupted without completed snapshot/result; no successful acquisition claimed"
+}

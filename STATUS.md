@@ -1,12 +1,35 @@
 # EntropyTrade — current status
 
-Updated 2026-10-26. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-10-28. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
 ## Objective and checkpoint
 
-**V1 is incomplete. Finish acceptance of the existing milestone before new features.**
-The starting checkout was clean on `supervisor/20261025-014400` at reviewed commit
+**V1 is incomplete. Bitcoin retained-history integration is implemented for review.**
+This continuation started clean on `supervisor/20261028-191140` at `9ba9b3d`, which
+already includes the website and its October 26 acceptance evidence. No Git mutation,
+credential access, paper/shadow activation or real order submission was performed.
+
+The new [Bitcoin history workflow](docs/bitcoin-history.md) joins original forward
+receipts, later official binary targets, fixed calendar partitions, two binary models and
+the shared research/experiment engine. The website can review completed captures in its
+workspace; the CLI also supports explicit partitions and offline replay. Narrow recognized
+terms do not certify exceptional settlement paths: execution rule gates remain closed.
+The [current evidence](data/bitcoin-history-review/20261028T232200Z/README.md) distinguishes
+controlled software checks from replay of actual retained receipts and blocked acceptance.
+Fresh network reads and new browser acceptance are unverified here. No real-data model
+performance or second-family empirical completion is claimed. Continuous paper/shadow
+remains deferred; stop for supervisor review before another major milestone.
+
+Current verification: Ruff/format and strict mypy (480 files) passed, as did 17 new Bitcoin
+tests and 12 frontend presentation assertions. Additional per-file checks reported 660
+passes and three listener EPERM failures; eight files timed out, with two earlier stalled
+files not rerun. The complete `make check` did not pass. Chromium installation succeeded,
+but launch failed on socket permissions before page interaction. Offline replay of two
+actual captures retained four recognized events/three target dates and correctly returned
+two insufficient-data candidates with zero outcomes, probabilities, metrics or scenarios.
+
+The October 26 acceptance checkout was clean on `supervisor/20261025-014400` at reviewed commit
 `18be50cee17f03ae3dbfa198ed22e7a23635af1b`. It includes the local workbench, Bitcoin
 forward adapter and committed SQLite acceptance repair. The earlier `99e2fbc` baseline
 and uncommitted-candidate receipts describe historical states. Local `main` remains the
@@ -14,7 +37,7 @@ R4 checkpoint `30bed8e`; no remote freshness is claimed.
 All Git mutations belong to the supervisor. No branch, index, commit, merge or push was changed.
 Production trading remains disabled.
 
-## Current acceptance continuation
+## October 26 acceptance record
 
 **All four documented browser procedures passed** with isolated Playwright Chromium and
 the real localhost backend on October 26, 20:42:33–20:43:23 UTC. No Computer Use or personal
@@ -122,10 +145,10 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Return for review with the concrete browser-access blocker. Once an approved browser is
-available, execute every step in `docs/workbench.md`, retaining UTC clocks, job IDs,
-screenshots and checksummed browser downloads. The supervisor must verify the final
-reviewed commit from a clean checkout with locked dependencies and full backend/frontend
-checks before integration. Do not create branches, stage, commit, merge or push in this
-continuation. Official Bitcoin outcomes/history and continuous paper/shadow are later work;
-V1 cannot be declared complete without its remaining product gates.
+Review the Bitcoin history implementation and current receipts. In a listener/browser-capable
+environment, execute the new Playwright history procedure and complete `make check` without
+the recorded collector/async stalls. Reconcile actual captured contracts against official
+results, then accumulate sufficient receipt-time history under the fixed protected dates.
+The supervisor owns independent clean-checkout validation and all Git operations. No
+empirical second-family or V1 completion follows from synthetic fitting or offline insufficiency.
+Continuous paper/shadow and the final V1 evidence matrix remain subsequent reviewed work.

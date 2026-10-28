@@ -13,6 +13,8 @@ from entropytrade.api.server import workspace_path
 from entropytrade.data.sources import file_hash
 from entropytrade.experiments.data import AdapterRegistry
 from entropytrade.experiments.workflow import research_and_test
+from entropytrade.families.bitcoin_history import build_history, history_data
+from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions
 from entropytrade.families.public import ForwardPredictions, capture_public, forward_data
 from entropytrade.weather.collection import WeatherConfig
 
@@ -158,7 +160,32 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
         adapters = None
         config_path = repo / "configs/research/weather.json"
         public = None
-        if request["mode"] == "public":
+        history = None
+        if request["mode"] == "history":
+            progress(
+                "reconciling",
+                "Verifying retained Bitcoin receipts and fetching later official outcomes",
+            )
+            captures, previous = jobs.bitcoin_inputs()
+            history = asyncio.run(build_history(run / "history", captures, previous=previous))
+            output = run / "workflow"
+            adapters = AdapterRegistry()
+            adapters.register(
+                "bitcoin", history_data, BitcoinPredictions(history, output / "models")
+            )
+            boundary = min(
+                (s.target_date for s in history.samples if s.event_id in history.protected_events),
+                default=date.max,
+            )
+            config = EvidenceConfig(
+                root=run.resolve(),
+                features="history",
+                holdout_start=boundary,
+                model_families=MODELS,
+            )
+            config_path = run / "evidence.json"
+            config_path.write_text(config.model_dump_json(indent=2))
+        elif request["mode"] == "public":
             progress(
                 "fetching", "Fetching bounded public contract rules and forward source receipts"
             )
@@ -206,6 +233,21 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
             )
             return
         review = review_result(result, output)
+        if history is not None:
+            review["bitcoin_history"] = history.provenance
+            review["report"] = "\n".join(
+                [
+                    "Retained Bitcoin history · receipt-time official binary targets",
+                    f"Captures: {history.provenance['capture_count']}; "
+                    f"retained events: {history.provenance['retained_events']}; "
+                    f"protected events: {len(history.protected_events)}.",
+                    *history.provenance["limitations"],
+                    "Reconciliation: "
+                    + json.dumps(history.provenance["reconciliation"], sort_keys=True),
+                    "",
+                    review["report"],
+                ]
+            )
         if public is not None:
             review["public_evidence"] = public.provenance
             review["public_manifest"] = json.loads((run / "public/manifest.json").read_text())

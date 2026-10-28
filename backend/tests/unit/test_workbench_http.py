@@ -210,7 +210,7 @@ def test_queue_cap_validation_and_no_arbitrary_family_modes(tmp_path: Path) -> N
         ({**REQUEST, "idea": " "}, "idea must contain 1-6000 characters"),
         (
             {**REQUEST, "family": "bitcoin"},
-            "Bitcoin currently supports public forward capture only",
+            "Bitcoin supports public capture or retained Bitcoin history",
         ),
     )
     for request, reason in invalid_requests:

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="0.040" timestamp="2026-10-28T23:31:06.713043+00:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_mexicocity_listing" name="test_mexico_city_is_not_scored" time="0.001" /></testsuite></testsuites>
