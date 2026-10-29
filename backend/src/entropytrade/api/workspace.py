@@ -1,0 +1,42 @@
+"""Shared local workspace boundary and exclusive server/maintenance lease."""
+
+import fcntl
+from collections.abc import Iterator
+from contextlib import contextmanager
+from pathlib import Path
+from typing import TextIO
+
+
+def workspace_path(repo: Path, workspace: Path) -> Path:
+    resolved = workspace.resolve()
+    cache = (repo.resolve() / "data" / "cache").resolve()
+    if (
+        not cache.is_relative_to(repo.resolve())
+        or not resolved.is_relative_to(cache)
+        or resolved == cache
+    ):
+        raise ValueError("workspace must be a subdirectory of repository data/cache")
+    return resolved
+
+
+def acquire_workspace(root: Path) -> TextIO:
+    """Acquire before opening/migrating SQLite or starting any worker."""
+    root.mkdir(parents=True, exist_ok=True)
+    if (root / ".writer.lock").is_symlink():
+        raise ValueError("workspace lock must not be a symlink")
+    lock = (root / ".writer.lock").open("a")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BaseException:
+        lock.close()
+        raise
+    return lock
+
+
+@contextmanager
+def workspace_lease(root: Path) -> Iterator[None]:
+    lock = acquire_workspace(root)
+    try:
+        yield
+    finally:
+        lock.close()

@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="6.64131">
+<testsuite name="recovery.spec.cjs" timestamp="2026-10-29T17:02:28.256Z" hostname="" tests="1" failures="1" skipped="0" time="0.006" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="0.006">
+<failure message="recovery.spec.cjs:10:1 local operation and recovery: installed research, snapshot, restore and shadow lifecycle" type="FAILURE">
+<![CDATA[  recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-final/installation/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-final/tmp/playwright_chromiumdev_profile-nYasvc --remote-debugging-pipe --no-startup-window
+    <launched> pid=261
+    [pid=261][err] [261:261:1029/170234.402181:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-final/installation/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-final/tmp/playwright_chromiumdev_profile-nYasvc --remote-debugging-pipe --no-startup-window
+      - <launched> pid=261
+      - [pid=261][err] [261:261:1029/170234.402181:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=261] <gracefully close start>
+      - [pid=261] <kill>
+      - [pid=261] <will force kill>
+      - [pid=261] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=261] starting temporary directories cleanup
+      - [pid=261] finished temporary directories cleanup
+      - [pid=261] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../browser/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../browser/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

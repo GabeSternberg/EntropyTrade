@@ -1,0 +1,6 @@
+{
+  "observed_at": "2026-10-29T17:25:57.501378+00:00",
+  "tool_exit_code": 130,
+  "action": "Interrupted stalled preliminary full-suite driver; raw running receipt retained, no full-suite pass.",
+  "browser_attempted": false
+}

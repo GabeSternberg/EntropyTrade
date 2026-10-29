@@ -1,5 +1,16 @@
 # Real workbench browser acceptance
 
+For the local-operation/recovery milestone, use the [one-command fresh-install driver](../../docs/local-recovery.md)
+or select `--grep 'local operation and recovery'` with new evidence/workspace paths.
+`recovery.spec.cjs` performs actual research/results, paused and active shadow lifecycle,
+offline snapshot/restore, restored downloads, fresh cycles and cancellation/restart.
+The [current executed attempt](../../data/local-operation-review/README.md) installs managed
+Chromium but fails launch at Crashpad `setsockopt: Operation not permitted (1)` before
+page/listener interaction. Its trace/reports are retained; no new screenshot or current
+browser pass is claimed. Do not repeat that denied launch in the same environment. The
+default driver must execute in a permitted environment for supervisor acceptance;
+`--prepare-only` explicitly leaves browser and full suite unverified.
+
 For the continuous shadow milestone use `--grep 'continuous shadow'` with new absolute
 evidence/workspace directories as in [the shadow guide](../../docs/shadow-tracking.md).
 `shadow.spec.cjs` uses actual form interaction, real server/subprocesses, source capture,

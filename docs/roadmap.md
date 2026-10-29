@@ -9,7 +9,29 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current model-to-shadow milestone connects a resolved research StrategySpec and frozen
+The current local-operation milestone implements offline workspace snapshot/restore and
+a one-command locked fresh-install/browser recovery driver. Consistent jobs/lineage SQLite
+backups and all run/shadow bytes are verified before restoring to a new workspace. Server
+and inherited worker leases prevent concurrent maintenance. Frozen model bindings,
+reservations, paused states, original clocks and active-monitor recovery have controlled
+regressions; two authentic retained cycles also restore and replay identically offline.
+
+Final-source locked offline setup, Ruff/format, strict mypy, frontend checks and 280 focused
+tests pass (three asynchronous experiment workflows explicitly deselected). The new actual
+Chromium recovery procedure is **not accepted**: the supported installer succeeds, but
+launch fails with `setsockopt: Operation not permitted (1)` before page interaction. The
+fresh full suite stalls in the existing collector reconnect test and hits its external
+deadline. No denied launch is repeated, and no mocked HTTP test is counted as a browser
+pass. See [local operation](local-recovery.md), [executed evidence](../data/local-operation-review/README.md)
+and the new [V1 matrix](v1_acceptance.md).
+
+The immediate next task is verification of this same milestone in a permitted environment:
+run the default fresh-install driver, inspect research/results and restored shadow browser
+artifacts, and complete the full suite. All Git mutations and independent sign-off belong
+to the supervisor. Do not start another major phase before review. This operating work
+does not wait for Bitcoin validation dates or treat incomplete empirical gates as passed.
+
+The earlier model-to-shadow milestone connects a resolved research StrategySpec and frozen
 model identity to continuous read-only collection. Compatible weather models export data-only
 JSON; monitors freeze checksummed parameters, fit/calibration clocks, series scope and holdout
 boundaries. Fresh features and at most ten sized public books feed causal probabilities or
@@ -26,15 +48,16 @@ outcome linkage, without claiming empirical model quality. See [integration evid
 [current context](../PROJECT_CONTEXT.md) and [operating guide](shadow-tracking.md).
 
 Approve safe tested intermediate milestones independently of sparse future empirical windows.
-Review this integration before starting another major milestone; all Git operations belong
-to the supervisor. Next priorities are authentic fitting/source-matched outcomes and reviewed
-fee certification, alongside independent operating/release evidence while data accrues.
+All Git operations belong to the supervisor. After this local-operation milestone's review,
+remaining V1 evidence includes authentic fitting/source-matched outcomes, reviewed fee
+certification, authorized provider verification and empirical second-family validation.
 Broader model serializers, depth scheduling, hosted operation and structural scanning are
 deferred. No new major family is chosen.
 
-V1 is incomplete. Final release still requires a committed `docs/v1_acceptance.md` evidence
-matrix independently cross-checked against actual browser workflows, two meaningfully
-supported real-data families, temporal/leakage checks, reproducible realistic backtests,
+V1 is incomplete. `docs/v1_acceptance.md` now records passed and incomplete requirements;
+the supervisor must commit and independently cross-check it against actual browser
+workflows, two meaningfully supported real-data families, temporal/leakage checks,
+reproducible realistic backtests,
 provider-backed research when authorized, durable shadow/restart/cancellation, safety,
 clean installation and complete tests. Blocked or synthetic-only paths do not pass real-data
 gates. Stop for review when V1 passes; real-money execution is outside V1.

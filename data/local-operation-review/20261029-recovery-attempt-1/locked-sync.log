@@ -1,0 +1,16 @@
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 121 packages in 1ms
+   Building entropytrade @ file:///home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-attempt-1/installation
+warning: `build_system.requires = ["uv-build>=0.9,<0.13"]` does not contain the current uv version 0.13.6
+      Built entropytrade @ file:///home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-recovery-attempt-1/installation
+error: Failed to download `librt==0.16.0`
+  cause: Request failed after 3 retries in 4.5s
+  cause: Failed to fetch: https://files.pythonhosted.org/packages/ad/f7/7ce72cbf19d0addd05090b339152fd0548a02562c2866a603e6e3b3da2df/librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+  cause: error sending request for url (https://files.pythonhosted.org/packages/ad/f7/7ce72cbf19d0addd05090b339152fd0548a02562c2866a603e6e3b3da2df/librt-0.16.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl)
+  cause: client error (Connect)
+  cause: dns error
+  cause: error resolving DNS
+  cause: failed to lookup address information: Temporary failure in name resolution
+
+hint: `librt` (v0.16.0) was included because `entropytrade:dev` (v0.0.0) depends on `mypy` (v2.4.0) which depends on `librt`

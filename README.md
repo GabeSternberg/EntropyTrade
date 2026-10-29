@@ -25,9 +25,13 @@ browser interaction, downloads and restart acceptance pass. History remains insu
 evaluation remains incomplete. Bitcoin is optional, not the mandatory second family;
 future major family selection requires user approval. A continuous read-only shadow
 monitor now connects frozen research candidates to durable forward capture, decisions,
-risk evidence, later official outcomes and browser inspection. Existing forward models,
-certified fees and sized books remain unavailable, so actual intentions block. Browser
-acceptance of this new monitor is pending after an OS-denied Chromium launch. See the
+risk evidence, later official outcomes and browser inspection. Authentic fitted forward
+models and certified fees remain unavailable, so actual intentions block.
+Sized public books are retained with explicit collection bounds. Earlier shadow browser
+acceptance passed; current fresh-install snapshot/restore browser acceptance is blocked
+by Chromium socket permissions. Offline workspace recovery and two authentic cycle replays
+pass. See [local operation and recovery](docs/local-recovery.md), the incomplete
+[V1 acceptance matrix](docs/v1_acceptance.md), the
 [shadow operating guide](docs/shadow-tracking.md) and the earlier
 [executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Production trading
 is disabled; the Kalshi gateway refuses orders.

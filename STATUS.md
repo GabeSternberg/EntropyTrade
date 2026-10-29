@@ -3,7 +3,59 @@
 Updated 2026-10-29. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: continuous read-only shadow tracking
+## Current milestone: local operation and recovery — implemented, acceptance incomplete
+
+Implemented on the existing `supervisor/20261029-124902` checkout from `70cbc7a`.
+No Git mutations, supervisor-control changes, real orders or credential access. The
+supervisor retains all commits/merges/pushes. **V1 remains incomplete.**
+
+[Offline workspace snapshot/restore](docs/local-recovery.md) preserves jobs, the shared
+lineage registry, frozen model/spec bindings and all run/shadow bytes. It requires the
+exclusive server lease, snapshots SQLite consistently and verifies hashes, schemas,
+references, registry lineage and cycle results before publishing a new destination.
+Existing data is never overwritten. Unsafe paths/links and corrupt/incomplete evidence
+are refused. Workers inherit the lease so a parent crash cannot permit a concurrent
+snapshot or server while an old worker is still writing. Restore does not backfill missed
+receipts or change frozen Bitcoin boundaries.
+
+**23 new recovery regressions pass.** A fresh locked offline installation, with the final
+CLI correction applied and reverified, passes Ruff lint/format, strict mypy (499 files),
+pinned npm setup and all 12 named frontend checks. **280 focused tests pass, three asynchronous experiment
+workflows explicitly deselected**; these cover recovery, shadow/model/risk boundaries,
+controlled multi-cycle outcomes, deterministic experiments/execution and submission
+refusal. This selection is not a complete-suite pass. Source hashes and package inventory
+are retained in the [preparation receipt](data/local-operation-review/20261029-final-source/acceptance.json)
+and [final source comparison](data/local-operation-review/20261029-final-source/source-cli-fixed-comparison.json).
+The original network install failed DNS resolution; cache provisioning reused package
+artifacts and managed Chromium, not the existing virtualenv or credentials.
+
+An [offline authentic recovery proof in the locked installation](data/local-operation-review/fresh-authentic-current-source/verification.json)
+restores one real research run, one paused monitor and two completed real cycles. All
+non-database bytes and logical database rows match; paused export and both 24-decision
+replays are identical. The installed CLI round trip also passes after the argument-order
+correction found by this check. This reuses original October 29 receipts, creates no new source
+data and makes no performance claim. Nonempty reservations, bound fitted models and
+active/in-flight recovery have controlled evidence only.
+
+The new real-browser research/results → shadow → snapshot/restore → fresh active cycle →
+cancellation/restart harness is executable. Supported managed Chromium installation
+succeeds, but its one launch fails before page interaction at
+`third_party/crashpad/crashpad/util/linux/socket.cc:45`:
+`setsockopt: Operation not permitted (1)` (SIGTRAP). No new screenshots, real listener
+workflow or browser pass is claimed. The fresh-install full suite stalls in the existing
+collector reconnect case; the diagnostic stack is retained and a 120-second deadline
+exits 124. The earlier unbounded attempt was interrupted. No test, policy, event loop,
+risk limit or sandbox setting was weakened; the denied launch was not repeated.
+
+See [milestone evidence and exact remaining steps](data/local-operation-review/README.md)
+and [V1 acceptance matrix](docs/v1_acceptance.md). The supervisor/human must run the default
+acceptance driver in a permitted environment, inspect actual browser artifacts and obtain
+a full-suite pass before marking this milestone accepted. No next major phase is started.
+Empirical model/outcome coverage, certified fees, authorized provider evidence and a
+validated second family remain explicit V1 gaps. New families require user approval;
+broader serializers, hosted operation and structural scanning remain deferred.
+
+## Earlier continuous shadow checkpoints
 
 ### October 29 model-to-shadow integration
 

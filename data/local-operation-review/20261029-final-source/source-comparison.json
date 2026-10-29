@@ -1,0 +1,16 @@
+{
+  "runtime_test_config_data_match": true,
+  "differences": [
+    {
+      "path": "README.md",
+      "prepared_sha256": "07b09b1d5e6ed0c0fc3ed80dcc08f528ea798ed4c633f7e831c5a84d519b4bb4",
+      "current_sha256": "f943715d3d5b2faac7f9c42f8dff4354d16a476933843b6cc3e303ab79132fcb"
+    },
+    {
+      "path": "tools/local_acceptance.py",
+      "prepared_sha256": "d9a181cc9a56ee7630bf826369cf2d953173dca5a7689efe2f3773752787aeea",
+      "current_sha256": "1d5a815270b942996b53df6408a76612de610190b894b213b8810be77d229e28"
+    }
+  ],
+  "note": "README documentation changed; acceptance driver now invokes the same 12 named frontend assertions directly. The driver copy was refreshed; no application, Python test, config, lock or dataset changed after final-source preparation."
+}

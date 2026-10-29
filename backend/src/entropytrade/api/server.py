@@ -1,7 +1,6 @@
 """Loopback-only HTTP workbench with same-origin writes and a fixed asset allowlist."""
 
 import argparse
-import fcntl
 import json
 import secrets
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -10,6 +9,8 @@ from urllib.parse import urlsplit
 
 from entropytrade.api.jobs import Jobs, identifier
 from entropytrade.api.runner import Runner
+from entropytrade.api.workspace import acquire_workspace
+from entropytrade.api.workspace import workspace_path as workspace_path
 from entropytrade.tracking.runner import ShadowRunner
 from entropytrade.tracking.store import TrackingStore
 
@@ -20,39 +21,26 @@ ASSETS = {
 }
 
 
-def workspace_path(repo: Path, workspace: Path) -> Path:
-    resolved = workspace.resolve()
-    # User input never selects filesystem paths. Even the CLI is confined to the cache tree.
-    cache = (repo.resolve() / "data" / "cache").resolve()
-    if (
-        not cache.is_relative_to(repo.resolve())
-        or not resolved.is_relative_to(cache)
-        or resolved == cache
-    ):
-        raise ValueError("workspace must be a subdirectory of repository data/cache")
-    return resolved
-
-
 class WorkbenchServer(ThreadingHTTPServer):
     daemon_threads = True
     block_on_close = True
 
     def __init__(self, repo: Path, workspace: Path, *, port: int = 43128) -> None:
         self.repo = repo.resolve()
-        self.jobs = Jobs(workspace_path(self.repo, workspace))
-        self.runner = Runner(self.jobs, self.repo)
-        self.tracking = TrackingStore(self.jobs)
-        self.shadow = ShadowRunner(self.tracking, self.repo)
-        self.lock = (self.jobs.root / ".writer.lock").open("a")
+        root = workspace_path(self.repo, workspace)
+        self.lock = acquire_workspace(root)
         try:
-            fcntl.flock(self.lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            self.jobs = Jobs(root)
+            self.runner = Runner(self.jobs, self.repo, lease_fd=self.lock.fileno())
+            self.tracking = TrackingStore(self.jobs)
+            self.shadow = ShadowRunner(self.tracking, self.repo, lease_fd=self.lock.fileno())
             super().__init__(("127.0.0.1", port), Handler)
+            self.jobs.recover()
+            self.tracking.recover()
         except BaseException:
             self.lock.close()
             raise
         self.token = secrets.token_urlsafe(32)
-        self.jobs.recover()
-        self.tracking.recover()
 
     def server_close(self) -> None:
         self.runner.close()

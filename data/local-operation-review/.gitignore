@@ -1,0 +1,5 @@
+# Keep verification receipts/reports; environments and copied package caches are local.
+**/installation/
+**/uv-cache/
+**/npm-cache/
+**/tmp/

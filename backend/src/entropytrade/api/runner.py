@@ -27,8 +27,11 @@ def worker_environment(repo: Path, workspace: Path) -> dict[str, str]:
 
 
 class Runner:
-    def __init__(self, jobs: Jobs, repo: Path, *, timeout: float = 600) -> None:
+    def __init__(
+        self, jobs: Jobs, repo: Path, *, timeout: float = 600, lease_fd: int | None = None
+    ) -> None:
         self.jobs, self.repo, self.timeout = jobs, repo, timeout
+        self.lease_fds = () if lease_fd is None else (lease_fd,)
         self.stop = threading.Event()
         self.thread = threading.Thread(target=self.run, name="research-queue", daemon=True)
 
@@ -72,6 +75,7 @@ class Runner:
             stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
+            pass_fds=self.lease_fds,
         ) as process:
             started = time.monotonic()
             while process.poll() is None:
