@@ -3,62 +3,44 @@
 ## Current product direction — October 29, 2026
 
 EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.
-Weather was first; Bitcoin was an implementation choice and remains optional. Preserve
-its receipts/code and frozen validation windows, without requiring unavailable Bitcoin
-history before approving independent product functionality. Prefer authentic forward
-collection over fabricated historical receipt clocks. Do not select another major family
-without user approval after comparing accessible point-in-time history, settlement semantics,
-modeling feasibility, execution costs and realistic validation.
+Weather was first; Bitcoin remains optional. Preserve its receipts/code and frozen
+validation windows. Do not require unavailable Bitcoin history before approving independent
+functionality. Prefer authentic forward receipts; never fabricate historical availability.
+Do not select another major family without user approval after comparing accessible history,
+settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current substantial milestone implements [continuous read-only shadow tracking](shadow-tracking.md):
-saved research candidate → frozen spec → credential-free public capture → versioned
-features/model refusal or prediction → shared interpreter/risk checks → persisted cycle
-→ later official outcome → browser inspection and restart recovery. Missing forward model,
-depth or fees remains blocked. No real orders or profitability claims. Controlled multi-cycle
-and risk tests pass; Chromium installation passed but launch was denied before page
-interaction. [Executed evidence](../data/shadow-review/20261029/README.md) distinguishes
-backend checks from outstanding browser acceptance. Review this milestone before new work;
-all Git writes belong to the supervisor.
+The current model-to-shadow milestone connects a resolved research StrategySpec and frozen
+model identity to continuous read-only collection. Compatible weather models export data-only
+JSON; monitors freeze checksummed parameters, fit/calibration clocks, series scope and holdout
+boundaries. Fresh features and at most ten sized public books feed causal probabilities or
+explicit refusals and deterministic risk/replay. Versioned series fee receipts remain
+uncertified until the coefficient and effective interval can be established. No real orders,
+fills, profitability claim or risk-cap change. Existing Bitcoin boundaries remain unchanged.
 
-The current correction also requires known Platt/isotonic calibration availability by the
-decision and matching explicit model/dataset real-versus-synthetic provenance before
-intentions or risk evaluation. Replay retains the model classification and the union of
-dataset/model protected events while withholding targets. Matching inputs and JSON replay
-pass; legacy replay files that removed the classification now fail closed without backfill.
-See [current correction evidence](../data/shadow-review/20261029-availability-provenance/README.md)
-and the [earlier calibration/holdout correction](../data/shadow-review/20261029-boundaries/README.md).
-Current shadow browser/listener and complete-suite acceptance remain incomplete. The
-collector diagnostic now confirms denied asyncio self-pipe writes while awaiting the SDK
-signing executor. Existing browser denials are retained without a permission workaround.
-Review this correction before starting another major phase.
+The real Playwright-managed Chromium localhost procedure now executes research/start/pause/
+restart/resume/download with structured source, book and fee evidence and byte-identical
+paused downloads across restart. Authentic cycles retain ten books and 14 deferred contracts
+among 24 weather contracts. They remain model/fee blocked. Controlled fitted-model tests
+verify software identity, calibration, source timing, reservation/restart limits and later
+outcome linkage, without claiming empirical model quality. See [integration evidence](../data/shadow-review/20261029-model-integration/README.md),
+[current context](../PROJECT_CONTEXT.md) and [operating guide](shadow-tracking.md).
 
-The probability binding review blocker is corrected on the existing branch: a shared
-validated resolver binds implicit custom names and explicit aliases to the audited
-prediction, excluding competing raw values from the interpreter view while retaining
-them in the audit. Regression and JSON replay checks preserve the existing evidence/risk
-gates. See [probability binding evidence](../data/shadow-review/20261029-probability-binding/README.md).
-The full suite and current shadow browser/listener acceptance remain incomplete; neither
-this correction nor controlled eligible intentions establish empirical performance or
-authorize a new milestone. The supervisor owns review and all Git operations.
+Approve safe tested intermediate milestones independently of sparse future empirical windows.
+Review this integration before starting another major milestone; all Git operations belong
+to the supervisor. Next priorities are authentic fitting/source-matched outcomes and reviewed
+fee certification, alongside independent operating/release evidence while data accrues.
+Broader model serializers, depth scheduling, hosted operation and structural scanning are
+deferred. No new major family is chosen.
 
-The follow-up [reserved quote binding correction](../data/shadow-review/20261029-reserved-quote-bindings/README.md)
-rejects `yes_bid`/`yes_ask` as model probability aliases in that shared resolver. Ordinary
-quote predicates with a separate probability binding still use the book. Controlled
-NO-side reproductions now refuse in compilation and JSON replay, while the existing
-calibration, provenance, holdout and risk checks pass. Original evidence and timestamps
-remain intact. This closes the current code correction; complete-suite and current
-shadow browser/listener acceptance remain outstanding, and V1 remains incomplete.
-
-The next reviewed work should close the highest-impact independent V1 gap, including
-operating/browser evidence and certified forward scoring where data permits. The eventual
-second family requires two genuinely supported real-data paths, not a synthetic fixture
-or an unsupported route. Final release still requires a committed `docs/v1_acceptance.md`
-matrix cross-checked independently against executed browser/data/research/backtest/shadow,
-restart/cancellation, safety, clean-install and complete-test evidence. Do not set V1
-complete with missing empirical evidence. Real-money execution is outside V1.
+V1 is incomplete. Final release still requires a committed `docs/v1_acceptance.md` evidence
+matrix independently cross-checked against actual browser workflows, two meaningfully
+supported real-data families, temporal/leakage checks, reproducible realistic backtests,
+provider-backed research when authorized, durable shadow/restart/cancellation, safety,
+clean installation and complete tests. Blocked or synthetic-only paths do not pass real-data
+gates. Stop for review when V1 passes; real-money execution is outside V1.
 
 The dated checkpoints below retain earlier evidence and numbering; this direction and
-the current [status](../STATUS.md) supersede their old sequencing and deferred-shadow claims.
+[current status](../STATUS.md) supersede their former deferred-shadow sequencing.
 
 ## Historical checkpoints
 

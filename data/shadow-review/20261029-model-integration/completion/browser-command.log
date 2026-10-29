@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 frontend/browser/shadow.spec.cjs:10:1 › continuous shadow: research, capture, pause, restart, resume and durable evidence (20.0s)
+
+  1 passed (21.7s)

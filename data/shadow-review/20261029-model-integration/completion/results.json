@@ -1,0 +1,29 @@
+{
+  "browser": {
+    "finished_at": "2026-10-29T16:35:49.538Z",
+    "page_errors": [],
+    "started_at": "2026-10-29T16:35:28.136Z",
+    "status": "passed"
+  },
+  "format": "passed",
+  "frontend_named_tests": 12,
+  "javascript_syntax": "passed",
+  "pytest": {
+    "errors": "0",
+    "failures": "0",
+    "hostname": "DESKTOP-35K4BNH",
+    "name": "pytest",
+    "skipped": "0",
+    "tests": "971",
+    "time": "275.870",
+    "timestamp": "2026-10-29T16:33:45.369577+00:00"
+  },
+  "retained_cycle_verification": "passed",
+  "ruff": "passed",
+  "scope": "Working-checkout software and authentic forward lifecycle; no clean install or empirical model acceptance",
+  "source_files_hashed": 509,
+  "strict_mypy": "496 files passed",
+  "submission_enabled": false,
+  "v1_complete": false,
+  "verified_at": "2026-10-29T16:40:24.203168+00:00"
+}

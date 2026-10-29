@@ -1,0 +1,111 @@
+{
+  "started_at": "2026-10-29T16:35:28.136Z",
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:43130",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/shadow-browser-model-integration-completion",
+  "page_errors": [],
+  "screenshots": [
+    {
+      "file": "shadow-paused.png",
+      "sha256": "52779162b4c67da94e0fc5b5cc866bb8a16de7e36eb5841ed9029ed3dff1c642"
+    },
+    {
+      "file": "shadow-restarted.png",
+      "sha256": "37277b2ff6264616768af51fdc6893945ed3b1ce0b7e6eaead5feecfaa353e64"
+    },
+    {
+      "file": "shadow-second-cycle.png",
+      "sha256": "63d114010e85afb80e1d9f702c11b7ad52fe7a6f0688ddab143ac1477762c5c2"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "shadow-paused.json",
+      "sha256": "245a710f74863e52406863b4b9af4a0de5df4739290525663f614fc6ea00a48c"
+    },
+    {
+      "file": "shadow-restarted.json",
+      "sha256": "245a710f74863e52406863b4b9af4a0de5df4739290525663f614fc6ea00a48c"
+    },
+    {
+      "file": "shadow-second-cycle.json",
+      "sha256": "32c986d9af8341d15c81a5d6b1e380f81fe49b361ce48d681cb2202c6625cd6e"
+    }
+  ],
+  "limitations": [
+    "Real forward access may fail; completed capture and successful ingestion are asserted separately.",
+    "No empirical model, fee/depth certification, profitability or release acceptance is implied."
+  ],
+  "acquisition": {
+    "decision_time": "2026-10-29T16:35:37.734441+00:00",
+    "failures": [],
+    "family": "weather",
+    "history_complete": false,
+    "listed_contracts": 24,
+    "observations": 648,
+    "receipts": [
+      {
+        "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+        "raw_ref": "raw/0001.json",
+        "received_at": "2026-10-29T16:35:36.806500+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+        "raw_ref": "raw/0002.json",
+        "received_at": "2026-10-29T16:35:36.816369+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0003.json",
+        "received_at": "2026-10-29T16:35:37.134925+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+        "path": "https://api.weather.gov/points/39.87,-75.23",
+        "raw_ref": "raw/0004.json",
+        "received_at": "2026-10-29T16:35:37.269720+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+        "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+        "raw_ref": "raw/0005.json",
+        "received_at": "2026-10-29T16:35:37.317004+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0006.json",
+        "received_at": "2026-10-29T16:35:37.371831+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+        "path": "https://api.weather.gov/points/41.79,-87.75",
+        "raw_ref": "raw/0007.json",
+        "received_at": "2026-10-29T16:35:37.498946+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+        "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+        "raw_ref": "raw/0008.json",
+        "received_at": "2026-10-29T16:35:37.562541+00:00",
+        "status": 200
+      }
+    ],
+    "started_at": "2026-10-29T16:35:36.717089+00:00",
+    "truncated_universe": false,
+    "universe_complete": true
+  },
+  "finished_at": "2026-10-29T16:35:49.538Z"
+}

@@ -82,12 +82,17 @@ test("continuous shadow: research, capture, pause, restart, resume and durable e
     const originalCycle = parsed.cycles.find(c => c.sequence === 1);
     assert(originalCycle.result);
     assert.equal(originalCycle.result.submission_enabled, false);
-    if (originalCycle.result.capture) {
+    assert(originalCycle.result.capture, `Missing structured source evidence: ${originalCycle.result.failure || originalCycle.detail}`);
+    assert(originalCycle.result.execution, "Missing structured book and fee evidence");
+    {
       receipt.acquisition = originalCycle.result.capture;
       assert(originalCycle.result.artifacts.length);
+      assert.equal(originalCycle.result.execution.submission_enabled, false);
+      assert(Array.isArray(originalCycle.result.execution.receipts));
+      assert(originalCycle.result.execution.fee_evidence.every(f => f.certified === false && f.version.startsWith("sha256:")));
       assert(Object.keys(originalCycle.result.model_refusals).length);
       assert(originalCycle.result.decisions.every(d => d.prediction === null && d.intent === null && d.status === "blocked"));
-    } else assert(originalCycle.status === "failed" && originalCycle.result.failure);
+    }
     await screenshot("shadow-paused.png");
     await stop();
     await start(2);
@@ -103,6 +108,8 @@ test("continuous shadow: research, capture, pause, restart, resume and durable e
     assert.equal(second.cycles.find(c => c.sequence === 1).digest, originalCycle.digest);
     assert.equal(second.cycle_count, 2);
     assert.equal(second.submission_enabled, false);
+    assert(second.cycles.find(c => c.sequence === 2).result.capture);
+    assert(second.cycles.find(c => c.sequence === 2).result.execution);
     await screenshot("shadow-second-cycle.png");
     assert.deepEqual(receipt.page_errors, []);
     receipt.status = "passed";

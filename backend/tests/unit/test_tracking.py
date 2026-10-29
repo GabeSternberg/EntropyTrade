@@ -34,6 +34,7 @@ from entropytrade.tracking.store import TrackingStore
 from entropytrade.tracking.worker import collect, outcomes, reservations
 from tests.exchange.test_gateway_http import _market_body
 from tests.r4_support import nonweather
+from tests.shadow_support import execution_wire
 from tests.unit.test_public_families import WHEN, listing, spot
 from tests.unit.test_workbench_http import ControlledProcess, exchange
 
@@ -942,6 +943,7 @@ def test_controlled_continuous_capture_records_real_adapter_refusals_and_version
             root,
             kalshi_transport=httpx.MockTransport(listing),
             source_transport=httpx.MockTransport(spot),
+            execution_transport=httpx.MockTransport(execution_wire),
             clock=SimulatedClock(WHEN),
         )
     )

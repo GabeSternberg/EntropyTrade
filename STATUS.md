@@ -5,6 +5,52 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: continuous read-only shadow tracking
 
+### October 29 model-to-shadow integration
+
+Implemented and verified on designated `supervisor/20261029-120832`, based on `e8b7402`.
+Research monitors now freeze the resolved StrategySpec and a unique checksummed data-only
+weather model export, including model identity, parameters, fit/calibration clocks,
+training-series scope, provenance and protected events. Compatible climatology, raw
+forecast and forecast-error models can score causal forward samples; unsupported or
+missing real models remain blocked. SQLite retains the frozen snapshot across restarts
+and removal of the original export. No live refitting or executable model loading occurs.
+
+Each cycle also retains at most ten sized public books and versioned series fee receipts.
+Original feature availability is preserved, decision clocks follow receipts and
+hours-to-close is recomputed. Series metadata remains uncertified because it does not
+establish the coefficient or effective fee interval. Deferred book requests are explicit.
+No fee schedule, fitted real model, intention, fill or profitability is fabricated.
+Existing reservation caps, restart/pause recovery and later official outcome linkage remain
+enforced. The browser shows the model binding, book/fee audits and explicit refusals.
+
+**All 971 pytest tests pass in 275.90 seconds, with no failures or skips.** Ruff lint and
+format checks, strict mypy (496 files), all 12 named frontend tests and JavaScript syntax
+checks pass. Controlled regressions cover data-only model/calibrator fidelity, artifact and
+spec tampering, temporal/contract/holdout gates, sized book failures, reservation limits
+across cycles/restarts, later outcome linkage and deterministic JSON replay. They establish
+software behavior, not empirical model performance.
+
+The supported Playwright Chromium installation and real localhost research → start → pause
+→ download → server restart → identical download → resume → second cycle → download
+procedure pass; the fresh completion run took 21.7 seconds with zero page errors. Each real
+cycle has 24 weather contracts, 648 observations, ten sized books, one uncertified fee
+version, 14 deferred contracts and zero source/execution failures. All probabilities and
+intentions remain absent for honest model/fee blockers. Screenshots, trace, downloads and
+original raw cycle copies are retained; separate checksum/source-fingerprint and offline
+decision replay checks pass. The initial decimal-strike parser failure and incomplete test
+log are preserved separately rather than represented as successes.
+
+See [reviewable implementation and executed evidence](data/shadow-review/20261029-model-integration/README.md).
+The socket-denied sandbox preflight was followed by normal approved test execution in a
+permitted context; no sandbox policy, test, event-loop behavior or risk cap was weakened.
+No human step remains for this scoped browser procedure. Clean-install/final release
+evidence, authentic fitted models, certified fees and two-family empirical support remain
+outstanding, so **V1 remains incomplete**. Bitcoin boundaries are unchanged and any new
+major family still requires user approval. PROJECT_CONTEXT and the roadmap now reflect
+the user's general-platform direction and independent forward-collection priorities.
+All Git writes remain with the supervisor. Return this milestone for review before starting
+another major phase; submissions remain disabled.
+
 ### October 29 reserved quote probability bindings
 
 On the same designated branch, starting at `67a049c`, the shared probability resolver

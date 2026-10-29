@@ -1,0 +1,45 @@
+{
+  "coverage": [
+    {
+      "first_seen": "2026-10-29T16:20:57.592006+00:00",
+      "hourly_points": 156,
+      "last_successful_receipt": "2026-10-29T16:20:57.592006+00:00",
+      "location": "CLIMDW",
+      "provider": "nws",
+      "valid_from": "2026-10-29T15:00:00+00:00",
+      "valid_through": "2026-11-05T02:00:00+00:00"
+    },
+    {
+      "first_seen": "2026-10-29T16:20:57.356354+00:00",
+      "hourly_points": 156,
+      "last_successful_receipt": "2026-10-29T16:20:57.356354+00:00",
+      "location": "CLIPHL",
+      "provider": "nws",
+      "valid_from": "2026-10-29T15:00:00+00:00",
+      "valid_through": "2026-11-05T02:00:00+00:00"
+    },
+    {
+      "first_seen": "2026-10-29T16:20:57.481707+00:00",
+      "hourly_points": 168,
+      "last_successful_receipt": "2026-10-29T16:20:57.481707+00:00",
+      "location": "CLIMDW",
+      "provider": "open-meteo",
+      "valid_from": "2026-10-29T00:00:00+00:00",
+      "valid_through": "2026-11-04T23:00:00+00:00"
+    },
+    {
+      "first_seen": "2026-10-29T16:20:57.083423+00:00",
+      "hourly_points": 168,
+      "last_successful_receipt": "2026-10-29T16:20:57.083423+00:00",
+      "location": "CLIPHL",
+      "provider": "open-meteo",
+      "valid_from": "2026-10-29T00:00:00+00:00",
+      "valid_through": "2026-11-04T23:00:00+00:00"
+    }
+  ],
+  "data_kind": "real",
+  "failures": 0,
+  "receipts": 6,
+  "snapshot_hash": "sha256:e6bfbb61f79b4fa5e1d7c26bf0a23ae6148efaccccaae947b67c86e27fae33f3",
+  "vintages": 4
+}

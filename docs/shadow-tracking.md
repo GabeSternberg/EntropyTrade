@@ -18,14 +18,30 @@ cycle's evidence details and **Shadow evidence JSON**. The normal view shows 20 
 the download includes the full bounded history and lifecycle events. It exposes no
 arbitrary filesystem reads or writes. Raw artifacts remain in the local workspace.
 
-The current forward adapter **has no fitted forward probabilities, certified fees or
-sized books**. Authentic captures therefore record blocked decisions with null predictions
-and intentions. Empty or failed acquisition remains visible and is not a successful model
-run. An explicit model reference without a forward scorer records a model refusal.
-The deterministic evaluator accepts shared typed samples/predictions/fee evidence, and
-controlled tests exercise its eligible/rejected intentions; those fixtures are software
-evidence only. Wiring a certified trained model and sized live data into this collector
-remains future work. There are no fills, balances, P&L estimates or profitability claims.
+New weather modeling runs export data-only snapshots for climatology, raw forecast and
+forecast-error models, including supported Platt/isotonic calibrators. At monitor creation,
+the resolved experiment spec/model identity selects a unique checksummed export from that
+server-produced research run. The snapshot freezes fit/calibration clocks, training series,
+feature schema, data classification and protected events. The website shows **Frozen model
+binding** and its refusal when unavailable. No live fitting or executable model deserialization
+occurs. Legacy runs without exports, ridge/boosting and Bitcoin forward scoring remain blocked.
+A real candidate currently has no sufficient fitted model; software tests do not establish one.
+
+Each cycle captures up to ten public sized books and ten series fee responses through exact
+GET allowlists, without exchange credentials. Fractional-strike tickers are supported. Books
+use actual YES/NO bids and sizes; listing quotes remain separately labeled unsized. Decisions
+follow all receipts, original feature availability stays unchanged and hours-to-close is
+recomputed. The first ten lexicographically sorted contracts receive books each cycle; others
+are explicitly listed as deferred. Broader/fair depth scheduling remains a limitation.
+Raw source capture is bounded at 120 seconds, execution capture at 60 seconds and later
+outcome lookup at 90 seconds, all within the existing four-minute worker deadline; a slow
+combined cycle can therefore be interrupted and retained as a failure by that deadline.
+
+Series fee metadata retains its raw hash, receipt clock, metadata-update time and version,
+but **does not certify the coefficient or effective interval**. Fees remain uncertified and
+intentions remain blocked even if a compatible frozen model can score. Missing models,
+features, semantics or books also fail closed. There are no fills, balances, P&L estimates
+or profitability claims. No UI endpoint imports models, changes fees or loosens risk caps.
 
 Every completed collection saves `decision-inputs.json`, with targets removed and protected
 records excluded using the union of dataset protection and model-metadata holdout events.
@@ -113,19 +129,23 @@ execution activation, credential input or risk-override endpoint. `submission_en
 remains false in all exported evidence. A shadow risk decision never becomes an
 `ApprovedOrderIntent` or an exchange request.
 
-Verification is recorded in [the milestone evidence](../data/shadow-review/20261029/README.md)
-and the correction evidence for [calibration/holdouts](../data/shadow-review/20261029-boundaries/README.md)
-and [availability/provenance](../data/shadow-review/20261029-availability-provenance/README.md).
-The [probability binding correction](../data/shadow-review/20261029-probability-binding/README.md)
-records implicit/explicit binding, raw-feature collision and JSON replay regression evidence.
-The [reserved quote binding correction](../data/shadow-review/20261029-reserved-quote-bindings/README.md)
-retains the controlled NO-side reproductions, compiler/replay refusals and quote-predicate checks.
-The executable [Playwright procedure](../frontend/browser/shadow.spec.cjs) uses managed
-Chromium and the real localhost app, submits research, starts/pauses/resumes tracking,
-compares downloads across restart and preserves screenshots when page interaction runs.
-Here Chromium failed before page interaction with `setsockopt: Operation not permitted`
-and `SIGTRAP`; no screenshot or browser pass is claimed. Run the procedure in an environment
-permitting browser sockets before browser acceptance. HTTP/unit tests do not replace it.
+Current [model-to-shadow evidence](../data/shadow-review/20261029-model-integration/README.md)
+retains executed checks, authentic source/book/fee receipts, offline replay verification and
+actual Playwright-managed Chromium page interactions against the real localhost server.
+The strengthened [procedure](../frontend/browser/shadow.spec.cjs) exercises research, start,
+pause, restart, identical downloads, resume and a second cycle, without mocked responses or
+clock overrides. Both real cycles completed with ten sized books; all probabilities and
+intentions remained absent for honest model/fee blockers. This is lifecycle/source evidence,
+not fitted empirical model or release acceptance. The original decimal-ticker failure and
+historical socket denials remain preserved separately. No human browser step remains for
+this scoped procedure; final release and empirical acceptance remain outstanding.
+
+Earlier [tracking](../data/shadow-review/20261029/README.md),
+[calibration/holdout](../data/shadow-review/20261029-boundaries/README.md),
+[availability/provenance](../data/shadow-review/20261029-availability-provenance/README.md),
+[probability binding](../data/shadow-review/20261029-probability-binding/README.md) and
+[reserved quote](../data/shadow-review/20261029-reserved-quote-bindings/README.md)
+evidence keeps its original scope and outcomes. Reproduce with new absolute paths:
 
 ```bash
 PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers" \

@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from entropytrade.api.jobs import Jobs, identifier, timestamp
 from entropytrade.features.registry import scientific_hash
+from entropytrade.tracking.models import freeze_binding
 
 
 class TrackingStore:
@@ -34,6 +35,8 @@ class TrackingStore:
                     last_attempt TEXT NOT NULL, outcome TEXT,
                     PRIMARY KEY(monitor_id, ticker));
             """)
+            if "model_binding" not in {r[1] for r in db.execute("PRAGMA table_info(monitors)")}:
+                db.execute("ALTER TABLE monitors ADD COLUMN model_binding TEXT")
 
     def create(self, value: object) -> str:
         from entropytrade.domain.strategy import StrategySpec
@@ -60,6 +63,7 @@ class TrackingStore:
         if not proposal or not proposal.get("spec"):
             raise ValueError("select a typed candidate specification")
         spec = StrategySpec.model_validate(proposal["spec"])
+        spec, binding = freeze_binding(job, proposal["candidate_id"], spec, self.jobs.root)
         compile_strategy(spec)
         if spec.exit_mode != "hold_to_settlement":
             raise ValueError("shadow reservations currently require hold-to-settlement exits")
@@ -71,7 +75,9 @@ class TrackingStore:
             if db.execute("SELECT count(*) FROM monitors").fetchone()[0] >= 100:
                 raise ValueError("workspace monitor budget reached (100)")
             db.execute(
-                "INSERT INTO monitors VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, 0)",
+                "INSERT INTO monitors (id, job_id, candidate_id, family, spec, spec_hash, status, "
+                "interval_seconds, next_at, created_at, failures, model_binding) "
+                "VALUES (?, ?, ?, ?, ?, ?, 'active', ?, ?, ?, 0, ?)",
                 (
                     monitor_id,
                     job["id"],
@@ -82,6 +88,7 @@ class TrackingStore:
                     interval,
                     now,
                     now,
+                    json.dumps(binding, sort_keys=True),
                 ),
             )
             db.execute(
@@ -120,6 +127,9 @@ class TrackingStore:
                 return None
             monitor = dict(row)
             monitor["spec"] = json.loads(monitor["spec"])
+            monitor["model_binding"] = (
+                json.loads(monitor["model_binding"]) if monitor["model_binding"] else None
+            )
             monitor["cycle_count"] = db.execute(
                 "SELECT count(*) FROM shadow_cycles WHERE monitor_id=?", (monitor_id,)
             ).fetchone()[0]

@@ -11,6 +11,7 @@ import pytest
 
 from entropytrade.features.pipeline import build_features
 from entropytrade.ml.experiment import ModelingConfig, run_modeling
+from entropytrade.ml.forward import FrozenWeather
 from entropytrade.ml.synthetic import synthetic_dataset
 
 
@@ -69,6 +70,25 @@ def test_complete_models_and_predictions_are_grouped_and_holdout_protected(
             0
         ] == len(predictions)
     assert list((root / "mlflow").rglob("meta.yaml"))
+
+
+def test_modeling_exports_only_data_only_frozen_supported_models(
+    workflow: tuple[Path, dict[str, Any], Path],
+) -> None:
+    root, result, _ = workflow
+    destination = root / "models" / result["run_id"].removeprefix("sha256:")
+    exports = sorted(destination.glob("*.forward.json"))
+    assert {p.name for p in exports} == {
+        "climatology.forward.json",
+        "raw_forecast.forward.json",
+        "forecast_error.forward.json",
+    }
+    for path in exports:
+        model = FrozenWeather.model_validate_json(path.read_text())
+        assert model.data_kind == "synthetic"
+        assert model.model_hash == result["models"][model.family]["artifact_hash"]
+        assert set(model.protected_events) == set(result["split"]["holdout"])
+        assert set(model.training_events).isdisjoint(model.protected_events)
 
 
 def test_repeated_builds_and_separate_runs_reproduce_hashes_and_registry(

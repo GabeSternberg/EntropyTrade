@@ -1,0 +1,4 @@
+
+> entropytrade-browser-acceptance@1.0.0 install:chromium
+> playwright install chromium
+

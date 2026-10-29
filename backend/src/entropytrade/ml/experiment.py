@@ -21,6 +21,7 @@ from entropytrade.data.sources import file_hash
 from entropytrade.domain.base import DomainModel
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.evaluation import metrics, temporal_plan, walk_forward_plans
+from entropytrade.ml.forward import freeze_weather
 from entropytrade.ml.models import EventExample, WeatherModel
 from entropytrade.ml.probability import strike_from_json
 from entropytrade.strategy_registry.store import Registry
@@ -229,6 +230,23 @@ def _run_modeling(
                     calibration_note = "refused: " + str(exc)
             filename = kind + ".joblib"
             digest = model.save(staging / filename)
+            forward = freeze_weather(
+                model,
+                model_hash=digest,
+                data_kind=data_kind,
+                protected=plan.holdout,
+                series=tuple(
+                    sorted(
+                        {
+                            json.loads(r["provenance_json"])["metadata"]["market"]["series_ticker"]
+                            for r in rows
+                            if r["event_id"] in model.training_events
+                        }
+                    )
+                ),
+            )
+            if forward is not None:
+                (staging / (kind + ".forward.json")).write_text(forward.model_dump_json(indent=2))
             artifacts[digest] = json.dumps(
                 {
                     "kind": kind,

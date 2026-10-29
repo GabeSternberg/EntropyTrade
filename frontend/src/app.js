@@ -239,6 +239,7 @@ async function selectMonitor(id, force = false) {
   const download = node("a", "Shadow evidence JSON"); download.href = `/api/monitors/${id}/export`; download.download = `shadow-${id}.json`;
   append(content, append(node("div", null, "run-tools"), control, download),
     detail("Frozen strategy and research identity", { job_id: monitor.job_id, candidate_id: monitor.candidate_id, spec_hash: monitor.spec_hash, spec: monitor.spec }),
+    detail("Frozen model binding", monitor.model_binding || { status: "blocked", reason: "Legacy monitor has no frozen model binding" }),
     detail("Lifecycle and recovery events", monitor.events),
     detail("Tracked contracts and subsequent official outcomes", monitor.contracts));
   monitor.cycles.forEach((cycle) => {
@@ -247,6 +248,8 @@ async function selectMonitor(id, force = false) {
     if (result) {
       section.append(node("p", `Decisions: ${result.decisions?.length || 0}; quotes: ${result.quotes?.length || 0}; official outcomes: ${result.outcomes?.length || 0}.`, "small"));
       if (result.failure) section.append(notice(result.failure, true));
+      if (result.model_refusals && Object.keys(result.model_refusals).length) section.append(notice(`Model scoring blocked: ${Object.values(result.model_refusals).join("; ")}`, true));
+      if (result.execution) section.append(node("p", `Sized books: ${result.execution.book_count}; deferred contracts: ${result.execution.deferred_tickers.length}; execution capture failures: ${result.execution.failures.length}. Fee evidence remains uncertified; intentions are blocked.`, "hint"));
       if (result.decisions?.length) section.append(table(["Contract", "Status", "P(YES)", "Reasons"], result.decisions.map((d) => [d.ticker, d.status, d.prediction?.probability_yes, d.reasons.join(", ")])));
       section.append(detail("Source receipts, predictions, intended orders, risk checks and artifacts", result));
     }

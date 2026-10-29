@@ -5,10 +5,14 @@ evidence/workspace directories as in [the shadow guide](../../docs/shadow-tracki
 `shadow.spec.cjs` uses actual form interaction, real server/subprocesses, source capture,
 pause/restart/resume and checksummed downloads. It distinguishes actual acquisition failure
 from ingestion, uses no controlled responses or clock overrides, and retains screenshots
-only when page interaction executes. The October 29 install check passed but Chromium
-launch failed with crashpad `setsockopt: Operation not permitted` and `SIGTRAP`; the retained
-report/trace is a failure, not browser acceptance. Do not repeat a denied launch in the
-same environment or substitute mocked HTTP checks for the outstanding page-interaction run.
+only when page interaction executes. The current strengthened procedure requires structured
+source and execution audits and refuses an internal collection exception as a passing cycle.
+The [October 29 model integration run](../../data/shadow-review/20261029-model-integration/README.md)
+passed on a real localhost listener with two completed authentic source/book/fee cycles,
+three screenshots and three downloads. The first attempt exposed a decimal-strike parser
+failure; it is retained separately and was corrected before the fresh successful run.
+Earlier Chromium/socket denials remain failed historical attempts. Do not repeat a denied
+launch in the same environment or substitute mocked HTTP tests for browser interaction.
 
 To exercise **real retained receipts**, set `ENTROPYTRADE_BROWSER_RETAINED` to an absolute
 verified Bitcoin history snapshot under this repository's `data/`, and select

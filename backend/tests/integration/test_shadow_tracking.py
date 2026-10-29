@@ -14,6 +14,8 @@ from entropytrade.domain.time import SimulatedClock
 from entropytrade.tracking.replay import verify
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.tracking.worker import collect, execute
+from tests.exchange.test_gateway_http import _market_body
+from tests.shadow_support import execution_wire
 from tests.unit.test_public_families import WHEN, listing, spot
 from tests.unit.test_tracking import REPO, monitor
 
@@ -55,6 +57,7 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
             root,
             kalshi_transport=httpx.MockTransport(listing),
             source_transport=httpx.MockTransport(spot),
+            execution_transport=httpx.MockTransport(execution_wire),
             outcome_transport=httpx.MockTransport(final),
             clock=clock,
         )
@@ -141,3 +144,104 @@ def test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit(
     assert result is not None
     assert result["cycles"][0]["status"] == "interrupted"
     assert result["cycles"][0]["result"] is None
+
+
+def test_frozen_model_collection_books_replay_and_later_outcome(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from entropytrade.data.schema import MarketEvidence
+    from tests.unit.test_tracking_models import inputs, saved_model
+
+    spec, data, markets, model = inputs()
+    store = TrackingStore(Jobs(tmp_path))
+    monitor_id = store.create(saved_model(store, spec, model))
+    clock = SimulatedClock(data.samples[0].decision_time)
+    market = next(iter(markets.values()))
+    body = _market_body()
+    body.update(
+        ticker=market.ticker,
+        event_ticker=market.event_ticker,
+        open_time=market.open_time.isoformat(),
+        close_time=market.close_time.isoformat(),
+    )
+
+    async def source(root: Path, **_kwargs: Any) -> Any:
+        root.mkdir()
+        (root / "raw.json").write_text(json.dumps({"markets": [body]}))
+        evidence = MarketEvidence(
+            market=market,
+            capture_basis="receipt",
+            raw_ref="raw.json",
+            raw_hash=file_hash(root / "raw.json"),
+        )
+        (root / "markets.jsonl").write_text(evidence.model_dump_json())
+        return data.revalidated(
+            provenance={
+                **data.provenance,
+                "limitations": ["CONTROLLED sources and model; no empirical evidence"],
+                "capture": {"failures": [], "universe_complete": True},
+            }
+        )
+
+    def final(_request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json={
+                "market": {
+                    **body,
+                    "status": "finalized",
+                    "result": "yes",
+                    "settlement_value_dollars": "1.0000",
+                    "settlement_ts": (market.close_time + timedelta(minutes=1)).isoformat(),
+                }
+            },
+        )
+
+    real_collect = collect
+
+    async def controlled(snapshot: dict[str, Any], repo: Path, root: Path) -> dict[str, Any]:
+        return await real_collect(
+            snapshot,
+            repo,
+            root,
+            clock=clock,
+            execution_transport=httpx.MockTransport(execution_wire),
+            outcome_transport=httpx.MockTransport(final),
+        )
+
+    monkeypatch.setattr("entropytrade.tracking.worker.capture_public", source)
+    monkeypatch.setattr("entropytrade.tracking.worker.collect", controlled)
+    first = store.claim()
+    assert first is not None
+    execute(store, REPO, *first)
+    before = store.get(monitor_id, export=True)
+    assert before is not None
+    cycle = before["cycles"][0]
+    assert cycle["status"] == "completed"
+    decision = cycle["result"]["decisions"][0]
+    assert decision["prediction"]["model_hash"] == model.model_hash
+    assert decision["quote"]["asks"][0]["quantity"] == "4.00"
+    assert decision["reasons"] == ["certified_fees"]
+    assert decision["intent"] is None
+    assert verify(tmp_path / "shadow" / monitor_id / first[1])["verified"]
+    frozen_bytes = (tmp_path / "shadow" / monitor_id / first[1] / "result.json").read_bytes()
+
+    clock.advance_to(market.close_time + timedelta(hours=2))
+    reopened = TrackingStore(Jobs(tmp_path))
+    reopened.recover()
+    reopened.control(monitor_id, "pause")
+    reopened.control(monitor_id, "resume")
+    second = reopened.claim()
+    assert second is not None
+    execute(reopened, REPO, *second)
+    after = reopened.get(monitor_id, export=True)
+    assert after is not None
+    assert after["contracts"][0]["outcome"]["available_at"] == clock.now().isoformat()
+    assert after["cycles"][1] == cycle
+    assert (
+        tmp_path / "shadow" / monitor_id / first[1] / "result.json"
+    ).read_bytes() == frozen_bytes
+    assert after["model_binding"] == before["model_binding"]
+    assert not after["submission_enabled"]
+    assert verify(tmp_path / "shadow" / monitor_id / second[1])["verified"]

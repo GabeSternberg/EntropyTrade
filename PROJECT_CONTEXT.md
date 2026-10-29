@@ -1,132 +1,104 @@
 # EntropyTrade project context
 
-Updated 2026-10-28 ET / 2026-10-29 UTC. **V1 and second-family empirical acceptance
-remain incomplete. Stop for the user's collection/archive decision.** The existing
-workflow already reports the missing evidence; further feature abstractions do not
-provide elapsed receipt-time history. Continuous paper/shadow and final V1 release
-acceptance remain deferred. All Git writes belong to the supervisor. No credential
-access, production submission, real-money orders or live execution activation is authorized.
+Updated 2026-10-29. **V1 remains incomplete.** The current milestone connects frozen
+models to continuous read-only shadow collection using existing families. Implement and
+test on the designated supervisor branch; all branch/commit/merge/push operations belong
+to the supervisor. No credential access, real-money orders or submission activation.
 
-## Verified checkout and scope
+## Product direction and current checkout
 
-This reconciliation started with a clean working tree on `supervisor/20261028-203104`.
-HEAD and local `main` both point to supervisor checkpoint
-`7f06e11d744500592357a864c3b732b42555dec9`. This is a local comparison, with no remote
-freshness claim. R4, the local workbench, executed browser acceptance, retained Bitcoin
-history and the latest official-result reconciliation are already present. The older
-`30bed8e` R4-only main and October 26 website-review status are historical baselines,
-not the current checkout. Original evidence bundles retain their own commits and clocks.
+EntropyTrade is a general Kalshi research, modeling, reproducible backtesting and
+paper/shadow platform. Weather was first. Preserve the existing Bitcoin implementation
+and original receipt clocks, but do not wait for unavailable Bitcoin validation windows
+before completing independent functionality. Forward authentic collection is preferred
+to reconstructing historical availability. A new major market family requires user
+approval after comparing accessible point-in-time history, resolution semantics, modeling
+feasibility, execution costs and realistic validation.
 
-The current instruction supersedes the general Git workflow in `AGENTS.md`: implement
-and test only on the designated branch; do not create branches, commit, merge, push or
-modify supervisor control files. This reconciliation updates project context and checks
-existing evidence. It does not start sustained collection or select an archive for the user.
+This implementation uses designated `supervisor/20261029-120832`, based on `e8b7402`.
+The existing R4 experiment workflow, local website, Bitcoin history and continuous shadow
+foundation were already present; they were extended rather than rebuilt. Earlier bundles
+retain their original commits, evidence and limitations. No remote freshness is implied.
 
-## Product gates
+## Current model-to-shadow integration
 
-The user's V1 sequence takes precedence over older numbering in
-[the roadmap](docs/roadmap.md), which labels the website R5 and second family R6.
+Research candidate → resolved StrategySpec/model identity → immutable data-only weather
+model snapshot → fresh public features and sized books → point-in-time probabilities or
+explicit refusal → deterministic DSL/risk decisions → persisted cycles → later official
+outcome → browser inspection/download and offline replay.
 
-| User-directed gate | Evidence-backed status |
+New modeling runs export safe JSON for climatology, raw forecast and forecast-error models,
+including supported Platt/isotonic parameters, original artifact hash, fit/calibration clocks,
+training series, provenance and protected event boundaries. Monitors bind only a unique,
+checksummed server-produced export matching the resolved model reference. Snapshots persist
+in SQLite and survive removal of the original run files. No live refitting, pickle loading,
+arbitrary model path, promotion or trading activation is exposed. Existing runs without an
+export, unsupported models and legacy monitors remain explicitly blocked.
+
+Each cycle makes at most ten exact public book GETs and ten series GETs through fixed
+allowlists and existing request/byte/time budgets. YES/NO bids become sized YES books via
+the established exchange mapping. Original source availability is retained; the decision
+clock follows all book receipts and hours-to-close is recomputed causally. Series fee
+fields retain original bytes, receipt clocks, versions and metadata update time, but remain
+**uncertified**: they do not establish the fee coefficient or effective interval. No fee
+coefficient or fill is invented. The book budget lists deferred contracts explicitly.
+
+The existing conservative fee-inclusive reservation caps, pause/cancellation, failed-cycle
+backoff, restart recovery, protected-event union and exact official-outcome reconciliation
+remain enforced. Submissions are disabled, fills are empty and performance is null.
+
+## Executed evidence and honest limitations
+
+See [the integration evidence](data/shadow-review/20261029-model-integration/README.md)
+for exact commands, complete-suite and static check results, controlled software fixtures,
+source fingerprints and real-browser receipts. The strengthened Playwright-managed
+Chromium procedure runs the real localhost listener and workers: research, start, pause,
+restart, byte-identical download, resume, second cycle and another download. The retained
+real cycles have 24 listed weather contracts, 648 observations, ten sized books, one
+uncertified series fee version and 14 deferred contracts per cycle. No source or execution
+capture failures occurred. All decisions honestly lack fitted real probabilities and
+intentions. Controlled model scoring/risk tests do not establish empirical performance.
+
+Completion verification passes all 971 pytest tests in 275.90 seconds with zero failures
+or skips, Ruff lint/format, strict mypy across 496 files and all 12 named frontend cases.
+The fresh real-browser lifecycle passes in 21.7 seconds; copied original cycle bytes,
+screenshots, trace, downloads and deterministic replay verification are retained under
+the evidence bundle's `completion/` directory. No human acceptance step remains for this
+scoped browser procedure. A clean-install/final release pass is not claimed.
+
+The first browser attempt exercised the lifecycle but exposed a valid decimal-strike
+identifier rejection in both cycles. Its receipts remain intact; the parser was corrected,
+a regression added, and the strengthened procedure rerun in a fresh workspace. Historical
+socket/Chromium denials remain failures. The current runs use the normal approval mechanism
+for a permitted environment, without changing event-loop policies or weakening tests.
+
+## Product gates and remaining work
+
+| Gate | Current evidence-backed capability and gap |
 | --- | --- |
-| R5: research → typed strategy → model/experiment → honest result | Implemented in R4's `research-and-test` CLI. Real historical weather returns explicit insufficiency. Separate synthetic inputs exercise fitting, calibration and realistic deterministic replay; no empirical advantage is established. |
-| R6: minimal private web interface and jobs | Implemented: localhost-only workbench, bounded jobs/progress/history, protected result tabs and downloads. Executed Chromium evidence covers results, public capture success/failure, cancellation, worker reuse and restart persistence. Independent supervisor review and release clean-install evidence remain required. |
-| R7: second materially distinct family | The Bitcoin history workflow connects original Kalshi rules/Coinbase predictor receipts, later finalized official binary outcomes, typed local proposals, fixed probability models and shared experiments. Four real labeled events are retained. Actual browser interaction verifies visible insufficiency and durable results. Fitted real-data model/baseline evaluation is still blocked by sparse history and future validation dates. Real mentions ingestion is absent. |
-| R8: continuous paper/shadow tracking | Not delivered as an integrated continuous workflow. Existing paper execution/ledger primitives do not satisfy this gate. Deferred. |
-| V1 complete | **No.** Second-family empirical evaluation, integrated paper/shadow, clean-install release evidence and the independently verified final acceptance matrix remain open. No real strategy is approved or validated. |
+| Integrated research/backtesting | R4 CLI and local website connect typed proposals and deterministic experiments. Real weather history remains insufficient; synthetic fits/replays verify software only. Provider-backed research remains opt-in and externally unverified without authorized research credentials. |
+| Private website | Local research jobs/results, cancellation, history, shadow inspection and durable downloads exist. Current shadow browser lifecycle is executed; clean-install release evidence remains separate. |
+| Two real-data families | Existing weather and Bitcoin source/history paths remain. Two fully supported empirical families are not established. No new family is selected. |
+| Continuous shadow | Durable collection/control/replay/outcome linkage and frozen compatible weather scoring are implemented. Actual collected candidates lack fitted real models; uncertified fees still block intentions. |
+| V1 release | **Incomplete.** No independently verified final acceptance matrix, full empirical gate or current clean-install release proof. |
 
-R3's provider-backed research is implemented behind explicit opt-in and separate research
-credentials; external provider execution remains unverified here. The website's local
-typed proposal templates do not establish provider-backed research acceptance.
+The retained Bitcoin snapshot still has four labeled events on three dates, below 40 fit
+events on 20 dates with both outcomes. Its fixed validation window is December 24, 2026
+through January 23, 2027 exclusive; protected final holdout begins January 23. Validation
+needs 20 events on ten dates; ten dates cannot exist before January 2, 2027. These remain
+blocked evidence requirements, never backdated or silently waived. Coinbase is a predictor,
+not a settlement source. See [original evidence](data/bitcoin-history-review/20261029T001500Z/README.md).
 
-## Current second-family evidence
+Real historical weather retains six city/day events on three dates with zero eligible
+historical forecast/scalar-label pairs. Weather Company settlement cannot be replaced by
+NWS CLI; new forward receipts cannot backfill historical decisions. The new book receipts
+do not change those historical model-readiness counts.
 
-The [latest real-data bundle](data/bitcoin-history-review/20261029T001500Z/README.md)
-records four successful exact public official-result GETs. All four are finalized NO
-with matching binary payouts, settlement clocks, event/strike identity and recognized
-contract terms. Their labels became available at the original October 29 HTTP receipt
-times, not at earlier settlement times. All eight original workbench capture directories
-still deduplicate to four events across three target dates. A separate one-shot public
-source probe succeeded with three HTTP 200 receipts, 318 contracts and one spot observation;
-its three pending forward samples are not part of the four-label evaluation snapshot.
-
-The [immutable snapshot](data/bitcoin-history-review/20261029T001500Z/real-all-captures/history/manifest.json)
-preserves these calendar boundaries:
-
-| Partition or evidence gate | Fixed requirement and observed evidence |
-| --- | --- |
-| Fitting | Target dates October 25–December 23, 2026; finalized labels received by December 24, 00:00 UTC. **4/40 events on 3/20 dates**, short 36 events and 17 dates; only NO outcomes, with both YES and NO required. |
-| Validation | December 24, 2026 inclusive through January 23, 2027 exclusive. **0/20 events on 0/10 dates**, with no validation labels. Ten validation dates cannot exist before **January 2, 2027**; this is a calendar lower bound, not a completion promise. |
-| Protected final holdout | Target dates from January 23, 2027. Excluded from research, fitting, evaluation and browser projections. |
-| Deterministic evaluation | Two independent real-input replays retain the same experiment identity and serialized results: two `INSUFFICIENT_DATA` candidates, no probabilities, forecast scores, trading scenarios or P&L. Deterministic refusal does not constitute fitted empirical evaluation. |
-
-No future download can backdate original rule/predictor receipts. Repeated captures and
-related strikes do not create independent events. Coinbase is a predictor, never the
-settlement price. The narrow supported target is an official finalized binary result for
-exact recognized BRTI sixty-second-average strictly-above terms, not a reconstructed
-scalar BRTI value. Exceptional settlement paths remain unverified; `rules_known=false`,
-missing depth and uncertified fees continue to close trading scenarios and P&L.
-
-The [passing real-receipt browser receipt](data/bitcoin-history-review/20261029T001500Z/browser/retained-history-browser-receipt.json)
-records actual Playwright-managed Chromium against a real localhost server and the
-unchanged worker: form submission, all three tabs, four screenshots, four checksummed
-downloads, server restart and identical reopened bytes, with zero page errors. Imported
-setup jobs explicitly represent retained-receipt replay, not new browser acquisition.
-There were no controlled responses, simulated clocks or replacement workers in this case.
-No human page-interaction step remains for that scoped executed procedure. The
-[harness guide](frontend/browser/README.md) preserves reproduction commands and distinguishes
-real retained receipts from the separate empty/controlled software cases. Earlier socket
-denials remain failed historical attempts and are not counted as browser passes.
-
-## Verification and earlier evidence
-
-This documentation reconciliation passed Ruff lint/format, strict mypy across 483 files,
-**11 selected deterministic Bitcoin pytest cases** and all **12 frontend presentation
-tests**. The pytest selection was `rule_recognition or binary_models or shared_research
-or conflicting_event_dates or readiness` in `backend/tests/unit/test_bitcoin_history.py`;
-the other eight cases were not selected. A read-only cross-check verified all 15 recorded
-source hashes, checksum-validated snapshot reconstruction, original label clocks,
-readiness counts, equality of the two retained replay results, all eight browser
-screenshot/download hashes and this document's links. No new browser run, full-suite
-run, network acquisition or clean install was performed for this documentation change.
-
-The latest bundle's executed working-checkout checks passed Ruff lint/format, strict mypy
-across 483 files, **754 pytest tests in 269.06 seconds** with no skips, all **12 frontend
-checks**, 19 targeted Bitcoin tests and the real-receipt Chromium procedure in 19.1 seconds.
-These are retained results from that acceptance run, not a new full-suite run or clean
-install during this documentation reconciliation. Its [independent verifier result](data/bitcoin-history-review/20261029T001500Z/verification.json)
-records source/label integrity, fixed boundaries, deterministic refusals and browser bytes.
-
-The [October 26 workbench bundle](data/workbench-review/20261026T203717Z/README.md)
-retains the earlier four-workflow browser pass, 26 screenshots, 24 downloads, cancellation,
-worker reuse and restart evidence. Its read-only exported source passed locked setup,
-Ruff/format, strict mypy across 477 files, 734 pytest tests and nine frontend tests.
-Those historical results preserve their original scope; they do not certify the current
-checkout's clean installation or second-family empirical models.
-
-The real historical weather integration still contains 36 contracts across six city/day
-events and three dates, with zero eligible historical forecast/scalar-label pairs.
-Weather Company settlement cannot be replaced by NWS CLI; October forward receipts cannot
-backfill September decisions. Synthetic fitting and replay verify software, not real
-forecast accuracy, returns or profitability. Prior evidence is not rewritten.
-
-## Decision and next acceptance
-
-The current milestone explicitly requires the user's collection/archive decision before
-further empirical work. No such choice is recorded for this continuation. Either operate
-original forward capture and official-result reconciliation through the frozen validation
-window using the existing workflow, or review a user-selected independently retained
-archive's provenance. Keep empirical acceptance blocked until that decision and sufficient
-evidence exist. No sufficient certified archive is established by the retained inputs;
-public historical outcomes alone cannot supply original active-rule/Coinbase receipt clocks.
-
-The next coherent milestone must demonstrate at least **40 receipt-valid fitting events
-on 20 dates with both classes**, **20 labeled validation events on ten dates**, deterministic
-real-data model/baseline evaluation and browser-visible results or precise remaining
-blockers. Preserve the existing protected partition; a different archive requires separate
-provenance review without moving its boundaries. Class balance, feature-domain overlap and
-later source access are not guaranteed even after the minimum elapsed time.
-
-Defer paper/shadow and final V1 acceptance. Before any future V1 completion claim, execute,
-commit through the supervisor and independently review `docs/v1_acceptance.md` against
-actual code, tests and durable browser/real-data evidence for every required gate.
+Return this sizeable integration for supervisor review before another major milestone.
+The highest-impact next gap is sufficient authentic source-matched fitting evidence plus
+reviewed effective fee evidence; continue independent release/operating work while data
+accrues. Ridge/boosting data-only scoring, Bitcoin scoring, broader depth scheduling,
+final-outcome corrections and hosted operation remain explicit limitations, not approvals.
+Before setting V1 complete, the supervisor must commit and independently cross-check
+`docs/v1_acceptance.md` against actual code, executed checks and durable real-data/browser
+proof. A blocked path or synthetic-only fit cannot satisfy a real-data requirement.

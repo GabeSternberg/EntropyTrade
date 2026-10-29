@@ -1,0 +1,42 @@
+{
+  "started_at": "2026-10-29T16:17:46.449Z",
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:43130",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/shadow-browser-model-integration",
+  "page_errors": [],
+  "screenshots": [
+    {
+      "file": "shadow-paused.png",
+      "sha256": "40ae9cb5f75bb8bc337a0563ce7b3a0484c9b14a58702c7eb9bd3d8aadf6a4d1"
+    },
+    {
+      "file": "shadow-restarted.png",
+      "sha256": "5477d60522f58fd506f0c82c12dc240a3690892e18f711eb40feec8f65d3473e"
+    },
+    {
+      "file": "shadow-second-cycle.png",
+      "sha256": "9287ca5ca711ee5fedf44bbe842acfc5fb099a4ff687ac845cd5c827ba79a348"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "shadow-paused.json",
+      "sha256": "235d4638a8c2feb1e7c6589e8399f70d9ee5917a604e82111554e8444fad62df"
+    },
+    {
+      "file": "shadow-restarted.json",
+      "sha256": "235d4638a8c2feb1e7c6589e8399f70d9ee5917a604e82111554e8444fad62df"
+    },
+    {
+      "file": "shadow-second-cycle.json",
+      "sha256": "d62ef2686cdf9a607734a9a8df985715d16bea9ffc2ee3f1d20846680716b95f"
+    }
+  ],
+  "limitations": [
+    "Real forward access may fail; completed capture and successful ingestion are asserted separately.",
+    "No empirical model, fee/depth certification, profitability or release acceptance is implied."
+  ],
+  "finished_at": "2026-10-29T16:18:08.894Z"
+}

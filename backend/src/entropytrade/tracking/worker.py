@@ -20,8 +20,11 @@ from entropytrade.exchange.gateway import GatewayError
 from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.transport import RawCapture
 from entropytrade.families.bitcoin_history import OutcomeTransport
-from entropytrade.families.public import ForwardPredictions, capture_public
+from entropytrade.families.public import capture_public
+from entropytrade.ml.forward import FrozenWeather
 from entropytrade.tracking.evaluate import evaluate, shadow_limits
+from entropytrade.tracking.market_data import capture_execution
+from entropytrade.tracking.models import score
 from entropytrade.tracking.replay import decision_inputs
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.collection import WeatherConfig
@@ -160,6 +163,7 @@ async def collect(
     *,
     kalshi_transport: httpx.AsyncBaseTransport | None = None,
     source_transport: httpx.AsyncBaseTransport | None = None,
+    execution_transport: httpx.AsyncBaseTransport | None = None,
     outcome_transport: httpx.AsyncBaseTransport | None = None,
     clock: Clock | None = None,
 ) -> dict[str, Any]:
@@ -171,6 +175,10 @@ async def collect(
             "backend/src/entropytrade/tracking/evaluate.py",
             "backend/src/entropytrade/tracking/worker.py",
             "backend/src/entropytrade/tracking/replay.py",
+            "backend/src/entropytrade/tracking/models.py",
+            "backend/src/entropytrade/tracking/market_data.py",
+            "backend/src/entropytrade/ml/forward.py",
+            "backend/src/entropytrade/ml/probability.py",
             "backend/src/entropytrade/strategies/interpret.py",
             "backend/src/entropytrade/risk/engine.py",
             "backend/src/entropytrade/families/public.py",
@@ -189,11 +197,31 @@ async def collect(
         clock=clock,
     )
     universe = spec.market_universe
-    contracts = []
-    quotes = []
+    binding = monitor.get("model_binding")
+    protected = set(data.protected_events)
+    if binding and binding.get("snapshot"):
+        # Invalid frozen metadata is a failed cycle, never a reason to discard its boundary.
+        protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
+    data = data.revalidated(
+        protected_events=frozenset(protected),
+        samples=tuple(
+            s
+            for s in data.samples
+            if s.event_id not in protected
+            and (
+                s.ticker in universe.market_tickers
+                or s.event_id in universe.event_tickers
+                or s.family in universe.series_tickers
+            )
+        ),
+    )
+    contracts: list[dict[str, Any]] = []
+    quotes: list[dict[str, Any]] = []
     for line in (root / "public/markets.jsonl").read_text().splitlines():
         evidence = MarketEvidence.model_validate_json(line)
         market = evidence.market
+        if market.event_ticker in protected:
+            continue
         if not (
             market.ticker in universe.market_tickers
             or market.event_ticker in universe.event_tickers
@@ -239,20 +267,16 @@ async def collect(
     reconciliation = await outcomes(
         root / "outcomes", monitor["contracts"], transport=outcome_transport, clock=clock
     )
-    bundle = ForwardPredictions().prepare(spec, "forward_only") if spec.model_ref is None else None
-    if bundle is None:
-        from entropytrade.experiments.data import PredictionBundle
-        from entropytrade.features.registry import scientific_hash
-
-        bundle = PredictionBundle(
-            records=(),
-            source_hash=scientific_hash({"status": "unavailable"}),
-            model_metadata={},
-            refusals={"model": "No forward scoring adapter for frozen model reference"},
-        )
+    market_map = {c["ticker"]: Market.model_validate(c["market"]) for c in contracts}
+    data, execution = await capture_execution(
+        root / "execution", data, market_map, transport=execution_transport, clock=clock
+    )
+    bundle = score(spec, data, binding, market_map)
     capture = data.provenance["capture"]
     held = reservations(monitor)
-    complete = not capture["failures"] and capture["universe_complete"]
+    complete = (
+        not capture["failures"] and capture["universe_complete"] and not execution["failures"]
+    )
     inputs = decision_inputs(spec, data, bundle, held=held, acquisition_complete=complete)
     (root / "decision-inputs.json").write_text(json.dumps(inputs, sort_keys=True, indent=2))
     decisions = evaluate(
@@ -274,6 +298,8 @@ async def collect(
         "capture": capture,
         "contracts": contracts,
         "quotes": quotes,
+        "execution": execution,
+        "model_binding": binding,
         "decisions": decisions,
         "model_refusals": bundle.refusals,
         "model_source_hash": bundle.source_hash,
@@ -285,7 +311,8 @@ async def collect(
             *data.provenance["limitations"],
             "Shadow intentions only. No submissions, fills, balance, P&L or profitability claim.",
             "Frozen research candidate is not approved or promoted. "
-            "Existing forward adapter has no fitted probabilities.",
+            "Only compatible data-only frozen weather models can score forward evidence.",
+            "Series fee receipts are versioned but uncertified; no coefficient is invented.",
             "Outcome receipt clocks never rewrite earlier decisions or protected partitions.",
         ],
     }
@@ -303,7 +330,11 @@ def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) ->
     root.mkdir(parents=True, exist_ok=False)
     try:
         result = asyncio.run(collect(monitor, repo, root))
-        failed = bool(result["capture"]["failures"] or result["outcome_failures"])
+        failed = bool(
+            result["capture"]["failures"]
+            or result["outcome_failures"]
+            or result.get("execution", {}).get("failures")
+        )
     except Exception as exc:  # noqa: BLE001 - worker records a fail-closed bounded cycle
         result = {
             "detail": "Shadow cycle failed: " + type(exc).__name__,

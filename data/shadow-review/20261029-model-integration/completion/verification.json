@@ -1,0 +1,21 @@
+{
+  "verified": true,
+  "real_cycles": [
+    {
+      "cycle": 2,
+      "decisions": 24,
+      "books": 10,
+      "source_receipts": 8,
+      "execution_receipts": 11
+    },
+    {
+      "cycle": 1,
+      "decisions": 24,
+      "books": 10,
+      "source_receipts": 8,
+      "execution_receipts": 11
+    }
+  ],
+  "submission_enabled": false,
+  "limitation": "Authentic collection/lifecycle/replay, not empirical model acceptance"
+}
