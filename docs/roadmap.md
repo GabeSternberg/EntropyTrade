@@ -20,12 +20,17 @@ interaction. [Executed evidence](../data/shadow-review/20261029/README.md) disti
 backend checks from outstanding browser acceptance. Review this milestone before new work;
 all Git writes belong to the supervisor.
 
-The current correction enforces requested calibration before shadow intentions and uses
-the union of dataset/model-metadata holdouts before decisions and replay serialization.
-Focused regressions and retained offline replay pass; see [correction evidence](../data/shadow-review/20261029-boundaries/README.md).
-Current shadow browser/listener and complete-suite acceptance remain incomplete, including
-the bounded collector reconnect stall. Existing browser denials are retained without a
-permission workaround. Review this correction before starting another major phase.
+The current correction also requires known Platt/isotonic calibration availability by the
+decision and matching explicit model/dataset real-versus-synthetic provenance before
+intentions or risk evaluation. Replay retains the model classification and the union of
+dataset/model protected events while withholding targets. Matching inputs and JSON replay
+pass; legacy replay files that removed the classification now fail closed without backfill.
+See [current correction evidence](../data/shadow-review/20261029-availability-provenance/README.md)
+and the [earlier calibration/holdout correction](../data/shadow-review/20261029-boundaries/README.md).
+Current shadow browser/listener and complete-suite acceptance remain incomplete. The
+collector diagnostic now confirms denied asyncio self-pipe writes while awaiting the SDK
+signing executor. Existing browser denials are retained without a permission workaround.
+Review this correction before starting another major phase.
 
 The next reviewed work should close the highest-impact independent V1 gap, including
 operating/browser evidence and certified forward scoring where data permits. The eventual

@@ -5,6 +5,41 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: continuous read-only shadow tracking
 
+### October 29 calibration availability and model provenance correction
+
+On the same designated branch, starting at `61eef2f`, shadow evaluation now requires a
+non-null `calibrated_before` clock at or before the decision for Platt/isotonic predictions.
+Missing, invalid or mismatched model metadata `data_kind` blocks intentions and risk;
+the dataset's required real/synthetic classification is never used to infer the model's.
+Decision inputs retain the supplied model classification while withholding targets and
+preserving the union of dataset/model protected events. Matching inputs remain eligible;
+uncalibrated outputs still permit a null calibration clock.
+
+**106 focused tests and 25 shared replay/execution tests pass**, along with Ruff
+lint/format, strict mypy (491 files) and 12 frontend presentation assertions. New regressions
+reproduced both unsafe approvals, exercise both calibration methods and clock boundaries,
+missing/mismatched provenance and matching classifications, and verify JSON replay equality
+and protected-event exclusions. Blocked cases also fail immediately if the interpreter or
+risk evaluation is invoked. These are controlled software inputs, not empirical results.
+
+The full-suite diagnostic collected 846 tests, passed two architecture tests, then stalled
+in the existing collector reconnect test; its 70-second external deadline exited 124.
+Asyncio debug logs show `PermissionError: [Errno 1] Operation not permitted` writing the
+self-pipe; the pending coroutine chain reaches the SDK signing executor while the event
+loop remains in `select`. This confirms the previously documented sandbox wakeup failure
+for the current collector stall. No test, SDK, event-loop policy or application timeout was
+weakened to hide it. **Full-suite and current shadow browser/listener acceptance remain
+incomplete.** The denied Chromium/listener attempts were not repeated; the existing real
+Playwright harness must run in a permitted environment.
+
+Legacy replay files that previously removed the model classification now fail closed;
+they cannot verify their original decision hashes under this stricter policy. A read-only
+check confirms the two retained original decisions block on missing provenance, original
+files remain unchanged, and the intentional tamper is still rejected. No legacy receipt,
+clock, classification or decision is backfilled. See [executed evidence](data/shadow-review/20261029-availability-provenance/README.md).
+All Git writes remain with the supervisor. V1 remains incomplete; review this correction
+before another major milestone.
+
 ### October 29 calibration and holdout correction
 
 On the same designated branch, starting at `a1cafcb`, shadow intentions now enforce the

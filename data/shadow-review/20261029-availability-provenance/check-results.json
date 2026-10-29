@@ -1,0 +1,63 @@
+{
+  "designated_branch": "supervisor/20261029-001707",
+  "fixture_evidence_only": true,
+  "focused_tests": {
+    "exit_code": 0,
+    "passed": 106,
+    "skipped": 0
+  },
+  "frontend_assertions": {
+    "exit_code": 0,
+    "passed": 12,
+    "real_browser": false
+  },
+  "full_suite_diagnostic": {
+    "blocker": "Denied asyncio self-pipe write while collector awaits SDK signing executor; event loop remains in select",
+    "collected": 846,
+    "completed": false,
+    "deadline_seconds": 70,
+    "exit_code": 124,
+    "passed_before_stall": 2
+  },
+  "git_mutations": false,
+  "legacy_replay_check": {
+    "exit_code": 0,
+    "legacy_decisions_blocked": 2,
+    "original_files_unchanged": true,
+    "tamper_rejected": true
+  },
+  "regressions_before": {
+    "deselected": 59,
+    "exit_code": 1,
+    "failed": 16,
+    "passed": 15
+  },
+  "replay_risk_tests": {
+    "exit_code": 0,
+    "passed": 25,
+    "skipped": 0
+  },
+  "ruff": {
+    "exit_code": 0
+  },
+  "ruff_format": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "shadow_browser_listener": {
+    "accepted": false,
+    "executed_this_correction": false,
+    "outstanding_step": "Run existing real-listener Playwright procedure in a permitted environment; preserve fresh evidence and screenshots",
+    "prior_failure": "Chromium crashpad setsockopt: Operation not permitted, SIGTRAP; localhost socket construction denied"
+  },
+  "shadow_playwright_syntax": {
+    "exit_code": 0,
+    "real_browser": false
+  },
+  "starting_head": "61eef2f",
+  "strict_mypy": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "v1_complete": false
+}

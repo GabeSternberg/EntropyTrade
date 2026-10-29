@@ -6,7 +6,7 @@ from datetime import timedelta
 from decimal import Decimal
 from pathlib import Path
 from types import SimpleNamespace
-from typing import TYPE_CHECKING, Any, cast
+from typing import TYPE_CHECKING, Any, Literal, cast
 from uuid import uuid4
 
 import httpx
@@ -74,6 +74,14 @@ def ready() -> tuple[StrategySpec, ExperimentData, PredictionBundle, FeePolicy]:
     assert config.fee_policy is not None
     fee = config.fee_policy.revalidated(certified=True, evidence_hash="sha256:" + "b" * 64)
     return spec, data, provider.bundle, fee
+
+
+def forbid_shadow_execution(monkeypatch: pytest.MonkeyPatch) -> None:
+    def unexpected(*_args: Any, **_kwargs: Any) -> None:
+        pytest.fail("blocked evidence must not invoke the strategy or risk evaluation")
+
+    monkeypatch.setattr("entropytrade.tracking.evaluate.compile_strategy", lambda _spec: unexpected)
+    monkeypatch.setattr("entropytrade.tracking.evaluate.RiskEngine.evaluate", unexpected)
 
 
 def test_deterministic_decisions_reserve_once_without_fills_or_target_leakage() -> None:
@@ -162,6 +170,141 @@ def test_requested_calibration_controls_intentions_and_survives_offline_replay(
     assert reproduce(json.loads(json.dumps(inputs))) == rows
 
 
+@pytest.mark.parametrize("calibration", ["none", "uncalibrated baseline", "platt", "isotonic"])
+@pytest.mark.parametrize("clock", ["missing", "before", "at", "after"])
+def test_calibration_requires_known_availability_for_calibrated_predictions(
+    calibration: str, clock: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec, data, bundle, fee = ready()
+    calibrated = calibration in {"platt", "isotonic"}
+    spec = spec.revalidated(
+        calibration=CalibrationMethod(calibration) if calibrated else CalibrationMethod.NONE,
+        model_kind=ModelKind.LOGISTIC_REGRESSION,
+    )
+    when = data.samples[0].decision_time
+    available_at = (
+        None
+        if clock == "missing"
+        else when + timedelta(seconds={"before": -1, "at": 0, "after": 1}[clock])
+    )
+    record = bundle.records[0].revalidated(calibration=calibration, calibrated_before=available_at)
+    bundle = bundle.revalidated(records=(record,))
+    blocked = clock == "after" or (calibrated and clock == "missing")
+    if blocked:
+        forbid_shadow_execution(monkeypatch)
+    rows = evaluate(spec, data, bundle, fee=fee)
+    row = rows[0]
+    if blocked:
+        assert row["status"] == "blocked"
+        assert row["intent"] is None
+        assert row["risk"] is None
+        assert row["reasons"] == [
+            "point_in_time_prediction" if clock == "after" else "calibration_availability"
+        ]
+    else:
+        assert row["status"] == "shadow_eligible"
+        assert row["intent"] is not None
+        assert row["risk"]["approved"]
+    inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+    assert reproduce(inputs) == rows
+
+
+@pytest.mark.parametrize("data_kind", ["real", "synthetic"])
+@pytest.mark.parametrize(
+    "metadata",
+    [
+        {},
+        {"data_kind": None},
+        {"data_kind": "real"},
+        {"data_kind": "synthetic"},
+        {"data_kind": "unknown"},
+        {"data_kind": True},
+    ],
+)
+def test_model_dataset_provenance_gates_intentions_and_survives_replay(
+    data_kind: Literal["real", "synthetic"],
+    metadata: dict[str, Any],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Both paths are CONTROLLED software inputs, including the path labeled real.
+    spec, data, bundle, fee = ready()
+    data = data.revalidated(data_kind=data_kind)
+    bundle = bundle.revalidated(
+        model_metadata={
+            **{k: v for k, v in bundle.model_metadata.items() if k != "data_kind"},
+            **metadata,
+        }
+    )
+    if metadata.get("data_kind") != data_kind:
+        forbid_shadow_execution(monkeypatch)
+    rows = evaluate(spec, data, bundle, fee=fee)
+    row = rows[0]
+    if metadata.get("data_kind") == data_kind:
+        assert row["status"] == "shadow_eligible"
+        assert row["intent"] is not None
+        assert row["risk"]["approved"]
+    else:
+        assert row["status"] == "blocked"
+        assert row["reasons"] == ["model_dataset_provenance"]
+        assert row["intent"] is None
+        assert row["risk"] is None
+    inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+    assert inputs["data"]["data_kind"] == data_kind
+    assert ("data_kind" in inputs["bundle"]["model_metadata"]) == ("data_kind" in metadata)
+    if "data_kind" in metadata:
+        assert inputs["bundle"]["model_metadata"]["data_kind"] == metadata["data_kind"]
+    assert reproduce(inputs) == rows
+
+
+@pytest.mark.parametrize("case", ["matching", "missing_calibration", "mismatched_provenance"])
+def test_corrected_prediction_gates_preserve_protected_exclusions_on_replay(case: str) -> None:
+    spec, _, _, fee = ready()
+    spec = spec.revalidated(
+        calibration=CalibrationMethod.PLATT, model_kind=ModelKind.LOGISTIC_REGRESSION
+    )
+    data, provider, _, _ = nonweather()
+    dataset_holdout, model_holdout, permitted = data.samples[50:53]
+    data = data.revalidated(
+        samples=(dataset_holdout, model_holdout, permitted),
+        protected_events=frozenset({dataset_holdout.event_id}),
+    )
+    bundle = provider.bundle.revalidated(
+        records=tuple(
+            r.revalidated(
+                calibration="platt",
+                calibrated_before=None if case == "missing_calibration" else r.decision_time,
+            )
+            for r in provider.bundle.records
+        ),
+        model_metadata={
+            "data_kind": "real" if case == "mismatched_provenance" else data.data_kind,
+            "split": {"holdout": [model_holdout.event_id]},
+        },
+    )
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert [row["event_id"] for row in rows] == [permitted.event_id]
+    if case == "matching":
+        assert rows[0]["status"] == "shadow_eligible"
+        assert rows[0]["risk"]["approved"]
+    else:
+        assert rows[0]["status"] == "blocked"
+        assert rows[0]["intent"] is None
+        assert rows[0]["risk"] is None
+    inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+    assert set(inputs["data"]["protected_events"]) == {
+        dataset_holdout.event_id,
+        model_holdout.event_id,
+    }
+    assert [s["event_id"] for s in inputs["data"]["samples"]] == [permitted.event_id]
+    assert all(
+        s["outcome"] is None and s["outcome_available_at"] is None
+        for s in inputs["data"]["samples"]
+    )
+    assert [p["event_id"] for p in inputs["bundle"]["records"]] == [permitted.event_id]
+    assert "split" not in inputs["bundle"]["model_metadata"]
+    assert reproduce(inputs) == rows
+
+
 def test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_from_replay() -> None:
     spec, _, _, fee = ready()
     data, provider, _, _ = nonweather()
@@ -173,10 +316,14 @@ def test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_fr
     # The model protects an event missing from the dataset's boundary, even though its
     # prediction is marked validation. Neither boundary may override the other.
     bundle = provider.bundle.revalidated(
-        model_metadata={"split": {"holdout": [model_holdout.event_id]}}
+        model_metadata={
+            **provider.bundle.model_metadata,
+            "split": {"holdout": [model_holdout.event_id]},
+        }
     )
     rows = evaluate(spec, data, bundle, fee=fee)
     assert [r["event_id"] for r in rows] == [permitted.event_id]
+    assert rows[0]["status"] == "shadow_eligible"
     inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
     assert set(inputs["data"]["protected_events"]) == {
         dataset_holdout.event_id,

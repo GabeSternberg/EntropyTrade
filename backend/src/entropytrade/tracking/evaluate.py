@@ -104,6 +104,14 @@ def evaluate(
         if prediction is not None and prediction.calibration not in accepted_calibrations:
             # Add a refusal only on mismatch, preserving replay hashes for prior safe decisions.
             gates["requested_calibration"] = False
+        if (
+            prediction is not None
+            and prediction.calibration in {"platt", "isotonic"}
+            and (prediction.calibrated_before is None or prediction.calibrated_before > when)
+        ):
+            gates["calibration_availability"] = False
+        if bundle.model_metadata.get("data_kind") != data.data_kind:
+            gates["model_dataset_provenance"] = False
         row: dict[str, Any] = {
             "ticker": sample.ticker,
             "event_id": sample.event_id,

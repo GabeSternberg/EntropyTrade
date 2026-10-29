@@ -33,7 +33,11 @@ The combined boundary is retained in replay data before model metadata is replac
 hash, so offline replay keeps the same exclusions. Verify its artifact hashes and recompute
 decisions without any network access using the local command below. This reproduces the
 recorded decision computation; it does not authenticate a source or establish empirical
-performance. Interrupted cycles
+performance. The supplied model metadata `data_kind` is also retained; missing or invalid
+values are never replaced with the dataset's classification. Legacy replay inputs that
+removed this field now block on missing provenance and cannot verify their prior decision
+hashes under the corrected policy. Keep those original artifacts unchanged; new cycles
+retain the required field. Interrupted cycles
 without input/result artifacts cannot be replayed and report that limitation explicitly.
 
 ```bash
@@ -46,7 +50,13 @@ sources, rules, sized quotes and certified fee information/effective clocks. Sha
 intentions also require the StrategySpec's calibration method: `platt` and `isotonic`
 must match exactly; `none` accepts `none` or the existing `uncalibrated baseline` label.
 A mismatch records `requested_calibration` with no intent or risk evaluation. Decisions
-unaffected by these corrections keep their prior replay hashes. Fixed shadow
+using Platt/isotonic also require a non-null `calibrated_before` at or before the decision;
+missing clocks record `calibration_availability`, and future clocks fail the existing
+`point_in_time_prediction` gate. Uncalibrated outputs may omit that clock. Model metadata
+must explicitly classify its data as `real` or `synthetic`, matching the dataset;
+missing, invalid or mismatched classification records `model_dataset_provenance` before
+the interpreter or risk evaluation runs. Decisions unaffected by these corrections keep
+their prior replay hashes. Fixed shadow
 caps use the experiment defaults: $1,000 hypothetical bankroll, $25 per intention, $100
 per event, $500 reserved total; maximum spread $0.10 and book age 60 seconds. They cannot
 be changed by the UI or strategy. Eligible intentions reserve quantity and fee-inclusive
@@ -92,7 +102,8 @@ remains false in all exported evidence. A shadow risk decision never becomes an
 `ApprovedOrderIntent` or an exchange request.
 
 Verification is recorded in [the milestone evidence](../data/shadow-review/20261029/README.md)
-and [the calibration/holdout correction evidence](../data/shadow-review/20261029-boundaries/README.md).
+and the correction evidence for [calibration/holdouts](../data/shadow-review/20261029-boundaries/README.md)
+and [availability/provenance](../data/shadow-review/20261029-availability-provenance/README.md).
 The executable [Playwright procedure](../frontend/browser/shadow.spec.cjs) uses managed
 Chromium and the real localhost app, submits research, starts/pauses/resumes tracking,
 compares downloads across restart and preserves screenshots when page interaction runs.

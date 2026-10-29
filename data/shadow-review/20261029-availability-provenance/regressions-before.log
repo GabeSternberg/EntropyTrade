@@ -1,0 +1,126 @@
+..FF............FFFFFFFFFFFF.FF                                          [100%]
+=================================== FAILURES ===================================
+_ test_calibration_requires_known_availability_for_calibrated_predictions[missing-platt] _
+backend/tests/unit/test_tracking.py:189: in test_calibration_requires_known_availability_for_calibrated_predictions
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_calibration_requires_known_availability_for_calibrated_predictions[missing-isotonic] _
+backend/tests/unit/test_tracking.py:189: in test_calibration_requires_known_availability_for_calibrated_predictions
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata0-real] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata0-synthetic] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata1-real] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata1-synthetic] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata2-real] _
+backend/tests/unit/test_tracking.py:240: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert ("data_kind" in inputs["bundle"]["model_metadata"]) == ("data_kind" in metadata)
+E   AssertionError: assert ('data_kind' in {'original_metadata_hash': 'sha256:6d5b15813e96b4e8eefd2d0ef02e47755405bd975cedb0330b042e43bcdf3993'}) == ('data_kind' in {'data_kind': 'real'})
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata2-synthetic] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata3-real] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata3-synthetic] _
+backend/tests/unit/test_tracking.py:240: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert ("data_kind" in inputs["bundle"]["model_metadata"]) == ("data_kind" in metadata)
+E   AssertionError: assert ('data_kind' in {'original_metadata_hash': 'sha256:26f8b83bbfcc78c6d9a1b9983d863a05915a1b08c423100c9a2e9e51cc6503af'}) == ('data_kind' in {'data_kind': 'synthetic'})
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata4-real] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata4-synthetic] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata5-real] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata5-synthetic] _
+backend/tests/unit/test_tracking.py:234: in test_model_dataset_provenance_gates_intentions_and_survives_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_corrected_prediction_gates_preserve_protected_exclusions_on_replay[missing_calibration] _
+backend/tests/unit/test_tracking.py:277: in test_corrected_prediction_gates_preserve_protected_exclusions_on_replay
+    assert rows[0]["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_corrected_prediction_gates_preserve_protected_exclusions_on_replay[mismatched_provenance] _
+backend/tests/unit/test_tracking.py:277: in test_corrected_prediction_gates_preserve_protected_exclusions_on_replay
+    assert rows[0]["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_tracking.py::test_calibration_requires_known_availability_for_calibrated_predictions[missing-platt]
+FAILED backend/tests/unit/test_tracking.py::test_calibration_requires_known_availability_for_calibrated_predictions[missing-isotonic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata0-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata0-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata1-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata1-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata2-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata2-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata3-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata3-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata4-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata4-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata5-real]
+FAILED backend/tests/unit/test_tracking.py::test_model_dataset_provenance_gates_intentions_and_survives_replay[metadata5-synthetic]
+FAILED backend/tests/unit/test_tracking.py::test_corrected_prediction_gates_preserve_protected_exclusions_on_replay[missing_calibration]
+FAILED backend/tests/unit/test_tracking.py::test_corrected_prediction_gates_preserve_protected_exclusions_on_replay[mismatched_provenance]
+16 failed, 15 passed, 59 deselected in 3.91s

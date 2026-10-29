@@ -33,8 +33,13 @@ def decision_inputs(
         protected_events=protected,
         provenance={"purpose": "shadow replay; targets withheld"},
     )
+    metadata = {"original_metadata_hash": scientific_hash(bundle.model_metadata)}
+    if "data_kind" in bundle.model_metadata:
+        # Preserve the supplied classification, including invalid values. Inferring it from
+        # the dataset would turn an unknown/mismatched model into an eligible replay.
+        metadata["data_kind"] = bundle.model_metadata["data_kind"]
     safe_bundle = bundle.revalidated(
-        model_metadata={"original_metadata_hash": scientific_hash(bundle.model_metadata)},
+        model_metadata=metadata,
         records=tuple(
             p
             for p in bundle.records
