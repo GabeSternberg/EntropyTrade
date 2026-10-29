@@ -3,13 +3,38 @@
 The new Bitcoin retained-history procedure can be selected with
 `--grep 'Bitcoin retained history'`. Use a new absolute evidence directory and workspace
 as below. It runs `bitcoin-history.spec.cjs` against a real localhost server/worker,
-checks empty-history insufficiency across all tabs, downloads both artifacts, restarts
-the server and compares downloads. No public responses or completed jobs are replaced.
+checks empty-history and **controlled populated-history** insufficiency across all tabs,
+downloads both artifacts, restarts the server and compares downloads. The populated case
+uses the test-only `tests.integration.bitcoin_history_fixture` setup: three retained
+captures, a prior snapshot with three finalized outcome responses and 55 unrelated jobs
+that push the inputs outside the UI's history window. No response interception or worker
+replacement is used after setup. Controlled setup is software evidence only; the adapter's
+existing `data_kind=real` field identifies its receipt-processing path and does not make
+these fixture responses empirical data. Receipts, filenames and setup jobs label them
+CONTROLLED. The empty case uses the exact requested workspace; the populated case uses
+that path with `-controlled` appended. Both paths must be new.
+
 It needs an actual permitted browser/listener; a launch denial remains failed acceptance.
 This procedure does not establish successful public ingestion or historical model accuracy.
 The [October 28 attempt](../../data/bitcoin-history-review/20261028T232200Z/README.md)
 retains its Chromium socket-permission failure before page interaction. The original
 four-workflow harness below can be selected with `--grep 'four documented'`.
+
+The [acceptance continuation](../../data/bitcoin-history-review/20261028T235347Z/README.md)
+retains actual passing page-interaction checks for both history cases. Its separate Python
+listener regression also adds a repeated capture between restarts, checks unchanged earliest
+decisions and frozen partitions, verifies copied artifact hashes and compares both completed
+reviews after another restart. Run that regression in an environment permitting loopback
+sockets and asyncio socketpair wakeups:
+
+```bash
+.venv/bin/pytest backend/tests/integration/test_bitcoin_history_listener.py -vv
+```
+
+For a new durable evidence copy, set `ENTROPYTRADE_HISTORY_EVIDENCE` to a new absolute
+directory beneath the repository's `data/bitcoin-history-review/` before running it.
+The test copies the quiescent workspace, downloads and a CONTROLLED receipt there.
+Socket denial fails the regression; it is never skipped or converted into mock HTTP coverage.
 
 This harness automates all four procedures in `docs/workbench.md` against the actual
 loopback HTTP server, durable queue and isolated research workers. It clicks the form,
@@ -17,6 +42,7 @@ tabs, details, downloads, cancellation and saved history. It stops/restarts its 
 and compares every completed run's browser downloads before and after restart.
 It does not use Computer Use, personal Chrome, a saved browser profile, CDP, response
 stubs, direct job submissions or replacement data. Application and safety code is unchanged.
+This four-workflow procedure is separate from the explicitly controlled history setup above.
 
 From the repository root, with locked Python dependencies already installed:
 

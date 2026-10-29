@@ -1,0 +1,4 @@
+{"socketpair_send": "passed", "read": "x"}
+DEBUG:asyncio:Using selector: EpollSelector
+{"executor_seconds": 0.05191287100024056}
+DEBUG:asyncio:Close <_UnixSelectorEventLoop running=False closed=False debug=True>

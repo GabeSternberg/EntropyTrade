@@ -1,0 +1,13 @@
+{
+  "captures": [],
+  "checksums": {
+    "outcomes/receipts.json": "sha256:a2a54d2d1a2934d503faec398e05f7e5e0eed6ed0a5aae37127a58d5c456bd32"
+  },
+  "dataset_version": "sha256:12bf59eef5eb6b91218e6285ec26cec78054fc8727ec7e86e49ab6c8ee0ac67d",
+  "partition": {
+    "anchor": "2026-10-28",
+    "fit_before": "2026-12-27",
+    "holdout_start": "2027-01-26"
+  },
+  "schema": "bitcoin-history-v1"
+}

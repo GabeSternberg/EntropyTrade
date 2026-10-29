@@ -1,0 +1,51 @@
+{
+  "started_at": "2026-10-28T23:57:22.524Z",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:43129",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-browser-20261028T235347Z",
+  "status": "passed",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "empty-before-entropytrade-ac2ed1ac-1819-4268-a206-7b7da02dc199.json",
+      "sha256": "95afc31132d5da5e6c67ff9c48988bff9c5fb24b166262d0532b8c264db96da3"
+    },
+    {
+      "file": "empty-before-entropytrade-ac2ed1ac-1819-4268-a206-7b7da02dc199.txt",
+      "sha256": "6e9b20f73ce18568100d17ca7844e4afaa848e7677b8844770a223d7199b65c7"
+    },
+    {
+      "file": "empty-after-entropytrade-ac2ed1ac-1819-4268-a206-7b7da02dc199.json",
+      "sha256": "95afc31132d5da5e6c67ff9c48988bff9c5fb24b166262d0532b8c264db96da3"
+    },
+    {
+      "file": "empty-after-entropytrade-ac2ed1ac-1819-4268-a206-7b7da02dc199.txt",
+      "sha256": "6e9b20f73ce18568100d17ca7844e4afaa848e7677b8844770a223d7199b65c7"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "empty-history-review.png",
+      "sha256": "2809498b4a4302bd789f951ed37f6c859f9eeb12dd76c399234404b6473f1b8a"
+    },
+    {
+      "file": "empty-history-probabilities.png",
+      "sha256": "7c732b218cfb2507d30b0381c1e485f982eb4b65858b46f55e7a56e5f5ff8724"
+    },
+    {
+      "file": "empty-history-evidence.png",
+      "sha256": "5e832421ae3f7f5fed9cd2de7dfe34821a85504920f66341a8c72452b82c191e"
+    },
+    {
+      "file": "empty-history-reopened.png",
+      "sha256": "b890e847ec68571a9bbd88656f2d121ca97f062c591a3c04e925e9e6925dbd25"
+    }
+  ],
+  "evidence_kind": "empty workspace insufficiency",
+  "limitations": [
+    "Empty real workspace, no historical performance or successful network ingestion claimed.",
+    "Controlled synthetic model checks are separate pytest evidence."
+  ],
+  "finished_at": "2026-10-28T23:57:28.994Z"
+}

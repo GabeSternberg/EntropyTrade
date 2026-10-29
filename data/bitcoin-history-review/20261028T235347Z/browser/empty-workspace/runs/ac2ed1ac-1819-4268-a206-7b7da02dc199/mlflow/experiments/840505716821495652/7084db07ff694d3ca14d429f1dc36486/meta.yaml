@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-browser-20261028T235347Z/runs/ac2ed1ac-1819-4268-a206-7b7da02dc199/mlflow/experiments/840505716821495652/7084db07ff694d3ca14d429f1dc36486/artifacts
+end_time: 1793231846854
+entry_point_name: ''
+experiment_id: '840505716821495652'
+lifecycle_stage: active
+run_id: 7084db07ff694d3ca14d429f1dc36486
+run_name: sha256:42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4
+run_uuid: 7084db07ff694d3ca14d429f1dc36486
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793231846847
+status: 3
+tags: []
+user_id: gabriel

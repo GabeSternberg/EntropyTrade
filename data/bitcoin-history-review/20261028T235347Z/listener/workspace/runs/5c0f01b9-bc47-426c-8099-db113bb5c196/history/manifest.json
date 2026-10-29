@@ -1,0 +1,38 @@
+{
+  "captures": [
+    "captures/0000",
+    "captures/0001",
+    "captures/0002"
+  ],
+  "checksums": {
+    "captures/0000/capture.json": "sha256:d9ac9029bfbcee91c8346ac1d70a5fe2addb288c285f29233287da896c1d0789",
+    "captures/0000/manifest.json": "sha256:287e9296fd732fe7c96a84d0c53c71647e49615f4fd6bc3d13f8ce2dead7e55f",
+    "captures/0000/markets.jsonl": "sha256:c2286f9eb54a7a8caaeeaf14c0bc1fa6708a02dbc7ae5507ec2ba368d00e4962",
+    "captures/0000/observations.jsonl": "sha256:22c2cc32c6ab57e2ef59cca704592b0311ca5c93f9fb7b10bf1e6eaab9476d70",
+    "captures/0000/raw/0001.json": "sha256:3341bae95476f6f40e6f213b7d0016e2f1f414d81d0671857201077c6bd5736e",
+    "captures/0000/raw/0002.json": "sha256:a4b53df2143c954af683603d4b9dcf230cffeda71cb2715659c5b53bd11299dc",
+    "captures/0001/capture.json": "sha256:00c9db6edb722f0813e661c6c75b63b02c3f32736416b2a43ff55e6cc1edff01",
+    "captures/0001/manifest.json": "sha256:aba4dbd064a6d772c6a18d2c2e12460d52eaadcb792d9645f98a7689530720cf",
+    "captures/0001/markets.jsonl": "sha256:819c89f35ff67d3516eeba49c88855b94d8052f0ba51a4b5ccb8a588268494b0",
+    "captures/0001/observations.jsonl": "sha256:e8d935b063eafd1e9bb6ad8b7f8170bb15620c8aa111d630ee3a0f3bf7a9bcc0",
+    "captures/0001/raw/0001.json": "sha256:34ce3fa13433fe4dac8e906e6cbe60038cc1ae15763d39f47e2eb1fd473735c2",
+    "captures/0001/raw/0002.json": "sha256:80a16a036d66e15d5393c25e9b7492a633392d3b200b53913928d7d20986c5a4",
+    "captures/0002/capture.json": "sha256:a033af4876368ddadbd0ed416ddff3456362c3bb55d02d9839bfa4ef4d158ceb",
+    "captures/0002/manifest.json": "sha256:06badf83ebef48fb4d142e42c3e1c41f68a9fe23384d1d5e56d36a0f725998db",
+    "captures/0002/markets.jsonl": "sha256:481447c8dd1e9b1a944b3d71841a36fb61ed60fd4329198d8e7f8ce3c7d85801",
+    "captures/0002/observations.jsonl": "sha256:0595d02ab0039eb986457f996c86b77a3f2582dec8ac4391b0566337ef7f7179",
+    "captures/0002/raw/0001.json": "sha256:58aaebd9a9db9a207e58ab28c259c28afb591959f0f289cdf902f9e5dfea746c",
+    "captures/0002/raw/0002.json": "sha256:0fc26ac7fcdf389db73b114e8405f31145f6da2044552b0d9a1179255de03b2b",
+    "outcomes/0000.json": "sha256:e29f971b1c07aebbff05419443e3ed01f372dad4ace8da5074358333986b82f5",
+    "outcomes/0001.json": "sha256:3fab8a9f1e281205dabc855a104f916ed34e5229fdfc1528282cc88fb4ee2062",
+    "outcomes/0002.json": "sha256:03cb696c4c82861dc988f73242ef6bd2a46f091ab8c1a0d6da2c9c01a518c226",
+    "outcomes/receipts.json": "sha256:b88d907ef3346b234ebd3dd544c6903be97c78400a02767a815c8878fec5da62"
+  },
+  "dataset_version": "sha256:5917adb2f404e6f955924a66d59be50403d2ef428b9b87e532bd4e2603dc3a67",
+  "partition": {
+    "anchor": "2026-07-01",
+    "fit_before": "2026-08-30",
+    "holdout_start": "2026-09-29"
+  },
+  "schema": "bitcoin-history-v1"
+}

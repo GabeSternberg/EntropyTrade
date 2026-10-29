@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="8.812" timestamp="2026-10-28T19:55:45.800735-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.integration.test_bitcoin_history_listener" name="test_populated_history_discovery_worker_downloads_and_restart" time="5.436"><failure message="KeyError: 'content-disposition'">workspace = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/workbench-listener-gh3r61vq')
+
+    def test_populated_history_discovery_worker_downloads_and_restart(workspace: Path) -&gt; None:
+        seed = seed_workspace(workspace)
+        with listening(workspace) as (_, client):
+&gt;           first_id, first, first_json, first_report = completed_history(client)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/integration/test_bitcoin_history_listener.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/tests/integration/test_bitcoin_history_listener.py:60: in completed_history
+    assert "attachment" in review.headers["content-disposition"]
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers({'server': 'BaseHTTP/0.6 Python/3.12.3', 'date': 'Wed, 28 Oct 2026 23:55:54 GMT', 'content-type': 'application...'; style-src 'self'; connect-src 'self'; img-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"})
+key = 'content-disposition'
+
+    def __getitem__(self, key: str) -&gt; str:
+        """
+        Return a single header value.
+    
+        If there are multiple headers with the same key, then we concatenate
+        them with commas. See: https://tools.ietf.org/html/rfc7230#section-3.2.2
+        """
+        normalized_key = key.lower().encode(self.encoding)
+    
+        items = [
+            header_value.decode(self.encoding)
+            for _, header_key, header_value in self._list
+            if header_key == normalized_key
+        ]
+    
+        if items:
+            return ", ".join(items)
+    
+&gt;       raise KeyError(key)
+E       KeyError: 'content-disposition'
+
+.venv/lib/python3.12/site-packages/httpx/_models.py:302: KeyError</failure></testcase></testsuite></testsuites>

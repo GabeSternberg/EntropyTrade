@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 7 items
+
+backend/tests/exchange/test_collector_service.py::test_collector_reconnects_with_new_session_and_can_restart PASSED [ 14%]
+backend/tests/exchange/test_collector_service.py::test_paginated_discovery_uses_one_historical_filter_and_refuses_cursor_loops PASSED [ 28%]
+backend/tests/exchange/test_collector_service.py::test_disk_budget_stops_without_deleting_existing_evidence PASSED [ 42%]
+backend/tests/exchange/test_collector_service.py::test_sdk_socket_sends_only_public_subscriptions_and_keeps_raw_frames PASSED [ 57%]
+backend/tests/exchange/test_collector_service.py::test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes0-True] PASSED [ 71%]
+backend/tests/exchange/test_collector_service.py::test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes1-False] PASSED [ 85%]
+backend/tests/exchange/test_collector_service.py::test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes2-False] PASSED [100%]
+
+============================== 7 passed in 3.09s ===============================

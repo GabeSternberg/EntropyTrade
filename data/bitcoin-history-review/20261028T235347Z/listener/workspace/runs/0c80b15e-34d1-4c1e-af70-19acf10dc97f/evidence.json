@@ -1,0 +1,12 @@
+{
+  "root": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/0c80b15e-34d1-4c1e-af70-19acf10dc97f",
+  "features": "history",
+  "model_results": null,
+  "holdout_start": "2026-09-29",
+  "model_families": [
+    "bitcoin_logistic",
+    "bitcoin_frequency"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

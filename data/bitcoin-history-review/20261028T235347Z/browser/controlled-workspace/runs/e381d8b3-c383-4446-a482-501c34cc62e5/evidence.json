@@ -1,0 +1,12 @@
+{
+  "root": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-browser-20261028T235347Z-controlled/runs/e381d8b3-c383-4446-a482-501c34cc62e5",
+  "features": "history",
+  "model_results": null,
+  "holdout_start": "2026-09-29",
+  "model_families": [
+    "bitcoin_logistic",
+    "bitcoin_frequency"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

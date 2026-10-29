@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="21.076032">
+<testsuite name="bitcoin-history.spec.cjs" timestamp="2026-10-28T23:57:20.252Z" hostname="" tests="2" failures="0" skipped="0" time="18.711" errors="0">
+<testcase name="Bitcoin retained history: honest empty result, downloads and restart" classname="bitcoin-history.spec.cjs" time="6.815">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Bitcoin retained history: CONTROLLED populated result, downloads and restart" classname="bitcoin-history.spec.cjs" time="11.896">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/bitcoin-history-Bitcoin-re-bf121-esult-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

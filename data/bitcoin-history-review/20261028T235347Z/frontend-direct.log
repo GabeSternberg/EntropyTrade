@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: review: failed acquisition is visible without expanding details
+ok 1 - review: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 2.814916
+  type: 'test'
+  ...
+# Subtest: review: partial acquisition is visible without expanding details
+ok 2 - review: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.804897
+  type: 'test'
+  ...
+# Subtest: review: synthetic banner stays visible
+ok 3 - review: synthetic banner stays visible
+  ---
+  duration_ms: 1.14392
+  type: 'test'
+  ...
+# Subtest: review: retained Bitcoin gaps and reconciliation failures are visible
+ok 4 - review: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 0.706519
+  type: 'test'
+  ...
+# Subtest: probabilities: failed acquisition is visible without expanding details
+ok 5 - probabilities: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 0.661304
+  type: 'test'
+  ...
+# Subtest: probabilities: partial acquisition is visible without expanding details
+ok 6 - probabilities: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.600102
+  type: 'test'
+  ...
+# Subtest: probabilities: synthetic banner stays visible
+ok 7 - probabilities: synthetic banner stays visible
+  ---
+  duration_ms: 0.590264
+  type: 'test'
+  ...
+# Subtest: probabilities: retained Bitcoin gaps and reconciliation failures are visible
+ok 8 - probabilities: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 0.922288
+  type: 'test'
+  ...
+# Subtest: lineage: failed acquisition is visible without expanding details
+ok 9 - lineage: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 0.944328
+  type: 'test'
+  ...
+# Subtest: lineage: partial acquisition is visible without expanding details
+ok 10 - lineage: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.768762
+  type: 'test'
+  ...
+# Subtest: lineage: synthetic banner stays visible
+ok 11 - lineage: synthetic banner stays visible
+  ---
+  duration_ms: 0.604264
+  type: 'test'
+  ...
+# Subtest: lineage: retained Bitcoin gaps and reconciliation failures are visible
+ok 12 - lineage: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 0.647872
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19.806672

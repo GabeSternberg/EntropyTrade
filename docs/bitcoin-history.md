@@ -6,6 +6,15 @@ protected experiment engine. This is an intermediate second-family capability. *
 empirical second-family acceptance remain incomplete.** Forward weather and Bitcoin
 capture, the weather CLI, and the existing synthetic demonstration remain available.
 
+The [acceptance continuation](../data/bitcoin-history-review/20261028T235347Z/README.md)
+adds a populated-history regression through actual Jobs discovery, loopback HTTP and the
+unchanged subprocess worker. Its controlled wire setup is **software evidence only**.
+It verifies retained inputs beyond the UI history window, original finalized-receipt reuse,
+fixed calendar boundaries, repeated-capture deduplication, honest insufficiency and
+downloads/restart persistence. Playwright exercises both empty and controlled populated
+history through the actual page; see the [harness guide](../frontend/browser/README.md).
+This acceptance adds no real historical observations or empirical performance claims.
+
 In the website, choose **Bitcoin → Fetch public sources now** on separate dates. A completed
 capture retains the actual market rules and Coinbase covariate. Then choose **Retained
 Bitcoin history + official outcomes**. The worker verifies all completed Bitcoin inputs in

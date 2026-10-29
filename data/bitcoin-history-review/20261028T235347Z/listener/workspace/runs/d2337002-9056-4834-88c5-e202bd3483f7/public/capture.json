@@ -1,0 +1,27 @@
+{
+  "decision_time": "2026-08-30T15:00:00+00:00",
+  "failures": [],
+  "family": "bitcoin",
+  "history_complete": false,
+  "listed_contracts": 1,
+  "observations": 1,
+  "receipts": [
+    {
+      "hash": "sha256:58aaebd9a9db9a207e58ab28c259c28afb591959f0f289cdf902f9e5dfea746c",
+      "path": "/trade-api/v2/markets?limit=200&series_ticker=KXBTC&status=open",
+      "raw_ref": "raw/0001.json",
+      "received_at": "2026-08-30T15:00:00+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:0fc26ac7fcdf389db73b114e8405f31145f6da2044552b0d9a1179255de03b2b",
+      "path": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+      "raw_ref": "raw/0002.json",
+      "received_at": "2026-08-30T15:00:00+00:00",
+      "status": 200
+    }
+  ],
+  "started_at": "2026-08-30T15:00:00+00:00",
+  "truncated_universe": false,
+  "universe_complete": true
+}

@@ -1,0 +1,58 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 1 item
+
+backend/tests/integration/test_bitcoin_history_listener.py::test_populated_history_discovery_worker_downloads_and_restart FAILED [100%]
+
+=================================== FAILURES ===================================
+________ test_populated_history_discovery_worker_downloads_and_restart _________
+
+workspace = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/workbench-listener-gh3r61vq')
+
+    def test_populated_history_discovery_worker_downloads_and_restart(workspace: Path) -> None:
+        seed = seed_workspace(workspace)
+        with listening(workspace) as (_, client):
+>           first_id, first, first_json, first_report = completed_history(client)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/integration/test_bitcoin_history_listener.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/tests/integration/test_bitcoin_history_listener.py:60: in completed_history
+    assert "attachment" in review.headers["content-disposition"]
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = Headers({'server': 'BaseHTTP/0.6 Python/3.12.3', 'date': 'Wed, 28 Oct 2026 23:55:54 GMT', 'content-type': 'application...'; style-src 'self'; connect-src 'self'; img-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"})
+key = 'content-disposition'
+
+    def __getitem__(self, key: str) -> str:
+        """
+        Return a single header value.
+    
+        If there are multiple headers with the same key, then we concatenate
+        them with commas. See: https://tools.ietf.org/html/rfc7230#section-3.2.2
+        """
+        normalized_key = key.lower().encode(self.encoding)
+    
+        items = [
+            header_value.decode(self.encoding)
+            for _, header_key, header_value in self._list
+            if header_key == normalized_key
+        ]
+    
+        if items:
+            return ", ".join(items)
+    
+>       raise KeyError(key)
+E       KeyError: 'content-disposition'
+
+.venv/lib/python3.12/site-packages/httpx/_models.py:302: KeyError
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261028T235347Z/listener.xml -
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_bitcoin_history_listener.py::test_populated_history_discovery_worker_downloads_and_restart - KeyError: 'content-disposition'
+============================== 1 failed in 8.81s ===============================

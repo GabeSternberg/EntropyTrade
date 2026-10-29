@@ -1,0 +1,337 @@
+{
+  "artifacts": [
+    {
+      "bytes": 272,
+      "path": "experiments/42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4/checksums.json",
+      "sha256": "sha256:803860760401b2b6439ea6d531fe6a3e8d01b6752a8bcf5df82d1f9b9ea3e0e5"
+    },
+    {
+      "bytes": 519,
+      "path": "experiments/42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4/report.md",
+      "sha256": "sha256:e8d4d65ef51fe8fa9f3062344fd0b6ab037be68fd942e646672206dd868e5349"
+    },
+    {
+      "bytes": 2974,
+      "path": "experiments/42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4/results.json",
+      "sha256": "sha256:55dec38f1ee8a20bfc61bdbde2c0688120788a541ffdfea7430b4c216948eb33"
+    },
+    {
+      "bytes": 365,
+      "path": "experiments/42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4/trades.parquet",
+      "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef"
+    },
+    {
+      "bytes": 175,
+      "path": "research/dff19c20-1e93-4d62-a3ef-a640a295ca97/checksums.json",
+      "sha256": "sha256:c675fa9f3910f82aeb6199cc3bb04b921e54ef8901ac41c1132725826fa60449"
+    },
+    {
+      "bytes": 2514,
+      "path": "research/dff19c20-1e93-4d62-a3ef-a640a295ca97/report.md",
+      "sha256": "sha256:854301640bcb19a7ad1c33dbfc46d3a3856f243cd31e3fa14bc010a7ceb7700d"
+    },
+    {
+      "bytes": 42742,
+      "path": "research/dff19c20-1e93-4d62-a3ef-a640a295ca97/run.json",
+      "sha256": "sha256:ab83056ab3e52773e047d712d3dde409165b7be55d7acaa8de5d54e71e9aa8e7"
+    }
+  ],
+  "bitcoin_history": {
+    "adapter": "bitcoin-history-v1",
+    "capture_count": 0,
+    "limitations": [
+      "Only exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.",
+      "Coinbase is a predictor, never a settlement price. Outcome availability is receipt time.",
+      "Exceptional settlement paths remain unverified; rules_known stays false for execution.",
+      "No historical depth or certified fees; trading backtests and returns remain blocked.",
+      "Repeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward."
+    ],
+    "partition": {
+      "anchor": "2026-10-28",
+      "fit_before": "2026-12-27",
+      "holdout_start": "2027-01-26"
+    },
+    "protected_events": 0,
+    "reconciliation": {
+      "attempts": {},
+      "deferred": 0,
+      "failures": [],
+      "fetch_enabled": true,
+      "finished_at": "2026-10-28T23:57:25.708526+00:00",
+      "receipts": [],
+      "requested": 0,
+      "retained_receipts": 0,
+      "started_at": "2026-10-28T23:57:25.682261+00:00"
+    },
+    "retained_dates": 0,
+    "retained_events": 0,
+    "source_kinds": [
+      "coinbase",
+      "kalshi"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "template-c0",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "no executable StrategySpec was supplied"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    },
+    {
+      "candidate_id": "template-c1",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "no executable StrategySpec was supplied"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    }
+  ],
+  "coverage": {
+    "by_series": {},
+    "configured_source_kinds": [
+      "coinbase",
+      "kalshi"
+    ],
+    "contracts": 0,
+    "data_kind": "real",
+    "date_blocks": 0,
+    "dates": [],
+    "eligible_events": 0,
+    "feature_nonmissing_rows": {},
+    "feature_version": "sha256:ffe808a4961caaff0e936f5e13344f3da4e5700cee01c339691cccd93d1a30d5",
+    "independent_events": 0,
+    "label_semantics": "adapter-defined official outcome; values withheld",
+    "rows": 0,
+    "scalar_label_events": 0,
+    "source_dataset": "sha256:12bf59eef5eb6b91218e6285ec26cec78054fc8727ec7e86e49ab6c8ee0ac67d"
+  },
+  "data_kind": "real",
+  "decisions": [
+    {
+      "candidate_id": "template-c0",
+      "critic": {
+        "accept_for_experiment": false,
+        "candidate_id": "template-c0",
+        "concerns": [
+          "No LLM critique or empirical edge follows from local formulation."
+        ],
+        "reason": "Local rule checks only; independent evidence and experiment gates apply."
+      },
+      "hypothesis_signature": "sha256:92ab0aa2233910191f471d493ffc38d415f3dbc9e033c374537a36bdda8e5441",
+      "previous_search_count": 0,
+      "previously_searched": false,
+      "reasons": [
+        "hypothesis market family is absent from the permitted universe",
+        "No actual listed contracts are available in the captured evidence",
+        "no point-in-time observations for scaled_moneyness",
+        "required real fitted probability artifact is unavailable",
+        "model validation coverage is not permitted by the research cutoff",
+        "no certified decision-time coverage for source coinbase",
+        "historical rules and settlement semantics are not certified",
+        "insufficient independent eligible events/source-matched scalar labels",
+        "no executable historical depth; candles/prints cannot establish fills"
+      ],
+      "scope": "research eligibility only; no trading approval or proven edge",
+      "spec_hash": null,
+      "status": "REJECTED",
+      "structurally_valid": false
+    },
+    {
+      "candidate_id": "template-c1",
+      "critic": {
+        "accept_for_experiment": false,
+        "candidate_id": "template-c1",
+        "concerns": [
+          "No LLM critique or empirical edge follows from local formulation."
+        ],
+        "reason": "Local rule checks only; independent evidence and experiment gates apply."
+      },
+      "hypothesis_signature": "sha256:8e8fd1186888a316ca4ca3053572e3cc2ab88219978f803215b4a1d07c041599",
+      "previous_search_count": 0,
+      "previously_searched": false,
+      "reasons": [
+        "hypothesis market family is absent from the permitted universe",
+        "No actual listed contracts are available in the captured evidence",
+        "no point-in-time observations for hours_to_close",
+        "no point-in-time observations for scaled_moneyness",
+        "required real fitted probability artifact is unavailable",
+        "model validation coverage is not permitted by the research cutoff",
+        "no certified decision-time coverage for source coinbase",
+        "historical rules and settlement semantics are not certified",
+        "insufficient independent eligible events/source-matched scalar labels",
+        "no executable historical depth; candles/prints cannot establish fills"
+      ],
+      "scope": "research eligibility only; no trading approval or proven edge",
+      "spec_hash": null,
+      "status": "REJECTED",
+      "structurally_valid": false
+    }
+  ],
+  "experiment_id": "sha256:42ef3e5e038265a90572ae53ee7eb4c617456cba13c24f0659bef3cb134733d4",
+  "final_holdout_evaluated": false,
+  "formulation": {
+    "evidence_ids": [
+      "sha256:ca292a5d5ef18ad34f9176198a006530430bbf6a671a20deec578f84abf0f4f9",
+      "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+      "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+    ],
+    "limitations": [
+      "No language model is used; arbitrary prose is not fully understood.",
+      "Two model comparisons are not causal tests or feature ablations.",
+      "No actual listed contracts are available in the captured evidence"
+    ],
+    "market_understanding": "Local templates select signals and literal feature comparisons.",
+    "mechanisms": [
+      "The requested signal scaled_moneyness may improve contract probabilities.",
+      "An event-weighted training frequency may be more stable than a moneyness regression."
+    ]
+  },
+  "hypotheses": [
+    {
+      "direction": "Test probability accuracy; association and sign remain unverified",
+      "evidence_ids": [
+        "sha256:ca292a5d5ef18ad34f9176198a006530430bbf6a671a20deec578f84abf0f4f9",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+      "hypothesis_id": "template-h0",
+      "market_family": "UNAVAILABLE",
+      "mechanism": "The requested signal scaled_moneyness may improve contract probabilities.",
+      "necessary_evidence": [
+        "Point-in-time source vintages and source-matched official outcomes",
+        "Independent date blocks, historical sized books and effective fees"
+      ],
+      "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+      "variables": [
+        "scaled_moneyness"
+      ],
+      "window": "Frozen decision-time inputs before each actual contract close"
+    },
+    {
+      "direction": "Test probability accuracy; association and sign remain unverified",
+      "evidence_ids": [
+        "sha256:ca292a5d5ef18ad34f9176198a006530430bbf6a671a20deec578f84abf0f4f9",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+      "hypothesis_id": "template-h1",
+      "market_family": "UNAVAILABLE",
+      "mechanism": "An event-weighted training frequency may be more stable than a moneyness regression.",
+      "necessary_evidence": [
+        "Point-in-time source vintages and source-matched official outcomes",
+        "Independent date blocks, historical sized books and effective fees"
+      ],
+      "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+      "variables": [
+        "scaled_moneyness",
+        "hours_to_close"
+      ],
+      "window": "Frozen decision-time inputs before each actual contract close"
+    }
+  ],
+  "lineage": {
+    "code": {
+      "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+      "backtest/replay.py": "sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970",
+      "data.py": "sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153",
+      "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de",
+      "engine.py": "sha256:0de9be8c99533032e7574cb9bc91f39bd18926ce77667f80031dd031c1483856",
+      "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+      "execution/paper.py": "sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172",
+      "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+      "strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+      "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+      "workflow.py": "sha256:1d1eda965badb947213934d6f7b1cc1ed8f4bcb4352a8c2aa63c92e6a0f371a4"
+    },
+    "config": {
+      "bootstrap_samples": 500,
+      "fee_policy": null,
+      "latency_seconds": 1,
+      "max_book_age_seconds": 60,
+      "min_events": 20,
+      "min_trades": 10,
+      "per_event": "100",
+      "per_trade": "25",
+      "scenarios": [
+        "optimistic",
+        "base",
+        "conservative"
+      ],
+      "seed": 17,
+      "starting_cash": "1000",
+      "total_deployed": "500"
+    },
+    "dataset": "sha256:12bf59eef5eb6b91218e6285ec26cec78054fc8727ec7e86e49ab6c8ee0ac67d",
+    "feature_version": "sha256:ffe808a4961caaff0e936f5e13344f3da4e5700cee01c339691cccd93d1a30d5",
+    "normalized_data_hash": "sha256:78e7a062fe34cc6774f13bfc899fd676f3835dde67743f36ea4c56abd95e5385",
+    "requested_trial_count": 6,
+    "research_hash": "sha256:7d2e946d605359b8016b18f35a409531b3cde7f5fbc400e3a3919f15bb14b567",
+    "resolved_models": {}
+  },
+  "probabilities": [],
+  "probability_count": 0,
+  "probability_limit": 100,
+  "proposals": [
+    {
+      "candidate_id": "template-c0",
+      "evidence_ids": [
+        "sha256:ca292a5d5ef18ad34f9176198a006530430bbf6a671a20deec578f84abf0f4f9",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "hypothesis_id": "template-h0",
+      "missing_capability": "No actual listed contracts are available in the captured evidence",
+      "model_family": "bitcoin_logistic",
+      "required_features": [
+        "scaled_moneyness"
+      ],
+      "required_sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "spec": null
+    },
+    {
+      "candidate_id": "template-c1",
+      "evidence_ids": [
+        "sha256:ca292a5d5ef18ad34f9176198a006530430bbf6a671a20deec578f84abf0f4f9",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "hypothesis_id": "template-h1",
+      "missing_capability": "No actual listed contracts are available in the captured evidence",
+      "model_family": "bitcoin_frequency",
+      "required_features": [
+        "scaled_moneyness",
+        "hours_to_close"
+      ],
+      "required_sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "spec": null
+    }
+  ],
+  "reasoning": "local_templates",
+  "reasoning_limit": "Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation.",
+  "report": "Retained Bitcoin history \u00b7 receipt-time official binary targets\nCaptures: 0; retained events: 0; protected events: 0.\nOnly exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.\nCoinbase is a predictor, never a settlement price. Outcome availability is receipt time.\nExceptional settlement paths remain unverified; rules_known stays false for execution.\nNo historical depth or certified fees; trading backtests and returns remain blocked.\nRepeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward.\nReconciliation: {\"attempts\": {}, \"deferred\": 0, \"failures\": [], \"fetch_enabled\": true, \"finished_at\": \"2026-10-28T23:57:25.708526+00:00\", \"receipts\": [], \"requested\": 0, \"retained_receipts\": 0, \"started_at\": \"2026-10-28T23:57:25.682261+00:00\"}\n\n# Research-to-experiment report\n\nData: real. Research run: dff19c20-1e93-4d62-a3ef-a640a295ca97\nFinal holdout: not evaluated. No trading authorization.\n\ntemplate-c0: UNSUPPORTED\nno executable StrategySpec was supplied\ntemplate-c1: UNSUPPORTED\nno executable StrategySpec was supplied\n\nEach candidate/scenario counts as a trial. Intervals are descriptive after selection.\nSnapshot fills model taker execution, not queues or observed fills.\nSynthetic results verify software only; ranking is not deployment authorization.\n",
+  "research_run": "dff19c20-1e93-4d62-a3ef-a640a295ca97",
+  "schema": "workbench-review-v1",
+  "warnings": [
+    "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+    "Snapshot fills model taker execution, not queues or observed fills.",
+    "Synthetic results verify software only; ranking is not deployment authorization."
+  ]
+}

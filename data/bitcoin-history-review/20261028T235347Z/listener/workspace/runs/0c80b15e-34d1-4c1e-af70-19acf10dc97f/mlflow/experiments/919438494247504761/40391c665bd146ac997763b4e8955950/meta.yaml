@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/0c80b15e-34d1-4c1e-af70-19acf10dc97f/mlflow/experiments/919438494247504761/40391c665bd146ac997763b4e8955950/artifacts
+end_time: 1793231803084
+entry_point_name: ''
+experiment_id: '919438494247504761'
+lifecycle_stage: active
+run_id: 40391c665bd146ac997763b4e8955950
+run_name: sha256:f7278e335502cc822731826cabbf473f9dcf314abe50cb75b92f115e1ff3d15f
+run_uuid: 40391c665bd146ac997763b4e8955950
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793231803076
+status: 3
+tags: []
+user_id: gabriel

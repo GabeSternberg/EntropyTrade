@@ -1,0 +1,16 @@
+{
+  "evidence": "CONTROLLED SOFTWARE EVIDENCE; no real ingestion or empirical performance",
+  "partition": {
+    "anchor": "2026-07-01",
+    "fit_before": "2026-08-30",
+    "holdout_start": "2026-09-29"
+  },
+  "received_at": "2026-10-01T12:00:00+00:00",
+  "captures": [
+    "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/858eace0-fc15-441c-b6b3-017e0c212d14/public",
+    "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/d2337002-9056-4834-88c5-e202bd3483f7/public",
+    "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/4d08a146-5b62-4772-9501-10fff552b538/public"
+  ],
+  "previous": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/5c0f01b9-bc47-426c-8099-db113bb5c196/history",
+  "protected_event": "KXBTC-26SEP2917"
+}

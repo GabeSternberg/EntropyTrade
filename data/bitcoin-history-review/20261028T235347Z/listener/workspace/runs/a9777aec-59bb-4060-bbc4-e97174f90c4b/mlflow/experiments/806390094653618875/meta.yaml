@@ -1,0 +1,6 @@
+artifact_location: file:///home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-listener-ga79yc25/runs/a9777aec-59bb-4060-bbc4-e97174f90c4b/mlflow/experiments/806390094653618875
+creation_time: 1793231797121
+experiment_id: '806390094653618875'
+last_update_time: 1793231797121
+lifecycle_stage: active
+name: entropytrade-strategy-experiments

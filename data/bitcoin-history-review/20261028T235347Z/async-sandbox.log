@@ -1,0 +1,30 @@
+{"socketpair_send": "[Errno 1] Operation not permitted"}
+DEBUG:asyncio:Using selector: EpollSelector
+DEBUG:asyncio:Fail to write a null byte into the self-pipe socket
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/selector_events.py", line 152, in _write_to_self
+    csock.send(b'\0')
+PermissionError: [Errno 1] Operation not permitted
+DEBUG:asyncio:Close <_UnixSelectorEventLoop running=False closed=False debug=True>
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261028T235347Z/diagnose_async.py", line 25, in <module>
+    loop.run_until_complete(asyncio.wait_for(asyncio.to_thread(time.sleep, 0.05), timeout=1))
+  File "/usr/lib/python3.12/asyncio/base_events.py", line 687, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 519, in wait_for
+    async with timeouts.timeout(timeout):
+  File "/usr/lib/python3.12/asyncio/timeouts.py", line 115, in __aexit__
+    raise TimeoutError from exc_val
+TimeoutError

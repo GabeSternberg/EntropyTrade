@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "python_tests": 752,
+  "browser_tests": 2,
+  "listener_jobs": 2,
+  "screenshots": 8,
+  "downloads": 8,
+  "evidence_kind": "CONTROLLED SOFTWARE EVIDENCE",
+  "empirical_performance": false,
+  "v1_complete": false
+}

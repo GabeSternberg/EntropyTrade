@@ -1,0 +1,22 @@
+Retained Bitcoin history · receipt-time official binary targets
+Captures: 0; retained events: 0; protected events: 0.
+Only exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.
+Coinbase is a predictor, never a settlement price. Outcome availability is receipt time.
+Exceptional settlement paths remain unverified; rules_known stays false for execution.
+No historical depth or certified fees; trading backtests and returns remain blocked.
+Repeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward.
+Reconciliation: {"attempts": {}, "deferred": 0, "failures": [], "fetch_enabled": true, "finished_at": "2026-10-28T23:57:25.708526+00:00", "receipts": [], "requested": 0, "retained_receipts": 0, "started_at": "2026-10-28T23:57:25.682261+00:00"}
+
+# Research-to-experiment report
+
+Data: real. Research run: dff19c20-1e93-4d62-a3ef-a640a295ca97
+Final holdout: not evaluated. No trading authorization.
+
+template-c0: UNSUPPORTED
+no executable StrategySpec was supplied
+template-c1: UNSUPPORTED
+no executable StrategySpec was supplied
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

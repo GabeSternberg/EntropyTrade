@@ -1,0 +1,6 @@
+artifact_location: file:///home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-history-browser-20261028T235347Z-controlled/runs/e381d8b3-c383-4446-a482-501c34cc62e5/mlflow/experiments/561406623343042378
+creation_time: 1793231858078
+experiment_id: '561406623343042378'
+last_update_time: 1793231858078
+lifecycle_stage: active
+name: entropytrade-strategy-experiments

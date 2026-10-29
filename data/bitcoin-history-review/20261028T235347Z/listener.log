@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 1 item
+
+backend/tests/integration/test_bitcoin_history_listener.py::test_populated_history_discovery_worker_downloads_and_restart PASSED [100%]
+
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261028T235347Z/listener.xml -
+============================== 1 passed in 12.24s ==============================

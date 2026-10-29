@@ -1,0 +1,37 @@
+{
+  "attempts": {
+    "KXBTC-26AUG3017-T100000": "2026-10-01T12:00:00+00:00",
+    "KXBTC-26JUL0117-T100000": "2026-10-01T12:00:00+00:00",
+    "KXBTC-26SEP2917-T100000": "2026-10-01T12:00:00+00:00"
+  },
+  "deferred": 0,
+  "failures": [],
+  "fetch_enabled": true,
+  "finished_at": "2026-10-28T23:56:35.998132+00:00",
+  "receipts": [
+    {
+      "hash": "sha256:e29f971b1c07aebbff05419443e3ed01f372dad4ace8da5074358333986b82f5",
+      "path": "/trade-api/v2/markets/KXBTC-26AUG3017-T100000",
+      "raw_ref": "0000.json",
+      "received_at": "2026-10-01T12:00:00+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:3fab8a9f1e281205dabc855a104f916ed34e5229fdfc1528282cc88fb4ee2062",
+      "path": "/trade-api/v2/markets/KXBTC-26JUL0117-T100000",
+      "raw_ref": "0001.json",
+      "received_at": "2026-10-01T12:00:00+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:03cb696c4c82861dc988f73242ef6bd2a46f091ab8c1a0d6da2c9c01a518c226",
+      "path": "/trade-api/v2/markets/KXBTC-26SEP2917-T100000",
+      "raw_ref": "0002.json",
+      "received_at": "2026-10-01T12:00:00+00:00",
+      "status": 200
+    }
+  ],
+  "requested": 0,
+  "retained_receipts": 3,
+  "started_at": "2026-10-28T23:56:35.961313+00:00"
+}
