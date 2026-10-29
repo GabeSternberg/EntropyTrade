@@ -1,0 +1,38 @@
+{
+  "decision_time": "2026-10-29T04:36:52.264073+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-10-29T04:35:16.347805+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHPHIL"
+    },
+    {
+      "failed_at": "2026-10-29T04:35:48.369774+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHCHI"
+    },
+    {
+      "failed_at": "2026-10-29T04:36:20.503382+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+    },
+    {
+      "failed_at": "2026-10-29T04:36:20.508661+00:00",
+      "failure": "NoForecastVintage",
+      "source": "weather:open-meteo:CLIPHL"
+    },
+    {
+      "failed_at": "2026-10-29T04:36:52.264021+00:00",
+      "failure": "TimeBudgetExceeded",
+      "source": "acquisition"
+    }
+  ],
+  "family": "weather",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-10-29T04:34:44.339088+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}

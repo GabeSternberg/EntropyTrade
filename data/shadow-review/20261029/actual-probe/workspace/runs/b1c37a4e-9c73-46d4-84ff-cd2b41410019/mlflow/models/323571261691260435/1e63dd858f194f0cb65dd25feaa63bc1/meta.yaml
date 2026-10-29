@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/cache/shadow-actual-probe-20261029/runs/b1c37a4e-9c73-46d4-84ff-cd2b41410019/mlflow/models/323571261691260435/1e63dd858f194f0cb65dd25feaa63bc1/artifacts
+end_time: 1793248481850
+entry_point_name: ''
+experiment_id: '323571261691260435'
+lifecycle_stage: active
+run_id: 1e63dd858f194f0cb65dd25feaa63bc1
+run_name: sha256:c64be1558ce99797bdede303814dcf4b5d839f3146008f6ebf01e63a94419b12
+run_uuid: 1e63dd858f194f0cb65dd25feaa63bc1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793248481843
+status: 3
+tags: []
+user_id: gabriel

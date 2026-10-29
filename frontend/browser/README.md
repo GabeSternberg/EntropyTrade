@@ -1,5 +1,15 @@
 # Real workbench browser acceptance
 
+For the continuous shadow milestone use `--grep 'continuous shadow'` with new absolute
+evidence/workspace directories as in [the shadow guide](../../docs/shadow-tracking.md).
+`shadow.spec.cjs` uses actual form interaction, real server/subprocesses, source capture,
+pause/restart/resume and checksummed downloads. It distinguishes actual acquisition failure
+from ingestion, uses no controlled responses or clock overrides, and retains screenshots
+only when page interaction executes. The October 29 install check passed but Chromium
+launch failed with crashpad `setsockopt: Operation not permitted` and `SIGTRAP`; the retained
+report/trace is a failure, not browser acceptance. Do not repeat a denied launch in the
+same environment or substitute mocked HTTP checks for the outstanding page-interaction run.
+
 To exercise **real retained receipts**, set `ENTROPYTRADE_BROWSER_RETAINED` to an absolute
 verified Bitcoin history snapshot under this repository's `data/`, and select
 `--grep 'REAL retained receipts'`. Use new absolute workspace/evidence directories as

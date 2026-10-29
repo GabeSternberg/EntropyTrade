@@ -1,7 +1,7 @@
 # EntropyTrade
 
-Private, single-user Kalshi research and backtesting software, with eventual automated
-trading under explicit approval and deterministic risk limits. Daily-high temperature
+Private, single-user Kalshi research, modeling, backtesting and paper/shadow software.
+V1 has no real-money execution. Daily-high temperature
 markets are the first vertical. The goal is a reproducible scientific workflow that can
 reject weak strategies as reliably as it can find promising ones.
 
@@ -22,7 +22,13 @@ now replays original receipts, reconciles later official binary results and cond
 fits temporal binary models through the same experiment engine. Actual retained contracts now reconcile to four finalized official results; real-receipt
 browser interaction, downloads and restart acceptance pass. History remains insufficient
 (4 fitting events on 3 dates, only NO targets, no validation dates); empirical second-family
-evaluation and continuous shadow remain incomplete. See the
+evaluation remains incomplete. Bitcoin is optional, not the mandatory second family;
+future major family selection requires user approval. A continuous read-only shadow
+monitor now connects frozen research candidates to durable forward capture, decisions,
+risk evidence, later official outcomes and browser inspection. Existing forward models,
+certified fees and sized books remain unavailable, so actual intentions block. Browser
+acceptance of this new monitor is pending after an OS-denied Chromium launch. See the
+[shadow operating guide](docs/shadow-tracking.md) and the earlier
 [executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Production trading
 is disabled; the Kalshi gateway refuses orders.
 

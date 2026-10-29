@@ -10,6 +10,8 @@ from urllib.parse import urlsplit
 
 from entropytrade.api.jobs import Jobs, identifier
 from entropytrade.api.runner import Runner
+from entropytrade.tracking.runner import ShadowRunner
+from entropytrade.tracking.store import TrackingStore
 
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -39,6 +41,8 @@ class WorkbenchServer(ThreadingHTTPServer):
         self.repo = repo.resolve()
         self.jobs = Jobs(workspace_path(self.repo, workspace))
         self.runner = Runner(self.jobs, self.repo)
+        self.tracking = TrackingStore(self.jobs)
+        self.shadow = ShadowRunner(self.tracking, self.repo)
         self.lock = (self.jobs.root / ".writer.lock").open("a")
         try:
             fcntl.flock(self.lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
@@ -48,9 +52,11 @@ class WorkbenchServer(ThreadingHTTPServer):
             raise
         self.token = secrets.token_urlsafe(32)
         self.jobs.recover()
+        self.tracking.recover()
 
     def server_close(self) -> None:
         self.runner.close()
+        self.shadow.close()
         super().server_close()
         self.lock.close()
 
@@ -102,6 +108,15 @@ class Handler(BaseHTTPRequestHandler):
             return None
         return job_id, parts[3] if len(parts) == 4 else ""
 
+    def monitor_route(self) -> tuple[str, str] | None:
+        parts = urlsplit(self.path).path.strip("/").split("/")
+        if len(parts) not in {3, 4} or parts[:2] != ["api", "monitors"]:
+            return None
+        try:
+            return identifier(parts[2]), parts[3] if len(parts) == 4 else ""
+        except ValueError:
+            return None
+
     def do_GET(self) -> None:
         if not self.safe_origin():
             self.document(403, {"error": "localhost same-origin access required"})
@@ -125,6 +140,17 @@ class Handler(BaseHTTPRequestHandler):
             )
         elif path == "/api/jobs":
             self.document(200, self.server.jobs.history())
+        elif path == "/api/monitors":
+            self.document(200, self.server.tracking.history())
+        elif path.startswith("/api/monitors/"):
+            route = self.monitor_route()
+            monitor = (
+                self.server.tracking.get(route[0], export=route[1] == "export") if route else None
+            )
+            if monitor is None or route is None or route[1] not in {"", "export"}:
+                self.document(404, {"error": "not found"})
+            else:
+                self.document(200, monitor)
         else:
             route = self.job_route()
             job = self.server.jobs.get(route[0]) if route else None
@@ -161,6 +187,15 @@ class Handler(BaseHTTPRequestHandler):
                 job_id = self.server.jobs.create(value)
                 self.document(202, {"id": job_id})
                 return
+            if self.path == "/api/monitors":
+                monitor_id = self.server.tracking.create(value)
+                self.document(202, {"id": monitor_id})
+                return
+            monitor_route = self.monitor_route()
+            if monitor_route and monitor_route[1] in {"pause", "resume"} and value == {}:
+                self.server.tracking.control(*monitor_route)
+                self.document(200, {"id": monitor_route[0]})
+                return
             route = self.job_route()
             if route and route[1] == "cancel" and value == {}:
                 job = self.server.jobs.get(route[0])
@@ -185,6 +220,7 @@ def main() -> None:
     workspace = args.workspace if args.workspace.is_absolute() else repo / args.workspace
     server = WorkbenchServer(repo, workspace, port=args.port)
     server.runner.start()
+    server.shadow.start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:

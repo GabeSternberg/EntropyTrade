@@ -1,0 +1,12 @@
+{
+  "artifacts": [
+    {
+      "bytes": 41,
+      "path": "partial.json",
+      "sha256": "sha256:81487c9c182249e94dff4a8fc3ee2cb8f676d7f140ce3864e3e3348e59b1e269"
+    }
+  ],
+  "detail": "Shadow cycle failed: ValueError",
+  "failure": "CONTROLLED interrupted acquisition",
+  "submission_enabled": false
+}

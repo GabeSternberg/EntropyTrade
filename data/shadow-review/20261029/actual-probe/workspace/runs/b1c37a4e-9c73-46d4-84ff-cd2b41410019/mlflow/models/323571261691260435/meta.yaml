@@ -1,0 +1,6 @@
+artifact_location: file:///home/gabriel/Projects/EntropyTrade/data/cache/shadow-actual-probe-20261029/runs/b1c37a4e-9c73-46d4-84ff-cd2b41410019/mlflow/models/323571261691260435
+creation_time: 1793248481814
+experiment_id: '323571261691260435'
+last_update_time: 1793248481814
+lifecycle_stage: active
+name: entropytrade-probability-models

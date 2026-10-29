@@ -1,0 +1,147 @@
+{
+  "acquisition_complete": false,
+  "bundle": {
+    "model_metadata": {
+      "data_kind": "real",
+      "status": "INSUFFICIENT_DATA"
+    },
+    "records": [],
+    "refusals": {
+      "forward_only": "No independent temporal training/validation history or matched outcomes"
+    },
+    "source_hash": "sha256:e0a27edb104d89dd758110230d9b3d631ebbd4fb45598ba22715da1791464b38"
+  },
+  "data": {
+    "data_kind": "real",
+    "dataset_version": "sha256:ac6fa62d7a41f4ffcbcb968b2474dcc28fa4a9f6956d1563259367b06a222d53",
+    "feature_definitions": {
+      "features": [
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "forecast_high_f",
+          "transformation": "Mean latest full-local-day hourly maximum proxy per model",
+          "unit": "degF",
+          "version": "1"
+        },
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "hours_to_close",
+          "transformation": "Actual market close minus decision time",
+          "unit": "hours",
+          "version": "1"
+        }
+      ],
+      "version": "public-forward-v1"
+    },
+    "feature_version": "sha256:3f684d25338cca13e232f94f3c5a8a0596baea97f454446a524ea9f3758e66f6",
+    "protected_events": [],
+    "provenance": {
+      "purpose": "shadow replay; targets withheld"
+    },
+    "samples": []
+  },
+  "fee": null,
+  "reservations": [],
+  "schema": "shadow-inputs-v1",
+  "spec": {
+    "assumptions": [
+      "Local template; unsupported prose is not interpreted as trading rules",
+      "Model families use their registered feature sets; no feature ablation"
+    ],
+    "calibration": "none",
+    "citations": [],
+    "created_at": "2026-10-29T04:34:40.803764Z",
+    "description": "The requested signal forecast_high_f may improve contract probabilities.",
+    "entry_rules": {
+      "all_of": [
+        {
+          "feature": "model_yes_probability",
+          "op": "gt",
+          "threshold": "0.55"
+        },
+        {
+          "feature": "forecast_high_f",
+          "op": "gt",
+          "threshold": "70"
+        }
+      ],
+      "description": "Requested comparisons AND model probability > 0.55"
+    },
+    "entry_window": {
+      "end": null,
+      "start": null,
+      "target_end": null,
+      "target_start": null
+    },
+    "evidence": [],
+    "execution": {
+      "max_spread": null,
+      "post_only": false,
+      "time_in_force": "fill_or_kill"
+    },
+    "exit_mode": "hold_to_settlement",
+    "exit_rules": {
+      "all_of": [
+        {
+          "feature": "settlement",
+          "op": "eq",
+          "threshold": "1"
+        }
+      ],
+      "description": "Hold to settlement using the official contract outcome"
+    },
+    "features": [
+      {
+        "description": "Frozen decision-time covariate",
+        "name": "forecast_high_f",
+        "version": "1"
+      }
+    ],
+    "generated_by": {
+      "actor_id": "local-template-v1",
+      "kind": "agent"
+    },
+    "generation_run_id": "3abb5a52-96f2-4d45-b7ce-ab7749759294",
+    "hedging_rules": "",
+    "hypothesis": "The requested signal forecast_high_f may improve contract probabilities.",
+    "invalidation_conditions": [
+      "Evidence, model or execution gates fail"
+    ],
+    "market_universe": {
+      "description": "Actual permitted captured series",
+      "event_tickers": [],
+      "market_tickers": [],
+      "series_tickers": [
+        "KXHIGHCHI",
+        "KXHIGHPHIL"
+      ],
+      "venue": "kalshi"
+    },
+    "max_entry_price": null,
+    "maximum_holding_period_seconds": null,
+    "min_displayed_quantity": null,
+    "minimum_edge": "0.03",
+    "model_kind": "domain_statistical",
+    "model_ref": null,
+    "name": "KXHIGHCHI signal test 1",
+    "position_sizing": {
+      "contracts": "1.00",
+      "dollars": null,
+      "kelly_fraction": null,
+      "max_contracts": "1.00",
+      "method": "fixed_contracts"
+    },
+    "probability_feature": null,
+    "required_sources": [
+      "kalshi",
+      "open-meteo"
+    ],
+    "risk_overrides_allowed": "none",
+    "side": "yes",
+    "slippage_allowance": "0",
+    "strategy_family": "informational",
+    "strategy_id": "local-template-0",
+    "uncertainty_allowance": "0",
+    "version": 1
+  }
+}

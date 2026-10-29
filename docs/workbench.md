@@ -1,5 +1,12 @@
 # Private research workbench
 
+October 29: **Continuous shadow tracking** now starts from a completed real typed candidate,
+persists automatic public capture/decisions/risk/outcomes, supports pause/resume and restart,
+and exposes cycle evidence/downloads. [The operating guide](shadow-tracking.md) documents
+gates, budgets, recovery and the outstanding browser check after an OS-denied launch.
+There are no submissions, fills, performance claims or strategy promotion. Bitcoin is an
+optional preserved adapter; no replacement major family is selected.
+
 October 28 addition: Bitcoin's **Retained Bitcoin history + official outcomes** mode
 reuses completed public captures in this workspace, preserves fixed calendar partitions
 and later receipt-time labels, and conditionally compares two binary models through the

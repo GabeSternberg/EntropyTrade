@@ -1,0 +1,41 @@
+{
+  "checksums": {
+    "capture.json": "sha256:93e8576e5de0de0bca08f429e489cd1329aa2193899ec1ed444830644e841e21",
+    "markets.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "weather.sqlite": "sha256:61fc839ebc5588adac337efcfb511e94763bec199708ab3f8d6a214a0f0d7e89"
+  },
+  "dataset_version": "sha256:ac6fa62d7a41f4ffcbcb968b2474dcc28fa4a9f6956d1563259367b06a222d53",
+  "decision_time": "2026-10-29T04:36:52.264073+00:00",
+  "family": "weather",
+  "ingestion_code_hash": "sha256:3aa89015f7f3e6354d085a718f97e6e0fd0a58643cea023a08855f644007dd05",
+  "weather_config": {
+    "attempts": 3,
+    "interval_seconds": 900,
+    "locations": [
+      {
+        "forecast_file": null,
+        "latitude": "39.87",
+        "longitude": "-75.23",
+        "name": "Philadelphia",
+        "series": "KXHIGHPHIL",
+        "station": "CLIPHL",
+        "timezone": "America/New_York"
+      },
+      {
+        "forecast_file": null,
+        "latitude": "41.79",
+        "longitude": "-87.75",
+        "name": "Chicago",
+        "series": "KXHIGHCHI",
+        "station": "CLIMDW",
+        "timezone": "America/Chicago"
+      }
+    ],
+    "max_bytes": 5000000000,
+    "providers": [
+      "open-meteo",
+      "nws"
+    ]
+  }
+}

@@ -1,0 +1,350 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6110,
+      "path": "decision-inputs.json",
+      "sha256": "sha256:ba86bcd403007951961a2ef160fb0e71f860d3214a5f5a957bc749d5688b6685"
+    },
+    {
+      "bytes": 123,
+      "path": "outcomes/summary.json",
+      "sha256": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902"
+    },
+    {
+      "bytes": 1159,
+      "path": "public/capture.json",
+      "sha256": "sha256:c79979bedc832f7511f3aae190fefc0ef9e8371c50acbc4fca100ffdbc2e8d8d"
+    },
+    {
+      "bytes": 1529,
+      "path": "public/manifest.json",
+      "sha256": "sha256:603b951357db29386f84480d8e5f87056d78ec8e25de744ee1ad2f9ff39655d0"
+    },
+    {
+      "bytes": 2334,
+      "path": "public/markets.jsonl",
+      "sha256": "sha256:ec383c55be7c91600d059638c7d5040f71b80349d1b0529d3a19709192010a74"
+    },
+    {
+      "bytes": 566,
+      "path": "public/observations.jsonl",
+      "sha256": "sha256:5ba967abff9877c6c6391faf73f51694ae85a72042d52348aa416c301f14fe2a"
+    },
+    {
+      "bytes": 1282,
+      "path": "public/raw/0001.json",
+      "sha256": "sha256:a785b93834ef52c601d3d5b57fa77a75dd406bc35612f7dd0aeafbab9b12f180"
+    },
+    {
+      "bytes": 1277,
+      "path": "public/raw/0002.json",
+      "sha256": "sha256:b4873f86ba53cb16507217f60703561200c7d75156c288161c758e7832b4c570"
+    },
+    {
+      "bytes": 56,
+      "path": "public/raw/0003.json",
+      "sha256": "sha256:6380293c5ec7fbf4c774e7358b43ec24894e86cc850867e6fd21852556652ff5"
+    }
+  ],
+  "capture": {
+    "decision_time": "2026-10-25T15:00:00+00:00",
+    "failures": [],
+    "family": "bitcoin",
+    "history_complete": false,
+    "listed_contracts": 2,
+    "observations": 1,
+    "receipts": [
+      {
+        "hash": "sha256:a785b93834ef52c601d3d5b57fa77a75dd406bc35612f7dd0aeafbab9b12f180",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXBTC&status=open",
+        "raw_ref": "raw/0001.json",
+        "received_at": "2026-10-25T15:00:00+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b4873f86ba53cb16507217f60703561200c7d75156c288161c758e7832b4c570",
+        "path": "/trade-api/v2/markets?limit=200&cursor=page2&series_ticker=KXBTC&status=open",
+        "raw_ref": "raw/0002.json",
+        "received_at": "2026-10-25T15:00:00+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:6380293c5ec7fbf4c774e7358b43ec24894e86cc850867e6fd21852556652ff5",
+        "path": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+        "raw_ref": "raw/0003.json",
+        "received_at": "2026-10-25T15:00:00+00:00",
+        "status": 200
+      }
+    ],
+    "started_at": "2026-10-25T15:00:00+00:00",
+    "truncated_universe": false,
+    "universe_complete": true
+  },
+  "changed_terms": [],
+  "contracts": [
+    {
+      "market": {
+        "can_close_early": false,
+        "close_time": "2026-10-26T00:00:00Z",
+        "event_ticker": "KXBTC-26OCT25",
+        "exchange_index": 0,
+        "expected_expiration_time": null,
+        "latest_expiration_time": "2026-10-26T01:00:00Z",
+        "market_type": "binary",
+        "no_sub_title": "89\u00b0 or below",
+        "open_time": "2026-10-24T00:00:00Z",
+        "result": null,
+        "rules": {
+          "captured_at": "2026-10-25T15:00:00Z",
+          "early_close_condition": null,
+          "market_ticker": "KXBTC-26OCT25-T100000",
+          "rules_primary": "If the Bitcoin reference value is above the strike according to CF Benchmarks.",
+          "rules_secondary": "",
+          "settlement_basis": "unresolved",
+          "settlement_sources": [],
+          "settlement_target_date": null
+        },
+        "series_ticker": "KXBTC",
+        "settlement_timer_seconds": 3600,
+        "settlement_ts": null,
+        "settlement_value": null,
+        "status": "active",
+        "strike": {
+          "cap": null,
+          "floor": "100000",
+          "strike_type": "greater"
+        },
+        "tick_schedule": {
+          "ranges": [
+            {
+              "end": "1.0000",
+              "start": "0.0000",
+              "step": "0.0100"
+            }
+          ]
+        },
+        "ticker": "KXBTC-26OCT25-T100000",
+        "title": "CONTROLLED Bitcoin test contract",
+        "venue": "kalshi",
+        "yes_sub_title": "90\u00b0 or above"
+      },
+      "raw_hash": "sha256:a785b93834ef52c601d3d5b57fa77a75dd406bc35612f7dd0aeafbab9b12f180",
+      "raw_ref": "public/raw/0001.json",
+      "ticker": "KXBTC-26OCT25-T100000"
+    },
+    {
+      "market": {
+        "can_close_early": false,
+        "close_time": "2026-10-26T00:00:00Z",
+        "event_ticker": "KXBTC-26OCT25",
+        "exchange_index": 0,
+        "expected_expiration_time": null,
+        "latest_expiration_time": "2026-10-26T01:00:00Z",
+        "market_type": "binary",
+        "no_sub_title": "89\u00b0 or below",
+        "open_time": "2026-10-24T00:00:00Z",
+        "result": null,
+        "rules": {
+          "captured_at": "2026-10-25T15:00:00Z",
+          "early_close_condition": null,
+          "market_ticker": "KXBTC-26OCT25-T100001",
+          "rules_primary": "If the Bitcoin reference value is above the strike according to CF Benchmarks.",
+          "rules_secondary": "",
+          "settlement_basis": "unresolved",
+          "settlement_sources": [],
+          "settlement_target_date": null
+        },
+        "series_ticker": "KXBTC",
+        "settlement_timer_seconds": 3600,
+        "settlement_ts": null,
+        "settlement_value": null,
+        "status": "active",
+        "strike": {
+          "cap": null,
+          "floor": "100000",
+          "strike_type": "greater"
+        },
+        "tick_schedule": {
+          "ranges": [
+            {
+              "end": "1.0000",
+              "start": "0.0000",
+              "step": "0.0100"
+            }
+          ]
+        },
+        "ticker": "KXBTC-26OCT25-T100001",
+        "title": "CONTROLLED Bitcoin test contract",
+        "venue": "kalshi",
+        "yes_sub_title": "90\u00b0 or above"
+      },
+      "raw_hash": "sha256:b4873f86ba53cb16507217f60703561200c7d75156c288161c758e7832b4c570",
+      "raw_ref": "public/raw/0002.json",
+      "ticker": "KXBTC-26OCT25-T100001"
+    }
+  ],
+  "data_kind": "real",
+  "dataset_version": "sha256:800c718651ea632fa469c29d56fd6813fd098d464339bb35bb7523b8a4c7973f",
+  "decisions": [
+    {
+      "decision_hash": "sha256:a319400bcc80e5aea6429190700d1682bd6e5e23e2a8b8d78f0bbd08827d3313",
+      "decision_time": "2026-10-25T15:00:00+00:00",
+      "event_id": "KXBTC-26OCT25",
+      "feature_hash": "sha256:bc7436a3b92831ce9312550c76ec046c5df4a498d0c36e4f116f08ca32cb37f0",
+      "feature_version": "sha256:b86e883156bc17d1ea9403cfeb6f75a94f9f3117f8c8878a1d09c9846718c35d",
+      "features": {
+        "hours_to_close": "9.0",
+        "spot_minus_floor_usd": "1234.56",
+        "spot_usd": "101234.56"
+      },
+      "gates": {
+        "available_features": true,
+        "certified_fees": false,
+        "complete_acquisition": true,
+        "open_market": true,
+        "point_in_time_prediction": false,
+        "required_sources": false,
+        "sized_book": false,
+        "strategy_features": false,
+        "verified_rules": false
+      },
+      "intent": null,
+      "prediction": null,
+      "quote": null,
+      "reasons": [
+        "verified_rules",
+        "strategy_features",
+        "required_sources",
+        "point_in_time_prediction",
+        "sized_book",
+        "certified_fees"
+      ],
+      "risk": null,
+      "source_versions": {
+        "hours_to_close": "1",
+        "spot_minus_floor_usd": "1",
+        "spot_usd": "1"
+      },
+      "sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "status": "blocked",
+      "ticker": "KXBTC-26OCT25-T100000"
+    },
+    {
+      "decision_hash": "sha256:cfd715b7d947059b79217de1176bb816e0791dc68774f44a80c69f8afb73b376",
+      "decision_time": "2026-10-25T15:00:00+00:00",
+      "event_id": "KXBTC-26OCT25",
+      "feature_hash": "sha256:ac24b5d5c27598f43cbaa883d4312622df6c4f326e77cf1db24d75603351ed64",
+      "feature_version": "sha256:b86e883156bc17d1ea9403cfeb6f75a94f9f3117f8c8878a1d09c9846718c35d",
+      "features": {
+        "hours_to_close": "9.0",
+        "spot_minus_floor_usd": "1234.56",
+        "spot_usd": "101234.56"
+      },
+      "gates": {
+        "available_features": true,
+        "certified_fees": false,
+        "complete_acquisition": true,
+        "open_market": true,
+        "point_in_time_prediction": false,
+        "required_sources": false,
+        "sized_book": false,
+        "strategy_features": false,
+        "verified_rules": false
+      },
+      "intent": null,
+      "prediction": null,
+      "quote": null,
+      "reasons": [
+        "verified_rules",
+        "strategy_features",
+        "required_sources",
+        "point_in_time_prediction",
+        "sized_book",
+        "certified_fees"
+      ],
+      "risk": null,
+      "source_versions": {
+        "hours_to_close": "1",
+        "spot_minus_floor_usd": "1",
+        "spot_usd": "1"
+      },
+      "sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "status": "blocked",
+      "ticker": "KXBTC-26OCT25-T100001"
+    }
+  ],
+  "detail": "2 shadow decisions; 0 acquisition failures",
+  "feature_version": "sha256:b86e883156bc17d1ea9403cfeb6f75a94f9f3117f8c8878a1d09c9846718c35d",
+  "implementation": {
+    "backend/src/entropytrade/families/public.py": "sha256:3aa89015f7f3e6354d085a718f97e6e0fd0a58643cea023a08855f644007dd05",
+    "backend/src/entropytrade/risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+    "backend/src/entropytrade/strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+    "backend/src/entropytrade/tracking/evaluate.py": "sha256:aab72ad08b40c6945f6306869d0763f18bad4bdb522e731b0ce79e7c7a450407",
+    "backend/src/entropytrade/tracking/replay.py": "sha256:0968b6f62655d46a05709aa0adf22828742ea3da4ba4985932aa2300bec48b12",
+    "backend/src/entropytrade/tracking/worker.py": "sha256:796ebfe5aecc61ced80eff16baed706e7e765022a5a9456485ad5e103398566e",
+    "pyproject.toml": "sha256:217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+    "uv.lock": "sha256:dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+  },
+  "limitations": [
+    "Forward evidence only; no historical release clocks or outcomes inferred.",
+    "No historical sized books or certified fee schedule; no execution returns.",
+    "Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.",
+    "Coinbase spot is a covariate, never a Kalshi settlement-source substitute.",
+    "Shadow intentions only. No submissions, fills, balance, P&L or profitability claim.",
+    "Frozen research candidate is not approved or promoted. Existing forward adapter has no fitted probabilities.",
+    "Outcome receipt clocks never rewrite earlier decisions or protected partitions."
+  ],
+  "model_refusals": {
+    "forward_only": "No independent temporal training/validation history or matched outcomes"
+  },
+  "model_source_hash": "sha256:e0a27edb104d89dd758110230d9b3d631ebbd4fb45598ba22715da1791464b38",
+  "outcome_attempts": [],
+  "outcome_deferred": 0,
+  "outcome_failures": [],
+  "outcome_receipts": [],
+  "outcomes": [],
+  "quotes": [
+    {
+      "available_at": "2026-10-25T15:00:00+00:00",
+      "fidelity": "unsized_listing; never executable depth",
+      "raw_hash": "sha256:a785b93834ef52c601d3d5b57fa77a75dd406bc35612f7dd0aeafbab9b12f180",
+      "ticker": "KXBTC-26OCT25-T100000",
+      "yes_ask_dollars": "0.4400",
+      "yes_bid_dollars": "0.4200"
+    },
+    {
+      "available_at": "2026-10-25T15:00:00+00:00",
+      "fidelity": "unsized_listing; never executable depth",
+      "raw_hash": "sha256:b4873f86ba53cb16507217f60703561200c7d75156c288161c758e7832b4c570",
+      "ticker": "KXBTC-26OCT25-T100001",
+      "yes_ask_dollars": "0.4400",
+      "yes_bid_dollars": "0.4200"
+    }
+  ],
+  "risk_limits": {
+    "bankroll": "1000.000000",
+    "config_version": "shadow-v1",
+    "max_book_age_seconds": 60,
+    "max_drawdown": "1000.000000",
+    "max_loss": "1000.000000",
+    "max_model_age_seconds": null,
+    "max_open_orders": 100,
+    "max_order_rate": null,
+    "max_reconciliation_age_seconds": null,
+    "max_slippage": null,
+    "max_spread": "0.1000",
+    "min_liquidity": "0.01",
+    "min_net_edge": null,
+    "per_event": "100.000000",
+    "per_trade": "25.000000",
+    "total_deployed": "500.000000"
+  },
+  "schema": "shadow-cycle-v1",
+  "submission_enabled": false
+}

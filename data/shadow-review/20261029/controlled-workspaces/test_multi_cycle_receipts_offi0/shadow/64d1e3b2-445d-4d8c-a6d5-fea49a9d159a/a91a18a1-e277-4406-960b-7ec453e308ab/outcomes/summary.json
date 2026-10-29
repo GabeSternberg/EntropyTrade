@@ -1,0 +1,60 @@
+{
+  "outcome_attempts": [
+    {
+      "at": "2026-10-27T15:00:00+00:00",
+      "ticker": "KXBTC-26OCT25-T100000"
+    },
+    {
+      "at": "2026-10-27T15:00:00+00:00",
+      "ticker": "KXBTC-26OCT25-T100001"
+    }
+  ],
+  "outcome_deferred": 0,
+  "outcome_failures": [],
+  "outcome_receipts": [
+    {
+      "path": "/trade-api/v2/markets/KXBTC-26OCT25-T100000",
+      "raw_ref": "outcomes/0000.json",
+      "received_at": "2026-10-27T15:00:00+00:00",
+      "sha256": "sha256:54dc6504e7bd2cd202a750e1563da4a5d56ad3324abe33f0e9a86d5a9d459afa",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXBTC-26OCT25-T100001",
+      "raw_ref": "outcomes/0001.json",
+      "received_at": "2026-10-27T15:00:00+00:00",
+      "sha256": "sha256:d003ad3a15fe951206f41da5a266d752a0a093e533fe6bec61d7a2860853b7c3",
+      "status": 200
+    }
+  ],
+  "outcomes": [
+    {
+      "available_at": "2026-10-27T15:00:00+00:00",
+      "basis": "official binary result; no inferred scalar label",
+      "receipt": {
+        "path": "/trade-api/v2/markets/KXBTC-26OCT25-T100000",
+        "raw_ref": "outcomes/0000.json",
+        "received_at": "2026-10-27T15:00:00+00:00",
+        "sha256": "sha256:54dc6504e7bd2cd202a750e1563da4a5d56ad3324abe33f0e9a86d5a9d459afa",
+        "status": 200
+      },
+      "result": "no",
+      "settled_at": "2026-10-26T02:00:00+00:00",
+      "ticker": "KXBTC-26OCT25-T100000"
+    },
+    {
+      "available_at": "2026-10-27T15:00:00+00:00",
+      "basis": "official binary result; no inferred scalar label",
+      "receipt": {
+        "path": "/trade-api/v2/markets/KXBTC-26OCT25-T100001",
+        "raw_ref": "outcomes/0001.json",
+        "received_at": "2026-10-27T15:00:00+00:00",
+        "sha256": "sha256:d003ad3a15fe951206f41da5a266d752a0a093e533fe6bec61d7a2860853b7c3",
+        "status": 200
+      },
+      "result": "no",
+      "settled_at": "2026-10-26T02:00:00+00:00",
+      "ticker": "KXBTC-26OCT25-T100001"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="0.6620909999999999">
+<testsuite name="shadow.spec.cjs" timestamp="2026-10-29T04:25:08.530Z" hostname="" tests="1" failures="1" skipped="0" time="0.002" errors="0">
+<testcase name="continuous shadow: research, capture, pause, restart, resume and durable evidence" classname="shadow.spec.cjs" time="0.002">
+<failure message="shadow.spec.cjs:10:1 continuous shadow: research, capture, pause, restart, resume and durable evidence" type="FAILURE">
+<![CDATA[  shadow.spec.cjs:10:1 › continuous shadow: research, capture, pause, restart, resume and durable evidence 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ejIFKf --remote-debugging-pipe --no-startup-window
+    <launched> pid=28
+    [pid=28][err] [28:28:1029/002509.075317:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ejIFKf --remote-debugging-pipe --no-startup-window
+      - <launched> pid=28
+      - [pid=28][err] [28:28:1029/002509.075317:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=28] <gracefully close start>
+      - [pid=28] <kill>
+      - [pid=28] <will force kill>
+      - [pid=28] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=28] starting temporary directories cleanup
+      - [pid=28] finished temporary directories cleanup
+      - [pid=28] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/shadow-review/20261029/browser/playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/shadow-review/20261029/browser/playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

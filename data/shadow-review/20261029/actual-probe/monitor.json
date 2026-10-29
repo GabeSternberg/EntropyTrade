@@ -1,0 +1,145 @@
+{
+  "candidate_id": "template-c0",
+  "contracts": [],
+  "created_at": "2026-10-29T04:34:41.918967+00:00",
+  "cycle_count": 1,
+  "cycles": [
+    {
+      "artifact_root": "shadow/5761cb89-5af4-48de-bbbf-ed5d01810cbb/d0e3a087-18e3-4ec8-b226-7dbfd5db4dd0",
+      "detail": "Worker exceeded the four-minute budget; partial receipts retained",
+      "digest": "sha256:b2be240d2f0ed0df7e3e1497a4d8e4c8486344a0922d1e56e725fd179951fa83",
+      "finished_at": "2026-10-29T04:38:55.545147+00:00",
+      "id": "d0e3a087-18e3-4ec8-b226-7dbfd5db4dd0",
+      "monitor_id": "5761cb89-5af4-48de-bbbf-ed5d01810cbb",
+      "result": {
+        "detail": "Worker exceeded the four-minute budget; partial receipts retained",
+        "submission_enabled": false
+      },
+      "sequence": 1,
+      "started_at": "2026-10-29T04:34:41.933519+00:00",
+      "status": "failed"
+    }
+  ],
+  "events": [
+    {
+      "action": "created; shadow only, no validation approval implied",
+      "at": "2026-10-29T04:34:41.918967+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-29T04:38:55.559568+00:00"
+    }
+  ],
+  "failures": 0,
+  "family": "weather",
+  "fills": [],
+  "id": "5761cb89-5af4-48de-bbbf-ed5d01810cbb",
+  "interval_seconds": 60,
+  "job_id": "b1c37a4e-9c73-46d4-84ff-cd2b41410019",
+  "next_at": "2026-10-29T04:38:55.559568+00:00",
+  "performance": null,
+  "spec": {
+    "assumptions": [
+      "Local template; unsupported prose is not interpreted as trading rules",
+      "Model families use their registered feature sets; no feature ablation"
+    ],
+    "calibration": "none",
+    "citations": [],
+    "created_at": "2026-10-29T04:34:40.803764Z",
+    "description": "The requested signal forecast_high_f may improve contract probabilities.",
+    "entry_rules": {
+      "all_of": [
+        {
+          "feature": "model_yes_probability",
+          "op": "gt",
+          "threshold": "0.55"
+        },
+        {
+          "feature": "forecast_high_f",
+          "op": "gt",
+          "threshold": "70"
+        }
+      ],
+      "description": "Requested comparisons AND model probability > 0.55"
+    },
+    "entry_window": {
+      "end": null,
+      "start": null,
+      "target_end": null,
+      "target_start": null
+    },
+    "evidence": [],
+    "execution": {
+      "max_spread": null,
+      "post_only": false,
+      "time_in_force": "fill_or_kill"
+    },
+    "exit_mode": "hold_to_settlement",
+    "exit_rules": {
+      "all_of": [
+        {
+          "feature": "settlement",
+          "op": "eq",
+          "threshold": "1"
+        }
+      ],
+      "description": "Hold to settlement using the official contract outcome"
+    },
+    "features": [
+      {
+        "description": "Frozen decision-time covariate",
+        "name": "forecast_high_f",
+        "version": "1"
+      }
+    ],
+    "generated_by": {
+      "actor_id": "local-template-v1",
+      "kind": "agent"
+    },
+    "generation_run_id": "3abb5a52-96f2-4d45-b7ce-ab7749759294",
+    "hedging_rules": "",
+    "hypothesis": "The requested signal forecast_high_f may improve contract probabilities.",
+    "invalidation_conditions": [
+      "Evidence, model or execution gates fail"
+    ],
+    "market_universe": {
+      "description": "Actual permitted captured series",
+      "event_tickers": [],
+      "market_tickers": [],
+      "series_tickers": [
+        "KXHIGHCHI",
+        "KXHIGHPHIL"
+      ],
+      "venue": "kalshi"
+    },
+    "max_entry_price": null,
+    "maximum_holding_period_seconds": null,
+    "min_displayed_quantity": null,
+    "minimum_edge": "0.03",
+    "model_kind": "domain_statistical",
+    "model_ref": null,
+    "name": "KXHIGHCHI signal test 1",
+    "position_sizing": {
+      "contracts": "1.00",
+      "dollars": null,
+      "kelly_fraction": null,
+      "max_contracts": "1.00",
+      "method": "fixed_contracts"
+    },
+    "probability_feature": null,
+    "required_sources": [
+      "kalshi",
+      "open-meteo"
+    ],
+    "risk_overrides_allowed": "none",
+    "side": "yes",
+    "slippage_allowance": "0",
+    "strategy_family": "informational",
+    "strategy_id": "local-template-0",
+    "uncertainty_allowance": "0",
+    "version": 1
+  },
+  "spec_hash": "sha256:70fdda5a50a35458c7ffe03236c01d1154bf77917031d713ea3a4909657df124",
+  "status": "paused",
+  "submission_enabled": false
+}

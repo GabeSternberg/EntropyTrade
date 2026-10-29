@@ -1,5 +1,38 @@
 # Capability roadmap
 
+## Current product direction — October 29, 2026
+
+EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.
+Weather was first; Bitcoin was an implementation choice and remains optional. Preserve
+its receipts/code and frozen validation windows, without requiring unavailable Bitcoin
+history before approving independent product functionality. Prefer authentic forward
+collection over fabricated historical receipt clocks. Do not select another major family
+without user approval after comparing accessible point-in-time history, settlement semantics,
+modeling feasibility, execution costs and realistic validation.
+
+The current substantial milestone implements [continuous read-only shadow tracking](shadow-tracking.md):
+saved research candidate → frozen spec → credential-free public capture → versioned
+features/model refusal or prediction → shared interpreter/risk checks → persisted cycle
+→ later official outcome → browser inspection and restart recovery. Missing forward model,
+depth or fees remains blocked. No real orders or profitability claims. Controlled multi-cycle
+and risk tests pass; Chromium installation passed but launch was denied before page
+interaction. [Executed evidence](../data/shadow-review/20261029/README.md) distinguishes
+backend checks from outstanding browser acceptance. Review this milestone before new work;
+all Git writes belong to the supervisor.
+
+The next reviewed work should close the highest-impact independent V1 gap, including
+operating/browser evidence and certified forward scoring where data permits. The eventual
+second family requires two genuinely supported real-data paths, not a synthetic fixture
+or an unsupported route. Final release still requires a committed `docs/v1_acceptance.md`
+matrix cross-checked independently against executed browser/data/research/backtest/shadow,
+restart/cancellation, safety, clean-install and complete-test evidence. Do not set V1
+complete with missing empirical evidence. Real-money execution is outside V1.
+
+The dated checkpoints below retain earlier evidence and numbering; this direction and
+the current [status](../STATUS.md) supersede their old sequencing and deferred-shadow claims.
+
+## Historical checkpoints
+
 October 28 continuation: the website/browser milestone already exists in `9ba9b3d`.
 The current user instruction authorizes progress on the next unmet product gate, with
 all Git operations reserved for the supervisor. [Retained Bitcoin history](bitcoin-history.md)
@@ -172,6 +205,10 @@ insufficient-data reports and explicit synthetic demonstrations must both be usa
 
 ## R6 — Second real market family
 
+**Current decision:** Bitcoin is optional. This section records existing work, not an
+instruction to wait for Bitcoin validation or autonomously choose a replacement family.
+Any further major family commitment requires user approval after a source feasibility comparison.
+
 **October 28 increment:** immutable history snapshots, bounded official-result reconciliation,
 receipt-time binary-target gates, fixed calendar holdout, event-weighted logistic/frequency
 models, CLI and website integration are implemented. The real retained inputs remain sparse;
@@ -200,6 +237,12 @@ Choose the family after reviewing source feasibility; do not build all families 
 
 ## R7 — Continuous paper/shadow and structural scanning
 
+**October 29 implementation:** bounded continuous shadow collection/audit, durable controls,
+recovery, official-result monitoring, deterministic risk/intent evaluation and browser
+inspection are implemented; see [guide](shadow-tracking.md). Actual forward scoring and
+executable data remain gated; no fills/returns. Browser launch was OS-denied and acceptance
+remains outstanding. Structural scanning is deferred and is not required for this milestone.
+
 Connect eligible strategies to the read-only live feed. Persist each decision's versions,
 available information, probability, executable bid/ask/depth, edge, intended order, risk,
 simulated/observed evidence, later prices and settlement. Compare expected vs observed
@@ -208,12 +251,13 @@ exposure, pause and audit views to the local website only where operationally us
 Acceptance: recoverable continuous paper/shadow/scanner processes with no exchange orders.
 Prints never establish fills. Broader dashboards follow actual operational needs.
 
-## R8 — Live readiness review
+## R8 — V1 release acceptance
 
-Produce a go/no-go report on out-of-sample evidence, execution limitations, sustained
-shadow results, feed health, account reconciliation, unknown-order handling, verified fees,
-risk enforcement, credential isolation, kill switches, restart/crash recovery and
-live-vs-backtest monitoring. Acceptance is a reviewable readiness report, **not activation**.
-Keep production disabled. A later separately approved live-small milestone may activate
-one strategy under tiny limits, followed by degradation monitoring. Never automatically
-increase permitted capital.
+Produce and independently verify `docs/v1_acceptance.md` against the user's full evidence
+matrix: real browser workflows, two supported real-data families, original timestamp and
+leakage evidence, reproducible realistic backtesting, provider-backed research when authorized,
+durable restart/cancellation and continuous shadow, safety, clean install, tests and known
+operating limitations. An executable checklist, synthetic-only proof or blocked route is
+not a passed real-data gate. Missing evidence means V1 stays incomplete; finish independent
+functionality before stopping on future-date requirements. Stop for user review when V1
+passes; no autonomous feature polishing or production activation follows.

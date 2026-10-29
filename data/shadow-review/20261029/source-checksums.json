@@ -1,0 +1,31 @@
+{
+  "base_head": "1ed5522",
+  "branch": "supervisor/20261029-001707",
+  "files": {
+    "README.md": "07b09b1d5e6ed0c0fc3ed80dcc08f528ea798ed4c633f7e831c5a84d519b4bb4",
+    "STATUS.md": "fd33c5b77a018080ca6d8e07869c56b7ae43b50a5da59ce3ed4880dabfcc52cd",
+    "backend/src/entropytrade/api/server.py": "4b06ee06645eaf8c12396c59d5aefb475cba15102356ce42ed81ae052eb6b60a",
+    "backend/src/entropytrade/tracking/__init__.py": "e157b47d49d52eced1b15c4981a26123312bd3109452f7371d85636bc6a00fe3",
+    "backend/src/entropytrade/tracking/evaluate.py": "aab72ad08b40c6945f6306869d0763f18bad4bdb522e731b0ce79e7c7a450407",
+    "backend/src/entropytrade/tracking/replay.py": "0968b6f62655d46a05709aa0adf22828742ea3da4ba4985932aa2300bec48b12",
+    "backend/src/entropytrade/tracking/runner.py": "34dd4386264dd76800fc51eae0da8a88d06928170e1dee122cba398a68d51816",
+    "backend/src/entropytrade/tracking/store.py": "3932f6d03db61b57069627f2859634e890b19aaead01039e8eab15dc40371f0c",
+    "backend/src/entropytrade/tracking/worker.py": "796ebfe5aecc61ced80eff16baed706e7e765022a5a9456485ad5e103398566e",
+    "backend/tests/integration/test_shadow_tracking.py": "e2b766dffe7b56c7b6c7d490b4fff7b4b726484c2290d9a13be49ed411aab05c",
+    "backend/tests/unit/test_tracking.py": "6ab490f104f6e8fe6d53321b7133a05a26f2721beb9bbe33ed3b5c3557b880a1",
+    "docs/roadmap.md": "2ce735170ebee8eb1164b9d30375cb33a77a16dd0477c8fea05cbfd9551f28af",
+    "docs/shadow-tracking.md": "e3641fe9b94710759c933d5430aab12b6f6ae922b5a6cd2b18421a728f16d50e",
+    "docs/workbench.md": "9e244ff26ff09c21c0f40e300cc8a9faef1fc7b8787ae7137b0df8e29f6cbfc6",
+    "frontend/browser/README.md": "be6ebd5418cc2fc120237e3b612512eac4922edcb389eb59b95d386589cb00a4",
+    "frontend/browser/package-lock.json": "fd41a3af738c8724b58b5962eddc89bd965682f8d680270d6a1179cb654d6592",
+    "frontend/browser/package.json": "6c9c1848ffdbf8ac65f2233fe2bb70f298ea4c1c29b2df307cef435c092c534f",
+    "frontend/browser/playwright.config.cjs": "6e48f7b76e39f151de0d4147d14d6c0885b9e0cd5855127ae6e6ad6b7b6d73ae",
+    "frontend/browser/shadow.spec.cjs": "3645b90694b0000adf3112ea9ffffca61ab210c2069c743b28df1ed36500d17d",
+    "frontend/src/app.js": "56343e8fd06557da7a326d5be4f0227233d4c2e49b359a7fa5bd13ad9f15989c",
+    "frontend/src/index.html": "184c7dd6764a00afdbf7efff035e0b2ee29e144d3fb20010cbfe03ac38ac7efb",
+    "frontend/src/style.css": "06fff89d26bd4fc5c60ac97e991fe96477a92fadf03c40678b70bbe084e7c10c",
+    "pyproject.toml": "217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+    "uv.lock": "dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+  },
+  "scope": "final working files; not a clean-install or complete-suite claim"
+}

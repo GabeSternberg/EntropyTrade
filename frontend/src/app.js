@@ -1,6 +1,6 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
-const state = { token: null, job: null, tab: "review", updated: null, busy: false };
+const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null };
 const terminal = new Set(["completed", "failed", "cancelled", "interrupted"]);
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -96,6 +96,7 @@ function renderJob() {
   timeline.append(append(node("ol"), ...job.events.map((event) => append(node("li"), node("strong", event.stage), node("div", event.detail), node("time", dateText(event.at))))));
   $("progress").replaceChildren(timeline);
   $("tabs").hidden = !job.result;
+  shadowCandidates();
   renderResult();
 }
 function renderResult() {
@@ -198,9 +199,72 @@ $("research-form").addEventListener("submit", async (event) => {
   } catch (error) { $("form-message").textContent = error.message; }
   finally { $("submit").disabled = false; }
 });
+function shadowCandidates() {
+  const job = state.job;
+  const proposals = job?.status === "completed" && job.result?.data_kind === "real" ?
+    job.result.proposals.filter((p) => p.spec) : [];
+  $("shadow-candidate").replaceChildren(...(proposals.length ? proposals.map((p) => {
+    const option = node("option", p.spec.name); option.value = p.candidate_id; return option;
+  }) : [node("option", "Select a completed real run with typed candidates")]));
+  $("shadow-candidate").disabled = !proposals.length;
+  $("shadow-start").disabled = !proposals.length || !state.token;
+}
+async function shadowHistory() {
+  const monitors = await api("/api/monitors");
+  $("shadow-history").replaceChildren();
+  if (!monitors.length) $("shadow-history").append(node("p", "No saved shadow monitors.", "hint"));
+  monitors.forEach((monitor) => {
+    const button = node("button", `${monitor.family} / ${monitor.candidate_id} · ${monitor.status} · ${monitor.id.slice(0, 8)}`);
+    button.addEventListener("click", () => selectMonitor(monitor.id).catch(shadowError));
+    $("shadow-history").append(button);
+  });
+}
+function shadowError(error) { $("shadow-message").textContent = error.message; }
+async function selectMonitor(id, force = false) {
+  const monitor = await api(`/api/monitors/${id}`);
+  const version = JSON.stringify([monitor.status, monitor.failures, monitor.next_at, monitor.cycle_count,
+    monitor.cycles[0]?.status, monitor.cycles[0]?.finished_at, monitor.events.length]);
+  if (!force && state.monitor?.id === id && state.monitor.version === version) return;
+  state.monitor = { id, version };
+  const content = $("shadow-evidence"); content.replaceChildren();
+  append(content, node("h3", `Shadow monitor · ${monitor.status}`), node("p", monitor.id, "small"),
+    notice("SHADOW ONLY · submission disabled · zero fills · no performance claim. Monitoring does not approve a strategy."),
+    node("p", `${monitor.cycle_count} durable cycles; showing latest ${monitor.cycles.length}. Poll every ${monitor.interval_seconds}s. Next eligible poll: ${monitor.next_at}. Consecutive failures: ${monitor.failures}.`, "hint"));
+  const action = monitor.status === "active" ? "pause" : "resume";
+  const control = node("button", action === "pause" ? "Pause monitor" : "Resume monitor");
+  control.addEventListener("click", async () => {
+    try { await api(`/api/monitors/${id}/${action}`, {}); await selectMonitor(id, true); await shadowHistory(); }
+    catch (error) { shadowError(error); }
+  });
+  const download = node("a", "Shadow evidence JSON"); download.href = `/api/monitors/${id}/export`; download.download = `shadow-${id}.json`;
+  append(content, append(node("div", null, "run-tools"), control, download),
+    detail("Frozen strategy and research identity", { job_id: monitor.job_id, candidate_id: monitor.candidate_id, spec_hash: monitor.spec_hash, spec: monitor.spec }),
+    detail("Lifecycle and recovery events", monitor.events),
+    detail("Tracked contracts and subsequent official outcomes", monitor.contracts));
+  monitor.cycles.forEach((cycle) => {
+    const section = append(node("section"), node("h3", `Cycle ${cycle.sequence} · ${cycle.status}`), node("p", cycle.detail, "hint"));
+    const result = cycle.result;
+    if (result) {
+      section.append(node("p", `Decisions: ${result.decisions?.length || 0}; quotes: ${result.quotes?.length || 0}; official outcomes: ${result.outcomes?.length || 0}.`, "small"));
+      if (result.failure) section.append(notice(result.failure, true));
+      if (result.decisions?.length) section.append(table(["Contract", "Status", "P(YES)", "Reasons"], result.decisions.map((d) => [d.ticker, d.status, d.prediction?.probability_yes, d.reasons.join(", ")])));
+      section.append(detail("Source receipts, predictions, intended orders, risk checks and artifacts", result));
+    }
+    section.append(node("code", cycle.digest || "No committed result digest")); content.append(section);
+  });
+}
+$("shadow-start").addEventListener("click", async () => {
+  $("shadow-start").disabled = true;
+  try {
+    const monitor = await api("/api/monitors", { job_id: state.job.id, candidate_id: $("shadow-candidate").value, interval_seconds: Number($("shadow-interval").value) });
+    $("shadow-message").textContent = "Monitor saved. Fresh evidence will accrue while this server runs.";
+    await selectMonitor(monitor.id, true); await shadowHistory();
+  } catch (error) { shadowError(error); }
+  finally { shadowCandidates(); }
+});
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; await history(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; await history(); await shadowHistory(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {
@@ -212,6 +276,8 @@ setInterval(async () => {
       const job = await api(`/api/jobs/${requestedId}`);
       if (state.job.id === requestedId && job.updated_at !== state.updated) { state.job = job; renderJob(); await history(); }
     }
+    await shadowHistory();
+    if (state.monitor) await selectMonitor(state.monitor.id);
     $("connection").replaceChildren();
   } catch (error) { $("connection").replaceChildren(notice(`Progress connection interrupted: ${error.message}. Retrying…`, true)); }
   finally { state.busy = false; }

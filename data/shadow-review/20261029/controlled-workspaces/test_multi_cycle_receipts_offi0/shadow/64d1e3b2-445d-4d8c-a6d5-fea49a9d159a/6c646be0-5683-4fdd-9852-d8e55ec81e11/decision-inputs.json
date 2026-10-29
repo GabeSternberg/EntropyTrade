@@ -1,0 +1,206 @@
+{
+  "acquisition_complete": true,
+  "bundle": {
+    "model_metadata": {
+      "original_metadata_hash": "sha256:883ddb2a10232f43e40e07dfc2b08d59cf54d81ca8d217081a330671cca81c7d"
+    },
+    "records": [],
+    "refusals": {
+      "forward_only": "No independent temporal training/validation history or matched outcomes"
+    },
+    "source_hash": "sha256:e0a27edb104d89dd758110230d9b3d631ebbd4fb45598ba22715da1791464b38"
+  },
+  "data": {
+    "data_kind": "real",
+    "dataset_version": "sha256:800c718651ea632fa469c29d56fd6813fd098d464339bb35bb7523b8a4c7973f",
+    "feature_definitions": {
+      "features": [
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "spot_usd",
+          "transformation": "Latest fresh Coinbase BTC-USD trade, available at receipt",
+          "unit": "USD",
+          "version": "1"
+        },
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "hours_to_close",
+          "transformation": "Actual market close minus decision time",
+          "unit": "hours",
+          "version": "1"
+        },
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "spot_minus_floor_usd",
+          "transformation": "Coinbase covariate minus actual strike floor; no outcome inference",
+          "unit": "USD",
+          "version": "1"
+        }
+      ],
+      "version": "public-forward-v1"
+    },
+    "feature_version": "sha256:b86e883156bc17d1ea9403cfeb6f75a94f9f3117f8c8878a1d09c9846718c35d",
+    "protected_events": [],
+    "provenance": {
+      "purpose": "shadow replay; targets withheld"
+    },
+    "samples": [
+      {
+        "book": null,
+        "close_time": "2026-10-26T00:00:00Z",
+        "decision_time": "2026-10-25T15:00:00Z",
+        "eligible": true,
+        "event_id": "KXBTC-26OCT25",
+        "family": "KXBTC",
+        "feature_hash": "sha256:bc7436a3b92831ce9312550c76ec046c5df4a498d0c36e4f116f08ca32cb37f0",
+        "features": {
+          "hours_to_close": "9.0",
+          "spot_minus_floor_usd": "1234.56",
+          "spot_usd": "101234.56"
+        },
+        "features_available_at": "2026-10-25T15:00:00Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": false,
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "target_date": "2026-10-26",
+        "ticker": "KXBTC-26OCT25-T100000",
+        "versions": {
+          "hours_to_close": "1",
+          "spot_minus_floor_usd": "1",
+          "spot_usd": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-26T00:00:00Z",
+        "decision_time": "2026-10-25T15:00:00Z",
+        "eligible": true,
+        "event_id": "KXBTC-26OCT25",
+        "family": "KXBTC",
+        "feature_hash": "sha256:ac24b5d5c27598f43cbaa883d4312622df6c4f326e77cf1db24d75603351ed64",
+        "features": {
+          "hours_to_close": "9.0",
+          "spot_minus_floor_usd": "1234.56",
+          "spot_usd": "101234.56"
+        },
+        "features_available_at": "2026-10-25T15:00:00Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": false,
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "target_date": "2026-10-26",
+        "ticker": "KXBTC-26OCT25-T100001",
+        "versions": {
+          "hours_to_close": "1",
+          "spot_minus_floor_usd": "1",
+          "spot_usd": "1"
+        }
+      }
+    ]
+  },
+  "fee": null,
+  "reservations": [],
+  "schema": "shadow-inputs-v1",
+  "spec": {
+    "assumptions": [
+      "The ask is the fill price and the position is held to settlement."
+    ],
+    "calibration": "none",
+    "citations": [],
+    "created_at": "2026-10-02T16:00:00Z",
+    "description": "Buy YES when the fixture model probability clears a threshold.",
+    "entry_rules": {
+      "all_of": [
+        {
+          "feature": "model_probability",
+          "op": "gt",
+          "threshold": "0.55"
+        }
+      ],
+      "description": "Model probability above a threshold."
+    },
+    "entry_window": {
+      "end": null,
+      "start": null,
+      "target_end": null,
+      "target_start": null
+    },
+    "evidence": [],
+    "execution": {
+      "max_spread": null,
+      "post_only": false,
+      "time_in_force": "fill_or_kill"
+    },
+    "exit_mode": "hold_to_settlement",
+    "exit_rules": {
+      "all_of": [
+        {
+          "feature": "hold_to_settlement",
+          "op": "eq",
+          "threshold": "1"
+        }
+      ],
+      "description": "Hold to settlement."
+    },
+    "features": [
+      {
+        "description": "Scripted probability, not a fitted model.",
+        "name": "model_probability",
+        "version": "fixture"
+      }
+    ],
+    "generated_by": {
+      "actor_id": "quant",
+      "kind": "agent"
+    },
+    "generation_run_id": "00000000-0000-4000-8000-000000000005",
+    "hedging_rules": "",
+    "hypothesis": "A model probability of 0.70 clears a 0.40 ask by more than the minimum edge.",
+    "invalidation_conditions": [
+      "The fixture probability is replaced by a live model."
+    ],
+    "market_universe": {
+      "description": "Philadelphia daily highs",
+      "event_tickers": [],
+      "market_tickers": [],
+      "series_tickers": [
+        "KXBTC"
+      ],
+      "venue": "kalshi"
+    },
+    "max_entry_price": null,
+    "maximum_holding_period_seconds": null,
+    "min_displayed_quantity": null,
+    "minimum_edge": "0.03",
+    "model_kind": "none",
+    "model_ref": null,
+    "name": "phl-probability-055",
+    "position_sizing": {
+      "contracts": "1.00",
+      "dollars": null,
+      "kelly_fraction": null,
+      "max_contracts": "1.00",
+      "method": "fixed_contracts"
+    },
+    "probability_feature": null,
+    "required_sources": [
+      "fixture"
+    ],
+    "risk_overrides_allowed": "none",
+    "side": "yes",
+    "slippage_allowance": "0",
+    "strategy_family": "informational",
+    "strategy_id": "phl-probability-055",
+    "uncertainty_allowance": "0",
+    "version": 1
+  }
+}

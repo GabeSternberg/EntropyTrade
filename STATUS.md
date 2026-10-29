@@ -1,9 +1,54 @@
 # EntropyTrade — current status
 
-Updated 2026-10-28. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-10-29. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Objective and checkpoint
+## Current milestone: continuous read-only shadow tracking
+
+Implemented on the designated `supervisor/20261029-001707` checkout at `1ed5522`,
+with no Git writes, credential access or supervisor-control changes. **V1 remains
+incomplete.** Bitcoin work is preserved as an optional adapter, not the mandatory second
+family. New family selection needs an evidence comparison and user approval. Authentic
+forward collection keeps its original clocks and frozen historical validation windows;
+independent product work does not wait for Bitcoin's future dates.
+
+The [continuous shadow workflow](docs/shadow-tracking.md) connects a frozen real research
+candidate to a durable scheduler, existing public capture/feature adapters, replay decision
+view, typed strategy interpreter and risk engine. SQLite stores lifecycle controls,
+append-only cycles, first-seen contract terms and later official binary outcomes. Cycles
+retain raw receipts, unsized listing quotes, features/versions, predictions or explicit
+model refusals, intended orders and risk checks when eligible, artifact/code hashes and
+deterministic decision digests. Browser UI exposes saved monitors, pause/resume, cycle
+decisions and evidence downloads. Restarts preserve completed results and reservations,
+interrupt unfinished cycles and collect fresh receipts. Failure backoff, bounded workers,
+five-failure pause and explicit workspace budgets are implemented.
+
+Existing forward adapters still lack fitted forward probabilities, certified fees and
+sized books. Actual forward decisions therefore block, with null probabilities/intents;
+eligible/risk-rejected intentions and reservations are verified with controlled fixtures
+only. There is no broker call, submission, fill, simulated P&L or profitability claim.
+Official binary results are never substituted for scalar source labels. This is an
+independently useful collection/audit milestone, not empirical model or V1 acceptance.
+
+Ruff lint/format and strict mypy (491 files) pass; **59 focused tests pass** (45 new shadow
+unit/integration checks plus 14 existing workbench boundary checks). All existing frontend
+presentation assertions and JavaScript syntax checks pass. The full suite stalled in the
+existing collector reconnect test; separate broader attempts also stalled in an existing
+gateway test and the offline R4 research workflow. Their diagnostic stacks are retained;
+no complete-suite pass is claimed and no existing test was changed or weakened.
+
+One actual recorded research → shadow subprocess probe completed the research step, then
+retained five clocked acquisition failures with zero HTTP receipts/contracts/observations.
+The normal four-minute worker deadline persisted a failed cycle and partial files; the
+monitor was explicitly paused. This verifies a real deadline/failure path, not successful
+ingestion or continuous operation. Full details are in the [milestone evidence](data/shadow-review/20261029/README.md).
+Playwright's supported Chromium install command succeeded, but its one launch attempt
+failed before page interaction: crashpad `setsockopt: Operation not permitted`, then
+`SIGTRAP`. Reports/trace are retained; no screenshot or browser acceptance pass is claimed.
+The executable real-listener/page-interaction procedure remains for supervisor/human
+acceptance in a permitted environment. No retry of the denied launch was made.
+
+## Previous checkpoint: October 28 history evidence
 
 **V1 and second-family empirical acceptance remain incomplete. Actual Bitcoin result
 reconciliation and retained-real-receipt browser acceptance now pass.** This continuation
@@ -155,10 +200,9 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Review [the executed real-data evidence and concrete blocker](data/bitcoin-history-review/20261029T001500Z/README.md).
-Choose whether to operate original forward capture and official-result reconciliation
-through the frozen fit/validation windows, or supply an independently retained archive
-for separate provenance review. Missing events/dates and the single outcome class cannot
-be repaired by later receipt backdating or moving protected boundaries. Stop here for
-that decision; further abstractions do not close the elapsed-history gap. Continuous
-paper/shadow and the final V1 matrix remain subsequent reviewed work.
+Supervisor review of the integrated [shadow milestone and executed limits](data/shadow-review/20261029/README.md),
+then run the supplied browser acceptance procedure with permitted sockets. Leave all Git
+operations to the supervisor and stop before another major milestone. Empirical modeling,
+certified forward scoring/depth/fees, an approved second-family decision and the independently
+verified V1 acceptance matrix remain open. Do not spend another autonomous phase waiting
+for Bitcoin history or move its frozen boundaries. No real strategy is approved.

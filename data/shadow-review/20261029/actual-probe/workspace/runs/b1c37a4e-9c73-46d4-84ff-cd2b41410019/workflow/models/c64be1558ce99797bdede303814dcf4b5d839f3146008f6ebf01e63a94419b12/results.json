@@ -1,0 +1,205 @@
+{
+  "claims": "Forecast evaluation only; no fills, fees, trading P&L or strategy promotion.",
+  "code": {
+    "__init__.py": "sha256:a54fb64ed2d814669b7e52c267d141ccd195a20eff930a415618ae97490d00ce",
+    "evaluation.py": "sha256:4c40c8a60f10a40b93fae86e7b8ab2ed73b1c036434e49ce81682842130a502b",
+    "experiment.py": "sha256:147676a49f71447c561d7dc3c505bf1acb58e1297c1826647f4d4b5c4a975dfd",
+    "models.py": "sha256:07540f1b143b75c0105afd5b06add7bcbb1c5e9d57fcf30621180717cabe6385",
+    "probability.py": "sha256:7fe938554695a93d6754f1a49bfd6ca68122c2195d2781481444e0b9fc68e4fe",
+    "synthetic.py": "sha256:dafcbbc028b13fb7676cf6e4769c1a3901affa8c4bc1580b7fc23a4161099c7c"
+  },
+  "config": {
+    "calibration": "none",
+    "evaluate_holdout": false,
+    "min_boosting_events": 200,
+    "min_calibration_events": 20,
+    "min_evaluation_events": 20,
+    "min_train_events": 60,
+    "raw_sigma_f": 3.0,
+    "seed": 17,
+    "walk_forward": true
+  },
+  "contracts": 36,
+  "coverage": {
+    "missing_features": {
+      "ensemble_mean_f": 36,
+      "ensemble_std_f": 36,
+      "forecast_high_f": 36,
+      "hours_to_close": 36,
+      "model_disagreement_f": 36,
+      "observed_temperature_f": 36,
+      "revision_f": 36,
+      "season_cos": 0,
+      "season_sin": 0,
+      "station_bias_f": 36
+    },
+    "missing_forecast_rows": 36,
+    "unknown_rule_rows": 36
+  },
+  "data_kind": "real",
+  "eligible_events": 0,
+  "feature_file_hash": "sha256:b9a2b2af080f25712e2582f5f639c80219835effa2917738217bd777f497388c",
+  "feature_rows": 36,
+  "feature_schema": {
+    "features": [
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "forecast_high_f",
+        "source_requirements": [
+          "forecast"
+        ],
+        "transformation": "mean of latest full-local-day hourly maximum proxies per provider/model",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "revision_f",
+        "source_requirements": [
+          "two distinct forecast vintages"
+        ],
+        "transformation": "mean latest minus preceding maximum per model; distinct receipt/revision required",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "model_disagreement_f",
+        "source_requirements": [
+          "two forecast models"
+        ],
+        "transformation": "population standard deviation of model maximum proxies",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_mean_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "mean member maxima",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_std_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "population member spread",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [
+          "forecast_high_f"
+        ],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "station_bias_f",
+        "source_requirements": [
+          "prior verified settlement highs"
+        ],
+        "transformation": "mean prior scalar target minus its frozen decision-time forecast",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "observed_temperature_f",
+        "source_requirements": [
+          "observed temperature"
+        ],
+        "transformation": "last observation valid and available by decision",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "hours_to_close",
+        "source_requirements": [
+          "contract rules"
+        ],
+        "transformation": "close minus decision",
+        "unit": "hour",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_sin",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual sine",
+        "unit": "dimensionless",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_cos",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual cosine",
+        "unit": "dimensionless",
+        "version": "1"
+      }
+    ],
+    "schema_version": "weather-features-v1"
+  },
+  "feature_version": "sha256:6f2e30de36a274fa221cd642646b471a6894389b2e69e0600db09095a7f1c931",
+  "holdout_evaluated": false,
+  "independent_date_blocks": 3,
+  "independent_events": 6,
+  "models": {},
+  "reason": "at least ten distinct event dates required for temporal evaluation",
+  "refusals": {
+    "boosting": "insufficient independent dates/known forecasts/source-matched labels",
+    "climatology": "insufficient independent dates/known forecasts/source-matched labels",
+    "forecast_error": "insufficient independent dates/known forecasts/source-matched labels",
+    "raw_forecast": "insufficient independent dates/known forecasts/source-matched labels",
+    "ridge": "insufficient independent dates/known forecasts/source-matched labels"
+  },
+  "run_id": "sha256:c64be1558ce99797bdede303814dcf4b5d839f3146008f6ebf01e63a94419b12",
+  "runtime": {
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pyarrow": "19.0.1",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "scikit-learn": "1.9.1"
+  },
+  "scalar_label_events": 0,
+  "source_dataset": "sha256:7be1ac67055e7abdc15bf90cdf093d257bde67f484440297add4428075c15b14",
+  "status": "insufficient_data",
+  "target_assumption": "distribution over source-reported integer Fahrenheit highs"
+}
