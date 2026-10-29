@@ -9,6 +9,23 @@ Implemented on the existing `supervisor/20261029-124902` checkout from `70cbc7a`
 No Git mutations, supervisor-control changes, real orders or credential access. The
 supervisor retains all commits/merges/pushes. **V1 remains incomplete.**
 
+The follow-up correction from `bd67f10` preserves supported legacy SQL NULL model bindings
+through offline snapshot/restore. It does not invent a binding from a model reference or
+export. New regressions migrate the old schema, compare logical rows and original evidence
+bytes/clocks, run normal startup recovery, resume monitoring and verify continued blocked
+scoring/replay. Malformed non-null bindings, including JSON `null`, remain refused before
+publishing a snapshot or restored workspace.
+
+**34 recovery tests and 291 focused tests pass** (three asynchronous experiment workflows
+explicitly deselected), with Ruff lint/format, strict mypy (499 files), 12 frontend assertions
+and recovery Playwright syntax/discovery checks. See [correction evidence](data/local-operation-review/20261029-legacy-null-binding/README.md).
+These are controlled software checks in the existing environment, not a new clean install,
+real-data capture or browser pass. The earlier Chromium launch denial and full-suite stall
+remain unresolved; neither was repeated. The default acceptance driver still needs to run
+in a permitted environment. No next major phase is started.
+
+### Earlier local recovery evidence, before the legacy NULL correction
+
 [Offline workspace snapshot/restore](docs/local-recovery.md) preserves jobs, the shared
 lineage registry, frozen model/spec bindings and all run/shadow bytes. It requires the
 exclusive server lease, snapshots SQLite consistently and verifies hashes, schemas,
@@ -18,7 +35,7 @@ are refused. Workers inherit the lease so a parent crash cannot permit a concurr
 snapshot or server while an old worker is still writing. Restore does not backfill missed
 receipts or change frozen Bitcoin boundaries.
 
-**23 new recovery regressions pass.** A fresh locked offline installation, with the final
+**23 original recovery regressions pass.** A fresh locked offline installation, with the final
 CLI correction applied and reverified, passes Ruff lint/format, strict mypy (499 files),
 pinned npm setup and all 12 named frontend checks. **280 focused tests pass, three asynchronous experiment
 workflows explicitly deselected**; these cover recovery, shadow/model/risk boundaries,

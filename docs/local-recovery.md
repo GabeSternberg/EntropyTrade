@@ -46,6 +46,16 @@ SQLite backup/open may change database file layout/journal mode; logical rows an
 evidence bytes are the preservation contract. Embedded absolute lineage paths remain the
 original recorded values; this is not a migration of an external MLflow installation.
 
+Legacy monitors already migrated by the tracking store may have a SQL NULL model binding.
+Recovery preserves that NULL exactly, even if a model reference/export exists; it never
+creates a binding or enables scoring. Normal startup recovery and resume retain the
+`No frozen model binding` refusal. Non-null malformed values (including JSON `null`),
+bad binding hashes and inconsistent bound/blocked models remain rejected. The
+[controlled correction regressions](../data/local-operation-review/20261029-legacy-null-binding/README.md)
+verify original logical rows, evidence bytes and clocks, startup interruption/fresh-cycle
+recovery, resumed scoring refusal and JSON decision replay. These checks do not pass the
+outstanding browser or full-suite acceptance steps below.
+
 The [executed proof in the locked installation](../data/local-operation-review/fresh-authentic-current-source/verification.json)
 restores one real research run, one paused monitor and two authentic completed cycles.
 The installed CLI round trip and both 24-decision cycle replays pass. The original artifact hashes, database rows,

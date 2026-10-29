@@ -1,0 +1,22 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collected 294 items / 3 deselected / 291 selected
+
+backend/tests/unit/test_workspace_recovery.py .......................... [  8%]
+........                                                                 [ 11%]
+backend/tests/unit/test_tracking.py .................................... [ 24%]
+........................................................................ [ 48%]
+.......................................................                  [ 67%]
+backend/tests/unit/test_tracking_models.py ............................. [ 77%]
+.................                                                        [ 83%]
+backend/tests/unit/test_workbench_http.py ..............                 [ 88%]
+backend/tests/integration/test_shadow_tracking.py ...                    [ 89%]
+backend/tests/unit/test_experiments_r4.py ...............                [ 94%]
+backend/tests/unit/test_execution_r4.py .............                    [ 98%]
+backend/tests/unit/test_submit_gate.py ...                               [100%]
+
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-legacy-null-binding/focused.xml -
+====================== 291 passed, 3 deselected in 18.13s ======================

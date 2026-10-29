@@ -16,10 +16,14 @@ from entropytrade.api.jobs import Jobs
 from entropytrade.api.recovery import restore, snapshot
 from entropytrade.api.workspace import workspace_lease
 from entropytrade.data.sources import file_hash
+from entropytrade.domain.strategy import StrategySpec
+from entropytrade.features.registry import scientific_hash
 from entropytrade.tracking.evaluate import evaluate
+from entropytrade.tracking.models import score
+from entropytrade.tracking.replay import decision_inputs, reproduce
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.tracking.worker import reservations
-from tests.unit.test_tracking import monitor, ready
+from tests.unit.test_tracking import forbid_shadow_execution, monitor, ready
 from tests.unit.test_tracking_models import inputs, saved_model
 
 
@@ -119,7 +123,106 @@ def test_snapshot_restore_preserves_models_bytes_reservations_and_recovers_fresh
     assert store.get(paused, export=True) == original
 
 
-def rewrite(archive: Path, output: Path, change: str) -> None:
+def test_migrated_legacy_null_bindings_survive_recovery_without_enabling_scoring(
+    repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store, paused, active, unfinished = populated(repo)
+    # Recreate the supported schema before frozen bindings existed, keeping the
+    # model reference/export and completed/partial evidence already on disk.
+    with store.jobs.connect() as db:
+        db.execute("ALTER TABLE monitors DROP COLUMN model_binding")
+        legacy = [dict(row) for row in db.execute("SELECT * FROM monitors ORDER BY id")]
+
+    def unexpected(*_args: Any, **_kwargs: Any) -> None:
+        pytest.fail("legacy recovery must not invent a model binding")
+
+    monkeypatch.setattr("entropytrade.tracking.store.freeze_binding", unexpected)
+    forbid_shadow_execution(monkeypatch)
+    migrated = TrackingStore(store.jobs)
+    with migrated.jobs.connect() as db:
+        assert [dict(row) for row in db.execute("SELECT * FROM monitors ORDER BY id")] == [
+            {**row, "model_binding": None} for row in legacy
+        ]
+        original_sql = list(db.iterdump())
+    original = migrated.get(paused, export=True)
+    original_active = migrated.get(active, export=True)
+    assert original is not None
+    assert original_active is not None
+    assert original["spec"]["model_ref"] is not None
+    assert list((store.jobs.root / "runs").rglob("*.forward.json"))
+    files = {
+        p.relative_to(store.jobs.root): p.read_bytes()
+        for folder in ("runs", "shadow")
+        for p in (store.jobs.root / folder).rglob("*")
+        if p.is_file()
+    }
+    _, data, markets, _model = inputs()
+    _, _, _, fee = ready()
+
+    def assert_blocked(value: dict[str, Any]) -> None:
+        assert value["model_binding"] is None
+        spec = StrategySpec.model_validate(value["spec"])
+        bundle = score(spec, data, value["model_binding"], markets)
+        assert bundle.records == ()
+        assert bundle.refusals == {"model": "No frozen model binding"}
+        rows = evaluate(spec, data, bundle, fee=fee)
+        assert len(rows) == 1
+        assert rows[0]["status"] == "blocked"
+        assert rows[0]["prediction"] is rows[0]["intent"] is rows[0]["risk"] is None
+        assert "point_in_time_prediction" in rows[0]["reasons"]
+        replay = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+        assert reproduce(replay) == rows
+
+    assert_blocked(original)
+    archive = repo / "legacy.zip"
+    assert snapshot(repo, store.jobs.root, archive)["monitors"] == 2
+    archive_hash = file_hash(archive)
+    destination = repo / "data/cache/legacy-restored"
+    assert restore(repo, archive, destination)["archive_sha256"] == archive_hash
+    reopened = TrackingStore(Jobs(destination))
+    with reopened.jobs.connect() as db:
+        assert list(db.iterdump()) == original_sql
+    assert reopened.get(paused, export=True) == original
+    assert reopened.get(active, export=True) == original_active
+    assert all((destination / name).read_bytes() == content for name, content in files.items())
+
+    # These are the same recovery calls used at server startup, without a listener.
+    reopened.jobs.recover()
+    reopened.recover()
+    current = reopened.get(paused, export=True)
+    assert current == original
+    assert_blocked(current)
+    recovered = reopened.get(active, export=True)
+    assert recovered is not None
+    assert {k: v for k, v in recovered.items() if k not in {"cycles", "events"}} == {
+        k: v for k, v in original_active.items() if k not in {"cycles", "events"}
+    }
+    assert recovered["events"][:-1] == original_active["events"]
+    assert recovered["cycles"][0]["status"] == "interrupted"
+    assert recovered["cycles"][0]["started_at"] == original_active["cycles"][0]["started_at"]
+    assert reopened.jobs.get(unfinished)["status"] == "interrupted"  # type: ignore[index]
+    reopened.jobs.recover()
+    reopened.recover()
+    assert reopened.get(active, export=True) == recovered
+    fresh = reopened.claim()
+    assert fresh is not None
+    assert fresh[0] == active
+    assert fresh[1] != original_active["cycles"][0]["id"]
+    assert not (destination / "shadow" / active / fresh[1]).exists()
+    reopened.control(paused, "resume")
+    resumed = reopened.get(paused, export=True)
+    assert resumed is not None
+    assert resumed["status"] == "active"
+    assert_blocked(resumed)
+    with reopened.jobs.connect() as db:
+        assert all(row[0] is None for row in db.execute("SELECT model_binding FROM monitors"))
+    assert all((destination / name).read_bytes() == content for name, content in files.items())
+    with store.jobs.connect() as db:
+        assert list(db.iterdump()) == original_sql
+    assert file_hash(archive) == archive_hash
+
+
+def rewrite(archive: Path, output: Path, change: str, *, model_binding: str = "{}") -> None:
     with ZipFile(archive) as source:
         contents = {n: source.read(n) for n in source.namelist()}
     manifest: dict[str, Any] = json.loads(contents["manifest.json"])
@@ -136,7 +239,7 @@ def rewrite(archive: Path, output: Path, change: str) -> None:
         db_file.write_bytes(contents["files/jobs.sqlite"])
         with sqlite3.connect(db_file) as db:
             if change == "binding":
-                db.execute("UPDATE monitors SET model_binding='{}'")
+                db.execute("UPDATE monitors SET model_binding=?", (model_binding,))
             elif change == "spec":
                 db.execute("UPDATE monitors SET spec_hash='tampered'")
             elif change == "cycle":
@@ -206,6 +309,39 @@ def test_corrupt_incomplete_or_unsafe_restore_never_publishes(repo: Path, change
     assert not destination.exists()
     assert not list(destination.parent.glob(".restore-*"))
     assert not (repo / "data/escape").exists()
+
+
+@pytest.mark.parametrize(
+    "value",
+    ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+)
+def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+    repo: Path, value: str
+) -> None:
+    store, _paused, _active, _unfinished = populated(repo)
+    archive = repo / "valid.zip"
+    snapshot(repo, store.jobs.root, archive)
+    if value in {"invalid-status", "blocked-snapshot"}:
+        binding: dict[str, Any] = {
+            "status": "invalid" if value == "invalid-status" else "blocked",
+            "snapshot": None if value == "invalid-status" else {},
+        }
+        binding["binding_hash"] = scientific_hash(binding)
+        value = json.dumps(binding)
+    corrupt = repo / "malformed-binding.zip"
+    rewrite(archive, corrupt, "binding", model_binding=value)
+    destination = repo / "data/cache/refused-binding"
+    with pytest.raises(ValueError, match=r"binding|Expecting"):
+        restore(repo, corrupt, destination)
+    assert not destination.exists()
+    assert not list(destination.parent.glob(".restore-*"))
+    with store.jobs.connect() as db:
+        db.execute("UPDATE monitors SET model_binding=?", (value,))
+    refused = repo / "refused-binding.zip"
+    with pytest.raises(ValueError, match=r"binding|Expecting"):
+        snapshot(repo, store.jobs.root, refused)
+    assert not refused.exists()
+    assert not list(repo.glob(".snapshot-*"))
 
 
 def test_lock_no_overwrite_symlinks_and_missing_source_fail_closed(repo: Path) -> None:

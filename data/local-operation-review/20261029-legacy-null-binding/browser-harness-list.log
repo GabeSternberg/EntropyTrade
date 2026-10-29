@@ -1,0 +1,3 @@
+Listing tests:
+  recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle
+Total: 1 test in 1 file

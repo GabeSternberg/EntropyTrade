@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collected 34 items
+
+backend/tests/unit/test_workspace_recovery.py .......................... [ 76%]
+........                                                                 [100%]
+
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/local-operation-review/20261029-legacy-null-binding/recovery.xml -
+============================= 34 passed in 11.74s ==============================

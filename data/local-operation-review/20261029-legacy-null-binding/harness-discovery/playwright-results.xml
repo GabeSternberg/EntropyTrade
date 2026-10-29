@@ -1,0 +1,8 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="1" errors="0" time="0.06544299999999999">
+<testsuite name="recovery.spec.cjs" timestamp="2026-10-29T17:45:41.725Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,0 +1,96 @@
+{
+  "recorded_at": "2026-10-29T17:48:05.382524+00:00",
+  "scope": "CONTROLLED legacy SQL NULL binding snapshot/restore correction; existing environment",
+  "complete": false,
+  "junit_results": {
+    "before-fix": {
+      "tests": 11,
+      "failures": 6,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "7.084",
+      "exit_code": 1
+    },
+    "recovery": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "11.712",
+      "exit_code": 0
+    },
+    "focused": {
+      "tests": 291,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": "18.062",
+      "exit_code": 0
+    }
+  },
+  "focused_deselected": [
+    "backend/tests/unit/test_experiments_r4.py::test_real_workflow_has_only_insufficient_or_unsupported_results",
+    "backend/tests/unit/test_experiments_r4.py::test_synthetic_end_to_end_has_models_fills_rejections_and_artifacts",
+    "backend/tests/unit/test_experiments_r4.py::test_same_research_replays_reproducibly"
+  ],
+  "other_checks": [
+    {
+      "command": ".venv/bin/ruff check backend tools",
+      "exit_code": 0,
+      "log": "ruff.log"
+    },
+    {
+      "command": ".venv/bin/ruff format --check backend tools",
+      "exit_code": 0,
+      "log": "format.log"
+    },
+    {
+      "command": "timeout 90s .venv/bin/python -m mypy",
+      "exit_code": 0,
+      "log": "mypy.log"
+    },
+    {
+      "command": "node frontend/tests/acquisition.test.cjs",
+      "exit_code": 0,
+      "named_tests": 12,
+      "log": "frontend.log"
+    },
+    {
+      "command": "node --check frontend/browser/recovery.spec.cjs && node --check frontend/browser/playwright.config.cjs",
+      "exit_code": 0,
+      "log": "browser-syntax.log"
+    },
+    {
+      "command": "ENTROPYTRADE_BROWSER_EVIDENCE=$PWD/data/local-operation-review/20261029-legacy-null-binding/harness-discovery node frontend/browser/node_modules/@playwright/test/cli.js test --config frontend/browser/playwright.config.cjs recovery.spec.cjs --list",
+      "exit_code": 0,
+      "log": "browser-harness-list.log",
+      "browser_launched": false
+    }
+  ],
+  "source_sha256_at_recording": {
+    "backend/src/entropytrade/api/recovery.py": "sha256:9f2df0ef89ef56b250f37a3a5d73c9fd6189b36fc13e48be516de7756726051a",
+    "backend/tests/unit/test_workspace_recovery.py": "sha256:6c5ef90d9f05a7852c60354aa1a874996adad624d82020c8dc43b5fbcbe73ae6",
+    "backend/src/entropytrade/tracking/store.py": "sha256:e01ebca70a9d99995158cdd63a00ca70f1d38a405c16d16626f8ff6ce04ce0cd",
+    "backend/src/entropytrade/tracking/models.py": "sha256:3f541fff69c30b32c8db7e68309fbb934f256d5b829d1c0803240463a1e9c1b6",
+    "backend/src/entropytrade/tracking/evaluate.py": "sha256:347d4e2c76acdd5d5a07f16d7185a611863f8e75456cd16744704df3869370be",
+    "frontend/tests/acquisition.test.cjs": "sha256:97a92658892c6985fe6ce89ad309c92404a34c278d73ff51ca8c14e8c600ac16",
+    "frontend/browser/recovery.spec.cjs": "sha256:069db89deb4a71c21cbcca120dee2aeb087a4116c4ce53b1daae45bd72f0f9b0",
+    "frontend/browser/playwright.config.cjs": "sha256:876db9f43a1d9b5c5f07f3cd443eb5fa304a60907efedd6530e44db06e845043",
+    "STATUS.md": "sha256:10c56ac1b41103ea89495ca58e984a0b68c5f7628e1d54c7d408501d1313f661",
+    "docs/roadmap.md": "sha256:b4902cea6774057338d2bf0ee1fa85a78ba6d8c405b30e627302cb303f4d0b31",
+    "docs/local-recovery.md": "sha256:0f9b94f0d5b40e09dc91c76e55b6dd1d9bb63a7c9cdfe38b74a28cb0d5ab730b",
+    "docs/v1_acceptance.md": "sha256:d45968e19195c33224cf76daf98a55565a1fe41c4dac9f9713ce6d8107d737bc",
+    "data/local-operation-review/README.md": "sha256:18bf50513a0b4ad9c8ed197ac4b29b6e7d5401d356ea24c1e26ea406269fe7c3",
+    "pyproject.toml": "sha256:217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+    "uv.lock": "sha256:dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+  },
+  "limits": {
+    "fresh_install_executed": false,
+    "real_data_capture_executed": false,
+    "browser_launch_executed": false,
+    "browser_acceptance": "unresolved: prior managed Chromium launch failed setsockopt Operation not permitted (1), SIGTRAP before page/listener interaction; not repeated",
+    "full_suite_executed": false,
+    "full_suite_acceptance": "unresolved: prior collector reconnect stall, 120-second deadline exit 124; not repeated",
+    "human_step": "Run default tools/local_acceptance.py in a permitted environment; inspect real browser artifacts and complete suite; independently cross-check docs/v1_acceptance.md"
+  }
+}

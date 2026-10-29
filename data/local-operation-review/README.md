@@ -1,6 +1,11 @@
 # Local operation and recovery — October 29, 2026
 
 **Implemented; browser/full-suite acceptance incomplete; V1 complete=false.**
+The subsequent [legacy SQL NULL binding correction](20261029-legacy-null-binding/README.md)
+passes 291 focused tests, including 34 recovery cases, and static/frontend checks. It
+preserves the outstanding browser/full-suite acceptance steps; the evidence below predates
+that correction.
+
 Work stayed on designated `supervisor/20261029-124902` from `70cbc7a`. No Git mutation,
 real orders, credential access, risk-cap change, source backfill or new market family.
 

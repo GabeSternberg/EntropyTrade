@@ -1,0 +1,20 @@
+{
+  "README.md": "sha256:bda5b25d743ff12c936d615634021744b3908c408cbfc99badfae2bdb2463875",
+  "before-fix.log": "sha256:160cb49063c5d58b35da993df9e9887213c9b43582bf7e1ffe5a1e6da31d7157",
+  "before-fix.xml": "sha256:c4c1d036a2f3096c535484cd9a33bf37a07ed269bfb9806194cfe556b0cb3d1d",
+  "browser-harness-list.log": "sha256:a4bf20ba4ebac0c30e6db081ee67ce52feb42afc598bcd0134c3eaed0809f05c",
+  "browser-syntax.log": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "focused.log": "sha256:103640d50f782b3286602af2b0785bdea238261c4e8a5120294a916721e756bc",
+  "focused.xml": "sha256:db5c5c0ce07605f40093bd53c3097b7e2ba5c8e5ef5f56a4516629fc2853d5ef",
+  "format.log": "sha256:e78b236fa3cab6f7380fe219e08e13eb0da5d0c0ad8058f7cc7a1f2146eeb955",
+  "frontend-missing-path.log": "sha256:d0f02a19edb5ca7e0aff2d409519018ca1945c5e4cd38aeacde06b90ca1957f8",
+  "frontend-wrapper.log": "sha256:bdcb688723dc75f2840e8585c519885b5c34add753e14d719e5021820a69c147",
+  "frontend.log": "sha256:11a484f0b1ff8fdb454d8a741ed4ca1d15212ec0e353a035dbae4c096dbc04a3",
+  "harness-discovery/playwright-results.json": "sha256:4991780ea04129dd3e16bfb7a957c2debb5e1c87a8591ac8d92561a07b268f36",
+  "harness-discovery/playwright-results.xml": "sha256:a264724f7312d19b5139a84ed5e9ce7999cfa1cfdba9b26d10a925b1dd866fd9",
+  "mypy.log": "sha256:0245f9a3206bd1ef4d4d9d9118bc1d88876486ced945a3c56e60be441c1f8cb5",
+  "recovery.log": "sha256:898a1c51771cf025c656ada1a0b4d9277007f2d28ce9ede7dc900436fa3168a8",
+  "recovery.xml": "sha256:4de96984e7d478e74a1dad91fc2565e07d049ce98a4318af035c84dbf8015caa",
+  "ruff.log": "sha256:82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+  "verification.json": "sha256:a50ef7bc45508151222ad117917a8e59a017b0d0140ae5015efd312d172a61ad"
+}

@@ -16,7 +16,15 @@ and inherited worker leases prevent concurrent maintenance. Frozen model binding
 reservations, paused states, original clocks and active-monitor recovery have controlled
 regressions; two authentic retained cycles also restore and replay identically offline.
 
-Final-source locked offline setup, Ruff/format, strict mypy, frontend checks and 280 focused
+The legacy-binding follow-up preserves migrated SQL NULL bindings through snapshot/restore,
+startup recovery and resume, leaving scoring blocked even when a model export is present.
+Malformed non-null bindings remain refused. Its [controlled evidence](../data/local-operation-review/20261029-legacy-null-binding/README.md)
+passes 34 recovery cases and 291 focused tests (three workflow cases deselected), Ruff,
+strict mypy and 12 frontend assertions. Browser harness discovery passes; actual browser
+and complete-suite acceptance remain unresolved, with no repeated denied launch or stalled
+full-suite attempt and no fresh-install claim for this correction.
+
+The prior milestone's locked offline setup, Ruff/format, strict mypy, frontend checks and 280 focused
 tests pass (three asynchronous experiment workflows explicitly deselected). The new actual
 Chromium recovery procedure is **not accepted**: the supported installer succeeds, but
 launch fails with `setsockopt: Operation not permitted (1)` before page interaction. The

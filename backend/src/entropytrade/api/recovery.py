@@ -193,7 +193,13 @@ def validate_database(root: Path) -> dict[str, int]:
             spec = StrategySpec.model_validate_json(monitor["spec"])
             if spec.spec_hash() != monitor["spec_hash"]:
                 raise ValueError("restored strategy hash mismatch")
+            if monitor["model_binding"] is None:
+                # The store's legacy migration leaves SQL NULL unbound. Preserve it;
+                # scoring still refuses it, and recovery must never freeze a model.
+                continue
             binding = json.loads(monitor["model_binding"])
+            if not isinstance(binding, dict):
+                raise ValueError("invalid restored model binding")
             if scientific_hash(
                 {k: v for k, v in binding.items() if k != "binding_hash"}
             ) != binding.get("binding_hash"):

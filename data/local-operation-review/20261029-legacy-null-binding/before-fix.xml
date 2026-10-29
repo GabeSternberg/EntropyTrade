@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="11" time="7.084" timestamp="2026-10-29T13:43:29.300535-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_migrated_legacy_null_bindings_survive_recovery_without_enabling_scoring" time="0.271"><failure message="TypeError: the JSON object must be str, bytes or bytearray, not NoneType">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_migrated_legacy_null_bind0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x703f5e7768d0&gt;
+
+    def test_migrated_legacy_null_bindings_survive_recovery_without_enabling_scoring(
+        repo: Path, monkeypatch: pytest.MonkeyPatch
+    ) -&gt; None:
+        store, paused, active, unfinished = populated(repo)
+        # Recreate the supported schema before frozen bindings existed, keeping the
+        # model reference/export and completed/partial evidence already on disk.
+        with store.jobs.connect() as db:
+            db.execute("ALTER TABLE monitors DROP COLUMN model_binding")
+            legacy = [dict(row) for row in db.execute("SELECT * FROM monitors ORDER BY id")]
+    
+        def unexpected(*_args: Any, **_kwargs: Any) -&gt; None:
+            pytest.fail("legacy recovery must not invent a model binding")
+    
+        monkeypatch.setattr("entropytrade.tracking.store.freeze_binding", unexpected)
+        forbid_shadow_execution(monkeypatch)
+        migrated = TrackingStore(store.jobs)
+        with migrated.jobs.connect() as db:
+            assert [dict(row) for row in db.execute("SELECT * FROM monitors ORDER BY id")] == [
+                {**row, "model_binding": None} for row in legacy
+            ]
+            original_sql = list(db.iterdump())
+        original = migrated.get(paused, export=True)
+        original_active = migrated.get(active, export=True)
+        assert original is not None and original_active is not None
+        assert original["spec"]["model_ref"] is not None
+        assert list((store.jobs.root / "runs").rglob("*.forward.json"))
+        files = {
+            p.relative_to(store.jobs.root): p.read_bytes()
+            for folder in ("runs", "shadow")
+            for p in (store.jobs.root / folder).rglob("*")
+            if p.is_file()
+        }
+        _, data, markets, _model = inputs()
+        _, _, _, fee = ready()
+    
+        def assert_blocked(value: dict[str, Any]) -&gt; None:
+            assert value["model_binding"] is None
+            spec = StrategySpec.model_validate(value["spec"])
+            bundle = score(spec, data, value["model_binding"], markets)
+            assert bundle.records == ()
+            assert bundle.refusals == {"model": "No frozen model binding"}
+            rows = evaluate(spec, data, bundle, fee=fee)
+            assert len(rows) == 1
+            assert rows[0]["status"] == "blocked"
+            assert rows[0]["prediction"] is rows[0]["intent"] is rows[0]["risk"] is None
+            assert "point_in_time_prediction" in rows[0]["reasons"]
+            assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
+    
+        assert_blocked(original)
+        archive = repo / "legacy.zip"
+&gt;       assert snapshot(repo, store.jobs.root, archive)["monitors"] == 2
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/unit/test_workspace_recovery.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:304: in snapshot
+    counts = validate_database(payload)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:196: in validate_database
+    binding = json.loads(monitor["model_binding"])
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+s = None, cls = None, object_hook = None, parse_float = None, parse_int = None
+parse_constant = None, object_pairs_hook = None, kw = {}
+
+    def loads(s, *, cls=None, object_hook=None, parse_float=None,
+            parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+        """Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
+        containing a JSON document) to a Python object.
+    
+        ``object_hook`` is an optional function that will be called with the
+        result of any object literal decode (a ``dict``). The return value of
+        ``object_hook`` will be used instead of the ``dict``. This feature
+        can be used to implement custom decoders (e.g. JSON-RPC class hinting).
+    
+        ``object_pairs_hook`` is an optional function that will be called with the
+        result of any object literal decoded with an ordered list of pairs.  The
+        return value of ``object_pairs_hook`` will be used instead of the ``dict``.
+        This feature can be used to implement custom decoders.  If ``object_hook``
+        is also defined, the ``object_pairs_hook`` takes priority.
+    
+        ``parse_float``, if specified, will be called with the string
+        of every JSON float to be decoded. By default this is equivalent to
+        float(num_str). This can be used to use another datatype or parser
+        for JSON floats (e.g. decimal.Decimal).
+    
+        ``parse_int``, if specified, will be called with the string
+        of every JSON int to be decoded. By default this is equivalent to
+        int(num_str). This can be used to use another datatype or parser
+        for JSON integers (e.g. float).
+    
+        ``parse_constant``, if specified, will be called with one of the
+        following strings: -Infinity, Infinity, NaN.
+        This can be used to raise an exception if invalid JSON numbers
+        are encountered.
+    
+        To use a custom ``JSONDecoder`` subclass, specify it with the ``cls``
+        kwarg; otherwise ``JSONDecoder`` is used.
+        """
+        if isinstance(s, str):
+            if s.startswith('\ufeff'):
+                raise JSONDecodeError("Unexpected UTF-8 BOM (decode using utf-8-sig)",
+                                      s, 0)
+        else:
+            if not isinstance(s, (bytes, bytearray)):
+&gt;               raise TypeError(f'the JSON object must be str, bytes or bytearray, '
+                                f'not {s.__class__.__name__}')
+E               TypeError: the JSON object must be str, bytes or bytearray, not NoneType
+
+/usr/lib/python3.12/json/__init__.py:339: TypeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[]" time="0.291" /><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[null]" time="0.258"><failure message="AttributeError: 'NoneType' object has no attribute 'items'">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin1')
+value = 'null'
+
+    @pytest.mark.parametrize(
+        "value",
+        ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+    )
+    def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+        repo: Path, value: str
+    ) -&gt; None:
+        store, _paused, _active, _unfinished = populated(repo)
+        archive = repo / "valid.zip"
+        snapshot(repo, store.jobs.root, archive)
+        if value in {"invalid-status", "blocked-snapshot"}:
+            binding: dict[str, Any] = {
+                "status": "invalid" if value == "invalid-status" else "blocked",
+                "snapshot": None if value == "invalid-status" else {},
+            }
+            binding["binding_hash"] = scientific_hash(binding)
+            value = json.dumps(binding)
+        corrupt = repo / "malformed-binding.zip"
+        rewrite(archive, corrupt, "binding", model_binding=value)
+        destination = repo / "data/cache/refused-binding"
+        with pytest.raises(ValueError):
+&gt;           restore(repo, corrupt, destination)
+
+backend/tests/unit/test_workspace_recovery.py:331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:421: in restore
+    counts = unpack(repo, archive, stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:405: in unpack
+    counts = validate_database(stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin1/data/cache/.restore-2gp4w8pc/workspace')
+
+    def validate_database(root: Path) -&gt; dict[str, int]:
+        """Read-only schema, references and content validation; no migration or clock changes."""
+        db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+        db.row_factory = sqlite3.Row
+        try:
+            db.execute("PRAGMA trusted_schema=OFF")
+            objects = db.execute(
+                "SELECT type, name FROM sqlite_master WHERE type != 'index'"
+            ).fetchall()
+            if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+                raise ValueError("unsupported or incomplete workspace database schema")
+            for table, columns in TABLES.items():
+                if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+                    raise ValueError("unsupported workspace database columns")
+            if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
+                raise ValueError("corrupt workspace database")
+            jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
+            reviews = []
+            for job_id, job in jobs.items():
+                validate_request(json.loads(job["request"]))
+                if job["status"] not in {
+                    "queued",
+                    "running",
+                    "completed",
+                    "failed",
+                    "cancelled",
+                    "interrupted",
+                }:
+                    raise ValueError("invalid restored job state")
+                if job["status"] == "completed" and job["result"] is None:
+                    raise ValueError("completed job has no result")
+                if job["result"] is not None:
+                    result = json.loads(job["result"])
+                    check_artifacts(root / "runs" / job_id / "workflow", result.get("artifacts", []))
+                    if result.get("schema") == "workbench-review-v1":
+                        reviews.append(result)
+                        review = root / "runs" / job_id / "review.json"
+                        if not review.is_file() or json.loads(review.read_text()) != result:
+                            raise ValueError("missing or inconsistent research review")
+            validate_registry(root, reviews)
+            monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+            for monitor in monitors.values():
+                if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+                    raise ValueError("invalid restored monitor reference/state")
+                spec = StrategySpec.model_validate_json(monitor["spec"])
+                if spec.spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("restored strategy hash mismatch")
+                binding = json.loads(monitor["model_binding"])
+                if scientific_hash(
+&gt;                   {k: v for k, v in binding.items() if k != "binding_hash"}
+                                      ^^^^^^^^^^^^^
+                ) != binding.get("binding_hash"):
+E               AttributeError: 'NoneType' object has no attribute 'items'
+
+backend/src/entropytrade/api/recovery.py:198: AttributeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[false]" time="0.246"><failure message="AttributeError: 'bool' object has no attribute 'items'">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin2')
+value = 'false'
+
+    @pytest.mark.parametrize(
+        "value",
+        ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+    )
+    def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+        repo: Path, value: str
+    ) -&gt; None:
+        store, _paused, _active, _unfinished = populated(repo)
+        archive = repo / "valid.zip"
+        snapshot(repo, store.jobs.root, archive)
+        if value in {"invalid-status", "blocked-snapshot"}:
+            binding: dict[str, Any] = {
+                "status": "invalid" if value == "invalid-status" else "blocked",
+                "snapshot": None if value == "invalid-status" else {},
+            }
+            binding["binding_hash"] = scientific_hash(binding)
+            value = json.dumps(binding)
+        corrupt = repo / "malformed-binding.zip"
+        rewrite(archive, corrupt, "binding", model_binding=value)
+        destination = repo / "data/cache/refused-binding"
+        with pytest.raises(ValueError):
+&gt;           restore(repo, corrupt, destination)
+
+backend/tests/unit/test_workspace_recovery.py:331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:421: in restore
+    counts = unpack(repo, archive, stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:405: in unpack
+    counts = validate_database(stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin2/data/cache/.restore-ld7sbeub/workspace')
+
+    def validate_database(root: Path) -&gt; dict[str, int]:
+        """Read-only schema, references and content validation; no migration or clock changes."""
+        db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+        db.row_factory = sqlite3.Row
+        try:
+            db.execute("PRAGMA trusted_schema=OFF")
+            objects = db.execute(
+                "SELECT type, name FROM sqlite_master WHERE type != 'index'"
+            ).fetchall()
+            if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+                raise ValueError("unsupported or incomplete workspace database schema")
+            for table, columns in TABLES.items():
+                if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+                    raise ValueError("unsupported workspace database columns")
+            if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
+                raise ValueError("corrupt workspace database")
+            jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
+            reviews = []
+            for job_id, job in jobs.items():
+                validate_request(json.loads(job["request"]))
+                if job["status"] not in {
+                    "queued",
+                    "running",
+                    "completed",
+                    "failed",
+                    "cancelled",
+                    "interrupted",
+                }:
+                    raise ValueError("invalid restored job state")
+                if job["status"] == "completed" and job["result"] is None:
+                    raise ValueError("completed job has no result")
+                if job["result"] is not None:
+                    result = json.loads(job["result"])
+                    check_artifacts(root / "runs" / job_id / "workflow", result.get("artifacts", []))
+                    if result.get("schema") == "workbench-review-v1":
+                        reviews.append(result)
+                        review = root / "runs" / job_id / "review.json"
+                        if not review.is_file() or json.loads(review.read_text()) != result:
+                            raise ValueError("missing or inconsistent research review")
+            validate_registry(root, reviews)
+            monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+            for monitor in monitors.values():
+                if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+                    raise ValueError("invalid restored monitor reference/state")
+                spec = StrategySpec.model_validate_json(monitor["spec"])
+                if spec.spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("restored strategy hash mismatch")
+                binding = json.loads(monitor["model_binding"])
+                if scientific_hash(
+&gt;                   {k: v for k, v in binding.items() if k != "binding_hash"}
+                                      ^^^^^^^^^^^^^
+                ) != binding.get("binding_hash"):
+E               AttributeError: 'bool' object has no attribute 'items'
+
+backend/src/entropytrade/api/recovery.py:198: AttributeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[0]" time="0.251"><failure message="AttributeError: 'int' object has no attribute 'items'">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin3')
+value = '0'
+
+    @pytest.mark.parametrize(
+        "value",
+        ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+    )
+    def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+        repo: Path, value: str
+    ) -&gt; None:
+        store, _paused, _active, _unfinished = populated(repo)
+        archive = repo / "valid.zip"
+        snapshot(repo, store.jobs.root, archive)
+        if value in {"invalid-status", "blocked-snapshot"}:
+            binding: dict[str, Any] = {
+                "status": "invalid" if value == "invalid-status" else "blocked",
+                "snapshot": None if value == "invalid-status" else {},
+            }
+            binding["binding_hash"] = scientific_hash(binding)
+            value = json.dumps(binding)
+        corrupt = repo / "malformed-binding.zip"
+        rewrite(archive, corrupt, "binding", model_binding=value)
+        destination = repo / "data/cache/refused-binding"
+        with pytest.raises(ValueError):
+&gt;           restore(repo, corrupt, destination)
+
+backend/tests/unit/test_workspace_recovery.py:331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:421: in restore
+    counts = unpack(repo, archive, stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:405: in unpack
+    counts = validate_database(stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin3/data/cache/.restore-09doi2b7/workspace')
+
+    def validate_database(root: Path) -&gt; dict[str, int]:
+        """Read-only schema, references and content validation; no migration or clock changes."""
+        db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+        db.row_factory = sqlite3.Row
+        try:
+            db.execute("PRAGMA trusted_schema=OFF")
+            objects = db.execute(
+                "SELECT type, name FROM sqlite_master WHERE type != 'index'"
+            ).fetchall()
+            if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+                raise ValueError("unsupported or incomplete workspace database schema")
+            for table, columns in TABLES.items():
+                if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+                    raise ValueError("unsupported workspace database columns")
+            if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
+                raise ValueError("corrupt workspace database")
+            jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
+            reviews = []
+            for job_id, job in jobs.items():
+                validate_request(json.loads(job["request"]))
+                if job["status"] not in {
+                    "queued",
+                    "running",
+                    "completed",
+                    "failed",
+                    "cancelled",
+                    "interrupted",
+                }:
+                    raise ValueError("invalid restored job state")
+                if job["status"] == "completed" and job["result"] is None:
+                    raise ValueError("completed job has no result")
+                if job["result"] is not None:
+                    result = json.loads(job["result"])
+                    check_artifacts(root / "runs" / job_id / "workflow", result.get("artifacts", []))
+                    if result.get("schema") == "workbench-review-v1":
+                        reviews.append(result)
+                        review = root / "runs" / job_id / "review.json"
+                        if not review.is_file() or json.loads(review.read_text()) != result:
+                            raise ValueError("missing or inconsistent research review")
+            validate_registry(root, reviews)
+            monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+            for monitor in monitors.values():
+                if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+                    raise ValueError("invalid restored monitor reference/state")
+                spec = StrategySpec.model_validate_json(monitor["spec"])
+                if spec.spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("restored strategy hash mismatch")
+                binding = json.loads(monitor["model_binding"])
+                if scientific_hash(
+&gt;                   {k: v for k, v in binding.items() if k != "binding_hash"}
+                                      ^^^^^^^^^^^^^
+                ) != binding.get("binding_hash"):
+E               AttributeError: 'int' object has no attribute 'items'
+
+backend/src/entropytrade/api/recovery.py:198: AttributeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[&quot;&quot;]" time="0.260"><failure message="AttributeError: 'str' object has no attribute 'items'">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin4')
+value = '""'
+
+    @pytest.mark.parametrize(
+        "value",
+        ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+    )
+    def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+        repo: Path, value: str
+    ) -&gt; None:
+        store, _paused, _active, _unfinished = populated(repo)
+        archive = repo / "valid.zip"
+        snapshot(repo, store.jobs.root, archive)
+        if value in {"invalid-status", "blocked-snapshot"}:
+            binding: dict[str, Any] = {
+                "status": "invalid" if value == "invalid-status" else "blocked",
+                "snapshot": None if value == "invalid-status" else {},
+            }
+            binding["binding_hash"] = scientific_hash(binding)
+            value = json.dumps(binding)
+        corrupt = repo / "malformed-binding.zip"
+        rewrite(archive, corrupt, "binding", model_binding=value)
+        destination = repo / "data/cache/refused-binding"
+        with pytest.raises(ValueError):
+&gt;           restore(repo, corrupt, destination)
+
+backend/tests/unit/test_workspace_recovery.py:331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:421: in restore
+    counts = unpack(repo, archive, stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:405: in unpack
+    counts = validate_database(stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin4/data/cache/.restore-x5okk16z/workspace')
+
+    def validate_database(root: Path) -&gt; dict[str, int]:
+        """Read-only schema, references and content validation; no migration or clock changes."""
+        db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+        db.row_factory = sqlite3.Row
+        try:
+            db.execute("PRAGMA trusted_schema=OFF")
+            objects = db.execute(
+                "SELECT type, name FROM sqlite_master WHERE type != 'index'"
+            ).fetchall()
+            if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+                raise ValueError("unsupported or incomplete workspace database schema")
+            for table, columns in TABLES.items():
+                if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+                    raise ValueError("unsupported workspace database columns")
+            if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
+                raise ValueError("corrupt workspace database")
+            jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
+            reviews = []
+            for job_id, job in jobs.items():
+                validate_request(json.loads(job["request"]))
+                if job["status"] not in {
+                    "queued",
+                    "running",
+                    "completed",
+                    "failed",
+                    "cancelled",
+                    "interrupted",
+                }:
+                    raise ValueError("invalid restored job state")
+                if job["status"] == "completed" and job["result"] is None:
+                    raise ValueError("completed job has no result")
+                if job["result"] is not None:
+                    result = json.loads(job["result"])
+                    check_artifacts(root / "runs" / job_id / "workflow", result.get("artifacts", []))
+                    if result.get("schema") == "workbench-review-v1":
+                        reviews.append(result)
+                        review = root / "runs" / job_id / "review.json"
+                        if not review.is_file() or json.loads(review.read_text()) != result:
+                            raise ValueError("missing or inconsistent research review")
+            validate_registry(root, reviews)
+            monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+            for monitor in monitors.values():
+                if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+                    raise ValueError("invalid restored monitor reference/state")
+                spec = StrategySpec.model_validate_json(monitor["spec"])
+                if spec.spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("restored strategy hash mismatch")
+                binding = json.loads(monitor["model_binding"])
+                if scientific_hash(
+&gt;                   {k: v for k, v in binding.items() if k != "binding_hash"}
+                                      ^^^^^^^^^^^^^
+                ) != binding.get("binding_hash"):
+E               AttributeError: 'str' object has no attribute 'items'
+
+backend/src/entropytrade/api/recovery.py:198: AttributeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[[]]" time="0.267"><failure message="AttributeError: 'list' object has no attribute 'items'">repo = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin5')
+value = '[]'
+
+    @pytest.mark.parametrize(
+        "value",
+        ["", "null", "false", "0", '""', "[]", "{}", "{", "invalid-status", "blocked-snapshot"],
+    )
+    def test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore(
+        repo: Path, value: str
+    ) -&gt; None:
+        store, _paused, _active, _unfinished = populated(repo)
+        archive = repo / "valid.zip"
+        snapshot(repo, store.jobs.root, archive)
+        if value in {"invalid-status", "blocked-snapshot"}:
+            binding: dict[str, Any] = {
+                "status": "invalid" if value == "invalid-status" else "blocked",
+                "snapshot": None if value == "invalid-status" else {},
+            }
+            binding["binding_hash"] = scientific_hash(binding)
+            value = json.dumps(binding)
+        corrupt = repo / "malformed-binding.zip"
+        rewrite(archive, corrupt, "binding", model_binding=value)
+        destination = repo / "data/cache/refused-binding"
+        with pytest.raises(ValueError):
+&gt;           restore(repo, corrupt, destination)
+
+backend/tests/unit/test_workspace_recovery.py:331: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:421: in restore
+    counts = unpack(repo, archive, stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/recovery.py:405: in unpack
+    counts = validate_database(stage)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-91/test_non_null_malformed_bindin5/data/cache/.restore-gokxdtje/workspace')
+
+    def validate_database(root: Path) -&gt; dict[str, int]:
+        """Read-only schema, references and content validation; no migration or clock changes."""
+        db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+        db.row_factory = sqlite3.Row
+        try:
+            db.execute("PRAGMA trusted_schema=OFF")
+            objects = db.execute(
+                "SELECT type, name FROM sqlite_master WHERE type != 'index'"
+            ).fetchall()
+            if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+                raise ValueError("unsupported or incomplete workspace database schema")
+            for table, columns in TABLES.items():
+                if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+                    raise ValueError("unsupported workspace database columns")
+            if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
+                raise ValueError("corrupt workspace database")
+            jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
+            reviews = []
+            for job_id, job in jobs.items():
+                validate_request(json.loads(job["request"]))
+                if job["status"] not in {
+                    "queued",
+                    "running",
+                    "completed",
+                    "failed",
+                    "cancelled",
+                    "interrupted",
+                }:
+                    raise ValueError("invalid restored job state")
+                if job["status"] == "completed" and job["result"] is None:
+                    raise ValueError("completed job has no result")
+                if job["result"] is not None:
+                    result = json.loads(job["result"])
+                    check_artifacts(root / "runs" / job_id / "workflow", result.get("artifacts", []))
+                    if result.get("schema") == "workbench-review-v1":
+                        reviews.append(result)
+                        review = root / "runs" / job_id / "review.json"
+                        if not review.is_file() or json.loads(review.read_text()) != result:
+                            raise ValueError("missing or inconsistent research review")
+            validate_registry(root, reviews)
+            monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+            for monitor in monitors.values():
+                if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+                    raise ValueError("invalid restored monitor reference/state")
+                spec = StrategySpec.model_validate_json(monitor["spec"])
+                if spec.spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("restored strategy hash mismatch")
+                binding = json.loads(monitor["model_binding"])
+                if scientific_hash(
+&gt;                   {k: v for k, v in binding.items() if k != "binding_hash"}
+                                      ^^^^^^^^^^^^^
+                ) != binding.get("binding_hash"):
+E               AttributeError: 'list' object has no attribute 'items'
+
+backend/src/entropytrade/api/recovery.py:198: AttributeError</failure></testcase><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[{}]" time="0.317" /><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[{]" time="0.299" /><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[invalid-status]" time="0.317" /><testcase classname="backend.tests.unit.test_workspace_recovery" name="test_non_null_malformed_bindings_are_refused_by_snapshot_and_restore[blocked-snapshot]" time="0.342" /></testsuite></testsuites>
