@@ -14,7 +14,7 @@ import pytest
 
 from entropytrade.agents.fixture import demo_specs
 from entropytrade.api.jobs import Jobs
-from entropytrade.domain.strategy import StrategySpec
+from entropytrade.domain.strategy import CalibrationMethod, ModelKind, StrategySpec
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
@@ -93,17 +93,100 @@ def test_deterministic_decisions_reserve_once_without_fills_or_target_leakage() 
     assert evaluate(spec, protected, bundle, fee=fee) == []
 
 
-def test_offline_replay_inputs_withhold_targets_and_protected_features() -> None:
+@pytest.mark.parametrize("boundary", ["dataset", "model", "both"])
+def test_offline_replay_inputs_withhold_targets_and_protected_features(boundary: str) -> None:
     spec, data, bundle, fee = ready()
     inputs = decision_inputs(spec, data, bundle, fee=fee)
     assert reproduce(json.loads(json.dumps(inputs))) == evaluate(spec, data, bundle, fee=fee)
     assert all(s["outcome"] is None for s in inputs["data"]["samples"])
     assert not any(p["partition"] == "holdout" for p in inputs["bundle"]["records"])
-    protected = data.revalidated(protected_events=frozenset({data.samples[0].event_id}))
-    assert decision_inputs(spec, protected, bundle)["data"]["samples"] == []
+    event_id = data.samples[0].event_id
+    protected = data.revalidated(
+        protected_events=frozenset({event_id}) if boundary in {"dataset", "both"} else frozenset()
+    )
+    protected_bundle = bundle.revalidated(
+        model_metadata={"split": {"holdout": [event_id]}} if boundary in {"model", "both"} else {}
+    )
+    assert evaluate(spec, protected, protected_bundle, fee=fee) == []
+    inputs = decision_inputs(spec, protected, protected_bundle, fee=fee)
+    assert inputs["data"]["samples"] == []
+    assert inputs["bundle"]["records"] == []
+    assert reproduce(json.loads(json.dumps(inputs))) == []
     blocked = evaluate(spec, data, bundle, fee=fee, acquisition_complete=False)[0]
     assert blocked["status"] == "blocked"
     assert blocked["reasons"] == ["complete_acquisition"]
+
+
+@pytest.mark.parametrize(
+    ("requested", "actual", "eligible"),
+    [
+        (CalibrationMethod.NONE, "none", True),
+        (CalibrationMethod.NONE, "uncalibrated baseline", True),
+        (CalibrationMethod.PLATT, "platt", True),
+        (CalibrationMethod.ISOTONIC, "isotonic", True),
+        (CalibrationMethod.NONE, "platt", False),
+        (CalibrationMethod.NONE, "isotonic", False),
+        (CalibrationMethod.PLATT, "none", False),
+        (CalibrationMethod.PLATT, "uncalibrated baseline", False),
+        (CalibrationMethod.PLATT, "isotonic", False),
+        (CalibrationMethod.ISOTONIC, "none", False),
+        (CalibrationMethod.ISOTONIC, "uncalibrated baseline", False),
+        (CalibrationMethod.ISOTONIC, "platt", False),
+        (CalibrationMethod.NONE, "unknown", False),
+    ],
+)
+def test_requested_calibration_controls_intentions_and_survives_offline_replay(
+    requested: CalibrationMethod, actual: str, eligible: bool
+) -> None:
+    spec, data, bundle, fee = ready()
+    spec = spec.revalidated(calibration=requested, model_kind=ModelKind.LOGISTIC_REGRESSION)
+    record = bundle.records[0].revalidated(
+        calibration=actual,
+        calibrated_before=data.samples[0].decision_time - timedelta(seconds=1)
+        if actual in {"platt", "isotonic"}
+        else None,
+    )
+    bundle = bundle.revalidated(records=(record,))
+    rows = evaluate(spec, data, bundle, fee=fee)
+    row = rows[0]
+    if eligible:
+        assert row["status"] == "shadow_eligible"
+        assert row["intent"] is not None
+        assert row["risk"]["approved"]
+    else:
+        assert row["status"] == "blocked"
+        assert row["intent"] is None
+        assert row["risk"] is None
+        assert row["reasons"] == ["requested_calibration"]
+    inputs = decision_inputs(spec, data, bundle, fee=fee)
+    assert reproduce(json.loads(json.dumps(inputs))) == rows
+
+
+def test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_from_replay() -> None:
+    spec, _, _, fee = ready()
+    data, provider, _, _ = nonweather()
+    dataset_holdout, model_holdout, permitted = data.samples[50:53]
+    data = data.revalidated(
+        samples=(dataset_holdout, model_holdout, permitted),
+        protected_events=frozenset({dataset_holdout.event_id}),
+    )
+    # The model protects an event missing from the dataset's boundary, even though its
+    # prediction is marked validation. Neither boundary may override the other.
+    bundle = provider.bundle.revalidated(
+        model_metadata={"split": {"holdout": [model_holdout.event_id]}}
+    )
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert [r["event_id"] for r in rows] == [permitted.event_id]
+    inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+    assert set(inputs["data"]["protected_events"]) == {
+        dataset_holdout.event_id,
+        model_holdout.event_id,
+    }
+    assert [s["event_id"] for s in inputs["data"]["samples"]] == [permitted.event_id]
+    assert all(s["outcome"] is None for s in inputs["data"]["samples"])
+    assert [p["event_id"] for p in inputs["bundle"]["records"]] == [permitted.event_id]
+    assert "split" not in inputs["bundle"]["model_metadata"]
+    assert reproduce(inputs) == rows
 
 
 @pytest.mark.parametrize(

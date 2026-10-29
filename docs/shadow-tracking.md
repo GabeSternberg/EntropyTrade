@@ -28,9 +28,12 @@ evidence only. Wiring a certified trained model and sized live data into this co
 remains future work. There are no fills, balances, P&L estimates or profitability claims.
 
 Every completed collection saves `decision-inputs.json`, with targets removed and protected
-records excluded. Verify its artifact hashes and recompute decisions without any network
-access using the local command below. This reproduces the recorded decision computation;
-it does not authenticate a source or establish empirical performance. Interrupted cycles
+records excluded using the union of dataset protection and model-metadata holdout events.
+The combined boundary is retained in replay data before model metadata is replaced by its
+hash, so offline replay keeps the same exclusions. Verify its artifact hashes and recompute
+decisions without any network access using the local command below. This reproduces the
+recorded decision computation; it does not authenticate a source or establish empirical
+performance. Interrupted cycles
 without input/result artifacts cannot be replayed and report that limitation explicitly.
 
 ```bash
@@ -39,7 +42,11 @@ uv run python -m entropytrade.tracking.replay data/cache/workbench/shadow/MONITO
 
 The evaluator reuses the replay `DecisionView`, bounded DSL and `RiskEngine`. It gates
 receipt-time features, model fit/calibration and feature identity, protected events,
-sources, rules, sized quotes and certified fee information/effective clocks. Fixed shadow
+sources, rules, sized quotes and certified fee information/effective clocks. Shadow
+intentions also require the StrategySpec's calibration method: `platt` and `isotonic`
+must match exactly; `none` accepts `none` or the existing `uncalibrated baseline` label.
+A mismatch records `requested_calibration` with no intent or risk evaluation. Decisions
+unaffected by these corrections keep their prior replay hashes. Fixed shadow
 caps use the experiment defaults: $1,000 hypothetical bankroll, $25 per intention, $100
 per event, $500 reserved total; maximum spread $0.10 and book age 60 seconds. They cannot
 be changed by the UI or strategy. Eligible intentions reserve quantity and fee-inclusive
@@ -84,7 +91,8 @@ execution activation, credential input or risk-override endpoint. `submission_en
 remains false in all exported evidence. A shadow risk decision never becomes an
 `ApprovedOrderIntent` or an exchange request.
 
-Verification is recorded in [the milestone evidence](../data/shadow-review/20261029/README.md).
+Verification is recorded in [the milestone evidence](../data/shadow-review/20261029/README.md)
+and [the calibration/holdout correction evidence](../data/shadow-review/20261029-boundaries/README.md).
 The executable [Playwright procedure](../frontend/browser/shadow.spec.cjs) uses managed
 Chromium and the real localhost app, submits research, starts/pauses/resumes tracking,
 compares downloads across restart and preserves screenshots when page interaction runs.

@@ -9,7 +9,7 @@ from entropytrade.domain.numeric import ZERO
 from entropytrade.domain.observations import FeatureObservation
 from entropytrade.domain.orders import OrderIntent
 from entropytrade.domain.portfolio import PortfolioSnapshot, SnapshotSource
-from entropytrade.domain.strategy import StrategySpec
+from entropytrade.domain.strategy import CalibrationMethod, StrategySpec
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.experiments.engine import FeePolicy
 from entropytrade.features.registry import scientific_hash
@@ -34,6 +34,13 @@ def shadow_limits() -> RiskLimits:
     )
 
 
+def protected_events(data: ExperimentData, bundle: PredictionBundle) -> frozenset[str]:
+    """Honor both dataset and model boundaries before projecting any shadow evidence."""
+    return data.protected_events | frozenset(
+        (bundle.model_metadata.get("split") or {}).get("holdout", [])
+    )
+
+
 def evaluate(
     spec: StrategySpec,
     data: ExperimentData,
@@ -49,6 +56,12 @@ def evaluate(
     held = [dict(r) for r in reservations]
     rows: list[dict[str, Any]] = []
     universe = spec.market_universe
+    protected = protected_events(data, bundle)
+    accepted_calibrations = (
+        {"none", "uncalibrated baseline"}
+        if spec.calibration is CalibrationMethod.NONE
+        else {spec.calibration.value}
+    )
     for sample in sorted(data.samples, key=lambda s: (s.decision_time, s.ticker)):
         if not (
             sample.ticker in universe.market_tickers
@@ -56,7 +69,7 @@ def evaluate(
             or sample.family in universe.series_tickers
         ):
             continue
-        if sample.event_id in data.protected_events:
+        if sample.event_id in protected:
             continue  # Never persist protected feature/target values in a monitoring projection.
         when = sample.decision_time
         predictions = [
@@ -88,6 +101,9 @@ def evaluate(
             and fee.effective_from <= when
             and (fee.effective_to is None or when < fee.effective_to),
         }
+        if prediction is not None and prediction.calibration not in accepted_calibrations:
+            # Add a refusal only on mismatch, preserving replay hashes for prior safe decisions.
+            gates["requested_calibration"] = False
         row: dict[str, Any] = {
             "ticker": sample.ticker,
             "event_id": sample.event_id,

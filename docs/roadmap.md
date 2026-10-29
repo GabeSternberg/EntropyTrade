@@ -20,6 +20,13 @@ interaction. [Executed evidence](../data/shadow-review/20261029/README.md) disti
 backend checks from outstanding browser acceptance. Review this milestone before new work;
 all Git writes belong to the supervisor.
 
+The current correction enforces requested calibration before shadow intentions and uses
+the union of dataset/model-metadata holdouts before decisions and replay serialization.
+Focused regressions and retained offline replay pass; see [correction evidence](../data/shadow-review/20261029-boundaries/README.md).
+Current shadow browser/listener and complete-suite acceptance remain incomplete, including
+the bounded collector reconnect stall. Existing browser denials are retained without a
+permission workaround. Review this correction before starting another major phase.
+
 The next reviewed work should close the highest-impact independent V1 gap, including
 operating/browser evidence and certified forward scoring where data permits. The eventual
 second family requires two genuinely supported real-data paths, not a synthetic fixture

@@ -5,7 +5,30 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: continuous read-only shadow tracking
 
-Implemented on the designated `supervisor/20261029-001707` checkout at `1ed5522`,
+### October 29 calibration and holdout correction
+
+On the same designated branch, starting at `a1cafcb`, shadow intentions now enforce the
+requested calibration method before intent/risk evaluation. Dataset protection and
+model-metadata holdouts are combined before decision projection and replay serialization;
+the combined boundary survives metadata redaction. Protected samples, predictions and
+decisions are excluded. Regression tests cover mismatches, permitted calibration methods,
+each protection source, their union and JSON round-trip replay equivalence. A retained
+pre-correction cycle still reproduces its original decision hashes, and its intentionally
+tampered companion still fails checksum verification.
+
+**75 focused tests and 25 replay/execution tests pass**, along with Ruff lint/format,
+strict mypy (491 files) and the existing frontend presentation assertions. The unchanged
+full-suite attempt collected 815 tests but stalled again in the collector reconnect case;
+its bounded attempt and diagnostic stack are retained. **Full-suite, current shadow browser
+and localhost-listener acceptance remain incomplete.** The previously denied browser/socket
+launches were not repeated or bypassed. The executable Playwright procedure remains the
+outstanding supervisor/human step. See [correction evidence](data/shadow-review/20261029-boundaries/README.md).
+No real orders, credentials, Git writes, supervisor controls or empirical claims were added.
+V1 remains incomplete; return this correction for supervisor review before another phase.
+
+### Original shadow implementation checkpoint
+
+Implemented on the designated `supervisor/20261029-001707` checkout starting at `1ed5522`,
 with no Git writes, credential access or supervisor-control changes. **V1 remains
 incomplete.** Bitcoin work is preserved as an optional adapter, not the mandatory second
 family. New family selection needs an evidence comparison and user approval. Authentic
@@ -200,8 +223,10 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Supervisor review of the integrated [shadow milestone and executed limits](data/shadow-review/20261029/README.md),
-then run the supplied browser acceptance procedure with permitted sockets. Leave all Git
+Supervisor review of the [calibration/holdout correction](data/shadow-review/20261029-boundaries/README.md)
+and integrated [shadow milestone and executed limits](data/shadow-review/20261029/README.md),
+then run the supplied browser/listener acceptance procedure and unchanged full suite in a
+suitable environment, investigating the retained collector stall. Leave all Git
 operations to the supervisor and stop before another major milestone. Empirical modeling,
 certified forward scoring/depth/fees, an approved second-family decision and the independently
 verified V1 acceptance matrix remain open. Do not spend another autonomous phase waiting

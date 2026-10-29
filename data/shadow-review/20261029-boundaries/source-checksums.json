@@ -1,0 +1,8 @@
+{
+  "STATUS.md": "adf0bee6a5e9636d96f352b866606a342f96e467735264328d63be3a879775ca",
+  "backend/src/entropytrade/tracking/evaluate.py": "f23e42d1c23a02be70096a435479215a6f4d98b51afee2358cb9a6ac96543a77",
+  "backend/src/entropytrade/tracking/replay.py": "d133f0bacbe2e03a72be0504fdce1f76b27477881a5dc69953751b9672e83b77",
+  "backend/tests/unit/test_tracking.py": "d4d68165fe01bfa1d92c1d1a5987b1ae0698fbb2983be9c628349c27d1e00c0d",
+  "docs/roadmap.md": "a5f7fc1d42b575aa0a6c66f38518886c4bba1aa2c567d623397665cb42fdd179",
+  "docs/shadow-tracking.md": "c0902f84bb95d52f8854380307bc9fc5ed07f71e67da638a0f3d0ae9e5fbc70a"
+}

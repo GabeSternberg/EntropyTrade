@@ -1,0 +1,85 @@
+....FFFFFFFFFF                                                           [100%]
+=================================== FAILURES ===================================
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[none-platt-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[none-isotonic-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-none-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-uncalibrated baseline-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-isotonic-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-none-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-uncalibrated baseline-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-platt-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_requested_calibration_controls_intentions_and_survives_offline_replay[none-unknown-False] _
+backend/tests/unit/test_tracking.py:146: in test_requested_calibration_controls_intentions_and_survives_offline_replay
+    assert row["status"] == "blocked"
+E   AssertionError: assert 'shadow_eligible' == 'blocked'
+E     
+E     - blocked
+E     + shadow_eligible
+_ test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_from_replay _
+backend/tests/unit/test_tracking.py:168: in test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_from_replay
+    assert [r["event_id"] for r in rows] == [permitted.event_id]
+E   AssertionError: assert ['MENTIONS-E5...MENTIONS-E52'] == ['MENTIONS-E52']
+E     
+E     At index 0 diff: 'MENTIONS-E51' != 'MENTIONS-E52'
+E     Left contains one more item: 'MENTIONS-E52'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[none-platt-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[none-isotonic-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-none-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-uncalibrated baseline-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[platt-isotonic-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-none-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-uncalibrated baseline-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[isotonic-platt-False]
+FAILED backend/tests/unit/test_tracking.py::test_requested_calibration_controls_intentions_and_survives_offline_replay[none-unknown-False]
+FAILED backend/tests/unit/test_tracking.py::test_dataset_and_model_holdouts_exclude_samples_predictions_and_decisions_from_replay
+10 failed, 4 passed, 43 deselected in 3.06s

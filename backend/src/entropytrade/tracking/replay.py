@@ -10,7 +10,7 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.experiments.engine import FeePolicy
 from entropytrade.features.registry import scientific_hash
-from entropytrade.tracking.evaluate import evaluate
+from entropytrade.tracking.evaluate import evaluate, protected_events
 
 
 def decision_inputs(
@@ -22,13 +22,16 @@ def decision_inputs(
     acquisition_complete: bool = True,
     fee: FeePolicy | None = None,
 ) -> dict[str, Any]:
+    protected = protected_events(data, bundle)
     samples = tuple(
         s.revalidated(outcome=None, outcome_available_at=None)
         for s in data.samples
-        if s.event_id not in data.protected_events
+        if s.event_id not in protected
     )
     safe_data = data.revalidated(
-        samples=samples, provenance={"purpose": "shadow replay; targets withheld"}
+        samples=samples,
+        protected_events=protected,
+        provenance={"purpose": "shadow replay; targets withheld"},
     )
     safe_bundle = bundle.revalidated(
         model_metadata={"original_metadata_hash": scientific_hash(bundle.model_metadata)},
@@ -41,7 +44,10 @@ def decision_inputs(
     return {
         "schema": "shadow-inputs-v1",
         "spec": spec.model_dump(mode="json"),
-        "data": safe_data.model_dump(mode="json", exclude_computed_fields=True),
+        "data": {
+            **safe_data.model_dump(mode="json", exclude_computed_fields=True),
+            "protected_events": sorted(protected),
+        },
         "bundle": safe_bundle.model_dump(mode="json", exclude_computed_fields=True),
         "reservations": held,
         "acquisition_complete": acquisition_complete,

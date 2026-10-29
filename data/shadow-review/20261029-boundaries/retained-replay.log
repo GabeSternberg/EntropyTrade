@@ -1,0 +1,3 @@
+{"cycle": "data/shadow-review/20261029/controlled-workspaces/test_multi_cycle_receipts_offi0/shadow/64d1e3b2-445d-4d8c-a6d5-fea49a9d159a/6c646be0-5683-4fdd-9852-d8e55ec81e11", "decision_count": 2, "limitation": "Reproduces decisions only; does not certify source truth or performance", "submission_enabled": false, "verified": true}
+{"cycle": "data/shadow-review/20261029/controlled-workspaces/test_multi_cycle_receipts_offi0/shadow/64d1e3b2-445d-4d8c-a6d5-fea49a9d159a/a91a18a1-e277-4406-960b-7ec453e308ab", "specimen": "previously retained intentional tamper"}
+{"tamper_rejected": "shadow artifact checksum/path mismatch"}
