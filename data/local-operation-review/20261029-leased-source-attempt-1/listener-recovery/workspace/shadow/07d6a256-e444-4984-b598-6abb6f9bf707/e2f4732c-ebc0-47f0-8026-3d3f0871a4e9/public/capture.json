@@ -1,0 +1,69 @@
+{
+  "decision_time": "2026-10-29T18:04:20.687281+00:00",
+  "failures": [],
+  "family": "weather",
+  "history_complete": false,
+  "listed_contracts": 24,
+  "observations": 648,
+  "receipts": [
+    {
+      "hash": "sha256:e79c2b60b353980cebd1c6a38d898d50bc26fc306291dea43e73a69f6fd63ab8",
+      "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+      "raw_ref": "raw/0001.json",
+      "received_at": "2026-10-29T18:04:18.911174+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:8ddc220cdcdce84d01ec58a522c1aadd4c8999e36ce7ab6564f7b827f2b174b3",
+      "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+      "raw_ref": "raw/0002.json",
+      "received_at": "2026-10-29T18:04:18.947767+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:03318cffc411c01b1a8cf19db92499c24a5f39d851901eb2d8ff615c4ce22ad4",
+      "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+      "raw_ref": "raw/0003.json",
+      "received_at": "2026-10-29T18:04:19.562515+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+      "path": "https://api.weather.gov/points/39.87,-75.23",
+      "raw_ref": "raw/0004.json",
+      "received_at": "2026-10-29T18:04:19.782394+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:03d1d7be7fe13725d31dcaad93960577f1a4820341e1cd5a2973026b9e5d5c85",
+      "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+      "raw_ref": "raw/0005.json",
+      "received_at": "2026-10-29T18:04:19.837795+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:8ceffe04ef395bd39817428a782f8557cb629f913bcf96214849a6a15f01c2bc",
+      "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+      "raw_ref": "raw/0006.json",
+      "received_at": "2026-10-29T18:04:20.360929+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+      "path": "https://api.weather.gov/points/41.79,-87.75",
+      "raw_ref": "raw/0007.json",
+      "received_at": "2026-10-29T18:04:20.441996+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:1af9f71eafb97abac1c67f2b796c098479374313a6f0a943a1b31417e530c61b",
+      "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+      "raw_ref": "raw/0008.json",
+      "received_at": "2026-10-29T18:04:20.542594+00:00",
+      "status": 200
+    }
+  ],
+  "started_at": "2026-10-29T18:04:18.853386+00:00",
+  "truncated_universe": false,
+  "universe_complete": true
+}

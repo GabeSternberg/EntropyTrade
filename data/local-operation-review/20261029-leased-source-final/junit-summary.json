@@ -1,0 +1,118 @@
+{
+  "tests": 311,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "pytest_seconds": 139.314,
+  "deselected": [
+    "test_real_workflow_has_only_insufficient_or_unsupported_results",
+    "test_synthetic_end_to_end_has_models_fills_rejections_and_artifacts",
+    "test_same_research_replays_reproducibly"
+  ],
+  "suites": [
+    {
+      "file": "integration__test_bitcoin_history_listener.xml",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "12.212"
+    },
+    {
+      "file": "integration__test_recovery_listener.xml",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "23.073"
+    },
+    {
+      "file": "integration__test_shadow_tracking.xml",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.210"
+    },
+    {
+      "file": "integration__test_workbench_listener.xml",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "31.591"
+    },
+    {
+      "file": "integration__test_workbench_process.xml",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "40.377"
+    },
+    {
+      "file": "unit__test_execution_r4.xml",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.548"
+    },
+    {
+      "file": "unit__test_experiments_r4.xml",
+      "tests": "15",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.966"
+    },
+    {
+      "file": "unit__test_recovery_proof.xml",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.198"
+    },
+    {
+      "file": "unit__test_submit_gate.xml",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.107"
+    },
+    {
+      "file": "unit__test_tracking.xml",
+      "tests": "163",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.994"
+    },
+    {
+      "file": "unit__test_tracking_models.xml",
+      "tests": "46",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.442"
+    },
+    {
+      "file": "unit__test_workbench_http.xml",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.147"
+    },
+    {
+      "file": "unit__test_workspace_recovery.xml",
+      "tests": "34",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "11.449"
+    }
+  ]
+}

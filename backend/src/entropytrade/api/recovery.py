@@ -7,6 +7,8 @@ import os
 import shutil
 import sqlite3
 import stat
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from tempfile import TemporaryDirectory
 from typing import Any
@@ -281,13 +283,20 @@ def inventory(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
     return files, directories
 
 
-def snapshot(repo: Path, workspace: Path, archive: Path) -> dict[str, Any]:
+@contextmanager
+def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[str, Any]]:
+    """Snapshot an existing source and retain its lease through the caller's inspection.
+
+    No application store may be opened before entering this context. Keeping the lease
+    here lets offline verification inspect/compare the same source without reacquiring it.
+    """
     root = workspace_path(repo, confined(repo, workspace))
     archive = confined(repo, archive)
     if archive.is_relative_to(root) or archive.exists():
         raise ValueError("snapshot requires a new archive outside the workspace")
-    if not (root / "jobs.sqlite").is_file():
+    if not root.is_dir() or not (root / "jobs.sqlite").is_file():
         raise ValueError("workspace has no database")
+    confined(repo, root / "jobs.sqlite")
     archive.parent.mkdir(parents=True, exist_ok=True)
     with workspace_lease(root), TemporaryDirectory(prefix=".snapshot-", dir=archive.parent) as name:
         stage = Path(name)
@@ -328,12 +337,17 @@ def snapshot(repo: Path, workspace: Path, archive: Path) -> dict[str, Any]:
                 bundle.write(payload / item["path"], "files/" + item["path"])
         temporary.chmod(0o600)
         os.link(temporary, archive)  # publish without replacing any existing evidence
-    return {
-        "archive": str(archive),
-        "sha256": file_hash(archive),
-        **counts,
-        "submission_enabled": False,
-    }
+        yield {
+            "archive": str(archive),
+            "sha256": file_hash(archive),
+            **counts,
+            "submission_enabled": False,
+        }
+
+
+def snapshot(repo: Path, workspace: Path, archive: Path) -> dict[str, Any]:
+    with snapshot_lease(repo, workspace, archive) as receipt:
+        return receipt
 
 
 def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:

@@ -1,0 +1,40 @@
+{
+  "command": ".venv/bin/python tools/verify_recovery.py --workspace data/cache/local-operation-authentic-restored --restored data/cache/leased-authentic-proof-final-20261029 --output data/local-operation-review/20261029-leased-authentic-final",
+  "exit_code": 0,
+  "stdout": "",
+  "started_at": "2026-10-29T18:05:12.487499+00:00",
+  "finished_at": "2026-10-29T18:05:12.754671+00:00",
+  "source_files": [
+    {
+      "path": "backend/src/entropytrade/api/recovery.py",
+      "bytes": 20911,
+      "sha256": "f3dff96d3b11a13266857b7dda8669b9a748927e63ea5c1bd63be76b4e83069a"
+    },
+    {
+      "path": "backend/src/entropytrade/api/recovery_proof.py",
+      "bytes": 5181,
+      "sha256": "19d8b9af55466589573ec18949892b5be29df369d605616e1a9fc3a445684813"
+    },
+    {
+      "path": "backend/src/entropytrade/api/workspace.py",
+      "bytes": 1240,
+      "sha256": "ca327fb6f3f2da194c6b783d362f85339408b04c14ad1a2855939eb65002315a"
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 3502,
+      "sha256": "217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4"
+    },
+    {
+      "path": "tools/verify_recovery.py",
+      "bytes": 639,
+      "sha256": "389078b63f88e7f82236968cf92704351161cf154f70297828c522cfdcd65a40"
+    },
+    {
+      "path": "uv.lock",
+      "bytes": 645167,
+      "sha256": "dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+    }
+  ],
+  "note": "Offline retained-real-receipt proof, no new acquisition or browser interaction."
+}

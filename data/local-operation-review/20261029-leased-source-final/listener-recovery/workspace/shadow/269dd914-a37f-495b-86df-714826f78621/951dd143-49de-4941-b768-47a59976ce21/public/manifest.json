@@ -1,0 +1,55 @@
+{
+  "checksums": {
+    "capture.json": "sha256:f86cbaae94ef9ec8815f1f68c10afa5a802e5c30c4fadb3a6a1cd3ef3ca95afa",
+    "markets.jsonl": "sha256:a4a3f2f8b51ba952c3688a96642af70d55d62ce46b2a0e8f3329152389629202",
+    "observations.jsonl": "sha256:0d9b1552a46bed5a68bef4b4b3cc395aa629fbd38a0b5b888a4429b3fd97c23b",
+    "raw/0001.json": "sha256:e32209ada369c15db1ef0e0c7bdf469e8f2d993585bdb3a78072dffdeb389554",
+    "raw/0002.json": "sha256:9361bd36bc5cc1df09ededbd7f066551835f5fe89ad12a46cbd9ec6f2b5d07f7",
+    "raw/0003.json": "sha256:5a51988c96803c7eedecd54dcd5e165fc34fb991bcf5cda6457a94e45707698f",
+    "raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "raw/0005.json": "sha256:03d1d7be7fe13725d31dcaad93960577f1a4820341e1cd5a2973026b9e5d5c85",
+    "raw/0006.json": "sha256:848bf8b1b23ffab21b22db902f8de2cd165715ab12b91a5fe0fcb1204f70d258",
+    "raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "raw/0008.json": "sha256:1af9f71eafb97abac1c67f2b796c098479374313a6f0a943a1b31417e530c61b",
+    "weather.sqlite": "sha256:3d38d8d4bb8bfc7fd4747bae8d171a1175e1311ea26272338247c32ebb648679",
+    "weather/manifest.json": "sha256:f93d2925b65c8a445811ed189f46ed7b7fdbfde78d57ba8c6eb83390cf910ffc",
+    "weather/observations.jsonl": "sha256:da00327d70b7de02e830c4e770e6c4d4efcad339fcb8b531aeb5d9e28b6c33e5",
+    "weather/raw/46608f6a-ac62-4cdc-ae8c-34bb9d73e333.json": "sha256:5a51988c96803c7eedecd54dcd5e165fc34fb991bcf5cda6457a94e45707698f",
+    "weather/raw/7b24e14e-7c0b-43b4-bd31-8e057e9a6040.json": "sha256:1af9f71eafb97abac1c67f2b796c098479374313a6f0a943a1b31417e530c61b",
+    "weather/raw/d07dd475-8d89-4a54-bc9b-dfe855861a4f.json": "sha256:848bf8b1b23ffab21b22db902f8de2cd165715ab12b91a5fe0fcb1204f70d258",
+    "weather/raw/e3706238-2414-4c54-80eb-d92511f61cda.json": "sha256:03d1d7be7fe13725d31dcaad93960577f1a4820341e1cd5a2973026b9e5d5c85"
+  },
+  "dataset_version": "sha256:6476650357c22975631518b11404fc9f6730c8185c43284c5e885bef61ed9297",
+  "decision_time": "2026-10-29T18:07:42.760855+00:00",
+  "family": "weather",
+  "ingestion_code_hash": "sha256:3aa89015f7f3e6354d085a718f97e6e0fd0a58643cea023a08855f644007dd05",
+  "weather_config": {
+    "attempts": 3,
+    "interval_seconds": 900,
+    "locations": [
+      {
+        "forecast_file": null,
+        "latitude": "39.87",
+        "longitude": "-75.23",
+        "name": "Philadelphia",
+        "series": "KXHIGHPHIL",
+        "station": "CLIPHL",
+        "timezone": "America/New_York"
+      },
+      {
+        "forecast_file": null,
+        "latitude": "41.79",
+        "longitude": "-87.75",
+        "name": "Chicago",
+        "series": "KXHIGHCHI",
+        "station": "CLIMDW",
+        "timezone": "America/Chicago"
+      }
+    ],
+    "max_bytes": 5000000000,
+    "providers": [
+      "open-meteo",
+      "nws"
+    ]
+  }
+}

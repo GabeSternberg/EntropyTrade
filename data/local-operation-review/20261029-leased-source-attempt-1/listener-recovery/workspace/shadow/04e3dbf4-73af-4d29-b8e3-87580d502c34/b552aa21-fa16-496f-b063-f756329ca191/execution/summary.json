@@ -1,0 +1,120 @@
+{
+  "book_count": 10,
+  "decision_time": "2026-10-29T18:04:28.794236+00:00",
+  "deferred_tickers": [
+    "KXHIGHCHI-26OCT30-T60",
+    "KXHIGHCHI-26OCT30-T67",
+    "KXHIGHPHIL-26OCT29-B69.5",
+    "KXHIGHPHIL-26OCT29-B71.5",
+    "KXHIGHPHIL-26OCT29-B73.5",
+    "KXHIGHPHIL-26OCT29-B75.5",
+    "KXHIGHPHIL-26OCT29-T69",
+    "KXHIGHPHIL-26OCT29-T76",
+    "KXHIGHPHIL-26OCT30-B71.5",
+    "KXHIGHPHIL-26OCT30-B73.5",
+    "KXHIGHPHIL-26OCT30-B75.5",
+    "KXHIGHPHIL-26OCT30-B77.5",
+    "KXHIGHPHIL-26OCT30-T71",
+    "KXHIGHPHIL-26OCT30-T78"
+  ],
+  "failures": [],
+  "fee_evidence": [
+    {
+      "available_at": "2026-10-29T18:04:28.476858+00:00",
+      "certified": false,
+      "fee_multiplier": "1",
+      "fee_type": "quadratic",
+      "metadata_updated_at": "2026-10-22T23:34:00.484728Z",
+      "reason": "Series fields do not certify the quadratic coefficient or its effective interval; no fee schedule substituted",
+      "receipt": {
+        "path": "/trade-api/v2/series/KXHIGHCHI",
+        "raw_ref": "execution/0000.json",
+        "received_at": "2026-10-29T18:04:28.476858+00:00",
+        "sha256": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+        "status": 200
+      },
+      "series": "KXHIGHCHI",
+      "version": "sha256:477f34fcf0642615863fb5bd93106398719efa236e7c93b4518d71f833cf6a87"
+    }
+  ],
+  "receipts": [
+    {
+      "path": "/trade-api/v2/series/KXHIGHCHI",
+      "raw_ref": "execution/0000.json",
+      "received_at": "2026-10-29T18:04:28.476858+00:00",
+      "sha256": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-B68.5/orderbook",
+      "raw_ref": "execution/0001.json",
+      "received_at": "2026-10-29T18:04:28.502409+00:00",
+      "sha256": "sha256:98efd1cdc02251d30532303c43c1986e715ea3867d54db98494e7ffd11f50c81",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-B70.5/orderbook",
+      "raw_ref": "execution/0002.json",
+      "received_at": "2026-10-29T18:04:28.555286+00:00",
+      "sha256": "sha256:c38979d0e785c39efca9e3759af6023fb29e077c2e1579bc763dc4b4038d1657",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-B72.5/orderbook",
+      "raw_ref": "execution/0003.json",
+      "received_at": "2026-10-29T18:04:28.582157+00:00",
+      "sha256": "sha256:b697d3d7c76d0e0c0b5f227ca39e40e461cbcf49c5585a946fadedffd79113e6",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-B74.5/orderbook",
+      "raw_ref": "execution/0004.json",
+      "received_at": "2026-10-29T18:04:28.609097+00:00",
+      "sha256": "sha256:6f6d1f59e394fc828e5e92321e88d3449f2845310ddd1480a5b277a25eeaa838",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-T68/orderbook",
+      "raw_ref": "execution/0005.json",
+      "received_at": "2026-10-29T18:04:28.638512+00:00",
+      "sha256": "sha256:d039cf32d7514f062cdf6492c58ccd6b4776f13815d9f433927d3dd8a5d6e79f",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT29-T75/orderbook",
+      "raw_ref": "execution/0006.json",
+      "received_at": "2026-10-29T18:04:28.663043+00:00",
+      "sha256": "sha256:1fc6d604aef6c202592ad26b1bc0ca9fc7b3a3be9bab75873cba5fe84deffb3c",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT30-B60.5/orderbook",
+      "raw_ref": "execution/0007.json",
+      "received_at": "2026-10-29T18:04:28.690290+00:00",
+      "sha256": "sha256:8ac30eb6835e451146537817aca0e3fd6e4b5ef4ff25ad0dac110695a4ce1793",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT30-B62.5/orderbook",
+      "raw_ref": "execution/0008.json",
+      "received_at": "2026-10-29T18:04:28.713692+00:00",
+      "sha256": "sha256:9734a96dd8fc527459e7febf40bafc6426f9f63e1d0fea5d1f4b35efedba25dc",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT30-B64.5/orderbook",
+      "raw_ref": "execution/0009.json",
+      "received_at": "2026-10-29T18:04:28.740689+00:00",
+      "sha256": "sha256:20c7cc790f506dc18e1bd3ce663c5e472b669d2ad82b02fd72fb8cf28a7b2af3",
+      "status": 200
+    },
+    {
+      "path": "/trade-api/v2/markets/KXHIGHCHI-26OCT30-B66.5/orderbook",
+      "raw_ref": "execution/0010.json",
+      "received_at": "2026-10-29T18:04:28.793618+00:00",
+      "sha256": "sha256:acd07085ccf2b1aabe939be24c52c21383b1847b9e43e026a4dd989fd6c63d35",
+      "status": 200
+    }
+  ],
+  "submission_enabled": false
+}

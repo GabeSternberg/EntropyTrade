@@ -1,0 +1,3045 @@
+{
+  "acquisition_complete": true,
+  "bundle": {
+    "model_metadata": {
+      "data_kind": "real",
+      "original_metadata_hash": "sha256:835f06d53cef9985144bc292226befc07d7ee9f5fce2019e9cdc003e118702b0"
+    },
+    "records": [],
+    "refusals": {
+      "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+    },
+    "source_hash": "sha256:23cdc4d534450d9edf1a539cff74178b1875fd94d53cb55addb3681dbf8ca8cd"
+  },
+  "data": {
+    "data_kind": "real",
+    "dataset_version": "sha256:9b1035efbe2bcf8a89eb8ddde95e3a783cf8546bda5913498ee9bd9d050f6f77",
+    "feature_definitions": {
+      "features": [
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "forecast_high_f",
+          "transformation": "Mean latest full-local-day hourly maximum proxy per model",
+          "unit": "degF",
+          "version": "1"
+        },
+        {
+          "missing_behavior": "null; never impute unavailable evidence",
+          "name": "hours_to_close",
+          "transformation": "Actual market close minus decision time",
+          "unit": "hours",
+          "version": "1"
+        }
+      ],
+      "version": "public-forward-v1"
+    },
+    "feature_version": "sha256:198cf4a2e41fa1a0aaf24fbf593657cd7f241eb16f21562bfd6380923dfff808",
+    "protected_events": [],
+    "provenance": {
+      "purpose": "shadow replay; targets withheld"
+    },
+    "samples": [
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-T78",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-T71",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-B77.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-B75.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-B73.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:bc12af6a950c5e28d2e9d60725db0146b8e55ec003f8ad2370bd7f5b94e5089d",
+        "features": {
+          "forecast_high_f": "71.0",
+          "hours_to_close": "34.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHPHIL-26OCT30-B71.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-T76",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-T69",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-B75.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-B73.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-B71.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-30T05:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "family": "KXHIGHPHIL",
+        "feature_hash": "sha256:07968c32ff04b7507bfd813b6ed1de4dd54e1dcb2705be11218f631f8dc03e97",
+        "features": {
+          "forecast_high_f": "67.2",
+          "hours_to_close": "10.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHPHIL-26OCT29-B69.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-T67",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "missing",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-T60",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0200",
+              "quantity": "351.00"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "67.04"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "261.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "172.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "101.00"
+            },
+            {
+              "price": "0.0800",
+              "quantity": "140.00"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "145.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "145.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "103.10"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "103.10"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "103.10"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "28.10"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "99.10"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "2.10"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "46.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "3.10"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "2.10"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4400",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "290.00"
+            },
+            {
+              "price": "0.5100",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6400",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "665.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8800",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9200",
+              "quantity": "716.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "177.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "47.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1232.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1743.00"
+            }
+          ],
+          "bids": [],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT30-B66.5",
+          "received_at": "2026-10-29T18:07:33.108493Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-B66.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0400",
+              "quantity": "104.56"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "244.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "166.00"
+            },
+            {
+              "price": "0.0800",
+              "quantity": "132.00"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "241.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "160.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "113.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "101.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "103.10"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "105.10"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "119.10"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "33.10"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "7.10"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "14.10"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "28.10"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "104.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "7.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "15.10"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "16.00"
+            },
+            {
+              "price": "0.2800",
+              "quantity": "38.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "290.00"
+            },
+            {
+              "price": "0.5200",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6300",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.6400",
+              "quantity": "777.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "665.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.7700",
+              "quantity": "46.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8800",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.9400",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "177.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "47.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1232.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1743.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.0300",
+              "quantity": "7.34"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "92.00"
+            },
+            {
+              "price": "0.0100",
+              "quantity": "162.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT30-B64.5",
+          "received_at": "2026-10-29T18:07:32.849438Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-B64.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.1500",
+              "quantity": "83.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "135.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "245.00"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "84.00"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "114.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "155.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "87.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "108.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "69.36"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "32.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "52.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "32.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "32.00"
+            },
+            {
+              "price": "0.2800",
+              "quantity": "121.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "2.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "15.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.3300",
+              "quantity": "34.00"
+            },
+            {
+              "price": "0.3400",
+              "quantity": "14.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "42.20"
+            },
+            {
+              "price": "0.3600",
+              "quantity": "15.00"
+            },
+            {
+              "price": "0.3700",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.3800",
+              "quantity": "55.00"
+            },
+            {
+              "price": "0.3900",
+              "quantity": "19.10"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "26.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.4600",
+              "quantity": "6.30"
+            },
+            {
+              "price": "0.4700",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.4800",
+              "quantity": "2.10"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.5100",
+              "quantity": "2.10"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "110.00"
+            },
+            {
+              "price": "0.5700",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.5800",
+              "quantity": "94.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "80.00"
+            },
+            {
+              "price": "0.6100",
+              "quantity": "250.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.7300",
+              "quantity": "763.00"
+            },
+            {
+              "price": "0.7400",
+              "quantity": "625.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "126.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.8800",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "182.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "47.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1252.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1743.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.1400",
+              "quantity": "214.34"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "60.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "52.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "73.00"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "892.00"
+            },
+            {
+              "price": "0.0800",
+              "quantity": "176.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "132.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "82.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "335.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "100.10"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "112.00"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "162.10"
+            },
+            {
+              "price": "0.0100",
+              "quantity": "884.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT30-B62.5",
+          "received_at": "2026-10-29T18:07:32.822601Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-B62.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.4800",
+              "quantity": "28.71"
+            },
+            {
+              "price": "0.4900",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "164.00"
+            },
+            {
+              "price": "0.5100",
+              "quantity": "155.00"
+            },
+            {
+              "price": "0.5200",
+              "quantity": "184.00"
+            },
+            {
+              "price": "0.5300",
+              "quantity": "189.00"
+            },
+            {
+              "price": "0.5400",
+              "quantity": "198.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "144.00"
+            },
+            {
+              "price": "0.5600",
+              "quantity": "182.00"
+            },
+            {
+              "price": "0.5700",
+              "quantity": "132.00"
+            },
+            {
+              "price": "0.5800",
+              "quantity": "222.00"
+            },
+            {
+              "price": "0.5900",
+              "quantity": "149.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "91.90"
+            },
+            {
+              "price": "0.6100",
+              "quantity": "26.00"
+            },
+            {
+              "price": "0.6200",
+              "quantity": "101.00"
+            },
+            {
+              "price": "0.6300",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.6400",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "31.00"
+            },
+            {
+              "price": "0.6600",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.6700",
+              "quantity": "15.00"
+            },
+            {
+              "price": "0.6800",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.6900",
+              "quantity": "49.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "51.00"
+            },
+            {
+              "price": "0.7100",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.7300",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.7400",
+              "quantity": "120.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "293.10"
+            },
+            {
+              "price": "0.7600",
+              "quantity": "3.10"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.8300",
+              "quantity": "41.10"
+            },
+            {
+              "price": "0.8400",
+              "quantity": "794.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "729.00"
+            },
+            {
+              "price": "0.8800",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "189.10"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "44.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1256.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1743.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4700",
+              "quantity": "38.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "16.00"
+            },
+            {
+              "price": "0.4400",
+              "quantity": "58.00"
+            },
+            {
+              "price": "0.4300",
+              "quantity": "110.00"
+            },
+            {
+              "price": "0.4200",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.4100",
+              "quantity": "90.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "43.00"
+            },
+            {
+              "price": "0.3900",
+              "quantity": "65.10"
+            },
+            {
+              "price": "0.3800",
+              "quantity": "35.10"
+            },
+            {
+              "price": "0.3700",
+              "quantity": "44.10"
+            },
+            {
+              "price": "0.3600",
+              "quantity": "93.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "66.10"
+            },
+            {
+              "price": "0.3400",
+              "quantity": "90.10"
+            },
+            {
+              "price": "0.3300",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.3100",
+              "quantity": "34.10"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "22.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "14.10"
+            },
+            {
+              "price": "0.2800",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "15.10"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "61.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "42.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "23.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "24.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "16.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "28.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "39.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "286.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "920.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "395.00"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "140.00"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "80.00"
+            },
+            {
+              "price": "0.0100",
+              "quantity": "571.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT30-B60.5",
+          "received_at": "2026-10-29T18:07:32.794386Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-31T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT30",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:0464807869f46185b8deba344c695fb1eb3089c379dc5b259ed15e374152ec39",
+        "features": {
+          "forecast_high_f": "59.45",
+          "hours_to_close": "35.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "nws",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-30",
+        "ticker": "KXHIGHCHI-26OCT30-B60.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0100",
+              "quantity": "9126.49"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "2739.00"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "179.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "158.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "104.20"
+            },
+            {
+              "price": "0.0800",
+              "quantity": "110.00"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "14.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "129.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "114.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "48.00"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "114.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "114.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "94.00"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "42.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "24.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "47.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "17.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "17.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "53.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "94.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4200",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.4400",
+              "quantity": "818.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "90.00"
+            },
+            {
+              "price": "0.5200",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6200",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.7800",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "28.00"
+            },
+            {
+              "price": "0.9400",
+              "quantity": "39.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "177.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "48.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1176.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1618.00"
+            }
+          ],
+          "bids": [],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-T75",
+          "received_at": "2026-10-29T18:07:32.766828Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-T75",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0100",
+              "quantity": "213100.06"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "6157.91"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "65.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "59.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "139.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "107.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "31.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "55.00"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "28.75"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "9.00"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "24.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "38.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "61.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.3400",
+              "quantity": "19.40"
+            },
+            {
+              "price": "0.3600",
+              "quantity": "40.02"
+            },
+            {
+              "price": "0.4400",
+              "quantity": "33.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.5400",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.6400",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.7400",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.7800",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "87.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "114.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "196.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "624.84"
+            }
+          ],
+          "bids": [],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-T68",
+          "received_at": "2026-10-29T18:07:32.739230Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-T68",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0100",
+              "quantity": "2068.68"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "71.19"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "150.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "67.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "18.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "3.10"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "14.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "26.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "3.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "47.00"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "83.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "24.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "3.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "17.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "15.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "23.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "38.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "115.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.4200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "100.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "105.00"
+            },
+            {
+              "price": "0.5200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.6200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.7800",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9200",
+              "quantity": "800.00"
+            },
+            {
+              "price": "0.9300",
+              "quantity": "28.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "177.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "48.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1176.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1646.00"
+            }
+          ],
+          "bids": [],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-B74.5",
+          "received_at": "2026-10-29T18:07:32.711394Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-B74.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0100",
+              "quantity": "186.60"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "37.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "16.00"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "34.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "7.00"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "3.00"
+            },
+            {
+              "price": "0.0800",
+              "quantity": "45.00"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "31.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "45.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "37.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "35.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "0.01"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.1800",
+              "quantity": "15.00"
+            },
+            {
+              "price": "0.1900",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "60.60"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "34.77"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "37.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "38.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.2800",
+              "quantity": "23.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "49.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.3300",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "55.00"
+            },
+            {
+              "price": "0.4300",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.4700",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "80.00"
+            },
+            {
+              "price": "0.5300",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.6300",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.6900",
+              "quantity": "131.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.7100",
+              "quantity": "797.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.7300",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.7700",
+              "quantity": "51.00"
+            },
+            {
+              "price": "0.7800",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "207.50"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "48.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1196.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1645.00"
+            }
+          ],
+          "bids": [],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-B72.5",
+          "received_at": "2026-10-29T18:07:32.681573Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-B72.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.0800",
+              "quantity": "58.95"
+            },
+            {
+              "price": "0.0900",
+              "quantity": "14.00"
+            },
+            {
+              "price": "0.1000",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "128.38"
+            },
+            {
+              "price": "0.1200",
+              "quantity": "73.00"
+            },
+            {
+              "price": "0.1300",
+              "quantity": "44.00"
+            },
+            {
+              "price": "0.1400",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.1500",
+              "quantity": "59.00"
+            },
+            {
+              "price": "0.1600",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.1700",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "55.00"
+            },
+            {
+              "price": "0.2100",
+              "quantity": "19.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2300",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2400",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.2500",
+              "quantity": "21.00"
+            },
+            {
+              "price": "0.2600",
+              "quantity": "18.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.2800",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.2900",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.3000",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.3100",
+              "quantity": "19.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "44.00"
+            },
+            {
+              "price": "0.3500",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3600",
+              "quantity": "32.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.4500",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.4700",
+              "quantity": "9.75"
+            },
+            {
+              "price": "0.5400",
+              "quantity": "50.00"
+            },
+            {
+              "price": "0.5500",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.5900",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.6200",
+              "quantity": "39.00"
+            },
+            {
+              "price": "0.6300",
+              "quantity": "255.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "117.92"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "140.17"
+            },
+            {
+              "price": "0.7700",
+              "quantity": "10.69"
+            },
+            {
+              "price": "0.7800",
+              "quantity": "8.13"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "44.49"
+            },
+            {
+              "price": "0.8200",
+              "quantity": "125.00"
+            },
+            {
+              "price": "0.8300",
+              "quantity": "10.93"
+            },
+            {
+              "price": "0.9100",
+              "quantity": "717.00"
+            },
+            {
+              "price": "0.9200",
+              "quantity": "21.86"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "77.00"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "48.00"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1186.00"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1965.90"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.0400",
+              "quantity": "27.80"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "48.90"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "120.00"
+            },
+            {
+              "price": "0.0100",
+              "quantity": "153.04"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-B70.5",
+          "received_at": "2026-10-29T18:07:32.651584Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-B70.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.9300",
+              "quantity": "26.05"
+            },
+            {
+              "price": "0.9400",
+              "quantity": "200.00"
+            },
+            {
+              "price": "0.9500",
+              "quantity": "97.00"
+            },
+            {
+              "price": "0.9600",
+              "quantity": "132.51"
+            },
+            {
+              "price": "0.9700",
+              "quantity": "376.98"
+            },
+            {
+              "price": "0.9800",
+              "quantity": "1262.79"
+            },
+            {
+              "price": "0.9900",
+              "quantity": "1889.30"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.9100",
+              "quantity": "11.00"
+            },
+            {
+              "price": "0.9000",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.8900",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.8800",
+              "quantity": "2.00"
+            },
+            {
+              "price": "0.8700",
+              "quantity": "13.00"
+            },
+            {
+              "price": "0.8600",
+              "quantity": "4.00"
+            },
+            {
+              "price": "0.8500",
+              "quantity": "16.00"
+            },
+            {
+              "price": "0.8400",
+              "quantity": "45.57"
+            },
+            {
+              "price": "0.8300",
+              "quantity": "40.00"
+            },
+            {
+              "price": "0.8100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.8000",
+              "quantity": "4.50"
+            },
+            {
+              "price": "0.7700",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.7600",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.7500",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.7300",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.7200",
+              "quantity": "6.00"
+            },
+            {
+              "price": "0.7100",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.7000",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.6900",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.6800",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.6700",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.6600",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.6500",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.6100",
+              "quantity": "1.00"
+            },
+            {
+              "price": "0.6000",
+              "quantity": "42.00"
+            },
+            {
+              "price": "0.5200",
+              "quantity": "5.00"
+            },
+            {
+              "price": "0.5000",
+              "quantity": "20.00"
+            },
+            {
+              "price": "0.4100",
+              "quantity": "9.00"
+            },
+            {
+              "price": "0.4000",
+              "quantity": "25.00"
+            },
+            {
+              "price": "0.3700",
+              "quantity": "10.00"
+            },
+            {
+              "price": "0.3200",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.2700",
+              "quantity": "197.00"
+            },
+            {
+              "price": "0.2200",
+              "quantity": "30.00"
+            },
+            {
+              "price": "0.2000",
+              "quantity": "12.00"
+            },
+            {
+              "price": "0.1100",
+              "quantity": "1.31"
+            },
+            {
+              "price": "0.0700",
+              "quantity": "422.00"
+            },
+            {
+              "price": "0.0600",
+              "quantity": "100.32"
+            },
+            {
+              "price": "0.0500",
+              "quantity": "45.00"
+            },
+            {
+              "price": "0.0400",
+              "quantity": "120.00"
+            },
+            {
+              "price": "0.0300",
+              "quantity": "44.00"
+            },
+            {
+              "price": "0.0200",
+              "quantity": "70.00"
+            },
+            {
+              "price": "0.0100",
+              "quantity": "49.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "KXHIGHCHI-26OCT29-B68.5",
+          "received_at": "2026-10-29T18:07:32.608715Z",
+          "sequence": null
+        },
+        "close_time": "2026-10-30T06:00:00Z",
+        "decision_time": "2026-10-29T18:07:33.109235Z",
+        "eligible": true,
+        "event_id": "KXHIGHCHI-26OCT29",
+        "family": "KXHIGHCHI",
+        "feature_hash": "sha256:8012f23c335ecafb35139b7f52dca4e7ab10aaee0c00a98f693007591d6363b8",
+        "features": {
+          "forecast_high_f": "69.7",
+          "hours_to_close": "11.87413632361111111111111111"
+        },
+        "features_available_at": "2026-10-29T18:07:32.495627Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "kalshi",
+          "open-meteo"
+        ],
+        "target_date": "2026-10-29",
+        "ticker": "KXHIGHCHI-26OCT29-B68.5",
+        "versions": {
+          "forecast_high_f": "1",
+          "hours_to_close": "1"
+        }
+      }
+    ]
+  },
+  "fee": null,
+  "reservations": [],
+  "schema": "shadow-inputs-v1",
+  "spec": {
+    "assumptions": [
+      "Local template; unsupported prose is not interpreted as trading rules",
+      "Model families use their registered feature sets; no feature ablation"
+    ],
+    "calibration": "none",
+    "citations": [],
+    "created_at": "2026-10-29T18:07:26.811677Z",
+    "description": "The requested signal forecast_high_f may improve contract probabilities.",
+    "entry_rules": {
+      "all_of": [
+        {
+          "feature": "model_yes_probability",
+          "op": "gt",
+          "threshold": "0.55"
+        },
+        {
+          "feature": "forecast_high_f",
+          "op": "gt",
+          "threshold": "70"
+        }
+      ],
+      "description": "Requested comparisons AND model probability > 0.55"
+    },
+    "entry_window": {
+      "end": null,
+      "start": null,
+      "target_end": null,
+      "target_start": null
+    },
+    "evidence": [],
+    "execution": {
+      "max_spread": null,
+      "post_only": false,
+      "time_in_force": "fill_or_kill"
+    },
+    "exit_mode": "hold_to_settlement",
+    "exit_rules": {
+      "all_of": [
+        {
+          "feature": "settlement",
+          "op": "eq",
+          "threshold": "1"
+        }
+      ],
+      "description": "Hold to settlement using the official contract outcome"
+    },
+    "features": [
+      {
+        "description": "Frozen decision-time covariate",
+        "name": "forecast_high_f",
+        "version": "1"
+      }
+    ],
+    "generated_by": {
+      "actor_id": "local-template-v1",
+      "kind": "agent"
+    },
+    "generation_run_id": "0bdbc275-29a1-4f83-9a00-1a20caa3ac6e",
+    "hedging_rules": "",
+    "hypothesis": "The requested signal forecast_high_f may improve contract probabilities.",
+    "invalidation_conditions": [
+      "Evidence, model or execution gates fail"
+    ],
+    "market_universe": {
+      "description": "Actual permitted captured series",
+      "event_tickers": [],
+      "market_tickers": [],
+      "series_tickers": [
+        "KXHIGHCHI",
+        "KXHIGHPHIL"
+      ],
+      "venue": "kalshi"
+    },
+    "max_entry_price": null,
+    "maximum_holding_period_seconds": null,
+    "min_displayed_quantity": null,
+    "minimum_edge": "0.03",
+    "model_kind": "domain_statistical",
+    "model_ref": null,
+    "name": "KXHIGHCHI signal test 1",
+    "position_sizing": {
+      "contracts": "1.00",
+      "dollars": null,
+      "kelly_fraction": null,
+      "max_contracts": "1.00",
+      "method": "fixed_contracts"
+    },
+    "probability_feature": null,
+    "required_sources": [
+      "kalshi",
+      "open-meteo"
+    ],
+    "risk_overrides_allowed": "none",
+    "side": "yes",
+    "slippage_allowance": "0",
+    "strategy_family": "informational",
+    "strategy_id": "local-template-0",
+    "uncertainty_allowance": "0",
+    "version": 1
+  }
+}

@@ -1,6 +1,14 @@
 # Local operation and recovery — October 29, 2026
 
 **Implemented; browser/full-suite acceptance incomplete; V1 complete=false.**
+The latest [source-lease and actual-listener correction](20261029-leased-source-final/README.md)
+passes 311 tests in 13 isolated files (three named R4 workflows deselected), static/frontend
+checks and exact-source verification. Actual unmodified workers restore identical downloads,
+preserve an interrupted shadow cycle, collect a fresh authentic cycle and verify cancellation/
+restart. The corrected offline proof also preserves 114 original evidence files, logical rows
+and both 24-decision replays. Browser/full-suite acceptance remains outstanding; the unchanged
+denied launch and stalled suite were not retried. Earlier evidence below retains its scope.
+
 The subsequent [legacy SQL NULL binding correction](20261029-legacy-null-binding/README.md)
 passes 291 focused tests, including 34 recovery cases, and static/frontend checks. It
 preserves the outstanding browser/full-suite acceptance steps; the evidence below predates

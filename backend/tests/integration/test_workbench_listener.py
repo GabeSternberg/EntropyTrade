@@ -24,7 +24,7 @@ def workspace() -> Iterator[Path]:
 
 @contextmanager
 def listening(
-    workspace: Path, *, workers: bool = True
+    workspace: Path, *, workers: bool = True, shadow_workers: bool = False
 ) -> Iterator[tuple[WorkbenchServer, httpx.Client]]:
     with WorkbenchServer(REPO, workspace, port=0) as server:
         thread = threading.Thread(
@@ -33,6 +33,8 @@ def listening(
         thread.start()
         if workers:
             server.runner.start()
+        if shadow_workers:
+            server.shadow.start()
         try:
             with httpx.Client(
                 base_url=f"http://127.0.0.1:{server.server_port}", trust_env=False, timeout=10
@@ -43,6 +45,7 @@ def listening(
             thread.join(timeout=5)
     assert not thread.is_alive()
     assert not server.runner.thread.is_alive()
+    assert not server.shadow.thread.is_alive()
 
 
 @pytest.mark.parametrize("mode", ["recorded", "synthetic"])

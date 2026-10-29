@@ -1,0 +1,10 @@
+{
+  "command": "timeout 160s .venv/bin/python -m pytest backend/tests/integration/test_workbench_listener.py -q -o faulthandler_timeout=45",
+  "context": "initial workspace sandbox; before approved gate",
+  "exit_code": 1,
+  "failed": 3,
+  "failure": "PermissionError: [Errno 1] Operation not permitted",
+  "location": "socket.socket constructor in WorkbenchServer initialization",
+  "browser_launched": false,
+  "note": "Observed tool result, not an invented raw console log. The approved gate records its own full logs."
+}

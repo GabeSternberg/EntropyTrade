@@ -16,6 +16,26 @@ and inherited worker leases prevent concurrent maintenance. Frozen model binding
 reservations, paused states, original clocks and active-monitor recovery have controlled
 regressions; two authentic retained cycles also restore and replay identically offline.
 
+The current source-workspace correction validates an existing `data/cache/` source before
+store construction, retaining its exclusive lease across snapshot/inspection/comparison and
+a separate lease across restored initialization/recovery. It adds a browser-independent
+actual-listener recovery journey with unmodified research/shadow workers, restored downloads,
+fresh collection and restart/cancellation. The isolated gate includes both existing listener
+files with per-file processes/deadlines and exact-source fingerprints. Review this useful
+recovery capability independently of unavailable Bitcoin validation history; no new family,
+backdated receipt or empirical claim is introduced. Browser and full-suite release evidence
+remain separate requirements. The unchanged denied Chromium launch and stalled full suite
+are not repeated by this gate.
+
+The [final isolated gate](../data/local-operation-review/20261029-leased-source-final/README.md)
+passes 311 tests across 13 files (three named R4 workflows deselected), Ruff/format, strict
+mypy and 12 frontend assertions, with unchanged source fingerprints. Its new recovery
+listener passes actual restored downloads, interrupted/fresh shadow cycles and
+cancellation/restart, including new authentic public receipts. The corrected offline proof
+also preserves the earlier real source bytes/rows and both 24-decision replays. These are
+scoped recovery/operation results; empirical model validation and browser/full-suite release
+acceptance remain open. No new phase is started; return this correction for supervisor review.
+
 The legacy-binding follow-up preserves migrated SQL NULL bindings through snapshot/restore,
 startup recovery and resume, leaving scoring blocked even when a model export is present.
 Malformed non-null bindings remain refused. Its [controlled evidence](../data/local-operation-review/20261029-legacy-null-binding/README.md)

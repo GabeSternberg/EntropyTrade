@@ -69,6 +69,32 @@ model evidence. To reproduce on another stopped, paused workspace:
   --output "$PWD/data/local-operation-review/recovery-proof"
 ```
 
+The offline verifier first requires an existing source database under `data/cache/`,
+then snapshots and validates it under the exclusive lease before constructing application
+stores. It holds that same lease through source inspection and source/restored comparison;
+there is no nested lease acquisition. A separate destination lease covers restored-store
+initialization, logical-row comparison, startup recovery and replay. Busy, missing,
+out-of-cache and incompatible-schema sources cannot be initialized or migrated by this
+verification tool. A read-only SQLite WAL backup can create transient WAL/SHM sidecars for
+an existing valid source; those are runtime files, not a schema migration or new database.
+
+For the browser-independent recovery gate in an already installed checkout:
+
+```bash
+python3 tools/recovery_gate.py \
+  --output "$PWD/data/local-operation-review/NEW-ISOLATED-REVIEW"
+```
+
+This runs Ruff/format, strict mypy, frontend assertions and 13 focused pytest files in
+separate processes with explicit deadlines, retaining source fingerprints, logs and JUnit.
+It includes both existing listener files and `test_recovery_listener.py`: an actual
+localhost server and unmodified research/shadow subprocesses complete recorded research,
+download results, stop an active cycle, snapshot/restore, compare paused downloads, collect
+a fresh cycle, cancel research and restart. Public polls retain actual receipts or honest
+failures; they never substitute controlled inputs. Three existing asynchronous R4 workflow
+cases are explicitly deselected in this focused gate. It does not launch a browser,
+retry the known full-suite stall, or establish a new clean install or V1 release pass.
+
 ## Locked installation and real browser acceptance
 
 The one-command acceptance driver exports explicit product/test/data roots into a new

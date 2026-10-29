@@ -5,6 +5,37 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: local operation and recovery — implemented, acceptance incomplete
 
+The current correction starts at `99ba77a` on the existing
+`supervisor/20261029-124902` branch. Source recovery verification now requires an existing
+workspace under `data/cache/` and a validated snapshot before opening application stores.
+One exclusive source lease covers snapshot, inspection and comparisons; a separate restored
+lease covers initialization, comparisons and recovery. Busy, missing, out-of-cache and
+incompatible sources cannot create or migrate databases. Normal supported legacy SQL NULL
+bindings remain unbound. No Git mutations, supervisor-control changes, credentials, risk
+changes or real orders; all Git operations remain with the supervisor.
+
+The browser-independent real-listener recovery test uses unmodified research and shadow
+workers, actual downloads, an interrupted active cycle, snapshot/restore, a fresh poll,
+cancellation and another restart. The isolated gate includes both earlier listener files
+and retains exact-source fingerprints and per-file deadlines/logs/JUnit. This is independent
+of Bitcoin's future validation windows. Managed Chromium and the stalled complete suite
+are not retried. **V1 remains incomplete**; browser/full-suite and empirical release gaps
+still need independent acceptance.
+
+**311 tests pass across 13 isolated pytest files, with three named R4 workflows deselected**;
+Ruff lint/format (505 files), strict mypy (502 files) and 12 frontend assertions pass.
+All 643 fingerprinted application/test/tool/config/data files remain unchanged during the
+gate. The new actual-listener test passes in 23.1 seconds, including a genuinely interrupted
+cycle and fresh authentic collection of 24 contracts/648 observations. No prediction,
+intention, fill or performance is inferred from those model/fee-blocked decisions. The
+corrected offline verifier also preserves 114 retained real evidence files, all logical
+database rows and paused exports, with both original 24-decision replays passing.
+See [exact-source results, artifacts and limitations](data/local-operation-review/20261029-leased-source-final/README.md).
+No current browser, complete-suite, new clean-install or V1 pass is claimed. Return this
+scoped correction for supervisor review before further major work.
+
+### Earlier legacy SQL NULL binding correction
+
 Implemented on the existing `supervisor/20261029-124902` checkout from `70cbc7a`.
 No Git mutations, supervisor-control changes, real orders or credential access. The
 supervisor retains all commits/merges/pushes. **V1 remains incomplete.**

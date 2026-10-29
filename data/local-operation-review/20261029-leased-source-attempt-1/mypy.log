@@ -1,0 +1,3 @@
+backend/src/entropytrade/api/recovery_proof.py:67: error: Need type annotation for "replays" (hint: "replays: list[<type>] = ...")  [var-annotated]
+backend/src/entropytrade/api/recovery_proof.py:76: error: Left operand of "or" is always false  [redundant-expr]
+Found 2 errors in 1 file (checked 502 source files)

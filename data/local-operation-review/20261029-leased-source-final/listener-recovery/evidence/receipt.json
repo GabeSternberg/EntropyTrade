@@ -1,0 +1,98 @@
+{
+  "started_at": "2026-10-29T18:07:23.978016+00:00",
+  "browser_interaction": false,
+  "worker": "unmodified research and shadow subprocesses",
+  "listener": "actual ephemeral loopback HTTP",
+  "empirical_performance": false,
+  "submission_enabled": false,
+  "observed_active_cycle": "22442376-89d3-48cf-a77e-169c5c58bdd7",
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/cache/recovery-listener-66vmyfj8/evidence/workspace.zip",
+    "sha256": "sha256:31d68dc3de2e5a74f38c3426325cb8322105d62e4598154183df32841a232b46",
+    "jobs": 1,
+    "monitors": 2,
+    "cycles": 2,
+    "submission_enabled": false
+  },
+  "restore": {
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/recovery-listener-66vmyfj8/restored",
+    "archive_sha256": "sha256:31d68dc3de2e5a74f38c3426325cb8322105d62e4598154183df32841a232b46",
+    "jobs": 1,
+    "monitors": 2,
+    "cycles": 2,
+    "submission_enabled": false
+  },
+  "status": "passed",
+  "finished_at": "2026-10-29T18:07:46.694121+00:00",
+  "restarts": 2,
+  "fresh_capture": {
+    "decision_time": "2026-10-29T18:07:42.760855+00:00",
+    "failures": [],
+    "family": "weather",
+    "history_complete": false,
+    "listed_contracts": 24,
+    "observations": 648,
+    "receipts": [
+      {
+        "hash": "sha256:e32209ada369c15db1ef0e0c7bdf469e8f2d993585bdb3a78072dffdeb389554",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+        "raw_ref": "raw/0001.json",
+        "received_at": "2026-10-29T18:07:38.608404+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:9361bd36bc5cc1df09ededbd7f066551835f5fe89ad12a46cbd9ec6f2b5d07f7",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+        "raw_ref": "raw/0002.json",
+        "received_at": "2026-10-29T18:07:38.641160+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:5a51988c96803c7eedecd54dcd5e165fc34fb991bcf5cda6457a94e45707698f",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0003.json",
+        "received_at": "2026-10-29T18:07:39.298019+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+        "path": "https://api.weather.gov/points/39.87,-75.23",
+        "raw_ref": "raw/0004.json",
+        "received_at": "2026-10-29T18:07:41.964700+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:03d1d7be7fe13725d31dcaad93960577f1a4820341e1cd5a2973026b9e5d5c85",
+        "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+        "raw_ref": "raw/0005.json",
+        "received_at": "2026-10-29T18:07:42.275686+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:848bf8b1b23ffab21b22db902f8de2cd165715ab12b91a5fe0fcb1204f70d258",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0006.json",
+        "received_at": "2026-10-29T18:07:42.395234+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+        "path": "https://api.weather.gov/points/41.79,-87.75",
+        "raw_ref": "raw/0007.json",
+        "received_at": "2026-10-29T18:07:42.471977+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:1af9f71eafb97abac1c67f2b796c098479374313a6f0a943a1b31417e530c61b",
+        "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+        "raw_ref": "raw/0008.json",
+        "received_at": "2026-10-29T18:07:42.597994+00:00",
+        "status": 200
+      }
+    ],
+    "started_at": "2026-10-29T18:07:38.527157+00:00",
+    "truncated_universe": false,
+    "universe_complete": true
+  },
+  "prior_cycle_status": "interrupted"
+}

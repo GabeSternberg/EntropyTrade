@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/cache/recovery-listener-594anbxs/original/runs/455bca2f-7cb4-4aa3-b4d6-b3ca85525586/mlflow/models/134254779556863817/6e25470a914d44bfb919a3134d37c148/artifacts
+end_time: 1793297054503
+entry_point_name: ''
+experiment_id: '134254779556863817'
+lifecycle_stage: active
+run_id: 6e25470a914d44bfb919a3134d37c148
+run_name: sha256:90676a2dba62fad567c6784a1a692b66dbe0aee4a56cccbe6fb4ec7288df01fd
+run_uuid: 6e25470a914d44bfb919a3134d37c148
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793297054495
+status: 3
+tags: []
+user_id: gabriel
