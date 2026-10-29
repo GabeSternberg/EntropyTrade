@@ -40,6 +40,16 @@ hashes under the corrected policy. Keep those original artifacts unchanged; new 
 retain the required field. Interrupted cycles
 without input/result artifacts cannot be replayed and report that limitation explicitly.
 
+The compiler and shadow evaluator share one probability-name resolver: an explicit
+`probability_feature` must occur in the entry predicates; otherwise exactly one distinct
+`*_probability` predicate name is required. The validated prediction is inserted under
+that exact name. A raw feature with the same name remains in `features` and its original
+hash/version audit but cannot replace the model value in entry predicates or edge
+calculation, even at an identical availability timestamp. Other required features keep
+their existing availability/version gates. Legacy decisions affected by the former binding
+bug cannot reproduce their old decision hashes under the corrected evaluator; preserve
+their original artifacts rather than changing receipts or replay inputs to make them pass.
+
 ```bash
 uv run python -m entropytrade.tracking.replay data/cache/workbench/shadow/MONITOR_ID/CYCLE_ID
 ```
@@ -104,6 +114,8 @@ remains false in all exported evidence. A shadow risk decision never becomes an
 Verification is recorded in [the milestone evidence](../data/shadow-review/20261029/README.md)
 and the correction evidence for [calibration/holdouts](../data/shadow-review/20261029-boundaries/README.md)
 and [availability/provenance](../data/shadow-review/20261029-availability-provenance/README.md).
+The [probability binding correction](../data/shadow-review/20261029-probability-binding/README.md)
+records implicit/explicit binding, raw-feature collision and JSON replay regression evidence.
 The executable [Playwright procedure](../frontend/browser/shadow.spec.cjs) uses managed
 Chromium and the real localhost app, submits research, starts/pauses/resumes tracking,
 compares downloads across restart and preserves screenshots when page interaction runs.

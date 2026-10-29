@@ -1,0 +1,3 @@
+{"specimen": "data/shadow-review/20261029/controlled-workspaces/test_multi_cycle_receipts_offi0/shadow/64d1e3b2-445d-4d8c-a6d5-fea49a9d159a/6c646be0-5683-4fdd-9852-d8e55ec81e11", "expected_refusal": "shadow decisions differ from retained result"}
+{"specimen": "data/shadow-review/20261029/controlled-workspaces/test_multi_cycle_receipts_offi0/shadow/64d1e3b2-445d-4d8c-a6d5-fea49a9d159a/a91a18a1-e277-4406-960b-7ec453e308ab", "expected_refusal": "shadow artifact checksum/path mismatch"}
+{"legacy_decisions_blocked": 2, "original_files_unchanged": true}

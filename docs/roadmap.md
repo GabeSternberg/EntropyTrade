@@ -32,6 +32,15 @@ collector diagnostic now confirms denied asyncio self-pipe writes while awaiting
 signing executor. Existing browser denials are retained without a permission workaround.
 Review this correction before starting another major phase.
 
+The probability binding review blocker is corrected on the existing branch: a shared
+validated resolver binds implicit custom names and explicit aliases to the audited
+prediction, excluding competing raw values from the interpreter view while retaining
+them in the audit. Regression and JSON replay checks preserve the existing evidence/risk
+gates. See [probability binding evidence](../data/shadow-review/20261029-probability-binding/README.md).
+The full suite and current shadow browser/listener acceptance remain incomplete; neither
+this correction nor controlled eligible intentions establish empirical performance or
+authorize a new milestone. The supervisor owns review and all Git operations.
+
 The next reviewed work should close the highest-impact independent V1 gap, including
 operating/browser evidence and certified forward scoring where data permits. The eventual
 second family requires two genuinely supported real-data paths, not a synthetic fixture

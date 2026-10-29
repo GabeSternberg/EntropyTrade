@@ -5,6 +5,38 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: continuous read-only shadow tracking
 
+### October 29 shadow probability binding correction
+
+On the same designated branch, starting at `d43e262`, shadow evaluation and the strategy
+compiler now share the validated probability-name resolver. Implicit custom
+`*_probability` predicates and explicit aliases receive the audited model prediction.
+Raw features under that name remain in the audit but are excluded from the interpreter's
+observations, including at identical availability clocks. A validated probability of
+`0.10` cannot become a raw `0.95` intention; eligible intentions use the exact model value.
+Missing or ambiguous predictions, required input features, model identity, calibration,
+provenance, protected-event and risk gates retain their existing fail-closed behavior.
+
+**163 focused tracking/workbench tests and 27 shared interpreter/replay/execution tests
+pass**, plus **46 selected deterministic experiment/risk tests** (three asynchronous
+workflow cases deselected), with Ruff lint/format, strict mypy (491 files), 12 frontend
+presentation tests and JavaScript syntax checks. The 57 new cases cover implicit names,
+absent/null/conflicting raw values, equal receipt clocks, explicit aliases, duplicate
+predicates, ambiguous bindings,
+model identity and actual JSON replay equality. Initial regressions reproduced eight
+failures before the fix. These are controlled software checks, not empirical performance.
+See [probability binding evidence](data/shadow-review/20261029-probability-binding/README.md).
+
+The bounded complete-suite attempt collected 903 tests, passed two architecture checks,
+then stalled in the existing collector reconnect test and exited 124 after 70 seconds;
+its stack is retained. A broader experiment/risk selection also timed out after 60 seconds;
+the later deterministic selection above does not establish full experiment-suite acceptance.
+Current shadow browser/listener acceptance remains unexecuted.
+Previously denied Chromium/socket attempts were not repeated or bypassed; run the existing
+managed Chromium harness and complete suite in a permitted environment. Forward scoring
+still requires fitted probabilities, certified fees and sized books. **V1 remains
+incomplete.** All Git operations belong to the supervisor; review this correction before
+another major milestone.
+
 ### October 29 calibration availability and model provenance correction
 
 On the same designated branch, starting at `61eef2f`, shadow evaluation now requires a
@@ -258,7 +290,8 @@ previous recovery branches are preserved. No real strategy is approved or valida
 
 ## Exact next action
 
-Supervisor review of the [calibration/holdout correction](data/shadow-review/20261029-boundaries/README.md)
+Supervisor review of the [probability binding correction](data/shadow-review/20261029-probability-binding/README.md),
+the [calibration/holdout correction](data/shadow-review/20261029-boundaries/README.md)
 and integrated [shadow milestone and executed limits](data/shadow-review/20261029/README.md),
 then run the supplied browser/listener acceptance procedure and unchanged full suite in a
 suitable environment, investigating the retained collector stall. Leave all Git

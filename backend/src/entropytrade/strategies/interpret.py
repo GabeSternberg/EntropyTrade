@@ -20,6 +20,21 @@ class UnsupportedSpecError(ValueError):
     """Valid data outside the executable bounded language."""
 
 
+def resolve_probability_feature(spec: StrategySpec) -> str:
+    """Resolve the validated model-output binding shared by producers and the interpreter."""
+    predicates = {p.feature for p in spec.entry_rules.all_of}
+    if spec.probability_feature:
+        if spec.probability_feature not in predicates:
+            raise UnsupportedSpecError("probability_feature must be part of the entry predicates")
+        return spec.probability_feature
+    names = {name for name in predicates if name.endswith("_probability")}
+    if len(names) != 1:
+        raise UnsupportedSpecError(
+            "exactly one *_probability feature or explicit probability_feature is required"
+        )
+    return next(iter(names))
+
+
 def compile_strategy(spec: StrategySpec) -> Strategy:
     """Validate the entire executable subset, then return its deterministic callable.
 
@@ -27,8 +42,7 @@ def compile_strategy(spec: StrategySpec) -> Strategy:
     A fixed-dollar budget includes estimated fees. Position caps include pending orders.
     """
     _require_supported(spec)
-    names = [p.feature for p in spec.entry_rules.all_of if p.feature.endswith("_probability")]
-    probability_name = spec.probability_feature or names[0]
+    probability_name = resolve_probability_feature(spec)
 
     def strategy(view: DecisionView, book: OrderBook) -> OrderIntent | None:
         when, ticker = view.decision_time, book.market_ticker
@@ -180,14 +194,7 @@ def _require_supported(spec: StrategySpec) -> None:
             for p in spec.exit_rules.all_of
         ):
             raise UnsupportedSpecError("only the settlement marker is allowed in settlement exits")
-    names = {p.feature for p in spec.entry_rules.all_of if p.feature.endswith("_probability")}
-    if spec.probability_feature:
-        if spec.probability_feature not in {p.feature for p in spec.entry_rules.all_of}:
-            raise UnsupportedSpecError("probability_feature must be part of the entry predicates")
-    elif len(names) != 1:
-        raise UnsupportedSpecError(
-            "exactly one *_probability feature or explicit probability_feature is required"
-        )
+    resolve_probability_feature(spec)
     for predicate in spec.entry_rules.all_of:
         if predicate.feature.endswith("_probability") and not ZERO <= predicate.threshold <= ONE:
             raise UnsupportedSpecError("probability predicates must be in [0,1]")

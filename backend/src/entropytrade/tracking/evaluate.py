@@ -14,7 +14,7 @@ from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.experiments.engine import FeePolicy
 from entropytrade.features.registry import scientific_hash
 from entropytrade.risk.engine import RiskEngine, RiskLimits
-from entropytrade.strategies.interpret import compile_strategy
+from entropytrade.strategies.interpret import compile_strategy, resolve_probability_feature
 
 
 def shadow_limits() -> RiskLimits:
@@ -51,6 +51,7 @@ def evaluate(
     acquisition_complete: bool = True,
 ) -> list[dict[str, Any]]:
     strategy = compile_strategy(spec)
+    probability_name = resolve_probability_feature(spec)
     limits = shadow_limits()
     engine = RiskEngine(limits)
     held = [dict(r) for r in reservations]
@@ -146,6 +147,9 @@ def evaluate(
                     input_manifest_hash=data.feature_version,
                 )
                 for name, value in sample.features.items()
+                # Raw features remain in the audit row but cannot compete with the validated
+                # prediction, including when their availability clocks are identical.
+                if name != probability_name
             ]
             records.append(
                 FeatureObservation(
@@ -153,7 +157,7 @@ def evaluate(
                     event_time=when,
                     available_at=when,
                     ingested_at=when,
-                    feature_name=spec.probability_feature or "model_yes_probability",
+                    feature_name=probability_name,
                     feature_version="r2-prediction-v1",
                     entity_id=sample.ticker,
                     value=prediction.probability_yes,

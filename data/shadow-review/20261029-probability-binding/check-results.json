@@ -1,0 +1,92 @@
+{
+  "broader_experiment_risk_attempt": {
+    "completed": false,
+    "completion_dots": 15,
+    "deadline_seconds": 60,
+    "exit_code": 124,
+    "junit_report_written": false
+  },
+  "controlled_retained_examples": {
+    "cases": 2,
+    "empirical": false,
+    "json_replay_equal": true
+  },
+  "designated_branch": "supervisor/20261029-001707",
+  "fixture_evidence_only": true,
+  "focused_tests": {
+    "exit_code": 0,
+    "passed": 163,
+    "skipped": 0
+  },
+  "frontend_assertions": {
+    "exit_code": 0,
+    "passed": 12,
+    "real_browser": false
+  },
+  "full_suite_attempt": {
+    "collected": 903,
+    "completed": false,
+    "deadline_seconds": 70,
+    "exit_code": 124,
+    "junit_report_written": false,
+    "passed_before_stall": 2,
+    "stalled_at": "backend/tests/exchange/test_collector_service.py::test_collector_reconnects_with_new_session_and_can_restart"
+  },
+  "git_mutations": false,
+  "initial_regressions_after": {
+    "deselected": 90,
+    "exit_code": 0,
+    "passed": 48
+  },
+  "initial_regressions_before": {
+    "deselected": 90,
+    "exit_code": 1,
+    "failed": 8,
+    "passed": 40
+  },
+  "javascript_syntax": {
+    "app_exit_code": 0,
+    "real_browser": false,
+    "shadow_harness_exit_code": 0
+  },
+  "legacy_replay_check": {
+    "exit_code": 0,
+    "legacy_decisions_blocked": 2,
+    "original_files_unchanged": true,
+    "tamper_rejected": true
+  },
+  "new_probability_binding_cases": 57,
+  "prior_evidence_verified_files": 133,
+  "ruff": {
+    "exit_code": 0
+  },
+  "ruff_format": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "selected_deterministic_experiment_risk_tests": {
+    "deselected": 3,
+    "exit_code": 0,
+    "passed": 46,
+    "skipped": 0
+  },
+  "selected_python_tests_passed": 236,
+  "shadow_browser_listener": {
+    "accepted": false,
+    "executed_this_correction": false,
+    "outstanding_step": "Run existing managed Chromium real-listener harness with fresh evidence/workspace paths in a permitted environment",
+    "prior_failure": "Chromium crashpad setsockopt: Operation not permitted, SIGTRAP; localhost socket construction denied"
+  },
+  "shared_interpreter_replay_risk_tests": {
+    "exit_code": 0,
+    "passed": 27,
+    "skipped": 0
+  },
+  "starting_head": "d43e262",
+  "strict_mypy": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "submission_enabled": false,
+  "v1_complete": false
+}

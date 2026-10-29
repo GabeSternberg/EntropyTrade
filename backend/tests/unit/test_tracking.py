@@ -14,11 +14,18 @@ import pytest
 
 from entropytrade.agents.fixture import demo_specs
 from entropytrade.api.jobs import Jobs
-from entropytrade.domain.strategy import CalibrationMethod, ModelKind, StrategySpec
+from entropytrade.domain.strategy import (
+    CalibrationMethod,
+    ModelKind,
+    ProbabilityModelRef,
+    StrategySpec,
+)
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.experiments.engine import FeePolicy
+from entropytrade.features.registry import scientific_hash
+from entropytrade.strategies.interpret import UnsupportedSpecError
 from entropytrade.tracking.evaluate import evaluate
 from entropytrade.tracking.replay import decision_inputs, reproduce
 from entropytrade.tracking.runner import ShadowRunner
@@ -99,6 +106,246 @@ def test_deterministic_decisions_reserve_once_without_fills_or_target_leakage() 
     assert "outcome" not in result[0]
     protected = data.revalidated(protected_events=frozenset({data.samples[0].event_id}))
     assert evaluate(spec, protected, bundle, fee=fee) == []
+
+
+@pytest.mark.parametrize(
+    ("explicit_name", "bound_name"),
+    [
+        (None, "custom_probability"),
+        (None, "model_yes_probability"),
+        ("custom_probability", "custom_probability"),
+        ("forecast_score", "forecast_score"),
+    ],
+)
+@pytest.mark.parametrize("raw_feature", ["missing", "null", "low", "high", "coincident"])
+@pytest.mark.parametrize("model_probability", [Decimal("0.10"), Decimal("0.75")])
+def test_shadow_probability_binding_uses_audited_prediction_and_replays(
+    explicit_name: str | None,
+    bound_name: str,
+    raw_feature: str,
+    model_probability: Decimal,
+) -> None:
+    spec, data, bundle, fee = ready()
+    sample, prediction = data.samples[0], bundle.records[0]
+    spec = spec.revalidated(
+        probability_feature=explicit_name,
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=(spec.entry_rules.all_of[0].revalidated(feature=bound_name),)
+        ),
+    )
+    features = dict(sample.features)
+    versions = dict(sample.versions)
+    if bound_name != "model_yes_probability":
+        # An unrelated conventional probability must not determine the bound value either.
+        features["model_yes_probability"] = Decimal("0.95")
+        versions["model_yes_probability"] = "raw-v1"
+    if raw_feature != "missing":
+        features[bound_name] = (
+            None
+            if raw_feature == "null"
+            else Decimal("0.10")
+            if raw_feature == "low"
+            else Decimal("0.95")
+        )
+        versions[bound_name] = "raw-v1"
+    feature_hash = scientific_hash(
+        {k: str(v) if v is not None else None for k, v in features.items()}
+    )
+    sample = sample.revalidated(
+        features=features,
+        versions=versions,
+        feature_hash=feature_hash,
+        features_available_at=sample.decision_time
+        if raw_feature == "coincident"
+        else sample.features_available_at,
+    )
+    data = data.revalidated(samples=(sample,))
+    prediction = prediction.revalidated(
+        feature_hash=feature_hash, probability_yes=model_probability
+    )
+    bundle = bundle.revalidated(records=(prediction,))
+
+    rows = evaluate(spec, data, bundle, fee=fee)
+    row = rows[0]
+    assert all(row["gates"].values())
+    assert row["prediction"]["feature_hash"] == row["feature_hash"] == feature_hash
+    assert row["prediction"]["probability_yes"] == str(model_probability)
+    assert row["features"] == {k: str(v) if v is not None else None for k, v in features.items()}
+    if model_probability == Decimal("0.10"):
+        assert row["status"] == "no_signal"
+        assert row["intent"] is None
+        assert row["risk"] is None
+    else:
+        assert row["status"] == "shadow_eligible"
+        assert row["intent"]["edge"]["outcome_probability"] == str(model_probability)
+        assert row["risk"]["approved"]
+    inputs = json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))
+    assert reproduce(inputs) == rows
+    assert evaluate(spec, data, bundle, fee=fee) == rows
+
+
+@pytest.mark.parametrize("case", ["missing_prediction", "ambiguous_prediction", "missing_feature"])
+def test_implicit_probability_cannot_bypass_missing_or_conflicting_evidence(
+    case: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec, data, bundle, fee = ready()
+    spec = spec.revalidated(
+        probability_feature=None,
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=(spec.entry_rules.all_of[0].revalidated(feature="custom_probability"),)
+        ),
+    )
+    sample = data.samples[0]
+    features = {**sample.features, "custom_probability": Decimal("0.95")}
+    if case == "missing_feature":
+        del features["mention_count"]
+    feature_hash = scientific_hash({k: str(v) for k, v in features.items()})
+    data = data.revalidated(
+        samples=(
+            sample.revalidated(
+                features=features,
+                versions={**sample.versions, "custom_probability": "raw-v1"},
+                feature_hash=feature_hash,
+            ),
+        )
+    )
+    prediction = bundle.records[0].revalidated(feature_hash=feature_hash)
+    bundle = bundle.revalidated(
+        records=()
+        if case == "missing_prediction"
+        else (prediction, prediction)
+        if case == "ambiguous_prediction"
+        else (prediction,)
+    )
+    forbid_shadow_execution(monkeypatch)
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert rows[0]["status"] == "blocked"
+    assert rows[0]["reasons"] == [
+        "strategy_features" if case == "missing_feature" else "point_in_time_prediction"
+    ]
+    assert rows[0]["intent"] is None
+    assert rows[0]["risk"] is None
+    assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
+
+
+@pytest.mark.parametrize(
+    ("explicit_name", "bound_name"),
+    [
+        (None, "custom_probability"),
+        (None, "model_yes_probability"),
+        ("forecast_score", "forecast_score"),
+    ],
+)
+@pytest.mark.parametrize("model_identity", ["matching", "wrong_family", "wrong_version"])
+def test_probability_binding_preserves_model_identity_despite_same_clock_raw_feature(
+    explicit_name: str | None, bound_name: str, model_identity: str
+) -> None:
+    spec, data, bundle, fee = ready()
+    sample = data.samples[0]
+    features = {**sample.features, bound_name: Decimal("0.95")}
+    feature_hash = scientific_hash({k: str(v) for k, v in features.items()})
+    # This source sorts BEFORE pit-feature-matrix under the as-of tie breaker. Correctness
+    # cannot depend on a model family's spelling or the order observations were appended.
+    prediction = bundle.records[0].revalidated(
+        family="aaa-controlled-model", feature_hash=feature_hash
+    )
+    spec = spec.revalidated(
+        probability_feature=explicit_name,
+        model_ref=ProbabilityModelRef(family=prediction.family, version=prediction.model_hash),
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=(spec.entry_rules.all_of[0].revalidated(feature=bound_name),)
+        ),
+    )
+    if model_identity == "wrong_family":
+        prediction = prediction.revalidated(family="another-controlled-model")
+    elif model_identity == "wrong_version":
+        prediction = prediction.revalidated(model_hash="sha256:" + "c" * 64)
+    data = data.revalidated(
+        samples=(
+            sample.revalidated(
+                features=features,
+                versions={**sample.versions, bound_name: "raw-v1"},
+                feature_hash=feature_hash,
+                features_available_at=sample.decision_time,
+            ),
+        )
+    )
+    bundle = bundle.revalidated(records=(prediction,))
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert all(rows[0]["gates"].values())
+    if model_identity == "matching":
+        assert rows[0]["status"] == "shadow_eligible"
+        assert rows[0]["intent"]["edge"]["outcome_probability"] == "0.75"
+    else:
+        assert rows[0]["status"] == "no_signal"
+        assert rows[0]["intent"] is None
+        assert rows[0]["risk"] is None
+    assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
+
+
+def test_repeated_implicit_probability_predicates_share_the_validated_prediction() -> None:
+    spec, data, bundle, fee = ready()
+    lower = spec.entry_rules.all_of[0].revalidated(feature="custom_probability")
+    upper = lower.revalidated(op="lt", threshold=Decimal("0.90"))
+    spec = spec.revalidated(
+        probability_feature=None,
+        entry_rules=spec.entry_rules.revalidated(all_of=(lower, upper)),
+    )
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert rows[0]["status"] == "shadow_eligible"
+    assert rows[0]["intent"]["edge"]["outcome_probability"] == "0.75"
+    assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
+
+
+def test_explicit_probability_alias_disambiguates_other_probability_predicates() -> None:
+    spec, data, bundle, fee = ready()
+    sample = data.samples[0]
+    features = {**sample.features, "other_probability": Decimal("0.95")}
+    feature_hash = scientific_hash({k: str(v) for k, v in features.items()})
+    data = data.revalidated(
+        samples=(
+            sample.revalidated(
+                features=features,
+                versions={**sample.versions, "other_probability": "raw-v1"},
+                feature_hash=feature_hash,
+            ),
+        )
+    )
+    bundle = bundle.revalidated(records=(bundle.records[0].revalidated(feature_hash=feature_hash),))
+    bound = spec.entry_rules.all_of[0].revalidated(feature="custom_probability")
+    other = bound.revalidated(feature="other_probability", threshold=Decimal("0.90"))
+    spec = spec.revalidated(
+        probability_feature="custom_probability",
+        entry_rules=spec.entry_rules.revalidated(all_of=(other, bound)),
+    )
+    rows = evaluate(spec, data, bundle, fee=fee)
+    assert rows[0]["status"] == "shadow_eligible"
+    assert rows[0]["intent"]["edge"]["outcome_probability"] == "0.75"
+    assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
+
+
+@pytest.mark.parametrize(
+    ("explicit_name", "predicate_names", "reason"),
+    [
+        (None, ("mention_count",), "exactly one"),
+        (None, ("custom_probability", "other_probability"), "exactly one"),
+        ("missing_alias", ("custom_probability",), "part of the entry predicates"),
+    ],
+)
+def test_shadow_and_json_replay_refuse_missing_or_ambiguous_probability_bindings(
+    explicit_name: str | None, predicate_names: tuple[str, ...], reason: str
+) -> None:
+    spec, data, bundle, fee = ready()
+    spec = spec.revalidated(
+        probability_feature=explicit_name,
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=tuple(spec.entry_rules.all_of[0].revalidated(feature=n) for n in predicate_names)
+        ),
+    )
+    with pytest.raises(UnsupportedSpecError, match=reason):
+        evaluate(spec, data, bundle, fee=fee)
+    with pytest.raises(UnsupportedSpecError, match=reason):
+        reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
 
 
 @pytest.mark.parametrize("boundary", ["dataset", "model", "both"])

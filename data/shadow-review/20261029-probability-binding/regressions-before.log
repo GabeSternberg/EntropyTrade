@@ -1,0 +1,72 @@
+............F...F...F...F...F...F...F......F....                         [100%]
+=================================== FAILURES ===================================
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability0-high-None-custom_probability] _
+backend/tests/unit/test_tracking.py:170: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["status"] == "no_signal"
+E   AssertionError: assert 'shadow_eligible' == 'no_signal'
+E     
+E     - no_signal
+E     + shadow_eligible
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability0-coincident-None-custom_probability] _
+backend/tests/unit/test_tracking.py:170: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["status"] == "no_signal"
+E   AssertionError: assert 'shadow_eligible' == 'no_signal'
+E     
+E     - no_signal
+E     + shadow_eligible
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-missing-None-custom_probability] _
+backend/tests/unit/test_tracking.py:174: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["status"] == "shadow_eligible"
+E   AssertionError: assert 'no_signal' == 'shadow_eligible'
+E     
+E     - shadow_eligible
+E     + no_signal
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-null-None-custom_probability] _
+backend/tests/unit/test_tracking.py:174: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["status"] == "shadow_eligible"
+E   AssertionError: assert 'no_signal' == 'shadow_eligible'
+E     
+E     - shadow_eligible
+E     + no_signal
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-low-None-custom_probability] _
+backend/tests/unit/test_tracking.py:174: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["status"] == "shadow_eligible"
+E   AssertionError: assert 'no_signal' == 'shadow_eligible'
+E     
+E     - shadow_eligible
+E     + no_signal
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-high-None-custom_probability] _
+backend/tests/unit/test_tracking.py:175: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["intent"]["edge"]["outcome_probability"] == str(model_probability)
+E   AssertionError: assert '0.95' == '0.75'
+E     
+E     - 0.75
+E     ?   ^
+E     + 0.95
+E     ?   ^
+_ test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-coincident-None-custom_probability] _
+backend/tests/unit/test_tracking.py:175: in test_shadow_probability_binding_uses_audited_prediction_and_replays
+    assert row["intent"]["edge"]["outcome_probability"] == str(model_probability)
+E   AssertionError: assert '0.95' == '0.75'
+E     
+E     - 0.75
+E     ?   ^
+E     + 0.95
+E     ?   ^
+_ test_repeated_implicit_probability_predicates_share_the_validated_prediction _
+backend/tests/unit/test_tracking.py:235: in test_repeated_implicit_probability_predicates_share_the_validated_prediction
+    assert rows[0]["status"] == "shadow_eligible"
+E   AssertionError: assert 'no_signal' == 'shadow_eligible'
+E     
+E     - shadow_eligible
+E     + no_signal
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability0-high-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability0-coincident-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-missing-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-null-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-low-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-high-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_shadow_probability_binding_uses_audited_prediction_and_replays[model_probability1-coincident-None-custom_probability]
+FAILED backend/tests/unit/test_tracking.py::test_repeated_implicit_probability_predicates_share_the_validated_prediction
+8 failed, 40 passed, 90 deselected in 3.08s
