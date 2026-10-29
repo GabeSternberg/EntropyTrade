@@ -42,7 +42,9 @@ without input/result artifacts cannot be replayed and report that limitation exp
 
 The compiler and shadow evaluator share one probability-name resolver: an explicit
 `probability_feature` must occur in the entry predicates; otherwise exactly one distinct
-`*_probability` predicate name is required. The validated prediction is inserted under
+`*_probability` predicate name is required. `yes_bid` and `yes_ask` are reserved quote
+names and cannot be probability bindings; they can still appear as quote predicates
+with a separate probability binding. The validated prediction is inserted under
 that exact name. A raw feature with the same name remains in `features` and its original
 hash/version audit but cannot replace the model value in entry predicates or edge
 calculation, even at an identical availability timestamp. Other required features keep
@@ -116,6 +118,8 @@ and the correction evidence for [calibration/holdouts](../data/shadow-review/202
 and [availability/provenance](../data/shadow-review/20261029-availability-provenance/README.md).
 The [probability binding correction](../data/shadow-review/20261029-probability-binding/README.md)
 records implicit/explicit binding, raw-feature collision and JSON replay regression evidence.
+The [reserved quote binding correction](../data/shadow-review/20261029-reserved-quote-bindings/README.md)
+retains the controlled NO-side reproductions, compiler/replay refusals and quote-predicate checks.
 The executable [Playwright procedure](../frontend/browser/shadow.spec.cjs) uses managed
 Chromium and the real localhost app, submits research, starts/pauses/resumes tracking,
 compares downloads across restart and preserves screenshots when page interaction runs.

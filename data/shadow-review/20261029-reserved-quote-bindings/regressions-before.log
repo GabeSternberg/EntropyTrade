@@ -1,0 +1,108 @@
+FFFFFFFFFFFF........                                                     [100%]
+=================================== FAILURES ===================================
+_ test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[True-yes_bid] _
+backend/tests/unit/test_interpret.py:83: in test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+E   Failed: DID NOT RAISE UnsupportedSpecError
+_ test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[True-yes_ask] _
+backend/tests/unit/test_interpret.py:83: in test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+E   Failed: DID NOT RAISE UnsupportedSpecError
+_ test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[False-yes_bid] _
+backend/tests/unit/test_interpret.py:83: in test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'yes_bid is reserved for quote predicates'
+E     Actual message: 'probability_feature must be part of the entry predicates'
+_ test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[False-yes_ask] _
+backend/tests/unit/test_interpret.py:83: in test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'yes_ask is reserved for quote predicates'
+E     Actual message: 'probability_feature must be part of the entry predicates'
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-yes-yes_bid] _
+backend/tests/unit/test_tracking.py:381: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    evaluate(spec, data, bundle, fee=fee)
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-yes-yes_ask] _
+backend/tests/unit/test_tracking.py:381: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    evaluate(spec, data, bundle, fee=fee)
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-no-yes_bid] _
+backend/tests/unit/test_tracking.py:381: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    evaluate(spec, data, bundle, fee=fee)
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-no-yes_ask] _
+backend/tests/unit/test_tracking.py:381: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    evaluate(spec, data, bundle, fee=fee)
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-yes-yes_bid] _
+backend/tests/unit/test_tracking.py:383: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+backend/src/entropytrade/tracking/replay.py:66: in reproduce
+    return evaluate(
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-yes-yes_ask] _
+backend/tests/unit/test_tracking.py:383: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+backend/src/entropytrade/tracking/replay.py:66: in reproduce
+    return evaluate(
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-no-yes_bid] _
+backend/tests/unit/test_tracking.py:383: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+backend/src/entropytrade/tracking/replay.py:66: in reproduce
+    return evaluate(
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+_ test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-no-yes_ask] _
+backend/tests/unit/test_tracking.py:383: in test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions
+    reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+backend/src/entropytrade/tracking/replay.py:66: in reproduce
+    return evaluate(
+backend/src/entropytrade/tracking/evaluate.py:201: in evaluate
+    decision = engine.evaluate(
+backend/tests/unit/test_tracking.py:376: in unexpected
+    pytest.fail("reserved probability aliases must be refused before risk evaluation")
+E   Failed: reserved probability aliases must be refused before risk evaluation
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_interpret.py::test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[True-yes_bid]
+FAILED backend/tests/unit/test_interpret.py::test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[True-yes_ask]
+FAILED backend/tests/unit/test_interpret.py::test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[False-yes_bid]
+FAILED backend/tests/unit/test_interpret.py::test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler[False-yes_ask]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-yes-yes_bid]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-yes-yes_ask]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-no-yes_bid]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[evaluate-no-yes_ask]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-yes-yes_bid]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-yes-yes_ask]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-no-yes_bid]
+FAILED backend/tests/unit/test_tracking.py::test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions[json_replay-no-yes_ask]
+12 failed, 8 passed, 149 deselected in 3.80s

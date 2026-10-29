@@ -1,0 +1,8 @@
+{
+  "STATUS.md": "f7b9d43f8f8989cbe2a259e29c32e61dc5f9fa2aabb848186f4de53d8293ead6",
+  "backend/src/entropytrade/strategies/interpret.py": "65bd400b3e6faecb99dcb3d7c0c155db042fd148df3f8fe83da6fad18722dd36",
+  "backend/tests/unit/test_interpret.py": "3b3091f2d1272dc2d3bf518b968853623ca0666c372625542589503a820074ca",
+  "backend/tests/unit/test_tracking.py": "d5b73392320cc5476f235245114400988978d6b9daad2e5afe7b7a61e3869338",
+  "docs/roadmap.md": "e0051d7e50e0e436f8de7b7435685fb5ee76f2385ffed53a33766e2361c7c29a",
+  "docs/shadow-tracking.md": "36cbfd374333f88016e6b5a3f529069d655c432fab919efadd5ff011d8f39b7b"
+}

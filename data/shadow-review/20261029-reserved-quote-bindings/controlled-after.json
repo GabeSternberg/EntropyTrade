@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "alias": "yes_bid",
+      "operation": "resolver",
+      "reason": "yes_bid is reserved for quote predicates",
+      "refused": true
+    },
+    {
+      "alias": "yes_bid",
+      "operation": "compiler",
+      "reason": "yes_bid is reserved for quote predicates",
+      "refused": true
+    },
+    {
+      "alias": "yes_bid",
+      "operation": "json_replay",
+      "reason": "yes_bid is reserved for quote predicates",
+      "refused": true
+    },
+    {
+      "alias": "yes_ask",
+      "operation": "resolver",
+      "reason": "yes_ask is reserved for quote predicates",
+      "refused": true
+    },
+    {
+      "alias": "yes_ask",
+      "operation": "compiler",
+      "reason": "yes_ask is reserved for quote predicates",
+      "refused": true
+    },
+    {
+      "alias": "yes_ask",
+      "operation": "json_replay",
+      "reason": "yes_ask is reserved for quote predicates",
+      "refused": true
+    }
+  ],
+  "empirical": false,
+  "original_inputs_unchanged": true
+}

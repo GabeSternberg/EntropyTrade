@@ -11,7 +11,11 @@ from entropytrade.domain.enums import FeeType
 from entropytrade.domain.market_data import OrderBook, OrderBookLevel
 from entropytrade.domain.strategy import SizingMethod
 from entropytrade.execution.fees import FeeSchedule
-from entropytrade.strategies.interpret import UnsupportedSpecError, compile_strategy
+from entropytrade.strategies.interpret import (
+    UnsupportedSpecError,
+    compile_strategy,
+    resolve_probability_feature,
+)
 
 
 def _book() -> OrderBook:
@@ -60,3 +64,23 @@ def test_kelly_and_a_non_settlement_exit_are_not_half_run() -> None:
     )
     with pytest.raises(UnsupportedSpecError, match="settlement"):
         compile_strategy(early)
+
+
+@pytest.mark.parametrize("alias", ["yes_bid", "yes_ask"])
+@pytest.mark.parametrize("in_entry", [True, False])
+def test_quote_names_are_reserved_for_quotes_in_probability_resolver_and_compiler(
+    alias: str, in_entry: bool
+) -> None:
+    spec = demo_specs()[0]
+    spec = spec.revalidated(
+        probability_feature=alias,
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=(spec.entry_rules.all_of[0].revalidated(feature=alias),)
+            if in_entry
+            else spec.entry_rules.all_of
+        ),
+    )
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+        resolve_probability_feature(spec)
+    with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+        compile_strategy(spec)

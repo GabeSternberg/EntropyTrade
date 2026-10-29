@@ -14,6 +14,7 @@ import pytest
 
 from entropytrade.agents.fixture import demo_specs
 from entropytrade.api.jobs import Jobs
+from entropytrade.domain.enums import OutcomeSide
 from entropytrade.domain.strategy import (
     CalibrationMethod,
     ModelKind,
@@ -346,6 +347,87 @@ def test_shadow_and_json_replay_refuse_missing_or_ambiguous_probability_bindings
         evaluate(spec, data, bundle, fee=fee)
     with pytest.raises(UnsupportedSpecError, match=reason):
         reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+
+
+@pytest.mark.parametrize("alias", ["yes_bid", "yes_ask"])
+@pytest.mark.parametrize("side", [OutcomeSide.YES, OutcomeSide.NO])
+@pytest.mark.parametrize("path", ["evaluate", "json_replay"])
+def test_quote_probability_aliases_refused_before_shadow_or_json_replay_decisions(
+    alias: str, side: OutcomeSide, path: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    spec, data, bundle, fee = ready()
+    spec = spec.revalidated(
+        side=side,
+        probability_feature=alias,
+        entry_rules=spec.entry_rules.revalidated(
+            all_of=(
+                spec.entry_rules.all_of[0].revalidated(feature=alias, threshold=Decimal("0.30")),
+            )
+        ),
+    )
+    # Reproduced NO case: both quote values (.40/.50) pass > .30, although the audited
+    # YES probability .10 fails it. Previously a NO intention using .90 still passed risk.
+    prediction = bundle.records[0].revalidated(
+        probability_yes=Decimal("0.10") if side is OutcomeSide.NO else Decimal("0.75")
+    )
+    bundle = bundle.revalidated(records=(prediction,))
+
+    def unexpected(*_args: Any, **_kwargs: Any) -> None:
+        pytest.fail("reserved probability aliases must be refused before risk evaluation")
+
+    monkeypatch.setattr("entropytrade.tracking.evaluate.RiskEngine.evaluate", unexpected)
+    if path == "evaluate":
+        with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+            evaluate(spec, data, bundle, fee=fee)
+    else:
+        with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+            reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+
+
+@pytest.mark.parametrize("quote_name", ["yes_bid", "yes_ask"])
+@pytest.mark.parametrize("explicit_name", [None, "forecast_score"])
+@pytest.mark.parametrize("quote_passes", [True, False])
+def test_quote_predicates_use_book_with_a_separate_probability_binding_and_replay(
+    quote_name: str, explicit_name: str | None, quote_passes: bool
+) -> None:
+    spec, data, bundle, fee = ready()
+    sample = data.samples[0]
+    bound_name = explicit_name or "custom_probability"
+    # A conflicting raw quote feature and the model probability both pass > .60.
+    # Only the actual quote (.40/.50) should decide whether the quote predicate passes.
+    features = {**sample.features, quote_name: Decimal("0.95")}
+    feature_hash = scientific_hash({k: str(v) for k, v in features.items()})
+    data = data.revalidated(
+        samples=(
+            sample.revalidated(
+                features=features,
+                versions={**sample.versions, quote_name: "raw-v1"},
+                feature_hash=feature_hash,
+            ),
+        )
+    )
+    bundle = bundle.revalidated(records=(bundle.records[0].revalidated(feature_hash=feature_hash),))
+    bound = spec.entry_rules.all_of[0].revalidated(feature=bound_name)
+    quote = bound.revalidated(
+        feature=quote_name, threshold=Decimal("0.30") if quote_passes else Decimal("0.60")
+    )
+    spec = spec.revalidated(
+        probability_feature=explicit_name,
+        entry_rules=spec.entry_rules.revalidated(all_of=(bound, quote)),
+    )
+    rows = evaluate(spec, data, bundle, fee=fee)
+    row = rows[0]
+    assert all(row["gates"].values())
+    assert row["features"][quote_name] == "0.95"
+    assert row["prediction"]["probability_yes"] == "0.75"
+    assert row["status"] == ("shadow_eligible" if quote_passes else "no_signal")
+    if quote_passes:
+        assert row["intent"]["edge"]["outcome_probability"] == "0.75"
+        assert row["risk"]["approved"]
+    else:
+        assert row["intent"] is None
+        assert row["risk"] is None
+    assert reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee)))) == rows
 
 
 @pytest.mark.parametrize("boundary", ["dataset", "model", "both"])

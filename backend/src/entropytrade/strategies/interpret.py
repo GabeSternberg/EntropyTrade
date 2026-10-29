@@ -24,6 +24,10 @@ def resolve_probability_feature(spec: StrategySpec) -> str:
     """Resolve the validated model-output binding shared by producers and the interpreter."""
     predicates = {p.feature for p in spec.entry_rules.all_of}
     if spec.probability_feature:
+        if spec.probability_feature in {"yes_bid", "yes_ask"}:
+            raise UnsupportedSpecError(
+                f"{spec.probability_feature} is reserved for quote predicates"
+            )
         if spec.probability_feature not in predicates:
             raise UnsupportedSpecError("probability_feature must be part of the entry predicates")
         return spec.probability_feature

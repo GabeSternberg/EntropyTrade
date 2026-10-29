@@ -5,6 +5,31 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: continuous read-only shadow tracking
 
+### October 29 reserved quote probability bindings
+
+On the same designated branch, starting at `67a049c`, the shared probability resolver
+now rejects explicit `yes_bid` and `yes_ask` bindings. These names remain available as
+ordinary quote predicates when a separate model probability is bound. The reproduced
+controlled NO-side case previously passed a `> 0.30` predicate using quotes `0.40`/`0.50`
+despite audited YES probability `0.10`, producing a risk-approved NO intention. Both
+aliases now refuse in the resolver, compiler, shadow evaluation and actual JSON replay.
+Original inputs, prior evidence and timestamps are preserved; no historical result is
+rewritten to make replay pass.
+
+**179 focused tracking/workbench tests, 31 shared interpreter/replay/execution tests
+and 46 deterministic experiment/risk tests pass** (three asynchronous workflow cases
+explicitly deselected), along with Ruff lint/format, strict mypy (491 files), 12 frontend
+presentation tests and JavaScript syntax checks. Twenty new cases cover both reserved
+names, the NO-side reproduction, compiler/JSON refusal and valid quote predicates with
+implicit/custom model aliases. Existing calibration, provenance, holdout and risk
+regressions pass. See [executed evidence](data/shadow-review/20261029-reserved-quote-bindings/README.md).
+
+The complete suite and shadow browser/listener acceptance remain incomplete; previously
+documented permission-denied/stalled attempts were not repeated. The existing managed
+Chromium real-listener harness and complete suite remain supervisor/human acceptance
+steps in a permitted environment. **V1 remains incomplete.** No real orders, credentials,
+risk-limit changes or Git writes; all Git operations remain with the supervisor.
+
 ### October 29 shadow probability binding correction
 
 On the same designated branch, starting at `d43e262`, shadow evaluation and the strategy

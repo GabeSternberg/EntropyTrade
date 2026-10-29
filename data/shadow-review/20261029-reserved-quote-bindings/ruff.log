@@ -1,0 +1,12 @@
+PT012 `pytest.raises()` block should contain a single simple statement
+   --> backend/tests/unit/test_tracking.py:379:5
+    |
+378 |       monkeypatch.setattr("entropytrade.tracking.evaluate.RiskEngine.evaluate", unexpected)
+379 | /     with pytest.raises(UnsupportedSpecError, match=f"{alias} is reserved for quote predicates"):
+380 | |         if path == "evaluate":
+381 | |             evaluate(spec, data, bundle, fee=fee)
+382 | |         else:
+383 | |             reproduce(json.loads(json.dumps(decision_inputs(spec, data, bundle, fee=fee))))
+    | |___________________________________________________________________________________________^
+
+Found 1 error.

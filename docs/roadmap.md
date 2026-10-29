@@ -41,6 +41,14 @@ The full suite and current shadow browser/listener acceptance remain incomplete;
 this correction nor controlled eligible intentions establish empirical performance or
 authorize a new milestone. The supervisor owns review and all Git operations.
 
+The follow-up [reserved quote binding correction](../data/shadow-review/20261029-reserved-quote-bindings/README.md)
+rejects `yes_bid`/`yes_ask` as model probability aliases in that shared resolver. Ordinary
+quote predicates with a separate probability binding still use the book. Controlled
+NO-side reproductions now refuse in compilation and JSON replay, while the existing
+calibration, provenance, holdout and risk checks pass. Original evidence and timestamps
+remain intact. This closes the current code correction; complete-suite and current
+shadow browser/listener acceptance remain outstanding, and V1 remains incomplete.
+
 The next reviewed work should close the highest-impact independent V1 gap, including
 operating/browser evidence and certified forward scoring where data permits. The eventual
 second family requires two genuinely supported real-data paths, not a synthetic fixture

@@ -1,0 +1,81 @@
+{
+  "complete_suite": {
+    "accepted": false,
+    "executed_this_correction": false,
+    "reason": "Prior repeated async stalls and denied self-pipe writes; complete-suite acceptance requires a permitted environment"
+  },
+  "controlled_retained_examples": {
+    "after_resolver_compiler_json_replay_refused": true,
+    "before_no_intentions_risk_approved": true,
+    "cases": 2,
+    "empirical": false
+  },
+  "designated_branch": "supervisor/20261029-001707",
+  "deterministic_experiment_risk_selection": {
+    "deselected": 3,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 46
+  },
+  "focused_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 179
+  },
+  "frontend": {
+    "passed": 12,
+    "real_browser": false
+  },
+  "git_mutations": false,
+  "initial_regressions_after": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 20
+  },
+  "initial_regressions_before": {
+    "errors": 0,
+    "failures": 12,
+    "skipped": 0,
+    "tests": 20
+  },
+  "javascript_syntax": {
+    "application_exit_code": 0,
+    "shadow_harness_exit_code": 0
+  },
+  "legacy_refusal_and_tamper_probe_exit_code": 0,
+  "new_regression_cases": 20,
+  "prior_evidence": {
+    "changed": [],
+    "content_and_mtime_unchanged": true,
+    "verified_files": 160
+  },
+  "ruff": {
+    "exit_code": 0
+  },
+  "ruff_format": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "selected_python_tests_passed": 256,
+  "shadow_browser_listener": {
+    "accepted": false,
+    "executed_this_correction": false,
+    "reason": "Prior denied Chromium launch and listener socket; existing executable real-listener harness remains outstanding"
+  },
+  "shared_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 31
+  },
+  "starting_head": "67a049c",
+  "strict_mypy": {
+    "exit_code": 0,
+    "files": 491
+  },
+  "submission_enabled": false,
+  "v1_complete": false
+}
