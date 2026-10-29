@@ -1,0 +1,6 @@
+artifact_location: file:///home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261029T001500Z/deterministic-replay-2/mlflow/309990627139377734
+creation_time: 1793233229030
+experiment_id: '309990627139377734'
+last_update_time: 1793233229030
+lifecycle_stage: active
+name: entropytrade-strategy-experiments

@@ -1,0 +1,40 @@
+{
+  "checksums": {
+    "capture.json": "sha256:534d3b9c46e37718170f163234762db18cc0c251fe7304c8f625f59102426e75",
+    "markets.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dataset_version": "sha256:c8d728c2032013f6b07c38d30da8ff26fc7dba99e7d77e80ebf30fd176d3c2dd",
+  "decision_time": "2026-10-26T20:43:08.960585+00:00",
+  "family": "bitcoin",
+  "ingestion_code_hash": "sha256:583edee174a465551b5442a7886fc634d2002c5536d1db662dd95d229352074b",
+  "weather_config": {
+    "attempts": 3,
+    "interval_seconds": 900,
+    "locations": [
+      {
+        "forecast_file": null,
+        "latitude": "39.87",
+        "longitude": "-75.23",
+        "name": "Philadelphia",
+        "series": "KXHIGHPHIL",
+        "station": "CLIPHL",
+        "timezone": "America/New_York"
+      },
+      {
+        "forecast_file": null,
+        "latitude": "41.79",
+        "longitude": "-87.75",
+        "name": "Chicago",
+        "series": "KXHIGHCHI",
+        "station": "CLIMDW",
+        "timezone": "America/Chicago"
+      }
+    ],
+    "max_bytes": 5000000000,
+    "providers": [
+      "open-meteo",
+      "nws"
+    ]
+  }
+}

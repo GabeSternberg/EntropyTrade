@@ -1,0 +1,6 @@
+2026/10/29 00:20:04 INFO mlflow.tracking.fluent: Experiment with name 'entropytrade-strategy-experiments' does not exist. Creating a new experiment.
+Traceback (most recent call last):
+  File "/home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261029T001500Z/verify_evidence.py", line 73, in <module>
+    assert result == existing
+           ^^^^^^^^^^^^^^^^^^
+AssertionError

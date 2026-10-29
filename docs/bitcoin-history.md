@@ -6,6 +6,17 @@ protected experiment engine. This is an intermediate second-family capability. *
 empirical second-family acceptance remain incomplete.** Forward weather and Bitcoin
 capture, the weather CLI, and the existing synthetic demonstration remain available.
 
+The [real-data acceptance](../data/bitcoin-history-review/20261029T001500Z/README.md)
+now reconciles all four recognized retained contracts to finalized official NO results.
+All eight original capture directories still yield just four events on three dates.
+Actual Chromium page interaction with these real receipts passes, including reasons on
+all tabs, downloads and restart persistence. The minimum-evidence summary uses the same
+clock/partition selection as fitting: 4/40 fitting events on 3/20 dates, only one outcome
+class and no validation history. A separate one-shot public-source probe succeeds but
+adds only pending forward samples. Frozen validation starts December 24; ten validation
+dates cannot exist before January 2, 2027. Stop for a longitudinal-collection/archive
+decision; no later download can replace original receipt clocks or move protected dates.
+
 The [acceptance continuation](../data/bitcoin-history-review/20261028T235347Z/README.md)
 adds a populated-history regression through actual Jobs discovery, loopback HTTP and the
 unchanged subprocess worker. Its controlled wire setup is **software evidence only**.
@@ -117,20 +128,22 @@ limits, late-label exclusion, deterministic models, untouched later labels and t
 shared research/experiment/review path. Fitting/scoring checks use **explicit synthetic
 contract samples**. These cannot establish real-data accuracy, trading returns or V1.
 
-The real-data command and current validation receipts are in
-[the October 28 bundle](../data/bitcoin-history-review/20261028T232200Z/README.md).
-Outbound DNS and Chromium socket permissions are blocked in this environment. The
-Playwright-managed Chromium installation succeeded, but launch failed with
-`setsockopt: Operation not permitted` and `SIGTRAP`, before page interaction. No new
-browser workflow or screenshot is claimed. Prior website browser receipts remain records
-of their original code state.
+The [original implementation bundle](../data/bitcoin-history-review/20261028T232200Z/README.md)
+retains failed DNS/socket attempts. The later
+[controlled acceptance](../data/bitcoin-history-review/20261028T235347Z/README.md)
+passed all 752 then-current Python tests plus actual empty/controlled Chromium procedures
+with permitted sockets. The newest
+[real-data bundle](../data/bitcoin-history-review/20261029T001500Z/README.md)
+passes current Ruff/format, strict mypy (483 files), 754 pytest tests, 12 frontend checks,
+four official result reads and actual retained-real-receipt Chromium interaction. These
+are executed working-checkout checks, not a clean install or empirical model evaluation.
 
-The executable browser procedure is
-[`bitcoin-history.spec.cjs`](../frontend/browser/bitcoin-history.spec.cjs). In a permitted
-environment run it with a new workspace/evidence directory and `--grep 'Bitcoin retained
-history'` using the existing Playwright config. It opens the real localhost website,
-submits an empty-history request, checks all tabs and downloads, restarts the actual
-server, and compares saved downloads. Successful real outcome ingestion and sufficient
-longitudinal validation remain additional requirements; an empty-history browser pass
-does not satisfy them. Before approving this milestone, the supervisor must independently
-run the complete gates and browser procedure. No Git operation was performed here.
+The reproducible browser procedure is
+[`bitcoin-history.spec.cjs`](../frontend/browser/bitcoin-history.spec.cjs); its
+[guide](../frontend/browser/README.md) distinguishes empty, controlled and real-retained
+cases and documents isolated managed Chromium. The real case requires an explicitly
+selected verified snapshot, opens an actual localhost listener and worker, submits the
+form, inspects all tabs/downloads, restarts the server and verifies identical saved bytes.
+No human page-interaction step remains for the executed real case. Independent supervisor
+review and clean-checkout verification remain required. Sufficient original fitting and
+validation history is still blocked; no Git mutation was performed here.

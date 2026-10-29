@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-real-20261029T001500Z-retained/runs/c5c43310-368d-4e89-8ae5-4ff07cc9779c/mlflow/experiments/845751741188512740/197f69867328454c91bfa502c9b18acf/artifacts
+end_time: 1793233057876
+entry_point_name: ''
+experiment_id: '845751741188512740'
+lifecycle_stage: active
+run_id: 197f69867328454c91bfa502c9b18acf
+run_name: sha256:9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae
+run_uuid: 197f69867328454c91bfa502c9b18acf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793233057869
+status: 3
+tags: []
+user_id: gabriel

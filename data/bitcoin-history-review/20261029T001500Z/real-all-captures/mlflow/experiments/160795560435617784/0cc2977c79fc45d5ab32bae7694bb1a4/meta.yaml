@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261029T001500Z/real-all-captures/mlflow/experiments/160795560435617784/0cc2977c79fc45d5ab32bae7694bb1a4/artifacts
+end_time: 1793233029148
+entry_point_name: ''
+experiment_id: '160795560435617784'
+lifecycle_stage: active
+run_id: 0cc2977c79fc45d5ab32bae7694bb1a4
+run_name: sha256:fb7f2b47d6773396126a5288b93eb71e0918527997a6cf300942f81693833609
+run_uuid: 0cc2977c79fc45d5ab32bae7694bb1a4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793233029142
+status: 3
+tags: []
+user_id: gabriel

@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="19.103183">
+<testsuite name="bitcoin-history.spec.cjs" timestamp="2026-10-29T00:17:21.350Z" hostname="" tests="1" failures="0" skipped="0" time="18.071" errors="0">
+<testcase name="Bitcoin retained history: REAL retained receipts result, downloads and restart" classname="bitcoin-history.spec.cjs" time="18.071">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/bitcoin-history-Bitcoin-re-6ece1-esult-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

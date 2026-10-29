@@ -28,6 +28,7 @@ from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.exchange.kalshi.transport import RawCapture
 from entropytrade.experiments.data import ContractSample, ExperimentData
+from entropytrade.families.bitcoin_models import history_readiness
 from entropytrade.families.public import BoundedTransport, forward_data, fresh_spot
 from entropytrade.features.registry import scientific_hash
 
@@ -452,7 +453,7 @@ def history_data(root: Path) -> ExperimentData:
             for name, unit, transform in FEATURES
         ],
     }
-    return ExperimentData(
+    data = ExperimentData(
         dataset_version=manifest["dataset_version"],
         feature_version=scientific_hash(
             {"catalog": catalog, "implementation": file_hash(Path(__file__))}
@@ -484,6 +485,8 @@ def history_data(root: Path) -> ExperimentData:
             ],
         },
     )
+    data.provenance["readiness"] = history_readiness(data)
+    return data
 
 
 async def build_history(

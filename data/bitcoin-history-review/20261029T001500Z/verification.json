@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "official_finalized_contracts": [
+    {
+      "ticker": "KXBTC-26OCT2513-T89799.99",
+      "decision_time": "2026-10-25T16:34:00.904749+00:00",
+      "close_time": "2026-10-25T17:00:00+00:00",
+      "settlement_ts": "2026-10-25T17:02:57.414665+00:00",
+      "outcome_available_at": "2026-10-29T00:13:36.052904+00:00",
+      "result": "no",
+      "receipt_hash": "sha256:47f74773effa4a6d8bf36c8e786554962b6ebdef3547fb0b9e47e055dd28a36b"
+    },
+    {
+      "ticker": "KXBTC-26OCT2517-T90249.99",
+      "decision_time": "2026-10-25T16:34:00.904749+00:00",
+      "close_time": "2026-10-25T21:00:00+00:00",
+      "settlement_ts": "2026-10-25T21:02:38.080122+00:00",
+      "outcome_available_at": "2026-10-29T00:13:36.080992+00:00",
+      "result": "no",
+      "receipt_hash": "sha256:e15fcb8116033a5c233e2c28fb0b2062bd25209c1c905ec780cbe241e9ed57e1"
+    },
+    {
+      "ticker": "KXBTC-26OCT2617-T89749.99",
+      "decision_time": "2026-10-26T20:41:24.288796+00:00",
+      "close_time": "2026-10-26T21:00:00+00:00",
+      "settlement_ts": "2026-10-26T21:02:15.095709+00:00",
+      "outcome_available_at": "2026-10-29T00:13:36.112788+00:00",
+      "result": "no",
+      "receipt_hash": "sha256:d5fee6e7e3b2880a33ad99000411449b364c1ed035882ec661fbb821e5a22650"
+    },
+    {
+      "ticker": "KXBTC-26OCT2717-T89749.99",
+      "decision_time": "2026-10-26T20:41:24.288796+00:00",
+      "close_time": "2026-10-27T21:00:00+00:00",
+      "settlement_ts": "2026-10-27T21:02:30.089669+00:00",
+      "outcome_available_at": "2026-10-29T00:13:36.145831+00:00",
+      "result": "no",
+      "receipt_hash": "sha256:2a4a77090cb181d4066204e638db241f814814abea4e9d0533e94f8ac2453031"
+    }
+  ],
+  "readiness": {
+    "fit": {
+      "events": 4,
+      "dates": 3,
+      "required_events": 40,
+      "required_dates": 20,
+      "missing_events": 36,
+      "missing_dates": 17
+    },
+    "validation": {
+      "events": 0,
+      "dates": 0,
+      "required_events": 20,
+      "required_dates": 10,
+      "missing_events": 20,
+      "missing_dates": 10
+    },
+    "validation_labeled": {
+      "events": 0,
+      "dates": 0,
+      "required_events": 20,
+      "required_dates": 10,
+      "missing_events": 20,
+      "missing_dates": 10
+    },
+    "fit_outcome_classes": [
+      "no"
+    ],
+    "fit_asof": "2026-12-24T00:00:00+00:00",
+    "minimum_evidence_met": false,
+    "summaries": [
+      "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+      "Fitting outcome classes: no; both YES and NO required.",
+      "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+      "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+    ],
+    "limitation": "Minimum counts do not certify domain coverage, model quality or execution."
+  },
+  "deterministic_experiment_ids": [
+    "sha256:fb7f2b47d6773396126a5288b93eb71e0918527997a6cf300942f81693833609",
+    "sha256:fb7f2b47d6773396126a5288b93eb71e0918527997a6cf300942f81693833609"
+  ],
+  "browser": "executed actual page interactions, downloads and server restart",
+  "browser_screenshots": 4,
+  "browser_downloads": 4,
+  "empirical_model_evaluation": "blocked: insufficient fitting/validation history and one outcome class",
+  "second_family_complete": false,
+  "v1_complete": false
+}

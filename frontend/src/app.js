@@ -128,6 +128,7 @@ function renderBitcoinHistory(content, history) {
   section.append(node("p", `${history.capture_count} retained captures · ${history.retained_events} events on ${history.retained_dates} dates · ${history.protected_events} protected events.`),
     node("p", `Official outcome reads: ${reconciliation.requested}; deferred by budget: ${reconciliation.deferred}; retained response receipts: ${reconciliation.receipts.length}; current failures: ${reconciliation.failures.length}.`), list(history.limitations));
   if (reconciliation.failures.length) section.append(list(reconciliation.failures.map((failure) => `${failure.ticker}: ${failure.failure} (${failure.failed_at})`)));
+  if (history.readiness) section.append(list(history.readiness.summaries), node("p", history.readiness.limitation, "hint"), detail("Minimum model evidence and exact shortages", history.readiness));
   section.append(detail("Outcome reconciliation clocks and response identities", reconciliation));
   content.append(section);
 }

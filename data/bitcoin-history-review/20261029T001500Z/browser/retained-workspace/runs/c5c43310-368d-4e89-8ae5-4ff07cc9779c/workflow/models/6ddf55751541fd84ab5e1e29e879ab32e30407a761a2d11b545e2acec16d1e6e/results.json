@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "baseline_family": "bitcoin_frequency",
+    "calibration": "none",
+    "data_kind": "real",
+    "final_holdout_evaluated": false,
+    "fit_date_blocks": 3,
+    "fit_events": 4,
+    "history_readiness": {
+      "fit": {
+        "dates": 3,
+        "events": 4,
+        "missing_dates": 17,
+        "missing_events": 36,
+        "required_dates": 20,
+        "required_events": 40
+      },
+      "fit_asof": "2026-12-24T00:00:00+00:00",
+      "fit_outcome_classes": [
+        "no"
+      ],
+      "limitation": "Minimum counts do not certify domain coverage, model quality or execution.",
+      "minimum_evidence_met": false,
+      "summaries": [
+        "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+        "Fitting outcome classes: no; both YES and NO required.",
+        "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+        "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+      ],
+      "validation": {
+        "dates": 0,
+        "events": 0,
+        "missing_dates": 10,
+        "missing_events": 20,
+        "required_dates": 10,
+        "required_events": 20
+      },
+      "validation_labeled": {
+        "dates": 0,
+        "events": 0,
+        "missing_dates": 10,
+        "missing_events": 20,
+        "required_dates": 10,
+        "required_events": 20
+      }
+    },
+    "split": {
+      "calibration": [],
+      "fit": [
+        "KXBTC-26OCT2513",
+        "KXBTC-26OCT2517",
+        "KXBTC-26OCT2617",
+        "KXBTC-26OCT2717"
+      ],
+      "holdout": [],
+      "validation": []
+    },
+    "status": "INSUFFICIENT_DATA",
+    "target": "finalized Kalshi binary result; no reconstructed scalar price"
+  },
+  "records": [],
+  "refusals": {
+    "bitcoin_frequency": "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+    "bitcoin_logistic": "need 40 fit events on 20 dates with finalized labels received before fit cutoff"
+  }
+}

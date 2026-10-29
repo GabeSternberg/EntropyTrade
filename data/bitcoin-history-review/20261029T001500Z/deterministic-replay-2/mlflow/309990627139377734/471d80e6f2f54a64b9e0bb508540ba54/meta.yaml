@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261029T001500Z/deterministic-replay-2/mlflow/309990627139377734/471d80e6f2f54a64b9e0bb508540ba54/artifacts
+end_time: 1793233229065
+entry_point_name: ''
+experiment_id: '309990627139377734'
+lifecycle_stage: active
+run_id: 471d80e6f2f54a64b9e0bb508540ba54
+run_name: sha256:fb7f2b47d6773396126a5288b93eb71e0918527997a6cf300942f81693833609
+run_uuid: 471d80e6f2f54a64b9e0bb508540ba54
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793233229058
+status: 3
+tags: []
+user_id: gabriel

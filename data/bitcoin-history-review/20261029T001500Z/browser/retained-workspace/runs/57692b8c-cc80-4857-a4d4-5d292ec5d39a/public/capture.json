@@ -1,0 +1,34 @@
+{
+  "decision_time": "2026-10-26T20:41:24.288796+00:00",
+  "failures": [],
+  "family": "bitcoin",
+  "history_complete": false,
+  "listed_contracts": 210,
+  "observations": 1,
+  "receipts": [
+    {
+      "hash": "sha256:138bfbff724f6b9791d38a3a75926443520c211899bedea18765abde156e9931",
+      "path": "/trade-api/v2/markets?limit=200&series_ticker=KXBTC&status=open",
+      "raw_ref": "raw/0001.json",
+      "received_at": "2026-10-26T20:41:24.080842+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:b1abf7f1292a6f4b3d8d3256f9bc86577dad0766f64afaf107ba0507e0b7aa7c",
+      "path": "/trade-api/v2/markets?limit=200&cursor=CgwI2MTs1gYQgNnI5gESFktYQlRDLTI2T0NUMzAxNy1CNzQ3NTA&series_ticker=KXBTC&status=open",
+      "raw_ref": "raw/0002.json",
+      "received_at": "2026-10-26T20:41:24.145006+00:00",
+      "status": 200
+    },
+    {
+      "hash": "sha256:571095ff73d0e328549e47d4b4cc2e0bcfc158811ad82523a3a31832c0b8edf0",
+      "path": "https://api.exchange.coinbase.com/products/BTC-USD/ticker",
+      "raw_ref": "raw/0003.json",
+      "received_at": "2026-10-26T20:41:24.288235+00:00",
+      "status": 200
+    }
+  ],
+  "started_at": "2026-10-26T20:41:23.946226+00:00",
+  "truncated_universe": false,
+  "universe_complete": true
+}

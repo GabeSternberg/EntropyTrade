@@ -1,0 +1,787 @@
+{
+  "artifacts": [
+    {
+      "bytes": 272,
+      "path": "experiments/9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae/checksums.json",
+      "sha256": "sha256:796886c16b8afba5846ebdf0ae506ac96d43c446ed81dd388bcbf9ea7591633e"
+    },
+    {
+      "bytes": 779,
+      "path": "experiments/9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae/report.md",
+      "sha256": "sha256:d25c05069a8f53c7adc0fb1fcaa0b28e6e30a4c6ef6c79e234672ec328095100"
+    },
+    {
+      "bytes": 8998,
+      "path": "experiments/9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae/results.json",
+      "sha256": "sha256:94755d258ce0afae8a1d4e362c158df65e2703ca05f5c5c8b50a5ff3b8406beb"
+    },
+    {
+      "bytes": 365,
+      "path": "experiments/9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae/trades.parquet",
+      "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef"
+    },
+    {
+      "bytes": 0,
+      "path": "models/6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e/predictions.jsonl",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2085,
+      "path": "models/6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e/results.json",
+      "sha256": "sha256:612f77bfa0bbcb3ca79807d30d742fc9bc96f916c5de4ceb5b8fbe32010bb00e"
+    },
+    {
+      "bytes": 175,
+      "path": "research/377e391b-62f7-4d85-9ef1-ed1293fa284c/checksums.json",
+      "sha256": "sha256:c73ee6a91248baf6a3298df7b267e18141a4ad56ce51e8b3be4706fc49cc6ef4"
+    },
+    {
+      "bytes": 2118,
+      "path": "research/377e391b-62f7-4d85-9ef1-ed1293fa284c/report.md",
+      "sha256": "sha256:cc09e7317716482d59ae4c6ba653c685a782a34ac6bd1f0a3d00382bd2e8dd87"
+    },
+    {
+      "bytes": 67618,
+      "path": "research/377e391b-62f7-4d85-9ef1-ed1293fa284c/run.json",
+      "sha256": "sha256:726f1a4a99ba911cecf0ab59b12946d8ec68915b56bab45848151c43b2ace934"
+    }
+  ],
+  "bitcoin_history": {
+    "adapter": "bitcoin-history-v1",
+    "capture_count": 8,
+    "limitations": [
+      "Only exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.",
+      "Coinbase is a predictor, never a settlement price. Outcome availability is receipt time.",
+      "Exceptional settlement paths remain unverified; rules_known stays false for execution.",
+      "No historical depth or certified fees; trading backtests and returns remain blocked.",
+      "Repeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward."
+    ],
+    "partition": {
+      "anchor": "2026-10-25",
+      "fit_before": "2026-12-24",
+      "holdout_start": "2027-01-23"
+    },
+    "protected_events": 0,
+    "readiness": {
+      "fit": {
+        "dates": 3,
+        "events": 4,
+        "missing_dates": 17,
+        "missing_events": 36,
+        "required_dates": 20,
+        "required_events": 40
+      },
+      "fit_asof": "2026-12-24T00:00:00+00:00",
+      "fit_outcome_classes": [
+        "no"
+      ],
+      "limitation": "Minimum counts do not certify domain coverage, model quality or execution.",
+      "minimum_evidence_met": false,
+      "summaries": [
+        "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+        "Fitting outcome classes: no; both YES and NO required.",
+        "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+        "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+      ],
+      "validation": {
+        "dates": 0,
+        "events": 0,
+        "missing_dates": 10,
+        "missing_events": 20,
+        "required_dates": 10,
+        "required_events": 20
+      },
+      "validation_labeled": {
+        "dates": 0,
+        "events": 0,
+        "missing_dates": 10,
+        "missing_events": 20,
+        "required_dates": 10,
+        "required_events": 20
+      }
+    },
+    "reconciliation": {
+      "attempts": {
+        "KXBTC-26OCT2513-T89799.99": "2026-10-29T00:13:35.999243+00:00",
+        "KXBTC-26OCT2517-T90249.99": "2026-10-29T00:13:36.053472+00:00",
+        "KXBTC-26OCT2617-T89749.99": "2026-10-29T00:13:36.081404+00:00",
+        "KXBTC-26OCT2717-T89749.99": "2026-10-29T00:13:36.113079+00:00"
+      },
+      "deferred": 0,
+      "failures": [],
+      "fetch_enabled": true,
+      "finished_at": "2026-10-29T00:17:34.179178+00:00",
+      "receipts": [
+        {
+          "hash": "sha256:47f74773effa4a6d8bf36c8e786554962b6ebdef3547fb0b9e47e055dd28a36b",
+          "path": "/trade-api/v2/markets/KXBTC-26OCT2513-T89799.99",
+          "raw_ref": "0000.json",
+          "received_at": "2026-10-29T00:13:36.052904+00:00",
+          "status": 200
+        },
+        {
+          "hash": "sha256:e15fcb8116033a5c233e2c28fb0b2062bd25209c1c905ec780cbe241e9ed57e1",
+          "path": "/trade-api/v2/markets/KXBTC-26OCT2517-T90249.99",
+          "raw_ref": "0001.json",
+          "received_at": "2026-10-29T00:13:36.080992+00:00",
+          "status": 200
+        },
+        {
+          "hash": "sha256:d5fee6e7e3b2880a33ad99000411449b364c1ed035882ec661fbb821e5a22650",
+          "path": "/trade-api/v2/markets/KXBTC-26OCT2617-T89749.99",
+          "raw_ref": "0002.json",
+          "received_at": "2026-10-29T00:13:36.112788+00:00",
+          "status": 200
+        },
+        {
+          "hash": "sha256:2a4a77090cb181d4066204e638db241f814814abea4e9d0533e94f8ac2453031",
+          "path": "/trade-api/v2/markets/KXBTC-26OCT2717-T89749.99",
+          "raw_ref": "0003.json",
+          "received_at": "2026-10-29T00:13:36.145831+00:00",
+          "status": 200
+        }
+      ],
+      "requested": 0,
+      "retained_receipts": 4,
+      "started_at": "2026-10-29T00:17:32.931930+00:00"
+    },
+    "retained_dates": 3,
+    "retained_events": 4,
+    "source_kinds": [
+      "coinbase",
+      "kalshi"
+    ]
+  },
+  "candidates": [
+    {
+      "candidate_id": "template-c0",
+      "coverage": {
+        "books": 0,
+        "eligible_events": 4,
+        "events": 4
+      },
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "model_lineage": {
+        "metadata": {
+          "baseline_family": "bitcoin_frequency",
+          "calibration": "none",
+          "data_kind": "real",
+          "final_holdout_evaluated": false,
+          "fit_date_blocks": 3,
+          "fit_events": 4,
+          "history_readiness": {
+            "fit": {
+              "dates": 3,
+              "events": 4,
+              "missing_dates": 17,
+              "missing_events": 36,
+              "required_dates": 20,
+              "required_events": 40
+            },
+            "fit_asof": "2026-12-24T00:00:00+00:00",
+            "fit_outcome_classes": [
+              "no"
+            ],
+            "limitation": "Minimum counts do not certify domain coverage, model quality or execution.",
+            "minimum_evidence_met": false,
+            "summaries": [
+              "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+              "Fitting outcome classes: no; both YES and NO required.",
+              "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+              "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+            ],
+            "validation": {
+              "dates": 0,
+              "events": 0,
+              "missing_dates": 10,
+              "missing_events": 20,
+              "required_dates": 10,
+              "required_events": 20
+            },
+            "validation_labeled": {
+              "dates": 0,
+              "events": 0,
+              "missing_dates": 10,
+              "missing_events": 20,
+              "required_dates": 10,
+              "required_events": 20
+            }
+          },
+          "split": {
+            "calibration": [],
+            "fit": [
+              "KXBTC-26OCT2513",
+              "KXBTC-26OCT2517",
+              "KXBTC-26OCT2617",
+              "KXBTC-26OCT2717"
+            ],
+            "holdout": [],
+            "validation": []
+          },
+          "status": "INSUFFICIENT_DATA",
+          "target": "finalized Kalshi binary result; no reconstructed scalar price"
+        },
+        "refusals": {
+          "bitcoin_frequency": "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+          "bitcoin_logistic": "need 40 fit events on 20 dates with finalized labels received before fit cutoff"
+        },
+        "source_hash": "sha256:6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e"
+      },
+      "original_spec_hash": "sha256:eebcf91d6ac71ea18a0cc48f156895f59284a977033016beb2306d1e2de4f7b1",
+      "rank": null,
+      "reasons": [
+        "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+        "execution P&L is unavailable without certified rules, sized books and fee evidence"
+      ],
+      "scenarios": [],
+      "status": "INSUFFICIENT_DATA",
+      "tested": false
+    },
+    {
+      "candidate_id": "template-c1",
+      "coverage": {
+        "books": 0,
+        "eligible_events": 4,
+        "events": 4
+      },
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "model_lineage": {
+        "metadata": {
+          "baseline_family": "bitcoin_frequency",
+          "calibration": "none",
+          "data_kind": "real",
+          "final_holdout_evaluated": false,
+          "fit_date_blocks": 3,
+          "fit_events": 4,
+          "history_readiness": {
+            "fit": {
+              "dates": 3,
+              "events": 4,
+              "missing_dates": 17,
+              "missing_events": 36,
+              "required_dates": 20,
+              "required_events": 40
+            },
+            "fit_asof": "2026-12-24T00:00:00+00:00",
+            "fit_outcome_classes": [
+              "no"
+            ],
+            "limitation": "Minimum counts do not certify domain coverage, model quality or execution.",
+            "minimum_evidence_met": false,
+            "summaries": [
+              "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+              "Fitting outcome classes: no; both YES and NO required.",
+              "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+              "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+            ],
+            "validation": {
+              "dates": 0,
+              "events": 0,
+              "missing_dates": 10,
+              "missing_events": 20,
+              "required_dates": 10,
+              "required_events": 20
+            },
+            "validation_labeled": {
+              "dates": 0,
+              "events": 0,
+              "missing_dates": 10,
+              "missing_events": 20,
+              "required_dates": 10,
+              "required_events": 20
+            }
+          },
+          "split": {
+            "calibration": [],
+            "fit": [
+              "KXBTC-26OCT2513",
+              "KXBTC-26OCT2517",
+              "KXBTC-26OCT2617",
+              "KXBTC-26OCT2717"
+            ],
+            "holdout": [],
+            "validation": []
+          },
+          "status": "INSUFFICIENT_DATA",
+          "target": "finalized Kalshi binary result; no reconstructed scalar price"
+        },
+        "refusals": {
+          "bitcoin_frequency": "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+          "bitcoin_logistic": "need 40 fit events on 20 dates with finalized labels received before fit cutoff"
+        },
+        "source_hash": "sha256:6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e"
+      },
+      "original_spec_hash": "sha256:5f268a5513a3aafee1553a16f435f68b92dd096f291d1f298b5b1db223b7b5e5",
+      "rank": null,
+      "reasons": [
+        "need 40 fit events on 20 dates with finalized labels received before fit cutoff",
+        "execution P&L is unavailable without certified rules, sized books and fee evidence"
+      ],
+      "scenarios": [],
+      "status": "INSUFFICIENT_DATA",
+      "tested": false
+    }
+  ],
+  "coverage": {
+    "by_series": {
+      "KXBTC": {
+        "eligible_events": 4,
+        "features": {
+          "hours_to_close": 4,
+          "scaled_moneyness": 4,
+          "spot_minus_floor_usd": 4,
+          "spot_usd": 4
+        },
+        "scalar_label_events": 4,
+        "source_counts": {
+          "coinbase": 4,
+          "kalshi": 4
+        }
+      }
+    },
+    "configured_source_kinds": [
+      "coinbase",
+      "kalshi"
+    ],
+    "contracts": 4,
+    "data_kind": "real",
+    "date_blocks": 3,
+    "dates": [
+      "2026-10-25",
+      "2026-10-26",
+      "2026-10-27"
+    ],
+    "eligible_events": 4,
+    "feature_nonmissing_rows": {
+      "hours_to_close": 4,
+      "scaled_moneyness": 4,
+      "spot_minus_floor_usd": 4,
+      "spot_usd": 4
+    },
+    "feature_version": "sha256:d9e4e7b16d6c83781f893e5b9d220fd3268d004bccfed6db8c8876816b445cae",
+    "independent_events": 4,
+    "label_semantics": "adapter-defined official outcome; values withheld",
+    "rows": 4,
+    "scalar_label_events": 4,
+    "source_dataset": "sha256:35b1aaa46f0b9b67a1ef93d45fa53df546a9955fc4f50ce7f0243637c1576d9c"
+  },
+  "data_kind": "real",
+  "decisions": [
+    {
+      "candidate_id": "template-c0",
+      "critic": {
+        "accept_for_experiment": true,
+        "candidate_id": "template-c0",
+        "concerns": [
+          "No LLM critique or empirical edge follows from local formulation."
+        ],
+        "reason": "Local rule checks only; independent evidence and experiment gates apply."
+      },
+      "hypothesis_signature": "sha256:92ab0aa2233910191f471d493ffc38d415f3dbc9e033c374537a36bdda8e5441",
+      "previous_search_count": 0,
+      "previously_searched": false,
+      "reasons": [
+        "required real fitted probability artifact is unavailable",
+        "model validation coverage is not permitted by the research cutoff",
+        "historical rules and settlement semantics are not certified",
+        "settlement authority is not established by contract text",
+        "insufficient independent eligible events/source-matched scalar labels",
+        "no executable historical depth; candles/prints cannot establish fills"
+      ],
+      "scope": "research eligibility only; no trading approval or proven edge",
+      "spec_hash": "sha256:eebcf91d6ac71ea18a0cc48f156895f59284a977033016beb2306d1e2de4f7b1",
+      "status": "INSUFFICIENT_DATA",
+      "structurally_valid": true
+    },
+    {
+      "candidate_id": "template-c1",
+      "critic": {
+        "accept_for_experiment": true,
+        "candidate_id": "template-c1",
+        "concerns": [
+          "No LLM critique or empirical edge follows from local formulation."
+        ],
+        "reason": "Local rule checks only; independent evidence and experiment gates apply."
+      },
+      "hypothesis_signature": "sha256:8e8fd1186888a316ca4ca3053572e3cc2ab88219978f803215b4a1d07c041599",
+      "previous_search_count": 0,
+      "previously_searched": false,
+      "reasons": [
+        "required real fitted probability artifact is unavailable",
+        "model validation coverage is not permitted by the research cutoff",
+        "historical rules and settlement semantics are not certified",
+        "settlement authority is not established by contract text",
+        "insufficient independent eligible events/source-matched scalar labels",
+        "no executable historical depth; candles/prints cannot establish fills"
+      ],
+      "scope": "research eligibility only; no trading approval or proven edge",
+      "spec_hash": "sha256:5f268a5513a3aafee1553a16f435f68b92dd096f291d1f298b5b1db223b7b5e5",
+      "status": "INSUFFICIENT_DATA",
+      "structurally_valid": true
+    }
+  ],
+  "experiment_id": "sha256:9fea4241f9b93a4a9cb586b02a0812b5ee19dfbc4a78e3a71e246240997cf0ae",
+  "final_holdout_evaluated": false,
+  "formulation": {
+    "evidence_ids": [
+      "sha256:a5ae5ff3d668f7fa6e1a26ddf4b94a3238b2099515eb674b52bda106fa41cb05",
+      "sha256:f545c23003e59aa2d37ccfee83fe09afc61062ba5a50607c8c1c86fafbbc5391",
+      "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+    ],
+    "limitations": [
+      "No language model is used; arbitrary prose is not fully understood.",
+      "Two model comparisons are not causal tests or feature ablations."
+    ],
+    "market_understanding": "Local templates select signals and literal feature comparisons.",
+    "mechanisms": [
+      "The requested signal scaled_moneyness may improve contract probabilities.",
+      "An event-weighted training frequency may be more stable than a moneyness regression."
+    ]
+  },
+  "hypotheses": [
+    {
+      "direction": "Test probability accuracy; association and sign remain unverified",
+      "evidence_ids": [
+        "sha256:a5ae5ff3d668f7fa6e1a26ddf4b94a3238b2099515eb674b52bda106fa41cb05",
+        "sha256:f545c23003e59aa2d37ccfee83fe09afc61062ba5a50607c8c1c86fafbbc5391",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+      "hypothesis_id": "template-h0",
+      "market_family": "KXBTC",
+      "mechanism": "The requested signal scaled_moneyness may improve contract probabilities.",
+      "necessary_evidence": [
+        "Point-in-time source vintages and source-matched official outcomes",
+        "Independent date blocks, historical sized books and effective fees"
+      ],
+      "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+      "variables": [
+        "scaled_moneyness"
+      ],
+      "window": "Frozen decision-time inputs before each actual contract close"
+    },
+    {
+      "direction": "Test probability accuracy; association and sign remain unverified",
+      "evidence_ids": [
+        "sha256:a5ae5ff3d668f7fa6e1a26ddf4b94a3238b2099515eb674b52bda106fa41cb05",
+        "sha256:f545c23003e59aa2d37ccfee83fe09afc61062ba5a50607c8c1c86fafbbc5391",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+      "hypothesis_id": "template-h1",
+      "market_family": "KXBTC",
+      "mechanism": "An event-weighted training frequency may be more stable than a moneyness regression.",
+      "necessary_evidence": [
+        "Point-in-time source vintages and source-matched official outcomes",
+        "Independent date blocks, historical sized books and effective fees"
+      ],
+      "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+      "variables": [
+        "scaled_moneyness",
+        "hours_to_close"
+      ],
+      "window": "Frozen decision-time inputs before each actual contract close"
+    }
+  ],
+  "lineage": {
+    "code": {
+      "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+      "backtest/replay.py": "sha256:3ab92ac2e7553f0c52eeab3c5c3249627e8b1173503a38e6b915ce0877d08970",
+      "data.py": "sha256:206cad8817aea553d1f8e85beb6607ce9c2e08b9ee2cb7dd5f918e3c7e978153",
+      "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de",
+      "engine.py": "sha256:0de9be8c99533032e7574cb9bc91f39bd18926ce77667f80031dd031c1483856",
+      "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+      "execution/paper.py": "sha256:f185c9c61a77bbe97e003f36e7639822cab4a2a057930bb7386e5f24402f7172",
+      "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+      "strategies/interpret.py": "sha256:641b8915d989c736a5905dfee0c071c7c8531fc67d304044f17af764d88db718",
+      "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+      "workflow.py": "sha256:1d1eda965badb947213934d6f7b1cc1ed8f4bcb4352a8c2aa63c92e6a0f371a4"
+    },
+    "config": {
+      "bootstrap_samples": 500,
+      "fee_policy": null,
+      "latency_seconds": 1,
+      "max_book_age_seconds": 60,
+      "min_events": 20,
+      "min_trades": 10,
+      "per_event": "100",
+      "per_trade": "25",
+      "scenarios": [
+        "optimistic",
+        "base",
+        "conservative"
+      ],
+      "seed": 17,
+      "starting_cash": "1000",
+      "total_deployed": "500"
+    },
+    "dataset": "sha256:35b1aaa46f0b9b67a1ef93d45fa53df546a9955fc4f50ce7f0243637c1576d9c",
+    "feature_version": "sha256:d9e4e7b16d6c83781f893e5b9d220fd3268d004bccfed6db8c8876816b445cae",
+    "normalized_data_hash": "sha256:ff448b5c54595455390c8b2aa473ef955efe6a5740f5645cdd6e3162c97dab4b",
+    "requested_trial_count": 6,
+    "research_hash": "sha256:02361da27356ffbb29d975b54a93746c3d03965394f995a5fb33700d4a5ae809",
+    "resolved_models": {
+      "template-c0": "sha256:6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e",
+      "template-c1": "sha256:6ddf55751541fd84ab5e1e29e879ab32e30407a761a2d11b545e2acec16d1e6e"
+    }
+  },
+  "probabilities": [],
+  "probability_count": 0,
+  "probability_limit": 100,
+  "proposals": [
+    {
+      "candidate_id": "template-c0",
+      "evidence_ids": [
+        "sha256:a5ae5ff3d668f7fa6e1a26ddf4b94a3238b2099515eb674b52bda106fa41cb05",
+        "sha256:f545c23003e59aa2d37ccfee83fe09afc61062ba5a50607c8c1c86fafbbc5391",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "hypothesis_id": "template-h0",
+      "missing_capability": "",
+      "model_family": "bitcoin_logistic",
+      "required_features": [
+        "scaled_moneyness"
+      ],
+      "required_sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "spec": {
+        "assumptions": [
+          "Local template; unsupported prose is not interpreted as trading rules",
+          "Model families use their registered feature sets; no feature ablation"
+        ],
+        "calibration": "none",
+        "citations": [],
+        "created_at": "2026-10-29T00:17:36.804393Z",
+        "description": "The requested signal scaled_moneyness may improve contract probabilities.",
+        "entry_rules": {
+          "all_of": [
+            {
+              "feature": "model_yes_probability",
+              "op": "gt",
+              "threshold": "0.55"
+            },
+            {
+              "feature": "scaled_moneyness",
+              "op": "gt",
+              "threshold": "0"
+            }
+          ],
+          "description": "Requested comparisons AND model probability > 0.55"
+        },
+        "entry_window": {
+          "end": null,
+          "start": null,
+          "target_end": null,
+          "target_start": null
+        },
+        "evidence": [],
+        "execution": {
+          "max_spread": null,
+          "post_only": false,
+          "time_in_force": "fill_or_kill"
+        },
+        "exit_mode": "hold_to_settlement",
+        "exit_rules": {
+          "all_of": [
+            {
+              "feature": "settlement",
+              "op": "eq",
+              "threshold": "1"
+            }
+          ],
+          "description": "Hold to settlement using the official contract outcome"
+        },
+        "features": [
+          {
+            "description": "Frozen decision-time covariate",
+            "name": "scaled_moneyness",
+            "version": "1"
+          }
+        ],
+        "generated_by": {
+          "actor_id": "local-template-v1",
+          "kind": "agent"
+        },
+        "generation_run_id": "377e391b-62f7-4d85-9ef1-ed1293fa284c",
+        "hedging_rules": "",
+        "hypothesis": "The requested signal scaled_moneyness may improve contract probabilities.",
+        "invalidation_conditions": [
+          "Evidence, model or execution gates fail"
+        ],
+        "market_universe": {
+          "description": "Actual permitted captured series",
+          "event_tickers": [],
+          "market_tickers": [],
+          "series_tickers": [
+            "KXBTC"
+          ],
+          "venue": "kalshi"
+        },
+        "max_entry_price": null,
+        "maximum_holding_period_seconds": null,
+        "min_displayed_quantity": null,
+        "minimum_edge": "0.03",
+        "model_kind": "domain_statistical",
+        "model_ref": null,
+        "name": "KXBTC signal test 1",
+        "position_sizing": {
+          "contracts": "1.00",
+          "dollars": null,
+          "kelly_fraction": null,
+          "max_contracts": "1.00",
+          "method": "fixed_contracts"
+        },
+        "probability_feature": null,
+        "required_sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "risk_overrides_allowed": "none",
+        "side": "yes",
+        "slippage_allowance": "0",
+        "strategy_family": "informational",
+        "strategy_id": "local-template-0",
+        "uncertainty_allowance": "0",
+        "version": 1
+      }
+    },
+    {
+      "candidate_id": "template-c1",
+      "evidence_ids": [
+        "sha256:a5ae5ff3d668f7fa6e1a26ddf4b94a3238b2099515eb674b52bda106fa41cb05",
+        "sha256:f545c23003e59aa2d37ccfee83fe09afc61062ba5a50607c8c1c86fafbbc5391",
+        "sha256:8531ea93cfee950a7aff2275363a5a081d448978538bce6f08526e37886bcdfb"
+      ],
+      "hypothesis_id": "template-h1",
+      "missing_capability": "",
+      "model_family": "bitcoin_frequency",
+      "required_features": [
+        "scaled_moneyness",
+        "hours_to_close"
+      ],
+      "required_sources": [
+        "coinbase",
+        "kalshi"
+      ],
+      "spec": {
+        "assumptions": [
+          "Local template; unsupported prose is not interpreted as trading rules",
+          "Model families use their registered feature sets; no feature ablation"
+        ],
+        "calibration": "none",
+        "citations": [],
+        "created_at": "2026-10-29T00:17:36.804488Z",
+        "description": "An event-weighted training frequency may be more stable than a moneyness regression.",
+        "entry_rules": {
+          "all_of": [
+            {
+              "feature": "model_yes_probability",
+              "op": "gt",
+              "threshold": "0.55"
+            },
+            {
+              "feature": "scaled_moneyness",
+              "op": "gt",
+              "threshold": "0"
+            }
+          ],
+          "description": "Requested comparisons AND model probability > 0.55"
+        },
+        "entry_window": {
+          "end": null,
+          "start": null,
+          "target_end": null,
+          "target_start": null
+        },
+        "evidence": [],
+        "execution": {
+          "max_spread": null,
+          "post_only": false,
+          "time_in_force": "fill_or_kill"
+        },
+        "exit_mode": "hold_to_settlement",
+        "exit_rules": {
+          "all_of": [
+            {
+              "feature": "settlement",
+              "op": "eq",
+              "threshold": "1"
+            }
+          ],
+          "description": "Hold to settlement using the official contract outcome"
+        },
+        "features": [
+          {
+            "description": "Frozen decision-time covariate",
+            "name": "scaled_moneyness",
+            "version": "1"
+          },
+          {
+            "description": "Frozen decision-time covariate",
+            "name": "hours_to_close",
+            "version": "1"
+          }
+        ],
+        "generated_by": {
+          "actor_id": "local-template-v1",
+          "kind": "agent"
+        },
+        "generation_run_id": "377e391b-62f7-4d85-9ef1-ed1293fa284c",
+        "hedging_rules": "",
+        "hypothesis": "An event-weighted training frequency may be more stable than a moneyness regression.",
+        "invalidation_conditions": [
+          "Evidence, model or execution gates fail"
+        ],
+        "market_universe": {
+          "description": "Actual permitted captured series",
+          "event_tickers": [],
+          "market_tickers": [],
+          "series_tickers": [
+            "KXBTC"
+          ],
+          "venue": "kalshi"
+        },
+        "max_entry_price": null,
+        "maximum_holding_period_seconds": null,
+        "min_displayed_quantity": null,
+        "minimum_edge": "0.03",
+        "model_kind": "domain_statistical",
+        "model_ref": null,
+        "name": "KXBTC signal test 2",
+        "position_sizing": {
+          "contracts": "1.00",
+          "dollars": null,
+          "kelly_fraction": null,
+          "max_contracts": "1.00",
+          "method": "fixed_contracts"
+        },
+        "probability_feature": null,
+        "required_sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "risk_overrides_allowed": "none",
+        "side": "yes",
+        "slippage_allowance": "0",
+        "strategy_family": "informational",
+        "strategy_id": "local-template-1",
+        "uncertainty_allowance": "0",
+        "version": 1
+      }
+    }
+  ],
+  "reasoning": "local_templates",
+  "reasoning_limit": "Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation.",
+  "report": "Retained Bitcoin history \u00b7 receipt-time official binary targets\nCaptures: 8; retained events: 4; protected events: 0.\nOnly exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.\nCoinbase is a predictor, never a settlement price. Outcome availability is receipt time.\nExceptional settlement paths remain unverified; rules_known stays false for execution.\nNo historical depth or certified fees; trading backtests and returns remain blocked.\nRepeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward.\nFitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.\nFitting outcome classes: no; both YES and NO required.\nValidation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.\nFixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates.\nMinimum counts do not certify domain coverage, model quality or execution.\nReconciliation: {\"attempts\": {\"KXBTC-26OCT2513-T89799.99\": \"2026-10-29T00:13:35.999243+00:00\", \"KXBTC-26OCT2517-T90249.99\": \"2026-10-29T00:13:36.053472+00:00\", \"KXBTC-26OCT2617-T89749.99\": \"2026-10-29T00:13:36.081404+00:00\", \"KXBTC-26OCT2717-T89749.99\": \"2026-10-29T00:13:36.113079+00:00\"}, \"deferred\": 0, \"failures\": [], \"fetch_enabled\": true, \"finished_at\": \"2026-10-29T00:17:34.179178+00:00\", \"receipts\": [{\"hash\": \"sha256:47f74773effa4a6d8bf36c8e786554962b6ebdef3547fb0b9e47e055dd28a36b\", \"path\": \"/trade-api/v2/markets/KXBTC-26OCT2513-T89799.99\", \"raw_ref\": \"0000.json\", \"received_at\": \"2026-10-29T00:13:36.052904+00:00\", \"status\": 200}, {\"hash\": \"sha256:e15fcb8116033a5c233e2c28fb0b2062bd25209c1c905ec780cbe241e9ed57e1\", \"path\": \"/trade-api/v2/markets/KXBTC-26OCT2517-T90249.99\", \"raw_ref\": \"0001.json\", \"received_at\": \"2026-10-29T00:13:36.080992+00:00\", \"status\": 200}, {\"hash\": \"sha256:d5fee6e7e3b2880a33ad99000411449b364c1ed035882ec661fbb821e5a22650\", \"path\": \"/trade-api/v2/markets/KXBTC-26OCT2617-T89749.99\", \"raw_ref\": \"0002.json\", \"received_at\": \"2026-10-29T00:13:36.112788+00:00\", \"status\": 200}, {\"hash\": \"sha256:2a4a77090cb181d4066204e638db241f814814abea4e9d0533e94f8ac2453031\", \"path\": \"/trade-api/v2/markets/KXBTC-26OCT2717-T89749.99\", \"raw_ref\": \"0003.json\", \"received_at\": \"2026-10-29T00:13:36.145831+00:00\", \"status\": 200}], \"requested\": 0, \"retained_receipts\": 4, \"started_at\": \"2026-10-29T00:17:32.931930+00:00\"}\n\n# Research-to-experiment report\n\nData: real. Research run: 377e391b-62f7-4d85-9ef1-ed1293fa284c\nFinal holdout: not evaluated. No trading authorization.\n\ntemplate-c0: INSUFFICIENT_DATA\nneed 40 fit events on 20 dates with finalized labels received before fit cutoff; execution P&L is unavailable without certified rules, sized books and fee evidence\ntemplate-c1: INSUFFICIENT_DATA\nneed 40 fit events on 20 dates with finalized labels received before fit cutoff; execution P&L is unavailable without certified rules, sized books and fee evidence\n\nEach candidate/scenario counts as a trial. Intervals are descriptive after selection.\nSnapshot fills model taker execution, not queues or observed fills.\nSynthetic results verify software only; ranking is not deployment authorization.\n",
+  "research_run": "377e391b-62f7-4d85-9ef1-ed1293fa284c",
+  "schema": "workbench-review-v1",
+  "warnings": [
+    "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+    "Snapshot fills model taker execution, not queues or observed fills.",
+    "Synthetic results verify software only; ranking is not deployment authorization."
+  ]
+}

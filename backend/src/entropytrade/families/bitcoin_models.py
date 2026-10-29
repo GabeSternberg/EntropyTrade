@@ -18,6 +18,7 @@ from entropytrade.data.sources import file_hash
 from entropytrade.domain.enums import MarketResult
 from entropytrade.domain.strategy import CalibrationMethod, StrategySpec
 from entropytrade.experiments.data import (
+    ContractSample,
     ExperimentData,
     PredictionBundle,
     ProbabilityRecord,
@@ -26,6 +27,107 @@ from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.evaluation import TemporalPlan
 
 MODELS = ("bitcoin_logistic", "bitcoin_frequency")
+
+
+def model_inputs(
+    data: ExperimentData,
+) -> tuple[TemporalPlan, list[ContractSample], list[ContractSample]]:
+    """Use the same clock/partition selection for diagnostics and actual fitting."""
+    event_dates: dict[str, date] = {}
+    for sample in data.samples:
+        if event_dates.setdefault(sample.event_id, sample.target_date) != sample.target_date:
+            raise ValueError("one Bitcoin event cannot span multiple target dates")
+    partition = data.provenance["partition"]
+    anchor = date.fromisoformat(partition["anchor"])
+    fit_end = date.fromisoformat(partition["fit_before"])
+    holdout_start = date.fromisoformat(partition["holdout_start"])
+    if not anchor < fit_end < holdout_start:
+        raise ValueError("invalid fixed Bitcoin calendar partitions")
+    fit_asof = datetime(fit_end.year, fit_end.month, fit_end.day, tzinfo=UTC)
+    plan = TemporalPlan(
+        fit=tuple(sorted({s.event_id for s in data.samples if anchor <= s.target_date < fit_end})),
+        calibration=(),
+        validation=tuple(
+            sorted({s.event_id for s in data.samples if fit_end <= s.target_date < holdout_start})
+        ),
+        holdout=tuple(sorted({s.event_id for s in data.samples if s.target_date >= holdout_start})),
+        fit_asof=fit_asof,
+        calibration_asof=fit_asof,
+    )
+    if set(plan.fit + plan.calibration + plan.validation) & data.protected_events:
+        raise ValueError("protected events overlap model fitting/evaluation partitions")
+    train = [
+        s
+        for s in data.samples
+        if s.event_id in plan.fit
+        and s.eligible
+        and s.outcome in {MarketResult.YES, MarketResult.NO}
+        and s.outcome_available_at is not None
+        and s.close_time <= s.outcome_available_at <= plan.fit_asof
+        and s.decision_time < plan.fit_asof
+        and s.features.get("scaled_moneyness") is not None
+    ]
+    validation = [
+        s
+        for s in data.samples
+        if s.event_id in plan.validation
+        and s.decision_time >= plan.fit_asof
+        and s.eligible
+        and s.features.get("scaled_moneyness") is not None
+    ]
+    return plan, train, validation
+
+
+def history_readiness(data: ExperimentData) -> dict[str, Any]:
+    """Minimum evidence only; passing these counts never certifies model performance."""
+    plan, train, validation = model_inputs(data)
+    labeled = [
+        s
+        for s in validation
+        if s.outcome in {MarketResult.YES, MarketResult.NO}
+        and s.outcome_available_at is not None
+        and s.close_time <= s.outcome_available_at
+    ]
+
+    def counts(samples: list[ContractSample], events: int, dates: int) -> dict[str, int]:
+        actual_events = len({s.event_id for s in samples})
+        actual_dates = len({s.target_date for s in samples})
+        return {
+            "events": actual_events,
+            "dates": actual_dates,
+            "required_events": events,
+            "required_dates": dates,
+            "missing_events": max(0, events - actual_events),
+            "missing_dates": max(0, dates - actual_dates),
+        }
+
+    fit = counts(train, 40, 20)
+    valid = counts(validation, 20, 10)
+    scored = counts(labeled, 20, 10)
+    outcomes = sorted({s.outcome.value for s in train if s.outcome is not None})
+    summaries = [
+        f"Fitting: {fit['events']}/40 events on {fit['dates']}/20 dates with finalized "
+        f"labels received by {plan.fit_asof.isoformat()}.",
+        f"Fitting outcome classes: {', '.join(outcomes) or 'none'}; both YES and NO required.",
+        f"Validation: {valid['events']}/20 events on {valid['dates']}/10 dates; "
+        f"finalized labels cover {scored['events']} events on {scored['dates']} dates.",
+        f"Fixed validation window: {data.provenance['partition']['fit_before']} inclusive "
+        f"to {data.provenance['partition']['holdout_start']} exclusive. "
+        "Later receipts cannot backfill earlier decisions or move protected dates.",
+    ]
+    return {
+        "fit": fit,
+        "validation": valid,
+        "validation_labeled": scored,
+        "fit_outcome_classes": outcomes,
+        "fit_asof": plan.fit_asof.isoformat(),
+        "minimum_evidence_met": all(
+            group["missing_events"] == group["missing_dates"] == 0 for group in (fit, valid, scored)
+        )
+        and len(outcomes) == 2,
+        "summaries": summaries,
+        "limitation": "Minimum counts do not certify domain coverage, model quality or execution.",
+    }
 
 
 class BitcoinPredictions:
@@ -52,68 +154,14 @@ class BitcoinPredictions:
         records: list[ProbabilityRecord] = []
         refusals: dict[str, str] = {}
         try:
-            event_dates: dict[str, date] = {}
-            for sample in data.samples:
-                if (
-                    event_dates.setdefault(sample.event_id, sample.target_date)
-                    != sample.target_date
-                ):
-                    raise ValueError("one Bitcoin event cannot span multiple target dates")
-            partition = data.provenance["partition"]
-            anchor = date.fromisoformat(partition["anchor"])
-            fit_end = date.fromisoformat(partition["fit_before"])
-            holdout_start = date.fromisoformat(partition["holdout_start"])
-            if not anchor < fit_end < holdout_start:
-                raise ValueError("invalid fixed Bitcoin calendar partitions")
-            fit_asof = datetime(fit_end.year, fit_end.month, fit_end.day, tzinfo=UTC)
-            plan = TemporalPlan(
-                fit=tuple(
-                    sorted({s.event_id for s in data.samples if anchor <= s.target_date < fit_end})
-                ),
-                calibration=(),
-                validation=tuple(
-                    sorted(
-                        {
-                            s.event_id
-                            for s in data.samples
-                            if fit_end <= s.target_date < holdout_start
-                        }
-                    )
-                ),
-                holdout=tuple(
-                    sorted({s.event_id for s in data.samples if s.target_date >= holdout_start})
-                ),
-                fit_asof=fit_asof,
-                calibration_asof=fit_asof,
-            )
-            if set(plan.fit + plan.calibration + plan.validation) & data.protected_events:
-                raise ValueError("protected events overlap model fitting/evaluation partitions")
+            plan, train, validation = model_inputs(data)
+            metadata["history_readiness"] = history_readiness(data)
             metadata["split"] = {
                 "fit": plan.fit,
                 "calibration": plan.calibration,
                 "validation": plan.validation,
                 "holdout": plan.holdout,
             }
-            # Outcome clocks, not close or settlement clocks, determine training usability.
-            train = [
-                s
-                for s in data.samples
-                if s.event_id in plan.fit
-                and s.eligible
-                and s.outcome in {MarketResult.YES, MarketResult.NO}
-                and s.outcome_available_at is not None
-                and s.close_time <= s.outcome_available_at <= plan.fit_asof
-                and s.decision_time < plan.fit_asof
-                and s.features.get("scaled_moneyness") is not None
-            ]
-            validation = [
-                s
-                for s in data.samples
-                if s.event_id in plan.validation
-                and s.decision_time >= plan.fit_asof
-                and s.eligible
-                and s.features.get("scaled_moneyness") is not None
-            ]
             metadata["fit_events"] = len({s.event_id for s in train})
             metadata["fit_date_blocks"] = len({s.target_date for s in train})
             if metadata["fit_events"] < 40 or metadata["fit_date_blocks"] < 20:

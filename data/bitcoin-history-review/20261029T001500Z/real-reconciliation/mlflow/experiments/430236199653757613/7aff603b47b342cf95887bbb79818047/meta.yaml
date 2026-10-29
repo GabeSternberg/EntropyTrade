@@ -1,0 +1,15 @@
+artifact_uri: file:///home/gabriel/Projects/EntropyTrade/data/bitcoin-history-review/20261029T001500Z/real-reconciliation/mlflow/experiments/430236199653757613/7aff603b47b342cf95887bbb79818047/artifacts
+end_time: 1793232819356
+entry_point_name: ''
+experiment_id: '430236199653757613'
+lifecycle_stage: active
+run_id: 7aff603b47b342cf95887bbb79818047
+run_name: sha256:e8b6168670523c88a35e2eeb0e2b03325f08b16bbcb0d7e9373814f05720bf53
+run_uuid: 7aff603b47b342cf95887bbb79818047
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1793232819350
+status: 3
+tags: []
+user_id: gabriel

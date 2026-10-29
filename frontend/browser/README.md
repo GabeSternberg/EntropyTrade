@@ -1,5 +1,17 @@
 # Real workbench browser acceptance
 
+To exercise **real retained receipts**, set `ENTROPYTRADE_BROWSER_RETAINED` to an absolute
+verified Bitcoin history snapshot under this repository's `data/`, and select
+`--grep 'REAL retained receipts'`. Use new absolute workspace/evidence directories as
+below. The setup helper imports the verified source copies and prior outcome snapshot
+without changing receipt clocks; imported jobs explicitly say receipt replay. Subsequent
+form submission, discovery, worker, all tabs, downloads and restart use the actual app.
+This test asserts honest insufficiency and never claims fitting/evaluation from sparse
+data. It uses no controlled responses or response interception. The new
+[executed real case](../../data/bitcoin-history-review/20261029T001500Z/README.md) retains
+four screenshots, four downloads, a trace and the stopped workspace. Its public result
+reconciliation and one-shot source-access probe are separate executed evidence.
+
 The new Bitcoin retained-history procedure can be selected with
 `--grep 'Bitcoin retained history'`. Use a new absolute evidence directory and workspace
 as below. It runs `bitcoin-history.spec.cjs` against a real localhost server/worker,

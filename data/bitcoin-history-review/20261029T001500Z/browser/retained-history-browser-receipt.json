@@ -1,0 +1,263 @@
+{
+  "started_at": "2026-10-29T00:17:22.228Z",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:43129",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-real-20261029T001500Z-retained",
+  "status": "passed",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "retained-before-entropytrade-c5c43310-368d-4e89-8ae5-4ff07cc9779c.json",
+      "sha256": "426b296ed3ab64bcb32d15cfc32a326ca8f18f4a06b72f55ef5720a38f132e96"
+    },
+    {
+      "file": "retained-before-entropytrade-c5c43310-368d-4e89-8ae5-4ff07cc9779c.txt",
+      "sha256": "d2b94c3abdc3efae23a1b36a73b34d667ddfd64d9a9afc3750d3a4cd8d00778e"
+    },
+    {
+      "file": "retained-after-entropytrade-c5c43310-368d-4e89-8ae5-4ff07cc9779c.json",
+      "sha256": "426b296ed3ab64bcb32d15cfc32a326ca8f18f4a06b72f55ef5720a38f132e96"
+    },
+    {
+      "file": "retained-after-entropytrade-c5c43310-368d-4e89-8ae5-4ff07cc9779c.txt",
+      "sha256": "d2b94c3abdc3efae23a1b36a73b34d667ddfd64d9a9afc3750d3a4cd8d00778e"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "retained-history-review.png",
+      "sha256": "5de7c083646bf9580d63bf692163fb1dd47347f76e9d26801be820cf6f231054"
+    },
+    {
+      "file": "retained-history-probabilities.png",
+      "sha256": "c3d27a5929e9e0119c74f715c1ec8d611795e0484e09cc67e99201a3a5fd3d6e"
+    },
+    {
+      "file": "retained-history-evidence.png",
+      "sha256": "e33d36decec07da17c6ebb89408b49723bd62ab02809c0e38474d92010aea65e"
+    },
+    {
+      "file": "retained-history-reopened.png",
+      "sha256": "a983f2dd3b8d44f65321e2e4170cfff2417ff149514abc60d6a03bb48f825833"
+    }
+  ],
+  "evidence_kind": "REAL RETAINED RECEIPT REPLAY",
+  "limitations": [
+    "Verified real receipts imported before page interaction. Replay is not browser acquisition; insufficient history establishes no empirical model performance.",
+    "Controlled synthetic model checks are separate pytest evidence."
+  ],
+  "fixture": {
+    "evidence": "Imported retained real receipts; replay setup, no new source acquisition",
+    "source_snapshot": "data/bitcoin-history-review/20261029T001500Z/real-all-captures/history",
+    "dataset_version": "sha256:70c2c08dd318b1786c4121ed083f30f62d14793dc8b201dd26e6b55906d97392",
+    "partition": {
+      "anchor": "2026-10-25",
+      "fit_before": "2026-12-24",
+      "holdout_start": "2027-01-23"
+    },
+    "capture_count": 8,
+    "retained_events": 4,
+    "retained_dates": 3,
+    "protected_events": 0,
+    "readiness": {
+      "fit": {
+        "events": 4,
+        "dates": 3,
+        "required_events": 40,
+        "required_dates": 20,
+        "missing_events": 36,
+        "missing_dates": 17
+      },
+      "validation": {
+        "events": 0,
+        "dates": 0,
+        "required_events": 20,
+        "required_dates": 10,
+        "missing_events": 20,
+        "missing_dates": 10
+      },
+      "validation_labeled": {
+        "events": 0,
+        "dates": 0,
+        "required_events": 20,
+        "required_dates": 10,
+        "missing_events": 20,
+        "missing_dates": 10
+      },
+      "fit_outcome_classes": [
+        "no"
+      ],
+      "fit_asof": "2026-12-24T00:00:00+00:00",
+      "minimum_evidence_met": false,
+      "summaries": [
+        "Fitting: 4/40 events on 3/20 dates with finalized labels received by 2026-12-24T00:00:00+00:00.",
+        "Fitting outcome classes: no; both YES and NO required.",
+        "Validation: 0/20 events on 0/10 dates; finalized labels cover 0 events on 0 dates.",
+        "Fixed validation window: 2026-12-24 inclusive to 2027-01-23 exclusive. Later receipts cannot backfill earlier decisions or move protected dates."
+      ],
+      "limitation": "Minimum counts do not certify domain coverage, model quality or execution."
+    },
+    "receipts": [
+      {
+        "hash": "sha256:47f74773effa4a6d8bf36c8e786554962b6ebdef3547fb0b9e47e055dd28a36b",
+        "path": "/trade-api/v2/markets/KXBTC-26OCT2513-T89799.99",
+        "raw_ref": "0000.json",
+        "received_at": "2026-10-29T00:13:36.052904+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:e15fcb8116033a5c233e2c28fb0b2062bd25209c1c905ec780cbe241e9ed57e1",
+        "path": "/trade-api/v2/markets/KXBTC-26OCT2517-T90249.99",
+        "raw_ref": "0001.json",
+        "received_at": "2026-10-29T00:13:36.080992+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:d5fee6e7e3b2880a33ad99000411449b364c1ed035882ec661fbb821e5a22650",
+        "path": "/trade-api/v2/markets/KXBTC-26OCT2617-T89749.99",
+        "raw_ref": "0002.json",
+        "received_at": "2026-10-29T00:13:36.112788+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:2a4a77090cb181d4066204e638db241f814814abea4e9d0533e94f8ac2453031",
+        "path": "/trade-api/v2/markets/KXBTC-26OCT2717-T89749.99",
+        "raw_ref": "0003.json",
+        "received_at": "2026-10-29T00:13:36.145831+00:00",
+        "status": 200
+      }
+    ],
+    "samples": [
+      {
+        "event_id": "KXBTC-26OCT2513",
+        "ticker": "KXBTC-26OCT2513-T89799.99",
+        "family": "KXBTC",
+        "target_date": "2026-10-25",
+        "decision_time": "2026-10-25T16:34:00.904749Z",
+        "close_time": "2026-10-25T17:00:00Z",
+        "features_available_at": "2026-10-25T16:34:00.904749Z",
+        "features": {
+          "spot_usd": "80492.47",
+          "spot_minus_floor_usd": "-9307.52",
+          "hours_to_close": "0.43308201416666664",
+          "scaled_moneyness": "-16.627099498707466"
+        },
+        "versions": {
+          "spot_usd": "1",
+          "spot_minus_floor_usd": "1",
+          "hours_to_close": "1",
+          "scaled_moneyness": "1"
+        },
+        "feature_hash": "sha256:d66fbf6c30c16fb97d244980cadb20986b11a465f6b117da72d67ba3759169d2",
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "rules_known": false,
+        "eligible": true,
+        "outcome": "no",
+        "outcome_available_at": "2026-10-29T00:13:36.052904Z",
+        "book": null,
+        "fidelity": "missing"
+      },
+      {
+        "event_id": "KXBTC-26OCT2517",
+        "ticker": "KXBTC-26OCT2517-T90249.99",
+        "family": "KXBTC",
+        "target_date": "2026-10-25",
+        "decision_time": "2026-10-25T16:34:00.904749Z",
+        "close_time": "2026-10-25T21:00:00Z",
+        "features_available_at": "2026-10-25T16:34:00.904749Z",
+        "features": {
+          "spot_usd": "80492.47",
+          "spot_minus_floor_usd": "-9757.52",
+          "hours_to_close": "4.433082014166667",
+          "scaled_moneyness": "-5.434360922612355"
+        },
+        "versions": {
+          "spot_usd": "1",
+          "spot_minus_floor_usd": "1",
+          "hours_to_close": "1",
+          "scaled_moneyness": "1"
+        },
+        "feature_hash": "sha256:d3cc6adf72e23628a6bbfdf1245e61c8f4cc660817ed9c144749a8e3d5878bde",
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "rules_known": false,
+        "eligible": true,
+        "outcome": "no",
+        "outcome_available_at": "2026-10-29T00:13:36.080992Z",
+        "book": null,
+        "fidelity": "missing"
+      },
+      {
+        "event_id": "KXBTC-26OCT2617",
+        "ticker": "KXBTC-26OCT2617-T89749.99",
+        "family": "KXBTC",
+        "target_date": "2026-10-26",
+        "decision_time": "2026-10-26T20:41:24.288796Z",
+        "close_time": "2026-10-26T21:00:00Z",
+        "features_available_at": "2026-10-26T20:41:24.288796Z",
+        "features": {
+          "spot_usd": "79728.83",
+          "spot_minus_floor_usd": "-10021.16",
+          "hours_to_close": "0.3099197788888889",
+          "scaled_moneyness": "-21.267420554779708"
+        },
+        "versions": {
+          "spot_usd": "1",
+          "spot_minus_floor_usd": "1",
+          "hours_to_close": "1",
+          "scaled_moneyness": "1"
+        },
+        "feature_hash": "sha256:2cecb4aaf9573b4c65f938f76bdfb2f166716d1c1a06d1325e2a234b7051acfc",
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "rules_known": false,
+        "eligible": true,
+        "outcome": "no",
+        "outcome_available_at": "2026-10-29T00:13:36.112788Z",
+        "book": null,
+        "fidelity": "missing"
+      },
+      {
+        "event_id": "KXBTC-26OCT2717",
+        "ticker": "KXBTC-26OCT2717-T89749.99",
+        "family": "KXBTC",
+        "target_date": "2026-10-27",
+        "decision_time": "2026-10-26T20:41:24.288796Z",
+        "close_time": "2026-10-27T21:00:00Z",
+        "features_available_at": "2026-10-26T20:41:24.288796Z",
+        "features": {
+          "spot_usd": "79728.83",
+          "spot_minus_floor_usd": "-10021.16",
+          "hours_to_close": "24.30991977888889",
+          "scaled_moneyness": "-2.4013070895644626"
+        },
+        "versions": {
+          "spot_usd": "1",
+          "spot_minus_floor_usd": "1",
+          "hours_to_close": "1",
+          "scaled_moneyness": "1"
+        },
+        "feature_hash": "sha256:0235b8ed9c78cc19d6daf981a7161d7f30a7e47f9e7e6e1595def9550180c0be",
+        "sources": [
+          "coinbase",
+          "kalshi"
+        ],
+        "rules_known": false,
+        "eligible": true,
+        "outcome": "no",
+        "outcome_available_at": "2026-10-29T00:13:36.145831Z",
+        "book": null,
+        "fidelity": "missing"
+      }
+    ]
+  },
+  "finished_at": "2026-10-29T00:17:40.057Z"
+}

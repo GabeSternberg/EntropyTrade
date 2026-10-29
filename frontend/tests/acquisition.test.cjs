@@ -97,6 +97,8 @@ for (const tab of ["review", "probabilities", "lineage"]) {
       limitations: ["No depth or certified fees; trading backtests and returns remain blocked."],
       reconciliation: { requested: 2, deferred: 0, receipts: [],
         failures: [{ ticker: "KXBTC-fixture", failure: "ConnectError", failed_at: "2026-10-28T23:00:00Z" }] },
+      readiness: { summaries: ["Fitting: 4/40 events on 3/20 dates.", "Validation: 0/20 events on 0/10 dates."],
+        limitation: "Minimum counts do not certify model quality or execution." },
     };
     context.show(result, tab);
     assert.ok(text(content).includes("2 retained captures"));
@@ -104,5 +106,6 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     assert.ok(text(content).includes("KXBTC-fixture: ConnectError"));
     assert.ok(text(content).includes("trading backtests and returns remain blocked"));
     assert.ok(text(content).includes("Final holdout is excluded."));
+    for (const summary of result.bitcoin_history.readiness.summaries) assert.ok(text(content).includes(summary));
   });
 }

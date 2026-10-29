@@ -1,0 +1,83 @@
+[
+  {
+    "path": "data/workbench-review/20261025T064014Z/public-bitcoin/public",
+    "dataset_version": "sha256:7f91d36e2a94040cd523585b898579b68b5fc93909c07cf41cd4809f5e3c081b",
+    "decision_time": "2026-10-25T06:44:47.943863+00:00",
+    "recognized_samples": 0,
+    "events": [],
+    "dates": []
+  },
+  {
+    "path": "data/workbench-review/20261025T064732Z/public-bitcoin/public",
+    "dataset_version": "sha256:d3e99ec53319c555d51082bc2f1cc6f57918e55338741d0dbb111498ec09eedf",
+    "decision_time": "2026-10-25T06:50:31.189419+00:00",
+    "recognized_samples": 0,
+    "events": [],
+    "dates": []
+  },
+  {
+    "path": "data/workbench-review/20261025T070710Z/public-bitcoin/public",
+    "dataset_version": "sha256:210ea331e6551a0c36092d5a8468ec13464afc9d6cfe96ca8808f866fc3133de",
+    "decision_time": "2026-10-25T07:10:16.103713+00:00",
+    "recognized_samples": 0,
+    "events": [],
+    "dates": []
+  },
+  {
+    "path": "data/workbench-review/20261025T163400Z/blocked-network-bitcoin/public",
+    "dataset_version": "sha256:f1f9a6137bebf504233fb71980762906708679b56ec442d1c2a60ea599799ef7",
+    "decision_time": "2026-10-25T16:43:01.421428+00:00",
+    "recognized_samples": 0,
+    "events": [],
+    "dates": []
+  },
+  {
+    "path": "data/workbench-review/20261025T163400Z/public-bitcoin/public",
+    "dataset_version": "sha256:4a6642f64b909fe93f11c64a2f63184b61eda57cbd6c552e6cb5c808cf218c34",
+    "decision_time": "2026-10-25T16:34:00.904749+00:00",
+    "recognized_samples": 2,
+    "events": [
+      "KXBTC-26OCT2513",
+      "KXBTC-26OCT2517"
+    ],
+    "dates": [
+      "2026-10-25"
+    ]
+  },
+  {
+    "path": "data/workbench-review/20261026T203717Z/browser-attempt-1/runs/public-bitcoin/public",
+    "dataset_version": "sha256:92b9f1f2081b269866e55bcb8d6b24157b05d8249ae6fc5546bc91f908b8647e",
+    "decision_time": "2026-10-26T20:41:24.288796+00:00",
+    "recognized_samples": 2,
+    "events": [
+      "KXBTC-26OCT2617",
+      "KXBTC-26OCT2717"
+    ],
+    "dates": [
+      "2026-10-26",
+      "2026-10-27"
+    ]
+  },
+  {
+    "path": "data/workbench-review/20261026T203717Z/browser-attempt-2/runs/public-bitcoin/public",
+    "dataset_version": "sha256:d7130c9dd9e1f91b9e8546e8d190e97824683bb57bfafa7123296b6a82fd9007",
+    "decision_time": "2026-10-26T20:43:02.304566+00:00",
+    "recognized_samples": 2,
+    "events": [
+      "KXBTC-26OCT2617",
+      "KXBTC-26OCT2717"
+    ],
+    "dates": [
+      "2026-10-26",
+      "2026-10-27"
+    ]
+  },
+  {
+    "path": "data/workbench-review/20261026T203717Z/browser-attempt-2/runs/public-bitcoin-network-denied/public",
+    "dataset_version": "sha256:c8d728c2032013f6b07c38d30da8ff26fc7dba99e7d77e80ebf30fd176d3c2dd",
+    "decision_time": "2026-10-26T20:43:08.960585+00:00",
+    "recognized_samples": 0,
+    "events": [],
+    "dates": []
+  }
+]

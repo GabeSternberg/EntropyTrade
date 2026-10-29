@@ -1,0 +1,12 @@
+{
+  "root": "/home/gabriel/Projects/EntropyTrade/data/cache/bitcoin-real-20261029T001500Z-retained/runs/c5c43310-368d-4e89-8ae5-4ff07cc9779c",
+  "features": "history",
+  "model_results": null,
+  "holdout_start": "9999-12-31",
+  "model_families": [
+    "bitcoin_logistic",
+    "bitcoin_frequency"
+  ],
+  "max_rows": 100000,
+  "load_timeout_seconds": 20
+}

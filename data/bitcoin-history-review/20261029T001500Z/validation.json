@@ -1,0 +1,20 @@
+{
+  "make_check": "passed",
+  "ruff": "passed",
+  "strict_mypy_files": 483,
+  "pytest_passed": 754,
+  "pytest_skipped": 0,
+  "pytest_seconds": 269.06,
+  "targeted_bitcoin_tests": 19,
+  "frontend_tests": 12,
+  "browser_tests": 1,
+  "browser_seconds": 19.1,
+  "browser_screenshots": 4,
+  "browser_downloads": 4,
+  "official_finalized_labels": 4,
+  "empirical_model_performance": false,
+  "second_family_complete": false,
+  "v1_complete": false,
+  "clean_install_verified": false,
+  "git_writes": false
+}

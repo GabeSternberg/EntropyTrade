@@ -242,6 +242,8 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
                     f"retained events: {history.provenance['retained_events']}; "
                     f"protected events: {len(history.protected_events)}.",
                     *history.provenance["limitations"],
+                    *history.provenance["readiness"]["summaries"],
+                    history.provenance["readiness"]["limitation"],
                     "Reconciliation: "
                     + json.dumps(history.provenance["reconciliation"], sort_keys=True),
                     "",

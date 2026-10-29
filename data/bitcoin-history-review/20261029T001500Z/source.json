@@ -1,0 +1,17 @@
+{
+  "backend/src/entropytrade/api/worker.py": "sha256:5968ac1b5b5925385ae146f8a6cd89a4cb8ade73c17c315d9e60ce3ad9440f92",
+  "backend/src/entropytrade/families/bitcoin_history.py": "sha256:507231bba05f8abf221a3a393e2dabf4733a6ba030c0b5146511f3ad89890651",
+  "backend/src/entropytrade/families/bitcoin_models.py": "sha256:c5489def8f851a506574c4ea810519d971f6f6b32453b8384e747d004bd8aa99",
+  "backend/tests/unit/test_bitcoin_history.py": "sha256:3e4d362a4f92cdb6b166ea9042566554c2340f3c1818c4b3691053806c8262f6",
+  "backend/tests/integration/bitcoin_history_retained.py": "sha256:dd2d8213f0e0e6243886e8097e83e29cb84180a5f94fc73e95a8e4e7898aa4e0",
+  "frontend/src/app.js": "sha256:17ca2e07aa128a8fff9600c976b6b4a2f122b15c12e405800988940eb1632f26",
+  "frontend/browser/bitcoin-history.spec.cjs": "sha256:3e9bcdb8db026497588e74baf17de37dfd9cc0416c988181b991a2e3fc9a53c6",
+  "frontend/browser/playwright.config.cjs": "sha256:945a371b7f6a327cb4314302c666ec730562d2da6c124634bbab741bc2072514",
+  "frontend/browser/package-lock.json": "sha256:fd41a3af738c8724b58b5962eddc89bd965682f8d680270d6a1179cb654d6592",
+  "frontend/tests/acquisition.test.cjs": "sha256:97a92658892c6985fe6ce89ad309c92404a34c278d73ff51ca8c14e8c600ac16",
+  "README.md": "sha256:66c2bc46c3558ec5fac6acd8a2e217f6d2c08e7a025abaa5d94095928fc05300",
+  "STATUS.md": "sha256:0700964bb7597b2976c65876f6de6adc668b5f8e842197265e1bf9a7d9add739",
+  "docs/roadmap.md": "sha256:225894b30bb7106c4e51beae0b5211d364ba1f499f8eaece538fa4bb4432f2a4",
+  "docs/bitcoin-history.md": "sha256:e30fd81a20afc3c9a1cd5bb73f620594cc655b812eccdab63778b03408e933e3",
+  "frontend/browser/README.md": "sha256:c5f9d3221c567a1d876e131d91559f2520319c07863c0085d7554a59a339227e"
+}

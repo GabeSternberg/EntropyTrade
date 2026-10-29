@@ -5,32 +5,21 @@ The current user instruction authorizes progress on the next unmet product gate,
 all Git operations reserved for the supervisor. [Retained Bitcoin history](bitcoin-history.md)
 now connects real receipt replay and later official binary targets to fixed temporal models
 and the shared research/experiment engine. Its controlled software checks do not satisfy
-real-data evaluation. Browser/network permissions and complete current-suite verification
-remain review blockers; see [current evidence](../data/bitcoin-history-review/20261028T232200Z/README.md).
+real-data evaluation. Official reconciliation of four retained contracts and actual real-receipt browser checks
+now pass. The current blocker is insufficient elapsed receipt-time history and future
+fixed validation dates; see [executed evidence](../data/bitcoin-history-review/20261029T001500Z/README.md).
 V1 is incomplete, and continuous paper/shadow remains deferred. Earlier dated evidence below
 retains its original scope and acceptance meaning.
 
-Active from R0 (2026-10-24). This replaces the historical phase sequence and Phase 4.290
-continuation, while preserving the [original product specification](project-spec.md).
-R0–R3 are approved; R3 was integrated before R4. R4 is complete for review and its tested
-branch/main merge and push are authorized. Stop before the next milestone.
-The current continuation is limited to acceptance of the implementation already committed
-at reviewed commit `18be50cee17f03ae3dbfa198ed22e7a23635af1b`. All Git mutations belong to the supervisor.
-A clean source export exposed a native SQLite job-connection close stall; a bounded
-concurrency regression and serialized-connection acceptance fix are now committed there.
-The historical candidate passed full checks (734 pytest tests, strict mypy, Ruff, and
-nine frontend cases); these receipts describe an overlay on `99e2fbc`. The supervisor's final
-independent clean-checkout sign-off remains required. All four documented browser procedures
-now pass using Playwright's separate Chromium and the actual localhost backend. The new
-receipt preserves successful public ingestion separately from deliberate OS network denial,
-checksummed browser downloads, screenshots, cancellation and restart history. No empirical
-model performance is inferred from forward capture.
-See [status](../STATUS.md), [current evidence](../data/workbench-review/20261026T203717Z/README.md)
-and [PROJECT_CONTEXT.md](../PROJECT_CONTEXT.md) for evidence-backed V1 gates. The user's
-current V1 sequence takes precedence over the older R5–R8 numbering below. V1 is incomplete.
-The R4 approval request revises the next priorities: minimal localhost website, second real
-market family, then continuous paper/shadow. A commit, city, JSON field or negative
-experiment is not a software milestone.
+Active from R0 (2026-10-24), replacing the historical micro-phase sequence while
+preserving the [original specification](project-spec.md). R4's integrated experiment
+engine, the website and both earlier browser acceptance bundles are already present in
+local `main` at supervisor checkpoint `97074a3`. This continuation addresses only the
+second-family real-data gate; every Git write remains the supervisor's responsibility.
+Current quality gates pass: Ruff/format, strict mypy (483 files), 754 pytest tests,
+12 frontend checks and one real-receipt Chromium procedure. The historical R5–R8 numbering
+below is directional; the user's current sequence and [status](../STATUS.md) take
+precedence. A commit, city, JSON field or negative experiment is not a software milestone.
 
 The target is **Discover → Formalize → Collect → Model → Price → Backtest → Validate →
 Approve → Paper/Shadow → Risk → Execute → Monitor → Adapt**. A valid rejection is useful.

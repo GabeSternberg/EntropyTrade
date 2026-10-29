@@ -28,7 +28,7 @@ from entropytrade.families.bitcoin_history import (
     history_data,
     recognized_terms,
 )
-from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions
+from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions, history_readiness
 from entropytrade.families.public import capture_public
 from entropytrade.features.registry import scientific_hash
 from tests.exchange.test_gateway_http import _market_body
@@ -360,6 +360,55 @@ def test_conflicting_event_dates_cannot_cross_model_partitions(tmp_path: Path) -
     bundle = BitcoinPredictions(data, tmp_path).prepare(demo_specs()[0], MODELS[0])
     assert not bundle.records
     assert "cannot span multiple target dates" in bundle.refusals[MODELS[0]]
+
+
+def test_readiness_uses_event_counts_and_receipt_cutoffs_without_exposing_holdout() -> None:
+    data = model_data()
+    ready = history_readiness(data)
+    assert ready["minimum_evidence_met"]
+    assert ready["fit"]["events"] == ready["fit"]["dates"] == 60  # 180 related strikes
+    assert ready["validation"]["events"] == ready["validation_labeled"]["events"] == 30
+    # Every fitting label is received after the frozen fit cutoff. Validation remains
+    # separate; neither its labels nor final holdout labels can repair training history.
+    late = data.revalidated(
+        samples=tuple(
+            s.revalidated(outcome_available_at=datetime(2026, 1, 1, tzinfo=UTC))
+            if s.target_date < date(2025, 3, 2)
+            else s
+            for s in data.samples
+        )
+    )
+    blocked = history_readiness(late)
+    assert not blocked["minimum_evidence_met"]
+    assert blocked["fit"]["events"] == blocked["fit"]["dates"] == 0
+    assert blocked["fit"]["missing_events"] == 40
+    assert blocked["fit"]["missing_dates"] == 20
+    assert blocked["fit_outcome_classes"] == []
+    assert blocked["validation"] == ready["validation"]
+    assert blocked["validation_labeled"] == ready["validation_labeled"]
+    assert all("KXBTC-" not in summary for summary in blocked["summaries"])
+
+
+def test_readiness_reports_single_class_and_unlabeled_validation(tmp_path: Path) -> None:
+    data = model_data()
+    data = data.revalidated(
+        samples=tuple(
+            s.revalidated(outcome=None, outcome_available_at=None)
+            if date(2025, 3, 2) <= s.target_date < date(2025, 4, 1)
+            else s.revalidated(outcome=MarketResult.NO)
+            for s in data.samples
+        )
+    )
+    blocked = history_readiness(data)
+    assert not blocked["minimum_evidence_met"]
+    assert blocked["fit"]["missing_events"] == blocked["fit"]["missing_dates"] == 0
+    assert blocked["fit_outcome_classes"] == [MarketResult.NO.value]
+    assert blocked["validation"]["events"] == 30
+    assert blocked["validation_labeled"]["events"] == 0
+    bundle = BitcoinPredictions(data, tmp_path).prepare(demo_specs()[0], MODELS[0])
+    assert not bundle.records
+    assert bundle.model_metadata["history_readiness"] == blocked
+    assert "both binary outcomes" in bundle.refusals[MODELS[0]]
 
 
 def test_empty_workspace_history_is_a_saved_honest_review(tmp_path: Path) -> None:

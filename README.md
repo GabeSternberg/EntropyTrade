@@ -19,9 +19,11 @@ incomplete acquisition, downloads, cancellation and restart persistence. See the
 and [operation and exact limitations](docs/workbench.md). V1 is incomplete; see
 [project context](PROJECT_CONTEXT.md). The [retained Bitcoin workflow](docs/bitcoin-history.md)
 now replays original receipts, reconciles later official binary results and conditionally
-fits temporal binary models through the same experiment engine. Actual inputs remain
-sparse and current browser/network acceptance is blocked; empirical second-family evaluation
-and continuous shadow remain incomplete. Production trading
+fits temporal binary models through the same experiment engine. Actual retained contracts now reconcile to four finalized official results; real-receipt
+browser interaction, downloads and restart acceptance pass. History remains insufficient
+(4 fitting events on 3 dates, only NO targets, no validation dates); empirical second-family
+evaluation and continuous shadow remain incomplete. See the
+[executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Production trading
 is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks
