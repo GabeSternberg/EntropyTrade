@@ -10,7 +10,7 @@ real forward weather capture, versioned features and event-level probability mod
 The real historical sample remains too small and lacks certified forecasts/scalar labels;
 complete fitting/calibration is verified separately on synthetic data. Provider-backed agent research is configurable with bounded evidence tools; real provider
 verification needs a dedicated research key. The integrated `research-and-test` command now connects candidates, models, replay and
-ranked diagnostics. A template-only local research website and Bitcoin forward adapter are implemented
+ranked diagnostics. The local research website and Bitcoin forward adapter were first implemented
 in `99e2fbc`; reviewed commit `18be50c` includes the SQLite acceptance repair and retained evidence.
 The October 26 browser run passed all four then-documented website workflows through
 isolated Playwright Chromium against the real backend, including public captures,
@@ -27,10 +27,13 @@ future major family selection requires user approval. A continuous read-only sha
 monitor now connects frozen research candidates to durable forward capture, decisions,
 risk evidence, later official outcomes and browser inspection. Authentic fitted forward
 models and certified fees remain unavailable, so actual intentions block.
-Sized public books are retained with explicit collection bounds. Earlier shadow browser
-acceptance passed; current fresh-install snapshot/restore browser acceptance is blocked
-by Chromium socket permissions. Offline workspace recovery and two authentic cycle replays
-pass. See [local operation and recovery](docs/local-recovery.md), the incomplete
+Sized public books are retained with explicit collection bounds. Earlier shadow browser acceptance passed. The website now offers bounded provider-backed
+research with server configuration and fresh per-run consent; typed candidates, deterministic
+gates and downloadable provider failures use durable isolated jobs. Controlled provider
+HTTP plus real-browser cancellation/restart evidence passes; external verification remains
+blocked without separately authorized research credentials. The fresh locked-install and
+broader recovery results are recorded in [current evidence](data/provider-review/20261029/README.md).
+Offline workspace recovery preserves original receipts and model/holdout boundaries. See [local operation and recovery](docs/local-recovery.md), the incomplete
 [V1 acceptance matrix](docs/v1_acceptance.md), the
 [shadow operating guide](docs/shadow-tracking.md) and the earlier
 [executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Production trading

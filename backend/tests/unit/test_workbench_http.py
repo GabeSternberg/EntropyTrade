@@ -310,6 +310,11 @@ def test_worker_deadline_shutdown_cancellation_and_crash_are_durable(
     )
     assert job["status"] == expected
     assert job["result"] is None
+    if condition == "cancelled":
+        # A job cancelled before launch must never receive credentials or start a child.
+        assert launches == []
+        assert not process.killed
+        return
     assert process.killed == (condition != "crash")
     command, options = launches[0]
     assert command[1:3] == ["-m", "entropytrade.api.worker"]

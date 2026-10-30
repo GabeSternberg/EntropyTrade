@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="30.620913999999996">
+<testsuite name="provider.spec.cjs" timestamp="2026-10-29T18:27:21.529Z" hostname="" tests="1" failures="0" skipped="0" time="27.467" errors="0">
+<testcase name="provider-backed website: opt-in, typed candidates, failures, cancellation and recovery" classname="provider.spec.cjs" time="27.467">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

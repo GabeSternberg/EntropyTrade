@@ -12,6 +12,7 @@ import shutil
 import signal
 import subprocess
 import sys
+import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -28,6 +29,7 @@ def main():
     parser.add_argument("--npm-cache-seed", type=Path)
     parser.add_argument("--chromium-seed", type=Path)
     parser.add_argument("--test-seconds", default=600, type=int)
+    parser.add_argument("--browser-grep", default="local operation and recovery|provider-backed website")
     parser.add_argument(
         "--prepare-only",
         action="store_true",
@@ -67,6 +69,8 @@ def main():
         "configs",
         "tools",
         "vendor",
+        "docs/research",
+        "data/public",
         "data/r1-demo",
         "data/r1-source",
         "data/r2-demo",
@@ -80,6 +84,9 @@ def main():
         "Makefile",
         ".gitignore",
         "THIRD_PARTY_NOTICES.md",
+        "docs/project-spec.md",
+        ".agents/skills/kalshi-docs/api-reference/market/get-series.md",
+        ".agents/skills/kalshi-docs/getting_started/fee_rounding.md",
     ]
     for directory in roots:
         names.extend(
@@ -114,6 +121,10 @@ def main():
             }
         )
     # Clean environment: no inherited provider/exchange credentials, HOME or Python path.
+    # Chromium uses Unix sockets below TMPDIR. Deep evidence paths can exceed the
+    # platform's 108-byte socket-address limit and crash before any page opens.
+    acceptance_temp = tempfile.TemporaryDirectory(prefix="entropytrade-", dir="/tmp")
+    receipt["temporary_directory"] = acceptance_temp.name
     env = {
         "PATH": os.defpath,
         "TZ": "UTC",
@@ -125,9 +136,8 @@ def main():
         "OMP_NUM_THREADS": "1",
         "OPENBLAS_NUM_THREADS": "1",
         "LOKY_MAX_CPU_COUNT": "1",
-        "TMPDIR": str(output / "tmp"),
+        "TMPDIR": acceptance_temp.name,
     }
-    Path(env["TMPDIR"]).mkdir()
     receipt["provisioning"] = {
         "uv_cache_seed": str(args.uv_cache_seed) if args.uv_cache_seed else None,
         "npm_cache_seed": str(args.npm_cache_seed) if args.npm_cache_seed else None,
@@ -253,7 +263,7 @@ def main():
                 "-c",
                 "frontend/browser/playwright.config.cjs",
                 "--grep",
-                "local operation and recovery",
+                args.browser_grep,
             ],
             browser_env,
             660,
@@ -321,6 +331,7 @@ def main():
     finally:
         receipt["finished_at"] = now()
         save()
+        acceptance_temp.cleanup()
 
 
 if __name__ == "__main__":

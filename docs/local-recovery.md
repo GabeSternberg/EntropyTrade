@@ -1,5 +1,11 @@
 # Local operation and workspace recovery
 
+October 29 provider continuation: the [current locked-install browser evidence](../data/provider-review/20261029/README.md)
+executes this recovery procedure through Playwright-managed Chromium and the real localhost
+workers. It also verifies provider result/failure snapshots and cancellation/restart without
+automatic billable retries. The earlier environment-denial record below remains historical;
+use the current bundle and [V1 matrix](v1_acceptance.md) for latest acceptance status.
+
 Workspace snapshot/restore is an **offline local maintenance operation**. Stop the web
 server with Ctrl-C and wait for its workers to exit. Never copy a running workspace by
 hand. Server startup, snapshot and workers share an exclusive lease; workers retain the
@@ -126,7 +132,7 @@ worker is used. A very fast real request may complete during shutdown; either th
 result or its actual interrupted state must survive. Controlled tests separately prove
 in-flight recovery and nonempty reservation/risk behavior without claiming real probabilities.
 
-**Current environment result:** the locked offline install and non-browser checks pass;
+**Earlier environment result (superseded by the current bundle):** the locked offline install and non-browser checks pass;
 Chromium launch fails at `third_party/crashpad/crashpad/util/linux/socket.cc:45` with
 `setsockopt: Operation not permitted (1)` and SIGTRAP, before any page interaction. The
 failed [Playwright report](../data/local-operation-review/20261029-recovery-final/browser/playwright-results.json)
@@ -136,7 +142,8 @@ stalls in the existing collector reconnect test; its 45-second diagnostic stack 
 The stack alone does not prove the cause of that stall. The earlier unbounded attempt was
 interrupted and is also incomplete. No denied browser launch was retried or bypassed.
 
-The outstanding human/supervisor step is to execute the default driver in a permitted
-environment and inspect its screenshots, downloads, listener/worker logs and full test
-results. Then independently cross-check [V1 acceptance](v1_acceptance.md). Earlier successful
-browser evidence describes earlier code; it does not pass this new recovery procedure.
+The current bundle executes the browser steps; independent supervisor review must still
+inspect its screenshots, downloads, listener/worker logs and final complete-suite report,
+then cross-check [V1 acceptance](v1_acceptance.md). Its external-provider check remains
+blocked without separately authorized research credentials. No real-data empirical release
+gate is satisfied by the controlled or synthetic software procedures.

@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-29T18:44:48.546064+00:00",
+  "reason": "Restore original vendored citations omitted by export; synchronize driver explicit export list. No application/test/fee/data edits.",
+  "files": [
+    {
+      "path": ".agents/skills/kalshi-docs/api-reference/market/get-series.md",
+      "previous_sha256": null,
+      "sha256": "72bd8c5f22975ec4955c9e73a5decc69eb011dbfbcc03f42c48ebb73123a029c",
+      "bytes": 10175
+    },
+    {
+      "path": ".agents/skills/kalshi-docs/getting_started/fee_rounding.md",
+      "previous_sha256": null,
+      "sha256": "ea88a9aa0b404ebebc7cade4aadf1d4f7f726db06f71b65a3863d6c2edd93b23",
+      "bytes": 3773
+    },
+    {
+      "path": "tools/local_acceptance.py",
+      "previous_sha256": "92153b3f087c0112182105266518e69023a456d2466b3635acbf8b4283b4ea7c",
+      "sha256": "79c8c6fce299d334c43cba93d38df35dd69c1993c06069625a60f9b48ac069c5",
+      "bytes": 11999
+    }
+  ],
+  "fresh_locked_installation": true,
+  "reused_old_virtualenv": false,
+  "previous_failed_receipt_preserved": true
+}

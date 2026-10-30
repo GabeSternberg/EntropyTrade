@@ -1,4 +1,4 @@
-"""One isolated credential-free process at a time, with cancellation and wall-time bounds."""
+"""One isolated worker; only opted-in research can inherit its dedicated credential."""
 
 import os
 import subprocess
@@ -7,7 +7,9 @@ import threading
 import time
 from pathlib import Path
 
-from entropytrade.api.jobs import Jobs
+from entropytrade.api.jobs import Jobs, validate_request
+
+RESEARCH_KEY_VARIABLE = "ENTROPYTRADE_RESEARCH_API_KEY"
 
 
 def worker_environment(repo: Path, workspace: Path) -> dict[str, str]:
@@ -53,7 +55,7 @@ class Runner:
                 continue
             try:
                 self.execute(job_id)
-            except OSError:
+            except (OSError, ValueError):
                 self.jobs.update(job_id, "failed", "Worker could not start", status="failed")
 
     def execute(self, job_id: str) -> None:
@@ -68,10 +70,30 @@ class Runner:
             "--job",
             job_id,
         ]
+        job = self.jobs.get(job_id)
+        if job is None or job["status"] != "running":
+            return
+        request = validate_request(job["request"], stored=True)
+        environment = worker_environment(self.repo, self.jobs.root)
+        # Never forward ambient SDK/exchange credentials, HOME, base URLs or key files.
+        # Missing research credentials are handled durably by the research pipeline.
+        if request.get("reasoning") == "provider" and RESEARCH_KEY_VARIABLE in os.environ:
+            environment[RESEARCH_KEY_VARIABLE] = os.environ[RESEARCH_KEY_VARIABLE]
+        if request.get("reasoning") == "provider":
+            for name in (
+                "HTTP_PROXY",
+                "HTTPS_PROXY",
+                "ALL_PROXY",
+                "NO_PROXY",
+                "SSL_CERT_FILE",
+                "SSL_CERT_DIR",
+            ):
+                if name in os.environ:
+                    environment[name] = os.environ[name]
         with subprocess.Popen(  # noqa: S603 - fixed module and validated UUID, no shell
             command,
             cwd=self.repo,
-            env=worker_environment(self.repo, self.jobs.root),
+            env=environment,
             stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,

@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-29T18:27:24.552Z",
+  "origin": "http://127.0.0.1:43146",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/provider-development-provider",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "action": "start",
+      "controlled_provider_http": true,
+      "epoch": 1
+    },
+    {
+      "action": "submit",
+      "id": "fbee5b6f-936c-42d1-b50b-a786abde1d09",
+      "idea": "CONTROLLED provider transport: investigate Philadelphia forecast revisions and model disagreement"
+    },
+    {
+      "action": "submit",
+      "id": "96866fb8-c254-48f7-abf1-63cab32ce673",
+      "idea": "CONTROLLED outage: preserve provider failure"
+    },
+    {
+      "action": "submit",
+      "id": "3a7ade12-5f7a-489c-8a5e-0ae76889835a",
+      "idea": "CONTROLLED slow: cancel provider request"
+    },
+    {
+      "action": "submit",
+      "id": "2d47db99-a263-4346-98ce-ab4d8fd4439a",
+      "idea": "CONTROLLED slow: interrupt provider request"
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "controlled_provider_http": false,
+      "epoch": 2
+    },
+    {
+      "action": "submit",
+      "id": "f7d28d0c-55f4-40d5-b22f-82f63fbfbc21",
+      "idea": "Unmodified worker without separately configured research credentials"
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "provider-success-Review.png",
+      "sha256": "9ab53a60f3feeffd5ff3e1cacbc41df0c1326e1b02604dcb13e78d6bf320ab29"
+    },
+    {
+      "file": "provider-success-Probabilities.png",
+      "sha256": "d543b1f1c634488f71f826e1868a9d1a5e4958333b4e20c8286ab3690ade684b"
+    },
+    {
+      "file": "provider-success-Evidence---lineage.png",
+      "sha256": "1555d62a0d6b1688516f53855ce5c8a24a8afaf2f78cacde676559288d26ec55"
+    },
+    {
+      "file": "provider-outage.png",
+      "sha256": "121554e4fe05b11665c36555db9e0d74dc0aade9b029d255a4cebd38dd8aba66"
+    },
+    {
+      "file": "provider-recovered-interruption.png",
+      "sha256": "6872a1c74a31b2e297030540be21fd64c58c4e596cbb7f58e3085f686914bd20"
+    },
+    {
+      "file": "provider-missing-credential.png",
+      "sha256": "83b51fc6d66d1ec1bae8a6c9acb199b6f5945ea486dcb562e0ffc1b2883f685c"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "provider-success.json",
+      "sha256": "65115cb90c0f390c518de56a559b0d7831010c13fbe6031b47e179aed7cf4e4f"
+    },
+    {
+      "file": "provider-success.txt",
+      "sha256": "20fc7f25ca0841aeb52f7f14deaaccf033288ae33ddeb665b4da72a0f254f442"
+    },
+    {
+      "file": "provider-outage.json",
+      "sha256": "ab622cee32922aa345e20a9f24bd8121220593a345fa46e82614a8286f8d82cb"
+    },
+    {
+      "file": "provider-success-restarted.json",
+      "sha256": "65115cb90c0f390c518de56a559b0d7831010c13fbe6031b47e179aed7cf4e4f"
+    },
+    {
+      "file": "provider-success-restarted.txt",
+      "sha256": "20fc7f25ca0841aeb52f7f14deaaccf033288ae33ddeb665b4da72a0f254f442"
+    },
+    {
+      "file": "provider-outage-restarted.json",
+      "sha256": "ab622cee32922aa345e20a9f24bd8121220593a345fa46e82614a8286f8d82cb"
+    },
+    {
+      "file": "provider-missing-credential.json",
+      "sha256": "3b6c81dbfe70cb24d0f37142b649e9f3f6c007391afcef2149314ddf38832899"
+    },
+    {
+      "file": "provider-missing-credential.txt",
+      "sha256": "d3e0f7cb4c257de5675b4cfc222f6353cb74b815961368c09fe5a48735c69ab0"
+    }
+  ],
+  "page_errors": [],
+  "limitations": [
+    "Controlled provider HTTP proves software integration, never external provider access.",
+    "Recorded weather is authentic but insufficient for empirical fitting/returns.",
+    "External provider check BLOCKED: no separately authorized credentials; no key accessed.",
+    "V1, empirical fitting, certified fees and two-family validation remain incomplete."
+  ],
+  "finished_at": "2026-10-29T18:27:53.357Z"
+}

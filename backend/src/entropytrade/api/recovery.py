@@ -75,14 +75,14 @@ def validate_registry(root: Path, reviews: list[dict[str, Any]]) -> None:
             raise ValueError("corrupt or unsupported lineage registry")
         for review in reviews:
             if (
-                not db.execute(
+                review.get("status") != "research_failed"
+                and not db.execute(
                     "SELECT 1 FROM strategy_experiments WHERE experiment_id=?",
                     (review["experiment_id"],),
                 ).fetchone()
-                or not db.execute(
-                    "SELECT 1 FROM agent_research_runs WHERE run_id=?", (review["research_run"],)
-                ).fetchone()
-            ):
+            ) or not db.execute(
+                "SELECT 1 FROM agent_research_runs WHERE run_id=?", (review["research_run"],)
+            ).fetchone():
                 raise ValueError("research result is missing registry lineage")
     finally:
         db.close()
@@ -167,7 +167,7 @@ def validate_database(root: Path) -> dict[str, int]:
         jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
         reviews = []
         for job_id, job in jobs.items():
-            validate_request(json.loads(job["request"]))
+            validate_request(json.loads(job["request"]), stored=True)
             if job["status"] not in {
                 "queued",
                 "running",

@@ -1,7 +1,13 @@
-# Agent research operations (R3)
+# Agent research operations
 
 R3 produces research proposals, not proven strategies or trading approvals. It never calls
 the legacy fixture backtest. Existing TestModel demonstrations remain regression tests.
+
+The [private website](workbench.md#opt-into-provider-backed-research) now submits this same
+bounded research orchestration through isolated durable workers, with server configuration,
+per-job opt-in and downloadable results/failures. Cancellation/restart never silently
+repeats a billable job. External service verification still requires separately authorized
+research credentials; controlled HTTP evidence is explicitly labeled.
 
 ## Run against the recorded real weather coverage
 

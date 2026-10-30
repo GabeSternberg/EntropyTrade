@@ -1,0 +1,5 @@
+# Reproducible installations and package artifacts are retained locally, not source changes.
+**/installation/
+**/uv-cache/
+**/npm-cache/
+**/tmp/

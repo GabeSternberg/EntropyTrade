@@ -15,6 +15,10 @@ from entropytrade.domain.base import DomainModel
 RESEARCH_KEY_VARIABLE = "ENTROPYTRADE_RESEARCH_API_KEY"
 
 
+class ResearchCredentialError(ValueError):
+    """The dedicated research credential was not supplied; ambient keys are ignored."""
+
+
 class ResearchProviderConfig(DomainModel):
     """Serializable public configuration. Credentials are deliberately absent."""
 
@@ -30,7 +34,7 @@ def research_model(config: ResearchProviderConfig) -> Model:
     """
     key = os.environ.get(RESEARCH_KEY_VARIABLE, "").strip()
     if not key:
-        raise ValueError(f"set {RESEARCH_KEY_VARIABLE} for provider-backed research")
+        raise ResearchCredentialError(f"set {RESEARCH_KEY_VARIABLE} for provider-backed research")
     if config.provider == "openai":
         selected = OpenAIProvider(api_key=key, base_url="https://api.openai.com/v1")
         selected.client.max_retries = 0

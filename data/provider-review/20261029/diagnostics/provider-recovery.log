@@ -1,0 +1,58 @@
+.................F..................................                     [100%]
+=================================== FAILURES ===================================
+_ test_provider_failure_and_pending_opt_in_survive_offline_restore_without_retry _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-102/test_provider_failure_and_pend0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x71642bc048c0>
+
+    def test_provider_failure_and_pending_opt_in_survive_offline_restore_without_retry(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        from entropytrade.api.recovery import restore, snapshot
+        from entropytrade.tracking.store import TrackingStore
+    
+        monkeypatch.delenv("ENTROPYTRADE_RESEARCH_API_KEY", raising=False)
+        for name in ("pyproject.toml", "uv.lock"):
+            (tmp_path / name).write_text("CONTROLLED lock identity")
+        root = tmp_path / "data/cache/original"
+        jobs = Jobs(root)
+        TrackingStore(jobs)
+        failed = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(failed, "starting", "Starting missing-credential recovery check")
+        execute_job(jobs, REPO, failed)
+        original = jobs.get(failed)
+        assert original is not None
+        assert original["status"] == "failed"
+        assert original["result"]["experiment_id"] is None
+        queued = jobs.create(REQUEST, provider=CONFIG)
+        archive = tmp_path / "data/recovery/provider.zip"
+        snapshot(tmp_path, root, archive)
+        destination = tmp_path / "data/cache/restored"
+>       restore(tmp_path, destination, archive)
+
+backend/tests/unit/test_workbench_provider.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/api/recovery.py:433: in restore
+    destination = workspace_path(repo, confined(repo, workspace))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+repo = PosixPath('/tmp/pytest-of-gabriel/pytest-102/test_provider_failure_and_pend0')
+workspace = PosixPath('/tmp/pytest-of-gabriel/pytest-102/test_provider_failure_and_pend0/data/recovery/provider.zip')
+
+    def workspace_path(repo: Path, workspace: Path) -> Path:
+        resolved = workspace.resolve()
+        cache = (repo.resolve() / "data" / "cache").resolve()
+        if (
+            not cache.is_relative_to(repo.resolve())
+            or not resolved.is_relative_to(cache)
+            or resolved == cache
+        ):
+>           raise ValueError("workspace must be a subdirectory of repository data/cache")
+E           ValueError: workspace must be a subdirectory of repository data/cache
+
+backend/src/entropytrade/api/workspace.py:18: ValueError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_failure_and_pending_opt_in_survive_offline_restore_without_retry
+1 failed, 51 passed in 14.73s

@@ -9,89 +9,36 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current local-operation milestone implements offline workspace snapshot/restore and
-a one-command locked fresh-install/browser recovery driver. Consistent jobs/lineage SQLite
-backups and all run/shadow bytes are verified before restoring to a new workspace. Server
-and inherited worker leases prevent concurrent maintenance. Frozen model bindings,
-reservations, paused states, original clocks and active-monitor recovery have controlled
-regressions; two authentic retained cycles also restore and replay identically offline.
+The current milestone delivers opt-in provider research through the private website:
+durable isolated jobs, 2–6 typed hypotheses, deterministic candidate/experiment gates,
+visible source/model lineage and budgets, downloadable failures and restart/cancellation.
+Server configuration and fresh per-run consent are required; only the dedicated research
+credential can enter an opted-in worker. The controlled OpenAI HTTP path and an unmodified
+missing-key workflow are verified through actual localhost browser interaction. External
+provider checking remains blocked without separately authorized credentials; controlled
+responses never count as real provider or empirical model evidence.
 
-The current source-workspace correction validates an existing `data/cache/` source before
-store construction, retaining its exclusive lease across snapshot/inspection/comparison and
-a separate lease across restored initialization/recovery. It adds a browser-independent
-actual-listener recovery journey with unmodified research/shadow workers, restored downloads,
-fresh collection and restart/cancellation. The isolated gate includes both existing listener
-files with per-file processes/deadlines and exact-source fingerprints. Review this useful
-recovery capability independently of unavailable Bitcoin validation history; no new family,
-backdated receipt or empirical claim is introduced. Browser and full-suite release evidence
-remain separate requirements. The unchanged denied Chromium launch and stalled full suite
-are not repeated by this gate.
+The preceding local-operation work preserves jobs/lineage databases, model bindings,
+original run/shadow receipts and active-cycle recovery through verified snapshot/restore.
+The locked acceptance driver now includes both provider and broader recovery Playwright
+procedures plus the complete Python suite. The old collector stall is reproducibly caused
+by sandbox-denied socketpair sends; normal approved execution restores asyncio wakeups
+without weakening any test or changing its event-loop policy. See [current evidence](../data/provider-review/20261029/README.md),
+[project context](../PROJECT_CONTEXT.md) and the [V1 matrix](v1_acceptance.md).
 
-The [final isolated gate](../data/local-operation-review/20261029-leased-source-final/README.md)
-passes 311 tests across 13 files (three named R4 workflows deselected), Ruff/format, strict
-mypy and 12 frontend assertions, with unchanged source fingerprints. Its new recovery
-listener passes actual restored downloads, interrupted/fresh shadow cycles and
-cancellation/restart, including new authentic public receipts. The corrected offline proof
-also preserves the earlier real source bytes/rows and both 24-decision replays. These are
-scoped recovery/operation results; empirical model validation and browser/full-suite release
-acceptance remain open. No new phase is started; return this correction for supervisor review.
+Approve substantial tested intermediate functionality independently of sparse future data
+windows. Review this milestone before further major implementation; the supervisor handles
+all Git writes and independent release review. Remaining V1 gates are sufficient authentic
+fitting and source-matched outcomes, certified effective fees, external provider evidence
+when separately authorized, empirical validation on two meaningfully distinct families and
+final independent release acceptance. Hosted operation, broader model serializers, deeper
+book scheduling and structural scanning remain deferred. No new family is selected.
 
-The legacy-binding follow-up preserves migrated SQL NULL bindings through snapshot/restore,
-startup recovery and resume, leaving scoring blocked even when a model export is present.
-Malformed non-null bindings remain refused. Its [controlled evidence](../data/local-operation-review/20261029-legacy-null-binding/README.md)
-passes 34 recovery cases and 291 focused tests (three workflow cases deselected), Ruff,
-strict mypy and 12 frontend assertions. Browser harness discovery passes; actual browser
-and complete-suite acceptance remain unresolved, with no repeated denied launch or stalled
-full-suite attempt and no fresh-install claim for this correction.
-
-The prior milestone's locked offline setup, Ruff/format, strict mypy, frontend checks and 280 focused
-tests pass (three asynchronous experiment workflows explicitly deselected). The new actual
-Chromium recovery procedure is **not accepted**: the supported installer succeeds, but
-launch fails with `setsockopt: Operation not permitted (1)` before page interaction. The
-fresh full suite stalls in the existing collector reconnect test and hits its external
-deadline. No denied launch is repeated, and no mocked HTTP test is counted as a browser
-pass. See [local operation](local-recovery.md), [executed evidence](../data/local-operation-review/README.md)
-and the new [V1 matrix](v1_acceptance.md).
-
-The immediate next task is verification of this same milestone in a permitted environment:
-run the default fresh-install driver, inspect research/results and restored shadow browser
-artifacts, and complete the full suite. All Git mutations and independent sign-off belong
-to the supervisor. Do not start another major phase before review. This operating work
-does not wait for Bitcoin validation dates or treat incomplete empirical gates as passed.
-
-The earlier model-to-shadow milestone connects a resolved research StrategySpec and frozen
-model identity to continuous read-only collection. Compatible weather models export data-only
-JSON; monitors freeze checksummed parameters, fit/calibration clocks, series scope and holdout
-boundaries. Fresh features and at most ten sized public books feed causal probabilities or
-explicit refusals and deterministic risk/replay. Versioned series fee receipts remain
-uncertified until the coefficient and effective interval can be established. No real orders,
-fills, profitability claim or risk-cap change. Existing Bitcoin boundaries remain unchanged.
-
-The real Playwright-managed Chromium localhost procedure now executes research/start/pause/
-restart/resume/download with structured source, book and fee evidence and byte-identical
-paused downloads across restart. Authentic cycles retain ten books and 14 deferred contracts
-among 24 weather contracts. They remain model/fee blocked. Controlled fitted-model tests
-verify software identity, calibration, source timing, reservation/restart limits and later
-outcome linkage, without claiming empirical model quality. See [integration evidence](../data/shadow-review/20261029-model-integration/README.md),
-[current context](../PROJECT_CONTEXT.md) and [operating guide](shadow-tracking.md).
-
-Approve safe tested intermediate milestones independently of sparse future empirical windows.
-All Git operations belong to the supervisor. After this local-operation milestone's review,
-remaining V1 evidence includes authentic fitting/source-matched outcomes, reviewed fee
-certification, authorized provider verification and empirical second-family validation.
-Broader model serializers, depth scheduling, hosted operation and structural scanning are
-deferred. No new major family is chosen.
-
-V1 is incomplete. `docs/v1_acceptance.md` now records passed and incomplete requirements;
-the supervisor must commit and independently cross-check it against actual browser
-workflows, two meaningfully supported real-data families, temporal/leakage checks,
-reproducible realistic backtests,
-provider-backed research when authorized, durable shadow/restart/cancellation, safety,
-clean installation and complete tests. Blocked or synthetic-only paths do not pass real-data
-gates. Stop for review when V1 passes; real-money execution is outside V1.
-
-The dated checkpoints below retain earlier evidence and numbering; this direction and
-[current status](../STATUS.md) supersede their former deferred-shadow sequencing.
+Current scoped verification passes Ruff/format, strict mypy, all 1,033 pytest cases,
+15 frontend cases and both actual Chromium procedures in the locked installation after
+documented export-only repairs. Original receipt/input bytes and failed attempts remain
+preserved. This advances the website/operating gates, not empirical fitting, certified fees,
+external-provider verification or V1 completion. Return for supervisor review.
 
 ## Historical checkpoints
 

@@ -1,0 +1,121 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-29T18:31:24.194Z",
+  "origin": "http://127.0.0.1:43156",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked/installation/data/cache/short-temp-acceptance-provider",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked/installation/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "action": "start",
+      "controlled_provider_http": true,
+      "epoch": 1
+    },
+    {
+      "action": "submit",
+      "id": "1e66eaa4-5290-4e71-9002-4a3f5efde672",
+      "idea": "CONTROLLED provider transport: investigate Philadelphia forecast revisions and model disagreement"
+    },
+    {
+      "action": "submit",
+      "id": "f37419ed-5c8f-4ab9-b60f-49a4ebd2ec18",
+      "idea": "CONTROLLED outage: preserve provider failure"
+    },
+    {
+      "action": "submit",
+      "id": "98f916bb-8688-45c3-86d8-85dcf3365c95",
+      "idea": "CONTROLLED slow: cancel provider request"
+    },
+    {
+      "action": "submit",
+      "id": "cda509a1-1510-420b-a185-136476140ef8",
+      "idea": "CONTROLLED slow: interrupt provider request"
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "controlled_provider_http": false,
+      "epoch": 2
+    },
+    {
+      "action": "submit",
+      "id": "b64ef1b2-f178-44d1-983a-94060d833951",
+      "idea": "Unmodified worker without separately configured research credentials"
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "provider-success-Review.png",
+      "sha256": "2cff8e3e14bcc49c274e7e72032b7ecd7a2a02bff6f9a7baa2842254bfbe29d8"
+    },
+    {
+      "file": "provider-success-Probabilities.png",
+      "sha256": "f68092b7abbaa92226f1fe77e84f0e99f0454d2c08beb15d9078f10f1a387286"
+    },
+    {
+      "file": "provider-success-Evidence---lineage.png",
+      "sha256": "aa5624cd2d8311b7a706b9a9e888d7ff8f3139772a08b28564b71677726795e5"
+    },
+    {
+      "file": "provider-outage.png",
+      "sha256": "af70de3d9e0ae29a4106b931ee8ab99e700074ceb21019d4841a54151cb6963e"
+    },
+    {
+      "file": "provider-recovered-interruption.png",
+      "sha256": "1f5b62e49534dad0ba2d033fb133f36346a50c1c7cd2d1b92a95da95bf8fe7f3"
+    },
+    {
+      "file": "provider-missing-credential.png",
+      "sha256": "592225cd92eaf949d7f6ace476b61b6fb7916e5289ff9806319cf1c8183f6283"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "provider-success.json",
+      "sha256": "67d0d2b1b54af9f8f4e8aaa169f3e42c0b05350191affbbac71a877c60b34685"
+    },
+    {
+      "file": "provider-success.txt",
+      "sha256": "7c1c16c3d4639d3d02ca77950e40eda9c2604ae7503b60ee25a68ba48c118a81"
+    },
+    {
+      "file": "provider-outage.json",
+      "sha256": "6261e01600ab0d02f6bd55288314ad01dfa25513fea5e028a1f95ea22f2e8889"
+    },
+    {
+      "file": "provider-success-restarted.json",
+      "sha256": "67d0d2b1b54af9f8f4e8aaa169f3e42c0b05350191affbbac71a877c60b34685"
+    },
+    {
+      "file": "provider-success-restarted.txt",
+      "sha256": "7c1c16c3d4639d3d02ca77950e40eda9c2604ae7503b60ee25a68ba48c118a81"
+    },
+    {
+      "file": "provider-outage-restarted.json",
+      "sha256": "6261e01600ab0d02f6bd55288314ad01dfa25513fea5e028a1f95ea22f2e8889"
+    },
+    {
+      "file": "provider-missing-credential.json",
+      "sha256": "5f3d70149ec92db38897adedfe7f942daa94407c4ad9c9d186d3153f8b694c7c"
+    },
+    {
+      "file": "provider-missing-credential.txt",
+      "sha256": "d3e0f7cb4c257de5675b4cfc222f6353cb74b815961368c09fe5a48735c69ab0"
+    }
+  ],
+  "page_errors": [],
+  "limitations": [
+    "Controlled provider HTTP proves software integration, never external provider access.",
+    "Recorded weather is authentic but insufficient for empirical fitting/returns.",
+    "External provider check BLOCKED: no separately authorized credentials; no key accessed.",
+    "V1, empirical fitting, certified fees and two-family validation remain incomplete."
+  ],
+  "finished_at": "2026-10-29T18:32:13.628Z"
+}

@@ -1,5 +1,11 @@
 # Private research workbench
 
+October 29 provider milestone: **Provider research is available through the existing
+website**, with server-side configuration and fresh per-run consent. See the
+[current evidence bundle](../data/provider-review/20261029/README.md). Controlled HTTP
+provider responses are software evidence only; external verification remains blocked
+without separately authorized research credentials. No real credentials were accessed.
+
 October 29: **Continuous shadow tracking** now starts from a completed real typed candidate,
 persists automatic public capture/decisions/risk/outcomes, supports pause/resume and restart,
 and exposes cycle evidence/downloads. [The operating guide](shadow-tracking.md) documents
@@ -29,7 +35,7 @@ This is a single-user loopback website, not an authenticated network service. Th
 always binds `127.0.0.1`; do not expose it through port forwarding or a public reverse proxy.
 It uses buildless local assets and a standard-library HTTP server rather than adding a
 second application framework. The research, modeling, experiments and SQLite Registry
-remain the existing R2–R4 engines. No trading controls or credential access were added.
+remain the existing R2–R4 engines. No trading controls were added. Only explicitly opted-in research workers can receive the dedicated research credential; it is never accepted by the browser.
 
 Describe an idea, choose a family and data mode, and start a run. The durable queue records
 progress and saves a review with typed hypotheses/specifications, independent research
@@ -80,8 +86,53 @@ Bitcoin has an explicit `forward_only` provider which refuses fitting/prediction
 independent temporal history and matched outcomes exist. Synthetic mode keeps the original
 fixed R4 candidates and negative control; it does not interpret the submitted idea.
 
-Provider-backed research remains available through the existing separately configured CLI;
-the website deliberately offers no provider activation, keys or credential discovery.
+### Opt into provider-backed research
+
+The default website uses local templates. An operator can configure a supported provider
+and account-available model at server startup:
+
+```bash
+uv run entropytrade-web --research-provider openai --research-model MODEL_AVAILABLE_TO_YOUR_ACCOUNT
+```
+
+Configure `ENTROPYTRADE_RESEARCH_API_KEY` separately through your normal authorized research
+secret setup. Never paste a key into the browser, prompt, shell arguments or repository.
+There is no fallback to ambient OpenAI/Anthropic/exchange credentials. For Anthropic use
+`--research-provider anthropic`. Provider and model flags must be supplied together.
+Server configuration enables the option; it does not authorize a request by itself.
+
+Choose **Provider research** under Hypothesis formulation, inspect the displayed public
+provider/model identity, and check the per-run authorization checkbox before submission.
+Consent resets after submission and when changing modes. The queued job freezes that
+public configuration. The browser cannot select a key, provider URL, code or local path.
+Provider reasoning is available for recorded/public weather and existing public/history
+Bitcoin modes; synthetic mode stays explicitly mock. Unsupported or insufficient-data
+proposals remain honest refusals, including Bitcoin's unchanged settlement/validation gates.
+
+Research uses the existing evidence/hypothesis/quant/critic stages, 2–6 typed hypotheses,
+16 requests, 24 tool calls, bounded tokens and 180 seconds. A $2 cost limit uses available
+provider pricing; unknown cost refuses subsequent calls, and the first request cannot be
+promised free or pre-priced. Deterministic validation/experiments control model eligibility,
+execution simulation and risk. LLM suggestions cannot change those controls.
+
+All tabs show reasoning identity and failures. Expand **Research stages, evidence tools,
+budgets and usage** to inspect provider response/model identities, original run clocks,
+prompt hashes, protected evidence projections, tool calls, token/cost usage and limits.
+Review JSON includes this evidence; text reports retain the failure or experiment reasons.
+A missing dedicated key produces `ResearchCredentialError` with zero requests. Outages,
+malformed output and research deadlines save failed reviews and do not enter experiments.
+No mock success is substituted. Cancelling or stopping interrupts the worker; restarting
+preserves history and requires a new explicit job rather than automatically repeating
+billable work. Interrupted jobs retain partial local artifacts and do not claim a completed
+provider report. Offline workspace recovery preserves successful/failed results and frozen
+provider configuration. See [agent operations](agent-research.md) for evidence restrictions.
+
+The new [browser procedure](../frontend/browser/provider.spec.cjs) uses an explicit
+**test-only** controlled provider transport for successful serialization, three hypotheses,
+deterministic insufficiency, outages and cancellation/restart. A second unmodified server
+verifies missing credentials without an external request. It is real browser/localhost
+interaction, not an external provider verification. Production exposes no mock-provider
+URL, test-worker or response-injection switch.
 
 ## Public evidence and the second family
 
@@ -132,7 +183,7 @@ disk until the owner archives/removes the workspace while the server is stopped.
 
 One server owns the workspace lock. Up to eight pending/running jobs can exist, with one
 isolated worker at a time and a ten-minute worker deadline. Workers receive an environment
-allowlist with local MLflow paths and CPU limits; no inherited credentials or HOME setting.
+allowlist with local MLflow paths and CPU limits; no HOME or ambient SDK/exchange keys. Only opted-in provider jobs additionally receive the dedicated research key and proxy/CA routing settings. All shadow workers remain credential-free.
 Cancelling a job prevents a late worker result from overwriting it. Server shutdown kills
 its active worker; restarting marks unfinished jobs interrupted, rather than silently
 rerunning network work or searches. Submit a new job to retry. Partial artifacts remain

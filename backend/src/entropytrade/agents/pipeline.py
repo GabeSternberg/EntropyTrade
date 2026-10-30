@@ -5,7 +5,7 @@ agents run. TestModel supplies the demo outputs; a live provider is not called.
 """
 
 import asyncio
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -319,6 +319,7 @@ async def run_research(
     local_templates: bool = False,
     run_id: str | None = None,
     timeout_seconds: float = 180,
+    progress: Callable[[str, str], None] | None = None,
 ) -> dict[str, Any]:
     import json
     from dataclasses import asdict
@@ -338,7 +339,7 @@ async def run_research(
         HypothesisBatch,
         ResearchCritique,
     )
-    from entropytrade.agents.provider import research_model
+    from entropytrade.agents.provider import ResearchCredentialError, research_model
     from entropytrade.agents.team import (
         RESEARCH_INSTRUCTIONS_VERSION,
         operational_agent,
@@ -493,6 +494,8 @@ async def run_research(
             async with asyncio.timeout(timeout_seconds):
                 for index, (role, schema, instruction) in enumerate(roles):
                     result["active_stage"] = role
+                    if progress is not None:
+                        progress(f"research_{role}", f"Bounded research: {role}")
                     agent = operational_agent(schema, role=role)
                     message = (
                         instruction
@@ -581,9 +584,21 @@ async def run_research(
         result["failure"] = {
             "type": type(exc).__name__,
             "stage": result.get("active_stage", "setup"),
-            "reason": "research failed; check configuration/budgets/evidence; no fallback",
+            "reason": (
+                "Dedicated research credential is missing; ambient keys are never used."
+                if isinstance(exc, ResearchCredentialError)
+                else "Research deadline exceeded; no fallback or experiment was run."
+                if isinstance(exc, TimeoutError)
+                else "Research provider/configuration/budget/evidence failure; "
+                "inspect the failure type and stage. No fallback or experiment was run."
+            ),
         }
-        result["report"] = "Research failed (" + type(exc).__name__ + "). No candidates validated."
+        result["report"] = (
+            "Research failed ("
+            + type(exc).__name__
+            + "). No candidates validated. "
+            + result["failure"]["reason"]
+        )
     finally:
         if result["status"] == "started":
             result["status"] = "failed"

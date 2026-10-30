@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "scope": "Provider website software and locked local-operation acceptance; not V1 release or external provider verification",
+  "verified_at": "2026-10-29T18:53:19.438873+00:00",
+  "locked_setup_static_browser_receipt": "locked-final/acceptance.json",
+  "previous_driver_status": "failed; omitted citation, original report preserved",
+  "export_repair": "export-repair.json",
+  "complete_suite": "complete-suite/receipt.json",
+  "pytest": {
+    "tests": "1033",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "373.399"
+  },
+  "collector_unchanged_test": {
+    "classname": "backend.tests.exchange.test_collector_service",
+    "name": "test_collector_reconnects_with_new_session_and_can_restart",
+    "time": "2.249"
+  },
+  "mypy_files": 505,
+  "frontend_cases": 15,
+  "browsers": [
+    {
+      "receipt": "locked-final/browser/provider-browser-receipt.json",
+      "screenshots": 6,
+      "downloads": 8,
+      "page_errors": []
+    },
+    {
+      "receipt": "locked-final/browser/recovery-browser-receipt.json",
+      "screenshots": 5,
+      "downloads": 11,
+      "page_errors": []
+    }
+  ],
+  "offline_provider_verification": "provider-offline-verification.json",
+  "source": {
+    "status": "passed",
+    "files": 1474,
+    "checkout_and_installation_unchanged": true,
+    "changed": [],
+    "source_manifest": "complete-suite/receipt.json",
+    "scope": "Application/tests/inputs plus acceptance driver and the two original vendored citations; summary documents are outside the installation export."
+  },
+  "external_provider_status": "blocked: no separately authorized research credentials",
+  "real_credentials_accessed": false,
+  "submission_enabled": false,
+  "v1_complete": false
+}

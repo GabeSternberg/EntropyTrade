@@ -1,0 +1,3 @@
+backend/tests/unit/test_workbench_provider.py:32: error: Module "entropytrade.experiments.workflow" does not explicitly export attribute "run_research"  [attr-defined]
+backend/tests/integration/provider_fixture.py:29: error: Module "entropytrade.experiments.workflow" does not explicitly export attribute "run_research"  [attr-defined]
+Found 2 errors in 2 files (checked 505 source files)

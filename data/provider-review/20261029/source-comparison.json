@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "files": 1474,
+  "checkout_and_installation_unchanged": true,
+  "changed": [],
+  "source_manifest": "complete-suite/receipt.json",
+  "scope": "Application/tests/inputs plus acceptance driver and the two original vendored citations; summary documents are outside the installation export."
+}

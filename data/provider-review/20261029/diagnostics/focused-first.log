@@ -1,0 +1,454 @@
+FFFF.......................F....................F...............         [100%]
+=================================== FAILURES ===================================
+_ test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[success] _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_provider_job_runs_typed_r0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8fd16d6d0>
+case = 'success'
+
+    @pytest.mark.parametrize("case", ["success", "outage", "malformed", "deadline"])
+    def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        case: str,
+    ) -> None:
+        original = workflow.run_research
+        calls: list[dict[str, Any]] = []
+    
+        async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+            data, run_id = kwargs["evidence"], str(uuid4())
+            for topic in ("coverage", "markets", "features", "models", "history"):
+                data.inspect(EvidenceQuery.model_validate({"topic": topic}))
+            outputs = [m.custom_output_args for m in operational_models(REQUEST["idea"], data, run_id)]
+    
+            async def response(request: httpx.Request) -> httpx.Response:
+                body = json.loads(request.content)
+                calls.append(body)
+                assert request.url.host == "api.openai.com"
+                assert request.headers["authorization"] == "Bearer fixture-dedicated-key"
+                if case == "deadline":
+                    await asyncio.sleep(1)
+                if case == "outage":
+                    return httpx.Response(503, json={"error": {"message": "fixture-dedicated-key"}})
+                index = len(calls) - 1
+                name = (
+                    "inspect_evidence"
+                    if index == 0
+                    else next(
+                        t["function"]["name"]
+                        for t in body["tools"]
+                        if t["function"]["name"] != "inspect_evidence"
+                    )
+                )
+                args = {"query": {"topic": "coverage"}} if index == 0 else outputs[index - 1]
+                if case == "malformed" and index > 0:
+                    args = {"nonsense": "bad"}
+                return httpx.Response(
+                    200,
+                    json={
+                        "id": f"controlled-{index}",
+                        "object": "chat.completion",
+                        "created": 1,
+                        "model": "gpt-4.1-mini",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "finish_reason": "tool_calls",
+                                "message": {
+                                    "role": "assistant",
+                                    "content": None,
+                                    "tool_calls": [
+                                        {
+                                            "id": f"call-{index}",
+                                            "type": "function",
+                                            "function": {"name": name, "arguments": json.dumps(args)},
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                        "usage": {"prompt_tokens": 100, "completion_tokens": 100, "total_tokens": 200},
+                    },
+                )
+    
+            async with httpx.AsyncClient(transport=httpx.MockTransport(response)) as client:
+                selected = OpenAIProvider(api_key="fixture-dedicated-key", http_client=client)
+                selected.client.max_retries = 0
+                model = OpenAIChatModel("gpt-4.1-mini", provider=selected)
+                monkeypatch.setattr(provider_module, "research_model", lambda _: model)
+                return await original(
+                    **kwargs,
+                    run_id=run_id,
+                    timeout_seconds=0.05 if case == "deadline" else 180,
+                )
+    
+        monkeypatch.setattr(workflow, "run_research", controlled_research)
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(job_id, "starting", "Starting controlled provider transport check")
+        execute_job(jobs, REPO, job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        review = job["result"]
+>       assert review is not None, job["detail"]
+E       AssertionError: Research worker failed (TypeError); no result substituted
+E       assert None is not None
+
+backend/tests/unit/test_workbench_provider.py:117: AssertionError
+_ test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[outage] _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_provider_job_runs_typed_r1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8dd263380>
+case = 'outage'
+
+    @pytest.mark.parametrize("case", ["success", "outage", "malformed", "deadline"])
+    def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        case: str,
+    ) -> None:
+        original = workflow.run_research
+        calls: list[dict[str, Any]] = []
+    
+        async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+            data, run_id = kwargs["evidence"], str(uuid4())
+            for topic in ("coverage", "markets", "features", "models", "history"):
+                data.inspect(EvidenceQuery.model_validate({"topic": topic}))
+            outputs = [m.custom_output_args for m in operational_models(REQUEST["idea"], data, run_id)]
+    
+            async def response(request: httpx.Request) -> httpx.Response:
+                body = json.loads(request.content)
+                calls.append(body)
+                assert request.url.host == "api.openai.com"
+                assert request.headers["authorization"] == "Bearer fixture-dedicated-key"
+                if case == "deadline":
+                    await asyncio.sleep(1)
+                if case == "outage":
+                    return httpx.Response(503, json={"error": {"message": "fixture-dedicated-key"}})
+                index = len(calls) - 1
+                name = (
+                    "inspect_evidence"
+                    if index == 0
+                    else next(
+                        t["function"]["name"]
+                        for t in body["tools"]
+                        if t["function"]["name"] != "inspect_evidence"
+                    )
+                )
+                args = {"query": {"topic": "coverage"}} if index == 0 else outputs[index - 1]
+                if case == "malformed" and index > 0:
+                    args = {"nonsense": "bad"}
+                return httpx.Response(
+                    200,
+                    json={
+                        "id": f"controlled-{index}",
+                        "object": "chat.completion",
+                        "created": 1,
+                        "model": "gpt-4.1-mini",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "finish_reason": "tool_calls",
+                                "message": {
+                                    "role": "assistant",
+                                    "content": None,
+                                    "tool_calls": [
+                                        {
+                                            "id": f"call-{index}",
+                                            "type": "function",
+                                            "function": {"name": name, "arguments": json.dumps(args)},
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                        "usage": {"prompt_tokens": 100, "completion_tokens": 100, "total_tokens": 200},
+                    },
+                )
+    
+            async with httpx.AsyncClient(transport=httpx.MockTransport(response)) as client:
+                selected = OpenAIProvider(api_key="fixture-dedicated-key", http_client=client)
+                selected.client.max_retries = 0
+                model = OpenAIChatModel("gpt-4.1-mini", provider=selected)
+                monkeypatch.setattr(provider_module, "research_model", lambda _: model)
+                return await original(
+                    **kwargs,
+                    run_id=run_id,
+                    timeout_seconds=0.05 if case == "deadline" else 180,
+                )
+    
+        monkeypatch.setattr(workflow, "run_research", controlled_research)
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(job_id, "starting", "Starting controlled provider transport check")
+        execute_job(jobs, REPO, job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        review = job["result"]
+>       assert review is not None, job["detail"]
+E       AssertionError: Research worker failed (TypeError); no result substituted
+E       assert None is not None
+
+backend/tests/unit/test_workbench_provider.py:117: AssertionError
+_ test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[malformed] _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_provider_job_runs_typed_r2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8dc52c440>
+case = 'malformed'
+
+    @pytest.mark.parametrize("case", ["success", "outage", "malformed", "deadline"])
+    def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        case: str,
+    ) -> None:
+        original = workflow.run_research
+        calls: list[dict[str, Any]] = []
+    
+        async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+            data, run_id = kwargs["evidence"], str(uuid4())
+            for topic in ("coverage", "markets", "features", "models", "history"):
+                data.inspect(EvidenceQuery.model_validate({"topic": topic}))
+            outputs = [m.custom_output_args for m in operational_models(REQUEST["idea"], data, run_id)]
+    
+            async def response(request: httpx.Request) -> httpx.Response:
+                body = json.loads(request.content)
+                calls.append(body)
+                assert request.url.host == "api.openai.com"
+                assert request.headers["authorization"] == "Bearer fixture-dedicated-key"
+                if case == "deadline":
+                    await asyncio.sleep(1)
+                if case == "outage":
+                    return httpx.Response(503, json={"error": {"message": "fixture-dedicated-key"}})
+                index = len(calls) - 1
+                name = (
+                    "inspect_evidence"
+                    if index == 0
+                    else next(
+                        t["function"]["name"]
+                        for t in body["tools"]
+                        if t["function"]["name"] != "inspect_evidence"
+                    )
+                )
+                args = {"query": {"topic": "coverage"}} if index == 0 else outputs[index - 1]
+                if case == "malformed" and index > 0:
+                    args = {"nonsense": "bad"}
+                return httpx.Response(
+                    200,
+                    json={
+                        "id": f"controlled-{index}",
+                        "object": "chat.completion",
+                        "created": 1,
+                        "model": "gpt-4.1-mini",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "finish_reason": "tool_calls",
+                                "message": {
+                                    "role": "assistant",
+                                    "content": None,
+                                    "tool_calls": [
+                                        {
+                                            "id": f"call-{index}",
+                                            "type": "function",
+                                            "function": {"name": name, "arguments": json.dumps(args)},
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                        "usage": {"prompt_tokens": 100, "completion_tokens": 100, "total_tokens": 200},
+                    },
+                )
+    
+            async with httpx.AsyncClient(transport=httpx.MockTransport(response)) as client:
+                selected = OpenAIProvider(api_key="fixture-dedicated-key", http_client=client)
+                selected.client.max_retries = 0
+                model = OpenAIChatModel("gpt-4.1-mini", provider=selected)
+                monkeypatch.setattr(provider_module, "research_model", lambda _: model)
+                return await original(
+                    **kwargs,
+                    run_id=run_id,
+                    timeout_seconds=0.05 if case == "deadline" else 180,
+                )
+    
+        monkeypatch.setattr(workflow, "run_research", controlled_research)
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(job_id, "starting", "Starting controlled provider transport check")
+        execute_job(jobs, REPO, job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        review = job["result"]
+>       assert review is not None, job["detail"]
+E       AssertionError: Research worker failed (TypeError); no result substituted
+E       assert None is not None
+
+backend/tests/unit/test_workbench_provider.py:117: AssertionError
+_ test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[deadline] _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_provider_job_runs_typed_r3')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8dc5271a0>
+case = 'deadline'
+
+    @pytest.mark.parametrize("case", ["success", "outage", "malformed", "deadline"])
+    def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        case: str,
+    ) -> None:
+        original = workflow.run_research
+        calls: list[dict[str, Any]] = []
+    
+        async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+            data, run_id = kwargs["evidence"], str(uuid4())
+            for topic in ("coverage", "markets", "features", "models", "history"):
+                data.inspect(EvidenceQuery.model_validate({"topic": topic}))
+            outputs = [m.custom_output_args for m in operational_models(REQUEST["idea"], data, run_id)]
+    
+            async def response(request: httpx.Request) -> httpx.Response:
+                body = json.loads(request.content)
+                calls.append(body)
+                assert request.url.host == "api.openai.com"
+                assert request.headers["authorization"] == "Bearer fixture-dedicated-key"
+                if case == "deadline":
+                    await asyncio.sleep(1)
+                if case == "outage":
+                    return httpx.Response(503, json={"error": {"message": "fixture-dedicated-key"}})
+                index = len(calls) - 1
+                name = (
+                    "inspect_evidence"
+                    if index == 0
+                    else next(
+                        t["function"]["name"]
+                        for t in body["tools"]
+                        if t["function"]["name"] != "inspect_evidence"
+                    )
+                )
+                args = {"query": {"topic": "coverage"}} if index == 0 else outputs[index - 1]
+                if case == "malformed" and index > 0:
+                    args = {"nonsense": "bad"}
+                return httpx.Response(
+                    200,
+                    json={
+                        "id": f"controlled-{index}",
+                        "object": "chat.completion",
+                        "created": 1,
+                        "model": "gpt-4.1-mini",
+                        "choices": [
+                            {
+                                "index": 0,
+                                "finish_reason": "tool_calls",
+                                "message": {
+                                    "role": "assistant",
+                                    "content": None,
+                                    "tool_calls": [
+                                        {
+                                            "id": f"call-{index}",
+                                            "type": "function",
+                                            "function": {"name": name, "arguments": json.dumps(args)},
+                                        }
+                                    ],
+                                },
+                            }
+                        ],
+                        "usage": {"prompt_tokens": 100, "completion_tokens": 100, "total_tokens": 200},
+                    },
+                )
+    
+            async with httpx.AsyncClient(transport=httpx.MockTransport(response)) as client:
+                selected = OpenAIProvider(api_key="fixture-dedicated-key", http_client=client)
+                selected.client.max_retries = 0
+                model = OpenAIChatModel("gpt-4.1-mini", provider=selected)
+                monkeypatch.setattr(provider_module, "research_model", lambda _: model)
+                return await original(
+                    **kwargs,
+                    run_id=run_id,
+                    timeout_seconds=0.05 if case == "deadline" else 180,
+                )
+    
+        monkeypatch.setattr(workflow, "run_research", controlled_research)
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(job_id, "starting", "Starting controlled provider transport check")
+        execute_job(jobs, REPO, job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        review = job["result"]
+>       assert review is not None, job["detail"]
+E       AssertionError: Research worker failed (TypeError); no result substituted
+E       assert None is not None
+
+backend/tests/unit/test_workbench_provider.py:117: AssertionError
+_ test_worker_deadline_shutdown_cancellation_and_crash_are_durable[cancelled] __
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_worker_deadline_shutdown_2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8dc51e0f0>
+condition = 'cancelled'
+
+    @pytest.mark.parametrize("condition", ["timeout", "shutdown", "cancelled", "crash"])
+    def test_worker_deadline_shutdown_cancellation_and_crash_are_durable(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        condition: str,
+    ) -> None:
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST)
+        jobs.update(job_id, "starting", "Worker starting")
+        process = ControlledProcess(1 if condition == "crash" else None)
+        launches: list[tuple[list[str], dict[str, Any]]] = []
+    
+        def launch(command: list[str], **kwargs: Any) -> ControlledProcess:
+            launches.append((command, kwargs))
+            return process
+    
+        monkeypatch.setattr("entropytrade.api.runner.subprocess.Popen", launch)
+        runner = Runner(jobs, REPO, timeout=0)
+        if condition == "shutdown":
+            runner.stop.set()
+        if condition == "cancelled":
+            jobs.update(job_id, "cancelled", "Cancelled", status="cancelled")
+        runner.execute(job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        expected = (
+            "interrupted"
+            if condition == "shutdown"
+            else ("cancelled" if condition == "cancelled" else "failed")
+        )
+        assert job["status"] == expected
+        assert job["result"] is None
+>       assert process.killed == (condition != "crash")
+E       AssertionError: assert False == ('cancelled' != 'crash')
+E        +  where False = <backend.tests.unit.test_workbench_http.ControlledProcess object at 0x78a8dc51d850>.killed
+
+backend/tests/unit/test_workbench_http.py:313: AssertionError
+______________ test_opt_in_missing_credentials_and_guard_restore _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-100/test_opt_in_missing_credential0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x78a8dd263200>
+
+    def test_opt_in_missing_credentials_and_guard_restore(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        provider = ResearchProviderConfig(provider="openai", model_name="gpt-4.1-mini")
+        with pytest.raises(ValueError, match=r"opt|enable-provider"):
+            execute(tmp_path, provider=provider, offline=False)
+        monkeypatch.delenv("ENTROPYTRADE_RESEARCH_API_KEY", raising=False)
+        result = execute(tmp_path, provider=provider, offline=False, enable_provider=True)
+        assert result["status"] == "failed"
+>       assert result["failure"]["type"] == "ValueError"
+E       AssertionError: assert 'ResearchCredentialError' == 'ValueError'
+E         
+E         - ValueError
+E         + ResearchCredentialError
+
+backend/tests/unit/test_operational_research.py:285: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[success]
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[outage]
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[malformed]
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[deadline]
+FAILED backend/tests/unit/test_workbench_http.py::test_worker_deadline_shutdown_cancellation_and_crash_are_durable[cancelled]
+FAILED backend/tests/unit/test_operational_research.py::test_opt_in_missing_credentials_and_guard_restore
+6 failed, 58 passed in 8.30s

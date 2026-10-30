@@ -128,3 +128,22 @@ excluded. Synthetic results prove software behavior only. No V1 or trading appro
 from this test. Run the unchanged full Python/frontend gates separately before review.
 
 No commits, ref changes, merging or pushing are performed by this harness.
+
+## Provider website acceptance (October 29)
+
+`provider.spec.cjs` runs actual Chromium page interactions through the private website and
+SQLite/subprocess lifecycle. A test-only listener/worker controls only OpenAI HTTP replies;
+production has no endpoint or switch to select that fixture. It verifies fresh explicit
+consent, three typed hypotheses, deterministic insufficient-data experiments, all tabs,
+checksummed report/JSON downloads, redacted provider outage, active cancellation and restart
+with identical reopened bytes. A second unmodified server with no credentials verifies
+`ResearchCredentialError` and zero requests. This is **controlled provider software proof**,
+not an external service session or real model/returns validation.
+
+The default `tools/local_acceptance.py` now runs this procedure and `recovery.spec.cjs`
+from a fresh locked Python/npm installation before the complete pytest suite. Use a short
+TMPDIR for Chromium: Unix socket addresses are limited to 108 bytes on Linux. The driver
+allocates and cleans a short `/tmp/entropytrade-*` directory; durable evidence stays in
+the requested repository output. No launch flag, event loop or test assertion is relaxed.
+See [current evidence](../../data/provider-review/20261029/README.md) for executed results,
+retained failed attempts and any remaining external/human acceptance steps.

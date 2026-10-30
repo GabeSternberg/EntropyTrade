@@ -1,58 +1,46 @@
 # V1 acceptance evidence — October 29, 2026
 
-**complete=false.** This is an evidence matrix for supervisor review, not release approval.
-The current milestone implements local snapshot/restore while authentic data accrues.
-Current browser recovery acceptance and the complete suite remain unverified. No independent
-release review has been performed on this matrix. All Git operations remain the supervisor's.
+**complete=false.** The current milestone connects provider-backed research to the existing
+private website. This matrix records scoped software and operating evidence; it is not
+independent release approval. All Git operations and final review belong to the supervisor.
+No real credentials, external provider session, real orders or new family were used.
 
-The [source-lease correction and browser-independent listener gate](../data/local-operation-review/20261029-leased-source-final/README.md)
-now pass 311 tests in 13 isolated files, with three named asynchronous R4 cases deselected,
-Ruff/format, strict mypy (502 files) and 12 frontend assertions. All 643 fingerprinted source
-files stay unchanged throughout the gate. Actual localhost research/shadow workers restore
-identical downloads, preserve an interrupted cycle, collect a fresh authentic weather cycle,
-cancel work and restart. This is executed HTTP/worker evidence, **not browser interaction**,
-a new clean install, a complete-suite pass or independent release approval. Neither the
-denied Chromium launch nor the stalled full suite was repeated.
+The [current evidence bundle](../data/provider-review/20261029/README.md) contains a fresh
+locked installation, source fingerprints, test reports, Playwright-managed Chromium
+screenshots/traces/downloads and offline provider/recovery snapshots. Controlled OpenAI
+HTTP responses verify software integration; they never count as an external provider pass.
+The unmodified server also demonstrates a missing research key with zero provider requests.
+Earlier evidence retains its original code, timestamps and limitations.
 
-| Requirement | Current evidence | Result and remaining work |
+| Requirement | Evidence | Result and remaining work |
 |---|---|---|
-| Private usable website: idea → typed candidates → probabilities/results → evidence | Existing workbench/server and [earlier executed real browser workflows](../data/shadow-review/20261029-model-integration/README.md); new [recovery browser harness](../frontend/browser/recovery.spec.cjs) | **Partial.** Earlier workflows passed on earlier code. Current Chromium launch is permission denied before page interaction; the new fresh-install research/results/recovery journey has not passed. Local templates are the website's current reasoning mode. |
-| Two meaningfully distinct supported families with concrete real-data paths and realistic validation | Weather's NWS/Open-Meteo/Kalshi capture; optional [Bitcoin retained receipts and official results](bitcoin-history.md) | **Incomplete.** Authentic forward paths exist, but real weather fitting/forecast-to-scalar outcome coverage and empirical second-family validation are insufficient. Bitcoin has four fitting events on three dates, one class and no validation dates in the retained review; frozen dates stay unchanged. Neither blocked nor synthetic paths count as full real-data support. No new family selected. |
-| Source timestamps, as-of joins, leakage checks and protected holdouts | `features/pipeline.py`, `tracking/models.py`, `tracking/evaluate.py`, `tracking/replay.py`; existing temporal tests and [authentic recovery proof](../data/local-operation-review/authentic-verified/verification.json) | **Scoped software checks pass.** Original real receipt/evidence bytes survive recovery and two 24-decision cycles reproduce. Controlled regressions cover unavailable inputs/models/calibration, provenance, reserved quote probability aliases and protected events. More empirical data and final independent leakage audit remain necessary. |
-| Deterministic reproducible backtests with realistic costs/accounting | `experiments/engine.py`, `backtest/`, `execution/`, `risk/`; deterministic controlled experiment/execution regressions | **Software capability present; empirical gate incomplete.** Replay enforces depth, fee/feature availability, chronology, latency/scenarios and risk limits. Synthetic fixtures are software evidence only. Public series fee receipts remain uncertified; an effective coefficient/schedule has not been established. No empirical returns or profitable strategy is claimed. |
-| Provider-backed bounded research with authorized credentials | `agents/provider.py`, provider/transport tests and [provider operating guide](agent-research.md) | **Incomplete real-provider evidence.** Configurable CLI implementation exists; this milestone accesses no credentials and executes no provider request. Website provider mode remains disabled. A separately authorized research-key verification is required. |
-| Durable continuous shadow decisions, source/model versions, intended orders, risk checks and later outcomes | `tracking/store.py`, `worker.py`, `models.py`, `runner.py`; existing browser evidence and current controlled multi-cycle tests | **Scoped capability passes; empirical operation remains blocked.** Actual public cycles can collect sized books and uncertified fee versions. Real fitted-model/fee blockers leave probabilities/intentions absent. Eligible intentions, reservations and outcome release are controlled checks, not observed fills or P&L. |
-| Restart, pause, cancellation and safe workspace recovery | [Recovery implementation](../backend/src/entropytrade/api/recovery.py), shared/inherited lease; [current real listener and lease evidence](../data/local-operation-review/20261029-leased-source-final/README.md); [corrected authentic offline proof](../data/local-operation-review/20261029-leased-authentic-final/verification.json); [legacy NULL correction](../data/local-operation-review/20261029-legacy-null-binding/README.md) | **Scoped offline and real-listener recovery pass.** Source validation precedes stores; exclusive source/restored leases cover snapshot, inspection, comparison and recovery. Busy/missing/out-of-cache inputs cannot create or migrate databases. Actual unmodified workers preserve an interrupted cycle, identical research/paused downloads and frozen bindings, then collect a fresh authentic 24-contract/648-observation cycle and verify cancellation/restart. The corrected offline proof preserves 114 files, logical rows and two original 24-decision replays. Controlled checks cover reservations, legacy SQL NULL refusal and malformed evidence. Browser inspection remains outstanding due launch denial. |
-| Safety, credentials and execution boundaries | Existing submit gate/gateway refusal; credential-free worker allowlist; same-origin/CSRF tests; restore path/member/schema/hash gates | **Scoped checks pass.** No production submission, real orders, credential access, risk-cap changes, executable model loading, receipt backfill or new family. Snapshots contain private data, require the local lease and do not authenticate third-party archives. Final independent audit remains pending. |
-| Locked clean install and complete tests | [Final-source installation receipt](../data/local-operation-review/20261029-final-source/acceptance.json), package inventory and source hashes; [full attempt](../data/local-operation-review/20261029-recovery-final/acceptance.json) | **Partial.** Fresh offline `uv sync --locked`, pinned npm install, managed Chromium installation, Ruff, strict mypy and frontend checks pass. No current virtualenv was reused. Full pytest stalls in the pre-existing collector reconnect test; diagnostic stack retained and deadline exits 124. Final-source preparation explicitly leaves browser/full suite unverified. A focused passing selection never substitutes for the complete suite. |
-| Documented limits and repeatable local operation | [Local recovery guide](local-recovery.md), [workbench](workbench.md), [shadow](shadow-tracking.md), [roadmap](roadmap.md) | **Documented.** Local POSIX filesystem/lease operation only; archives require compatible locks/schema and new destinations. Absolute historical lineage is preserved. Hosted operation, broader model serializers, structural scanning and new-family work are deferred. |
-| Independent release acceptance and final review | This matrix plus durable executed reports | **Pending.** Supervisor must independently verify claims against final code, actual browser interactions, tests and source evidence before any V1 completion decision. This change is uncommitted for that review. |
+| Private usable website: prompt → multiple typed hypotheses → deterministic experiments → results/downloads | `api/server.py`, `jobs.py`, `worker.py`; [provider browser harness](../frontend/browser/provider.spec.cjs), [current receipts](../data/provider-review/20261029/locked-final/browser/provider-browser-receipt.json) | **Scoped browser workflow passes.** Real localhost/page interaction exercises explicit consent, three typed hypotheses using controlled provider HTTP, deterministic real-data insufficiency, all tabs and identical downloads after restart. Synthetic probabilities remain labeled software evidence. Real external-provider reasoning remains separately blocked. |
+| Two meaningfully distinct supported families with concrete real-data paths and realistic validation | Existing weather capture and [optional Bitcoin history](bitcoin-history.md) | **Incomplete.** Authentic forward paths exist; neither missing historical source-matched weather fitting/outcomes nor insufficient Bitcoin validation counts as a supported empirical family. Bitcoin's four retained fitting events on three dates, one class and future validation dates remain unchanged. No replacement family selected. |
+| Source clocks, as-of joins, leakage checks and protected holdouts | `agents/evidence.py`, `experiments/workflow.py`, existing feature/model/tracking protections; temporal tests and retained source artifacts | **Scoped software checks pass.** Research tools expose permitted projections without outcomes; deterministic gates keep protected events excluded. Provider reviews preserve source/model identities, prompt hashes, run clocks and tool receipts. Actual forward collections never backfill historical availability. Final independent leakage audit and sufficient empirical history remain open. |
+| Deterministic reproducible backtests and realistic accounting | Existing R4 experiment/backtest, execution/fee and risk engines; complete-suite regression evidence; browser synthetic workflow | **Software capability present; empirical gate incomplete.** Typed candidates use the same model/fee/depth/chronology/risk gates. Real recorded weather remains insufficient; no real fitted probability, empirical return or profitable strategy is claimed. Effective fees remain uncertified. |
+| Provider-backed bounded research with separately authorized credentials | `agents/provider.py`, `pipeline.py`, `api/runner.py`; controlled serialization/job/browser tests; [external check receipt](../data/provider-review/20261029/external-provider-check.json) | **Website integration passes controlled checks; external check BLOCKED.** Operator provider/model configuration plus fresh per-job consent are required. Public configuration is frozen; only opted-in workers receive the dedicated research key. Existing request/tool/token/cost/deadline limits remain. Missing credentials, outages, malformed output and deadlines yield saved failures without experiments or mock fallback. A separately authorized actual provider session remains required. |
+| Durable continuous shadow decisions, versions, quotes, intended orders, risk checks and outcomes | Existing tracking store/worker/replay; [current recovery browser receipt](../data/provider-review/20261029/locked-final/browser/recovery-browser-receipt.json), retained workspace archive | **Scoped operating workflow passes.** Browser inspection, pause/resume, interruption, restore, fresh authentic collection and subsequent cancellation/restart execute. Actual model/fee blockers leave intentions absent; eligible reservations/outcome release remain controlled evidence. Zero real submissions/fills; no performance claim. |
+| Restart, cancellation and offline recovery | [Provider offline verification](../data/provider-review/20261029/provider-offline-verification.json); browser receipts; existing workspace leases and restore checks | **Scoped checks pass.** Provider snapshot/restore preserves 56 files and logical jobs/registry rows across completed, failed, cancelled and interrupted jobs. Pending opted-in jobs recover as interrupted without automatic billable retries. Existing source/worker lease, frozen binding, reservation and original-receipt protections remain. Broader browser recovery also passes. |
+| Safety and credential boundaries | Same-origin/CSRF, request allowlists, worker environment tests, existing submission/risk boundaries | **Scoped checks pass.** Browser requests cannot carry keys, provider URLs, code or model paths. Ambient SDK/exchange keys and HOME do not enter workers; ordinary and shadow workers remain credential-free. Synthetic/provider combinations are refused. No risk limits, execution activation, holdout dates or settlement semantics changed. Final independent review remains necessary. |
+| Locked install and complete tests | [Locked setup/browser receipt](../data/provider-review/20261029/locked-final/acceptance.json), [completed suite](../data/provider-review/20261029/complete-suite/receipt.json), [aggregate verification](../data/provider-review/20261029/verification.json) | **Scoped pass after documented export repair.** Fresh offline locked Python/npm setup uses package artifacts and managed Chromium, never an existing virtualenv. Ruff/format, strict mypy (505 files), 15 frontend cases, both real-browser procedures and all 1,033 pytest cases pass. Two original vendored citation documents were added before the final complete-suite rerun; application/test/fee code stayed unchanged. Earlier failed driver reports remain failed, not rewritten. |
+| Repeatable operation and limitations | [Workbench](workbench.md), [agent research](agent-research.md), [recovery](local-recovery.md), [roadmap](roadmap.md) and executable locked acceptance driver | **Documented.** Loopback single-user operation; keys require separate authorized setup. Provider cost can be unknown for the first request; unknown cost stops further requests. Cancellation cannot undo an already issued provider charge. Hosted operation, broader serializers/depth scheduling and structural scanning remain deferred. |
+| Independent final release acceptance | This matrix plus final code and durable evidence | **Pending.** Supervisor must independently cross-check the actual browser/test/source artifacts and all empirical requirements. Controlled/synthetic or blocked paths cannot satisfy real-data release requirements. |
 
-The legacy NULL correction passes **291 focused tests, 3 deselected in 18.13 seconds**,
-including all 34 recovery cases, plus Ruff lint/format, strict mypy (499 files) and 12
-frontend assertions. [Logs, JUnit and scope](../data/local-operation-review/20261029-legacy-null-binding/README.md)
-retain the reproduced pre-fix failures and source fingerprints. Existing Playwright recovery
-syntax/discovery checks pass without launching a browser. No new clean install, authentic
-capture, page interaction, screenshot or full-suite pass is claimed. The prior environment
-denial/stall remains unresolved and was not repeated.
+Full suite: **1,033 passed in 373.42 seconds; zero failures, errors or skips**. The final source/input fingerprint comparison and
+exact browser/test counts are retained in the current bundle: 11 screenshots, 19 browser downloads, zero page errors; all 1,474 source/input hashes match checkout and installation. No final release completion
+is implied by a complete software suite or a successful recovery workflow.
 
-The prior milestone's final-source selection: **280 passed, 3 deselected in 19.63 seconds**, with
-[JUnit](../data/local-operation-review/20261029-final-source/focused-current-source.xml) and
-[console log](../data/local-operation-review/20261029-final-source/focused-current-source.log).
-The three deselected cases are the real offline experiment workflow, synthetic end-to-end
-workflow and same-research workflow replay, all in `test_experiments_r4.py`. Their absence
-is explicit; neither this selection nor the prior baseline's 971 passes establish the
-current full suite. All 23 new recovery cases are included, including a real subprocess
-CLI round trip. An installed-CLI argument-order failure was corrected before this final
-selection. [Final source hashes](../data/local-operation-review/20261029-final-source/source-cli-fixed-comparison.json)
-match that earlier milestone's exported application/test/config/data files after its CLI correction;
-dependency locks are unchanged. The [installed authentic restore](../data/local-operation-review/fresh-authentic-current-source/verification.json)
-also passes and reproduces both original 24-decision cycles without new receipts.
+The retained collector timeout is diagnosed without changing the collector or its test:
+sandbox socketpair sends fail with `EPERM`, preventing asyncio executor wakeups; the
+credential-free diagnostic and unchanged reconnect test pass through normal approved
+execution. The first clean-export attempt additionally omitted existing `data/public`
+fixtures and research documents, and used a TMPDIR too long for Chromium's Unix sockets.
+The driver now copies the original required inputs, including the exact two vendored fee references used by the old tests, and allocates a short temporary root.
+Original denial, timeout, missing-file and browser-crash receipts remain preserved.
 
-The immediate next task is supervisor review of the passed source-lease/listener correction,
-followed by browser/full-suite verification of this same local-operation milestone in an
-environment allowing the existing collector tests and Chromium:
-run the default `tools/local_acceptance.py`, inspect the artifacts and resolve concrete
-failures before approval. Do not start another major family or move Bitcoin's validation
-boundaries to make release pass. Empirical fitting/outcomes, certified fees, a genuinely
-validated second family and authorized provider evidence remain explicit later V1 gaps.
+Return this substantial intermediate milestone for supervisor review. The next provider
+acceptance task, only after separate credential authorization, is one bounded actual
+provider-backed website run with typed outputs or an honest saved provider failure,
+downloads, source/holdout evidence and recorded cost/usage. Authentic fitting/outcomes,
+certified fees, empirical two-family validation and independent V1 review remain open;
+no frozen Bitcoin boundary may be moved to satisfy them.

@@ -1,6 +1,7 @@
 """Durable, bounded local jobs. This control plane needs only the standard library."""
 
 import json
+import re
 import sqlite3
 import threading
 from collections.abc import Iterator
@@ -27,10 +28,26 @@ def identifier(value: str) -> str:
     return value
 
 
-def validate_request(value: object) -> dict[str, str]:
-    if not isinstance(value, dict) or set(value) != {"idea", "family", "mode"}:
-        raise ValueError("provide only idea, family and mode")
-    if any(not isinstance(v, str) for v in value.values()):
+def provider_config(value: object) -> dict[str, str]:
+    """Public server configuration only; no keys, URLs or browser-selected models."""
+    if (
+        not isinstance(value, dict)
+        or set(value) != {"provider", "model_name"}
+        or not isinstance(value["provider"], str)
+        or value["provider"] not in {"openai", "anthropic"}
+        or not isinstance(value["model_name"], str)
+        or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}", value["model_name"])
+    ):
+        raise ValueError("configure a supported research provider and model on the server")
+    return {"provider": value["provider"], "model_name": value["model_name"]}
+
+
+def validate_request(value: object, *, stored: bool = False) -> dict[str, Any]:
+    base = {"idea", "family", "mode"}
+    optional = {"reasoning", "enable_provider"} | ({"research_provider"} if stored else set())
+    if not isinstance(value, dict) or not base <= set(value) or set(value) - base - optional:
+        raise ValueError("provide only idea, family and mode with optional reasoning and opt-in")
+    if any(not isinstance(value[k], str) for k in base):
         raise ValueError("request values must be strings")
     idea, family, mode = value["idea"].strip(), value["family"], value["mode"]
     if not 1 <= len(idea) <= 6000:
@@ -46,7 +63,25 @@ def validate_request(value: object) -> dict[str, str]:
         raise ValueError("Bitcoin supports public capture or retained Bitcoin history")
     if mode == "history" and family != "bitcoin":
         raise ValueError("retained history mode currently supports Bitcoin only")
-    return {"idea": idea, "family": family, "mode": mode}
+    clean: dict[str, Any] = {"idea": idea, "family": family, "mode": mode}
+    if set(value) != base:
+        reasoning, enabled = value.get("reasoning"), value.get("enable_provider")
+        if (
+            not isinstance(reasoning, str)
+            or reasoning not in {"local", "provider"}
+            or type(enabled) is not bool
+        ):
+            raise ValueError("select local/provider reasoning and explicit boolean provider opt-in")
+        if enabled != (reasoning == "provider"):
+            raise ValueError("provider research requires explicit opt-in; local mode cannot opt in")
+        if reasoning == "provider" and mode == "synthetic":
+            raise ValueError("provider research requires real evidence; synthetic mode uses mocks")
+        clean.update(reasoning=reasoning, enable_provider=enabled)
+        if stored and reasoning == "provider":
+            clean["research_provider"] = provider_config(value.get("research_provider"))
+        elif "research_provider" in value:
+            raise ValueError("local jobs cannot contain provider configuration")
+    return clean
 
 
 class Jobs:
@@ -77,8 +112,10 @@ class Jobs:
             finally:
                 db.close()
 
-    def create(self, request: object) -> str:
+    def create(self, request: object, *, provider: dict[str, str] | None = None) -> str:
         clean = validate_request(request)
+        if clean.get("reasoning") == "provider":
+            clean["research_provider"] = provider_config(provider)
         job_id, now = str(uuid4()), timestamp()
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -96,7 +133,9 @@ class Jobs:
                 (
                     job_id,
                     now,
-                    "Request saved; local templates or explicit synthetic mock reasoning",
+                    "Request saved; provider research explicitly authorized with fixed budgets"
+                    if clean.get("reasoning") == "provider"
+                    else "Request saved; local templates or explicit synthetic mock reasoning",
                 ),
             )
         return job_id

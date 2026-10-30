@@ -1,0 +1,216 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-29T18:35:54.701Z",
+  "origin": "http://127.0.0.1:43134",
+  "repo": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation",
+  "python": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/.venv/bin/python",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "original": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance",
+  "restored": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance-restored",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "synthetic-review.json",
+      "sha256": "00435f23ae3ede9c3f1a5aaec446f0001ea2a34c9b2b2893c46f637bf4909a43"
+    },
+    {
+      "file": "synthetic-report.txt",
+      "sha256": "64f1660bc52b55693b94a6728510bad55a6f1c76a8a047545526ac4fe5d86c04"
+    },
+    {
+      "file": "recorded-review.json",
+      "sha256": "54a7f38df398fcdd376a66d4159cd4fdaf7ff9b8b8925d368ce05a5328591615"
+    },
+    {
+      "file": "paused-original.json",
+      "sha256": "2f9640ef2fd5820e3faa5856d841c6f464a0083a5e801e62c5a61c65e9f5f748"
+    },
+    {
+      "file": "active-before-stop.json",
+      "sha256": "b82335ac6ad182b5a032db50145ef408dd15d5dd831d44e1dd1c1f9a924a86f2"
+    },
+    {
+      "file": "paused-restored.json",
+      "sha256": "2f9640ef2fd5820e3faa5856d841c6f464a0083a5e801e62c5a61c65e9f5f748"
+    },
+    {
+      "file": "active-recovered.json",
+      "sha256": "3ab1a2c6ab57af2272b459ccd9cd8da95456134d1d1984ef77c84672ba23a320"
+    },
+    {
+      "file": "synthetic-restored.json",
+      "sha256": "00435f23ae3ede9c3f1a5aaec446f0001ea2a34c9b2b2893c46f637bf4909a43"
+    },
+    {
+      "file": "synthetic-restored.txt",
+      "sha256": "64f1660bc52b55693b94a6728510bad55a6f1c76a8a047545526ac4fe5d86c04"
+    },
+    {
+      "file": "recorded-restored.json",
+      "sha256": "54a7f38df398fcdd376a66d4159cd4fdaf7ff9b8b8925d368ce05a5328591615"
+    },
+    {
+      "file": "paused-second-restart.json",
+      "sha256": "2f9640ef2fd5820e3faa5856d841c6f464a0083a5e801e62c5a61c65e9f5f748"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "synthetic-lineage.png",
+      "sha256": "8fc6e03717d188deaedd6b106705c03a32858e9f6dced3ea88598a17e874c8e2"
+    },
+    {
+      "file": "recorded-insufficient.png",
+      "sha256": "55a3daa8ae577804a43aaac668b3b7e9957889ae33993494d7aaea1da5fa56bb"
+    },
+    {
+      "file": "paused-original.png",
+      "sha256": "8b7ba668b31629247807cf55ca90a2f9326afa37cb8b95f349e8c66605b54233"
+    },
+    {
+      "file": "paused-restored.png",
+      "sha256": "f87614a35dd60f4d8044ab1d8732f486a02b99ee4474b289798926f9f162f429"
+    },
+    {
+      "file": "active-recovered.png",
+      "sha256": "a1ff79d8c69cd331b96153c0da465ba65c570123e685d186ba1cb3a9a50653e5"
+    }
+  ],
+  "operations": [
+    {
+      "action": "start",
+      "epoch": 1,
+      "workspace": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance",
+      "at": "2026-10-29T18:35:55.717Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 1,
+      "at": "2026-10-29T18:36:54.692Z"
+    },
+    {
+      "action": "snapshot",
+      "result": {
+        "archive": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/recovery/local-acceptance.zip",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 2,
+        "sha256": "sha256:9be5647aca97e129ce873db9a0e9be1bd2de525f0a008d63b4caca0daa109669",
+        "submission_enabled": false
+      },
+      "at": "2026-10-29T18:36:55.930Z"
+    },
+    {
+      "action": "restore",
+      "result": {
+        "archive_sha256": "sha256:9be5647aca97e129ce873db9a0e9be1bd2de525f0a008d63b4caca0daa109669",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 2,
+        "submission_enabled": false,
+        "workspace": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance-restored"
+      },
+      "at": "2026-10-29T18:36:56.958Z"
+    },
+    {
+      "action": "start",
+      "epoch": 2,
+      "workspace": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance-restored",
+      "at": "2026-10-29T18:36:57.995Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 2,
+      "at": "2026-10-29T18:37:07.635Z"
+    },
+    {
+      "action": "start",
+      "epoch": 3,
+      "workspace": "/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/data/cache/acceptance-restored",
+      "at": "2026-10-29T18:37:08.579Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 3,
+      "at": "2026-10-29T18:37:09.094Z"
+    }
+  ],
+  "limitations": [
+    "Synthetic models/backtests prove software behavior only.",
+    "Authentic shadow sources may be insufficient; no fitted real model or certified fees are supplied.",
+    "Frozen fitted-model/reservation recovery is covered by separate CONTROLLED Python checks.",
+    "This does not pass empirical, provider, second-family or V1 release gates."
+  ],
+  "authentic_acquisition": {
+    "decision_time": "2026-10-29T18:36:50.040796+00:00",
+    "failures": [],
+    "family": "weather",
+    "history_complete": false,
+    "listed_contracts": 24,
+    "observations": 648,
+    "receipts": [
+      {
+        "hash": "sha256:17e2573c36ddcf039a934f3dc942e1803237c9078473f14e8bbb371cef8eacea",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+        "raw_ref": "raw/0001.json",
+        "received_at": "2026-10-29T18:36:48.633103+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:8695cb470b9f4db5cd444b4478c153f16b1c7d877cb1b8f180ea12311cce3d7b",
+        "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+        "raw_ref": "raw/0002.json",
+        "received_at": "2026-10-29T18:36:48.665160+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:0368e7a04f935c2399166d7421d800df8f11498d173a6985375f8bc96ca32214",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0003.json",
+        "received_at": "2026-10-29T18:36:49.305005+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+        "path": "https://api.weather.gov/points/39.87,-75.23",
+        "raw_ref": "raw/0004.json",
+        "received_at": "2026-10-29T18:36:49.506379+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:03d1d7be7fe13725d31dcaad93960577f1a4820341e1cd5a2973026b9e5d5c85",
+        "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+        "raw_ref": "raw/0005.json",
+        "received_at": "2026-10-29T18:36:49.570715+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:9379f9b03e8e038a2beb0b5f9716e1d56e3974e8026a71db022fc2472b44563d",
+        "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+        "raw_ref": "raw/0006.json",
+        "received_at": "2026-10-29T18:36:49.798801+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+        "path": "https://api.weather.gov/points/41.79,-87.75",
+        "raw_ref": "raw/0007.json",
+        "received_at": "2026-10-29T18:36:49.847986+00:00",
+        "status": 200
+      },
+      {
+        "hash": "sha256:ee7130f90bdfd891097499a8ffa738a2abff0394a6054ae14cf29063876f2177",
+        "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+        "raw_ref": "raw/0008.json",
+        "received_at": "2026-10-29T18:36:49.889935+00:00",
+        "status": 200
+      }
+    ],
+    "started_at": "2026-10-29T18:36:48.520547+00:00",
+    "truncated_universe": false,
+    "universe_complete": true
+  },
+  "active_cycle_at_stop": "interrupted",
+  "finished_at": "2026-10-29T18:37:09.094Z"
+}

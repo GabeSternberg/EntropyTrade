@@ -12,7 +12,7 @@ class Element {
     this.children = [];
     this.textContent = "";
     this.className = "";
-    this.options = [{}];
+    this.options = [{}, {}];
     this.classList = { add: (...names) => { this.className += " " + names.join(" "); } };
   }
   set innerHTML(_) { throw new Error("Dynamic evidence must use text nodes"); }
@@ -107,5 +107,26 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     assert.ok(text(content).includes("trading backtests and returns remain blocked"));
     assert.ok(text(content).includes("Final holdout is excluded."));
     for (const summary of result.bitcoin_history.readiness.summaries) assert.ok(text(content).includes(summary));
+  });
+}
+
+for (const tab of ["review", "probabilities", "lineage"]) {
+  test(`${tab}: provider failure and limits are visible with zero experiment success`, () => {
+    const { context, content } = application();
+    const result = fixture(false);
+    delete result.acquisition;
+    result.status = "research_failed";
+    result.reasoning = "provider";
+    result.reasoning_limit = "Provider-backed bounded research; no fallback.";
+    result.research = { status: "failed", provider: { provider: "openai", model_name: "configured-model" },
+      failure: { type: "ResearchCredentialError", stage: "setup", reason: "Dedicated research credential is missing." },
+      stages: [], limits: { requests: 16, tool_calls: 24 }, usage: { requests: 0 } };
+    context.show(result, tab);
+    for (const value of ["Provider-backed bounded research", "openai / configured-model", "ResearchCredentialError at setup",
+      "Dedicated research credential is missing", "No candidates validated and no deterministic experiments ran", "Final holdout is excluded."]) {
+      assert.ok(text(content).includes(value), value);
+    }
+    assert.ok(!text(content).includes("Predeclared mock proposals"));
+    assert.ok(descendants(content).every(child => child.tag !== "script"));
   });
 }

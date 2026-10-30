@@ -1,0 +1,59 @@
+........................................................................ [  6%]
+........................................................................ [ 13%]
+........................................................................ [ 20%]
+........................................................................ [ 27%]
+........................................................................ [ 34%]
+........................................................................ [ 41%]
+........................................................................ [ 48%]
+........................................................................ [ 55%]
+........................................................................ [ 62%]
+.........F.............................................................. [ 69%]
+........................................................................ [ 76%]
+........................................................................ [ 83%]
+........................................................................ [ 90%]
+........................................................................ [ 97%]
+.........................                                                [100%]
+=================================== FAILURES ===================================
+______ test_published_docs_state_maker_fractions_and_no_taker_coefficient ______
+
+    def test_published_docs_state_maker_fractions_and_no_taker_coefficient() -> None:
+        from entropytrade.execution.published_fees import (
+            CITATION,
+            MAKER_FRACTIONS,
+            PUBLISHED_FEE_VERSION,
+            QUADRATIC_COEFFICIENT,
+        )
+    
+        source = (
+            Path(__file__).resolve().parents[2].joinpath("src/entropytrade/execution/published_fees.py")
+        )
+        cited = Path(__file__).resolve().parents[3].joinpath(CITATION)
+>       text = cited.read_text(encoding="utf-8")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/unit/test_series_fees.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/pathlib.py:1029: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/.agents/skills/kalshi-docs/api-reference/market/get-series.md')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked-final/installation/.agents/skills/kalshi-docs/api-reference/market/get-series.md'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_series_fees.py::test_published_docs_state_maker_fractions_and_no_taker_coefficient
+1 failed, 1032 passed in 386.18s (0:06:26)

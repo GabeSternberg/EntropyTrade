@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from entropytrade.api.jobs import Jobs, identifier
+from entropytrade.api.jobs import Jobs, identifier, provider_config
 from entropytrade.api.runner import Runner
 from entropytrade.api.workspace import acquire_workspace
 from entropytrade.api.workspace import workspace_path as workspace_path
@@ -25,8 +25,16 @@ class WorkbenchServer(ThreadingHTTPServer):
     daemon_threads = True
     block_on_close = True
 
-    def __init__(self, repo: Path, workspace: Path, *, port: int = 43128) -> None:
+    def __init__(
+        self,
+        repo: Path,
+        workspace: Path,
+        *,
+        port: int = 43128,
+        research_provider: dict[str, str] | None = None,
+    ) -> None:
         self.repo = repo.resolve()
+        self.research_provider = provider_config(research_provider) if research_provider else None
         root = workspace_path(self.repo, workspace)
         self.lock = acquire_workspace(root)
         try:
@@ -121,7 +129,8 @@ class Handler(BaseHTTPRequestHandler):
                     "reasoning": "local_templates; synthetic mode uses explicit mock proposals",
                     "families": ["weather", "bitcoin"],
                     "modes": ["recorded", "public", "synthetic", "history"],
-                    "provider_enabled": False,
+                    "provider_enabled": bool(getattr(self.server, "research_provider", None)),
+                    "research_provider": getattr(self.server, "research_provider", None),
                     "submission_enabled": False,
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
@@ -172,7 +181,9 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
             if self.path == "/api/jobs":
-                job_id = self.server.jobs.create(value)
+                job_id = self.server.jobs.create(
+                    value, provider=getattr(self.server, "research_provider", None)
+                )
                 self.document(202, {"id": job_id})
                 return
             if self.path == "/api/monitors":
@@ -203,10 +214,19 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="EntropyTrade private localhost workbench")
     parser.add_argument("--port", type=int, default=43128)
     parser.add_argument("--workspace", type=Path, default=Path("data/cache/workbench"))
+    parser.add_argument("--research-provider", choices=("openai", "anthropic"))
+    parser.add_argument("--research-model")
     args = parser.parse_args()
+    if bool(args.research_provider) != bool(args.research_model):
+        parser.error("--research-provider and --research-model must be configured together")
+    configured = (
+        provider_config({"provider": args.research_provider, "model_name": args.research_model})
+        if args.research_provider
+        else None
+    )
     repo = Path(__file__).resolve().parents[4]
     workspace = args.workspace if args.workspace.is_absolute() else repo / args.workspace
-    server = WorkbenchServer(repo, workspace, port=args.port)
+    server = WorkbenchServer(repo, workspace, port=args.port, research_provider=configured)
     server.runner.start()
     server.shadow.start()
     try:

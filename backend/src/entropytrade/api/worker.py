@@ -1,4 +1,4 @@
-"""Fixed research entry point. No credentials, arbitrary paths, code or trading controls."""
+"""Fixed research entry point. Explicit bounded provider opt-in; no trading controls."""
 
 import argparse
 import asyncio
@@ -8,7 +8,8 @@ from pathlib import Path
 from typing import Any
 
 from entropytrade.agents.evidence import EvidenceConfig
-from entropytrade.api.jobs import Jobs, identifier
+from entropytrade.agents.provider import ResearchProviderConfig
+from entropytrade.api.jobs import Jobs, identifier, validate_request
 from entropytrade.api.server import workspace_path
 from entropytrade.data.sources import file_hash
 from entropytrade.experiments.data import AdapterRegistry
@@ -67,6 +68,32 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
     if result["final_holdout_evaluated"]:
         raise ValueError("website reviews must not evaluate protected final holdout")
     research = json.loads(Path(result["research_artifact"]).read_text())
+    research_details = {
+        k: research.get(k)
+        for k in (
+            "status",
+            "provider",
+            "instruction_version",
+            "pydantic_ai_version",
+            "request_hash",
+            "started_at",
+            "finished_at",
+            "limits",
+            "usage",
+            "stages",
+            "tool_calls",
+            "failure",
+        )
+    }
+    failed = result.get("status") == "RESEARCH_FAILED"
+    if failed:
+        # Failed research is inspectable/downloadable and cannot enter experiments.
+        result = {
+            **result,
+            "candidates": [],
+            "experiment_id": None,
+            "warnings": [research["report"]],
+        }
     permitted = {p for c in result["candidates"] for p in c.get("prediction_ids", [])}
     probabilities: list[dict[str, Any]] = []
     count = 0
@@ -110,8 +137,13 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
             "Local templates select signal words or parse complete AND-only feature "
             "comparisons; no LLM reasoning or arbitrary prose interpretation."
             if research["mode"] == "local_templates"
+            else "Provider-backed bounded research proposes hypotheses; deterministic gates "
+            "control specifications, experiments and risk. No trading approval is implied."
+            if research["mode"] == "provider"
             else "Predeclared mock proposals; the idea is recorded, not interpreted by an LLM."
         ),
+        "research": research_details,
+        "status": "research_failed" if failed else "completed",
         "formulation": research.get("note"),
         "data_kind": result["data_kind"],
         "experiment_id": result["experiment_id"],
@@ -126,7 +158,7 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
         "probability_limit": 100,
         "final_holdout_evaluated": result["final_holdout_evaluated"],
         "lineage": {
-            k: result[k]
+            k: result.get(k)
             for k in (
                 "dataset",
                 "feature_version",
@@ -140,7 +172,7 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
         },
         "artifacts": artifacts,
         "warnings": result["warnings"],
-        "report": Path(result["report_path"]).read_text(),
+        "report": research["report"] if failed else Path(result["report_path"]).read_text(),
     }
 
 
@@ -148,7 +180,7 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
     job = jobs.get(job_id)
     if job is None or job["status"] != "running":
         return
-    request = job["request"]
+    request = validate_request(job["request"], stored=True)
     run = jobs.root / "runs" / identifier(job_id)
     run.mkdir(parents=True, exist_ok=False)
 
@@ -213,25 +245,29 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
                 config.revalidated(root=(repo / config.root).resolve()).model_dump_json()
             )
         output = run / "workflow"
+        use_provider = request.get("reasoning") == "provider"
         result = research_and_test(
             prompt=request["idea"],
             evidence_config=config_path,
             output=output,
             registry=jobs.root / "registry.sqlite",
             tracking=run / "mlflow",
-            offline=True,
+            offline=not use_provider,
+            enable_provider=use_provider,
+            provider=(
+                ResearchProviderConfig.model_validate(request["research_provider"])
+                if use_provider
+                else None
+            ),
             synthetic=request["mode"] == "synthetic",
             days=240,
             adapters=adapters,
             market_family=request["family"],
             progress=progress,
-            local_templates=request["mode"] != "synthetic",
+            local_templates=not use_provider and request["mode"] != "synthetic",
         )
-        if result.get("status") == "RESEARCH_FAILED":
-            jobs.update(
-                job_id, "failed", "Research failed; no candidates validated", status="failed"
-            )
-            return
+        failed = result.get("status") == "RESEARCH_FAILED"
+        progress("review", "Saving protected research and experiment evidence")
         review = review_result(result, output)
         if history is not None:
             review["bitcoin_history"] = history.provenance
@@ -275,14 +311,16 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
         review_path.write_text(json.dumps(review, sort_keys=True, indent=2, allow_nan=False))
         jobs.update(
             job_id,
-            "completed",
+            "failed" if failed else "completed",
             (
-                f"Review saved; public acquisition {review['acquisition']['status']} "
+                "Research failed; inspect the saved failure, provider stage and budget evidence"
+                if failed
+                else f"Review saved; public acquisition {review['acquisition']['status']} "
                 f"({review['acquisition']['failure_count']} failures); forward ingestion only"
                 if public is not None
                 else "Review saved; inspect candidate gates and evidence limitations"
             ),
-            status="completed",
+            status="failed" if failed else "completed",
             result=review,
         )
     except InterruptedError:

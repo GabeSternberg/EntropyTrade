@@ -1,0 +1,9 @@
+{
+  "status": "blocked",
+  "reason": "No separately authorized research credentials were supplied for an external provider check.",
+  "real_credentials_accessed": false,
+  "external_provider_requests": 0,
+  "controlled_provider_transport": "Software integration evidence only; never an external-provider pass",
+  "v1_complete": false,
+  "submission_enabled": false
+}

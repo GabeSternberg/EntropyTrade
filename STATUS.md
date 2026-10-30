@@ -3,7 +3,58 @@
 Updated 2026-10-29. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: local operation and recovery — implemented, acceptance incomplete
+## Current milestone: provider research through the private website
+
+Implemented on designated `supervisor/20261029-141757` from `9dff058`. No Git mutations,
+supervisor-control changes, real credentials, real orders or risk-limit changes. Existing
+R4, private website, Bitcoin, continuous shadow and offline recovery were extended.
+**V1 remains incomplete; external provider verification is blocked without separately
+authorized research credentials.**
+
+Server provider/model configuration plus fresh browser opt-in now select the existing
+bounded four-stage research pipeline in an isolated durable worker. The job freezes the
+public configuration. Only that worker can inherit the dedicated research key; local/mock
+and shadow workers remain credential-free. Browser payloads cannot select credentials,
+provider endpoints, code or filesystem paths. Typed hypotheses and candidate DSLs enter
+the existing deterministic experiment engine and holdout gates. Stage/usage/tool/provenance
+evidence is visible and downloadable. Missing keys, outages, malformed provider outputs
+and deadlines persist failed reviews with zero fabricated candidates/experiments.
+Cancellation, interruption/restart and offline restore preserve evidence without silently
+repeating provider requests.
+
+The new Playwright-managed Chromium procedure passes real page interaction against an
+actual localhost listener: controlled provider transport yields three typed hypotheses and
+honest deterministic insufficiency; all tabs, downloads, cancellation and restart pass.
+A second unmodified listener with no credentials produces a saved `ResearchCredentialError`
+and zero requests. The development pass took 27.5 seconds. This is **controlled provider
+software evidence**, not an external provider session or empirical strategy performance.
+The fresh locked installation passes Ruff lint/format, strict mypy (505 files), all 15
+frontend cases and both real Chromium procedures. The provider procedure takes 49.2 seconds;
+broader recovery takes about 1.2 minutes. Their 11 screenshots and 19 downloads match receipt
+hashes, with zero page errors. The final **complete suite passes all 1,033 tests in 373.42
+seconds**, with zero failures/errors/skips, including the unchanged collector reconnect test.
+All 1,474 exported source/input files match checkout and installation. Offline provider
+snapshot/restore also preserves 56 original files and all jobs/registry logical rows across
+completed, failed, cancelled and interrupted runs. See [aggregate verification](data/provider-review/20261029/verification.json)
+and [the milestone bundle](data/provider-review/20261029/README.md).
+
+The retained collector timeout is diagnosed without changing its code/tests: sandbox
+`socketpair()` creation succeeds but send fails with `EPERM`, and a minimal `asyncio.to_thread`
+check stalls because the event loop cannot wake. Through the normal approval mechanism,
+the credential-free socket/executor diagnostic and unchanged reconnect test pass. No event
+loop, sandbox policy or assertion was changed. The first clean export also omitted existing
+public fixtures/documents and used a temporary path too long for Chromium's Unix sockets.
+A second complete run had only one failure: an indirectly cited vendored fee document was
+still absent. The driver now exports the exact original citations and uses a short temporary
+root. The full suite was rerun in the repaired locked installation without changing
+application/test/fee code. Failed receipts stay intact; aggregate verification explicitly
+links the final supplemental suite instead of relabeling old failures as passes.
+
+Authentic weather fitting/outcome coverage, certified effective fees and empirical
+two-family validation stay incomplete. Preserve Bitcoin's frozen dates; select no new
+family. Return this coherent milestone to the supervisor before more major work.
+
+## Previous milestone: local operation and recovery — historical checkpoint
 
 The current correction starts at `99ba77a` on the existing
 `supervisor/20261029-124902` branch. Source recovery verification now requires an existing

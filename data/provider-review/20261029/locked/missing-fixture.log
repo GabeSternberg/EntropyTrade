@@ -1,0 +1,22 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_amsterdam_celsius_markets_are_not_scored _________________
+backend/tests/unit/test_amsterdam_listing.py:18: in test_amsterdam_celsius_markets_are_not_scored
+    listed = load_amsterdam_listing(ROOT)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/weather/amsterdam_listing.py:30: in load_amsterdam_listing
+    manifest = _object(folder / "manifest.json")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/weather/amsterdam_listing.py:82: in _object
+    payload: object = json.loads(path.read_text(encoding="utf-8"))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/pathlib.py:1029: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/pathlib.py:1015: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: '/home/gabriel/Projects/EntropyTrade/data/provider-review/20261029/locked/installation/data/public/amsterdam/manifest.json'
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_amsterdam_listing.py::test_amsterdam_celsius_markets_are_not_scored
+1 failed in 0.15s

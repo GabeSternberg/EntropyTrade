@@ -182,6 +182,7 @@ def research_and_test(
                 models=models,
                 run_id=run_id,
                 local_templates=local_templates,
+                progress=progress,
             )
         )
     if research["status"] != "completed":
@@ -189,6 +190,11 @@ def research_and_test(
             "status": "RESEARCH_FAILED",
             "research_run": research["run_id"],
             "report": research["report"],
+            "research_artifact": str(
+                research_run or output / "research" / research["run_id"] / "run.json"
+            ),
+            "data_kind": data.data_kind,
+            "final_holdout_evaluated": False,
         }
     if research["coverage"]["feature_version"] != data.feature_version:
         raise ValueError("research and experiment feature manifests differ")

@@ -1,0 +1,15 @@
+# Research-to-experiment report
+
+Data: real. Research run: 6ed3fb97-2976-4237-ba9f-fcb56e04f9e8
+Final holdout: not evaluated. No trading authorization.
+
+c0: INSUFFICIENT_DATA
+required source provenance is unavailable at decision time
+c1: INSUFFICIENT_DATA
+required source provenance is unavailable at decision time
+c2: UNSUPPORTED
+no executable StrategySpec was supplied
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.

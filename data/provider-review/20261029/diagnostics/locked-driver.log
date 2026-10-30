@@ -1,0 +1,30 @@
+lock-check: started
+lock-check: passed
+locked-sync: started
+locked-sync: passed
+installed-packages: started
+installed-packages: passed
+ruff: started
+ruff: passed
+format: started
+format: passed
+mypy: started
+mypy: passed
+frontend: started
+frontend: passed
+npm-ci: started
+npm-ci: passed
+chromium-install: started
+chromium-install: passed
+browser: started
+browser: failed
+pytest: started
+pytest: failed
+Traceback (most recent call last):
+  File "/home/gabriel/Projects/EntropyTrade/tools/local_acceptance.py", line 328, in <module>
+    raise
+^^^^^^
+  File "/home/gabriel/Projects/EntropyTrade/tools/local_acceptance.py", line 314, in main
+    print(f"{name}: {step['status']}", flush=True)  # noqa: T201 - local CLI progress
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Acceptance incomplete: inspect failed step logs; no release pass

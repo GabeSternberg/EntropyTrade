@@ -1,6 +1,6 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
-const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null };
+const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null, provider: null };
 const terminal = new Set(["completed", "failed", "cancelled", "interrupted"]);
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -49,7 +49,17 @@ function modeHelp() {
     "Fetch actual KXBTC contract rules and Coinbase BTC-USD spot. Spot is a covariate, never a settlement label. Forward capture only; no historical evaluation." :
     "Fetch Philadelphia/Chicago contract rules and current Open-Meteo/NWS forecast vintages. New receipts cannot backfill historical features or outcomes.";
   $("reasoning").options[0].textContent = mode === "synthetic" ? "Explicit mock proposals · software demonstration" : "Local templates · no provider credentials";
-  $("reasoning-help").hidden = mode === "synthetic";
+  $("reasoning").options[1].disabled = !state.provider || mode === "synthetic";
+  if (mode === "synthetic") $("reasoning").value = "local";
+  reasoningHelp();
+}
+function reasoningHelp() {
+  const provider = $("reasoning").value === "provider";
+  $("provider-options").hidden = !provider;
+  $("reasoning-help").hidden = provider || $("mode").value === "synthetic";
+  $("enable-provider").checked = false;
+  $("enable-provider").required = provider;
+  $("provider-help").textContent = state.provider ? `Server configuration: ${state.provider.provider} / ${state.provider.model_name}. Missing credentials or provider errors produce a saved failure; no mock fallback.` : "Configure the research provider/model on the server to enable this option.";
 }
 async function history() {
   const rows = await api("/api/jobs");
@@ -110,6 +120,14 @@ function renderResult() {
   content.append(notice(`${result.data_kind === "synthetic" ? "SYNTHETIC SOFTWARE DEMONSTRATION. " : "REAL EVIDENCE. "}${result.reasoning_limit} Final holdout is excluded.`));
   if (result.acquisition) renderAcquisition(content, result.acquisition);
   if (result.bitcoin_history) renderBitcoinHistory(content, result.bitcoin_history);
+  if (result.research) {
+    const research = panel(`Research orchestration · ${result.reasoning}`);
+    research.append(node("p", `Provider: ${result.research.provider ? `${result.research.provider.provider} / ${result.research.provider.model_name}` : "none"}. Status: ${result.research.status}.`, "hint"));
+    if (result.research.failure) research.append(notice(`${result.research.failure.type} at ${result.research.failure.stage}: ${result.research.failure.reason}`, true));
+    research.append(detail("Research stages, evidence tools, budgets and usage", result.research));
+    content.append(research);
+  }
+  if (result.status === "research_failed") content.append(notice("Research failed. No candidates validated and no deterministic experiments ran. Failure evidence and report remain downloadable.", true));
   if (state.tab === "review") renderReview(content, result);
   if (state.tab === "probabilities") renderProbabilities(content, result);
   if (state.tab === "lineage") renderLineage(content, result);
@@ -181,6 +199,7 @@ function renderLineage(content, result) {
   append(artifacts, node("p", "Artifact paths are relative to this run's local workflow directory. Review downloads contain the protected result projection; the server does not expose arbitrary local files.", "small"), table(["Artifact", "SHA-256", "Bytes"], result.artifacts.map((a) => [a.path, a.sha256, a.bytes])), detail("Coverage and point-in-time boundaries", result.coverage)); content.append(artifacts);
 }
 $("family").addEventListener("change", modeHelp); $("mode").addEventListener("change", modeHelp);
+$("reasoning").addEventListener("change", reasoningHelp);
 document.querySelectorAll("[data-example]").forEach((button) => button.addEventListener("click", () => {
   const example = button.dataset.example;
   $("family").value = example === "bitcoin" ? "bitcoin" : "weather";
@@ -194,7 +213,9 @@ $("research-form").addEventListener("submit", async (event) => {
   event.preventDefault(); if (!state.token) return;
   $("submit").disabled = true; $("form-message").textContent = "Saving research request…";
   try {
-    const response = await api("/api/jobs", { idea: $("idea").value, family: $("family").value, mode: $("mode").value });
+    const reasoning = $("reasoning").value;
+    const response = await api("/api/jobs", { idea: $("idea").value, family: $("family").value, mode: $("mode").value, reasoning, enable_provider: reasoning === "provider" && $("enable-provider").checked });
+    $("enable-provider").checked = false;
     await selectJob(response.id); $("form-message").textContent = "Request saved. Follow its progress on the right.";
   } catch (error) { $("form-message").textContent = error.message; }
   finally { $("submit").disabled = false; }
@@ -267,7 +288,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; await history(); await shadowHistory(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {

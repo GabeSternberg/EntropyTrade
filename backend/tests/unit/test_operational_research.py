@@ -282,7 +282,7 @@ def test_opt_in_missing_credentials_and_guard_restore(
     monkeypatch.delenv("ENTROPYTRADE_RESEARCH_API_KEY", raising=False)
     result = execute(tmp_path, provider=provider, offline=False, enable_provider=True)
     assert result["status"] == "failed"
-    assert result["failure"]["type"] == "ValueError"
+    assert result["failure"]["type"] == "ResearchCredentialError"
     assert provider_requests_blocked()
     with (
         pytest.raises(RuntimeError, match="one isolated"),
