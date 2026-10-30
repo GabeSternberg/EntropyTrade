@@ -51,13 +51,35 @@ async def wire_research(
         args = {"query": {"topic": "coverage"}} if index == 0 else outputs[index - 1]
         if case == "malformed" and index > 0:
             args = {"nonsense": "bad"}
+        unpriced_index = (
+            2
+            if case == "unpriced_later_stage"
+            else (1 if case.startswith("unpriced_second_") else 0)
+        )
+        unpriced = case.startswith("unpriced_") and index == unpriced_index
+        if unpriced and case.endswith("retry"):
+            name = next(
+                t["function"]["name"]
+                for t in body["tools"]
+                if t["function"]["name"] != "inspect_evidence"
+            )
+            args = {"nonsense": "bad"}
+        elif unpriced and case.endswith("tool"):
+            name, args = "inspect_evidence", {"query": {"topic": "coverage"}}
+        elif unpriced and case == "unpriced_output":
+            name = next(
+                t["function"]["name"]
+                for t in body["tools"]
+                if t["function"]["name"] != "inspect_evidence"
+            )
+            args = outputs[0]
         return httpx.Response(
             200,
             json={
                 "id": f"controlled-{index}",
                 "object": "chat.completion",
                 "created": 1,
-                "model": "gpt-4.1-mini",
+                "model": "CONTROLLED-model-without-pricing" if unpriced else "gpt-4.1-mini",
                 "choices": [
                     {
                         "index": 0,

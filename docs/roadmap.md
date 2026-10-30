@@ -1,6 +1,6 @@
 # Capability roadmap
 
-## Current product direction — October 29, 2026
+## Current product direction — October 30, 2026
 
 EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.
 Weather was first; Bitcoin remains optional. Preserve its receipts/code and frozen
@@ -8,6 +8,16 @@ validation windows. Do not require unavailable Bitcoin history before approving 
 functionality. Prefer authentic forward receipts; never fabricate historical availability.
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
+
+The current provider milestone includes a pricing-boundary correction: inspect each raw
+response before any retry, tool/continuation request or later research stage. Unknown
+pricing must persist a failed downloadable review with no experiments; a priced subtotal
+cannot mask a later unpriced response. Controlled regressions and actual localhost browser
+checks cover these refusals without external credentials; see the
+[correction evidence](../data/provider-review/20261030-pricing/README.md) for executed results
+and limitations. All 1,047 pytest cases, Ruff/format, strict mypy, 15 frontend checks and
+both actual Chromium procedures pass in the existing environment. This does not advance
+empirical validation or authorize another milestone.
 
 The current milestone delivers opt-in provider research through the private website:
 durable isolated jobs, 2–6 typed hypotheses, deterministic candidate/experiment gates,
@@ -34,7 +44,7 @@ when separately authorized, empirical validation on two meaningfully distinct fa
 final independent release acceptance. Hosted operation, broader model serializers, deeper
 book scheduling and structural scanning remain deferred. No new family is selected.
 
-Current scoped verification passes Ruff/format, strict mypy, all 1,033 pytest cases,
+The October 29 checkpoint passed Ruff/format, strict mypy, all 1,033 pytest cases,
 15 frontend cases and both actual Chromium procedures in the locked installation after
 documented export-only repairs. Original receipt/input bytes and failed attempts remain
 preserved. This advances the website/operating gates, not empirical fitting, certified fees,

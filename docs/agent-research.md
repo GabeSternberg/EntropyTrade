@@ -119,8 +119,15 @@ Minimum counts are conservative gates, not a statistical power calculation.
 Budgets: 16 model requests, 24 successful agent tool calls, one structured-output retry,
 3,500 output tokens/request, 90,000 input and 14,000 output tokens/run, 100,000 context
 characters, 30-second provider request timeouts and a 180-second workflow timeout. SDK
-transport retries are disabled. A $2 estimated-cost limit is enforced when pricing is
-available; missing cost stops further requests. Token/cost checks use provider reports and
+transport retries are disabled. A $2 estimated-cost limit is enforced. Each individual
+provider response must have a finite nonnegative price before any tool dispatch, output
+retry, provider continuation or later research stage. The non-streaming model wrapper
+prices raw responses before PydanticAI merges continuations; a prior priced response cannot
+hide an unpriced one. Missing pricing produces a durable `ResearchPricingError`, zero
+experiments and no further requests. The response audit retains identities, receipt clocks,
+token counts and individual costs. `pricing_status=unavailable` means cumulative cost is
+only the known subtotal, never the total bill. Explicit zero prices remain valid.
+Token/cost checks use provider reports and
 can overshoot on the last response; this is not a prepaid billing guarantee. No unbounded
 self-directed loop or automatic experiment search exists.
 

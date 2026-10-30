@@ -339,6 +339,7 @@ async def run_research(
         HypothesisBatch,
         ResearchCritique,
     )
+    from entropytrade.agents.pricing import PricedResearchModel, ResearchPricingError
     from entropytrade.agents.provider import ResearchCredentialError, research_model
     from entropytrade.agents.team import (
         RESEARCH_INSTRUCTIONS_VERSION,
@@ -425,6 +426,7 @@ async def run_research(
         _write_research_artifacts(output / identifier, cached)
         return cached
     usage = RunUsage()
+    priced_model: PricedResearchModel | None = None
     try:
         initial = [
             evidence.inspect(EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10))
@@ -443,7 +445,9 @@ async def run_research(
             if provider is None:
                 raise ValueError("explicit provider/model configuration is required")
             actual = research_model(provider)
-            models = (actual,) * 4
+            priced_model = PricedResearchModel(actual, stage=lambda: str(result["active_stage"]))
+            result["responses"] = priced_model.responses
+            models = (priced_model,) * 4
         limits = UsageLimits(
             cost_limit=None if offline else Decimal("2.00"),
             request_limit=16,
@@ -526,10 +530,6 @@ async def run_research(
                                 "parallel_tool_calls": False,
                             },
                         )
-                        if not offline and usage.cost is None:
-                            raise ValueError(
-                                "provider cost unavailable; refusing further research requests"
-                            )
                         from pydantic_ai.messages import ModelResponse
 
                         returned_models = [
@@ -581,6 +581,11 @@ async def run_research(
         # Never persist provider exceptions/messages: they may contain request bodies or
         # credentials.
         result["status"] = "failed"
+        if isinstance(exc, ResearchPricingError) and priced_model is not None:
+            # The refusing wrapper raises before PydanticAI commits the response usage.
+            # Preserve every observed request/token and only the known cost subtotal.
+            priced_model.observed_usage.tool_calls = usage.tool_calls
+            usage = priced_model.observed_usage
         result["failure"] = {
             "type": type(exc).__name__,
             "stage": result.get("active_stage", "setup"),
@@ -589,6 +594,10 @@ async def run_research(
                 if isinstance(exc, ResearchCredentialError)
                 else "Research deadline exceeded; no fallback or experiment was run."
                 if isinstance(exc, TimeoutError)
+                else "Provider response pricing is unavailable; further research requests "
+                "were refused. Reported cost is only a known subtotal. "
+                "No fallback or experiment was run."
+                if isinstance(exc, ResearchPricingError)
                 else "Research provider/configuration/budget/evidence failure; "
                 "inspect the failure type and stage. No fallback or experiment was run."
             ),
@@ -605,6 +614,13 @@ async def run_research(
             result["report"] = "Research interrupted; no candidates validated."
         result["finished_at"] = utc_now().isoformat()
         result["tool_calls"] = evidence.calls
+        result["pricing_status"] = (
+            "unavailable"
+            if priced_model is not None and priced_model.refused
+            else "available"
+            if priced_model is not None and priced_model.responses
+            else "not_observed"
+        )
         result["usage"] = to_jsonable_python(asdict(usage))
         payload_text = json.dumps(result, sort_keys=True, allow_nan=False)
         try:

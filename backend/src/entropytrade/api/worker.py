@@ -80,6 +80,8 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
             "finished_at",
             "limits",
             "usage",
+            "responses",
+            "pricing_status",
             "stages",
             "tool_calls",
             "failure",

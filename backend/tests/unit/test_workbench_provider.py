@@ -92,6 +92,76 @@ def test_provider_job_runs_typed_research_then_deterministic_experiments_or_save
             assert review["research"]["failure"]["type"] == "TimeoutError"
 
 
+@pytest.mark.parametrize(
+    ("case", "requests", "stage"),
+    [
+        ("unpriced_tool", 1, "research"),
+        ("unpriced_retry", 1, "research"),
+        ("unpriced_output", 1, "research"),
+        ("unpriced_second_tool", 2, "research"),
+        ("unpriced_second_retry", 2, "research"),
+        ("unpriced_second_output", 2, "research"),
+        ("unpriced_later_stage", 3, "hypothesis"),
+    ],
+)
+def test_unpriced_response_stops_requests_and_persists_failed_review_without_experiments(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    case: str,
+    requests: int,
+    stage: str,
+) -> None:
+    calls: list[dict[str, Any]] = []
+
+    async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+        return await wire_research(run_research, case=case, calls=calls, **kwargs)
+
+    monkeypatch.setattr(workflow, "run_research", controlled_research)
+    jobs = Jobs(tmp_path)
+    job_id = jobs.create(REQUEST, provider=CONFIG)
+    jobs.update(job_id, "starting", "Checking controlled unknown response pricing")
+    execute_job(jobs, REPO, job_id)
+    job = jobs.get(job_id)
+    assert job is not None
+    assert len(calls) == requests
+    assert job["status"] == "failed"
+    review = job["result"]
+    assert review["status"] == "research_failed"
+    assert review["experiment_id"] is None
+    assert not review["candidates"]
+    assert not review["probabilities"]
+    assert not review["final_holdout_evaluated"]
+    research = review["research"]
+    assert research["failure"]["type"] == "ResearchPricingError"
+    assert research["failure"]["stage"] == stage
+    assert "pricing is unavailable" in review["report"]
+    assert research["pricing_status"] == "unavailable"
+    assert research["usage"]["requests"] == requests
+    assert research["usage"]["input_tokens"] == requests * 100
+    assert research["usage"]["output_tokens"] == requests * 100
+    assert (research["usage"]["cost"] is None) == (requests == 1)
+    assert len(research["responses"]) == requests
+    assert research["responses"][-1]["usage"]["cost"] is None
+    assert research["responses"][-1]["stage"] == stage
+    assert research["responses"][-1]["provider_response_id"] == f"controlled-{requests - 1}"
+    assert research["responses"][-1]["model_name"] == "CONTROLLED-model-without-pricing"
+    assert all(r["usage"]["cost"] is not None for r in research["responses"][:-1])
+    # Only the priced tool response may cause a tool call; the refused response does not.
+    assert research["usage"]["tool_calls"] == (0 if requests == 1 else 1)
+    assert "experiments" not in {e["stage"] for e in job["events"]}
+    assert not (tmp_path / "runs" / job_id / "workflow/experiments").exists()
+    saved = tmp_path / "runs" / job_id / "review.json"
+    original_bytes = saved.read_bytes()
+    assert json.loads(original_bytes) == review
+    reopened = Jobs(tmp_path)
+    reopened.recover()
+    assert reopened.get(job_id) == job
+    assert saved.read_bytes() == original_bytes
+    assert len(calls) == requests
+    assert "fixture-dedicated-key" not in json.dumps(job)
+    assert provider_requests_blocked()
+
+
 def test_missing_research_key_is_a_durable_downloadable_failure(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

@@ -129,6 +129,32 @@ test("provider-backed website: opt-in, typed candidates, failures, cancellation 
     assert(!failedBytes.includes(Buffer.from("fixture-dedicated-key")));
     await screenshot("outage");
 
+    const pricingFailures = [];
+    for (const [label, requests] of [["first", 1], ["second", 2]]) {
+      const idea = `CONTROLLED unpriced ${label}: refuse further provider requests`;
+      await submit(idea);
+      await expect(page.locator("#run-header .badge").first()).toHaveText("failed", { timeout: 90_000 });
+      await expect(page.locator("#result-content")).toContainText("pricing is unavailable");
+      await expect(page.locator("#result-content")).toContainText("No candidates validated and no deterministic experiments ran");
+      const bytes = await download("Review JSON", `unpriced-${label}.json`);
+      const failed = JSON.parse(bytes);
+      assert.equal(failed.experiment_id, null); assert.deepEqual(failed.candidates, []);
+      assert.equal(failed.research.failure.type, "ResearchPricingError");
+      assert.equal(failed.research.pricing_status, "unavailable");
+      assert.equal(failed.research.usage.requests, requests);
+      assert.equal(failed.research.responses.length, requests);
+      assert.equal(failed.research.responses.at(-1).usage.cost, null);
+      assert.equal(failed.research.usage.cost === null, requests === 1);
+      assert(!bytes.includes(Buffer.from("fixture-dedicated-key")));
+      for (const tab of ["Review", "Probabilities", "Evidence & lineage"]) {
+        await page.getByRole("button", { name: tab, exact: true }).click();
+        await expect(page.locator("#result-content")).toContainText("pricing is unavailable");
+      }
+      await download("Text report", `unpriced-${label}.txt`);
+      await screenshot(`unpriced-${label}`);
+      pricingFailures.push({ idea, label, bytes });
+    }
+
     const cancelled = "CONTROLLED slow: cancel provider request";
     await submit(cancelled);
     await expect(page.locator("#progress")).toContainText("research_research", { timeout: 30_000 });
@@ -145,6 +171,10 @@ test("provider-backed website: opt-in, typed candidates, failures, cancellation 
     assert.deepEqual(await download("Text report", "success-restarted.txt"), reportBytes);
     await reopen(outage, "failed");
     assert.deepEqual(await download("Review JSON", "outage-restarted.json"), failedBytes);
+    for (const { idea, label, bytes } of pricingFailures) {
+      await reopen(idea, "failed");
+      assert.deepEqual(await download("Review JSON", `unpriced-${label}-restarted.json`), bytes);
+    }
     const missing = "Unmodified worker without separately configured research credentials";
     await submit(missing);
     await expect(page.locator("#run-header .badge").first()).toHaveText("failed", { timeout: 90_000 });

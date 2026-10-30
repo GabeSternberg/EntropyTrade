@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="103.196113">
+<testsuite name="provider.spec.cjs" timestamp="2026-10-30T22:56:34.806Z" hostname="" tests="1" failures="0" skipped="0" time="41.815" errors="0">
+<testcase name="provider-backed website: opt-in, typed candidates, failures, cancellation and recovery" classname="provider.spec.cjs" time="41.815">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="recovery.spec.cjs" timestamp="2026-10-30T22:56:34.806Z" hostname="" tests="1" failures="0" skipped="0" time="56.983" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="56.983">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

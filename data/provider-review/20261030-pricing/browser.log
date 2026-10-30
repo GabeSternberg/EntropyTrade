@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 frontend/browser/provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (41.8s)
+  ✓  2 frontend/browser/recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle (57.0s)
+
+  2 passed (1.7m)

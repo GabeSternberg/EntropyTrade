@@ -32,9 +32,15 @@ def main() -> None:
         async def controlled(**kwargs: Any) -> dict[str, Any]:
             prompt = kwargs["prompt"]
             case = (
-                "outage"
+                "unpriced_second_output"
+                if "CONTROLLED unpriced second" in prompt
+                else "unpriced_tool"
+                if "CONTROLLED unpriced first" in prompt
+                else "outage"
                 if "CONTROLLED outage" in prompt
-                else ("slow" if "CONTROLLED slow" in prompt else "success")
+                else "slow"
+                if "CONTROLLED slow" in prompt
+                else "success"
             )
             return await wire_research(original_research, case=case, calls=[], **kwargs)
 

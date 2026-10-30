@@ -1,9 +1,26 @@
 # EntropyTrade — current status
 
-Updated 2026-10-29. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
 ## Current milestone: provider research through the private website
+
+October 30 correction on the same designated branch, from `194fbe9`: unknown pricing
+is refused on each raw model response before tool processing, validation retries,
+suspended continuations or later stages. The previous post-stage cumulative check allowed
+an unpriced first tool response to proceed through five requests and experiment setup;
+the controlled regression reproduced that failure. The response wrapper now retains
+individual identities, receipt clocks, token counts and prices, including a refused
+response. Failed reviews distinguish an unknown bill from a known cost subtotal and
+remain downloadable after restart, with zero experiments. Existing budgets, dedicated-key
+isolation, holdout protection and execution permissions are unchanged. No Git mutations,
+credential access or supervisor-control edits. Current correction verification is recorded
+in [its evidence bundle](data/provider-review/20261030-pricing/README.md); the earlier
+October 29 acceptance below describes that historical checkout. Ruff lint/format, strict
+mypy (507 files), all **1,047 pytest cases in 338.02 seconds**, 15 frontend checks and both
+actual Chromium procedures pass without external credentials. The browser evidence has
+13 screenshots and 25 downloads with matching receipt hashes and zero page errors.
+This uses the existing environment, not a new clean installation. **V1 remains incomplete.**
 
 Implemented on designated `supervisor/20261029-141757` from `9dff058`. No Git mutations,
 supervisor-control changes, real credentials, real orders or risk-limit changes. Existing

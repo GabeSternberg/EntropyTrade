@@ -1,0 +1,22 @@
+[
+  {
+    "case": "first",
+    "job_id": "78264c45-c2ad-4504-9eda-0e105c355399",
+    "research_run_id": "fe428724-46ad-4923-be80-a1321fff3592",
+    "requests": 1,
+    "known_cost_subtotal_usd": null,
+    "pricing_status": "unavailable",
+    "experiment_id": null,
+    "raw_artifacts_verified": true
+  },
+  {
+    "case": "second",
+    "job_id": "5584285c-d323-4fbe-9992-489a1f94185d",
+    "research_run_id": "704080b9-39b7-4da6-8b41-c737b2610592",
+    "requests": 2,
+    "known_cost_subtotal_usd": "0.00020",
+    "pricing_status": "unavailable",
+    "experiment_id": null,
+    "raw_artifacts_verified": true
+  }
+]

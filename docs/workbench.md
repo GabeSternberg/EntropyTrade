@@ -110,8 +110,11 @@ Bitcoin modes; synthetic mode stays explicitly mock. Unsupported or insufficient
 proposals remain honest refusals, including Bitcoin's unchanged settlement/validation gates.
 
 Research uses the existing evidence/hypothesis/quant/critic stages, 2–6 typed hypotheses,
-16 requests, 24 tool calls, bounded tokens and 180 seconds. A $2 cost limit uses available
-provider pricing; unknown cost refuses subsequent calls, and the first request cannot be
+16 requests, 24 tool calls, bounded tokens and 180 seconds. A $2 cost limit uses individual
+response pricing. Unknown pricing produces a saved `ResearchPricingError` before tools,
+retries, continuations or later stages can run; earlier priced usage cannot hide it.
+Review JSON includes each response's identity, clock, tokens and cost, with an explicit
+`pricing_status`. On refusal, cumulative cost is only a known subtotal. The first request cannot be
 promised free or pre-priced. Deterministic validation/experiments control model eligibility,
 execution simulation and risk. LLM suggestions cannot change those controls.
 
