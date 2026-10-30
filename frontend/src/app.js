@@ -1,6 +1,6 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
-const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null, provider: null };
+const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null, provider: null, weatherDatasets: [] };
 const terminal = new Set(["completed", "failed", "cancelled", "interrupted"]);
 function node(tag, text, className) {
   const element = document.createElement(tag);
@@ -44,7 +44,8 @@ function modeHelp() {
   const mode = $("mode").value;
   $("mode-help").textContent = mode === "synthetic" ?
     "Generated weather data + mock proposals. Trains models and simulates backtests to verify software; no real performance evidence. May take a few minutes." : mode === "history" ?
-    "Reuse completed Bitcoin captures in this workspace, fetch up to ten later official results, and test binary models only with enough independent receipt-time history. Repeat captures on different dates; a current fetch cannot backfill old decisions. No execution returns." : mode === "recorded" ?
+    "Reuse completed Bitcoin captures in this workspace, fetch up to ten later official results, and test binary models only with enough independent receipt-time history. Repeat captures on different dates; a current fetch cannot backfill old decisions. No execution returns." : mode === "weather_history" ?
+    "Use the selected immutable dataset of retained weather receipts. Review readiness and exact evidence shortages below. Models fit only through existing evidence gates; holdout dates remain frozen." : mode === "recorded" ?
     "Six historical city/day events across three dates. Certified forecast vintages and scalar highs are absent; expect an insufficient-data result." : bitcoin ?
     "Fetch actual KXBTC contract rules and Coinbase BTC-USD spot. Spot is a covariate, never a settlement label. Forward capture only; no historical evaluation." :
     "Fetch Philadelphia/Chicago contract rules and current Open-Meteo/NWS forecast vintages. New receipts cannot backfill historical features or outcomes.";
@@ -119,6 +120,7 @@ function renderResult() {
   }
   content.append(notice(`${result.data_kind === "synthetic" ? "SYNTHETIC SOFTWARE DEMONSTRATION. " : "REAL EVIDENCE. "}${result.reasoning_limit} Final holdout is excluded.`));
   if (result.acquisition) renderAcquisition(content, result.acquisition);
+  if (result.weather_history) renderWeatherHistory(content, result.weather_history);
   if (result.bitcoin_history) renderBitcoinHistory(content, result.bitcoin_history);
   if (result.research) {
     const research = panel(`Research orchestration · ${result.reasoning}`);
@@ -141,6 +143,50 @@ function renderAcquisition(content, acquisition) {
   section.append(node("p", `Capture (UTC): ${acquisition.started_at} → ${acquisition.decision_time}. Universe complete: ${acquisition.universe_complete}. History complete: ${acquisition.history_complete}.`, "hint"), list(acquisition.limitations));
   content.append(section);
 }
+function renderWeatherHistory(content, snapshot) {
+  const r = snapshot.readiness;
+  const section = panel("Retained weather dataset · " + r.status.replaceAll("_", " "));
+  section.classList.add("weather-history");
+  section.append(node("code", snapshot.dataset_id), node("p", `${snapshot.capture_count} captures · ${snapshot.observation_count} deduplicated observations · ${r.independent_events} events on ${r.date_blocks} dates · ${r.protected_events} protected events.`),
+    node("p", `${r.eligible_events} eligible forecast events · ${r.scalar_label_events} source-matched scalar labels · ${r.binary_label_events} binary-label events (unprotected).`),
+    table(["Partition", "Events / dates", "Timely matched labels", "Required", "Shortage", "Label cutoff"], Object.entries(r.partitions).map(([name, p]) => [name, `${p.events} / ${p.dates}`, p.timely_source_matched_events, p.minimum_events, p.shortage, p.label_cutoff])),
+    list(r.blockers), list(r.limitations));
+  if (r.capture_audit) section.append(node("p", `${r.incomplete_captures} incomplete captures · ${r.capture_failures} acquisition failures.`), detail("Original capture clocks, receipts and acquisition failures", r.capture_audit));
+  content.append(section);
+}
+async function weatherDatasets(selected) {
+  const rows = await api("/api/weather/datasets");
+  state.weatherDatasets = rows;
+  const previous = selected || $("weather-dataset").value;
+  $("weather-dataset").replaceChildren(...(rows.length ? rows.map((snapshot) => {
+    const option = node("option", `${snapshot.dataset_id.slice(7, 19)} · ${snapshot.readiness.independent_events} events · ${snapshot.readiness.status}`);
+    option.value = snapshot.dataset_id.slice(7); return option;
+  }) : [node("option", "No retained dataset yet")]));
+  if (rows.length && rows.some(s => s.dataset_id.slice(7) === previous)) $("weather-dataset").value = previous;
+  if (rows.length && $("family").value === "weather" && $("mode").value === "recorded") {
+    $("mode").value = "weather_history"; modeHelp();
+  }
+  showWeatherReadiness();
+}
+function showWeatherReadiness() {
+  $("weather-readiness").replaceChildren();
+  const snapshot = state.weatherDatasets.find(s => s.dataset_id.slice(7) === $("weather-dataset").value);
+  if (snapshot) renderWeatherHistory($("weather-readiness"), snapshot);
+}
+$("weather-dataset").addEventListener("change", () => {
+  $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp(); showWeatherReadiness();
+});
+$("weather-freeze").addEventListener("click", async () => {
+  $("weather-freeze").disabled = true;
+  $("weather-message").textContent = "Verifying receipts and freezing dataset…";
+  try {
+    const snapshot = await api("/api/weather/datasets", {});
+    await weatherDatasets(snapshot.dataset_id.slice(7));
+    $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp();
+    $("weather-message").textContent = "Immutable dataset selected. Review its shortages, then start research.";
+  } catch (error) { $("weather-message").textContent = error.message; }
+  finally { $("weather-freeze").disabled = false; }
+});
 function renderBitcoinHistory(content, history) {
   const section = panel("Retained Bitcoin history");
   const reconciliation = history.reconciliation;
@@ -214,7 +260,7 @@ $("research-form").addEventListener("submit", async (event) => {
   $("submit").disabled = true; $("form-message").textContent = "Saving research request…";
   try {
     const reasoning = $("reasoning").value;
-    const response = await api("/api/jobs", { idea: $("idea").value, family: $("family").value, mode: $("mode").value, reasoning, enable_provider: reasoning === "provider" && $("enable-provider").checked });
+    const response = await api("/api/jobs", { ...($("mode").value === "weather_history" ? { dataset_id: $("weather-dataset").value } : {}), idea: $("idea").value, family: $("family").value, mode: $("mode").value, reasoning, enable_provider: reasoning === "provider" && $("enable-provider").checked });
     $("enable-provider").checked = false;
     await selectJob(response.id); $("form-message").textContent = "Request saved. Follow its progress on the right.";
   } catch (error) { $("form-message").textContent = error.message; }
@@ -288,7 +334,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {

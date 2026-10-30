@@ -5,7 +5,7 @@ import json
 import sys
 from collections.abc import Sequence
 from dataclasses import asdict
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 from importlib.metadata import version
 from pathlib import Path
@@ -29,6 +29,7 @@ from entropytrade.weather.probability import InsufficientHistoryError
 
 
 class ModelingConfig(DomainModel):
+    boundaries: tuple[date, date, date] | None = None
     seed: int = 17
     min_train_events: int = Field(default=60, ge=30)
     min_calibration_events: int = Field(default=20, ge=20)
@@ -46,7 +47,12 @@ def _examples(
     examples: dict[str, EventExample] = {}
     for row in sorted(rows, key=lambda r: (r["decision_time"], r["market_ticker"])):
         event = row["event_id"]
-        if event not in events or event in examples or not row["feature_eligible"]:
+        if (
+            event not in events
+            or event in examples
+            or not row["feature_eligible"]
+            or datetime.fromisoformat(row["decision_time"]) > asof
+        ):
             continue
         available = row["temperature_available_at"]
         target = row["temperature_target_f"]
@@ -191,7 +197,7 @@ def _run_modeling(
     predictions: list[dict[str, Any]] = []
     artifacts: dict[str, str] = {}
     try:
-        plan = temporal_plan(rows)
+        plan = temporal_plan(rows, config.boundaries)
     except ValueError as exc:
         result["reason"] = str(exc)
         result["refusals"] = dict.fromkeys(
@@ -285,7 +291,7 @@ def _run_modeling(
                     for split, found in evaluated.items()
                 },
             }
-        if config.walk_forward:
+        if config.walk_forward and config.boundaries is None:
             result["walk_forward"] = []
             for index, fold in enumerate(walk_forward_plans(rows), 1):
                 fold_result: dict[str, Any] = {

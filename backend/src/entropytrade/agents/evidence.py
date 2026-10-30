@@ -78,6 +78,7 @@ class ResearchEvidence:
             if not item.resolve().is_relative_to(config.root.resolve()):
                 raise ValueError("evidence symlink escaped root")
         manifest = _json(directory / "manifest.json")
+        protected_events.update(manifest.get("protected_events", []))
         self.catalog = manifest["schema"]
         self.registered_names = tuple(f["name"] for f in self.catalog["features"])
         self.registered_versions = {f["name"]: f["version"] for f in self.catalog["features"]}

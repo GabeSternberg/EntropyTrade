@@ -44,7 +44,9 @@ def provider_config(value: object) -> dict[str, str]:
 
 def validate_request(value: object, *, stored: bool = False) -> dict[str, Any]:
     base = {"idea", "family", "mode"}
-    optional = {"reasoning", "enable_provider"} | ({"research_provider"} if stored else set())
+    optional = {"reasoning", "enable_provider", "dataset_id"} | (
+        {"research_provider"} if stored else set()
+    )
     if not isinstance(value, dict) or not base <= set(value) or set(value) - base - optional:
         raise ValueError("provide only idea, family and mode with optional reasoning and opt-in")
     if any(not isinstance(value[k], str) for k in base):
@@ -57,6 +59,7 @@ def validate_request(value: object, *, stored: bool = False) -> dict[str, Any]:
         "public",
         "synthetic",
         "history",
+        "weather_history",
     }:
         raise ValueError("unknown family or data mode")
     if family == "bitcoin" and mode not in {"public", "history"}:
@@ -64,7 +67,15 @@ def validate_request(value: object, *, stored: bool = False) -> dict[str, Any]:
     if mode == "history" and family != "bitcoin":
         raise ValueError("retained history mode currently supports Bitcoin only")
     clean: dict[str, Any] = {"idea": idea, "family": family, "mode": mode}
-    if set(value) != base:
+    if mode == "weather_history":
+        from entropytrade.weather.history import snapshot_id
+
+        if family != "weather":
+            raise ValueError("retained weather datasets require the weather family")
+        clean["dataset_id"] = snapshot_id(value.get("dataset_id"))
+    elif "dataset_id" in value:
+        raise ValueError("dataset selection requires retained weather mode")
+    if {"reasoning", "enable_provider", "research_provider"} & set(value):
         reasoning, enabled = value.get("reasoning"), value.get("enable_provider")
         if (
             not isinstance(reasoning, str)
@@ -116,6 +127,10 @@ class Jobs:
         clean = validate_request(request)
         if clean.get("reasoning") == "provider":
             clean["research_provider"] = provider_config(provider)
+        if clean["mode"] == "weather_history":
+            from entropytrade.weather.history import load_snapshot
+
+            load_snapshot(self.root / "runs/weather-datasets" / clean["dataset_id"])
         job_id, now = str(uuid4()), timestamp()
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -202,6 +217,53 @@ class Jobs:
                 "history exceeds 128 captures/snapshots; use an explicit CLI partition"
             )
         return captures, previous
+
+    def weather_inputs(self) -> tuple[list[Path], list[Path], frozenset[str]]:
+        """Committed weather paths only; independent of the UI history window."""
+        from entropytrade.api.recovery import check_artifacts
+        from entropytrade.features.registry import scientific_hash
+
+        with self.connect() as db:
+            runs = db.execute(
+                "SELECT id FROM jobs WHERE status='completed' "
+                "AND json_extract(request, '$.family')='weather' "
+                "AND json_extract(request, '$.mode')='public' ORDER BY id LIMIT 129"
+            ).fetchall()
+            tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+            cycles = (
+                db.execute(
+                    "SELECT c.id, c.monitor_id, c.result, c.digest, m.model_binding "
+                    "FROM shadow_cycles c "
+                    "JOIN monitors m ON m.id=c.monitor_id WHERE m.family='weather' "
+                    "AND c.status='completed' ORDER BY c.id LIMIT 129"
+                ).fetchall()
+                if "shadow_cycles" in tables
+                else []
+            )
+        if len(runs) + len(cycles) > 128:
+            raise ValueError(
+                "weather history exceeds 128 inputs; select an operator-reviewed partition"
+            )
+        captures = [self.root / "runs" / identifier(r["id"]) / "public" for r in runs]
+        outcomes = []
+        protected: set[str] = set()
+        for cycle in cycles:
+            root = self.root / "shadow" / identifier(cycle["monitor_id"]) / identifier(cycle["id"])
+            result = json.loads(cycle["result"])
+            if (
+                scientific_hash(result) != cycle["digest"]
+                or json.loads((root / "result.json").read_text()) != result
+                or not {"public/manifest.json", "outcomes/summary.json"}
+                <= {a["path"] for a in result["artifacts"]}
+            ):
+                raise ValueError("retained weather cycle differs from committed evidence")
+            check_artifacts(root, result["artifacts"])
+            captures.append(root / "public")
+            outcomes.append(root)
+            binding = json.loads(cycle["model_binding"]) if cycle["model_binding"] else None
+            if binding and binding.get("snapshot"):
+                protected.update(binding["snapshot"]["protected_events"])
+        return captures, outcomes, frozenset(protected)
 
     def update(
         self,

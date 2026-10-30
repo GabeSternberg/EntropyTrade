@@ -1,0 +1,24 @@
+{
+  "initial_listener": {
+    "status": "failed",
+    "command": ".venv/bin/pytest backend/tests/integration/test_weather_history_listener.py -q",
+    "failure": "socket.socket(AF_INET, SOCK_STREAM): PermissionError: [Errno 1] Operation not permitted"
+  },
+  "initial_browser_install": {
+    "status": "failed",
+    "command": "npm --prefix frontend/browser run install:chromium",
+    "failure": "ENOENT: no such file or directory, mkdir '/home/gabriel/.cache/ms-playwright'"
+  },
+  "managed_browser_install": {
+    "status": "passed",
+    "command": "PLAYWRIGHT_BROWSERS_PATH=<repo>/frontend/browser/.browsers npm --prefix frontend/browser run install:chromium"
+  },
+  "socket_acceptance": "Passed through normal tool approval with empty credential environment; no sandbox policy changes or denied Chromium launches",
+  "superseded_suites": [
+    "full-suite.log: intentionally interrupted after 44 passes when new fixture needed repair",
+    "full-suite-final.log: intentionally interrupted after 316 passes when committed-shadow receipt verification was added"
+  ],
+  "earlier_browser_runs": "Separate passing intermediate-source runs retained; final source evidence is browser-committed/",
+  "clean_install": "Not executed in this milestone; uses existing environment",
+  "external_provider": "Deferred; no credential accessed or external provider verified"
+}

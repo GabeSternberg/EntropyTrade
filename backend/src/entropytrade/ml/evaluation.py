@@ -3,7 +3,7 @@
 import math
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from itertools import pairwise
 from typing import Any
 
@@ -22,7 +22,9 @@ class TemporalPlan:
     calibration_asof: datetime
 
 
-def temporal_plan(rows: list[dict[str, Any]]) -> TemporalPlan:
+def temporal_plan(
+    rows: list[dict[str, Any]], boundaries: tuple[date, date, date] | None = None
+) -> TemporalPlan:
     by_date: dict[str, set[str]] = defaultdict(set)
     decisions: dict[str, datetime] = {}
     event_dates: dict[str, str] = {}
@@ -48,24 +50,41 @@ def temporal_plan(rows: list[dict[str, Any]]) -> TemporalPlan:
         dates[train_end:validation_end],
         dates[validation_end:],
     ]
+    if boundaries is not None:
+        if not boundaries[0] < boundaries[1] < boundaries[2]:
+            raise ValueError("frozen temporal boundaries must be strictly ordered")
+        cuts = [boundary.isoformat() for boundary in boundaries]
+        groups = [
+            [d for d in dates if d < cuts[0]],
+            [d for d in dates if cuts[0] <= d < cuts[1]],
+            [d for d in dates if cuts[1] <= d < cuts[2]],
+            [d for d in dates if d >= cuts[2]],
+        ]
     ids = [tuple(sorted(e for day in days for e in by_date[day])) for days in groups]
-    if not all(ids):
+    if not all(ids[:3]) or (boundaries is None and not ids[3]):
         raise ValueError("temporal partitions must all contain events")
     event_decisions: dict[str, list[datetime]] = defaultdict(list)
     for row in rows:
         event_decisions[row["event_id"]].append(datetime.fromisoformat(row["decision_time"]))
-    for earlier, later in pairwise(ids):
-        if max(t for e in earlier for t in event_decisions[e]) >= min(
-            t for e in later for t in event_decisions[e]
-        ):
-            raise ValueError("decision schedules overlap temporal date partitions")
+    fit_asof = min(t for e in ids[1] for t in event_decisions[e])
+    calibration_asof = min(t for e in ids[2] for t in event_decisions[e])
+    if boundaries is None:
+        for earlier, later in pairwise(ids):
+            if max(t for e in earlier for t in event_decisions[e]) >= min(
+                t for e in later for t in event_decisions[e]
+            ):
+                raise ValueError("decision schedules overlap temporal date partitions")
+    elif fit_asof >= calibration_asof:
+        raise ValueError("retained fitting/calibration decision cutoffs overlap")
+    # Calendar membership stays frozen. Actual first decisions bound availability;
+    # overnight/repeated receipts never move a label into an earlier model fit.
     return TemporalPlan(
         ids[0],
         ids[1],
         ids[2],
         ids[3],
-        fit_asof=decisions[groups[1][0]],
-        calibration_asof=decisions[groups[2][0]],
+        fit_asof,
+        calibration_asof,
     )
 
 

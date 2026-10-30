@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="9" time="15.651" timestamp="2026-10-30T19:20:50.029262-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_weather_history" name="test_authentic_snapshot_replay_deduplicates_and_preserves_clocks" time="0.775" /><testcase classname="backend.tests.unit.test_weather_history" name="test_frozen_partition_and_source_holdout_survive_added_receipts" time="0.561" /><testcase classname="backend.tests.unit.test_weather_history" name="test_duplicate_vintages_revisions_and_delayed_receipts_are_not_retimed" time="0.001" /><testcase classname="backend.tests.unit.test_weather_history" name="test_partial_staging_recovers_without_overwriting_snapshot" time="0.513" /><testcase classname="backend.tests.unit.test_weather_history" name="test_refuse_empty_corrupt_cross_family_and_unsafe_inputs" time="0.006" /><testcase classname="backend.tests.unit.test_weather_history" name="test_fixed_calendar_modeling_uses_original_gates_and_never_holdout" time="9.606" /><testcase classname="backend.tests.unit.test_weather_history" name="test_scalar_labels_are_source_matched_revision_clocked_and_not_bias_leaks" time="0.306" /><testcase classname="backend.tests.unit.test_weather_history" name="test_official_binary_receipts_preserve_availability_without_scalar_inference" time="0.579" /><testcase classname="backend.tests.unit.test_weather_history" name="test_calendar_membership_stays_frozen_with_overnight_and_repeated_decisions" time="0.002"><failure message="KeyError: 'feature_eligible'">def test_calendar_membership_stays_frozen_with_overnight_and_repeated_decisions() -&gt; None:
+        from entropytrade.ml.experiment import _examples
+        from tests.r2_support import row
+    
+        start = date(2025, 1, 1)
+        rows = [row(start + timedelta(days=n)) for n in range(100)]
+        # CONTROLLED: decisions arrive before target day and recur across UTC midnight.
+        repeated = []
+        for item in rows:
+            at = datetime.fromisoformat(item["decision_time"])
+            item["decision_time"] = (at - timedelta(days=1)).isoformat()
+            repeated.append({**item, "decision_time": (at + timedelta(hours=10)).isoformat()})
+        cuts = (start + timedelta(days=48), start + timedelta(days=60), start + timedelta(days=90))
+        plan = temporal_plan(rows + repeated, cuts)
+        assert len(plan.fit) == 48
+        assert len(plan.calibration) == 12
+        assert len(plan.validation) == 30
+        assert len(plan.holdout) == 10
+        assert plan.fit_asof == min(
+            datetime.fromisoformat(r["decision_time"])
+            for r in rows
+            if r["event_id"] in plan.calibration
+        )
+&gt;       examples = _examples(rows + repeated, plan.fit, plan.fit_asof)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/unit/test_weather_history.py:398: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rows = [{'event_id': 'FIX-2025-01-01', 'market_ticker': 'FIX-2025-01-01-B70', 'decision_time': '2024-12-31T15:00:00+00:00', '...et_ticker': 'FIX-2025-01-06-B70', 'decision_time': '2025-01-05T15:00:00+00:00', 'target_date': '2025-01-06', ...}, ...]
+events = ('FIX-2025-01-01', 'FIX-2025-01-02', 'FIX-2025-01-03', 'FIX-2025-01-04', 'FIX-2025-01-05', 'FIX-2025-01-06', ...)
+asof = datetime.datetime(2025, 2, 17, 15, 0, tzinfo=datetime.timezone.utc)
+
+    def _examples(
+        rows: Sequence[dict[str, Any]], events: tuple[str, ...], asof: datetime
+    ) -&gt; list[EventExample]:
+        examples: dict[str, EventExample] = {}
+        for row in sorted(rows, key=lambda r: (r["decision_time"], r["market_ticker"])):
+            event = row["event_id"]
+            if (
+                event not in events
+                or event in examples
+&gt;               or not row["feature_eligible"]
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+                or datetime.fromisoformat(row["decision_time"]) &gt; asof
+            ):
+E           KeyError: 'feature_eligible'
+
+backend/src/entropytrade/ml/experiment.py:53: KeyError</failure></testcase></testsuite></testsuites>

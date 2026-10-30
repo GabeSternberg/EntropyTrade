@@ -29,7 +29,10 @@ def main():
     parser.add_argument("--npm-cache-seed", type=Path)
     parser.add_argument("--chromium-seed", type=Path)
     parser.add_argument("--test-seconds", default=600, type=int)
-    parser.add_argument("--browser-grep", default="local operation and recovery|provider-backed website")
+    parser.add_argument(
+        "--browser-grep",
+        default="local operation and recovery|provider-backed website|authentic retained weather",
+    )
     parser.add_argument(
         "--prepare-only",
         action="store_true",
@@ -77,6 +80,10 @@ def main():
         "data/r3-demo",
         "data/r4-demo",
     ]
+    # Exact authentic receipt inputs used by weather history tests/browser setup.
+    # Export the two public captures, not the surrounding prior operating evidence.
+    weather_receipts = repo / "data/shadow-review/20261029-model-integration/completion/real-cycles"
+    roots.extend(str(p.relative_to(repo)) for p in sorted(weather_receipts.glob("*/*/public")))
     names = [
         "pyproject.toml",
         "uv.lock",

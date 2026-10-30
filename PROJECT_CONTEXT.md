@@ -1,10 +1,10 @@
 # EntropyTrade project context
 
-Updated 2026-10-29. **V1 remains incomplete.** The current milestone delivers
-provider-backed research through the existing private website and durable jobs. Work stays
-on designated `supervisor/20261029-141757`, based on `9dff058`; no Git mutations or
-supervisor-control changes. The supervisor owns independent review and all Git operations.
-No real credentials were accessed and no external provider was called.
+Updated 2026-10-30. **V1 remains incomplete.** The current milestone connects retained
+weather receipts to browser dataset selection and the existing research/model/backtest
+workflow. Work stays on designated `supervisor/20261030-191216` from `c461db3`.
+The supervisor owns all Git operations and independent review. No Git mutations,
+supervisor-control edits, new family, credential access or external provider calls.
 
 ## Product direction
 
@@ -14,6 +14,42 @@ receipt clocks and frozen validation windows. Prefer forward authentic collectio
 never fabricate historical availability. Do independent product work while data accrues.
 A new major family requires user approval following a comparison of point-in-time history,
 resolution semantics, modeling feasibility, costs and realistic validation. None is selected.
+
+## Retained weather history through the browser
+
+The website can freeze immutable, deduplicated snapshots from this workspace's completed
+weather public captures and shadow cycles, inspect readiness, select an exact dataset,
+submit an idea and download the existing deterministic experiment/insufficiency review.
+Retained datasets become the default when present; the static six-event dataset remains
+available for legacy reproduction. Original forecast, rule and label availability clocks
+are retained. Finalized shadow binary outcomes are source/terms checked and never supply
+scalar temperature labels. Original acquisition incompleteness/failures remain visible.
+
+First-snapshot target-date partitions are frozen at 48 days fitting, 12 calibration,
+30 validation, then protected holdout. Inherited protections persist; protected scalar
+labels cannot leak into prior bias features. Actual next-partition decisions bound labels
+available for model fitting/calibration. Existing event/date/model/fee/depth/risk minimums
+remain enforced; no real-money execution is introduced. Snapshot publication is atomic,
+repeated receipts reuse a content identity, and staging retry/restart/offline restore
+preserve completed artifacts and request references. Inputs are bounded to 128 captures
+and 256 MB, with explicit refusal rather than truncation.
+
+Final verification passes **1,058 pytest tests in 353.35 seconds**, Ruff lint/format
+(backend/tools, 514 files), strict mypy (511 files), 18 named frontend checks and
+actual managed Chromium acceptance (5 screenshots, 4 matching downloads, no page errors).
+Authentic browser-workspace offline snapshot/restore also passes. See the
+[verification receipt](data/weather-history-review/20261030/verification.json).
+
+Authentic receipt replay proves the browser path with 4 events on 2 dates, 24 contracts,
+48 decision rows, 648 observations and zero matched scalar highs. Real fitting/performance
+remain insufficient; controlled label/revision/outcome tests and synthetic fitting are
+separate software evidence. Actual managed Chromium, localhost workers, downloads and
+restart execute. See [current evidence](data/weather-history-review/20261030/README.md),
+[guide](docs/weather-history.md) and [V1 matrix](docs/v1_acceptance.md). Current-environment
+checks do not constitute a new clean install or independent release review.
+Return this milestone for supervisor review. Keep collecting authentic receipts; external
+provider verification waits for separately authorized credentials. Bitcoin boundaries,
+family selection and the final empirical release gaps remain unchanged.
 
 ## Provider research through the private website
 

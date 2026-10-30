@@ -3,6 +3,7 @@
 import argparse
 import json
 import secrets
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -48,6 +49,7 @@ class WorkbenchServer(ThreadingHTTPServer):
         except BaseException:
             self.lock.close()
             raise
+        self.weather_lock = threading.Lock()
         self.token = secrets.token_urlsafe(32)
 
     def server_close(self) -> None:
@@ -128,13 +130,42 @@ class Handler(BaseHTTPRequestHandler):
                     "csrf_token": self.server.token,
                     "reasoning": "local_templates; synthetic mode uses explicit mock proposals",
                     "families": ["weather", "bitcoin"],
-                    "modes": ["recorded", "public", "synthetic", "history"],
+                    "modes": ["recorded", "public", "synthetic", "history", "weather_history"],
                     "provider_enabled": bool(getattr(self.server, "research_provider", None)),
                     "research_provider": getattr(self.server, "research_provider", None),
                     "submission_enabled": False,
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
             )
+        elif path == "/api/weather/datasets":
+            from entropytrade.weather.history import load_snapshot
+
+            try:
+                root = self.server.jobs.root / "runs/weather-datasets"
+                snapshots = [load_snapshot(p) for p in sorted(root.glob("[0-9a-f]" * 64))]
+                self.document(
+                    200,
+                    [
+                        {
+                            k: s[k]
+                            for k in (
+                                "dataset_id",
+                                "capture_count",
+                                "observation_count",
+                                "readiness",
+                            )
+                        }
+                        for s in snapshots
+                    ],
+                )
+            except (ValueError, OSError, KeyError) as exc:
+                self.document(
+                    400,
+                    {
+                        "error": "Retained weather dataset verification failed "
+                        f"({type(exc).__name__})"
+                    },
+                )
         elif path == "/api/jobs":
             self.document(200, self.server.jobs.history())
         elif path == "/api/monitors":
@@ -180,6 +211,34 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
+            if self.path == "/api/weather/datasets" and value == {}:
+                from entropytrade.weather.history import build_snapshot
+
+                if not self.server.weather_lock.acquire(blocking=False):
+                    raise ValueError("a weather snapshot is already being built")
+                try:
+                    captures, outcomes, protected = self.server.jobs.weather_inputs()
+                    snapshot = build_snapshot(
+                        self.server.jobs.root / "runs/weather-datasets",
+                        captures,
+                        outcome_roots=outcomes,
+                        protected_events=protected,
+                    )
+                    self.document(
+                        201,
+                        {
+                            k: snapshot[k]
+                            for k in (
+                                "dataset_id",
+                                "capture_count",
+                                "observation_count",
+                                "readiness",
+                            )
+                        },
+                    )
+                finally:
+                    self.server.weather_lock.release()
+                return
             if self.path == "/api/jobs":
                 job_id = self.server.jobs.create(
                     value, provider=getattr(self.server, "research_provider", None)
@@ -204,7 +263,7 @@ class Handler(BaseHTTPRequestHandler):
                     )
                     self.document(200, {"cancelled": changed})
                     return
-        except (ValueError, UnicodeError) as exc:
+        except (ValueError, UnicodeError, OSError, KeyError) as exc:
             self.document(400, {"error": str(exc)})
             return
         self.document(404, {"error": "not found"})

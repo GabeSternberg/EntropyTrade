@@ -3,7 +3,52 @@
 Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: provider research through the private website
+## Current milestone: retained weather history through the browser
+
+Implemented on designated `supervisor/20261030-191216` from `c461db3`. The supervisor
+owns all Git operations and independent review. No branch/commit/merge/push operations,
+credential access, external provider verification, new family or real orders were used.
+**V1 remains incomplete.**
+
+The browser now freezes and selects content-addressed weather snapshots from completed
+public captures and shadow cycles, then uses the existing research → StrategySpec → R2
+feature/model → R4 experiment workflow. Original receipt clocks, forecast revisions and
+source-matched scalar-label rules remain intact. Independent counts, partition shortages,
+original acquisition failures and protected exclusions are visible on every result tab.
+The six-event sample remains a legacy option; retained datasets become the default when
+available. Reports and review JSON remain downloadable after restart and offline restore.
+
+Snapshots deduplicate repeated captures/vintages, preserve actual open-contract decision
+times, validate later binary outcomes against original terms/raw receipts, publish atomically
+and recover interrupted staging on explicit retry. First-snapshot calendar partitions stay
+fixed (48/12/30 days, then protected holdout); inherited source/model protections persist.
+Protected scalar labels cannot enter error/bias features. Actual decision clocks constrain
+training/calibration label availability, including overnight/repeated receipts. Existing
+minimum-evidence, execution, fee and risk gates remain; binary results never invent highs.
+
+Final verification passes **1,058 pytest tests in 353.35 seconds**, Ruff lint/format
+(backend/tools, 514 files), strict mypy (511 files), 18 named frontend checks and
+actual managed Chromium acceptance (5 screenshots, 4 matching downloads, no page errors).
+Authentic browser-workspace offline snapshot/restore also passes. See the
+[verification receipt](data/weather-history-review/20261030/verification.json).
+
+Authentic acceptance receipts yield **4 independent events on 2 dates, 24 contracts,
+48 decision rows, 648 deduplicated observations and zero source-matched scalar highs**.
+Research therefore saves explicit insufficiency with zero fitted probabilities or backtest
+scenarios. Real Chromium interaction and the actual localhost/worker/recovery test pass;
+final quality results are recorded in the [evidence bundle](data/weather-history-review/20261030/README.md).
+The current environment is reused; no new clean-install pass is claimed. See the
+[operating guide](docs/weather-history.md) and [acceptance matrix](docs/v1_acceptance.md).
+
+The initial sandbox socket creation denial and incorrect default Playwright home-cache
+attempt remain documented; repo-local managed Chromium installation and normal approved,
+credential-free localhost/browser execution succeed. No sandbox policy or test assertion
+was weakened. Return this substantial milestone for supervisor review before further work.
+Authentic labels/fitting, certified fees, empirical two-family validation and independent
+V1 release acceptance remain open. Preserve Bitcoin's frozen boundaries; select no family.
+External-provider verification waits for separate credential authorization.
+
+## Previous milestone: provider research through the private website
 
 October 30 correction on the same designated branch, from `194fbe9`: unknown pricing
 is refused on each raw model response before tool processing, validation retries,

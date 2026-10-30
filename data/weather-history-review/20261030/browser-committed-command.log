@@ -1,0 +1,10 @@
+
+> entropytrade-browser-acceptance@1.0.0 test
+> playwright test --grep authentic retained weather
+
+
+Running 1 test using 1 worker
+
+  ✓  1 weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart (18.2s)
+
+  1 passed (19.0s)

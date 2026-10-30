@@ -125,7 +125,10 @@ def research_and_test(
         )
     except ValueError:
         proposed = None
-    if proposed and adapters is None:
+    fixed_weather = adapters is None and "temporal_boundaries" in json.loads(
+        (features / "manifest.json").read_text()
+    )
+    if proposed and adapters is None and not fixed_weather:
         boundary = min(s.target_date for s in data.samples if s.event_id in proposed.holdout)
         config = config.revalidated(holdout_start=min(config.holdout_start, boundary))
     # The same fixed policy protects both the agent projections and deterministic engine.

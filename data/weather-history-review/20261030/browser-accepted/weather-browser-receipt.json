@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-30T23:25:29.396Z",
+  "origin": "http://127.0.0.1:43147",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/weather-accepted-20261030-weather-history",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "action": "import",
+      "evidence": {
+        "captures": [
+          {
+            "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+            "decision_time": "2026-10-29T16:35:47.288061+00:00",
+            "job_id": "f1eb1769-a613-4301-8973-af4f92b627fe",
+            "manifest_sha256": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+            "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public"
+          },
+          {
+            "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+            "decision_time": "2026-10-29T16:35:37.734441+00:00",
+            "job_id": "11a52194-8ada-4a27-9e18-7fa4169c7bd4",
+            "manifest_sha256": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+            "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public"
+          }
+        ],
+        "evidence": "Authentic retained weather receipt replay; no new acquisition or empirical performance"
+      }
+    },
+    {
+      "action": "start",
+      "epoch": 1
+    },
+    {
+      "action": "research",
+      "id": "1f278082-bfb6-4013-84a4-ef5152e1c0db",
+      "dataset_id": "fdfe0f49a6f40a24718162b9ee156e0a5b985aace4426d5039a3ecbc4403797d"
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "epoch": 2
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "weather-dataset.png",
+      "sha256": "095bb0bd46af90abc92e10d37ce1452de37397439a172e38a8312c754026cf6f"
+    },
+    {
+      "file": "weather-Review.png",
+      "sha256": "90f294863d6ba0cd080e3af84e78472807cf5eec3ecdbf97b04f64a29342de24"
+    },
+    {
+      "file": "weather-Probabilities.png",
+      "sha256": "96021ee963db214b042beaa81333da23569abe4e1a1759fbbbeb43d31d2e89d7"
+    },
+    {
+      "file": "weather-Evidence---lineage.png",
+      "sha256": "cd4486d5a68fcc14892f5e189fa3d7addf04b92b1ffcffc66b41d8ac6a1fd9ef"
+    },
+    {
+      "file": "weather-restart.png",
+      "sha256": "7b09054c4436fa9634557dd18935e7fdfe1a049c225941c46b08a69382df8760"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "weather-review.json",
+      "sha256": "ce8337c092af462f13eaa2fcddb0b3c6d099e64705309464c8bacc63e52f94f5"
+    },
+    {
+      "file": "weather-report.txt",
+      "sha256": "9b6f0dfff6528636af69dbd409c951b1f11193ad2c6b205f203f0a1f57ce98a2"
+    },
+    {
+      "file": "weather-restart-review.json",
+      "sha256": "ce8337c092af462f13eaa2fcddb0b3c6d099e64705309464c8bacc63e52f94f5"
+    },
+    {
+      "file": "weather-restart-report.txt",
+      "sha256": "9b6f0dfff6528636af69dbd409c951b1f11193ad2c6b205f203f0a1f57ce98a2"
+    }
+  ],
+  "page_errors": [],
+  "limitations": [
+    "Authentic original receipt replay, not new acquisition.",
+    "Four weather events on two dates lack source-matched scalar highs; no empirical model or returns.",
+    "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+  ],
+  "finished_at": "2026-10-30T23:25:47.026Z"
+}

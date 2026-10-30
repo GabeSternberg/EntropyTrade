@@ -167,7 +167,11 @@ def validate_database(root: Path) -> dict[str, int]:
         jobs = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM jobs")}
         reviews = []
         for job_id, job in jobs.items():
-            validate_request(json.loads(job["request"]), stored=True)
+            request = validate_request(json.loads(job["request"]), stored=True)
+            if request["mode"] == "weather_history":
+                from entropytrade.weather.history import load_snapshot
+
+                load_snapshot(root / "runs/weather-datasets" / request["dataset_id"])
             if job["status"] not in {
                 "queued",
                 "running",
@@ -187,6 +191,10 @@ def validate_database(root: Path) -> dict[str, int]:
                     review = root / "runs" / job_id / "review.json"
                     if not review.is_file() or json.loads(review.read_text()) != result:
                         raise ValueError("missing or inconsistent research review")
+        from entropytrade.weather.history import load_snapshot
+
+        for directory in (root / "runs/weather-datasets").glob("[0-9a-f]" * 64):
+            load_snapshot(directory)
         validate_registry(root, reviews)
         monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
         for monitor in monitors.values():

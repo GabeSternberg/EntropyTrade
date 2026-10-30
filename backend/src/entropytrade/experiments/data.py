@@ -190,6 +190,7 @@ def weather_data(features: Path) -> ExperimentData:
         feature_version=manifest["feature_version"],
         data_kind=manifest["data_kind"],
         samples=tuple(samples),
+        protected_events=frozenset(manifest.get("protected_events", [])),
         feature_definitions=manifest["schema"],
         provenance={
             "feature_file_hash": file_hash(features / "features.parquet"),
@@ -234,8 +235,17 @@ class WeatherPredictions:
         metadata_rows = pq.read_table(
             self.features / "features.parquet", columns=["event_id", "target_date", "decision_time"]
         ).to_pylist()
+        manifest = json.loads((self.features / "manifest.json").read_text())
+        boundaries = (
+            tuple(date.fromisoformat(d) for d in manifest["temporal_boundaries"])
+            if "temporal_boundaries" in manifest
+            else None
+        )
+        if boundaries is not None and len(boundaries) != 3:
+            raise ValueError("retained weather needs exactly three frozen boundaries")
+        fixed = None if boundaries is None else (boundaries[0], boundaries[1], boundaries[2])
         try:
-            plan = temporal_plan(metadata_rows)
+            plan = temporal_plan(metadata_rows, fixed)
         except ValueError:
             plan = None
         if (
@@ -245,7 +255,7 @@ class WeatherPredictions:
             raise ValueError(
                 "protected boundary overlaps fitting/evaluation; use an earlier partition"
             )
-        config = ModelingConfig(calibration=calibration, evaluate_holdout=False)
+        config = ModelingConfig(calibration=calibration, evaluate_holdout=False, boundaries=fixed)
         result = run_modeling(
             features=self.features,
             output=self.output,

@@ -1,0 +1,20 @@
+E501 Line too long (126 > 100)
+   --> backend/tests/unit/test_weather_history.py:393:101
+    |
+391 |     assert len(plan.validation) == 30
+392 |     assert len(plan.holdout) == 10
+393 |     assert plan.fit_asof == min(datetime.fromisoformat(r["decision_time"]) for r in rows if r["event_id"] in plan.calibration)
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+394 |     examples = _examples(rows + repeated, plan.fit, plan.fit_asof)
+395 |     assert all(e.decision <= plan.fit_asof and e.label_available <= plan.fit_asof for e in examples)
+    |
+
+E501 Line too long (102 > 100)
+   --> backend/tests/unit/test_weather_history.py:396:101
+    |
+394 |     examples = _examples(rows + repeated, plan.fit, plan.fit_asof)
+395 |     assert all(e.decision <= plan.fit_asof and e.label_available <= plan.fit_asof for e in examples)
+396 |     assert not {e.event_id for e in examples} & set(plan.calibration + plan.validation + plan.holdout)
+    |                                                                                                     ^^
+
+Found 2 errors.

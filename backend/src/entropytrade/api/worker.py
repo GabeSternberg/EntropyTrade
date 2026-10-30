@@ -18,6 +18,7 @@ from entropytrade.families.bitcoin_history import build_history, history_data
 from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions
 from entropytrade.families.public import ForwardPredictions, capture_public, forward_data
 from entropytrade.weather.collection import WeatherConfig
+from entropytrade.weather.history import load_snapshot
 
 
 def acquisition_summary(provenance: dict[str, Any]) -> dict[str, Any]:
@@ -195,7 +196,21 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
         config_path = repo / "configs/research/weather.json"
         public = None
         history = None
-        if request["mode"] == "history":
+        weather_history = None
+        if request["mode"] == "weather_history":
+            progress("dataset", "Verifying immutable retained weather snapshot and original clocks")
+            root = jobs.root / "runs/weather-datasets" / request["dataset_id"]
+            weather_history = load_snapshot(root)
+            config = EvidenceConfig(
+                root=root.resolve(),
+                features=weather_history["features"],
+                holdout_start=date.fromisoformat(
+                    weather_history["identity"]["temporal_boundaries"][2]
+                ),
+            )
+            config_path = run / "evidence.json"
+            config_path.write_text(config.model_dump_json(indent=2))
+        elif request["mode"] == "history":
             progress(
                 "reconciling",
                 "Verifying retained Bitcoin receipts and fetching later official outcomes",
@@ -271,6 +286,26 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
         failed = result.get("status") == "RESEARCH_FAILED"
         progress("review", "Saving protected research and experiment evidence")
         review = review_result(result, output)
+        if weather_history is not None:
+            summary = {
+                k: weather_history[k]
+                for k in (
+                    "dataset_id",
+                    "capture_count",
+                    "observation_count",
+                    "readiness",
+                    "identity",
+                )
+            }
+            review["weather_history"] = summary
+            review["report"] = "\n".join(
+                [
+                    "Retained weather dataset " + summary["dataset_id"],
+                    json.dumps(summary["readiness"], sort_keys=True),
+                    "",
+                    review["report"],
+                ]
+            )
         if history is not None:
             review["bitcoin_history"] = history.provenance
             review["report"] = "\n".join(

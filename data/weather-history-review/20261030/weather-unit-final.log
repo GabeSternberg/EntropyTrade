@@ -1,0 +1,56 @@
+........F                                                                [100%]
+=================================== FAILURES ===================================
+_ test_calendar_membership_stays_frozen_with_overnight_and_repeated_decisions __
+
+    def test_calendar_membership_stays_frozen_with_overnight_and_repeated_decisions() -> None:
+        from entropytrade.ml.experiment import _examples
+        from tests.r2_support import row
+    
+        start = date(2025, 1, 1)
+        rows = [row(start + timedelta(days=n)) for n in range(100)]
+        # CONTROLLED: decisions arrive before target day and recur across UTC midnight.
+        repeated = []
+        for item in rows:
+            at = datetime.fromisoformat(item["decision_time"])
+            item["decision_time"] = (at - timedelta(days=1)).isoformat()
+            repeated.append({**item, "decision_time": (at + timedelta(hours=10)).isoformat()})
+        cuts = (start + timedelta(days=48), start + timedelta(days=60), start + timedelta(days=90))
+        plan = temporal_plan(rows + repeated, cuts)
+        assert len(plan.fit) == 48
+        assert len(plan.calibration) == 12
+        assert len(plan.validation) == 30
+        assert len(plan.holdout) == 10
+        assert plan.fit_asof == min(
+            datetime.fromisoformat(r["decision_time"])
+            for r in rows
+            if r["event_id"] in plan.calibration
+        )
+>       examples = _examples(rows + repeated, plan.fit, plan.fit_asof)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/unit/test_weather_history.py:398: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rows = [{'event_id': 'FIX-2025-01-01', 'market_ticker': 'FIX-2025-01-01-B70', 'decision_time': '2024-12-31T15:00:00+00:00', '...et_ticker': 'FIX-2025-01-06-B70', 'decision_time': '2025-01-05T15:00:00+00:00', 'target_date': '2025-01-06', ...}, ...]
+events = ('FIX-2025-01-01', 'FIX-2025-01-02', 'FIX-2025-01-03', 'FIX-2025-01-04', 'FIX-2025-01-05', 'FIX-2025-01-06', ...)
+asof = datetime.datetime(2025, 2, 17, 15, 0, tzinfo=datetime.timezone.utc)
+
+    def _examples(
+        rows: Sequence[dict[str, Any]], events: tuple[str, ...], asof: datetime
+    ) -> list[EventExample]:
+        examples: dict[str, EventExample] = {}
+        for row in sorted(rows, key=lambda r: (r["decision_time"], r["market_ticker"])):
+            event = row["event_id"]
+            if (
+                event not in events
+                or event in examples
+>               or not row["feature_eligible"]
+                       ^^^^^^^^^^^^^^^^^^^^^^^
+                or datetime.fromisoformat(row["decision_time"]) > asof
+            ):
+E           KeyError: 'feature_eligible'
+
+backend/src/entropytrade/ml/experiment.py:53: KeyError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_weather_history.py::test_calendar_membership_stays_frozen_with_overnight_and_repeated_decisions
+1 failed, 8 passed in 15.74s

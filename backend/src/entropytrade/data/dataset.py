@@ -222,6 +222,7 @@ def make_rows(
     observations: Sequence[Observation],
     states: Sequence[MarketState],
     version: str,
+    receipt_decisions: dict[str, tuple[datetime, ...]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[str]]:
     grouped: dict[str, list[MarketEvidence]] = {}
     locations = {p.series: p for p in config.locations}
@@ -244,7 +245,11 @@ def make_rows(
         series = latest.market.series_ticker or ticker.split("-", 1)[0]
         location = locations[series]
         present.add(f"{series}:{day}")
-        for decision in decisions(day, config.decision_utc):
+        for decision in (
+            decisions(day, config.decision_utc)
+            if receipt_decisions is None
+            else receipt_decisions.get(ticker, ())
+        ):
             known = [
                 e
                 for e in history

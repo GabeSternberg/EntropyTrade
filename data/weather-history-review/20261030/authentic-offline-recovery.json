@@ -1,0 +1,23 @@
+{
+  "comparison": "All imported/research job rows and exact selected snapshot bytes match; normal restore validates all artifacts and original receipt hashes",
+  "dataset_id": "fdfe0f49a6f40a24718162b9ee156e0a5b985aace4426d5039a3ecbc4403797d",
+  "empirical_performance": false,
+  "restore": {
+    "archive_sha256": "sha256:5c564b8bb5fa181284fd377ef04578a526aee7cd921aac4a327cd78230612401",
+    "cycles": 0,
+    "jobs": 3,
+    "monitors": 0,
+    "submission_enabled": false,
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/weather-offline-proof-sn7cdgzs/restored"
+  },
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/weather-history-review/20261030/authentic-workspace.zip",
+    "cycles": 0,
+    "jobs": 3,
+    "monitors": 0,
+    "sha256": "sha256:5c564b8bb5fa181284fd377ef04578a526aee7cd921aac4a327cd78230612401",
+    "submission_enabled": false
+  },
+  "source": "data/cache/weather-committed-20261030-weather-history",
+  "status": "passed"
+}

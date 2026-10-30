@@ -1,0 +1,78 @@
+{
+  "authentic_input_comparison": {
+    "changed": [],
+    "files": 38,
+    "status": "passed"
+  },
+  "authentic_receipts": {
+    "binary_label_events": 0,
+    "capture_failures": 0,
+    "contracts": 24,
+    "date_blocks": 2,
+    "eligible_events": 4,
+    "independent_events": 4,
+    "protected_events": 0,
+    "rows": 48,
+    "scalar_label_events": 0
+  },
+  "backtest_scenarios": 0,
+  "browser": {
+    "all_artifact_hashes_match": true,
+    "directory": "browser-committed",
+    "downloads": 4,
+    "page_errors": [],
+    "procedure": "authentic retained weather",
+    "screenshots": 5,
+    "seconds": 19.0,
+    "status": "passed"
+  },
+  "dataset_id": "sha256:fdfe0f49a6f40a24718162b9ee156e0a5b985aace4426d5039a3ecbc4403797d",
+  "fitted_probabilities": 0,
+  "frontend": {
+    "log": "frontend-final.log",
+    "named_tests": 18,
+    "status": "passed"
+  },
+  "holdout_evaluated": false,
+  "limitations": [
+    "Existing environment; no new clean-install pass",
+    "Authentic source-matched scalar highs and empirical validation remain absent",
+    "Certified effective fees and empirical two-family validation remain open",
+    "External provider verification deferred until separately authorized credentials",
+    "Snapshots select completed captures/cycles and are bounded to 128 inputs/256 MB",
+    "Independent supervisor review pending; no Git mutations, credentials or real orders"
+  ],
+  "milestone": "Retained weather browser research/backtest workflow",
+  "observations": 648,
+  "offline_recovery": {
+    "archive": "authentic-workspace.zip",
+    "jobs": 3,
+    "receipt": "authentic-offline-recovery.json",
+    "status": "passed"
+  },
+  "ruff": {
+    "format_files": 514,
+    "scope": "backend tools",
+    "status": "passed"
+  },
+  "source_comparison": {
+    "changed": [],
+    "files": 541,
+    "status": "passed"
+  },
+  "strict_mypy": {
+    "files": 511,
+    "status": "passed"
+  },
+  "suite": {
+    "errors": 0,
+    "failures": 0,
+    "junit": "complete-suite.xml",
+    "log": "complete-suite.log",
+    "seconds": 353.35,
+    "skipped": 0,
+    "tests": 1058
+  },
+  "v1_complete": false,
+  "verified_at": "2026-10-30T23:34:10.877392+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "python": "3.12.3",
+  "packages": {
+    "pydantic": "2.13.5",
+    "numpy": "2.5.3",
+    "pyarrow": "19.0.1",
+    "scikit-learn": "1.9.1",
+    "pytest": "9.1.1",
+    "mypy": "2.4.0",
+    "ruff": "0.16.10"
+  },
+  "installation": "Existing project environment; no fresh locked installation executed in this milestone"
+}

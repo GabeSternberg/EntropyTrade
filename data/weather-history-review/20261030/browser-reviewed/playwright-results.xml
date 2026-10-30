@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="18.5706">
+<testsuite name="weather-history.spec.cjs" timestamp="2026-10-30T23:23:38.182Z" hostname="" tests="1" failures="0" skipped="0" time="17.72" errors="0">
+<testcase name="authentic retained weather: freeze, select, research, downloads and restart" classname="weather-history.spec.cjs" time="17.72">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

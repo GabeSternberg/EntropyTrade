@@ -1,0 +1,5 @@
+............................................
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/gabriel/Projects/EntropyTrade/backend/tests/integration/test_workbench_process.py:38: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+44 passed in 116.60s (0:01:56)

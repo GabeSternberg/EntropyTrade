@@ -1,4 +1,25 @@
-# V1 acceptance evidence — October 29, 2026
+# V1 acceptance evidence — October 30, 2026
+
+**complete=false.** This milestone implements retained weather history through the
+browser on the designated branch. All Git operations and independent sign-off remain
+with the supervisor. No real-money orders, new family or credential access occurred.
+External-provider verification is deferred until separately authorized credentials.
+
+| Requirement | Current milestone evidence | Result / remaining work |
+|---|---|---|
+| Browser receipt ingestion → dataset selection → research/backtest → downloadable results | [Managed Chromium harness](../frontend/browser/weather-history.spec.cjs), [current browser receipt](../data/weather-history-review/20261030/browser-committed/weather-browser-receipt.json), [guide](weather-history.md) | **Scoped authentic-receipt workflow passes.** Ordinary localhost/worker, explicit dataset selection, all tabs, downloads and restart execute. This replays original authentic captures; no new acquisition or empirical performance is implied. |
+| Immutable datasets, provenance and deterministic replay | `weather/history.py`, `data/dataset.py`, archive exports and feature pipeline; `test_weather_history.py` | **Scoped checks pass.** Reversed/duplicate input replay is identical; checksums, publication/staging recovery, revision conflicts, first receipt clocks and original acquisition failures are preserved. 4 events, 2 dates, 24 contracts, 48 decisions and 648 observations replace dependence on the legacy six-event sample. |
+| Source-matched labels, known-at-time fitting and holdout protection | Existing `verified_targets`/`_examples`; retained fixed partitions; controlled scalar/binary receipt and overnight regressions | **Software checks pass; empirical gate incomplete.** Wrong-source highs cannot substitute; binary outcomes cannot invent scalar labels. Corrections require their original availability; fitting uses timely labels. Fixed 48/12/30-day calendar membership and inherited protections persist across snapshots; protected labels cannot enter bias features. Authentic scalar highs remain absent. |
+| Deterministic experiments and realistic accounting | Existing research/StrategySpec/model/R4 engine; authentic browser insufficiency; separately labelled synthetic fitting regression | **Integrated refusal path passes.** Authentic samples yield no fitted probabilities, scenarios, fills or performance claims. Existing minimums, fee/depth/risk gates stay enforced. Sufficient empirical fitting/backtests and certified effective fees remain open. |
+| Durable restart, cancellation and offline restore | `test_weather_history_listener.py`, browser downloads/restart; recovery snapshot validation | **Scoped checks pass.** Frozen dataset references, interrupted/cancelled requests and completed result bytes persist; offline restore includes verified snapshots. Broader pre-existing shadow/provider recovery remains covered by the suite. |
+| Two meaningfully distinct empirically validated families | Existing weather and optional Bitcoin adapters | **Incomplete.** No family selected; Bitcoin dates remain frozen. Authentic forward ingestion and synthetic fitting do not satisfy empirical two-family validation. |
+| Provider-backed research with authorized research credentials | Prior controlled provider integration and pricing evidence below | **Deferred external verification.** No credentials accessed. Existing server configuration, explicit per-run consent and credential isolation remain enforced. |
+| Required quality gates and browser artifacts | [Current evidence bundle](../data/weather-history-review/20261030/README.md) | **Pass:** Ruff/format (514 files), strict mypy (511 files), all **1,058 pytest tests in 353.35s**, 18 frontend cases and the actual Chromium procedure (5 screenshots, 4 downloads, zero page errors). Actual managed-Chromium screenshots/downloads are distinct from controlled/unit checks. The existing environment is reused; no new clean-install pass is claimed. |
+| Safety and release review | Existing submission boundary and risk tests; unchanged Bitcoin/family/credential boundaries | **V1 incomplete.** No live execution or risk cap changes. Independent supervisor review and a final verified release matrix remain required. |
+
+The prior evidence below remains historical and keeps its original scope and limitations.
+
+# Historical V1 evidence — October 29, 2026
 
 **complete=false.** The current milestone connects provider-backed research to the existing
 private website. This matrix records scoped software and operating evidence; it is not

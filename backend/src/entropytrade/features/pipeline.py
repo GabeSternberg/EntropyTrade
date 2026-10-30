@@ -338,6 +338,10 @@ def build_features(
         "cutoff_rule": "each row uses only information available by its decision time",
         "forecast_proxy": "maximum hourly forecast, not a claim of exact settlement measurement",
     }
+    if "temporal_boundaries" in manifest:
+        payload["temporal_boundaries"] = manifest["temporal_boundaries"]
+        payload["protected_events"] = manifest.get("protected_events", [])
+        payload["retained_capture_audit"] = manifest.get("retained_capture_audit", [])
     version = scientific_hash(payload)
     destination = output / version.removeprefix("sha256:")
     if destination.exists():

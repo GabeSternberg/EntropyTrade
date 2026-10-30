@@ -130,3 +130,28 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     assert.ok(descendants(content).every(child => child.tag !== "script"));
   });
 }
+
+for (const tab of ["review", "probabilities", "lineage"]) {
+  test(`${tab}: retained weather counts and shortages stay visible`, () => {
+    const { context, content } = application();
+    const result = fixture(false);
+    delete result.acquisition;
+    result.weather_history = {
+      dataset_id: "sha256:" + "a".repeat(64), capture_count: 2, observation_count: 648,
+      readiness: { status: "insufficient_data", independent_events: 4, date_blocks: 2,
+        protected_events: 1, eligible_events: 3, scalar_label_events: 0, binary_label_events: 0,
+        partitions: { fit: { events: 3, dates: 2, timely_source_matched_events: 0,
+          minimum_events: 60, shortage: 60, label_cutoff: "2026-12-16T00:00:00+00:00" } },
+        blockers: ["fit: 0/60 independent source-matched events", "No source-matched integer settlement highs"],
+        limitations: ["Original receipt clocks are preserved", "Protected final holdout is excluded"] },
+    };
+    context.show(result, tab);
+    const summary = content.children.find(child => child.className.includes("weather-history"));
+    assert.ok(summary);
+    for (const value of ["4 events on 2 dates", "1 protected events", "0 source-matched scalar labels",
+      "fit: 0/60", "No source-matched integer settlement highs", "Original receipt clocks", "Final holdout is excluded."]) {
+      assert.ok(text(summary).includes(value) || text(content).includes(value), value);
+    }
+    assert.ok(!descendants(summary).some(child => child.tag === "details"));
+  });
+}

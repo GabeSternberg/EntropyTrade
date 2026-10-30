@@ -21,7 +21,7 @@
             <textarea id="idea" name="idea" rows="5" maxlength="6000" required placeholder="Do upward forecast revisions improve weather contract probabilities?">Do upward forecast revisions improve weather contract probabilities?</textarea>
             <div class="examples"><button type="button" data-example="weather">Weather</button><button type="button" data-example="bitcoin">Bitcoin</button><button type="button" data-example="synthetic">Software demo</button></div>
             <label for="family">Market family</label><select id="family" name="family"><option value="weather">Weather · daily high temperature</option><option value="bitcoin">Bitcoin · KXBTC contracts</option></select>
-            <label for="mode">Data source</label><select id="mode" name="mode"><option value="recorded">Recorded real weather evidence</option><option value="public">Fetch public sources now</option><option value="history">Retained Bitcoin history + official outcomes</option><option value="synthetic">Synthetic weather demonstration</option></select>
+            <label for="mode">Data source</label><select id="mode" name="mode"><option value="recorded">Legacy six-event weather sample</option><option value="weather_history">Retained weather dataset</option><option value="public">Fetch public sources now</option><option value="history">Retained Bitcoin history + official outcomes</option><option value="synthetic">Synthetic weather demonstration</option></select>
             <p id="mode-help" class="hint"></p>
             <label for="reasoning">Hypothesis formulation</label><select id="reasoning"><option value="local">Local templates · no provider credentials</option><option value="provider" disabled>Provider research · server configuration required</option></select>
             <div id="provider-options" hidden><p id="provider-help" class="hint"></p><label><input id="enable-provider" type="checkbox"> I authorize this bounded provider research run and its API cost.</label><p class="hint">Only the separately configured research credential is used. Evidence and your idea are sent to the selected provider. Limits: $2 when cost is available, 16 requests, 24 tool calls, 180 seconds; unknown cost stops further requests. No exchange credentials or orders.</p></div>
@@ -29,6 +29,14 @@
             <button class="primary" id="submit" type="submit">Start research <span aria-hidden="true">↗</span></button>
             <p id="form-message" role="status" class="hint"></p>
           </form>
+        </section>
+        <section class="panel" aria-labelledby="weather-datasets-title">
+          <h2 id="weather-datasets-title">Retained weather history</h2>
+          <p class="hint">Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.</p>
+          <button id="weather-freeze" type="button">Freeze retained weather dataset</button>
+          <label for="weather-dataset">Weather dataset</label><select id="weather-dataset"><option value="">No retained dataset yet</option></select>
+          <p id="weather-message" role="status" class="hint"></p>
+          <div id="weather-readiness"></div>
         </section>
         <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
       </aside>

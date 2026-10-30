@@ -9,7 +9,29 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current provider milestone includes a pricing-boundary correction: inspect each raw
+The current milestone is browser-accessible retained weather history → research/backtest.
+Completed forward/shadow captures become immutable content-addressed snapshots with
+original availability clocks, deduplicated vintages, actual retained decisions, source-matched
+labels, fixed protection and explicit readiness shortages. The ordinary R2/R4 engines run
+against the selected snapshot and honestly refuse insufficient evidence. Dataset/research
+selection, results/downloads, restart and offline restore have executable acceptance.
+See [guide](weather-history.md) and [current evidence](../data/weather-history-review/20261030/README.md).
+Final checks pass all 1,058 pytest tests, Ruff/format, strict mypy, 18 frontend cases
+and the actual managed-Chromium weather procedure. Authentic receipt replay has four
+events on two dates and no matched scalar highs; no
+empirical probability accuracy, backtest return or profitability is established.
+
+Continuous read-only collection continues while independent functionality is delivered.
+Preserve Bitcoin's frozen boundaries; neither unavailable historical windows nor a new
+family selection is required to approve this safe intermediate milestone. Defer external
+provider verification until separately authorized credentials. Return this milestone for
+independent supervisor review; do not silently start another major phase. V1 remains
+incomplete until sufficient authentic data/validation, certified effective fees, robust
+operating/browser evidence and the full independent acceptance matrix pass.
+
+### Prior provider and operating milestones
+
+The preceding provider milestone includes a pricing-boundary correction: inspect each raw
 response before any retry, tool/continuation request or later research stage. Unknown
 pricing must persist a failed downloadable review with no experiments; a priced subtotal
 cannot mask a later unpriced response. Controlled regressions and actual localhost browser
@@ -19,7 +41,7 @@ and limitations. All 1,047 pytest cases, Ruff/format, strict mypy, 15 frontend c
 both actual Chromium procedures pass in the existing environment. This does not advance
 empirical validation or authorize another milestone.
 
-The current milestone delivers opt-in provider research through the private website:
+The preceding milestone delivers opt-in provider research through the private website:
 durable isolated jobs, 2–6 typed hypotheses, deterministic candidate/experiment gates,
 visible source/model lineage and budgets, downloadable failures and restart/cancellation.
 Server configuration and fresh per-run consent are required; only the dedicated research

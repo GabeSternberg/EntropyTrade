@@ -1,0 +1,16 @@
+Retained weather dataset sha256:9ec83cdaa53481daaa12ff523c28cb65e7037fd4cce044c418717be71701e9a1
+{"binary_label_events": 0, "blockers": ["fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00", "calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00", "validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00", "at least ten distinct event dates required for temporal evaluation", "No source-matched integer settlement highs; binary results cannot substitute"], "contracts": 24, "date_blocks": 2, "eligible_events": 4, "independent_events": 4, "limitations": ["Original receipt clocks are preserved; importing a receipt does not backfill availability.", "Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.", "Source-matched integer settlement highs, independent dates and timely labels gate fitting.", "No certified effective fees or executable historical depth; no empirical returns claimed.", "Protected final holdout is excluded from research, fitting and evaluation."], "partitions": {"calibration": {"dates": 0, "events": 0, "label_cutoff": "2026-12-28T00:00:00+00:00", "minimum_events": 20, "shortage": 20, "timely_source_matched_events": 0}, "fit": {"dates": 2, "events": 4, "label_cutoff": "2026-12-16T00:00:00+00:00", "minimum_events": 60, "shortage": 60, "timely_source_matched_events": 0}, "validation": {"dates": 0, "events": 0, "label_cutoff": "2027-01-27T00:00:00+00:00", "minimum_events": 20, "shortage": 20, "timely_source_matched_events": 0}}, "protected_events": 0, "rows": 48, "scalar_label_events": 0, "status": "insufficient_data", "temporal_boundaries": ["2026-12-16", "2026-12-28", "2027-01-27"]}
+
+# Research-to-experiment report
+
+Data: real. Research run: d4b24f27-5654-4f4c-88da-c57a4fb97d3c
+Final holdout: not evaluated. No trading authorization.
+
+template-c0: INSUFFICIENT_DATA
+insufficient independent dates/known forecasts/source-matched labels; execution P&L is unavailable without certified rules, sized books and fee evidence
+template-c1: INSUFFICIENT_DATA
+insufficient independent dates/known forecasts/source-matched labels; execution P&L is unavailable without certified rules, sized books and fee evidence
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.
