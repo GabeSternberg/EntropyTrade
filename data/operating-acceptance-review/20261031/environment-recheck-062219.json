@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-10-31T06:22:19.725861+00:00",
+  "branch": "supervisor/20261031-022158",
+  "source_commit": "9cc91bc",
+  "python": "3.12.3",
+  "status": "blocked",
+  "method": "One direct standard-library capability probe in the current sandbox; no permission elevation or browser launch.",
+  "localhost_listener": {
+    "status": "blocked",
+    "operation": "socket.socket() before localhost bind/listen",
+    "error": "PermissionError(1, 'Operation not permitted')",
+    "errno": 1
+  },
+  "socketpair": {
+    "status": "blocked",
+    "operation": "socket.socketpair()",
+    "error": "PermissionError(1, 'Operation not permitted')",
+    "errno": 1
+  },
+  "locked_driver_executed": false,
+  "browser_procedures_executed": 0,
+  "complete_pytest_executed": false,
+  "acceptance_complete": false,
+  "reason": "Required socket capabilities remain unavailable. Stop for supervisor/user intervention rather than repeat the previously denied browser launch and full-suite stall.",
+  "required_next_action": "Provide a supervisor-approved environment permitting localhost listeners, socketpairs and Playwright-managed Chromium, then run the default locked driver without --prepare-only against a fresh output directory.",
+  "open_gates": [
+    "All six real-browser operating-acceptance procedures",
+    "Complete pytest suite",
+    "External provider verification",
+    "Empirical validation",
+    "User-approved second-family selection",
+    "Independent V1 release acceptance"
+  ],
+  "git_mutations": false,
+  "implementation_changes": false
+}
