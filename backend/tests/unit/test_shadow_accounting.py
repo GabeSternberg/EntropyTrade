@@ -15,7 +15,7 @@ from entropytrade.tracking.accounting import account_hash, reproduce, verify_exp
 from entropytrade.tracking.runner import ShadowRunner
 from entropytrade.tracking.store import TrackingStore
 from tests.paper_support import paper_inputs
-from tests.unit.test_tracking import monitor
+from tests.unit.test_tracking import REPO, monitor
 
 
 def test_causal_fills_accounting_and_offline_json_reproduction() -> None:
@@ -35,6 +35,30 @@ def test_causal_fills_accounting_and_offline_json_reproduction() -> None:
     assert execution["fills"][0]["executed_at"] > result["decisions"][0]["decision_time"]
     assert execution["fills"][0]["yes_price"] == "0.5000"
     assert not result["submission_enabled"]
+
+
+def test_safe_legacy_account_export_reproduces_without_inventing_historical_audits() -> None:
+    original = (
+        REPO / "data/paper-accounting-review/20261031/final/controlled-export.json"
+    ).read_text()
+    value = json.loads(original)
+    assert verify_export(value)["paper_cycles"] == 5
+    assert json.loads(original) == value
+    for cycle in value["cycles"]:
+        if cycle.get("result") and "paper_inputs" in cycle["result"]:
+            assert cycle["result"]["paper_inputs"]["schema"] == "shadow-paper-inputs-v1"
+
+
+def test_legacy_inputs_cannot_bypass_corrected_execution_edge_gate() -> None:
+    inputs = paper_inputs()
+    inputs["schema"] = "shadow-paper-inputs-v1"
+    next(iter(inputs["execution_books"].values()))["asks"][0]["quantity"] = ".01"
+    result = reproduce(inputs)
+    execution = result["executions"][0]
+    assert execution["reason"] == "execution_risk_rejected"
+    assert not execution["risk"]["approved"]
+    assert not result["state"]["ledger"]["orders"]
+    assert not result["state"]["ledger"]["fills"]
 
 
 @pytest.mark.parametrize("case", ["missing", "future", "too_early", "closed", "crossed"])
@@ -92,6 +116,87 @@ def test_price_improvement_clamp_partial_ioc_fok_and_liquidity_not_reused() -> N
     refused = reproduce(fok)
     assert not refused["state"]["ledger"]["fills"]
     assert refused["executions"][0]["reason"] == "insufficient_fok_capacity"
+
+
+@pytest.mark.parametrize(
+    ("intended", "executable", "minimum", "passed"),
+    [
+        ("2", ".01", ".03", False),
+        ("2", ".10", ".150001", False),
+        ("2", ".10", ".15", True),
+        ("2", ".25", ".210001", False),
+        ("2", ".25", ".21", True),
+        ("5", "3", ".230001", False),
+        ("5", "3", ".23", True),
+        ("5", "3", ".229999", True),
+    ],
+)
+def test_ioc_reduced_quantity_rechecks_actual_rounded_fee_edge(
+    intended: str, executable: str, minimum: str, passed: bool
+) -> None:
+    inputs = paper_inputs()
+    spec = inputs["decision_inputs"]["spec"]
+    spec["position_sizing"]["contracts"] = intended
+    spec["minimum_edge"] = minimum
+    next(iter(inputs["execution_books"].values()))["asks"][0]["quantity"] = executable
+    result = reproduce(inputs)
+    assert result["decisions"][0]["status"] == "shadow_eligible"
+    execution = result["executions"][0]
+    assert Decimal(execution["fill_plan"]["quantity"]) == Decimal(executable)
+    check = next(c for c in execution["risk"]["checks"] if c["check_name"] == "execution_net_edge")
+    assert check["passed"] is passed
+    assert execution["risk"]["approved"] is passed
+    if passed:
+        assert Decimal(result["summary"]["positions"][0]["quantity"]) == Decimal(executable)
+        assert Decimal(result["summary"]["fees"]) == Decimal(execution["fill_plan"]["fee"])
+        assert Decimal(check["observed"]) >= Decimal(minimum)
+    else:
+        assert execution["reason"] == "execution_risk_rejected"
+        assert not execution["fills"]
+        assert not result["state"]["ledger"]["orders"]
+        assert result["summary"]["cash"] == "1000.000000"
+        assert result["summary"]["fees"] == "0.000000"
+
+
+@pytest.mark.parametrize(("minimum", "passed"), [(".140001", False), (".14", True)])
+@pytest.mark.parametrize("side", ["yes", "no"])
+def test_ioc_multiple_price_levels_charge_each_rounded_slice(
+    minimum: str, passed: bool, side: str
+) -> None:
+    inputs = paper_inputs()
+    spec = inputs["decision_inputs"]["spec"]
+    spec["position_sizing"]["contracts"] = "5"
+    spec["slippage_allowance"] = ".02"
+    spec["minimum_edge"] = minimum
+    book = next(iter(inputs["execution_books"].values()))
+    if side == "no":
+        spec["side"] = side
+        spec["entry_rules"]["all_of"][0]["threshold"] = ".1"
+        inputs["decision_inputs"]["bundle"]["records"][0]["probability_yes"] = ".25"
+        decision_book = inputs["decision_inputs"]["data"]["samples"][0]["book"]
+        decision_book["bids"][0]["price"] = ".50"
+        decision_book["asks"][0]["price"] = ".60"
+        book["asks"][0]["price"] = ".60"
+    book["asks" if side == "yes" else "bids"] = [
+        {"price": p, "quantity": ".10"}
+        for p in ((".50", ".51", ".52") if side == "yes" else (".50", ".49", ".48"))
+    ]
+    result = reproduce(inputs)
+    assert result["decisions"][0]["status"] == "shadow_eligible"
+    execution = result["executions"][0]
+    plan = execution["fill_plan"]
+    assert Decimal(plan["quantity"]) == Decimal(".30")
+    assert Decimal(plan["fee"]) == Decimal(".03")
+    assert Decimal(plan["cost"]) == Decimal(".153")
+    check = next(c for c in execution["risk"]["checks"] if c["check_name"] == "execution_net_edge")
+    assert Decimal(check["observed"]) == Decimal(".14")
+    assert check["passed"] is passed
+    if passed:
+        assert len(execution["fills"]) == 3
+        assert sum((Decimal(f["fee"]) for f in execution["fills"]), Decimal(0)) == Decimal(".03")
+    else:
+        assert not execution["fills"]
+        assert not result["state"]["ledger"]["orders"]
 
 
 def test_fee_transition_expiry_conflict_and_execution_risk() -> None:

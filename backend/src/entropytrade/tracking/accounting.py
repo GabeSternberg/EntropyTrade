@@ -17,12 +17,13 @@ from uuid import UUID
 from entropytrade.backtest.replay import clamp_to_decision
 from entropytrade.domain.enums import LiquidityRole, MarketResult, OutcomeSide, TimeInForce
 from entropytrade.domain.market_data import OrderBook
-from entropytrade.domain.numeric import ZERO
+from entropytrade.domain.numeric import ZERO, cost_per_contract, notional
 from entropytrade.domain.orders import OrderIntent
+from entropytrade.domain.risk import RiskCheckResult
 from entropytrade.domain.strategy import StrategySpec
 from entropytrade.execution.fee_evidence import FeeVersion, select_fee
 from entropytrade.execution.fees import trade_fee
-from entropytrade.execution.paper import PaperBroker
+from entropytrade.execution.paper import PaperBroker, taker_slices
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.features.registry import scientific_hash
 from entropytrade.portfolio.ledger import Ledger
@@ -95,7 +96,7 @@ def _consume(book: OrderBook, fills: list[Any]) -> OrderBook:
 
 def reproduce(inputs: dict[str, Any]) -> dict[str, Any]:
     """Replay one cycle from frozen JSON, including its pre-cycle account; no I/O."""
-    if inputs["schema"] != "shadow-paper-inputs-v1":
+    if inputs["schema"] not in {"shadow-paper-inputs-v1", "shadow-paper-inputs-v2"}:
         raise ValueError("unknown paper schema")
     before = inputs["before"]
     if account_hash(before) != inputs["before_hash"]:
@@ -315,6 +316,63 @@ def reproduce(inputs: dict[str, Any]) -> dict[str, Any]:
             equity=ledger.equity(),
             model_as_of=datetime.fromisoformat(row["prediction"]["fitted_before"]),
         )
+        if risk.approved:
+            # IOC depth/caps may reduce quantity after the initial edge check. Rounded
+            # fees must be charged on each exact broker slice at that executable size.
+            planned = taker_slices(
+                fill_book,
+                side=intent.contract.side,
+                yes_limit=intent.yes_price,
+                quantity=risk.approved_quantity,
+            )
+            quantity = sum((size for _, size in planned), ZERO)
+            planned_cost = sum(
+                (
+                    notional(cost_per_contract(intent.contract.side, price), size)
+                    for price, size in planned
+                ),
+                ZERO,
+            )
+            planned_fee = sum(
+                (
+                    trade_fee(
+                        fee.schedule, yes_price=price, quantity=size, role=LiquidityRole.TAKER
+                    )
+                    for price, size in planned
+                ),
+                ZERO,
+            )
+            net_value = None
+            if intent.edge is not None and quantity > ZERO:
+                reserves = intent.edge.total_costs - intent.edge.fee_per_contract
+                net_value = (
+                    quantity * (intent.edge.outcome_probability - reserves)
+                    - planned_cost
+                    - planned_fee
+                )
+            # Compare totals to avoid rounding a per-contract edge up across the boundary.
+            passed = net_value is not None and net_value >= spec.minimum_edge * quantity
+            check = RiskCheckResult(
+                check_name="execution_net_edge",
+                passed=passed,
+                observed=str(net_value / quantity) if net_value is not None else None,
+                limit=str(spec.minimum_edge),
+                detail="Executable quantity and per-slice rounded taker fees; reserves retained",
+            )
+            # Keep safe legacy accounting exports byte-reproducible without manufacturing
+            # new historical audit fields. The corrected gate still rejects unsafe v1 fills.
+            if inputs["schema"] == "shadow-paper-inputs-v2" or not passed:
+                audit["fill_plan"] = {
+                    "quantity": str(quantity),
+                    "cost": str(planned_cost),
+                    "fee": str(planned_fee),
+                    "slices": [{"yes_price": str(p), "quantity": str(q)} for p, q in planned],
+                }
+                risk = risk.revalidated(
+                    approved=passed,
+                    approved_quantity=risk.approved_quantity if passed else ZERO,
+                    checks=(*risk.checks, check),
+                )
         risk = risk.revalidated(
             decision_id=UUID(
                 scientific_hash(

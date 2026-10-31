@@ -1,0 +1,12 @@
+[
+  {
+    "source": "data/paper-accounting-review/20261031/final/controlled-export.json",
+    "exit_code": 1,
+    "log": "prior-controlled-export.log"
+  },
+  {
+    "source": "data/paper-accounting-review/20261031/final/authentic-export.json",
+    "exit_code": 0,
+    "log": "prior-authentic-export.log"
+  }
+]

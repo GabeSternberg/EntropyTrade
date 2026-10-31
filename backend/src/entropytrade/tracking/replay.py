@@ -2,11 +2,13 @@
 
 import argparse
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.strategy import StrategySpec
+from entropytrade.exchange.kalshi.recorded import public_book_from_body
 from entropytrade.execution.fee_evidence import FeeVersion
 from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
@@ -85,6 +87,34 @@ def reproduce(inputs: dict[str, Any]) -> list[dict[str, Any]]:
     )
 
 
+def _verify_capture(
+    root: Path, directory: str, capture: dict[str, Any], artifacts: dict[str, str]
+) -> None:
+    """Resolve every receipt in its own capture, including failed responses and series."""
+    summary = f"{directory}/summary.json"
+    if summary not in artifacts or json.loads((root / summary).read_text()) != capture:
+        raise ValueError("shadow capture summary mismatch")
+    refs: set[str] = set()
+    for receipt in capture["receipts"]:
+        ref = receipt["raw_ref"]
+        path = (root / ref).resolve()
+        if (
+            ref in refs
+            or Path(ref).parent.as_posix() != directory
+            or not path.is_relative_to((root / directory).resolve())
+            or not path.is_file()
+            or artifacts.get(ref) != receipt["sha256"]
+            or file_hash(path) != receipt["sha256"]
+        ):
+            raise ValueError("shadow raw receipt checksum/path mismatch")
+        refs.add(ref)
+    for fee in capture.get("fee_evidence", []):
+        if fee["receipt"] not in capture["receipts"] or fee["version"] != scientific_hash(
+            {"receipt": fee["receipt"], "series": fee["series"]}
+        ):
+            raise ValueError("shadow fee receipt binding mismatch")
+
+
 def verify(root: Path) -> dict[str, Any]:
     result = json.loads((root / "result.json").read_text())
     artifacts = result["artifacts"]
@@ -94,6 +124,35 @@ def verify(root: Path) -> dict[str, Any]:
         path = (root / artifact["path"]).resolve()
         if not path.is_relative_to(root.resolve()) or file_hash(path) != artifact["sha256"]:
             raise ValueError("shadow artifact checksum/path mismatch")
+    hashes = {a["path"]: a["sha256"] for a in artifacts}
+    if result.get("execution") is not None:
+        _verify_capture(root, "execution", result["execution"], hashes)
+    later = result.get("paper_execution")
+    if later is not None:
+        _verify_capture(root, "paper-execution", later, hashes)
+        inputs = result["paper_inputs"]
+        books = inputs["execution_books"]
+        if (
+            inputs["execution_series_fees"] != later["fee_evidence"]
+            or len(books) != later["book_count"]
+        ):
+            raise ValueError("paper execution capture binding mismatch")
+        for ticker, saved in books.items():
+            receipts = [
+                r
+                for r in later["receipts"]
+                if r["status"] == 200 and r["path"] == f"/trade-api/v2/markets/{ticker}/orderbook"
+            ]
+            if len(receipts) != 1:
+                raise ValueError("paper book lacks unique successful receipt")
+            receipt = receipts[0]
+            book = public_book_from_body(
+                json.loads((root / receipt["raw_ref"]).read_text()),
+                ticker=ticker,
+                received_at=datetime.fromisoformat(receipt["received_at"]),
+            )
+            if book.model_dump(mode="json") != saved:
+                raise ValueError("paper book differs from retained raw receipt")
     rows = reproduce(json.loads((root / "decision-inputs.json").read_text()))
     if json.loads(json.dumps(rows)) != result["decisions"]:
         raise ValueError("shadow decisions differ from retained result")

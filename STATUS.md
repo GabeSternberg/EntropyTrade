@@ -5,8 +5,27 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: durable simulated paper accounting in continuous shadow
 
-Implemented on designated `supervisor/20261031-002357` from `92a0ec2`. All Git
-operations and independent review remain with the supervisor. **V1 is incomplete.**
+Implemented on designated `supervisor/20261031-002357` from `92a0ec2`; review
+corrections continue in place from `d8bbb94`. All Git operations and independent
+review remain with the supervisor. **V1 is incomplete.**
+
+The review correction now checks net edge after IOC sizing against the executable quantity,
+the broker's exact planned price slices and each slice's rounded taker fee. Existing cost
+reserves and full-intention monetary caps remain enforced. Failed edge cancels execution
+before an order/fill is recorded; the plan and failed risk check remain inspectable.
+Later capture references now resolve under `paper-execution/`. Replay verifies capture
+summaries, every raw reference/hash, nested fee-receipt bindings and later books against
+their original bytes, including self-consistent tampering of frozen computation inputs.
+New accounting inputs use v2 audits. Safe older v1 account chains reproduce without
+inventing historical audit fields; v1 still runs the corrected edge gate and cannot bypass it.
+
+Correction verification passes **388 targeted pytest cases** (375 accounting/collector/
+risk/recovery and 13 history cases), backend Ruff lint/format and strict mypy (531 files).
+The slow 130-cycle case is explicitly deselected; no complete-suite or new browser pass
+is claimed. The extra root-wide format attempt flags an existing Markdown example outside
+the Makefile's backend format gate; its failure is retained without editing unrelated docs.
+See [correction evidence](data/paper-accounting-review/20261031-correction/README.md).
+Request independent re-review of this milestone; do not start another major phase.
 
 The existing collector now maintains a separate per-monitor simulated $1,000 account
 through PaperBroker/Ledger. Original shadow evidence/intentions remain separate from paper
@@ -31,7 +50,7 @@ risk cap raised or exchange submission enabled. Existing Bitcoin work remains op
 
 Ruff/format, strict mypy, targeted accounting/collector/recovery and broader independent
 checks are recorded in [milestone evidence](data/paper-accounting-review/20261031/README.md).
-Current-source verification passes **293 targeted pytest cases in 61.89s**, Ruff/format
+Before the review correction, verification passed **293 targeted pytest cases in 61.89s**, Ruff/format
 and strict mypy (531 files), 21 named frontend assertions and both offline export/restores.
 The broader per-file run passes 208 files; six listener files fail on denied socket creation,
 eleven files reach their external deadlines, and the first collector file remains interrupted.

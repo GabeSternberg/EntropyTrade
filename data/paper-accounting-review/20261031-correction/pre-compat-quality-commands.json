@@ -1,0 +1,47 @@
+[
+  {
+    "command": [
+      ".venv/bin/ruff",
+      "check",
+      "."
+    ],
+    "log": "ruff-root.log",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "."
+    ],
+    "log": "format-root.log",
+    "exit_code": 1
+  },
+  {
+    "command": [
+      ".venv/bin/mypy"
+    ],
+    "log": "mypy.log",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      ".venv/bin/ruff",
+      "check",
+      "backend"
+    ],
+    "log": "ruff.log",
+    "exit_code": 0
+  },
+  {
+    "command": [
+      ".venv/bin/ruff",
+      "format",
+      "--check",
+      "backend"
+    ],
+    "log": "format.log",
+    "exit_code": 0
+  }
+]

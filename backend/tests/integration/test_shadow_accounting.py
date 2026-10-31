@@ -16,7 +16,8 @@ from entropytrade.data.sources import file_hash
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
-from entropytrade.tracking.accounting import verify_export
+from entropytrade.features.registry import scientific_hash
+from entropytrade.tracking.accounting import reproduce, verify_export
 from entropytrade.tracking.replay import verify
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.tracking.worker import collect
@@ -65,20 +66,29 @@ def test_collection_with_later_public_books_persists_fills_and_official_settleme
             }
         )
 
+    payloads: list[bytes] = []
+
     def wire(request: httpx.Request) -> httpx.Response:
         assert request.method == "GET"
         assert not any("kalshi-access" in h or "authorization" in h for h in request.headers)
         if request.url.path.endswith("/orderbook"):
-            return httpx.Response(
+            response = httpx.Response(
                 200,
                 json={
                     "orderbook_fp": {
                         "yes_dollars": [[".40", "10.00"]],
-                        "no_dollars": [[".50", "10.00"]],
+                        "no_dollars": [[".50" if len(payloads) < 2 else ".51", "10.00"]],
                     }
                 },
             )
-        return execution_wire(request)
+        else:
+            response = execution_wire(request)
+        # Distinct initial/later bytes expose aliases even when series semantics agree.
+        response = httpx.Response(
+            200, json={**response.json(), "controlled_capture": len(payloads)}
+        )
+        payloads.append(response.content)
+        return response
 
     def final(request: httpx.Request) -> httpx.Response:
         assert request.method == "GET"
@@ -131,6 +141,7 @@ def test_collection_with_later_public_books_persists_fills_and_official_settleme
     )
     mid = store.create({"job_id": job, "candidate_id": "c0", "interval_seconds": 60})
     for index in range(2):
+        first_payload = len(payloads)
         if index:
             clock.advance_to(sample.close_time + timedelta(hours=2))
             store = TrackingStore(Jobs(tmp_path))
@@ -167,14 +178,68 @@ def test_collection_with_later_public_books_persists_fills_and_official_settleme
         (root / "result.json").write_text(json.dumps(result, sort_keys=True))
         assert store.finish(mid, claim[1], result)
         assert verify(root)["verified"]
+        receipts = result["execution"]["receipts"] + (
+            result["paper_execution"]["receipts"] if result["paper_execution"] else []
+        )
+        assert len(receipts) == len(payloads) - first_payload
+        for receipt, expected in zip(receipts, payloads[first_payload:], strict=True):
+            retained = root / receipt["raw_ref"]
+            assert retained.read_bytes() == expected
+            assert file_hash(retained) == receipt["sha256"]
+        for capture in (result["execution"], result["paper_execution"]):
+            if capture:
+                for fee in capture["fee_evidence"]:
+                    receipt = fee["receipt"]
+                    assert receipt in capture["receipts"]
+                    assert file_hash(root / receipt["raw_ref"]) == receipt["sha256"]
         if not index:
             assert result["paper"]["summary"]["fill_count"] == 1
             assert result["paper_execution"]["book_count"] == 1
+            assert receipts[0]["sha256"] != receipts[2]["sha256"]
+            assert receipts[1]["sha256"] != receipts[3]["sha256"]
+            assert receipts[2]["raw_ref"].startswith("paper-execution/")
+            assert receipts[3]["raw_ref"].startswith("paper-execution/")
+            _assert_replay_rejects_reference_mismatches(root, result)
     value = store.get(mid, export=True)
     assert value
     assert value["paper_summary"]["settlement_count"] == 1
     assert value["paper_summary"]["data_kind"] == "synthetic"
     assert verify_export(value)["paper_cycles"] == 2
+
+
+def _assert_replay_rejects_reference_mismatches(root: Path, result: dict[str, Any]) -> None:
+    original = {p: p.read_bytes() for p in root.rglob("*") if p.is_file()}
+    for fault in ("alias", "hash", "fee", "book", "escape", "missing"):
+        tampered = json.loads(json.dumps(result))
+        capture = tampered["paper_execution"]
+        receipt = capture["receipts"][-1]
+        if fault == "alias":
+            receipt.update(tampered["execution"]["receipts"][-1])
+        elif fault == "hash":
+            receipt["sha256"] = tampered["execution"]["receipts"][-1]["sha256"]
+        elif fault == "fee":
+            fee = capture["fee_evidence"][0]
+            fee["receipt"] = tampered["execution"]["receipts"][0]
+            fee["version"] = scientific_hash({"receipt": fee["receipt"], "series": fee["series"]})
+        elif fault == "book":
+            books = tampered["paper_inputs"]["execution_books"]
+            next(iter(books.values()))["asks"][0]["quantity"] = "99.00"
+            tampered["paper"] = reproduce(tampered["paper_inputs"])
+        elif fault == "escape":
+            receipt["raw_ref"] = "paper-execution/../execution/0001.json"
+        else:
+            receipt["raw_ref"] = "paper-execution/missing.json"
+        (root / "paper-execution/summary.json").write_text(json.dumps(capture))
+        (root / "paper-inputs.json").write_text(json.dumps(tampered["paper_inputs"]))
+        # Rehash modified artifacts so verification must inspect references/bindings.
+        for artifact in tampered["artifacts"]:
+            artifact["sha256"] = file_hash(root / artifact["path"])
+        (root / "result.json").write_text(json.dumps(tampered))
+        with pytest.raises(ValueError, match=r"receipt|book differs"):
+            verify(root)
+        for path, body in original.items():
+            path.write_bytes(body)
+    assert verify(root)["verified"]
 
 
 def test_portable_account_snapshot_restore_and_legacy_upgrade(tmp_path: Path) -> None:

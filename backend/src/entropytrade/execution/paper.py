@@ -28,13 +28,14 @@ def _price_is_marketable(side: OutcomeSide, level_price: Decimal, yes_limit: Dec
     return level_price >= yes_limit
 
 
-def _slices(
+def taker_slices(
     book: OrderBook,
     *,
     side: OutcomeSide,
     yes_limit: Decimal,
     quantity: Decimal,
 ) -> list[tuple[Decimal, Decimal]]:
+    """Plan the exact marketable slices used by the broker, without changing the book."""
     remaining = quantity
     taken: list[tuple[Decimal, Decimal]] = []
     levels = book.asks if side is OutcomeSide.YES else book.bids
@@ -104,7 +105,7 @@ class PaperBroker:
             if _would_cross(book, side=intent.contract.side, yes_limit=intent.yes_price):
                 return self._finish(order, OrderState.REJECTED, now=now)
             return self._rest(order, now=now)
-        planned = _slices(
+        planned = taker_slices(
             book,
             side=intent.contract.side,
             yes_limit=intent.yes_price,

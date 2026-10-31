@@ -1,0 +1,24 @@
+[
+  {
+    "source": "data/paper-accounting-review/20261031/final/controlled-export.json",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "entropytrade.tracking.accounting",
+      "data/paper-accounting-review/20261031/final/controlled-export.json"
+    ],
+    "exit_code": 0,
+    "log": "final-prior-controlled-export.log"
+  },
+  {
+    "source": "data/paper-accounting-review/20261031/final/authentic-export.json",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "entropytrade.tracking.accounting",
+      "data/paper-accounting-review/20261031/final/authentic-export.json"
+    ],
+    "exit_code": 0,
+    "log": "final-prior-authentic-export.log"
+  }
+]

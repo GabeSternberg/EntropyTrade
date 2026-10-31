@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/tracking/accounting.py", line 477, in <module>
+    main()
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/tracking/accounting.py", line 473, in main
+    print(json.dumps(verify_export(json.loads(args.export.read_text())), sort_keys=True))  # noqa: T201
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/tracking/accounting.py", line 455, in verify_export
+    raise ValueError("paper replay differs from committed cycle")
+ValueError: paper replay differs from committed cycle

@@ -61,7 +61,7 @@ async def capture_execution(
         (root / name).write_bytes(raw.body)
         receipts.append(
             {
-                "raw_ref": "execution/" + name,
+                "raw_ref": (Path(root.name) / name).as_posix(),
                 "sha256": file_hash(root / name),
                 "received_at": raw.received_at.isoformat(),
                 "path": raw.path,

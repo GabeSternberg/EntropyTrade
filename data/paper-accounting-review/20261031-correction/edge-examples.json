@@ -1,0 +1,110 @@
+[
+  {
+    "evidence": "CONTROLLED SYNTHETIC regression; never empirical",
+    "intended": "2",
+    "executable": ".01",
+    "minimum": ".03",
+    "status": "blocked",
+    "reason": "execution_risk_rejected",
+    "fill_plan": {
+      "quantity": "0.01",
+      "cost": "0.005000",
+      "fee": "0.010000",
+      "slices": [
+        {
+          "yes_price": "0.5000",
+          "quantity": "0.01"
+        }
+      ]
+    },
+    "edge_checks": [
+      {
+        "check_name": "min_net_edge",
+        "passed": true,
+        "detail": "",
+        "observed": "0.230000",
+        "limit": "0.03"
+      },
+      {
+        "check_name": "execution_net_edge",
+        "passed": false,
+        "detail": "Executable quantity and per-slice rounded taker fees; reserves retained",
+        "observed": "-0.750000",
+        "limit": "0.03"
+      }
+    ],
+    "fill_count": 0
+  },
+  {
+    "evidence": "CONTROLLED SYNTHETIC regression; never empirical",
+    "intended": "5",
+    "executable": "3",
+    "minimum": ".230001",
+    "status": "blocked",
+    "reason": "execution_risk_rejected",
+    "fill_plan": {
+      "quantity": "3.00",
+      "cost": "1.500000",
+      "fee": "0.060000",
+      "slices": [
+        {
+          "yes_price": "0.5000",
+          "quantity": "3.00"
+        }
+      ]
+    },
+    "edge_checks": [
+      {
+        "check_name": "min_net_edge",
+        "passed": true,
+        "detail": "",
+        "observed": "0.232000",
+        "limit": "0.230001"
+      },
+      {
+        "check_name": "execution_net_edge",
+        "passed": false,
+        "detail": "Executable quantity and per-slice rounded taker fees; reserves retained",
+        "observed": "0.230000",
+        "limit": "0.230001"
+      }
+    ],
+    "fill_count": 0
+  },
+  {
+    "evidence": "CONTROLLED SYNTHETIC regression; never empirical",
+    "intended": "5",
+    "executable": "3",
+    "minimum": ".23",
+    "status": "filled",
+    "reason": null,
+    "fill_plan": {
+      "quantity": "3.00",
+      "cost": "1.500000",
+      "fee": "0.060000",
+      "slices": [
+        {
+          "yes_price": "0.5000",
+          "quantity": "3.00"
+        }
+      ]
+    },
+    "edge_checks": [
+      {
+        "check_name": "min_net_edge",
+        "passed": true,
+        "detail": "",
+        "observed": "0.232000",
+        "limit": "0.23"
+      },
+      {
+        "check_name": "execution_net_edge",
+        "passed": true,
+        "detail": "Executable quantity and per-slice rounded taker fees; reserves retained",
+        "observed": "0.230000",
+        "limit": "0.23"
+      }
+    ],
+    "fill_count": 1
+  }
+]

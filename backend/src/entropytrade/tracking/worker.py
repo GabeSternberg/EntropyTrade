@@ -310,7 +310,7 @@ async def collect(
     for contract in contracts:
         all_contracts.setdefault(contract["ticker"], contract["market"])
     paper_inputs = {
-        "schema": "shadow-paper-inputs-v1",
+        "schema": "shadow-paper-inputs-v2",
         "before": monitor.get("paper_account"),
         "before_hash": account_hash(monitor.get("paper_account")),
         "decision_inputs": inputs,

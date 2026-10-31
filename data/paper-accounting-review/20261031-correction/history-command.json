@@ -1,0 +1,14 @@
+{
+  "command": [
+    ".venv/bin/pytest",
+    "backend/tests/unit/test_shadow_history.py",
+    "-k",
+    "not test_130_collector_cycles_partition_restart_and_offline_restore",
+    "-q",
+    "-o",
+    "faulthandler_timeout=60",
+    "--junitxml=data/paper-accounting-review/20261031-correction/history.xml"
+  ],
+  "deadline_seconds": 120,
+  "exit_code": 0
+}

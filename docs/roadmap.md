@@ -17,6 +17,14 @@ consumption, execution-time fee/edge/risk checks and atomic restart-safe commits
 exports and verified workspace restores preserve the account chain. Missing authentic
 models/fees stay blocked; controlled success remains synthetic. No new family is selected.
 
+The current review correction validates edge again after IOC quantity reductions, using the
+same planned slices as PaperBroker and exact per-slice rounded fees. Capture references
+retain their actual initial/later directory; replay resolves and hashes every receipt and
+binds later saved books to original bytes. Fractional, threshold-adjacent integer and
+multi-level YES/NO regressions plus collector/recovery checks are executed in the
+[correction evidence](../data/paper-accounting-review/20261031-correction/README.md).
+Return this correction for independent re-review; browser/full-suite gates remain open.
+
 See [paper accounting](paper-accounting.md), [status](../STATUS.md) and
 [executed evidence](../data/paper-accounting-review/20261031/README.md). Current browser
 acceptance remains outstanding: managed installation succeeds but launch is OS-denied

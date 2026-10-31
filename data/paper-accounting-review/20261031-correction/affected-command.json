@@ -1,0 +1,25 @@
+{
+  "command": [
+    ".venv/bin/pytest",
+    "backend/tests/unit/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_tracking.py",
+    "backend/tests/unit/test_tracking.py",
+    "backend/tests/unit/test_tracking_models.py",
+    "backend/tests/unit/test_fee_evidence.py",
+    "backend/tests/unit/test_workspace_recovery.py",
+    "backend/tests/unit/test_execution_r4.py",
+    "backend/tests/unit/test_paper_risk.py",
+    "backend/tests/unit/test_replay.py",
+    "backend/tests/property/test_accounting.py",
+    "backend/tests/unit/test_recovery_proof.py",
+    "backend/tests/unit/test_shadow.py",
+    "backend/tests/unit/test_markets_books_accounting.py",
+    "-q",
+    "-o",
+    "faulthandler_timeout=90",
+    "--junitxml=data/paper-accounting-review/20261031-correction/affected.xml"
+  ],
+  "deadline_seconds": 180,
+  "exit_code": 0
+}

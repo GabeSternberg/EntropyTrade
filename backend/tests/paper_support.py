@@ -36,7 +36,7 @@ def paper_inputs(before: dict[str, Any] | None = None, *, seconds: int = 0) -> d
     bundle = bundle.revalidated(records=(prediction,))
     fill_at = when + timedelta(seconds=2)
     return {
-        "schema": "shadow-paper-inputs-v1",
+        "schema": "shadow-paper-inputs-v2",
         "before": before,
         "before_hash": account_hash(before),
         "as_of": fill_at.isoformat(),

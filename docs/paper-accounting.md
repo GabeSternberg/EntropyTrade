@@ -40,6 +40,17 @@ records exact taker fills and per-fill rounded fees; any remainder cancels. No q
 maker fill or subsequent market impact is invented. Open positions are valued at cost,
 so displayed equity is not mark-to-market or an empirical performance measurement.
 
+After risk sizing, an additional `execution_net_edge` check uses the executable quantity,
+the broker's exact planned slices and the sum of the individually rounded taker fees.
+It preserves the original uncertainty/slippage/latency reserves and compares total expected
+net value with minimum edge times executable quantity, avoiding an upward-rounded edge
+at the threshold. A fractional or integer reduction cannot spread its rounded fee across
+the larger original intention. The audit retains `fill_plan` prices, quantities, cost and
+fees even when this check refuses execution; refusal records no paper order or fill.
+New cycles freeze `shadow-paper-inputs-v2`. Safe v1 accounting exports reproduce with their
+original audit shape after passing the corrected gate. Unsafe legacy fills fail replay;
+historical results, references and receipts are never rewritten to make them pass.
+
 Official reconciliation still validates original contract terms, final non-provisional
 binary result, payout, settlement time and raw receipt. Accounting settles only when that
 outcome is available locally, retains the original official settlement time separately and
@@ -67,11 +78,20 @@ uv run python -m entropytrade.tracking.accounting /path/to/shadow-export.json
 
 This checks cycle digests, account continuity and every deterministic transition. It does
 not authenticate downloaded sources. Individual local cycles additionally verify artifact
-hashes, original decision replay and paper replay with the existing command:
+hashes, capture reference/hash bindings, original decision replay and paper replay with
+the existing command:
 
 ```bash
 uv run python -m entropytrade.tracking.replay data/cache/workbench/shadow/MONITOR/CYCLE
 ```
+
+Initial receipts resolve under `execution/`; later receipts resolve under `paper-execution/`.
+Local replay checks each capture summary, all receipt bytes/hashes, nested fee references
+and later books against the successful raw receipts and original receipt clocks. A reference
+to the other capture refuses even if the referenced bytes happen to match. This is local
+evidence consistency, not external source certification. Earlier evidence remains untouched;
+the correction's current-source tests and exact limitations are recorded in the
+[review correction](../data/paper-accounting-review/20261031-correction/README.md).
 
 The new browser workflow remains unverified in this environment. Managed Chromium installed,
 but launch failed at `crashpad/util/linux/socket.cc:45`, `setsockopt: Operation not permitted`

@@ -1,0 +1,28 @@
+unformatted: File would be reformatted
+   --> docs/data-platform.md:146:1
+    |
+145 | import pyarrow.parquet as pq
+    - rows = pq.read_table("<version-directory>/rows.parquet",
+    -                      filters=[("target_date", "=", "2026-09-01")])
+    - print(rows.select(["market_ticker", "decision_time", "features_json",
+    -                    "historical_context_json", "outcome", "quality_json"]).to_pylist())
+146 +
+147 + rows = pq.read_table(
+148 +     "<version-directory>/rows.parquet", filters=[("target_date", "=", "2026-09-01")]
+149 + )
+150 + print(
+151 +     rows.select(
+152 +         [
+153 +             "market_ticker",
+154 +             "decision_time",
+155 +             "features_json",
+156 +             "historical_context_json",
+157 +             "outcome",
+158 +             "quality_json",
+159 +         ]
+160 +     ).to_pylist()
+161 + )
+162 | ```
+    |
+
+1 file would be reformatted, 846 files already formatted
