@@ -1,0 +1,457 @@
+{
+  "alerts": {
+    "acknowledged_reopen_identical": true,
+    "acknowledgement_idempotent": true,
+    "export_sha256": "efdae373cdb9be3f8a1781a1faf9ea8aabddf4efb6c660cf1baa1723ad8635b7",
+    "recovered": [
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.638722+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T17:07:00+00:00",
+            "evidence": {
+              "contracts": [
+                {
+                  "close_time": "2026-10-25T15:00:00+00:00",
+                  "last_attempt": "",
+                  "ticker": "CONTROLLED"
+                }
+              ],
+              "grace_seconds": 3600
+            },
+            "sequence": 3
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.638722+00:00",
+            "evidence": {
+              "contracts": [
+                {
+                  "close_time": "2026-10-25T15:00:00+00:00",
+                  "last_attempt": "",
+                  "ticker": "CONTROLLED"
+                }
+              ],
+              "grace_seconds": 3600
+            },
+            "sequence": 4
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "contracts": [],
+              "grace_seconds": 3600
+            },
+            "sequence": 9
+          }
+        ],
+        "evidence": {
+          "contracts": [
+            {
+              "close_time": "2026-10-25T15:00:00+00:00",
+              "last_attempt": "",
+              "ticker": "CONTROLLED"
+            }
+          ],
+          "grace_seconds": 3600
+        },
+        "id": "c17c6956-9bd6-491d-b329-0c8d07362435",
+        "kind": "unresolved_reconciliation",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T17:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      },
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.649901+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T15:07:00+00:00",
+            "evidence": {
+              "cycle_ids": [
+                "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+                "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+                "249060e6-206d-458d-b123-6ed9b162fd66"
+              ],
+              "threshold": 3
+            },
+            "sequence": 2
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.649901+00:00",
+            "evidence": {
+              "cycle_ids": [
+                "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+                "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+                "249060e6-206d-458d-b123-6ed9b162fd66"
+              ],
+              "threshold": 3
+            },
+            "sequence": 5
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "cycle_ids": [],
+              "threshold": 3
+            },
+            "sequence": 8
+          }
+        ],
+        "evidence": {
+          "cycle_ids": [
+            "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+            "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+            "249060e6-206d-458d-b123-6ed9b162fd66"
+          ],
+          "threshold": 3
+        },
+        "id": "83903d94-4d15-43de-8907-56db4dc4423e",
+        "kind": "repeated_failures",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T15:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      },
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.663973+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T15:07:00+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+              "threshold_seconds": 420
+            },
+            "sequence": 1
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.663973+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+              "threshold_seconds": 420
+            },
+            "sequence": 6
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-31T05:48:41.697401+00:00",
+              "last_healthy_collection_at": "2026-10-31T05:48:41.697401+00:00",
+              "last_healthy_cycle_id": "ccab56e0-bc57-4f43-89dc-1d781278d56d",
+              "threshold_seconds": 420
+            },
+            "sequence": 7
+          }
+        ],
+        "evidence": {
+          "baseline_at": "2026-10-25T15:00:00+00:00",
+          "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+          "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+          "threshold_seconds": 420
+        },
+        "id": "b2753fb7-974c-4067-92a1-dfd466cd83c1",
+        "kind": "stale_collection",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T15:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      }
+    ],
+    "recurring": [
+      {
+        "acknowledged_at": null,
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-31T05:48:41.832876+00:00",
+            "evidence": {
+              "cycle_ids": [
+                "7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+                "3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+                "e83fd465-c227-4279-8c73-543fa38bf927"
+              ],
+              "threshold": 3
+            },
+            "sequence": 10
+          }
+        ],
+        "evidence": {
+          "cycle_ids": [
+            "7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+            "3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+            "e83fd465-c227-4279-8c73-543fa38bf927"
+          ],
+          "threshold": 3
+        },
+        "id": "cd993496-7b0b-4114-917f-f599315e696a",
+        "kind": "repeated_failures",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-31T05:48:41.832876+00:00",
+        "resolved_at": null
+      },
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.638722+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T17:07:00+00:00",
+            "evidence": {
+              "contracts": [
+                {
+                  "close_time": "2026-10-25T15:00:00+00:00",
+                  "last_attempt": "",
+                  "ticker": "CONTROLLED"
+                }
+              ],
+              "grace_seconds": 3600
+            },
+            "sequence": 3
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.638722+00:00",
+            "evidence": {
+              "contracts": [
+                {
+                  "close_time": "2026-10-25T15:00:00+00:00",
+                  "last_attempt": "",
+                  "ticker": "CONTROLLED"
+                }
+              ],
+              "grace_seconds": 3600
+            },
+            "sequence": 4
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "contracts": [],
+              "grace_seconds": 3600
+            },
+            "sequence": 9
+          }
+        ],
+        "evidence": {
+          "contracts": [
+            {
+              "close_time": "2026-10-25T15:00:00+00:00",
+              "last_attempt": "",
+              "ticker": "CONTROLLED"
+            }
+          ],
+          "grace_seconds": 3600
+        },
+        "id": "c17c6956-9bd6-491d-b329-0c8d07362435",
+        "kind": "unresolved_reconciliation",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T17:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      },
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.649901+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T15:07:00+00:00",
+            "evidence": {
+              "cycle_ids": [
+                "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+                "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+                "249060e6-206d-458d-b123-6ed9b162fd66"
+              ],
+              "threshold": 3
+            },
+            "sequence": 2
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.649901+00:00",
+            "evidence": {
+              "cycle_ids": [
+                "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+                "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+                "249060e6-206d-458d-b123-6ed9b162fd66"
+              ],
+              "threshold": 3
+            },
+            "sequence": 5
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "cycle_ids": [],
+              "threshold": 3
+            },
+            "sequence": 8
+          }
+        ],
+        "evidence": {
+          "cycle_ids": [
+            "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+            "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+            "249060e6-206d-458d-b123-6ed9b162fd66"
+          ],
+          "threshold": 3
+        },
+        "id": "83903d94-4d15-43de-8907-56db4dc4423e",
+        "kind": "repeated_failures",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T15:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      },
+      {
+        "acknowledged_at": "2026-10-31T05:48:41.663973+00:00",
+        "events": [
+          {
+            "action": "opened",
+            "at": "2026-10-25T15:07:00+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+              "threshold_seconds": 420
+            },
+            "sequence": 1
+          },
+          {
+            "action": "acknowledged",
+            "at": "2026-10-31T05:48:41.663973+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+              "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+              "threshold_seconds": 420
+            },
+            "sequence": 6
+          },
+          {
+            "action": "resolved",
+            "at": "2026-10-31T05:48:41.697401+00:00",
+            "evidence": {
+              "baseline_at": "2026-10-31T05:48:41.697401+00:00",
+              "last_healthy_collection_at": "2026-10-31T05:48:41.697401+00:00",
+              "last_healthy_cycle_id": "ccab56e0-bc57-4f43-89dc-1d781278d56d",
+              "threshold_seconds": 420
+            },
+            "sequence": 7
+          }
+        ],
+        "evidence": {
+          "baseline_at": "2026-10-25T15:00:00+00:00",
+          "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+          "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+          "threshold_seconds": 420
+        },
+        "id": "b2753fb7-974c-4067-92a1-dfd466cd83c1",
+        "kind": "stale_collection",
+        "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+        "opened_at": "2026-10-25T15:07:00+00:00",
+        "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+      }
+    ],
+    "restored_export_identical": true,
+    "restored_export_sha256": "efdae373cdb9be3f8a1781a1faf9ea8aabddf4efb6c660cf1baa1723ad8635b7"
+  },
+  "browser_or_listener_executed": false,
+  "limitation": "Offline software proof only; controlled fills/health/outcomes are synthetic. Authentic data replays original receipts without new acquisition or empirical returns.",
+  "paper": [
+    {
+      "account_reproduction": {
+        "limitation": "Accounting replay, not source certification",
+        "paper_cycles": 5,
+        "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+        "submission_enabled": false,
+        "verified": true
+      },
+      "export_sha256": "b50f92bbcc7760ee3f8cc9ab4d387f1f1a8f2418490183de022ce18492a9d514",
+      "name": "controlled",
+      "reopened_export_identical": true,
+      "restored_export_identical": true,
+      "restored_export_sha256": "b50f92bbcc7760ee3f8cc9ab4d387f1f1a8f2418490183de022ce18492a9d514",
+      "setup": {
+        "evidence": "CONTROLLED SYNTHETIC paper fills, fees and settlement; never empirical",
+        "monitor_id": "57710f6a-d662-4b66-b96e-dff854cb0abf",
+        "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+        "submission_enabled": false,
+        "summary": {
+          "as_of": "2025-02-20T14:13:22+00:00",
+          "available_cash": "1001.420000",
+          "cash": "1001.420000",
+          "data_kind": "synthetic",
+          "equity_at_cost": "1001.420000",
+          "fees": "0.080000",
+          "fill_count": 2,
+          "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim.",
+          "positions": [],
+          "realized_pnl": "1.420000",
+          "settlement_count": 1,
+          "starting_cash": "1000.000000",
+          "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+          "status": "simulated"
+        },
+        "verified": {
+          "limitation": "Accounting replay, not source certification",
+          "paper_cycles": 5,
+          "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+          "submission_enabled": false,
+          "verified": true
+        }
+      }
+    },
+    {
+      "account_reproduction": {
+        "limitation": "Accounting replay, not source certification",
+        "paper_cycles": 1,
+        "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+        "submission_enabled": false,
+        "verified": true
+      },
+      "export_sha256": "ec107bca6c06e71afbe09e20aba322fe32e6deae4b134fa96687d1e6d46fa79f",
+      "name": "authentic",
+      "reopened_export_identical": true,
+      "restored_export_identical": true,
+      "restored_export_sha256": "ec107bca6c06e71afbe09e20aba322fe32e6deae4b134fa96687d1e6d46fa79f",
+      "setup": {
+        "evidence": "Original authentic receipt replay; no new acquisition",
+        "monitor_id": "f3870ef5-83f7-4adb-9dee-d9306b12eb86",
+        "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+        "submission_enabled": false,
+        "summary": {
+          "as_of": "2026-10-29T16:35:38.130853+00:00",
+          "available_cash": "1000.000000",
+          "cash": "1000.000000",
+          "data_kind": "real",
+          "equity_at_cost": "1000.000000",
+          "fees": "0.000000",
+          "fill_count": 0,
+          "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim.",
+          "positions": [],
+          "realized_pnl": "0.000000",
+          "settlement_count": 0,
+          "starting_cash": "1000.000000",
+          "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+          "status": "simulated"
+        },
+        "verified": {
+          "limitation": "Accounting replay, not source certification",
+          "paper_cycles": 1,
+          "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+          "submission_enabled": false,
+          "verified": true
+        }
+      }
+    }
+  ],
+  "status": "passed"
+}

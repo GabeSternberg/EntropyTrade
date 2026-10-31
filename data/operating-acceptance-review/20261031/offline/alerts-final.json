@@ -1,0 +1,565 @@
+{
+  "alerts": [
+    {
+      "acknowledged_at": null,
+      "events": [
+        {
+          "action": "opened",
+          "at": "2026-10-31T05:48:41.832876+00:00",
+          "evidence": {
+            "cycle_ids": [
+              "7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+              "3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+              "e83fd465-c227-4279-8c73-543fa38bf927"
+            ],
+            "threshold": 3
+          },
+          "sequence": 10
+        }
+      ],
+      "evidence": {
+        "cycle_ids": [
+          "7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+          "3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+          "e83fd465-c227-4279-8c73-543fa38bf927"
+        ],
+        "threshold": 3
+      },
+      "id": "cd993496-7b0b-4114-917f-f599315e696a",
+      "kind": "repeated_failures",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "opened_at": "2026-10-31T05:48:41.832876+00:00",
+      "resolved_at": null
+    },
+    {
+      "acknowledged_at": "2026-10-31T05:48:41.638722+00:00",
+      "events": [
+        {
+          "action": "opened",
+          "at": "2026-10-25T17:07:00+00:00",
+          "evidence": {
+            "contracts": [
+              {
+                "close_time": "2026-10-25T15:00:00+00:00",
+                "last_attempt": "",
+                "ticker": "CONTROLLED"
+              }
+            ],
+            "grace_seconds": 3600
+          },
+          "sequence": 3
+        },
+        {
+          "action": "acknowledged",
+          "at": "2026-10-31T05:48:41.638722+00:00",
+          "evidence": {
+            "contracts": [
+              {
+                "close_time": "2026-10-25T15:00:00+00:00",
+                "last_attempt": "",
+                "ticker": "CONTROLLED"
+              }
+            ],
+            "grace_seconds": 3600
+          },
+          "sequence": 4
+        },
+        {
+          "action": "resolved",
+          "at": "2026-10-31T05:48:41.697401+00:00",
+          "evidence": {
+            "contracts": [],
+            "grace_seconds": 3600
+          },
+          "sequence": 9
+        }
+      ],
+      "evidence": {
+        "contracts": [
+          {
+            "close_time": "2026-10-25T15:00:00+00:00",
+            "last_attempt": "",
+            "ticker": "CONTROLLED"
+          }
+        ],
+        "grace_seconds": 3600
+      },
+      "id": "c17c6956-9bd6-491d-b329-0c8d07362435",
+      "kind": "unresolved_reconciliation",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "opened_at": "2026-10-25T17:07:00+00:00",
+      "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+    },
+    {
+      "acknowledged_at": "2026-10-31T05:48:41.649901+00:00",
+      "events": [
+        {
+          "action": "opened",
+          "at": "2026-10-25T15:07:00+00:00",
+          "evidence": {
+            "cycle_ids": [
+              "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+              "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+              "249060e6-206d-458d-b123-6ed9b162fd66"
+            ],
+            "threshold": 3
+          },
+          "sequence": 2
+        },
+        {
+          "action": "acknowledged",
+          "at": "2026-10-31T05:48:41.649901+00:00",
+          "evidence": {
+            "cycle_ids": [
+              "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+              "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+              "249060e6-206d-458d-b123-6ed9b162fd66"
+            ],
+            "threshold": 3
+          },
+          "sequence": 5
+        },
+        {
+          "action": "resolved",
+          "at": "2026-10-31T05:48:41.697401+00:00",
+          "evidence": {
+            "cycle_ids": [],
+            "threshold": 3
+          },
+          "sequence": 8
+        }
+      ],
+      "evidence": {
+        "cycle_ids": [
+          "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+          "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+          "249060e6-206d-458d-b123-6ed9b162fd66"
+        ],
+        "threshold": 3
+      },
+      "id": "83903d94-4d15-43de-8907-56db4dc4423e",
+      "kind": "repeated_failures",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "opened_at": "2026-10-25T15:07:00+00:00",
+      "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+    },
+    {
+      "acknowledged_at": "2026-10-31T05:48:41.663973+00:00",
+      "events": [
+        {
+          "action": "opened",
+          "at": "2026-10-25T15:07:00+00:00",
+          "evidence": {
+            "baseline_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+            "threshold_seconds": 420
+          },
+          "sequence": 1
+        },
+        {
+          "action": "acknowledged",
+          "at": "2026-10-31T05:48:41.663973+00:00",
+          "evidence": {
+            "baseline_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+            "threshold_seconds": 420
+          },
+          "sequence": 6
+        },
+        {
+          "action": "resolved",
+          "at": "2026-10-31T05:48:41.697401+00:00",
+          "evidence": {
+            "baseline_at": "2026-10-31T05:48:41.697401+00:00",
+            "last_healthy_collection_at": "2026-10-31T05:48:41.697401+00:00",
+            "last_healthy_cycle_id": "ccab56e0-bc57-4f43-89dc-1d781278d56d",
+            "threshold_seconds": 420
+          },
+          "sequence": 7
+        }
+      ],
+      "evidence": {
+        "baseline_at": "2026-10-25T15:00:00+00:00",
+        "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+        "last_healthy_cycle_id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+        "threshold_seconds": 420
+      },
+      "id": "b2753fb7-974c-4067-92a1-dfd466cd83c1",
+      "kind": "stale_collection",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "opened_at": "2026-10-25T15:07:00+00:00",
+      "resolved_at": "2026-10-31T05:48:41.697401+00:00"
+    }
+  ],
+  "candidate_id": "c0",
+  "contracts": [
+    {
+      "last_attempt": "",
+      "market": {
+        "market": {
+          "close_time": "2026-10-25T15:00:00+00:00"
+        },
+        "ticker": "CONTROLLED"
+      },
+      "outcome": {
+        "available_at": "2026-10-31T05:48:41.687622+00:00",
+        "basis": "CONTROLLED test reconciliation; no authentic outcome",
+        "result": "no",
+        "ticker": "CONTROLLED"
+      },
+      "ticker": "CONTROLLED"
+    }
+  ],
+  "created_at": "2026-10-25T15:00:00+00:00",
+  "cycle_count": 8,
+  "cycles": [
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-31T05:48:41.832876+00:00",
+      "id": "7b57370c-e1e2-4978-bcec-0c4d4dec2455",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 8,
+      "started_at": "2026-10-31T05:48:41.822395+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-31T05:48:41.791836+00:00",
+      "id": "3f9164bb-43fc-47b2-8c8d-e779ffd5321b",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 7,
+      "started_at": "2026-10-31T05:48:41.782295+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/e83fd465-c227-4279-8c73-543fa38bf927",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-31T05:48:41.751377+00:00",
+      "id": "e83fd465-c227-4279-8c73-543fa38bf927",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 6,
+      "started_at": "2026-10-31T05:48:41.741869+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/ccab56e0-bc57-4f43-89dc-1d781278d56d",
+      "detail": "CONTROLLED healthy collection; model/fee eligibility remains independent",
+      "digest": "sha256:854dbe5862b70e32fd3125c7746ccfb6799b414991edd07f845efa9431703267",
+      "finished_at": "2026-10-31T05:48:41.697401+00:00",
+      "id": "ccab56e0-bc57-4f43-89dc-1d781278d56d",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "capture": {
+          "failures": [],
+          "universe_complete": true
+        },
+        "decisions": [],
+        "detail": "CONTROLLED healthy collection; model/fee eligibility remains independent",
+        "outcomes": [
+          {
+            "available_at": "2026-10-31T05:48:41.687622+00:00",
+            "basis": "CONTROLLED test reconciliation; no authentic outcome",
+            "result": "no",
+            "ticker": "CONTROLLED"
+          }
+        ],
+        "submission_enabled": false
+      },
+      "sequence": 5,
+      "started_at": "2026-10-31T05:48:41.688376+00:00",
+      "status": "completed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/fe76cc3e-11b1-471d-9296-2528b1730a1a",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-25T15:07:00+00:00",
+      "id": "fe76cc3e-11b1-471d-9296-2528b1730a1a",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 4,
+      "started_at": "2026-10-25T15:07:00+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-25T15:03:00+00:00",
+      "id": "6f0e58f8-cec4-41a3-8f53-a27e669c88a0",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 3,
+      "started_at": "2026-10-25T15:03:00+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/249060e6-206d-458d-b123-6ed9b162fd66",
+      "detail": "CONTROLLED worker timeout",
+      "digest": "sha256:ea6b7aeea40cd1c1cfd876c0c494d52fea3d8c8eb96071049f08381219d985c2",
+      "finished_at": "2026-10-25T15:01:00+00:00",
+      "id": "249060e6-206d-458d-b123-6ed9b162fd66",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "decisions": [],
+        "detail": "CONTROLLED worker timeout",
+        "failure": "CONTROLLED worker timeout",
+        "model_refusals": {
+          "worker": "No committed computation: CONTROLLED worker timeout"
+        },
+        "submission_enabled": false
+      },
+      "sequence": 2,
+      "started_at": "2026-10-25T15:01:00+00:00",
+      "status": "failed"
+    },
+    {
+      "artifact_root": "shadow/0fd0c4ae-a974-418f-be25-d6565a8cac5c/5e27e7cb-c4b7-47a4-b991-2f896a181247",
+      "detail": "CONTROLLED healthy collection; model/fee eligibility remains independent",
+      "digest": "sha256:d1cbf0a7f84fa24822f4bf3e196d85464088eacc2756ff9f36165ee9eb5daf39",
+      "finished_at": "2026-10-25T15:00:00+00:00",
+      "id": "5e27e7cb-c4b7-47a4-b991-2f896a181247",
+      "monitor_id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+      "result": {
+        "artifacts": [],
+        "capture": {
+          "failures": [],
+          "universe_complete": true
+        },
+        "contracts": [
+          {
+            "market": {
+              "close_time": "2026-10-25T15:00:00+00:00"
+            },
+            "ticker": "CONTROLLED"
+          }
+        ],
+        "decisions": [],
+        "detail": "CONTROLLED healthy collection; model/fee eligibility remains independent",
+        "submission_enabled": false
+      },
+      "sequence": 1,
+      "started_at": "2026-10-25T15:00:00+00:00",
+      "status": "completed"
+    }
+  ],
+  "events": [
+    {
+      "action": "created; shadow only, no validation approval implied",
+      "at": "2026-10-25T15:00:00+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-25T17:07:00+00:00"
+    },
+    {
+      "action": "resume",
+      "at": "2026-10-31T05:48:41.678887+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-31T05:48:41.707718+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-31T05:48:41.718503+00:00"
+    },
+    {
+      "action": "resume",
+      "at": "2026-10-31T05:48:41.732356+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-31T05:48:41.763800+00:00"
+    },
+    {
+      "action": "resume",
+      "at": "2026-10-31T05:48:41.773124+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-31T05:48:41.801551+00:00"
+    },
+    {
+      "action": "resume",
+      "at": "2026-10-31T05:48:41.810045+00:00"
+    },
+    {
+      "action": "pause",
+      "at": "2026-10-31T05:48:41.847984+00:00"
+    }
+  ],
+  "failures": 0,
+  "family": "weather",
+  "fills": [],
+  "id": "0fd0c4ae-a974-418f-be25-d6565a8cac5c",
+  "interval_seconds": 60,
+  "job_id": "698a6012-1c1f-4a0c-9e13-7aad6c49e5e5",
+  "model_binding": {
+    "binding_hash": "sha256:6e67d6167ff2240f13e140287adf515bf95425c86befe405567e2e1157f01326",
+    "model_ref": null,
+    "reason": "No frozen fitted model for this candidate; collection cannot fit or promote it",
+    "snapshot": null,
+    "status": "blocked"
+  },
+  "next_at": "2026-10-31T05:48:41.847984+00:00",
+  "paper_account": null,
+  "paper_summary": {
+    "reason": "No committed paper cycle; no retroactive fills",
+    "status": "not_started"
+  },
+  "performance": null,
+  "spec": {
+    "assumptions": [
+      "The ask is the fill price and the position is held to settlement."
+    ],
+    "calibration": "none",
+    "citations": [],
+    "created_at": "2026-10-02T16:00:00Z",
+    "description": "Buy YES when the fixture model probability clears a threshold.",
+    "entry_rules": {
+      "all_of": [
+        {
+          "feature": "model_probability",
+          "op": "gt",
+          "threshold": "0.55"
+        }
+      ],
+      "description": "Model probability above a threshold."
+    },
+    "entry_window": {
+      "end": null,
+      "start": null,
+      "target_end": null,
+      "target_start": null
+    },
+    "evidence": [],
+    "execution": {
+      "max_spread": null,
+      "post_only": false,
+      "time_in_force": "fill_or_kill"
+    },
+    "exit_mode": "hold_to_settlement",
+    "exit_rules": {
+      "all_of": [
+        {
+          "feature": "hold_to_settlement",
+          "op": "eq",
+          "threshold": "1"
+        }
+      ],
+      "description": "Hold to settlement."
+    },
+    "features": [
+      {
+        "description": "Scripted probability, not a fitted model.",
+        "name": "model_probability",
+        "version": "fixture"
+      }
+    ],
+    "generated_by": {
+      "actor_id": "quant",
+      "kind": "agent"
+    },
+    "generation_run_id": "00000000-0000-4000-8000-000000000005",
+    "hedging_rules": "",
+    "hypothesis": "A model probability of 0.70 clears a 0.40 ask by more than the minimum edge.",
+    "invalidation_conditions": [
+      "The fixture probability is replaced by a live model."
+    ],
+    "market_universe": {
+      "description": "Philadelphia daily highs",
+      "event_tickers": [],
+      "market_tickers": [],
+      "series_tickers": [
+        "KXHIGHPHIL"
+      ],
+      "venue": "kalshi"
+    },
+    "max_entry_price": null,
+    "maximum_holding_period_seconds": null,
+    "min_displayed_quantity": null,
+    "minimum_edge": "0.03",
+    "model_kind": "none",
+    "model_ref": null,
+    "name": "phl-probability-055",
+    "position_sizing": {
+      "contracts": "1.00",
+      "dollars": null,
+      "kelly_fraction": null,
+      "max_contracts": "1.00",
+      "method": "fixed_contracts"
+    },
+    "probability_feature": null,
+    "required_sources": [
+      "fixture"
+    ],
+    "risk_overrides_allowed": "none",
+    "side": "yes",
+    "slippage_allowance": "0",
+    "strategy_family": "informational",
+    "strategy_id": "phl-probability-055",
+    "uncertainty_allowance": "0",
+    "version": 1
+  },
+  "spec_hash": "sha256:c9b82e3d884189275d5f32e6dbaf383877b2a4c2630e2377f6234d62cb49ad0e",
+  "status": "paused",
+  "submission_enabled": false
+}

@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-31T05:50:29.188021+00:00",
+  "operating_acceptance_complete": false,
+  "v1_complete": false,
+  "locked_setup": "prepared; browser and full suite unverified",
+  "source_members": 1578,
+  "all_export_and_checkout_hashes_match": true,
+  "all_68_original_receipts_in_export": true,
+  "legacy_account_fixture_hash": "sha256:2a6bb960e73544835bcda81c492a1643c4cd5df0add44293178adba8cb3fba5e",
+  "backend_ruff_format": true,
+  "driver_ruff_format": true,
+  "strict_mypy_files": 535,
+  "named_frontend_checks": 22,
+  "focused_pytest": {
+    "passed": 394,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 40.52,
+    "complete_suite": false
+  },
+  "selected_browser_procedures": 6,
+  "browser_page_workflows_executed": 0,
+  "new_screenshots": 0,
+  "browser_launch_attempts": 0,
+  "full_pytest_attempts": 0,
+  "offline_paper_and_alert_restore": "passed",
+  "blocked_requirements": [
+    "complete pytest suite",
+    "six actual managed-Chromium and localhost page workflows",
+    "external provider with separately authorized research credentials",
+    "authentic model/fee and empirical two-family validation",
+    "independent final release review"
+  ],
+  "no_git_mutations": true,
+  "no_credentials_used": true,
+  "no_new_family": true,
+  "no_real_orders_or_live_activation": true
+}

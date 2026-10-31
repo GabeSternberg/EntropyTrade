@@ -1,0 +1,43 @@
+{
+  "started_at": "2026-10-31T05:48:34.146690+00:00",
+  "command": [
+    "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/.venv/bin/python",
+    "-m",
+    "pytest",
+    "backend/tests/unit/test_local_acceptance.py",
+    "backend/tests/unit/test_tracking_alerts.py",
+    "backend/tests/unit/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_tracking.py",
+    "backend/tests/unit/test_tracking.py",
+    "backend/tests/unit/test_tracking_models.py",
+    "backend/tests/unit/test_fee_evidence.py",
+    "backend/tests/unit/test_workspace_recovery.py",
+    "backend/tests/unit/test_execution_r4.py",
+    "backend/tests/unit/test_paper_risk.py",
+    "backend/tests/unit/test_replay.py",
+    "backend/tests/property/test_accounting.py",
+    "backend/tests/unit/test_recovery_proof.py",
+    "backend/tests/unit/test_shadow.py",
+    "backend/tests/unit/test_markets_books_accounting.py",
+    "-q",
+    "-o",
+    "faulthandler_timeout=45",
+    "--junitxml=/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/focused-reviewed.xml"
+  ],
+  "cwd": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation",
+  "deadline_seconds": 180,
+  "complete_suite": false,
+  "status": "passed",
+  "environment": {
+    "PATH": "/bin:/usr/bin",
+    "TZ": "UTC",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1"
+  },
+  "exit_code": 0,
+  "finished_at": "2026-10-31T05:49:18.013668+00:00"
+}

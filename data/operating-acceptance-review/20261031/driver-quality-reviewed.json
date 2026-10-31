@@ -1,0 +1,23 @@
+[
+  {
+    "name": "driver-ruff-reviewed",
+    "command": [
+      "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/.venv/bin/ruff",
+      "check",
+      "tools/local_acceptance.py"
+    ],
+    "cwd": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation",
+    "exit_code": 0
+  },
+  {
+    "name": "driver-format-reviewed",
+    "command": [
+      "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/.venv/bin/ruff",
+      "format",
+      "--check",
+      "tools/local_acceptance.py"
+    ],
+    "cwd": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation",
+    "exit_code": 0
+  }
+]

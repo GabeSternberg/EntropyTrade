@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-10-31T05:41:21.038364+00:00",
+  "status": "blocked",
+  "method": "Direct standard-library socket probe in the permitted execution environment; observed output retained without a retry.",
+  "localhost": {
+    "passed": false,
+    "failure": "PermissionError(1, 'Operation not permitted')",
+    "errno": 1,
+    "operation": "socket.socket(AF_INET, SOCK_STREAM)"
+  },
+  "asyncio_socketpair": {
+    "passed": false,
+    "failure": "PermissionError(1, 'Operation not permitted')",
+    "errno": 1,
+    "operation": "socket.socketpair()"
+  },
+  "browser_launch_attempts_this_milestone": 0,
+  "full_pytest_attempts_this_milestone": 0,
+  "permission_elevation_requested": false,
+  "prior_chromium_denial": "data/operator-readiness-review/20261031/browser-attempt.log",
+  "unexecuted": [
+    "six selected real-listener Playwright procedures",
+    "fresh complete pytest suite"
+  ],
+  "reason": "The same EPERM restriction persists; do not repeat the denied browser launch or collector stall. Preparation/discovery and focused tests are separate evidence."
+}

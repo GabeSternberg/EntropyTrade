@@ -9,7 +9,29 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current operator-readiness implementation adds durable browser-visible alerts for stale
+The current milestone is reproducible private-workbench operating acceptance using the
+existing `tools/local_acceptance.py`. Its default browser selection now includes research,
+recovery, controlled provider integration, authentic weather history, both paper procedures
+and alerts. Clean exports retain the original v1 compatibility fixture and whole original
+cycles required by paper/alert replay. Discovery and preparation cannot pass browser or
+complete-suite acceptance. Required socket failures stop execution before repeated browser
+launch or full-suite stalls; no launch flags or assertions are weakened.
+
+Fresh locked offline installation, Ruff/format, strict mypy (535 files), 22 frontend checks,
+394 focused pytest cases and six-procedure discovery pass, as do offline paper-account
+reproduction/reopen/restore and alert acknowledgement/recovery/
+recurrence/restore comparisons. The same localhost and asyncio socket creation denial
+persists (`EPERM`). Real-listener page interaction, screenshots, identical browser downloads
+after restart/restore and a complete pytest pass remain blocked. Stop retries in this
+environment; run the driver without `--prepare-only` in a permitted environment before
+approving operating acceptance. See [current evidence](../data/operating-acceptance-review/20261031/README.md)
+and [the release matrix](v1_acceptance.md). V1/provider/empirical requirements stay incomplete.
+Preserve forward collection and Bitcoin boundaries; another family requires user approval.
+All Git operations and independent sign-off remain with the supervisor.
+
+### Previous operator-readiness implementation — October 31, 2026
+
+The operator-readiness implementation adds durable browser-visible alerts for stale
 collection, repeated failures/incompleteness and overdue official-result reconciliation to
 the existing continuous paper/shadow workflow. Incidents preserve detection/evidence clocks,
 restart-safe acknowledgement, recovery and recurrence. Existing account/receipt/risk evidence

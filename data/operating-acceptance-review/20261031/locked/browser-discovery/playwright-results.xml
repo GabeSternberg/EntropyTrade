@@ -1,0 +1,36 @@
+<testsuites id="" name="" tests="6" failures="0" skipped="6" errors="0" time="0.20542899999999997">
+<testsuite name="alerts.spec.cjs" timestamp="2026-10-31T05:45:03.916Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore" classname="alerts.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="paper.spec.cjs" timestamp="2026-10-31T05:45:03.916Z" hostname="" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" classname="paper.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="durable paper account: authentic refusal, downloads, restart and offline replay" classname="paper.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="provider.spec.cjs" timestamp="2026-10-31T05:45:03.916Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="provider-backed website: opt-in, typed candidates, failures, cancellation and recovery" classname="provider.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="recovery.spec.cjs" timestamp="2026-10-31T05:45:03.916Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="weather-history.spec.cjs" timestamp="2026-10-31T05:45:03.916Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="authentic retained weather: freeze, select, research, downloads and restart" classname="weather-history.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

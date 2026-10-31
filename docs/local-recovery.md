@@ -107,7 +107,13 @@ The one-command acceptance driver exports explicit product/test/data roots into 
 installation, omitting Git/supervisor controls, credentials, existing environments and old
 workspaces. It records source hashes, lock checks, package inventory, gates and exit codes.
 It runs `uv sync --locked`, Ruff lint/format, strict mypy, frontend checks, pinned `npm ci`,
-the supported Chromium installer, actual Playwright interactions and the full pytest suite.
+the supported Chromium installer, selected-browser discovery, an OS socket preflight,
+actual Playwright interactions and the full pytest suite. Default browser coverage includes
+research/recovery, controlled provider integration, authentic weather history, **both paper
+procedures and operator alerts**. Discovery has separate reports and never counts as page
+interaction. Browser execution stops after the first failure; denied socket capabilities
+stop before browser launch or pytest, retaining an explicit blocked receipt and unexecuted
+checks. A successful socket preflight alone cannot certify Chromium or any workflow.
 Use Python 3.12+, uv, Node/npm and a machine permitting localhost sockets and Chromium:
 
 ```bash
@@ -120,8 +126,11 @@ For an offline machine with already provisioned package artifacts, optional
 and the Playwright-managed browser distribution. They do not reuse a virtual environment,
 personal Chrome, provider/exchange configuration or credentials. The recorded provisioning
 mode distinguishes an offline cached install from an uncached download. `--prepare-only`
-provisions/checks without launching Chromium or the full suite and explicitly reports both
-as unverified. It is useful after a recorded environment denial, and is not acceptance.
+provisions/checks and discovers selected browser tests without probing sockets, launching
+Chromium or running the full suite. It explicitly reports these checks as unverified and
+keeps `acceptance_complete=false`. Use it after a recorded environment denial; preparation
+is not operating acceptance. `--check-environment` separately reports the exact localhost
+and asyncio socketpair capability failures without browser launch or permission changes.
 
 `frontend/browser/recovery.spec.cjs` submits a synthetic weather idea and a recorded real
 idea through the form, inspects all result tabs and downloads, starts/pauses shadow, stops

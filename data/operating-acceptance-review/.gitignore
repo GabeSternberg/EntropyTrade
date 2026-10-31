@@ -1,0 +1,4 @@
+# Retain receipts/logs/reports, not installed environments or package/browser caches.
+**/installation/
+**/uv-cache/
+**/npm-cache/

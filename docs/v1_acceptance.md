@@ -1,4 +1,41 @@
-# Current paper-accounting evidence — October 31, 2026
+# Current private-workbench operating acceptance — October 31, 2026
+
+**complete=false. Operating acceptance is externally blocked.** Implementation/checks are
+on designated `supervisor/20261031-014049` from `b8d2538`; all Git operations and independent
+release review belong to the supervisor. The [current bundle](../data/operating-acceptance-review/20261031/README.md)
+retains fresh locked-install results, exact failed export checks and their repairs, source
+hashes, focused tests and offline recovery evidence. Earlier matrices retain their original
+checkout scope. No historical browser pass certifies the current website.
+
+| Requirement | Current executed evidence | Result / remaining work |
+|---|---|---|
+| Reproducible fresh installation | [Final driver receipt](../data/operating-acceptance-review/20261031/locked-reviewed/acceptance.json), lock/sync/package/npm/Chromium logs | **Scoped preparation passes.** New environment, offline package artifacts, 117 Python packages, pinned npm install and Playwright-managed Chromium provisioning; no reused virtualenv or personal browser. `acceptance_complete=false`; preparation is not operating acceptance. |
+| Private browser research → typed hypotheses → experiments/results | Six selected procedures in [actual discovery](../data/operating-acceptance-review/20261031/locked-reviewed/browser-discovery.log) | **Current page workflows unexecuted.** Research/recovery, controlled provider and authentic weather remain selected alongside both paper procedures and alerts. Discovery is not page interaction. Run all six through actual localhost listeners in a permitted environment. |
+| Durable paper decisions, predictions, source versions, quotes, intentions, execution risk and subsequent outcomes | Fresh focused account/collector/risk/replay checks; [offline paper exports and verification](../data/operating-acceptance-review/20261031/offline/receipt.json) | **Scoped offline checks pass.** Both exports reproduce, reopen and restore identically. Controlled account has two synthetic fills and one settlement. Authentic original-receipt account has zero fills/fees and explicit missing-model/fee refusals. No empirical accuracy, returns or profitability is established. Browser accounting inspection/downloads remain unexecuted. |
+| Operator acknowledgement, recovery and recurrence | Fresh alert tests; [offline lifecycle receipt](../data/operating-acceptance-review/20261031/offline/receipt.json), executable `alerts.spec.cjs` | **Scoped offline checks pass.** Idempotent acknowledgement survives reopen; recovery resolves three acknowledged incidents; recurrence gets a new incident requiring acknowledgement; restored exports match. Browser acknowledgement and presentation remain unexecuted. Controlled health/outcome signals cannot certify authentic collection. |
+| Restart, cancellation, offline restore and identical downloads | Fresh recovery/worker/account tests and offline export/archive comparisons; existing recovery/paper/alerts browser procedures | **Offline/restart software evidence passes; browser gate blocked.** Store reopen and offline restore preserve exact canonical export bytes. This does not verify browser downloads, real-listener restarts or page-driven cancellation. Retain screenshots and compare actual downloaded bytes when the six procedures can execute. |
+| Source clocks, provenance, leakage checks and protected holdouts | [Safety receipt](../data/operating-acceptance-review/20261031/safety-receipt.json), frozen 1,578-member source export, focused risk/temporal/recovery tests | **Scoped checks pass.** All 68 original receipt files and five Bitcoin boundary implementation/manifest files match prior hashes. Export repairs copy original bytes, including saved results/decisions and the v1 account fixture; they do not backdate data or invent audit fields. Final independent leakage review and authentic empirical evidence remain required. |
+| Deterministic backtests and realistic accounting | Existing deterministic engines plus fresh fee/execution/risk/account replay tests | **Software capability retained; empirical gate incomplete.** Missing authentic models/labels, certified effective fees and validation history remain explicit blockers. Controlled fixtures do not count as empirical backtests. |
+| Two meaningfully distinct supported empirically validated families | Existing weather and optional Bitcoin forward paths | **Incomplete.** No new family selected. Keep authentic forward collection and frozen Bitcoin validation windows; another major family requires user approval. Blocked paths do not count as supported empirical families. |
+| Provider-backed research using separately authorized credentials | Existing controlled provider browser procedure is selected/discovered | **External verification remains blocked/deferred.** No credentials accessed and no actual external-provider session attempted. Controlled provider responses and test discovery cannot satisfy this gate. |
+| Ruff/format, strict mypy, frontend and complete pytest | Final locked-install logs, [fresh focused run](../data/operating-acceptance-review/20261031/focused-reviewed.log) and JUnit | **Independent quality checks pass:** backend/driver Ruff and format, strict mypy (535 files), 22 frontend checks and **394 focused pytest cases in 40.52s**, zero failures/skips. **Complete suite unexecuted here.** Existing localhost/asyncio socket denial persists; the prior collector stall is not repeated. Focused success never substitutes for a complete-suite pass. |
+| Safety, credential boundaries and independent V1 release | Current capability blocker and safety receipts; existing submission/risk tests | **V1 incomplete.** No orders, live activation, credentials, raised risk limits, new family, changed original clocks, force-push or other Git mutation. Independent supervisor review must cross-check code, executed evidence and every remaining release requirement. |
+
+The [current OS probe](../data/operating-acceptance-review/20261031/environment-blockers.json)
+returns `PermissionError(1, 'Operation not permitted')` for localhost socket creation and
+`socketpair()`. No new Chromium launch or complete-suite retry is made after confirming the
+same restriction. The driver now checks these capabilities before dependent execution and
+records blocked/unexecuted gates; browser execution stops after its first failure.
+
+Outstanding operator/supervisor acceptance: in an environment permitting localhost sockets,
+asyncio socketpairs and managed Chromium, run `python3 tools/local_acceptance.py --output
+data/operating-acceptance-review/NEW-NAME` without `--prepare-only`. Require the complete
+pytest suite plus all six real-browser procedures, page acknowledgement, recovery/recurrence,
+actual restart, offline restore, identical downloads and retained screenshots/traces. Stop
+retrying this restricted environment. External-provider, authentic empirical/model/fee and
+two-family release evidence remain independently open.
+
+# Historical paper-accounting evidence — October 31, 2026
 
 **complete=false.** Durable simulated paper accounting is implemented as an intermediate
 milestone, separately from observed evidence. See [the operating guide](paper-accounting.md)

@@ -51,6 +51,20 @@ and zero fills; no new authentic acquisition or empirical profitability is asser
 From the repository root, use new workspace and evidence paths for every run:
 
 ```bash
+python3 tools/local_acceptance.py --output "$PWD/data/operating-acceptance-review/NEW-NAME"
+```
+
+The locked driver includes both paper procedures and alerts alongside research/recovery,
+controlled provider integration and authentic weather history. It records discovery
+separately, probes required OS socket capabilities, stops before browser/full-suite execution
+on denial and stops the browser runner after its first failure. `--prepare-only` runs fresh
+installation and independent checks/discovery after a known denial; it is not acceptance.
+See [locked/offline provisioning](local-recovery.md#locked-installation-and-real-browser-acceptance)
+for package-artifact seed options. No virtual environment is reused.
+
+To run just the three paper/operator procedures against the existing installation:
+
+```bash
 npm ci --prefix frontend/browser --ignore-scripts --no-audit --no-fund
 PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers" \
   npm --prefix frontend/browser run install:chromium

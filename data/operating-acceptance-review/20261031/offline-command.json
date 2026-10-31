@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/.venv/bin/python",
+    "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/offline_checks.py",
+    "--repo",
+    "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation",
+    "--output",
+    "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/offline"
+  ],
+  "cwd": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation",
+  "environment": {
+    "PATH": "/bin:/usr/bin",
+    "TZ": "UTC",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1",
+    "PYTHONPATH": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/backend:/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked-reviewed/installation/backend/src"
+  },
+  "deadline_seconds": 180,
+  "status": "passed",
+  "browser_or_listener_executed": false,
+  "exit_code": 0
+}

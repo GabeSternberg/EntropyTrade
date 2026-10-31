@@ -1,0 +1,46 @@
+................F....................................................... [ 18%]
+........................................................................ [ 36%]
+........................................................................ [ 54%]
+........................................................................ [ 73%]
+........................................................................ [ 91%]
+..................................                                       [100%]
+=================================== FAILURES ===================================
+__ test_authentic_receipts_stay_blocked_while_operator_alerts_survive_restart __
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-138/test_authentic_receipts_stay_b0')
+
+    def test_authentic_receipts_stay_blocked_while_operator_alerts_survive_restart(
+        tmp_path: Path,
+    ) -> None:
+>       receipt = seed_authentic(tmp_path / "authentic")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/unit/test_tracking_alerts.py:310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/tests/integration/shadow_history_fixture.py:158: in seed_authentic
+    result = json.loads((root / "result.json").read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.12/pathlib.py:1029: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-gabriel/pytest-138/test_authentic_receipts_stay_b0/authentic/shadow/c9639c00-1e82-4edc-ae35-9dfda58d34f7/bc53deae-3480-42c7-917d-a5d8cf165350/result.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+>       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-gabriel/pytest-138/test_authentic_receipts_stay_b0/authentic/shadow/c9639c00-1e82-4edc-ae35-9dfda58d34f7/bc53deae-3480-42c7-917d-a5d8cf165350/result.json'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_tracking_alerts.py::test_authentic_receipts_stay_blocked_while_operator_alerts_survive_restart
+1 failed, 393 passed in 40.00s

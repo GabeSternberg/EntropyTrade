@@ -140,8 +140,14 @@ with identical reopened bytes. A second unmodified server with no credentials ve
 `ResearchCredentialError` and zero requests. This is **controlled provider software proof**,
 not an external service session or real model/returns validation.
 
-The default `tools/local_acceptance.py` now runs this procedure and `recovery.spec.cjs`
-from a fresh locked Python/npm installation before the complete pytest suite. Use a short
+The default `tools/local_acceptance.py` selects this procedure, `recovery.spec.cjs`,
+authentic weather history, **both `paper.spec.cjs` procedures and `alerts.spec.cjs`** from a
+fresh locked Python/npm installation before the complete pytest suite. It retains separate
+discovery reports and checks localhost/asyncio socket capabilities before browser launch.
+Denied capabilities block browser/full-suite execution with a nonzero exit and explicit
+unexecuted checks. Browser execution stops after its first failure. `--prepare-only` installs
+and discovers tests without retrying a known environment denial; it cannot pass acceptance.
+Use a short
 TMPDIR for Chromium: Unix socket addresses are limited to 108 bytes on Linux. The driver
 allocates and cleans a short `/tmp/entropytrade-*` directory; durable evidence stays in
 the requested repository output. No launch flag, event loop or test assertion is relaxed.

@@ -10,28 +10,79 @@ import json
 import os
 import shutil
 import signal
+import socket
 import subprocess
 import sys
 import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 
+DEFAULT_BROWSER_GREP = (
+    "local operation and recovery|provider-backed website|authentic retained weather|"
+    "durable paper account|operator alerts"
+)
+
 
 def now():
     return datetime.now(UTC).isoformat()
 
 
+def check_environment(port):
+    """Check required OS capabilities without launching Chromium or changing permissions."""
+    checks = []
+    for name in ("localhost_listener", "asyncio_socketpair"):
+        operation = "socket creation"
+        try:
+            if name == "localhost_listener":
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listener:
+                    operation = "localhost bind"
+                    listener.bind(("127.0.0.1", port))
+                    operation = "listen"
+                    listener.listen(1)
+            else:
+                left, right = socket.socketpair()
+                with left, right:
+                    operation = "socketpair send"
+                    left.sendall(b"x")
+                    operation = "socketpair receive"
+                    if right.recv(1) != b"x":
+                        raise OSError("socketpair did not reproduce its wakeup byte")
+        except OSError as exc:
+            checks.append(
+                {
+                    "name": name,
+                    "status": "blocked",
+                    "operation": operation,
+                    "failure": repr(exc),
+                    "errno": exc.errno,
+                }
+            )
+        else:
+            checks.append({"name": name, "status": "passed"})
+    return {
+        "checked_at": now(),
+        "status": "passed" if all(c["status"] == "passed" for c in checks) else "blocked",
+        "checks": checks,
+        "limitation": "Socket capability only; browser workflows and pytest remain unverified.",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--port", default=43134, type=int)
+    parser.add_argument(
+        "--check-environment",
+        action="store_true",
+        help="Report socket capabilities only; no browser launch or test execution",
+    )
     parser.add_argument("--uv-cache-seed", type=Path)
     parser.add_argument("--npm-cache-seed", type=Path)
     parser.add_argument("--chromium-seed", type=Path)
     parser.add_argument("--test-seconds", default=600, type=int)
     parser.add_argument(
         "--browser-grep",
-        default="local operation and recovery|provider-backed website|authentic retained weather",
+        default=DEFAULT_BROWSER_GREP,
     )
     parser.add_argument(
         "--prepare-only",
@@ -39,6 +90,12 @@ def main():
         help="Provision only; browser and full suite remain unverified",
     )
     args = parser.parse_args()
+    if args.check_environment:
+        result = check_environment(args.port)
+        print(json.dumps(result, indent=2))  # noqa: T201 - machine-readable local CLI
+        raise SystemExit(0 if result["status"] == "passed" else 1)
+    if args.output is None:
+        parser.error("--output is required unless --check-environment is selected")
     repo = Path(__file__).resolve().parents[1]
     output = args.output.absolute()
     if not output.is_relative_to(repo / "data") or ".." in output.parts:
@@ -53,6 +110,8 @@ def main():
         "installation": str(clean),
         "steps": [],
         "source_files": [],
+        "browser_selection": args.browser_grep,
+        "acceptance_complete": False,
         "limitations": [
             "Source export of the working tree; supervisor owns Git sign-off.",
             "No empirical performance, provider or V1 completion implied.",
@@ -80,10 +139,13 @@ def main():
         "data/r3-demo",
         "data/r4-demo",
     ]
-    # Exact authentic receipt inputs used by weather history tests/browser setup.
-    # Export the two public captures, not the surrounding prior operating evidence.
+    # Exact original cycles used by weather history, paper and alert acceptance.
+    # Keep saved decisions/results alongside public captures for original-cycle replay;
+    # omit the surrounding operating evidence and workspaces.
     weather_receipts = repo / "data/shadow-review/20261029-model-integration/completion/real-cycles"
-    roots.extend(str(p.relative_to(repo)) for p in sorted(weather_receipts.glob("*/*/public")))
+    roots.extend(
+        str(p.parent.relative_to(repo)) for p in sorted(weather_receipts.glob("*/*/public"))
+    )
     names = [
         "pyproject.toml",
         "uv.lock",
@@ -94,6 +156,8 @@ def main():
         "docs/project-spec.md",
         ".agents/skills/kalshi-docs/api-reference/market/get-series.md",
         ".agents/skills/kalshi-docs/getting_started/fee_rounding.md",
+        # Original v1 account bytes used by the unchanged compatibility regression.
+        "data/paper-accounting-review/20261031/final/controlled-export.json",
     ]
     for directory in roots:
         names.extend(
@@ -262,6 +326,30 @@ def main():
             300,
         ),
         (
+            "browser-discovery",
+            [
+                node,
+                "frontend/browser/node_modules/@playwright/test/cli.js",
+                "test",
+                "-c",
+                "frontend/browser/playwright.config.cjs",
+                "--grep",
+                args.browser_grep,
+                "--list",
+            ],
+            {
+                **browser_env,
+                "ENTROPYTRADE_BROWSER_EVIDENCE": str(output / "browser-discovery"),
+            },
+            60,
+        ),
+        (
+            "environment",
+            [python, "tools/local_acceptance.py", "--check-environment", "--port", str(args.port)],
+            env,
+            15,
+        ),
+        (
             "browser",
             [
                 node,
@@ -271,6 +359,7 @@ def main():
                 "frontend/browser/playwright.config.cjs",
                 "--grep",
                 args.browser_grep,
+                "--max-failures=1",
             ],
             browser_env,
             660,
@@ -290,8 +379,8 @@ def main():
     ]
     save()
     if args.prepare_only:
-        steps = [s for s in steps if s[0] not in {"browser", "pytest"}]
-        receipt["unexecuted_checks"] = ["browser", "pytest"]
+        receipt["unexecuted_checks"] = ["environment", "browser", "pytest"]
+        steps = [s for s in steps if s[0] not in receipt["unexecuted_checks"]]
     try:
         for name, command, environment, timeout in steps:
             step = {"name": name, "command": command, "started_at": now(), "status": "running"}
@@ -319,9 +408,26 @@ def main():
             step.update(
                 finished_at=now(), exit_code=code, status="passed" if code == 0 else "failed"
             )
+            if name == "environment" and code != 124:
+                step["result"] = json.loads((output / "environment.log").read_text())
+                if code != 0 and step["result"]["status"] == "blocked":
+                    step["status"] = "blocked"
+                    receipt.update(
+                        status="blocked",
+                        unexecuted_checks=["browser", "pytest"],
+                        failure="OS socket capabilities denied; no browser or suite retry.",
+                    )
+                    raise RuntimeError(receipt["failure"])
             save()
             print(f"{name}: {step['status']}", flush=True)  # noqa: T201 - local CLI progress
-            if code != 0 and name in {"lock-check", "locked-sync", "npm-ci", "chromium-install"}:
+            if code != 0 and name in {
+                "lock-check",
+                "locked-sync",
+                "npm-ci",
+                "chromium-install",
+                "browser-discovery",
+                "environment",
+            }:
                 raise RuntimeError(f"{name} failed; inspect {output / (name + '.log')}")
         receipt["status"] = (
             "passed" if all(s["status"] == "passed" for s in receipt["steps"]) else "failed"
@@ -330,8 +436,11 @@ def main():
             raise RuntimeError("Acceptance incomplete: inspect failed step logs; no release pass")
         if args.prepare_only:
             receipt["status"] = "prepared; browser and full suite unverified"
+        else:
+            receipt["acceptance_complete"] = True
     except Exception as exc:
-        receipt.update(status="failed", failure=str(exc))
+        if receipt["status"] != "blocked":
+            receipt.update(status="failed", failure=str(exc))
         if receipt["steps"][-1]["status"] == "running":
             receipt["steps"][-1].update(status="failed", failure=str(exc), finished_at=now())
         raise

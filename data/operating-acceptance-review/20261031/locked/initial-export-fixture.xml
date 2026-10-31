@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="5.749" timestamp="2026-10-31T05:45:09.200241+00:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_shadow_accounting" name="test_safe_legacy_account_export_reproduces_without_inventing_historical_audits" time="0.001"><failure message="FileNotFoundError: [Errno 2] No such file or directory: '/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked/installation/data/paper-accounting-review/20261031/final/controlled-export.json'">def test_safe_legacy_account_export_reproduces_without_inventing_historical_audits() -&gt; None:
+        original = (
+            REPO / "data/paper-accounting-review/20261031/final/controlled-export.json"
+&gt;       ).read_text()
+          ^^^^^^^^^^^
+
+backend/tests/unit/test_shadow_accounting.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/pathlib.py:1029: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked/installation/data/paper-accounting-review/20261031/final/controlled-export.json')
+mode = 'r', buffering = -1, encoding = 'utf-8', errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031/locked/installation/data/paper-accounting-review/20261031/final/controlled-export.json'
+
+/usr/lib/python3.12/pathlib.py:1015: FileNotFoundError</failure></testcase></testsuite></testsuites>

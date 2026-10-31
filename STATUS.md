@@ -3,7 +3,45 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: operator readiness for continuous paper/shadow
+## Current milestone: reproducible private-workbench operating acceptance
+
+Implemented in place on designated `supervisor/20261031-014049` from `b8d2538`.
+All Git operations and independent review remain with the supervisor. **V1 and operating
+acceptance remain incomplete because the environment still denies required sockets.**
+
+`tools/local_acceptance.py` now selects all six existing research/recovery, controlled
+provider, authentic weather, both paper-account and operator-alert browser procedures.
+It records discovery separately, stops browser execution after its first failure, checks
+localhost and asyncio socket capabilities before browser/full-suite execution, and retains
+blocked/unexecuted statuses. Preparation cannot set `acceptance_complete=true`.
+Clean exports now include the original v1 account compatibility fixture and complete original
+authentic cycles, including saved decision/result bytes. Failed missing-input attempts remain
+retained; no test or original receipt was rewritten to repair them.
+
+Fresh offline locked Python/npm installation, supported managed-Chromium provisioning,
+Ruff lint/format, strict mypy (535 files), 22 named frontend checks, **394 focused pytest
+cases in 40.52s** and discovery of all six procedures pass. Current-source offline paper
+exports reproduce, reopen and restore
+identically; the controlled account has two simulated fills, while authentic receipts retain
+zero fills and refuse missing models/fees. Offline alert acknowledgement/idempotency, recovery,
+recurrence, reopen and restore comparisons also pass. These are software checks, not browser
+download or empirical evidence. Exact focused-test results, commands and source hashes are
+in [the acceptance bundle](data/operating-acceptance-review/20261031/README.md).
+
+The direct capability check returns `PermissionError(1, 'Operation not permitted')` for both
+localhost socket creation and `socketpair()`. The known denied Chromium launch and complete
+suite stall are not retried. There are no new browser interactions, screenshots or listener
+download passes. In a permitted environment, run the locked driver without `--prepare-only`
+using a fresh output path; all six procedures and the complete suite remain required.
+See [the current matrix](docs/v1_acceptance.md). Stop environment retries here.
+
+All 68 original receipt files and five Bitcoin boundary implementation/manifest files
+remain unchanged. Preserve authentic forward collection, original clocks, frozen validation
+boundaries and existing risk/submission limits. External provider verification, empirical
+two-family validation, certified fees and independent release approval stay open. Another
+major family needs user approval. No next major phase or Git mutation is performed.
+
+## Previous milestone: operator readiness for continuous paper/shadow
 
 Implemented in place on designated `supervisor/20261031-011453` from `df304f9`.
 The supervisor owns all Git operations and independent review. **V1 is incomplete.**
