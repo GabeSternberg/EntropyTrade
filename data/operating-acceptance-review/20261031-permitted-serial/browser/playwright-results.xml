@@ -1,0 +1,54 @@
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="322.081009">
+<testsuite name="alerts.spec.cjs" timestamp="2026-10-31T07:50:25.789Z" hostname="" tests="1" failures="0" skipped="0" time="81.799" errors="0">
+<testcase name="operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore" classname="alerts.spec.cjs" time="81.799">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="paper.spec.cjs" timestamp="2026-10-31T07:50:25.789Z" hostname="" tests="2" failures="0" skipped="0" time="54.001" errors="0">
+<testcase name="durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" classname="paper.spec.cjs" time="24.507">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="durable paper account: authentic refusal, downloads, restart and offline replay" classname="paper.spec.cjs" time="29.494">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="provider.spec.cjs" timestamp="2026-10-31T07:50:25.789Z" hostname="" tests="1" failures="0" skipped="0" time="68.674" errors="0">
+<testcase name="provider-backed website: opt-in, typed candidates, failures, cancellation and recovery" classname="provider.spec.cjs" time="68.674">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="recovery.spec.cjs" timestamp="2026-10-31T07:50:25.789Z" hostname="" tests="1" failures="0" skipped="0" time="88.355" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="88.355">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="weather-history.spec.cjs" timestamp="2026-10-31T07:50:25.789Z" hostname="" tests="1" failures="0" skipped="0" time="27.23" errors="0">
+<testcase name="authentic retained weather: freeze, select, research, downloads and restart" classname="weather-history.spec.cjs" time="27.23">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

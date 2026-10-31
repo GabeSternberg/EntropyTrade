@@ -1,0 +1,61 @@
+{
+  "scope": "Original failed execution retained unchanged; browser test synchronization repair only.",
+  "failure": "Second reopened pricing-failure download is byte-identical to the first pricing-failure review, not to its own original review.",
+  "files": {
+    "provider-unpriced-first.json": {
+      "bytes": 55247,
+      "sha256": "278d5493bb871ab8eddf442f7346cd72e86c03524913ca3c5551624f05996fd1"
+    },
+    "provider-unpriced-first-restarted.json": {
+      "bytes": 55247,
+      "sha256": "278d5493bb871ab8eddf442f7346cd72e86c03524913ca3c5551624f05996fd1"
+    },
+    "provider-unpriced-second.json": {
+      "bytes": 57702,
+      "sha256": "87a66a39b73deb73019997585c744860fc63fd1d7fb2f1eb394851b5e732e999"
+    },
+    "provider-unpriced-second-restarted.json": {
+      "bytes": 55247,
+      "sha256": "278d5493bb871ab8eddf442f7346cd72e86c03524913ca3c5551624f05996fd1"
+    }
+  },
+  "recorded_jobs": [
+    {
+      "action": "submit",
+      "id": "7f31f1bd-2dd2-41c5-a769-10aae9a4b07e",
+      "idea": "CONTROLLED unpriced first: refuse further provider requests"
+    },
+    {
+      "action": "submit",
+      "id": "786b324c-3308-46ba-84f7-faa7d7f4e339",
+      "idea": "CONTROLLED unpriced second: refuse further provider requests"
+    }
+  ],
+  "trace": "browser/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip",
+  "network_requests": [
+    {
+      "_monotonicTime": 168096.211,
+      "time": 16.517000000000003,
+      "url": "http://127.0.0.1:43266/api/jobs/d79e4b96-31a1-4b74-b4fe-48c9b4c2afd7"
+    },
+    {
+      "_monotonicTime": 168328.715,
+      "time": 19.857,
+      "url": "http://127.0.0.1:43266/api/jobs/7f31f1bd-2dd2-41c5-a769-10aae9a4b07e"
+    },
+    {
+      "_monotonicTime": 168478.241,
+      "time": 54.756,
+      "url": "http://127.0.0.1:43266/api/jobs/786b324c-3308-46ba-84f7-faa7d7f4e339"
+    }
+  ],
+  "cause": "reopen() waited only for the failed badge shared by three successive jobs; the trace shows its check completed before the requested job response arrived.",
+  "repair": "Wait for the exact requested title and require both download hrefs to match the recorded submitted job id; keep all byte-equality checks.",
+  "production_changes": false,
+  "assertions_weakened": false,
+  "partial_browser_result": {
+    "passed": 3,
+    "failed": 1,
+    "did_not_run": 2
+  }
+}

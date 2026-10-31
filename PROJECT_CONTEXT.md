@@ -1,10 +1,23 @@
 # EntropyTrade project context
 
-Updated 2026-10-31. **V1 remains incomplete.** The current milestone adds durable operator
-alerts to the existing continuous paper/shadow collector and private website. Work stays
-on designated `supervisor/20261031-011453` from `df304f9`.
+Updated 2026-10-31. **V1 remains incomplete.** The current milestone executes private-workbench
+operating acceptance with the existing locked installation/browser tools. Work stays
+on designated `supervisor/20261031-033238` from `2f8d9ad`.
 The supervisor owns all Git operations and independent review. No Git mutations,
 supervisor-control edits, new family, credential access or external provider calls.
+
+The current checkpoint repair retains all generated trace/archive bytes locally and
+excludes them from new staging with a scoped review-artifact policy. The
+[retention manifest](data/operating-acceptance-review/local-artifacts-20261031.json)
+hashes 1,096 files (261,903,008 bytes) from all four attempts, including the reported
+13,926,914-byte raw trace. Reports/downloads/screenshots remain checkpoint candidates.
+[Retention and verification](data/operating-acceptance-review/ARTIFACT_RETENTION.md)
+explain that a checkout alone lacks local trace/restore bytes. Earlier failed/pass reports
+are preserved. Existing tracked large artifacts remain unchanged pending separate review.
+No checkpoint, new acceptance execution or V1 release pass is claimed by this repair.
+The [repair audit](data/operating-acceptance-review/20261031-checkpoint-repair/README.md)
+passes lint/format, strict mypy, 66 focused tests and 22 frontend checks; no eligible
+changed/untracked candidate exceeds 8 MB. Original source/safety/browser bytes still match.
 
 ## Product direction
 
@@ -15,7 +28,40 @@ never fabricate historical availability. Do independent product work while data 
 A new major family requires user approval following a comparison of point-in-time history,
 resolution semantics, modeling feasibility, costs and realistic validation. None is selected.
 
-## Current operator-readiness milestone
+## Current private-workbench operating acceptance
+
+The permitted runtime passes localhost/socketpair checks through the standard approval
+path. A new offline locked Python/npm installation and supported managed-Chromium
+provisioning pass, followed by Ruff/format, strict mypy (535 files), 22 frontend checks
+and all six required browser procedures. Actual page interactions cover research/results,
+controlled provider integration, authentic retained weather, both paper accounts, alerts,
+cancellation, restart and offline restore. Receipts retain 26 screenshots, 43 downloads
+and zero page errors. The complete suite passes **1,210 tests in 644.82s**, with no failures,
+errors or skips. Final verification checks all artifact hashes, six intact traces,
+19 identical download comparisons, 1,578 checkout/install source hashes, 68 original receipt
+hashes and five Bitcoin boundary hashes. **Operating acceptance is verified; V1 remains
+incomplete**, with independent supervisor review still required.
+
+Two concrete browser harness failures were repaired without relaxing assertions: reopening
+a failed provider run now waits for its exact title and submitted job download URLs;
+weather import metadata is staged under the installed repository's data directory before
+being copied to the surrounding evidence bundle. Failed reports/traces remain unchanged.
+Superseded overlapping verification runs include an acknowledgement timeout, an interrupted
+HTTP-timeout suite and a native suite crash; the current execution runs alone and retains
+individual pytest case names. It completes without reproducing the native crash, whose
+underlying cause is not established. Both actual paper browser workspaces restore offline
+with identical exports and account replay. Final recovery/provider/weather archives retain
+all stopped workspace evidence, including fresh authentic receipt bytes. See
+[current evidence](data/operating-acceptance-review/20261031-permitted-serial/README.md).
+
+Controlled accounting is synthetic; authentic receipts still refuse missing models/fees
+and produce zero fills. This work adds no empirical validation, external-provider access,
+new family or production submission. Return the verified operating milestone for independent
+supervisor review and preserve forward collection/frozen boundaries. The historical sections
+below retain their original execution scope; their earlier environment denials do not
+describe the current permitted runtime.
+
+## Previous operator-readiness milestone
 
 The website exposes stale-collection, repeated-failure/incompleteness and overdue official
 reconciliation incidents across active and paused monitors. Durable acknowledgements record

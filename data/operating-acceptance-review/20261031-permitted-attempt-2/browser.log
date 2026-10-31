@@ -1,0 +1,50 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 frontend/browser/alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore (1.3m)
+  ✓  2 frontend/browser/paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay (24.7s)
+  ✓  3 frontend/browser/paper.spec.cjs:11:3 › durable paper account: authentic refusal, downloads, restart and offline replay (25.3s)
+  ✓  4 frontend/browser/provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (1.2m)
+  ✓  5 frontend/browser/recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle (1.5m)
+  ✘  6 frontend/browser/weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart (1.3s)
+Testing stopped early after 1 maximum allowed failures.
+
+
+  1) frontend/browser/weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart 
+
+    AssertionError: Traceback (most recent call last):
+      File "<frozen runpy>", line 198, in _run_module_as_main
+      File "<frozen runpy>", line 88, in _run_code
+      File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-2/installation/backend/tests/integration/weather_history_retained.py", line 55, in <module>
+        raise ValueError("use a new evidence file in repository data")
+    ValueError: use a new evidence file in repository data
+
+
+    1 !== 0
+
+
+      75 |   try {
+      76 |     const seeded = spawnSync(python, ["-m", "tests.integration.weather_history_retained", workspace, path.join(evidence, "authentic-inputs.json")], { cwd: repo, env, encoding: "utf8", timeout: 30_000 });
+    > 77 |     assert.equal(seeded.status, 0, seeded.stdout + seeded.stderr);
+         |            ^
+      78 |     receipt.operations.push({ action: "import", evidence: JSON.parse(fs.readFileSync(path.join(evidence, "authentic-inputs.json"))) }); save();
+      79 |     await start(); await page.goto(origin);
+      80 |     await expect(page.locator("#submit")).toBeEnabled();
+        at /home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-2/installation/frontend/browser/weather-history.spec.cjs:77:12
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../browser/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../browser/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../browser/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/browser/weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart 
+  5 passed (4.9m)
+  1 error was not a part of any test, see above for details

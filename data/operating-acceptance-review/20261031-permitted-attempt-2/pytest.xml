@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="42" time="202.016" timestamp="2026-10-31T07:44:39.575110+00:00" hostname="DESKTOP-35K4BNH"><properties><property name="hypothesis-statistics-backend/tests/exchange/test_recording_v2.py::test_repeated_delta_does_not_change_displayed_size" value="YmFja2VuZC90ZXN0cy9leGNoYW5nZS90ZXN0X3JlY29yZGluZ192Mi5weTo6dGVzdF9yZXBlYXRlZF9kZWx0YV9kb2VzX25vdF9jaGFuZ2VfZGlzcGxheWVkX3NpemU6CgogIC0gZHVyaW5nIGdlbmVyYXRlIHBoYXNlICgwLjAyIHNlY29uZHMpOgogICAgLSBUeXBpY2FsIHJ1bnRpbWVzOiA8IDFtcywgb2Ygd2hpY2ggPCAxbXMgaW4gZGF0YSBnZW5lcmF0aW9uCiAgICAtIDIwIHBhc3NpbmcsIDAgZmFpbGluZywgYW5kIDAgaW52YWxpZCB0ZXN0IGNhc2VzCgogIC0gU3RvcHBlZCBiZWNhdXNlIG5vdGhpbmcgbGVmdCB0byBkbw==" /></properties><testcase classname="backend.tests.architecture.test_boundaries" name="test_banned_imports_stay_in_their_package" time="0.569" /><testcase classname="backend.tests.architecture.test_boundaries" name="test_domain_does_not_import_the_gateway_or_agents" time="0.001" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_collector_reconnects_with_new_session_and_can_restart" time="2.257" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_paginated_discovery_uses_one_historical_filter_and_refuses_cursor_loops" time="0.002" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_disk_budget_stops_without_deleting_existing_evidence" time="0.002" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_sdk_socket_sends_only_public_subscriptions_and_keeps_raw_frames" time="0.105" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes0-True]" time="0.074" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes1-False]" time="0.055" /><testcase classname="backend.tests.exchange.test_collector_service" name="test_collector_scope_verification_refuses_write_keys_and_does_not_record_key_inventory[scopes2-False]" time="0.073" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_trade_gap_is_reported_and_the_print_is_kept" time="0.000" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_reconnect_refuses_deltas_until_a_snapshot" time="0.001" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_sdk_book_tracker_drops_a_gapped_delta_and_a_duplicate" time="0.001" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_no_bid_becomes_a_yes_ask" time="0.000" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_kxhigh_source_comes_from_the_contract_text" time="0.000" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_recorder_restart_does_not_duplicate_rows" time="0.365" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_health_flags_separate_disconnect_stale_gap_and_lag" time="0.000" /><testcase classname="backend.tests.exchange.test_feed_recorder" name="test_adapter_source_does_not_call_from_env" time="0.001" /><testcase classname="backend.tests.exchange.test_gateway_http" name="test_read_only_market_book_and_cutoff_use_decimals" time="0.114" /><testcase classname="backend.tests.exchange.test_gateway_http" name="test_unknown_host_override_refuses_to_start" time="0.053" /><testcase classname="backend.tests.exchange.test_gateway_http" name="test_local_budget_blocks_once_the_bucket_is_empty" time="0.062" /><testcase classname="backend.tests.exchange.test_gateway_http" name="test_endpoint_cost_replaces_the_flat_read_price" time="0.045" /><testcase classname="backend.tests.exchange.test_gateway_http" name="test_http_429_is_one_attempt_and_keeps_the_body" time="0.067" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_receipts_are_distinct_facts_are_idempotent_and_sessions_do_not_collide" time="0.152" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_gap_and_conflicting_duplicate_are_persisted_before_resubscription" time="0.129" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_v1_migration_preserves_legacy_rows_and_labels_missing_provenance" time="0.135" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_rule_versions_and_repeated_rest_receipts_are_not_conflated" time="0.135" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_committed_message_survives_abrupt_process_exit" time="0.368" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_unrelated_market_messages_do_not_refresh_or_resurrect_a_book" time="0.001" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_repeated_delta_does_not_change_displayed_size" time="0.020" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_malformed_message_receipt_survives_decode_failure" time="0.107" /><testcase classname="backend.tests.exchange.test_recording_v2" name="test_demo_and_replay_cannot_be_mixed_with_certified_production_data" time="0.108" /><testcase classname="backend.tests.exchange.test_wire_session" name="test_snapshot_envelope_becomes_a_domain_frame" time="0.000" /><testcase classname="backend.tests.exchange.test_wire_session" name="test_dropped_socket_resyncs_from_the_next_snapshot" time="0.001" /><testcase classname="backend.tests.integration.test_bitcoin_history_listener" name="test_populated_history_discovery_worker_downloads_and_restart" time="19.818" /><testcase classname="backend.tests.integration.test_recovery_listener" name="test_real_listener_workers_restore_downloads_shadow_recovery_and_cancellation" time="30.130" /><testcase classname="backend.tests.integration.test_shadow_accounting" name="test_collection_with_later_public_books_persists_fills_and_official_settlement" time="0.481" /><testcase classname="backend.tests.integration.test_shadow_accounting" name="test_portable_account_snapshot_restore_and_legacy_upgrade" time="1.218" /><testcase classname="backend.tests.integration.test_shadow_history_listener" name="test_sustained_partition_research_downloads_and_offline_listener_restore" time="72.447"><failure message="httpx.ReadTimeout: timed out">@contextlib.contextmanager
+    def map_httpcore_exceptions() -&gt; typing.Iterator[None]:
+        global HTTPCORE_EXC_MAP
+        if len(HTTPCORE_EXC_MAP) == 0:
+            HTTPCORE_EXC_MAP = _load_httpcore_exceptions()
+        try:
+&gt;           yield
+
+.venv/lib/python3.12/site-packages/httpx/_transports/default.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/httpx/_transports/default.py:250: in handle_request
+    resp = self._pool.handle_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py:256: in handle_request
+    raise exc from None
+.venv/lib/python3.12/site-packages/httpcore/_sync/connection_pool.py:236: in handle_request
+    response = connection.handle_request(
+.venv/lib/python3.12/site-packages/httpcore/_sync/connection.py:103: in handle_request
+    return self._connection.handle_request(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py:136: in handle_request
+    raise exc
+.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py:106: in handle_request
+    ) = self._receive_response_headers(**kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py:177: in _receive_response_headers
+    event = self._receive_event(timeout=timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpcore/_sync/http11.py:217: in _receive_event
+    data = self._network_stream.read(
+.venv/lib/python3.12/site-packages/httpcore/_backends/sync.py:126: in read
+    with map_exceptions(exc_map):
+/usr/lib/python3.12/contextlib.py:158: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+map = {&lt;class 'TimeoutError'&gt;: &lt;class 'httpcore.ReadTimeout'&gt;, &lt;class 'OSError'&gt;: &lt;class 'httpcore.ReadError'&gt;}
+
+    @contextlib.contextmanager
+    def map_exceptions(map: ExceptionMapping) -&gt; typing.Iterator[None]:
+        try:
+            yield
+        except Exception as exc:  # noqa: PIE786
+            for from_exc, to_exc in map.items():
+                if isinstance(exc, from_exc):
+&gt;                   raise to_exc(exc) from exc
+E                   httpcore.ReadTimeout: timed out
+
+.venv/lib/python3.12/site-packages/httpcore/_exceptions.py:14: ReadTimeout
+
+The above exception was the direct cause of the following exception:
+
+    def test_sustained_partition_research_downloads_and_offline_listener_restore() -&gt; None:
+        with TemporaryDirectory(prefix="shadow-history-http-", dir=REPO / "data/cache") as name:
+            parent = Path(name)
+            root = parent / "workspace"
+            seed_sustained(root)
+            with listening(root) as (server, client):
+                headers = {"X-EntropyTrade-CSRF": client.get("/api/catalog").json()["csrf_token"]}
+                catalog = client.get("/api/weather/partitions").json()
+                assert catalog["total_inputs"] == 130
+                ids = [p["partition_id"] for p in catalog["partitions"]]
+                assert client.post("/api/weather/datasets", json={}, headers=headers).status_code == 400
+                assert (
+                    client.post("/api/weather/datasets", json={"partition_id": ids[0]}).status_code
+                    == 403
+                )
+                assert (
+                    client.post(
+                        "/api/weather/datasets", json={"partition_id": "../x"}, headers=headers
+                    ).status_code
+                    == 400
+                )
+                selected = {"partition_id": ids[0], "outcome_partition_id": ids[1]}
+&gt;               frozen = client.post("/api/weather/datasets", json=selected, headers=headers)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+backend/tests/integration/test_shadow_history_listener.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+.venv/lib/python3.12/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+.venv/lib/python3.12/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_transports/default.py:249: in handle_request
+    with map_httpcore_exceptions():
+/usr/lib/python3.12/contextlib.py:158: in __exit__
+    self.gen.throw(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    @contextlib.contextmanager
+    def map_httpcore_exceptions() -&gt; typing.Iterator[None]:
+        global HTTPCORE_EXC_MAP
+        if len(HTTPCORE_EXC_MAP) == 0:
+            HTTPCORE_EXC_MAP = _load_httpcore_exceptions()
+        try:
+            yield
+        except Exception as exc:
+            mapped_exc = None
+    
+            for from_exc, to_exc in HTTPCORE_EXC_MAP.items():
+                if not isinstance(exc, from_exc):
+                    continue
+                # We want to map to the most specific exception we can find.
+                # Eg if `exc` is an `httpcore.ReadTimeout`, we want to map to
+                # `httpx.ReadTimeout`, not just `httpx.TimeoutException`.
+                if mapped_exc is None or issubclass(to_exc, mapped_exc):
+                    mapped_exc = to_exc
+    
+            if mapped_exc is None:  # pragma: no cover
+                raise
+    
+            message = str(exc)
+&gt;           raise mapped_exc(message) from exc
+E           httpx.ReadTimeout: timed out
+
+.venv/lib/python3.12/site-packages/httpx/_transports/default.py:118: ReadTimeout</failure></testcase><testcase classname="backend.tests.integration.test_shadow_tracking" name="test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisions" time="0.977" /><testcase classname="backend.tests.integration.test_shadow_tracking" name="test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit" time="0.833" /><testcase classname="backend.tests.integration.test_shadow_tracking" name="test_frozen_model_collection_books_replay_and_later_outcome" time="0.828" /><testcase classname="backend.tests.integration.test_weather_cohorts_listener" name="test_cohort_api_validation_and_existing_research_experiment_pipeline" time="46.422" /><testcase time="0.000" /></testsuite></testsuites>

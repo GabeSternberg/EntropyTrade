@@ -484,7 +484,7 @@ def main():
             "pytest",
             [
                 str(clean / ".venv/bin/pytest"),
-                "-q",
+                "-v",
                 "-o",
                 "faulthandler_timeout=45",
                 "--junitxml=" + str(output / "pytest.xml"),

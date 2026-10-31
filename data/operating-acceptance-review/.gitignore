@@ -2,3 +2,9 @@
 **/installation/
 **/uv-cache/
 **/npm-cache/
+
+# Generated browser internals and workspace archives stay at their original local paths.
+# Inventory them with tools/review_artifacts.py before checkpointing. Reports, receipts,
+# downloads and screenshots remain reviewable in Git; a checkout alone lacks these bytes.
+**/playwright-artifacts/
+**/*.zip

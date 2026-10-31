@@ -1,0 +1,16 @@
+{
+  "scope": "Original failed execution retained unchanged; browser import metadata path repair only.",
+  "failure": "The authentic weather import fixture rejected browser metadata outside the installed repository data directory.",
+  "actual_error": "ValueError: use a new evidence file in repository data",
+  "source": "browser.log and browser/weather-browser-receipt.json",
+  "cause": "The locked driver puts evidence alongside installation/, while the original helper requires all of its output under installation/data/.",
+  "repair": "Stage metadata under installation/data/cache/ outside the workspace, then copy successful original metadata to the external evidence directory with exclusive creation. Preserve the existing path guard, original receipts and every weather assertion.",
+  "production_changes": false,
+  "assertions_weakened": false,
+  "partial_browser_result": {
+    "passed": 5,
+    "failed": 1,
+    "did_not_run": 0
+  },
+  "cancellation_probe": "The graceful cancellation lookup matched no pytest process and sent no signal; the original driver remains authoritative for its suite result."
+}

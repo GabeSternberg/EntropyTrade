@@ -3,7 +3,51 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current correction: deterministic provider deadline verification
+## Current milestone: private-workbench operating acceptance
+
+Checkpoint blocker repair: generated Playwright trees and workspace ZIPs are retained
+locally and excluded from new staging. A [362,515-byte manifest](data/operating-acceptance-review/local-artifacts-20261031.json)
+verifies 1,096 files totaling 261,903,008 bytes, including the reported 13,926,914-byte
+trace and every oversized untracked workspace archive. Nothing is deleted or retimed;
+earlier acceptance receipts remain unchanged. The [retention policy](data/operating-acceptance-review/ARTIFACT_RETENTION.md)
+documents verification, checkout limitations and a separate proposal for four unchanged
+large tracked artifacts. Git checkpointing remains the supervisor's responsibility.
+These retention checks do not rerun the prior passing suite/browser acceptance below.
+Repair verification passes Ruff/format (540 files), strict mypy (537 files), 66 focused
+pytest cases and 22 frontend checks. The [read-only audit](data/operating-acceptance-review/20261031-checkpoint-repair/README.md)
+finds no eligible changed/untracked candidate above 8,000,000 bytes (largest 971,467),
+verifies all original source/safety/browser artifact hashes and leaves the index empty.
+
+Work remains on designated `supervisor/20261031-033238` from `2f8d9ad`; the supervisor
+owns all Git mutations and independent review. The fresh serial locked installation has
+passed Ruff lint/format, strict mypy (535 files), all 22 frontend checks and **all six
+required managed-Chromium procedures** through actual localhost listeners. The browser
+receipts retain **26 screenshots, 43 downloads and zero page errors**, including controlled
+and authentic paper accounting, alert acknowledgement/recovery/recurrence, cancellation,
+listener restart, offline restore and reopened-download equality.
+
+The complete suite passes **1,210 tests in 644.82s**, with zero failures/errors/skips.
+Final verification checks all 43 download hashes, 26 screenshots, six intact traces,
+19 identical download comparisons, all 1,578 checkout/install source hashes and all
+68 original receipt plus five Bitcoin boundary hashes. Both actual paper browser workspaces
+restore offline with identical exports and reproducible accounting; stopped recovery,
+provider and weather workspaces are archived, including fresh authentic collection bytes.
+**Private-workbench operating acceptance is verified; V1 remains incomplete.** See the
+[current execution bundle](data/operating-acceptance-review/20261031-permitted-serial/README.md).
+Earlier failed attempts remain failed. Two concrete harness repairs strengthen provider
+run identity checks before downloads and stage authentic import metadata inside the installed
+repository before copying it to external evidence. Pytest logs each case for crash diagnosis;
+existing assertions, internal timeouts, risk limits and production code are unchanged.
+The serial run completes without reproducing the earlier native crash; its underlying
+cause is not established. Independent supervisor milestone/release review remains required.
+
+Preserve authentic forward collection, original timestamps and frozen Bitcoin boundaries.
+External-provider verification, authentic empirical models/backtests, effective fee
+certification, two-family validation and independent V1 release review remain open. Another
+major family requires user approval. No next major phase, credentials, real orders or Git
+mutations are authorized by these execution results.
+
+## Previous correction: deterministic provider deadline verification
 
 The reported provider-job `assert calls` failure is reproduced and repaired in test
 support. A 50 ms whole-pipeline deadline could expire during agent/schema setup before

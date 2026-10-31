@@ -1,0 +1,107 @@
+.....................................Timeout (0:00:45)!
+Thread 0x00007d2cb53836c0 (most recent call first):
+  File "/usr/lib/python3.12/threading.py", line 359 in wait
+  File "/usr/lib/python3.12/threading.py", line 655 in wait
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/src/entropytrade/api/runner.py", line 125 in execute
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/src/entropytrade/api/runner.py", line 57 in run
+  File "/usr/lib/python3.12/threading.py", line 1010 in run
+  File "/usr/lib/python3.12/threading.py", line 1073 in _bootstrap_inner
+  File "/usr/lib/python3.12/threading.py", line 1030 in _bootstrap
+
+Thread 0x00007d2ca7fff6c0 (most recent call first):
+  File "/usr/lib/python3.12/selectors.py", line 415 in select
+  File "/usr/lib/python3.12/socketserver.py", line 235 in serve_forever
+  File "/usr/lib/python3.12/threading.py", line 1010 in run
+  File "/usr/lib/python3.12/threading.py", line 1073 in _bootstrap_inner
+  File "/usr/lib/python3.12/threading.py", line 1030 in _bootstrap
+
+Thread 0x00007d2cd883c080 (most recent call first):
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/tests/integration/test_workbench_process.py", line 38 in await_job
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/tests/integration/test_shadow_history_listener.py", line 53 in test_sustained_partition_research_downloads_and_offline_listener_restore
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/python.py", line 167 in pytest_pyfunc_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1707 in runtest
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 184 in pytest_runtest_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 250 in <lambda>
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 361 in from_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 249 in call_and_report
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 139 in runtestprotocol
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 118 in pytest_runtest_protocol
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 408 in pytest_runtestloop
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 384 in _main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 330 in wrap_session
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 377 in pytest_cmdline_main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 229 in _main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 253 in _console_main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/bin/pytest", line 12 in <module>
+................................... [  5%]
+........................................................................ [ 11%]
+........................................................................ [ 17%]
+........................................................................ [ 23%]
+........................................................................ [ 29%]
+........................................................................ [ 35%]
+........................................................................ [ 41%]
+........................................................................ [ 47%]
+........................................................................ [ 53%]
+........................................................................ [ 59%]
+........................................................................ [ 65%]
+.Timeout (0:00:45)!
+Thread 0x00007d2cd883c080 (most recent call first):
+  File "<frozen posixpath>", line 476 in _joinrealpath
+  File "<frozen posixpath>", line 432 in realpath
+  File "/usr/lib/python3.12/pathlib.py", line 1242 in resolve
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/src/entropytrade/families/public.py", line 176 in forward_data
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/src/entropytrade/tracking/history.py", line 174 in verified_inputs
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/backend/tests/unit/test_shadow_history.py", line 76 in test_130_collector_cycles_partition_restart_and_offline_restore
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/python.py", line 167 in pytest_pyfunc_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1707 in runtest
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 184 in pytest_runtest_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 250 in <lambda>
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 361 in from_call
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 249 in call_and_report
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 139 in runtestprotocol
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 118 in pytest_runtest_protocol
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 408 in pytest_runtestloop
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 384 in _main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 330 in wrap_session
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/main.py", line 377 in pytest_cmdline_main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 229 in _main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 253 in _console_main
+  File "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-attempt-1/installation/.venv/bin/pytest", line 12 in <module>
+....................................................................... [ 71%]
+........................................................................ [ 77%]
+........................................................................ [ 83%]
+........................................................................ [ 89%]
+......Timeout (0:00:45)!
+Thread 0x00007d2cd883c080 (most recent call first):
+  File "/usr/lib/python3.12/pathlib.py", line 385 in with_segments
+  File 

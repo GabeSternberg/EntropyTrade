@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "path": "PROJECT_CONTEXT.md",
+      "sha256": "0a09beb9b284252ffd77e3f79af609d7453ad25c0e21c18e76f4e379db3d54fd"
+    },
+    {
+      "path": "STATUS.md",
+      "sha256": "b4eb727d0be1401fb993570127d55daf0365d8c81490f47bda4b8a763e084db9"
+    },
+    {
+      "path": "docs/v1_acceptance.md",
+      "sha256": "32137c7913a886053e30b7fcf7b09cb70457c2447e6c1990b43b30385254e2de"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "sha256": "f8055fa835248d20de60089b36111937ecfe3bbcea9ecf32ade96216a415d5c3"
+    },
+    {
+      "path": "docs/local-recovery.md",
+      "sha256": "dd85e3bf007b3f5f488e28336085eb52d1a9906c6fa55ca435944f39117ecad8"
+    }
+  ],
+  "operating_acceptance_complete": true,
+  "v1_complete": false,
+  "independent_supervisor_review_pending": true
+}

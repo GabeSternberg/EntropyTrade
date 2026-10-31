@@ -1,0 +1,29 @@
+{
+  "monitor_id": "e13c2acc-90cb-4974-be95-b1eba5915e9b",
+  "evidence": "CONTROLLED SYNTHETIC paper fills, fees and settlement; never empirical",
+  "summary": {
+    "status": "simulated",
+    "data_kind": "synthetic",
+    "starting_cash": "1000.000000",
+    "cash": "1001.420000",
+    "available_cash": "1001.420000",
+    "fees": "0.080000",
+    "realized_pnl": "1.420000",
+    "equity_at_cost": "1001.420000",
+    "positions": [],
+    "fill_count": 2,
+    "settlement_count": 1,
+    "as_of": "2025-02-20T14:13:22+00:00",
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim."
+  },
+  "verified": {
+    "verified": true,
+    "paper_cycles": 5,
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "submission_enabled": false,
+    "limitation": "Accounting replay, not source certification"
+  },
+  "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+  "submission_enabled": false
+}

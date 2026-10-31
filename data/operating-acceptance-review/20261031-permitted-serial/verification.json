@@ -1,0 +1,769 @@
+{
+  "checked_at": "2026-10-31T08:07:27.017942+00:00",
+  "status": "passed",
+  "operating_acceptance_complete": true,
+  "v1_complete": false,
+  "browser_report": {
+    "report": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/browser/playwright-results.json",
+    "execution": true,
+    "status": "passed",
+    "procedures": [
+      {
+        "file": "alerts.spec.cjs",
+        "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+      },
+      {
+        "file": "provider.spec.cjs",
+        "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+      },
+      {
+        "file": "recovery.spec.cjs",
+        "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+      },
+      {
+        "file": "weather-history.spec.cjs",
+        "title": "authentic retained weather: freeze, select, research, downloads and restart"
+      }
+    ],
+    "missing_required": [],
+    "errors": [],
+    "sha256": "204d1a733550d2a6a82c979cec8c833d585cefb3640ca6d987b0a0ace38d0977"
+  },
+  "source_files_verified": 1578,
+  "safety_files_verified": 73,
+  "procedures": [
+    {
+      "receipt": "alerts/receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 4,
+      "downloads": 6,
+      "artifacts": [
+        {
+          "path": "browser/alerts/acknowledged.json",
+          "kind": "downloads",
+          "bytes": 8834,
+          "sha256": "f548a301b9303881bad1dfe103bf4b43121003c4d194a66553895deca5369346"
+        },
+        {
+          "path": "browser/alerts/restarted.json",
+          "kind": "downloads",
+          "bytes": 8834,
+          "sha256": "f548a301b9303881bad1dfe103bf4b43121003c4d194a66553895deca5369346"
+        },
+        {
+          "path": "browser/alerts/recovered.json",
+          "kind": "downloads",
+          "bytes": 10680,
+          "sha256": "a4a7fa27b011de63ca6b8ca2af7216b44cdb03b6660b17170ffbd543866dbeea"
+        },
+        {
+          "path": "browser/alerts/recurring.json",
+          "kind": "downloads",
+          "bytes": 13878,
+          "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+        },
+        {
+          "path": "browser/alerts/final.json",
+          "kind": "downloads",
+          "bytes": 13878,
+          "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+        },
+        {
+          "path": "browser/alerts/restored.json",
+          "kind": "downloads",
+          "bytes": 13878,
+          "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+        },
+        {
+          "path": "browser/alerts/needs-review.png",
+          "kind": "screenshots",
+          "bytes": 482133,
+          "sha256": "04f32a2b2238953c7217ced446dbbfb25dfab26636048fab2947b7e12a1b5f60"
+        },
+        {
+          "path": "browser/alerts/acknowledged.png",
+          "kind": "screenshots",
+          "bytes": 476195,
+          "sha256": "01a6b117b7e3a760bc90a75d2c3d7e2f84d1327aea75ee5dbbb22e49ee265aed"
+        },
+        {
+          "path": "browser/alerts/recovered.png",
+          "kind": "screenshots",
+          "bytes": 493879,
+          "sha256": "25bb1f569f32f8d82365414202647d592104f0846430837369eec750942ba64f"
+        },
+        {
+          "path": "browser/alerts/recurring.png",
+          "kind": "screenshots",
+          "bytes": 594092,
+          "sha256": "82721da2ff2e0fe498ebf05a71fcfe214c36ee1111a2c04f8615a33712847f60"
+        }
+      ]
+    },
+    {
+      "receipt": "controlled/receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 2,
+      "downloads": 4,
+      "artifacts": [
+        {
+          "path": "browser/controlled/account.json",
+          "kind": "downloads",
+          "bytes": 3522,
+          "sha256": "9f8483aa9c1a1198d688dfcf0414a31a2be4a7afc278a46409dd36bd47137821"
+        },
+        {
+          "path": "browser/controlled/shadow.json",
+          "kind": "downloads",
+          "bytes": 134880,
+          "sha256": "277b6d90fdfc49e37201bc50626b044704e5e9e67643c2ce6a469a6c01df8386"
+        },
+        {
+          "path": "browser/controlled/restarted-account.json",
+          "kind": "downloads",
+          "bytes": 3522,
+          "sha256": "9f8483aa9c1a1198d688dfcf0414a31a2be4a7afc278a46409dd36bd47137821"
+        },
+        {
+          "path": "browser/controlled/restarted-shadow.json",
+          "kind": "downloads",
+          "bytes": 134880,
+          "sha256": "277b6d90fdfc49e37201bc50626b044704e5e9e67643c2ce6a469a6c01df8386"
+        },
+        {
+          "path": "browser/controlled/paper-account.png",
+          "kind": "screenshots",
+          "bytes": 698820,
+          "sha256": "4c0bfc2755d0936bbe5ce7ccfb87c0c946b6647a822387d025568b6430263d7f"
+        },
+        {
+          "path": "browser/controlled/restarted.png",
+          "kind": "screenshots",
+          "bytes": 625625,
+          "sha256": "56d62dcb2bb9f7fbcf15a89ea0cd04768b7f004d643076c30aa171ecad768492"
+        }
+      ]
+    },
+    {
+      "receipt": "authentic/receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 2,
+      "downloads": 4,
+      "artifacts": [
+        {
+          "path": "browser/authentic/account.json",
+          "kind": "downloads",
+          "bytes": 2149,
+          "sha256": "842bbdd9365c18923e049656aa86306523dfafa119068c0a8eb14d7ba2066b30"
+        },
+        {
+          "path": "browser/authentic/shadow.json",
+          "kind": "downloads",
+          "bytes": 565550,
+          "sha256": "3fc9dd0a5a714f3ac0374542f456ccb4c57fb64f82676c3fa51349d6e4817576"
+        },
+        {
+          "path": "browser/authentic/restarted-account.json",
+          "kind": "downloads",
+          "bytes": 2149,
+          "sha256": "842bbdd9365c18923e049656aa86306523dfafa119068c0a8eb14d7ba2066b30"
+        },
+        {
+          "path": "browser/authentic/restarted-shadow.json",
+          "kind": "downloads",
+          "bytes": 565550,
+          "sha256": "3fc9dd0a5a714f3ac0374542f456ccb4c57fb64f82676c3fa51349d6e4817576"
+        },
+        {
+          "path": "browser/authentic/paper-account.png",
+          "kind": "screenshots",
+          "bytes": 970940,
+          "sha256": "cbf5fca5f85d6db99458e812a1190155f35b1d88303f27bb0b48acbfdda4ecaf"
+        },
+        {
+          "path": "browser/authentic/restarted.png",
+          "kind": "screenshots",
+          "bytes": 886509,
+          "sha256": "9fbd60d2d484eec5e8864e0810253368beafa65b8e519e426a50fd3b16924dd9"
+        }
+      ]
+    },
+    {
+      "receipt": "provider-browser-receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 8,
+      "downloads": 14,
+      "artifacts": [
+        {
+          "path": "browser/provider-success.json",
+          "kind": "downloads",
+          "bytes": 267340,
+          "sha256": "447037bae3f2c778973f3b2ceb50816e3fc9c2ae3987a8cb6450f1b9699fc3cb"
+        },
+        {
+          "path": "browser/provider-success.txt",
+          "kind": "downloads",
+          "bytes": 607,
+          "sha256": "81f22f287aa36b7ac223e197e99f0bb313e227e18c2092473e67eda74d763c71"
+        },
+        {
+          "path": "browser/provider-outage.json",
+          "kind": "downloads",
+          "bytes": 61824,
+          "sha256": "6e29a4d247aed2f198a4aa156ff712f6051024812b51d7602c20a0e0131a22dd"
+        },
+        {
+          "path": "browser/provider-unpriced-first.json",
+          "kind": "downloads",
+          "bytes": 55247,
+          "sha256": "2c7add5308d8136b3d64d70b346983f0c8083a1a0a23fc8e423169388bf9c566"
+        },
+        {
+          "path": "browser/provider-unpriced-first.txt",
+          "kind": "downloads",
+          "bytes": 221,
+          "sha256": "98fe4ea4b4ea6784c9aeebd332108d872359d5fdc66d90a8efd3efd02567f190"
+        },
+        {
+          "path": "browser/provider-unpriced-second.json",
+          "kind": "downloads",
+          "bytes": 57702,
+          "sha256": "fc4430af8504f3a04826dacdf64e8a3ecefd64638b162bad8281ec5f6a1e07ef"
+        },
+        {
+          "path": "browser/provider-unpriced-second.txt",
+          "kind": "downloads",
+          "bytes": 221,
+          "sha256": "98fe4ea4b4ea6784c9aeebd332108d872359d5fdc66d90a8efd3efd02567f190"
+        },
+        {
+          "path": "browser/provider-success-restarted.json",
+          "kind": "downloads",
+          "bytes": 267340,
+          "sha256": "447037bae3f2c778973f3b2ceb50816e3fc9c2ae3987a8cb6450f1b9699fc3cb"
+        },
+        {
+          "path": "browser/provider-success-restarted.txt",
+          "kind": "downloads",
+          "bytes": 607,
+          "sha256": "81f22f287aa36b7ac223e197e99f0bb313e227e18c2092473e67eda74d763c71"
+        },
+        {
+          "path": "browser/provider-outage-restarted.json",
+          "kind": "downloads",
+          "bytes": 61824,
+          "sha256": "6e29a4d247aed2f198a4aa156ff712f6051024812b51d7602c20a0e0131a22dd"
+        },
+        {
+          "path": "browser/provider-unpriced-first-restarted.json",
+          "kind": "downloads",
+          "bytes": 55247,
+          "sha256": "2c7add5308d8136b3d64d70b346983f0c8083a1a0a23fc8e423169388bf9c566"
+        },
+        {
+          "path": "browser/provider-unpriced-second-restarted.json",
+          "kind": "downloads",
+          "bytes": 57702,
+          "sha256": "fc4430af8504f3a04826dacdf64e8a3ecefd64638b162bad8281ec5f6a1e07ef"
+        },
+        {
+          "path": "browser/provider-missing-credential.json",
+          "kind": "downloads",
+          "bytes": 25862,
+          "sha256": "8f3a9d6496e460b8901eee4fbf781edda84a1b61d5c7af81e84f59dc67d89f74"
+        },
+        {
+          "path": "browser/provider-missing-credential.txt",
+          "kind": "downloads",
+          "bytes": 138,
+          "sha256": "d3e0f7cb4c257de5675b4cfc222f6353cb74b815961368c09fe5a48735c69ab0"
+        },
+        {
+          "path": "browser/provider-success-Review.png",
+          "kind": "screenshots",
+          "bytes": 454130,
+          "sha256": "f7944dced14cbce10a746d6107fc92057e8b197f61ea540e1f4ba617291d985e"
+        },
+        {
+          "path": "browser/provider-success-Probabilities.png",
+          "kind": "screenshots",
+          "bytes": 327108,
+          "sha256": "71f99cd106cf71f019ae4204401a676a4eb70a591b377ed8291e07dd4ccfe605"
+        },
+        {
+          "path": "browser/provider-success-Evidence---lineage.png",
+          "kind": "screenshots",
+          "bytes": 577262,
+          "sha256": "ff1fe06c4b11bcf31aa73feea7becfe9f27ab934680a46106ee7fa2007f41382"
+        },
+        {
+          "path": "browser/provider-outage.png",
+          "kind": "screenshots",
+          "bytes": 339263,
+          "sha256": "a814a7364f9eb860f18290fe34d95266849244861e41b5d29d760c8e2e81ef44"
+        },
+        {
+          "path": "browser/provider-unpriced-first.png",
+          "kind": "screenshots",
+          "bytes": 406604,
+          "sha256": "b6c4c700d3a75b16dce31064c7162702251463dbaa8872dadcae3c0eabef2520"
+        },
+        {
+          "path": "browser/provider-unpriced-second.png",
+          "kind": "screenshots",
+          "bytes": 412314,
+          "sha256": "912b61d297988f3521fe8942e12f030259ab331785c27568d8f706fd4fd072c3"
+        },
+        {
+          "path": "browser/provider-recovered-interruption.png",
+          "kind": "screenshots",
+          "bytes": 278234,
+          "sha256": "5a3fdf78d972b02bdf9cd057fed3db78484f70713e6acdcc48e310c584a4d123"
+        },
+        {
+          "path": "browser/provider-missing-credential.png",
+          "kind": "screenshots",
+          "bytes": 375421,
+          "sha256": "93036d0e3141e8a05130020a3933eb85ad7d9d150c33604332b342fadc112ce5"
+        }
+      ]
+    },
+    {
+      "receipt": "recovery-browser-receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 5,
+      "downloads": 11,
+      "artifacts": [
+        {
+          "path": "browser/synthetic-review.json",
+          "kind": "downloads",
+          "bytes": 604987,
+          "sha256": "720c53efb7c7f90589452304cdd8c3f961d0f979f8c523777ed151826888762e"
+        },
+        {
+          "path": "browser/synthetic-report.txt",
+          "kind": "downloads",
+          "bytes": 4822,
+          "sha256": "6dffd8721632ab14acf0746d7d7d76c7afcb9b48135a4c9c8b594a901ac8611e"
+        },
+        {
+          "path": "browser/recorded-review.json",
+          "kind": "downloads",
+          "bytes": 233158,
+          "sha256": "2dd6612edd183a0448e4708c7826ba9f7b4e43194a5aaf4839ba55a0794fa90d"
+        },
+        {
+          "path": "browser/paused-original.json",
+          "kind": "downloads",
+          "bytes": 218689,
+          "sha256": "dc7a625de19d1f4b87844b9a00c0ece95df020f465d9381e1b8742575700400d"
+        },
+        {
+          "path": "browser/active-before-stop.json",
+          "kind": "downloads",
+          "bytes": 3591,
+          "sha256": "6d772a5990d65f9cdaef0e16e2a25043e1363feae0ea106fd2f7c2ca6922d6c0"
+        },
+        {
+          "path": "browser/paused-restored.json",
+          "kind": "downloads",
+          "bytes": 218689,
+          "sha256": "dc7a625de19d1f4b87844b9a00c0ece95df020f465d9381e1b8742575700400d"
+        },
+        {
+          "path": "browser/active-recovered.json",
+          "kind": "downloads",
+          "bytes": 219136,
+          "sha256": "07f08746eb823024df5a1381eae2d6c544d13eb866b2fcb42958369f0556a531"
+        },
+        {
+          "path": "browser/synthetic-restored.json",
+          "kind": "downloads",
+          "bytes": 604987,
+          "sha256": "720c53efb7c7f90589452304cdd8c3f961d0f979f8c523777ed151826888762e"
+        },
+        {
+          "path": "browser/synthetic-restored.txt",
+          "kind": "downloads",
+          "bytes": 4822,
+          "sha256": "6dffd8721632ab14acf0746d7d7d76c7afcb9b48135a4c9c8b594a901ac8611e"
+        },
+        {
+          "path": "browser/recorded-restored.json",
+          "kind": "downloads",
+          "bytes": 233158,
+          "sha256": "2dd6612edd183a0448e4708c7826ba9f7b4e43194a5aaf4839ba55a0794fa90d"
+        },
+        {
+          "path": "browser/paused-second-restart.json",
+          "kind": "downloads",
+          "bytes": 218689,
+          "sha256": "dc7a625de19d1f4b87844b9a00c0ece95df020f465d9381e1b8742575700400d"
+        },
+        {
+          "path": "browser/synthetic-lineage.png",
+          "kind": "screenshots",
+          "bytes": 568668,
+          "sha256": "60791111c4876aec32d76f93593cdb8dcd18b356cc79f25514931adfc1c63667"
+        },
+        {
+          "path": "browser/recorded-insufficient.png",
+          "kind": "screenshots",
+          "bytes": 401482,
+          "sha256": "c6f97f8f5876b38a96bb13ec2ad3c59f169dce6b089c9d6a432808acae1a122a"
+        },
+        {
+          "path": "browser/paused-original.png",
+          "kind": "screenshots",
+          "bytes": 710767,
+          "sha256": "822b5d56f10750202d0fb2f719137ebebe0a81821cadbd86544c6ff0cc5e9b64"
+        },
+        {
+          "path": "browser/paused-restored.png",
+          "kind": "screenshots",
+          "bytes": 562335,
+          "sha256": "b9afefebb40bd4518ee5f0e532fce3e6b00da3620135d680022442612c5716c9"
+        },
+        {
+          "path": "browser/active-recovered.png",
+          "kind": "screenshots",
+          "bytes": 599189,
+          "sha256": "db170f3e83ad90361161c9d797627f838a39ba4159ee8e0eb32596b5861b0c64"
+        }
+      ]
+    },
+    {
+      "receipt": "weather-browser-receipt.json",
+      "status": "passed",
+      "browser": "141.0.7390.37",
+      "page_errors": [],
+      "screenshots": 5,
+      "downloads": 4,
+      "artifacts": [
+        {
+          "path": "browser/weather-review.json",
+          "kind": "downloads",
+          "bytes": 228456,
+          "sha256": "7190e958bc6ebbdbdf570c374eacbe8ece42a409ff5d6faabbbaadbcf32553f0"
+        },
+        {
+          "path": "browser/weather-report.txt",
+          "kind": "downloads",
+          "bytes": 8399,
+          "sha256": "c0b13de15bdf03bac7d3a8292e37b795c7efb1a93ad83b313f159e326a56d70c"
+        },
+        {
+          "path": "browser/weather-restart-review.json",
+          "kind": "downloads",
+          "bytes": 228456,
+          "sha256": "7190e958bc6ebbdbdf570c374eacbe8ece42a409ff5d6faabbbaadbcf32553f0"
+        },
+        {
+          "path": "browser/weather-restart-report.txt",
+          "kind": "downloads",
+          "bytes": 8399,
+          "sha256": "c0b13de15bdf03bac7d3a8292e37b795c7efb1a93ad83b313f159e326a56d70c"
+        },
+        {
+          "path": "browser/weather-dataset.png",
+          "kind": "screenshots",
+          "bytes": 483623,
+          "sha256": "63271c2a44a4bb7f1eb67812f42a38ab8cc866394c75b026a4058f221fab5e48"
+        },
+        {
+          "path": "browser/weather-Review.png",
+          "kind": "screenshots",
+          "bytes": 758869,
+          "sha256": "20b67a59d5a0581be030233292327f27b9397366479ceeb1904ba407d3f33e33"
+        },
+        {
+          "path": "browser/weather-Probabilities.png",
+          "kind": "screenshots",
+          "bytes": 652286,
+          "sha256": "74788c6f988646cbeb0da65caae6b2f51f37fb077593d40afcef8982c2afab1a"
+        },
+        {
+          "path": "browser/weather-Evidence---lineage.png",
+          "kind": "screenshots",
+          "bytes": 898040,
+          "sha256": "c577c6d59d52496c692a0078eb82f5e9d0c0d0d61597e6db337eeaf3e32573ac"
+        },
+        {
+          "path": "browser/weather-restart.png",
+          "kind": "screenshots",
+          "bytes": 755537,
+          "sha256": "bb389100d8668e57ef4327832cc8461c781d4f5863cee7ef9e8cc6b54d3a3c01"
+        }
+      ]
+    }
+  ],
+  "screenshots_verified": 26,
+  "downloads_verified": 43,
+  "identical_download_pairs": [
+    {
+      "before": "alerts/acknowledged.json",
+      "after": "alerts/restarted.json",
+      "identical": true,
+      "sha256": "f548a301b9303881bad1dfe103bf4b43121003c4d194a66553895deca5369346"
+    },
+    {
+      "before": "alerts/recurring.json",
+      "after": "alerts/final.json",
+      "identical": true,
+      "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+    },
+    {
+      "before": "alerts/final.json",
+      "after": "alerts/restored.json",
+      "identical": true,
+      "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+    },
+    {
+      "before": "controlled/account.json",
+      "after": "controlled/restarted-account.json",
+      "identical": true,
+      "sha256": "9f8483aa9c1a1198d688dfcf0414a31a2be4a7afc278a46409dd36bd47137821"
+    },
+    {
+      "before": "controlled/shadow.json",
+      "after": "controlled/restarted-shadow.json",
+      "identical": true,
+      "sha256": "277b6d90fdfc49e37201bc50626b044704e5e9e67643c2ce6a469a6c01df8386"
+    },
+    {
+      "before": "authentic/account.json",
+      "after": "authentic/restarted-account.json",
+      "identical": true,
+      "sha256": "842bbdd9365c18923e049656aa86306523dfafa119068c0a8eb14d7ba2066b30"
+    },
+    {
+      "before": "authentic/shadow.json",
+      "after": "authentic/restarted-shadow.json",
+      "identical": true,
+      "sha256": "3fc9dd0a5a714f3ac0374542f456ccb4c57fb64f82676c3fa51349d6e4817576"
+    },
+    {
+      "before": "provider-success.json",
+      "after": "provider-success-restarted.json",
+      "identical": true,
+      "sha256": "447037bae3f2c778973f3b2ceb50816e3fc9c2ae3987a8cb6450f1b9699fc3cb"
+    },
+    {
+      "before": "provider-success.txt",
+      "after": "provider-success-restarted.txt",
+      "identical": true,
+      "sha256": "81f22f287aa36b7ac223e197e99f0bb313e227e18c2092473e67eda74d763c71"
+    },
+    {
+      "before": "provider-outage.json",
+      "after": "provider-outage-restarted.json",
+      "identical": true,
+      "sha256": "6e29a4d247aed2f198a4aa156ff712f6051024812b51d7602c20a0e0131a22dd"
+    },
+    {
+      "before": "provider-unpriced-first.json",
+      "after": "provider-unpriced-first-restarted.json",
+      "identical": true,
+      "sha256": "2c7add5308d8136b3d64d70b346983f0c8083a1a0a23fc8e423169388bf9c566"
+    },
+    {
+      "before": "provider-unpriced-second.json",
+      "after": "provider-unpriced-second-restarted.json",
+      "identical": true,
+      "sha256": "fc4430af8504f3a04826dacdf64e8a3ecefd64638b162bad8281ec5f6a1e07ef"
+    },
+    {
+      "before": "synthetic-review.json",
+      "after": "synthetic-restored.json",
+      "identical": true,
+      "sha256": "720c53efb7c7f90589452304cdd8c3f961d0f979f8c523777ed151826888762e"
+    },
+    {
+      "before": "synthetic-report.txt",
+      "after": "synthetic-restored.txt",
+      "identical": true,
+      "sha256": "6dffd8721632ab14acf0746d7d7d76c7afcb9b48135a4c9c8b594a901ac8611e"
+    },
+    {
+      "before": "recorded-review.json",
+      "after": "recorded-restored.json",
+      "identical": true,
+      "sha256": "2dd6612edd183a0448e4708c7826ba9f7b4e43194a5aaf4839ba55a0794fa90d"
+    },
+    {
+      "before": "paused-original.json",
+      "after": "paused-restored.json",
+      "identical": true,
+      "sha256": "dc7a625de19d1f4b87844b9a00c0ece95df020f465d9381e1b8742575700400d"
+    },
+    {
+      "before": "paused-original.json",
+      "after": "paused-second-restart.json",
+      "identical": true,
+      "sha256": "dc7a625de19d1f4b87844b9a00c0ece95df020f465d9381e1b8742575700400d"
+    },
+    {
+      "before": "weather-review.json",
+      "after": "weather-restart-review.json",
+      "identical": true,
+      "sha256": "7190e958bc6ebbdbdf570c374eacbe8ece42a409ff5d6faabbbaadbcf32553f0"
+    },
+    {
+      "before": "weather-report.txt",
+      "after": "weather-restart-report.txt",
+      "identical": true,
+      "sha256": "c0b13de15bdf03bac7d3a8292e37b795c7efb1a93ad83b313f159e326a56d70c"
+    }
+  ],
+  "traces": [
+    {
+      "path": "browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip",
+      "bytes": 3125423,
+      "sha256": "fe5860eaf0e2c64d699a76ac07fdb96b9589921dda068e075b5bd013fd2e0ed7"
+    },
+    {
+      "path": "browser/playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip",
+      "bytes": 1752221,
+      "sha256": "d74dbb443117c06f6869a594306facd1561129ccb2b66be75b5381c4416d6748"
+    },
+    {
+      "path": "browser/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip",
+      "bytes": 1689243,
+      "sha256": "7eeb29237585d1062df3d72d28b193548cb4b6d92993df29a3bbb5fbae44b6d2"
+    },
+    {
+      "path": "browser/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip",
+      "bytes": 9928241,
+      "sha256": "880c698443093b4313565c6d8d45e202e93848c25d755a9c3ad0fbd549b6a3a6"
+    },
+    {
+      "path": "browser/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip",
+      "bytes": 6710865,
+      "sha256": "f30ea20f13adc4f396bd3c5ef770659a91d950c42eeb1f4680c5dcb7b4c90623"
+    },
+    {
+      "path": "browser/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip",
+      "bytes": 2471263,
+      "sha256": "57032ed00d356579939f55a7c2abd5d31bd4d50efb2bc680fb6ba76420050f71"
+    }
+  ],
+  "page_errors": [],
+  "paper_browser_workspace_offline_restore": {
+    "alerts_browser_archive_retained": {
+      "path": "browser/alerts/workspace.zip",
+      "sha256": "b366e97a20f2b27da8914097110e63aeae9affbae0ced1b240a52067e5284619"
+    },
+    "browser_workspaces": [
+      {
+        "account_reproduction": {
+          "limitation": "Accounting replay, not source certification",
+          "paper_cycles": 5,
+          "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+          "submission_enabled": false,
+          "verified": true
+        },
+        "archive": "paper-controlled.zip",
+        "archive_sha256": "5cef4db2cbb97408bbff9a701c34fe0070df2e49479d13ce3c352a952476d5a2",
+        "export_sha256": "9040fde8d8525bb2b72db85945f54f02aa9f6fa85f86f647e0f1d4c07ca5ce66",
+        "name": "controlled",
+        "restored_export_identical_to_download": true
+      },
+      {
+        "account_reproduction": {
+          "limitation": "Accounting replay, not source certification",
+          "paper_cycles": 1,
+          "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+          "submission_enabled": false,
+          "verified": true
+        },
+        "archive": "paper-authentic.zip",
+        "archive_sha256": "fcf760f46158b9383d7a52470e6350dc6d69ec36965ba795c16f824cfe264407",
+        "export_sha256": "dd83cbb292d25b857adf45d15e0ebcbf9cd3a42c12d4e377935fe2ab8ccf95bf",
+        "name": "authentic",
+        "restored_export_identical_to_download": true
+      }
+    ],
+    "limitation": "Offline restore of the stopped actual browser workspaces/downloads. No new page interaction, collection or empirical evidence.",
+    "status": "passed"
+  },
+  "retained_final_browser_workspaces": {
+    "status": "passed",
+    "archives": [
+      {
+        "name": "recovery-final",
+        "snapshot": {
+          "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/recovery-final.zip",
+          "sha256": "sha256:feb030bc3f8cc53fd50b8719e65ffdc60f5fecc6dfaac10bc2293f0b491fd43a",
+          "jobs": 3,
+          "monitors": 2,
+          "cycles": 3,
+          "submission_enabled": false
+        },
+        "archive": "workspaces/recovery-final.zip",
+        "sha256": "feb030bc3f8cc53fd50b8719e65ffdc60f5fecc6dfaac10bc2293f0b491fd43a",
+        "verified_files": 208,
+        "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+      },
+      {
+        "name": "provider-final",
+        "snapshot": {
+          "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/provider-final.zip",
+          "sha256": "sha256:313865079e14b7a740b37960bb2a321dff0370c0e5729abf3a3aa1c4cd385f29",
+          "jobs": 7,
+          "monitors": 0,
+          "cycles": 0,
+          "submission_enabled": false
+        },
+        "archive": "workspaces/provider-final.zip",
+        "sha256": "313865079e14b7a740b37960bb2a321dff0370c0e5729abf3a3aa1c4cd385f29",
+        "verified_files": 77,
+        "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+      },
+      {
+        "name": "weather-final",
+        "snapshot": {
+          "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/weather-final.zip",
+          "sha256": "sha256:8236f637bed811431f5b4fe58fa490767c5623d3d099e9968966de650103c2b5",
+          "jobs": 3,
+          "monitors": 0,
+          "cycles": 0,
+          "submission_enabled": false
+        },
+        "archive": "workspaces/weather-final.zip",
+        "sha256": "8236f637bed811431f5b4fe58fa490767c5623d3d099e9968966de650103c2b5",
+        "verified_files": 134,
+        "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+      }
+    ]
+  },
+  "pytest": {
+    "tests": 1210,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 644.804
+  },
+  "limitations": [
+    "Independent supervisor review is still required.",
+    "Controlled provider/health/accounting evidence is software evidence.",
+    "Authentic empirical models, fees, two-family validation and an authorized external provider session remain open; no profitability claim."
+  ]
+}

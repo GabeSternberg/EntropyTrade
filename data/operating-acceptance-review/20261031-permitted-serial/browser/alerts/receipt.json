@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "start": 1,
+      "root": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/cache/acceptance-alerts"
+    },
+    {
+      "start": 2,
+      "root": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/cache/acceptance-alerts"
+    },
+    {
+      "start": 3,
+      "root": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/cache/acceptance-alerts"
+    },
+    {
+      "start": 4,
+      "root": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/cache/acceptance-alerts"
+    },
+    {
+      "start": 5,
+      "root": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/cache/acceptance-alerts-restored"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "acknowledged.json",
+      "sha256": "f548a301b9303881bad1dfe103bf4b43121003c4d194a66553895deca5369346"
+    },
+    {
+      "file": "restarted.json",
+      "sha256": "f548a301b9303881bad1dfe103bf4b43121003c4d194a66553895deca5369346"
+    },
+    {
+      "file": "recovered.json",
+      "sha256": "a4a7fa27b011de63ca6b8ca2af7216b44cdb03b6660b17170ffbd543866dbeea"
+    },
+    {
+      "file": "recurring.json",
+      "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+    },
+    {
+      "file": "final.json",
+      "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+    },
+    {
+      "file": "restored.json",
+      "sha256": "7ff5f5ec2223fc887e2a0774e52ff9b95b4f34a5914a65b5987c4aad424765e0"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "needs-review.png"
+    },
+    {
+      "file": "acknowledged.png"
+    },
+    {
+      "file": "recovered.png"
+    },
+    {
+      "file": "recurring.png"
+    }
+  ],
+  "page_errors": [],
+  "submission_enabled": false,
+  "limitation": "CONTROLLED health/failure/outcome signals; no authentic acquisition or empirical returns"
+}

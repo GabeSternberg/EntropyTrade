@@ -1,0 +1,113 @@
+
+Running 6 tests using 1 worker
+
+  ✘  1 frontend/browser/alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore (36.1s)
+Testing stopped early after 1 maximum allowed failures.
+
+
+  1) frontend/browser/alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('[data-alert-id="52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea"]')
+    Timeout: 10000ms
+    [32m- Expected substring  -  1[39m
+    [31m+ Received string     + 31[39m
+
+    [32m- Acknowledged / still open[39m
+    [31m+ Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{[39m
+    [31m+   "id": "52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea",[39m
+    [31m+   "monitor_id": "d6de7371-4616-4872-b776-81c04593e1c5",[39m
+    [31m+   "kind": "repeated_failures",[39m
+    [31m+   "opened_at": "2026-10-25T15:07:00+00:00",[39m
+    [31m+   "acknowledged_at": null,[39m
+    [31m+   "resolved_at": null,[39m
+    [31m+   "evidence": {[39m
+    [31m+     "cycle_ids": [[39m
+    [31m+       "9cd6842d-6735-46cd-bd29-88eff120a1e4",[39m
+    [31m+       "a52a633b-8803-4b0f-aab1-e9d23ef35588",[39m
+    [31m+       "205b5bfe-5454-4294-85d3-cdbc84259f0f"[39m
+    [31m+     ],[39m
+    [31m+     "threshold": 3[39m
+    [31m+   },[39m
+    [31m+   "events": [[39m
+    [31m+     {[39m
+    [31m+       "sequence": 2,[39m
+    [31m+       "at": "2026-10-25T15:07:00+00:00",[39m
+    [31m+       "action": "opened",[39m
+    [31m+       "evidence": {[39m
+    [31m+         "cycle_ids": [[39m
+    [31m+           "9cd6842d-6735-46cd-bd29-88eff120a1e4",[39m
+    [31m+           "a52a633b-8803-4b0f-aab1-e9d23ef35588",[39m
+    [31m+           "205b5bfe-5454-4294-85d3-cdbc84259f0f"[39m
+    [31m+         ],[39m
+    [31m+         "threshold": 3[39m
+    [31m+       }[39m
+    [31m+     }[39m
+    [31m+   ][39m
+    [31m+ }[39m
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 10000ms[22m
+    [2m  - waiting for locator('[data-alert-id="52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea"]')[22m
+    [2m    14 × locator resolved to <section class="operator-alert" data-alert-id="52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea">…</section>[22m
+    [2m       - unexpected value "Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{[22m
+    [2m  "id": "52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea",[22m
+    [2m  "monitor_id": "d6de7371-4616-4872-b776-81c04593e1c5",[22m
+    [2m  "kind": "repeated_failures",[22m
+    [2m  "opened_at": "2026-10-25T15:07:00+00:00",[22m
+    [2m  "acknowledged_at": null,[22m
+    [2m  "resolved_at": null,[22m
+    [2m  "evidence": {[22m
+    [2m    "cycle_ids": [[22m
+    [2m      "9cd6842d-6735-46cd-bd29-88eff120a1e4",[22m
+    [2m      "a52a633b-8803-4b0f-aab1-e9d23ef35588",[22m
+    [2m      "205b5bfe-5454-4294-85d3-cdbc84259f0f"[22m
+    [2m    ],[22m
+    [2m    "threshold": 3[22m
+    [2m  },[22m
+    [2m  "events": [[22m
+    [2m    {[22m
+    [2m      "sequence": 2,[22m
+    [2m      "at": "2026-10-25T15:07:00+00:00",[22m
+    [2m      "action": "opened",[22m
+    [2m      "evidence": {[22m
+    [2m        "cycle_ids": [[22m
+    [2m          "9cd6842d-6735-46cd-bd29-88eff120a1e4",[22m
+    [2m          "a52a633b-8803-4b0f-aab1-e9d23ef35588",[22m
+    [2m          "205b5bfe-5454-4294-85d3-cdbc84259f0f"[22m
+    [2m        ],[22m
+    [2m        "threshold": 3[22m
+    [2m      }[22m
+    [2m    }[22m
+    [2m  ][22m
+    [2m}"[22m
+
+
+      77 |       const panel = page.locator(`[data-alert-id="${alert.id}"]`);
+      78 |       await panel.getByRole("button", { name: "Acknowledge alert", exact: true }).click();
+    > 79 |       await expect(panel).toContainText("Acknowledged / still open");
+         |                           ^
+      80 |     }
+      81 |     await expect(page.locator("#shadow-alerts")).toContainText("3 open · 0 need acknowledgement");
+      82 |     const acknowledged = await download("acknowledged.json");
+        at /home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs:79:27
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/browser/alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore 
+  5 did not run
+  1 error was not a part of any test, see above for details

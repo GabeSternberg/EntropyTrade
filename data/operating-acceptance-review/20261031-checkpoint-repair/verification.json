@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-10-31T08:26:35.835041+00:00",
+  "status": "passed",
+  "local_retention": {
+    "status": "verified_local_bytes",
+    "file_count": 1096,
+    "total_bytes": 261903008,
+    "acceptance_reexecuted": false,
+    "v1_complete": false
+  },
+  "manifest_bytes": 362515,
+  "manifest_sha256": "07f688a46f91741186eda50eb455081f3b280a1ae8809a1b8af0ddba9e4d33f0",
+  "all_manifest_members_ignored_and_untracked": true,
+  "prospective_checkpoint_candidates": 399,
+  "candidate_files_over_8000000_bytes": [],
+  "largest_candidate_bytes": 971467,
+  "staging_index_empty": true,
+  "original_checkout_and_installation_hashes_verified": 1578,
+  "original_safety_hashes_verified": 73,
+  "original_browser_report": {
+    "report": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/browser/playwright-results.json",
+    "execution": true,
+    "status": "passed",
+    "procedures": [
+      {
+        "file": "alerts.spec.cjs",
+        "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+      },
+      {
+        "file": "provider.spec.cjs",
+        "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+      },
+      {
+        "file": "recovery.spec.cjs",
+        "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+      },
+      {
+        "file": "weather-history.spec.cjs",
+        "title": "authentic retained weather: freeze, select, research, downloads and restart"
+      }
+    ],
+    "missing_required": [],
+    "errors": [],
+    "sha256": "204d1a733550d2a6a82c979cec8c833d585cefb3640ca6d987b0a0ace38d0977"
+  },
+  "original_downloads_verified": 43,
+  "original_screenshots_verified": 26,
+  "original_trace_hashes_and_zip_integrity_verified": 6,
+  "original_full_suite_junit": {
+    "tests": 1210,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "unchanged_existing_tracked_large_artifacts": [
+    {
+      "path": "data/debugging-review/20261031-provider-deadline/browser/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip",
+      "bytes": 9032210,
+      "sha256": "d353fe07e3545bb1089d1a3c9941b423475da3f87884f27ba5dd179639dc1e1c",
+      "unchanged": true
+    },
+    {
+      "path": "data/provider-review/20261030-pricing/browser/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip",
+      "bytes": 8272941,
+      "sha256": "3d0ae29942353e9b935e1202381f7e99c801228d15f78936e232a8e81b89a93f",
+      "unchanged": true
+    },
+    {
+      "path": "data/public/kalshi-public/historical-trades/prints.sqlite",
+      "bytes": 25595904,
+      "sha256": "edd6c443ef37fb79dd5fb16c555e479cfc473c5bb065f70c7ca440fa0e0fe32d",
+      "unchanged": true
+    },
+    {
+      "path": "data/workbench-review/20261026T203717Z/browser-attempt-2/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip",
+      "bytes": 8532066,
+      "sha256": "4c23b76377adc29c50b7f7d74eb274fdad5d85c0fd3a13cdec841912e4e41c4e",
+      "unchanged": true
+    }
+  ],
+  "browser_and_full_suite_reexecuted": false,
+  "git_mutations_performed": false,
+  "v1_complete": false,
+  "limitations": [
+    "These generated files remain at their original local paths and are excluded from new Git staging.",
+    "A checkout contains reports and hashes, not the retained trace/archive bytes. Obtain those bytes separately before independently inspecting traces or replaying archived workspaces.",
+    "Hashes establish byte identity only, not authenticity, successful execution or profitability.",
+    "Missing, changed or additional local artifacts fail verification; missing bytes are never a pass.",
+    "Installed environments and package/browser caches are excluded and are not preserved by this manifest. Historical source/install verification retains its original execution scope.",
+    "Candidate-size scan uses ordinary Git visibility and a conservative 8,000,000-byte limit; the supervisor's actual checkpoint is not executed or modified.",
+    "The original passing suite/browser/restore receipts retain their historical scope. This repair rechecks bytes/reports, not page interactions or a fresh installation."
+  ]
+}

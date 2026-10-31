@@ -1,0 +1,303 @@
+{
+  "config": {
+    "configFile": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "alerts.spec.cjs",
+      "file": "alerts.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 36062,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\nTimeout: 10000ms\n\u001b[32m- Expected substring  -  1\u001b[39m\n\u001b[31m+ Received string     + 31\u001b[39m\n\n\u001b[32m- Acknowledged / still open\u001b[39m\n\u001b[31m+ Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[39m\n\u001b[31m+   \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[39m\n\u001b[31m+   \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[39m\n\u001b[31m+   \"kind\": \"repeated_failures\",\u001b[39m\n\u001b[31m+   \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+   \"acknowledged_at\": null,\u001b[39m\n\u001b[31m+   \"resolved_at\": null,\u001b[39m\n\u001b[31m+   \"evidence\": {\u001b[39m\n\u001b[31m+     \"cycle_ids\": [\u001b[39m\n\u001b[31m+       \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+       \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+       \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"threshold\": 3\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+   \"events\": [\u001b[39m\n\u001b[31m+     {\u001b[39m\n\u001b[31m+       \"sequence\": 2,\u001b[39m\n\u001b[31m+       \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+       \"action\": \"opened\",\u001b[39m\n\u001b[31m+       \"evidence\": {\u001b[39m\n\u001b[31m+         \"cycle_ids\": [\u001b[39m\n\u001b[31m+           \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+           \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+           \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"threshold\": 3\u001b[39m\n\u001b[31m+       }\u001b[39m\n\u001b[31m+     }\u001b[39m\n\u001b[31m+   ]\u001b[39m\n\u001b[31m+ }\u001b[39m\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <section class=\"operator-alert\" data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[22m\n\u001b[2m  \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[22m\n\u001b[2m  \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[22m\n\u001b[2m  \"kind\": \"repeated_failures\",\u001b[22m\n\u001b[2m  \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m  \"acknowledged_at\": null,\u001b[22m\n\u001b[2m  \"resolved_at\": null,\u001b[22m\n\u001b[2m  \"evidence\": {\u001b[22m\n\u001b[2m    \"cycle_ids\": [\u001b[22m\n\u001b[2m      \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m      \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m      \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m    ],\u001b[22m\n\u001b[2m    \"threshold\": 3\u001b[22m\n\u001b[2m  },\u001b[22m\n\u001b[2m  \"events\": [\u001b[22m\n\u001b[2m    {\u001b[22m\n\u001b[2m      \"sequence\": 2,\u001b[22m\n\u001b[2m      \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m      \"action\": \"opened\",\u001b[22m\n\u001b[2m      \"evidence\": {\u001b[22m\n\u001b[2m        \"cycle_ids\": [\u001b[22m\n\u001b[2m          \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m          \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m          \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m        ],\u001b[22m\n\u001b[2m        \"threshold\": 3\u001b[22m\n\u001b[2m      }\u001b[22m\n\u001b[2m    }\u001b[22m\n\u001b[2m  ]\u001b[22m\n\u001b[2m}\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\nTimeout: 10000ms\n\u001b[32m- Expected substring  -  1\u001b[39m\n\u001b[31m+ Received string     + 31\u001b[39m\n\n\u001b[32m- Acknowledged / still open\u001b[39m\n\u001b[31m+ Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[39m\n\u001b[31m+   \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[39m\n\u001b[31m+   \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[39m\n\u001b[31m+   \"kind\": \"repeated_failures\",\u001b[39m\n\u001b[31m+   \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+   \"acknowledged_at\": null,\u001b[39m\n\u001b[31m+   \"resolved_at\": null,\u001b[39m\n\u001b[31m+   \"evidence\": {\u001b[39m\n\u001b[31m+     \"cycle_ids\": [\u001b[39m\n\u001b[31m+       \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+       \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+       \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"threshold\": 3\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+   \"events\": [\u001b[39m\n\u001b[31m+     {\u001b[39m\n\u001b[31m+       \"sequence\": 2,\u001b[39m\n\u001b[31m+       \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+       \"action\": \"opened\",\u001b[39m\n\u001b[31m+       \"evidence\": {\u001b[39m\n\u001b[31m+         \"cycle_ids\": [\u001b[39m\n\u001b[31m+           \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+           \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+           \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"threshold\": 3\u001b[39m\n\u001b[31m+       }\u001b[39m\n\u001b[31m+     }\u001b[39m\n\u001b[31m+   ]\u001b[39m\n\u001b[31m+ }\u001b[39m\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <section class=\"operator-alert\" data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[22m\n\u001b[2m  \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[22m\n\u001b[2m  \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[22m\n\u001b[2m  \"kind\": \"repeated_failures\",\u001b[22m\n\u001b[2m  \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m  \"acknowledged_at\": null,\u001b[22m\n\u001b[2m  \"resolved_at\": null,\u001b[22m\n\u001b[2m  \"evidence\": {\u001b[22m\n\u001b[2m    \"cycle_ids\": [\u001b[22m\n\u001b[2m      \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m      \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m      \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m    ],\u001b[22m\n\u001b[2m    \"threshold\": 3\u001b[22m\n\u001b[2m  },\u001b[22m\n\u001b[2m  \"events\": [\u001b[22m\n\u001b[2m    {\u001b[22m\n\u001b[2m      \"sequence\": 2,\u001b[22m\n\u001b[2m      \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m      \"action\": \"opened\",\u001b[22m\n\u001b[2m      \"evidence\": {\u001b[22m\n\u001b[2m        \"cycle_ids\": [\u001b[22m\n\u001b[2m          \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m          \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m          \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m        ],\u001b[22m\n\u001b[2m        \"threshold\": 3\u001b[22m\n\u001b[2m      }\u001b[22m\n\u001b[2m    }\u001b[22m\n\u001b[2m  ]\u001b[22m\n\u001b[2m}\"\u001b[22m\n\n    at /home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs:79:27",
+                    "location": {
+                      "file": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs",
+                      "column": 27,
+                      "line": 79
+                    },
+                    "snippet": "  77 |       const panel = page.locator(`[data-alert-id=\"${alert.id}\"]`);\n  78 |       await panel.getByRole(\"button\", { name: \"Acknowledge alert\", exact: true }).click();\n> 79 |       await expect(panel).toContainText(\"Acknowledged / still open\");\n     |                           ^\n  80 |     }\n  81 |     await expect(page.locator(\"#shadow-alerts\")).toContainText(\"3 open · 0 need acknowledgement\");\n  82 |     const acknowledged = await download(\"acknowledged.json\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs",
+                        "column": 27,
+                        "line": 79
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\nTimeout: 10000ms\n\u001b[32m- Expected substring  -  1\u001b[39m\n\u001b[31m+ Received string     + 31\u001b[39m\n\n\u001b[32m- Acknowledged / still open\u001b[39m\n\u001b[31m+ Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[39m\n\u001b[31m+   \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[39m\n\u001b[31m+   \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[39m\n\u001b[31m+   \"kind\": \"repeated_failures\",\u001b[39m\n\u001b[31m+   \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+   \"acknowledged_at\": null,\u001b[39m\n\u001b[31m+   \"resolved_at\": null,\u001b[39m\n\u001b[31m+   \"evidence\": {\u001b[39m\n\u001b[31m+     \"cycle_ids\": [\u001b[39m\n\u001b[31m+       \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+       \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+       \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+     ],\u001b[39m\n\u001b[31m+     \"threshold\": 3\u001b[39m\n\u001b[31m+   },\u001b[39m\n\u001b[31m+   \"events\": [\u001b[39m\n\u001b[31m+     {\u001b[39m\n\u001b[31m+       \"sequence\": 2,\u001b[39m\n\u001b[31m+       \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[39m\n\u001b[31m+       \"action\": \"opened\",\u001b[39m\n\u001b[31m+       \"evidence\": {\u001b[39m\n\u001b[31m+         \"cycle_ids\": [\u001b[39m\n\u001b[31m+           \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[39m\n\u001b[31m+           \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[39m\n\u001b[31m+           \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[39m\n\u001b[31m+         ],\u001b[39m\n\u001b[31m+         \"threshold\": 3\u001b[39m\n\u001b[31m+       }\u001b[39m\n\u001b[31m+     }\u001b[39m\n\u001b[31m+   ]\u001b[39m\n\u001b[31m+ }\u001b[39m\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('[data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\"]')\u001b[22m\n\u001b[2m    14 × locator resolved to <section class=\"operator-alert\" data-alert-id=\"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\">…</section>\u001b[22m\n\u001b[2m       - unexpected value \"Repeated failures · Needs acknowledgementd6de7371 · detected 2026-10-25T15:07:00+00:00Inspect monitorAcknowledge alertAlert evidence and lifecycle{\u001b[22m\n\u001b[2m  \"id\": \"52575ffa-fc07-41aa-9c4e-7aa0c2e2e4ea\",\u001b[22m\n\u001b[2m  \"monitor_id\": \"d6de7371-4616-4872-b776-81c04593e1c5\",\u001b[22m\n\u001b[2m  \"kind\": \"repeated_failures\",\u001b[22m\n\u001b[2m  \"opened_at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m  \"acknowledged_at\": null,\u001b[22m\n\u001b[2m  \"resolved_at\": null,\u001b[22m\n\u001b[2m  \"evidence\": {\u001b[22m\n\u001b[2m    \"cycle_ids\": [\u001b[22m\n\u001b[2m      \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m      \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m      \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m    ],\u001b[22m\n\u001b[2m    \"threshold\": 3\u001b[22m\n\u001b[2m  },\u001b[22m\n\u001b[2m  \"events\": [\u001b[22m\n\u001b[2m    {\u001b[22m\n\u001b[2m      \"sequence\": 2,\u001b[22m\n\u001b[2m      \"at\": \"2026-10-25T15:07:00+00:00\",\u001b[22m\n\u001b[2m      \"action\": \"opened\",\u001b[22m\n\u001b[2m      \"evidence\": {\u001b[22m\n\u001b[2m        \"cycle_ids\": [\u001b[22m\n\u001b[2m          \"9cd6842d-6735-46cd-bd29-88eff120a1e4\",\u001b[22m\n\u001b[2m          \"a52a633b-8803-4b0f-aab1-e9d23ef35588\",\u001b[22m\n\u001b[2m          \"205b5bfe-5454-4294-85d3-cdbc84259f0f\"\u001b[22m\n\u001b[2m        ],\u001b[22m\n\u001b[2m        \"threshold\": 3\u001b[22m\n\u001b[2m      }\u001b[22m\n\u001b[2m    }\u001b[22m\n\u001b[2m  ]\u001b[22m\n\u001b[2m}\"\u001b[22m\n\n\n  77 |       const panel = page.locator(`[data-alert-id=\"${alert.id}\"]`);\n  78 |       await panel.getByRole(\"button\", { name: \"Acknowledge alert\", exact: true }).click();\n> 79 |       await expect(panel).toContainText(\"Acknowledged / still open\");\n     |                           ^\n  80 |     }\n  81 |     await expect(page.locator(\"#shadow-alerts\")).toContainText(\"3 open · 0 need acknowledgement\");\n  82 |     const acknowledged = await download(\"acknowledged.json\");\n    at /home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs:79:27"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T07:47:44.380Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-final/installation/frontend/browser/alerts.spec.cjs",
+                    "column": 27,
+                    "line": 79
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "45d268e3698d082cd89d-2845af5f5beb2d92f50e",
+          "file": "alerts.spec.cjs",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "paper.spec.cjs",
+      "file": "paper.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "754dee5978d97fc72374-cd259faa27cefc67728f",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "754dee5978d97fc72374-2c785057e787de9c5a84",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "provider.spec.cjs",
+      "file": "provider.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "25fc6d90499b2c99f844-d968145e0f0189104137",
+          "file": "provider.spec.cjs",
+          "line": 11,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "recovery.spec.cjs",
+      "file": "recovery.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "27a4a0401f00e0726e22-3f63a4f33ef6d78f99f2",
+          "file": "recovery.spec.cjs",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "weather-history.spec.cjs",
+      "file": "weather-history.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "authentic retained weather: freeze, select, research, downloads and restart",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "ffbea7c85fd0a92ff5af-5c2914949811fbddc561",
+          "file": "weather-history.spec.cjs",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "Testing stopped early after 1 maximum allowed failures."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-31T07:47:43.870Z",
+    "duration": 37144.377,
+    "expected": 0,
+    "skipped": 5,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

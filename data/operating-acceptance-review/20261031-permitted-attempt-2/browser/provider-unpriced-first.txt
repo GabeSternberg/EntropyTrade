@@ -1,0 +1,1 @@
+Research failed (ResearchPricingError). No candidates validated. Provider response pricing is unavailable; further research requests were refused. Reported cost is only a known subtotal. No fallback or experiment was run.

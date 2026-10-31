@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-31T07:47:43.264659+00:00",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "localhost_listener",
+      "status": "passed"
+    },
+    {
+      "name": "asyncio_socketpair",
+      "status": "passed"
+    }
+  ],
+  "limitation": "Socket capability only; browser workflows and pytest remain unverified."
+}

@@ -9,44 +9,49 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current correction fixes the reported provider-deadline verification failure. The
-old test raced a 50 ms pipeline budget against agent setup and incorrectly required HTTP
-to have started. The repaired test expires the actual asyncio deadline at controlled
-request arrival; additional regressions check delayed setup and real pre-request expiry,
-durable failed reviews and guard recovery. Production limits, original receipts and
-frozen boundaries remain unchanged. Focused checks and the real provider browser procedure
-pass, along with the **complete 1,210-case pytest suite in 532.60s**, Ruff/format,
-strict mypy and 22 named frontend checks. The provider browser procedure retains eight
-screenshots and 14 verified downloads. See [debugging evidence](../data/debugging-review/20261031-provider-deadline/README.md).
-Return this correction for supervisor review before another milestone. It does not close
-the six-procedure operating or authentic empirical release gates. All Git operations remain
+The current milestone executes private-workbench operating acceptance using the existing
+`tools/local_acceptance.py` in the permitted runtime. Fresh offline locked Python/npm setup,
+supported Playwright-managed Chromium provisioning, Ruff/format, strict mypy (535 files),
+22 frontend checks and all six real browser procedures pass. Actual page interactions cover
+research/results, controlled provider integration, authentic retained weather, both paper
+accounts and alert acknowledgement/recovery/recurrence, plus cancellation, listener restart,
+offline restore and identical reopened downloads. Receipts retain 26 screenshots,
+43 hash-verified downloads, six intact traces and zero page errors. The complete suite
+passes **1,210 tests in 644.82s**, zero failures/errors/skips. All 19 download comparisons,
+1,578 checkout/install source hashes, 68 original receipt hashes and five Bitcoin boundary
+hashes verify. Both actual paper browser workspaces restore offline with identical exports
+and account replay; final workspace archives retain fresh authentic source bytes.
+**Operating acceptance is verified; V1 remains incomplete.** See
+[current evidence](../data/operating-acceptance-review/20261031-permitted-serial/README.md)
+and [the release matrix](v1_acceptance.md).
+
+The immediate checkpoint repair retains generated traces and workspace archives locally,
+with a [hash manifest and retrieval limitations](../data/operating-acceptance-review/ARTIFACT_RETENTION.md).
+The scoped ignore policy prevents staging these bulky bytes; reports, receipts, downloaded
+results and screenshots stay reviewable. This does not replace independent trace/restore
+inspection, alter earlier results or start another product phase. Any migration of existing
+tracked large files needs a separate reviewed storage/retrieval change.
+
+Concrete harness repairs require provider run title/job URL identity before downloads and
+stage authentic import metadata inside the installed repository before copying it to the
+external evidence directory. Existing import confinement, receipt clocks, assertions,
+internal timeouts and risk/holdout limits remain unchanged. Failed attempts, including a
+native suite crash and overlapping-run timeouts, remain failed; current verification runs
+alone and logs each pytest case. The previous
+[provider deadline repair](../data/debugging-review/20261031-provider-deadline/README.md)
+and [report-gate correction](../data/operating-acceptance-review/20261031/report-gate-correction/README.md)
+remain intact. Preparation, discovery or a narrowed browser run still cannot pass full
+operating acceptance.
+
+Return this verified operating milestone for independent supervisor review. The earlier
+native crash is not reproduced in the serial run; its underlying cause is not established.
+No next major phase begins
+here. Continue authentic forward collection while source-matched labels and validation
+history accrue. External-provider verification, certified effective fees, empirical
+two-family validation and independent release acceptance remain open; do not wait for future
+Bitcoin dates before reviewing unrelated paper/shadow capability. Do not select another
+major family without user approval. All Git mutations and independent sign-off remain
 with the supervisor; V1 stays incomplete.
-
-The preceding milestone is reproducible private-workbench operating acceptance using the
-existing `tools/local_acceptance.py`. Its default browser selection now includes research,
-recovery, controlled provider integration, authentic weather history, both paper procedures
-and alerts. Clean exports retain the original v1 compatibility fixture and whole original
-cycles required by paper/alert replay. Discovery and preparation cannot pass browser or
-complete-suite acceptance. The report-gate correction requires all six fixed procedure
-identities in discovery and actual passing results in Playwright JSON reports, including
-consistent totals. Missing/skipped/failed/empty reports fail even after a zero process exit.
-Narrowed filters may produce explicitly partial receipts, always with
-`acceptance_complete=false`; they cannot waive the six-procedure gate. See the
-[correction checks](../data/operating-acceptance-review/20261031/report-gate-correction/README.md).
-Required socket failures stop execution before repeated browser
-launch or full-suite stalls; no launch flags or assertions are weakened.
-
-Fresh locked offline installation, Ruff/format, strict mypy (535 files), 22 frontend checks,
-394 focused pytest cases and six-procedure discovery pass, as do offline paper-account
-reproduction/reopen/restore and alert acknowledgement/recovery/
-recurrence/restore comparisons. The same localhost and asyncio socket creation denial
-persists (`EPERM`). Real-listener page interaction, screenshots, identical browser downloads
-after restart/restore and a complete pytest pass remain blocked. Stop retries in this
-environment; run the driver without `--prepare-only` in a permitted environment before
-approving operating acceptance. See [current evidence](../data/operating-acceptance-review/20261031/README.md)
-and [the release matrix](v1_acceptance.md). V1/provider/empirical requirements stay incomplete.
-Preserve forward collection and Bitcoin boundaries; another family requires user approval.
-All Git operations and independent sign-off remain with the supervisor.
 
 ### Previous operator-readiness implementation — October 31, 2026
 

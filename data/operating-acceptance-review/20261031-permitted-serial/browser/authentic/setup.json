@@ -1,0 +1,29 @@
+{
+  "monitor_id": "09e1092b-8231-4183-8e84-15716d1e3cc0",
+  "evidence": "Original authentic receipt replay; no new acquisition",
+  "summary": {
+    "status": "simulated",
+    "data_kind": "real",
+    "starting_cash": "1000.000000",
+    "cash": "1000.000000",
+    "available_cash": "1000.000000",
+    "fees": "0.000000",
+    "realized_pnl": "0.000000",
+    "equity_at_cost": "1000.000000",
+    "positions": [],
+    "fill_count": 0,
+    "settlement_count": 0,
+    "as_of": "2026-10-29T16:35:38.130853+00:00",
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim."
+  },
+  "verified": {
+    "verified": true,
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "limitation": "Accounting replay, not source certification"
+  },
+  "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+  "submission_enabled": false
+}

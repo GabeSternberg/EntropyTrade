@@ -1,0 +1,738 @@
+{
+  "application": {
+    "pyproject.toml": "sha256:217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+    "uv.lock": "sha256:dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+  },
+  "counts": {
+    "cycles": 0,
+    "jobs": 3,
+    "monitors": 0
+  },
+  "created_at": "2026-10-31T08:07:00.267291+00:00",
+  "directories": [
+    "runs",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/.trash",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/metrics",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/params",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/tags",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/.trash",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/metrics",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/params",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/tags",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/research",
+    "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/research/2fcf25e7-7f3b-4e5e-b944-a6dd3a4cf758",
+    "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572",
+    "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public",
+    "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw",
+    "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather",
+    "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/raw",
+    "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0",
+    "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public",
+    "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw",
+    "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather",
+    "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/raw",
+    "runs/weather-datasets",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/dataset",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/features",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/features/eb500ea3bd28c41e5036ac76bceb47e9fdb1f71ab3d43d281c41400b920b9a3a",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/raw",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather",
+    "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/raw"
+  ],
+  "files": [
+    {
+      "bytes": 315392,
+      "path": "jobs.sqlite",
+      "sha256": "sha256:954ff17b2c337f2658be69331643e455fe85eed3b9e5ad4d9372644ab3a05f97"
+    },
+    {
+      "bytes": 307200,
+      "path": "registry.sqlite",
+      "sha256": "sha256:373dc6a105f122cf32ecf8a45140b2056f77eb0f82556aecf6df4d232387d20b"
+    },
+    {
+      "bytes": 565,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/evidence.json",
+      "sha256": "sha256:0f9b38f93b73e93e6083aa8990709c5adff8d2b7fb582a19c6b934e0acb69daa"
+    },
+    {
+      "bytes": 369,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts/checksums.json",
+      "sha256": "sha256:7225bb912abbc5208c3126e591d3d7d5b9423235c9d7ae62fd6bb585bd1c15c3"
+    },
+    {
+      "bytes": 286600,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts/replay-inputs.json",
+      "sha256": "sha256:bb5360f281a5b9f60b581de5594a1983d19028846eab84953068748ccd29bf2c"
+    },
+    {
+      "bytes": 757,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts/report.md",
+      "sha256": "sha256:c6f3713ee962bc8bc1f2bfabcfb2f80ae87471ecc9b520446a37363c312de785"
+    },
+    {
+      "bytes": 32486,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts/results.json",
+      "sha256": "sha256:96294d2ff1d1685b5ac6a766f5609291c3958fd1433b727d8e67ec06a30b3b2c"
+    },
+    {
+      "bytes": 365,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/artifacts/trades.parquet",
+      "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef"
+    },
+    {
+      "bytes": 673,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/meta.yaml",
+      "sha256": "sha256:23283471eb97958a4ff91cdadec84fac3f9625d6d2314804711711e83a0fb460"
+    },
+    {
+      "bytes": 4,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/params/data_kind",
+      "sha256": "sha256:aa33996d60e89311b4d1a920dae03c6d7fa3ae1956c52662e273aad4683e577f"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/params/experiment_id",
+      "sha256": "sha256:fce135de7ec05919e6f3be1252cffe31b60524e6234e9b0f9849a947a3e9e103"
+    },
+    {
+      "bytes": 36,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/params/research_run",
+      "sha256": "sha256:c6a60f5fda8dabaa2b1463c51a1e6bc5d6dd409290d8f8dfc22fa02470ce412a"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/tags/mlflow.runName",
+      "sha256": "sha256:fce135de7ec05919e6f3be1252cffe31b60524e6234e9b0f9849a947a3e9e103"
+    },
+    {
+      "bytes": 146,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/tags/mlflow.source.name",
+      "sha256": "sha256:f5a6d518a0cb79d0cbfc96daf8f21dc696b8e97a5811cf395627482edcddc609"
+    },
+    {
+      "bytes": 5,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/tags/mlflow.source.type",
+      "sha256": "sha256:646c19373ac9e27e972c8e3bdf6554c4c10d23006c1abec3407cbff80c4ab71f"
+    },
+    {
+      "bytes": 7,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/11820e50c4ad48f391d9c72104650570/tags/mlflow.user",
+      "sha256": "sha256:ff06535ac1029cca2fc2b86ac7355a7b4e0b8d839fc76b51d30833f4e1347ddc"
+    },
+    {
+      "bytes": 413,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/experiments/997241523403220997/meta.yaml",
+      "sha256": "sha256:37ee32de2e593a4bcd94ea162b99d09a6acb2b34cc7e4c5880f5b13a310b6f63"
+    },
+    {
+      "bytes": 373,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts/checksums.json",
+      "sha256": "sha256:93fe6b610d4e7578ebf715e6833d5634c6d6dc3d34d0aa871ad6770f8516db14"
+    },
+    {
+      "bytes": 0,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts/predictions.jsonl",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 533,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts/predictions.parquet",
+      "sha256": "sha256:e6258dd3dd7e8832b85f7c29c7b98ac331e8483fb73a1429bc36729a7f748793"
+    },
+    {
+      "bytes": 1063,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts/report.md",
+      "sha256": "sha256:769ebd84b03773285571086b46432b67677f5d0890e2b6355c8bb34369b293ba"
+    },
+    {
+      "bytes": 7488,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/artifacts/results.json",
+      "sha256": "sha256:6cfa01a330b7e3a7bfc2d77bcc800d2fee52825c710a441d457036f6a27c9d4d"
+    },
+    {
+      "bytes": 668,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/meta.yaml",
+      "sha256": "sha256:a2645dde96daf1d6ffa22755da6429f96de0cc07f1391ff15cf86b3ae64908ef"
+    },
+    {
+      "bytes": 20,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/metrics/independent_events",
+      "sha256": "sha256:0c8a0e4ef8496b1648e86a4901d30e65c4f84ca787db263f985f9b6ea82502c2"
+    },
+    {
+      "bytes": 4,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/params/data_kind",
+      "sha256": "sha256:aa33996d60e89311b4d1a920dae03c6d7fa3ae1956c52662e273aad4683e577f"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/params/feature_version",
+      "sha256": "sha256:133257e348adb7407b8f7d44e7f80b04adb2689ecc780831ede9192226f100f5"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/params/run_id",
+      "sha256": "sha256:ec65026056460dc75fd37e40a2a3f5ae20da3743f20c03a7b9f8886c47e096f6"
+    },
+    {
+      "bytes": 17,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/params/status",
+      "sha256": "sha256:ee44e4cd9458146b76c9588e739541a80a3b918fc56a3abef82fb4a74abe474a"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/tags/mlflow.runName",
+      "sha256": "sha256:ec65026056460dc75fd37e40a2a3f5ae20da3743f20c03a7b9f8886c47e096f6"
+    },
+    {
+      "bytes": 146,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/tags/mlflow.source.name",
+      "sha256": "sha256:f5a6d518a0cb79d0cbfc96daf8f21dc696b8e97a5811cf395627482edcddc609"
+    },
+    {
+      "bytes": 5,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/tags/mlflow.source.type",
+      "sha256": "sha256:646c19373ac9e27e972c8e3bdf6554c4c10d23006c1abec3407cbff80c4ab71f"
+    },
+    {
+      "bytes": 7,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/0a746bc69a3749f599a9e12c374822f1/tags/mlflow.user",
+      "sha256": "sha256:ff06535ac1029cca2fc2b86ac7355a7b4e0b8d839fc76b51d30833f4e1347ddc"
+    },
+    {
+      "bytes": 406,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/mlflow/models/633440944433006518/meta.yaml",
+      "sha256": "sha256:11be71afa8959fe7c777b85d94a476753211c5feccefe6174f9ce6c6384a78fc"
+    },
+    {
+      "bytes": 260226,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/review.json",
+      "sha256": "sha256:745f22fb2002341a3d44ec465e8ddc0bf2254f756f47ca7345bf04b61aa1f521"
+    },
+    {
+      "bytes": 369,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a/checksums.json",
+      "sha256": "sha256:7225bb912abbc5208c3126e591d3d7d5b9423235c9d7ae62fd6bb585bd1c15c3"
+    },
+    {
+      "bytes": 286600,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a/replay-inputs.json",
+      "sha256": "sha256:bb5360f281a5b9f60b581de5594a1983d19028846eab84953068748ccd29bf2c"
+    },
+    {
+      "bytes": 757,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a/report.md",
+      "sha256": "sha256:c6f3713ee962bc8bc1f2bfabcfb2f80ae87471ecc9b520446a37363c312de785"
+    },
+    {
+      "bytes": 32486,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a/results.json",
+      "sha256": "sha256:96294d2ff1d1685b5ac6a766f5609291c3958fd1433b727d8e67ec06a30b3b2c"
+    },
+    {
+      "bytes": 365,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/experiments/3f4ccef73fef701ce7c485c0eb79097c27a84b8d67ce48ec07ecd31d2e748f0a/trades.parquet",
+      "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef"
+    },
+    {
+      "bytes": 93,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/fee-evidence.json",
+      "sha256": "sha256:90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484"
+    },
+    {
+      "bytes": 0,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/.writer.lock",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 373,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427/checksums.json",
+      "sha256": "sha256:93fe6b610d4e7578ebf715e6833d5634c6d6dc3d34d0aa871ad6770f8516db14"
+    },
+    {
+      "bytes": 0,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427/predictions.jsonl",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 533,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427/predictions.parquet",
+      "sha256": "sha256:e6258dd3dd7e8832b85f7c29c7b98ac331e8483fb73a1429bc36729a7f748793"
+    },
+    {
+      "bytes": 1063,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427/report.md",
+      "sha256": "sha256:769ebd84b03773285571086b46432b67677f5d0890e2b6355c8bb34369b293ba"
+    },
+    {
+      "bytes": 7488,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/models/8962fdd808a7a7d98ef50738ad7c1b9f7e0b2b28f26ef9bc620e6b96fa2aa427/results.json",
+      "sha256": "sha256:6cfa01a330b7e3a7bfc2d77bcc800d2fee52825c710a441d457036f6a27c9d4d"
+    },
+    {
+      "bytes": 175,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/research/2fcf25e7-7f3b-4e5e-b944-a6dd3a4cf758/checksums.json",
+      "sha256": "sha256:3b526b44ee600605d97bb5249bc34a126ca14008f0db53286366ba4ef1a60d43"
+    },
+    {
+      "bytes": 1991,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/research/2fcf25e7-7f3b-4e5e-b944-a6dd3a4cf758/report.md",
+      "sha256": "sha256:e4280c7ccaa7b11ac00afd6cc399168bb6209e4ccbb4b9c457103d78a7e45baf"
+    },
+    {
+      "bytes": 187008,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/research/2fcf25e7-7f3b-4e5e-b944-a6dd3a4cf758/run.json",
+      "sha256": "sha256:e04e6b868ba399caf9295dcc33318ae828fa1ae4c990b8fb6811d798fa2e755e"
+    },
+    {
+      "bytes": 181,
+      "path": "runs/2d0f91ce-9bb5-4332-ab6f-31dcbe4abf83/workflow/shadow-replay.json",
+      "sha256": "sha256:549981b22298077e83c9c08d60a354b0d1420f868cf622caa1fda9093304e0a5"
+    },
+    {
+      "bytes": 2835,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/capture.json",
+      "sha256": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a"
+    },
+    {
+      "bytes": 2870,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/manifest.json",
+      "sha256": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe"
+    },
+    {
+      "bytes": 64892,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/markets.jsonl",
+      "sha256": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc"
+    },
+    {
+      "bytes": 475224,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/observations.jsonl",
+      "sha256": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179"
+    },
+    {
+      "bytes": 35371,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0001.json",
+      "sha256": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e"
+    },
+    {
+      "bytes": 35239,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0002.json",
+      "sha256": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751"
+    },
+    {
+      "bytes": 4299,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0003.json",
+      "sha256": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921"
+    },
+    {
+      "bytes": 3921,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0004.json",
+      "sha256": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0005.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0006.json",
+      "sha256": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20"
+    },
+    {
+      "bytes": 3899,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0007.json",
+      "sha256": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/raw/0008.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 1480,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/manifest.json",
+      "sha256": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0"
+    },
+    {
+      "bytes": 470040,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/observations.jsonl",
+      "sha256": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json",
+      "sha256": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4299,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json",
+      "sha256": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 577536,
+      "path": "runs/7335e74f-f8b2-4c12-b79f-74f1b3b93572/public/weather.sqlite",
+      "sha256": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422"
+    },
+    {
+      "bytes": 2835,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/capture.json",
+      "sha256": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3"
+    },
+    {
+      "bytes": 2870,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/manifest.json",
+      "sha256": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca"
+    },
+    {
+      "bytes": 64892,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/markets.jsonl",
+      "sha256": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae"
+    },
+    {
+      "bytes": 475224,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/observations.jsonl",
+      "sha256": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15"
+    },
+    {
+      "bytes": 35371,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0001.json",
+      "sha256": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e"
+    },
+    {
+      "bytes": 35240,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0002.json",
+      "sha256": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54"
+    },
+    {
+      "bytes": 4298,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0003.json",
+      "sha256": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c"
+    },
+    {
+      "bytes": 3921,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0004.json",
+      "sha256": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0005.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0006.json",
+      "sha256": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142"
+    },
+    {
+      "bytes": 3899,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0007.json",
+      "sha256": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/raw/0008.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 1480,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/manifest.json",
+      "sha256": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc"
+    },
+    {
+      "bytes": 470040,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/observations.jsonl",
+      "sha256": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json",
+      "sha256": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142"
+    },
+    {
+      "bytes": 4298,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json",
+      "sha256": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 577536,
+      "path": "runs/7f9a28d5-6a39-4996-8bf0-3950fe9e88b0/public/weather.sqlite",
+      "sha256": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325"
+    },
+    {
+      "bytes": 6528,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/dataset/manifest.json",
+      "sha256": "sha256:115c8f524ff8683963cd84a96724529f06cd7da3d61b7b6e8d4da2214f2039b7"
+    },
+    {
+      "bytes": 8892,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/dataset/observations.parquet",
+      "sha256": "sha256:219554147546d51b44b463aee9d16d7054764e00a5e9aad3974ca370c43cb458"
+    },
+    {
+      "bytes": 24514,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/dataset/rows.parquet",
+      "sha256": "sha256:ffd05cfc6334c352215b18cdd830a8b627d551c4cd0b59bf45995dae7d9c2355"
+    },
+    {
+      "bytes": 34934,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/features/eb500ea3bd28c41e5036ac76bceb47e9fdb1f71ab3d43d281c41400b920b9a3a/features.parquet",
+      "sha256": "sha256:8ee0ac344d774ddbe283d83908c7446dcb40505115c61a6fe18357a0a4eebb59"
+    },
+    {
+      "bytes": 71,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/features/eb500ea3bd28c41e5036ac76bceb47e9fdb1f71ab3d43d281c41400b920b9a3a/features.sha256",
+      "sha256": "sha256:759b282750654b045fc836fa94cd4ce6dd9e015c74c36d9d3e829e0acee1674e"
+    },
+    {
+      "bytes": 12875,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/features/eb500ea3bd28c41e5036ac76bceb47e9fdb1f71ab3d43d281c41400b920b9a3a/manifest.json",
+      "sha256": "sha256:4c41701415217c7bc2d35e66410384bb741ec04713c1c2c6f2c4cddaa69f6dbd"
+    },
+    {
+      "bytes": 2835,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/capture.json",
+      "sha256": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3"
+    },
+    {
+      "bytes": 2870,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/manifest.json",
+      "sha256": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca"
+    },
+    {
+      "bytes": 64892,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/markets.jsonl",
+      "sha256": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae"
+    },
+    {
+      "bytes": 475224,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/observations.jsonl",
+      "sha256": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15"
+    },
+    {
+      "bytes": 35371,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0001.json",
+      "sha256": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e"
+    },
+    {
+      "bytes": 35240,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0002.json",
+      "sha256": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54"
+    },
+    {
+      "bytes": 4298,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0003.json",
+      "sha256": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c"
+    },
+    {
+      "bytes": 3921,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0004.json",
+      "sha256": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0005.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0006.json",
+      "sha256": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142"
+    },
+    {
+      "bytes": 3899,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0007.json",
+      "sha256": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/raw/0008.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 1480,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/manifest.json",
+      "sha256": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc"
+    },
+    {
+      "bytes": 470040,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/observations.jsonl",
+      "sha256": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json",
+      "sha256": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142"
+    },
+    {
+      "bytes": 4298,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json",
+      "sha256": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 577536,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0000/weather.sqlite",
+      "sha256": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325"
+    },
+    {
+      "bytes": 2835,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/capture.json",
+      "sha256": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a"
+    },
+    {
+      "bytes": 2870,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/manifest.json",
+      "sha256": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe"
+    },
+    {
+      "bytes": 64892,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/markets.jsonl",
+      "sha256": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc"
+    },
+    {
+      "bytes": 475224,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/observations.jsonl",
+      "sha256": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179"
+    },
+    {
+      "bytes": 35371,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0001.json",
+      "sha256": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e"
+    },
+    {
+      "bytes": 35239,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0002.json",
+      "sha256": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751"
+    },
+    {
+      "bytes": 4299,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0003.json",
+      "sha256": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921"
+    },
+    {
+      "bytes": 3921,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0004.json",
+      "sha256": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0005.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0006.json",
+      "sha256": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20"
+    },
+    {
+      "bytes": 3899,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0007.json",
+      "sha256": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/raw/0008.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 1480,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/manifest.json",
+      "sha256": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0"
+    },
+    {
+      "bytes": 470040,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/observations.jsonl",
+      "sha256": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128"
+    },
+    {
+      "bytes": 4297,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json",
+      "sha256": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20"
+    },
+    {
+      "bytes": 162938,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json",
+      "sha256": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355"
+    },
+    {
+      "bytes": 4299,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json",
+      "sha256": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921"
+    },
+    {
+      "bytes": 164933,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json",
+      "sha256": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b"
+    },
+    {
+      "bytes": 577536,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/receipts/0001/weather.sqlite",
+      "sha256": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422"
+    },
+    {
+      "bytes": 181,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/shadow-replay.json",
+      "sha256": "sha256:549981b22298077e83c9c08d60a354b0d1420f868cf622caa1fda9093304e0a5"
+    },
+    {
+      "bytes": 17322,
+      "path": "runs/weather-datasets/ad45e51f2d952063629ed06b796ee597187ef3f2aff2af2609309ad03c4b6e22/snapshot.json",
+      "sha256": "sha256:6934a1cd76082d2a08d6937b255d708f975f6b9b8186a9a64e8f8883fcc1d52d"
+    }
+  ],
+  "schema": "entropytrade-workspace-v1",
+  "submission_enabled": false
+}

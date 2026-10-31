@@ -73,8 +73,12 @@ test("authentic retained weather: freeze, select, research, downloads and restar
   }
   save();
   try {
-    const seeded = spawnSync(python, ["-m", "tests.integration.weather_history_retained", workspace, path.join(evidence, "authentic-inputs.json")], { cwd: repo, env, encoding: "utf8", timeout: 30_000 });
+    // The importer confines metadata to the installed repository. Locked runs keep
+    // browser evidence beside that repository, so retain a copy after import succeeds.
+    const imported = path.join(repo, "data/cache", `${path.basename(workspace)}-authentic-inputs.json`);
+    const seeded = spawnSync(python, ["-m", "tests.integration.weather_history_retained", workspace, imported], { cwd: repo, env, encoding: "utf8", timeout: 30_000 });
     assert.equal(seeded.status, 0, seeded.stdout + seeded.stderr);
+    fs.copyFileSync(imported, path.join(evidence, "authentic-inputs.json"), fs.constants.COPYFILE_EXCL);
     receipt.operations.push({ action: "import", evidence: JSON.parse(fs.readFileSync(path.join(evidence, "authentic-inputs.json"))) }); save();
     await start(); await page.goto(origin);
     await expect(page.locator("#submit")).toBeEnabled();

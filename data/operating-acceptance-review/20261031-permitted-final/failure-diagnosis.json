@@ -1,0 +1,20 @@
+{
+  "failure": "Alert acknowledgement remained unacknowledged in the page for the unchanged 10-second expectation; the second acknowledgement request took 17,605.483 milliseconds.",
+  "acknowledgement_requests": [
+    {
+      "url": "http://127.0.0.1:43284/api/monitors/d6de7371-4616-4872-b776-81c04593e1c5/acknowledge",
+      "status": 200,
+      "milliseconds": 922.7159999999999
+    },
+    {
+      "url": "http://127.0.0.1:43284/api/monitors/d6de7371-4616-4872-b776-81c04593e1c5/acknowledge",
+      "status": 200,
+      "milliseconds": 17605.483
+    }
+  ],
+  "trace": "browser/playwright-artifacts/alerts-operator-alerts-ack-71c17-urrence-and-offline-restore/trace.zip",
+  "conditions": "Superseded acceptance suites overlapped this run. Resource contention is a possible cause, not established as the cause.",
+  "assertions_or_timeouts_changed": false,
+  "next_check": "A new complete serial locked run, with per-test pytest logging; all six procedures and the full suite still required.",
+  "suite": "This superseded suite was gracefully interrupted with SIGINT by exact pytest command path, exit 2; no complete-suite pass."
+}

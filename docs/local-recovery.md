@@ -1,10 +1,12 @@
 # Local operation and workspace recovery
 
-October 29 provider continuation: the [current locked-install browser evidence](../data/provider-review/20261029/README.md)
-executes this recovery procedure through Playwright-managed Chromium and the real localhost
-workers. It also verifies provider result/failure snapshots and cancellation/restart without
-automatic billable retries. The earlier environment-denial record below remains historical;
-use the current bundle and [V1 matrix](v1_acceptance.md) for latest acceptance status.
+October 31 operating acceptance: the [fresh locked-install evidence](../data/operating-acceptance-review/20261031-permitted-serial/README.md)
+passes all six required managed-Chromium procedures through actual localhost listeners,
+including this recovery workflow, both paper accounts and alert acknowledgement/recovery/
+recurrence. All 1,210 pytest cases pass; downloads, source hashes and offline restores verify.
+V1 remains incomplete and independent supervisor review is still required. Earlier
+environment-denial records below retain their original historical scope; use the current
+bundle and [V1 matrix](v1_acceptance.md) for latest acceptance status.
 
 Workspace snapshot/restore is an **offline local maintenance operation**. Stop the web
 server with Ctrl-C and wait for its workers to exit. Never copy a running workspace by
@@ -103,6 +105,13 @@ retry the known full-suite stall, or establish a new clean install or V1 release
 
 ## Locked installation and real browser acceptance
 
+Generated operating-review trace trees and workspace ZIPs remain at their original local
+paths under the [artifact retention policy](../data/operating-acceptance-review/ARTIFACT_RETENTION.md).
+New staging excludes them. Keep a new hash manifest for each stopped bundle; a checkout
+alone cannot inspect local traces or replay archived workspaces. Obtain and verify those
+bytes separately for independent review. This retention check never replaces the browser,
+restore or complete-suite gates below.
+
 The one-command acceptance driver exports explicit product/test/data roots into a new
 installation, omitting Git/supervisor controls, credentials, existing environments and old
 workspaces. It records source hashes, lock checks, package inventory, gates and exit codes.
@@ -122,6 +131,12 @@ empty `--list` results cannot count as execution. `--browser-grep` gets a separa
 report; a successful narrowed run records an explicit partial status and missing procedures,
 always keeping `acceptance_complete=false`. Use the default selection for full acceptance.
 Use Python 3.12+, uv, Node/npm and a machine permitting localhost sockets and Chromium:
+
+Run one acceptance invocation at a time and let it finish before retrying. Separate
+installations still share machine CPU and disk; overlapping snapshot/model checks can
+exceed existing response deadlines. Keep each failed output directory. The full-suite log
+records individual pytest cases as well as the existing 45-second traceback diagnostic;
+an interrupted or crashed suite never counts as a complete pass.
 
 ```bash
 python3 tools/local_acceptance.py --output "$PWD/data/local-operation-review/NEW-NAME"

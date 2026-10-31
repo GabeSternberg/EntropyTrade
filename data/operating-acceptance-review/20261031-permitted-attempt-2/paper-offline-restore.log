@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "browser_workspaces": [
+    {
+      "name": "controlled",
+      "restored_export_identical_to_download": true,
+      "export_sha256": "550c83f414393ee160153ee750fde8db87f832bf281362f2e6fe23d51c20e656",
+      "archive": "paper-controlled.zip",
+      "archive_sha256": "27a280dd03f15724b709e24ef1ff1a375201d4fc91c75aa546332de906c7f343",
+      "account_reproduction": {
+        "verified": true,
+        "paper_cycles": 5,
+        "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+        "submission_enabled": false,
+        "limitation": "Accounting replay, not source certification"
+      }
+    },
+    {
+      "name": "authentic",
+      "restored_export_identical_to_download": true,
+      "export_sha256": "7357f70db5b15f711d5ab8482053a5879bd6e9b99912779c93f4037454f020b5",
+      "archive": "paper-authentic.zip",
+      "archive_sha256": "caf077127fa6a2447e65a0eef396fdaad1205dace4309a39e3b5fde609aa5713",
+      "account_reproduction": {
+        "verified": true,
+        "paper_cycles": 1,
+        "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+        "submission_enabled": false,
+        "limitation": "Accounting replay, not source certification"
+      }
+    }
+  ],
+  "limitation": "Offline restore of the stopped actual browser workspaces/downloads. No new page interaction, collection or empirical evidence.",
+  "alerts_browser_archive_retained": {
+    "path": "browser/alerts/workspace.zip",
+    "sha256": "e702297f6e7cff7c0528679ea8c8fe417711ba5939f019927d9757e00c9b9f44"
+  }
+}

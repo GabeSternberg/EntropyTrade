@@ -1,0 +1,11 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 frontend/browser/alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore (1.4m)
+  ✓  2 frontend/browser/paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay (24.5s)
+  ✓  3 frontend/browser/paper.spec.cjs:11:3 › durable paper account: authentic refusal, downloads, restart and offline replay (29.5s)
+  ✓  4 frontend/browser/provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (1.1m)
+  ✓  5 frontend/browser/recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle (1.5m)
+  ✓  6 frontend/browser/weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart (27.2s)
+
+  6 passed (5.4m)

@@ -94,8 +94,17 @@ test("provider-backed website: opt-in, typed candidates, failures, cancellation 
     receipt.operations.push({ action: "submit", id, idea }); save(); return id;
   }
   async function reopen(idea, status) {
+    const submitted = receipt.operations.find(operation => operation.action === "submit" && operation.idea === idea);
+    assert(submitted, "Reopened run must match a recorded submitted job");
     await page.locator("#history button").filter({ has: page.getByText(idea, { exact: true }) }).click();
+    // Consecutive runs may share a status. Wait for this run to render before
+    // downloading; the prior run's failed badge alone cannot identify it.
+    await expect(page.locator("#run-header h2")).toHaveText(idea);
     await expect(page.locator("#run-header .badge").first()).toHaveText(status);
+    if (["completed", "failed"].includes(status)) {
+      await expect(page.getByRole("link", { name: "Review JSON", exact: true })).toHaveAttribute("href", `/api/jobs/${submitted.id}/review`);
+      await expect(page.getByRole("link", { name: "Text report", exact: true })).toHaveAttribute("href", `/api/jobs/${submitted.id}/report`);
+    }
   }
   save();
   try {

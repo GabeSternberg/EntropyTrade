@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "archives": [
+    {
+      "name": "recovery-final",
+      "snapshot": {
+        "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/recovery-final.zip",
+        "sha256": "sha256:feb030bc3f8cc53fd50b8719e65ffdc60f5fecc6dfaac10bc2293f0b491fd43a",
+        "jobs": 3,
+        "monitors": 2,
+        "cycles": 3,
+        "submission_enabled": false
+      },
+      "archive": "workspaces/recovery-final.zip",
+      "sha256": "feb030bc3f8cc53fd50b8719e65ffdc60f5fecc6dfaac10bc2293f0b491fd43a",
+      "verified_files": 208,
+      "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+    },
+    {
+      "name": "provider-final",
+      "snapshot": {
+        "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/provider-final.zip",
+        "sha256": "sha256:313865079e14b7a740b37960bb2a321dff0370c0e5729abf3a3aa1c4cd385f29",
+        "jobs": 7,
+        "monitors": 0,
+        "cycles": 0,
+        "submission_enabled": false
+      },
+      "archive": "workspaces/provider-final.zip",
+      "sha256": "313865079e14b7a740b37960bb2a321dff0370c0e5729abf3a3aa1c4cd385f29",
+      "verified_files": 77,
+      "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+    },
+    {
+      "name": "weather-final",
+      "snapshot": {
+        "archive": "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/data/recovery/weather-final.zip",
+        "sha256": "sha256:8236f637bed811431f5b4fe58fa490767c5623d3d099e9968966de650103c2b5",
+        "jobs": 3,
+        "monitors": 0,
+        "cycles": 0,
+        "submission_enabled": false
+      },
+      "archive": "workspaces/weather-final.zip",
+      "sha256": "8236f637bed811431f5b4fe58fa490767c5623d3d099e9968966de650103c2b5",
+      "verified_files": 134,
+      "limitation": "Stopped workspace retention and checksum verification; does not add browser or empirical validation."
+    }
+  ]
+}

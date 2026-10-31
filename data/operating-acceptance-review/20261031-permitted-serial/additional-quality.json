@@ -1,0 +1,41 @@
+[
+  {
+    "name": "driver-ruff",
+    "command": [
+      "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/.venv/bin/ruff",
+      "check",
+      "--no-respect-gitignore",
+      "tools/local_acceptance.py"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "driver-format",
+    "command": [
+      "/home/gabriel/Projects/EntropyTrade/data/operating-acceptance-review/20261031-permitted-serial/installation/.venv/bin/ruff",
+      "format",
+      "--check",
+      "--no-respect-gitignore",
+      "tools/local_acceptance.py"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "provider-syntax",
+    "command": [
+      "/usr/bin/node",
+      "--check",
+      "frontend/browser/provider.spec.cjs"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "weather-syntax",
+    "command": [
+      "/usr/bin/node",
+      "--check",
+      "frontend/browser/weather-history.spec.cjs"
+    ],
+    "exit_code": 0
+  }
+]

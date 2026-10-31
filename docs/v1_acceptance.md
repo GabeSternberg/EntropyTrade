@@ -1,4 +1,39 @@
-# Provider deadline debugging correction — October 31, 2026
+# Private-workbench operating acceptance — October 31, 2026
+
+**complete=false. Private-workbench operating acceptance is verified; V1 remains incomplete.**
+All six browser procedures and all **1,210 pytest tests in 644.82s** pass in a fresh locked
+installation, with zero failures/errors/skips. Final artifact/source/restore verification
+passes. These software and operating results are not independent V1 release approval.
+The [current bundle](../data/operating-acceptance-review/20261031-permitted-serial/README.md)
+retains actual page interactions, reports, screenshots, downloads and traces. Work remains
+on designated `supervisor/20261031-033238` from `2f8d9ad`; all Git mutations and independent
+sign-off belong to the supervisor. Earlier failed attempts remain failed.
+
+Checkpoint retention correction: [local artifact policy and limitations](../data/operating-acceptance-review/ARTIFACT_RETENTION.md)
+and the [hash manifest](../data/operating-acceptance-review/local-artifacts-20261031.json)
+retain 1,096 generated trace/archive files (261,903,008 bytes) at their original local paths,
+excluded from new staging. Reports and historical verification receipts remain in the
+reviewable bundle. A checkout alone cannot inspect the local trace bytes or replay their
+workspace archives; independent review requires obtaining and hash-verifying those files.
+Byte retention verification does not reexecute acceptance or close any V1 gate.
+
+| Requirement | Current executed evidence | Result / remaining work |
+|---|---|---|
+| Fresh locked installation | Current `acceptance.json`, lock/sync/inventory/npm/Chromium logs | **Pass:** new virtualenv, 117 installed Python packages, pinned npm and supported Playwright-managed Chromium provisioning from offline artifact caches. No existing virtualenv or personal browser reused. |
+| Usable private browser research/results | Actual Playwright JSON/JUnit reports, provider/recovery/weather receipts | **Scoped pass:** all six required identities have successful execution records, not just discovery. Research, typed candidates, results/tabs and explicit authentic insufficiency execute through localhost. Hosted operation is outside this check. |
+| Continuous paper decisions, source/model/fee versions, quotes, intentions, execution risk and outcomes | Controlled/authentic paper page procedures, actual account/evidence downloads and accounting replay | **Scoped pass:** controlled synthetic accounting has two fills and one settlement; authentic retained receipts have zero fills/fees and explicit missing-model/fee refusals. Simulation is not empirical performance. |
+| Operator acknowledgement, recovery and recurrence | Actual alert page clicks, lifecycle downloads, listener restart and offline restore | **Pass in the serial run:** three incidents are acknowledged while remaining open; recovery resolves them; recurrence creates a new unacknowledged incident; restored downloads match. Controlled health/outcome signals remain labelled. |
+| Restart, cancellation, offline restore and repeatability | Recovery/provider/paper/alert browser receipts; [final verification](../data/operating-acceptance-review/20261031-permitted-serial/verification.json), retained workspace archives | **Scoped pass:** all 43 download hashes, 26 screenshots, six intact traces and 19 identical download comparisons verify. Actual listeners restart, cancelled/interrupted jobs remain durable and restored alerts/paused monitors retain their evidence. Both actual paper browser workspaces also restore offline with identical exports and account replay. |
+| Provenance, point-in-time clocks, leakage checks and frozen holdouts | [Source verification](../data/operating-acceptance-review/20261031-permitted-serial/source-verification.json), [safety hashes](../data/operating-acceptance-review/20261031-permitted-serial/safety-receipt.json), temporal/risk tests and final archives | **Scoped pass:** all 1,578 checkout/install source/input hashes, 68 original receipt hashes and five Bitcoin boundary hashes match. Final archives retain fresh authentic receipt bytes and original clocks. Existing holdout/source/settlement protections are unchanged; authentic empirical evidence and independent leakage review remain open. |
+| Deterministic backtests and realistic accounting | Existing shared deterministic engines and controlled browser/pytest evidence | **Software capability retained; empirical gate incomplete.** Authentic history lacks enough source-matched labels/models and certified effective fees. A synthetic result cannot pass this gate. |
+| Two materially distinct empirically supported families | Existing weather and optional Bitcoin forward paths | **Incomplete:** preserve authentic forward receipts and frozen Bitcoin windows. Another major family needs user approval; blocked paths do not count as supported empirical families. |
+| Provider research using separately authorized credentials | Controlled provider HTTP browser integration and missing-key refusal | **External verification deferred:** no real credential or external-provider session used. Controlled responses do not satisfy the external-provider gate. |
+| Complete quality gates | Fresh Ruff/format, strict mypy, frontend, [full pytest log](../data/operating-acceptance-review/20261031-permitted-serial/pytest.log) and JUnit; additional driver/JS checks | **Pass:** backend/driver Ruff and format, strict mypy (535 files), 22 frontend checks, JS syntax and all **1,210 pytest cases in 644.82s**, zero failures/errors/skips. The full driver completes with `acceptance_complete=true`. |
+| Safety and operating limitations | Disabled submission catalog/export checks, existing credential/risk boundaries and retained failure reports | **Scoped pass:** localhost only, credential-free acceptance environment, no real orders or live activation, unchanged risk limits. Earlier native crash/timeout attempts remain failed; the final serial run passes without reproducing the native crash. Its underlying cause is not established; run acceptance sequentially. |
+| Independent release acceptance | This matrix, actual code, complete reports and durable evidence | **Pending:** supervisor must independently audit the executed evidence and every remaining V1 gate. No release completion, empirical returns or profitability claim. |
+| Generated evidence retention / checkpoint size | [Local byte manifest](../data/operating-acceptance-review/local-artifacts-20261031.json), verifier and scoped ignore policy | **Local retention verified:** all four attempts preserve original statuses and trace/archive bytes. Large generated bytes are local only; independent inspection/restore from a fresh checkout requires separately obtaining them. No evidence deletion, tracked-file migration, safety-gate relaxation or supervisor checkpoint is performed. |
+
+## Previous provider deadline debugging correction — October 31, 2026
 
 **complete=false.** The [current correction evidence](../data/debugging-review/20261031-provider-deadline/README.md)
 reproduces the reported `assert calls` failure with a controlled slow agent setup and

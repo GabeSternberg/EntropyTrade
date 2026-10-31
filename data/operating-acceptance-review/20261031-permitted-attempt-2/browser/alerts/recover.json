@@ -1,0 +1,168 @@
+{
+  "monitor_id": "01ae89fd-04f6-40e9-b7cb-c6dd6422d171",
+  "alerts": [
+    {
+      "id": "3ca632c0-6a1a-44b4-b88d-af4ec0d40885",
+      "monitor_id": "01ae89fd-04f6-40e9-b7cb-c6dd6422d171",
+      "kind": "unresolved_reconciliation",
+      "opened_at": "2026-10-25T17:07:00+00:00",
+      "acknowledged_at": "2026-10-31T07:40:02.911410+00:00",
+      "resolved_at": "2026-10-31T07:40:21.667957+00:00",
+      "evidence": {
+        "contracts": [
+          {
+            "close_time": "2026-10-25T15:00:00+00:00",
+            "last_attempt": "",
+            "ticker": "CONTROLLED"
+          }
+        ],
+        "grace_seconds": 3600
+      },
+      "events": [
+        {
+          "sequence": 3,
+          "at": "2026-10-25T17:07:00+00:00",
+          "action": "opened",
+          "evidence": {
+            "contracts": [
+              {
+                "close_time": "2026-10-25T15:00:00+00:00",
+                "last_attempt": "",
+                "ticker": "CONTROLLED"
+              }
+            ],
+            "grace_seconds": 3600
+          }
+        },
+        {
+          "sequence": 4,
+          "at": "2026-10-31T07:40:02.911410+00:00",
+          "action": "acknowledged",
+          "evidence": {
+            "contracts": [
+              {
+                "close_time": "2026-10-25T15:00:00+00:00",
+                "last_attempt": "",
+                "ticker": "CONTROLLED"
+              }
+            ],
+            "grace_seconds": 3600
+          }
+        },
+        {
+          "sequence": 9,
+          "at": "2026-10-31T07:40:21.667957+00:00",
+          "action": "resolved",
+          "evidence": {
+            "contracts": [],
+            "grace_seconds": 3600
+          }
+        }
+      ]
+    },
+    {
+      "id": "2450eb19-d2aa-486f-82a1-74b3ab564ea0",
+      "monitor_id": "01ae89fd-04f6-40e9-b7cb-c6dd6422d171",
+      "kind": "stale_collection",
+      "opened_at": "2026-10-25T15:07:00+00:00",
+      "acknowledged_at": "2026-10-31T07:40:06.808629+00:00",
+      "resolved_at": "2026-10-31T07:40:21.667957+00:00",
+      "evidence": {
+        "baseline_at": "2026-10-25T15:00:00+00:00",
+        "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+        "last_healthy_cycle_id": "3892d41d-f715-431f-adcd-9564e38d9938",
+        "threshold_seconds": 420
+      },
+      "events": [
+        {
+          "sequence": 1,
+          "at": "2026-10-25T15:07:00+00:00",
+          "action": "opened",
+          "evidence": {
+            "baseline_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_cycle_id": "3892d41d-f715-431f-adcd-9564e38d9938",
+            "threshold_seconds": 420
+          }
+        },
+        {
+          "sequence": 5,
+          "at": "2026-10-31T07:40:06.808629+00:00",
+          "action": "acknowledged",
+          "evidence": {
+            "baseline_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_collection_at": "2026-10-25T15:00:00+00:00",
+            "last_healthy_cycle_id": "3892d41d-f715-431f-adcd-9564e38d9938",
+            "threshold_seconds": 420
+          }
+        },
+        {
+          "sequence": 7,
+          "at": "2026-10-31T07:40:21.667957+00:00",
+          "action": "resolved",
+          "evidence": {
+            "baseline_at": "2026-10-31T07:40:21.667957+00:00",
+            "last_healthy_collection_at": "2026-10-31T07:40:21.667957+00:00",
+            "last_healthy_cycle_id": "87f8e8f7-e080-43a0-8290-6f1f46cbc8b6",
+            "threshold_seconds": 420
+          }
+        }
+      ]
+    },
+    {
+      "id": "928b5a78-2603-4e55-b5f2-a59f257483a7",
+      "monitor_id": "01ae89fd-04f6-40e9-b7cb-c6dd6422d171",
+      "kind": "repeated_failures",
+      "opened_at": "2026-10-25T15:07:00+00:00",
+      "acknowledged_at": "2026-10-31T07:40:06.941277+00:00",
+      "resolved_at": "2026-10-31T07:40:21.667957+00:00",
+      "evidence": {
+        "cycle_ids": [
+          "abc5ff4d-3018-4e17-99a7-074c3c6be0ed",
+          "cdb264ad-353a-4a3b-9995-05b4422e59a4",
+          "15b06cd9-05b0-4e6f-81ac-e11488530359"
+        ],
+        "threshold": 3
+      },
+      "events": [
+        {
+          "sequence": 2,
+          "at": "2026-10-25T15:07:00+00:00",
+          "action": "opened",
+          "evidence": {
+            "cycle_ids": [
+              "abc5ff4d-3018-4e17-99a7-074c3c6be0ed",
+              "cdb264ad-353a-4a3b-9995-05b4422e59a4",
+              "15b06cd9-05b0-4e6f-81ac-e11488530359"
+            ],
+            "threshold": 3
+          }
+        },
+        {
+          "sequence": 6,
+          "at": "2026-10-31T07:40:06.941277+00:00",
+          "action": "acknowledged",
+          "evidence": {
+            "cycle_ids": [
+              "abc5ff4d-3018-4e17-99a7-074c3c6be0ed",
+              "cdb264ad-353a-4a3b-9995-05b4422e59a4",
+              "15b06cd9-05b0-4e6f-81ac-e11488530359"
+            ],
+            "threshold": 3
+          }
+        },
+        {
+          "sequence": 8,
+          "at": "2026-10-31T07:40:21.667957+00:00",
+          "action": "resolved",
+          "evidence": {
+            "cycle_ids": [],
+            "threshold": 3
+          }
+        }
+      ]
+    }
+  ],
+  "submission_enabled": false,
+  "limitation": "CONTROLLED operator lifecycle only; no actual acquisition, authentic outcome, empirical performance or trading activation"
+}
