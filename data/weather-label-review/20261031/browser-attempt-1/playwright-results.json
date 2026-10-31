@@ -1,0 +1,172 @@
+{
+  "config": {
+    "configFile": "/home/gabriel/Projects/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "weather-labels.spec.cjs",
+      "file": "weather-labels.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "authentic weather labels: acquire, inspect provenance, freeze and restart",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 29753,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#weather-dataset')\nExpected: \u001b[32m\"d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b\"\u001b[39m\nReceived: \u001b[31m\"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-dataset')\u001b[22m\n\u001b[2m    2 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m      - unexpected value \"\"\u001b[22m\n\u001b[2m    12 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#weather-dataset')\nExpected: \u001b[32m\"d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b\"\u001b[39m\nReceived: \u001b[31m\"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-dataset')\u001b[22m\n\u001b[2m    2 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m      - unexpected value \"\"\u001b[22m\n\u001b[2m    12 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[22m\n\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs:158:52",
+                    "location": {
+                      "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs",
+                      "column": 52,
+                      "line": 158
+                    },
+                    "snippet": "  156 |     }\n  157 |     await stop(); await start(); await page.goto(origin);\n> 158 |     await expect(page.locator(\"#weather-dataset\")).toHaveValue(selected);\n      |                                                    ^\n  159 |     await page.locator(\"#history button\").filter({ has: page.getByText(idea, { exact: true }) }).click();\n  160 |     await expect(page.locator(\"#run-header .badge\").first()).toHaveText(\"completed\");\n  161 |     assert.deepEqual(await download(\"Download label evidence\", \"restart-labels.json\"), labelBytes);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs",
+                        "column": 52,
+                        "line": 158
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#weather-dataset')\nExpected: \u001b[32m\"d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b\"\u001b[39m\nReceived: \u001b[31m\"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-dataset')\u001b[22m\n\u001b[2m    2 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m      - unexpected value \"\"\u001b[22m\n\u001b[2m    12 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[22m\n\n\n  156 |     }\n  157 |     await stop(); await start(); await page.goto(origin);\n> 158 |     await expect(page.locator(\"#weather-dataset\")).toHaveValue(selected);\n      |                                                    ^\n  159 |     await page.locator(\"#history button\").filter({ has: page.getByText(idea, { exact: true }) }).click();\n  160 |     await expect(page.locator(\"#run-header .badge\").first()).toHaveText(\"completed\");\n  161 |     assert.deepEqual(await download(\"Download label evidence\", \"restart-labels.json\"), labelBytes);\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs:158:52"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T09:16:11.595Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs",
+                    "column": 52,
+                    "line": 158
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "bdf4c926e003c3f85758-b2ec69b9dd1155090607",
+          "file": "weather-labels.spec.cjs",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-31T09:16:11.119Z",
+    "duration": 32055.477,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

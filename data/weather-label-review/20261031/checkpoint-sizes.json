@@ -1,0 +1,6 @@
+{
+  "scope": "Read-only untracked checkpoint candidate size check; no staging or Git mutation",
+  "eligible_files": 90,
+  "largest_candidate_bytes": 926448,
+  "oversized_candidates": []
+}

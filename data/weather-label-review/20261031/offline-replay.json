@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "purpose": "Authentic offline snapshot/restore and source/rule/label reparse; no new network or browser execution",
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/weather-label-review/20261031/authentic-workspace.zip",
+    "sha256": "sha256:4e7aaf24aa8bff67a0c205b1fe25a78706a0d69a3662366be69642f61ec3d22c",
+    "jobs": 3,
+    "monitors": 0,
+    "cycles": 0,
+    "submission_enabled": false
+  },
+  "restore": {
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/weather-label-offline-verified",
+    "archive_sha256": "sha256:4e7aaf24aa8bff67a0c205b1fe25a78706a0d69a3662366be69642f61ec3d22c",
+    "jobs": 3,
+    "monitors": 0,
+    "cycles": 0,
+    "submission_enabled": false
+  },
+  "archive_bytes": 16353420,
+  "label_requests_identical": 1,
+  "batch_hashes_identical": true,
+  "datasets_identical": 2,
+  "scalar_label_counts": [
+    0,
+    2
+  ],
+  "submission_enabled": false,
+  "empirical_models_verified": false,
+  "v1_complete": false
+}

@@ -98,7 +98,41 @@ def load_snapshot(root: Path) -> dict[str, Any]:
         raise ValueError("weather snapshot feature lineage mismatch")
     if manifest["readiness"] != readiness(features):
         raise ValueError("weather snapshot readiness mismatch")
+    if manifest["identity"].get("scalar_label_inputs"):
+        _verify_labels(root, manifest)
     return manifest
+
+
+def _verify_labels(root: Path, manifest: dict[str, Any]) -> None:
+    """Reparse original label bytes and bind them to original rules during offline load."""
+    from entropytrade.weather.label_history import retained_labels
+    from entropytrade.weather.labels import load_batch
+
+    paths = sorted((root / "scalar-labels").glob("*.json"))
+    if sorted(load_batch(p).version for p in paths) != manifest["identity"]["scalar_label_inputs"]:
+        raise ValueError("weather scalar label inventory mismatch")
+    markets = [
+        MarketEvidence.model_validate_json(line)
+        for path in sorted((root / "receipts").glob("*/markets.jsonl"))
+        for line in path.read_text().splitlines()
+    ]
+    source = json.loads((root / "dataset/manifest.json").read_text())
+    config = WeatherConfig(locations=tuple(source["config"]["locations"]))
+    observed, audit, _, bodies = retained_labels(
+        paths, markets, config, frozenset(manifest["identity"]["protected_events"])
+    )
+    if source.get("retained_label_audit") != audit:
+        raise ValueError("weather scalar label replay audit mismatch")
+    for name, body in bodies.items():
+        if _file(root, name).read_bytes() != body:
+            raise ValueError("weather scalar raw receipt mismatch")
+    actual = [
+        Observation.model_validate_json(r["payload_json"])
+        for r in pq.read_table(root / "dataset/observations.parquet").to_pylist()
+        if json.loads(r["payload_json"])["raw_ref"].startswith("scalar-labels/")
+    ]
+    if _observations(actual) != _observations(observed):
+        raise ValueError("weather scalar observation replay mismatch")
 
 
 def readiness(features: Path) -> dict[str, Any]:
@@ -179,6 +213,11 @@ def readiness(features: Path) -> dict[str, Any]:
         **counts,
         "status": "ready_for_model_gates" if not blockers else "insufficient_data",
         "capture_audit": capture_audit,
+        **(
+            {"label_acquisition": manifest["retained_label_audit"]}
+            if "retained_label_audit" in manifest
+            else {}
+        ),
         **({"cohort": manifest["retained_cohort"]} if "retained_cohort" in manifest else {}),
         **(
             {"shadow_audit": manifest["retained_shadow_audit"]}
@@ -242,11 +281,12 @@ def build_snapshot(
     captures: Sequence[Path],
     *,
     outcome_roots: Sequence[Path] = (),
+    scalar_batches: Sequence[Path] = (),
     protected_events: frozenset[str] = frozenset(),
     frozen_anchor: date | None = None,
     selection: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    if len(captures) > MAX_INPUTS or len(outcome_roots) > MAX_INPUTS:
+    if any(len(v) > MAX_INPUTS for v in (captures, outcome_roots, scalar_batches)):
         raise ValueError(
             "weather history exceeds 128 inputs; select an operator-reviewed partition"
         )
@@ -254,6 +294,7 @@ def build_snapshot(
         output,
         captures,
         outcome_roots=outcome_roots,
+        scalar_batches=scalar_batches,
         protected_events=protected_events,
         frozen_anchor=frozen_anchor,
         selection=selection,
@@ -265,6 +306,7 @@ def _build_snapshot(
     captures: Sequence[Path],
     *,
     outcome_roots: Sequence[Path],
+    scalar_batches: Sequence[Path] = (),
     protected_events: frozenset[str],
     frozen_anchor: date | None,
     selection: dict[str, Any] | None,
@@ -425,10 +467,21 @@ def _build_snapshot(
         if m.market.rules.settlement_target_date
         and m.market.rules.settlement_target_date.isoformat() >= boundaries[2]
     )
+    from entropytrade.weather.label_history import retained_labels
+
+    scalar_observations, label_audit, label_copies, label_bodies = retained_labels(
+        scalar_batches,
+        markets,
+        WeatherConfig(locations=tuple(locations[k] for k in sorted(locations))),
+        protected_events,
+    )
+    observed.extend(scalar_observations)
+    copies.update(label_copies)
     identity = {
         "schema": SCHEMA,
         "captures": sorted(unique),
         "outcome_inputs": sorted(outcome_inputs),
+        "scalar_label_inputs": sorted(a["version"] for a in label_audit),
         "anchor": min(p["identity"]["anchor"] for p in prior) if prior else anchor.isoformat(),
         "temporal_boundaries": boundaries,
         "protected_events": sorted(protected_events),
@@ -438,6 +491,8 @@ def _build_snapshot(
             name: file_hash(Path(__file__).parents[1] / name)
             for name in (
                 "weather/history.py",
+                "weather/labels.py",
+                "weather/label_history.py",
                 "tracking/history.py",
                 "tracking/replay.py",
                 "data/dataset.py",
@@ -457,12 +512,19 @@ def _build_snapshot(
     if staging.exists():
         shutil.rmtree(staging)
     staging.mkdir()
-    if sum(p.stat().st_size for p in copies.values()) > MAX_BYTES:
+    if (
+        sum(p.stat().st_size for p in copies.values()) + sum(map(len, label_bodies.values()))
+        > MAX_BYTES
+    ):
         raise ValueError("retained weather inputs exceed 256 MB budget")
     for name, path in copies.items():
         target = staging / name
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(path, target)
+    for name, body in label_bodies.items():
+        target = staging / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(body)
     # Validate copied inputs, so a concurrent change cannot publish mixed evidence.
     for name, path in copies.items():
         if file_hash(staging / name) != file_hash(path):
@@ -655,6 +717,8 @@ def _build_snapshot(
         "temporal_boundaries": boundaries,
         "protected_events": sorted(protected_events),
     }
+    if label_audit:
+        source_manifest["retained_label_audit"] = label_audit
     if selection and "cohort" in selection:
         source_manifest["retained_cohort"] = selection["cohort"]
     (dataset / "manifest.json").write_text(json.dumps(source_manifest, sort_keys=True))

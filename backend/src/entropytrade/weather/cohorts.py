@@ -116,10 +116,13 @@ def build_cohort(jobs: "Jobs", history_ids: object, outcome_ids: object = None) 
             "implementation": file_hash(Path(__file__)),
         },
     }
+    from entropytrade.weather.label_service import batches as label_batches
+
     return _build_snapshot(
         output,
         frozen_captures,
         outcome_roots=labels,
+        scalar_batches=label_batches(jobs.root),
         protected_events=protected,
         frozen_anchor=frozen,
         selection=selection,

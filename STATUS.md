@@ -3,7 +3,44 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: private-workbench operating acceptance
+## Current milestone: integrated forward weather-label acquisition
+
+Implemented in place on designated `supervisor/20261031-050653` from `a473758`. All Git
+operations and independent approval remain with the supervisor. **V1 is incomplete.**
+
+The website now acquires read-only Weather Company daily-climate reports for selected
+retained weather datasets, saves durable progress and exact source bytes, exposes verified
+scalar highs and refusals, and includes compatible labels in a new immutable research
+snapshot. Original datasets/forecasts and frozen partition boundaries remain unchanged.
+The authentic October 31 acquisition verifies **two October 29 station/day highs**;
+**two October 30 preliminary reports are refused**. Publication/revision timestamps absent
+from the provider remain unknown. Availability starts at the new receipt, never the target
+date. These sparse labels do not establish empirical models, backtest returns or profit.
+
+Restart/idempotency, active shutdown, partial receipts, corrected/late/wrong-source/protected
+labels, bounded network failures and offline snapshot replay/restore are tested. Snapshot
+loading reparses source bytes and rechecks original rule bindings and audit observations.
+Managed Chromium through actual localhost listeners verifies acquisition, status, provenance,
+dataset freeze, honest research insufficiency and identical downloads after restart. The
+first browser attempt found lost dataset selection after restart; the UI fix and subsequent
+passing attempts retain that failure unchanged. Final checks pass Ruff/format (542 backend
+files), strict mypy (542 files), 22 frontend checks and **all 1,255 pytest tests in 609.09s**,
+with zero failures/errors/skips. The final browser run retains seven screenshots, six
+downloads, three byte-identical reopened pairs and zero page errors. Authentic offline
+restore/reparse passes; 68 original receipt files and five Bitcoin boundary files remain
+unchanged. Generated archive/trace bytes stay locally retained under a scoped ignore rule
+and checksummed manifest; independent archive/trace review requires those local bytes.
+See [workflow](docs/weather-labels.md),
+[executed evidence](data/weather-label-review/20261031/README.md), and the
+[V1 matrix](docs/v1_acceptance.md) for exact quality/browser results and limitations.
+
+Preserve authentic forward clocks and Bitcoin boundaries. New-family selection,
+credential-dependent provider verification, effective fee certification, sufficient empirical
+history and independent V1 acceptance remain deferred. No credentials, real orders, execution
+activation, risk-limit changes or Git mutations were used. Return this single substantial
+milestone for supervisor review before another major phase.
+
+## Previous milestone: private-workbench operating acceptance
 
 Checkpoint blocker repair: generated Playwright trees and workspace ZIPs are retained
 locally and excluded from new staging. A [362,515-byte manifest](data/operating-acceptance-review/local-artifacts-20261031.json)

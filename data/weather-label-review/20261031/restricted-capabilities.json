@@ -1,0 +1,4 @@
+{
+  "listener_socket": "PermissionError: [Errno 1] Operation not permitted",
+  "asyncio_wakeup": "PermissionError: [Errno 1] Operation not permitted"
+}

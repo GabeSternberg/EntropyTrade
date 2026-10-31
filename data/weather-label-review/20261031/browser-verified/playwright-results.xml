@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="21.482398">
+<testsuite name="weather-labels.spec.cjs" timestamp="2026-10-31T09:21:45.675Z" hostname="" tests="1" failures="0" skipped="0" time="20.715" errors="0">
+<testcase name="authentic weather labels: acquire, inspect provenance, freeze and restart" classname="weather-labels.spec.cjs" time="20.715">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

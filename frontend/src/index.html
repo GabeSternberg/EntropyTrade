@@ -45,6 +45,12 @@
           <label for="weather-dataset">Weather dataset</label><select id="weather-dataset"><option value="">No retained dataset yet</option></select>
           <p id="weather-message" role="status" class="hint"></p>
           <div id="weather-readiness"></div>
+          <h3>Forward settlement labels</h3>
+          <p class="hint">Acquire official scalar highs for the selected dataset from The Weather Company. Preliminary, wrong-source and protected labels are refused. Availability starts at receipt; earlier fitting cutoffs stay frozen.</p>
+          <button id="weather-label-acquire" type="button">Acquire settlement labels</button>
+          <button id="weather-label-refresh" type="button">Refresh label acquisition</button>
+          <p id="weather-label-message" role="status" class="hint"></p>
+          <div id="weather-labels"></div>
         </section>
         <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
       </aside>

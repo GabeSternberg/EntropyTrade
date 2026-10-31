@@ -1,0 +1,1 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,37159,t=>{t.q("/vc-ap-7f3f87/_next/static/media/twc-logo.0mfn39yi_v260.png")},6307,t=>{t.q("/vc-ap-7f3f87/_next/static/media/kalshi-logo.0dvkgjxev~l5u.png")}]);

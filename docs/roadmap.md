@@ -9,7 +9,35 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone executes private-workbench operating acceptance using the existing
+The current milestone delivers integrated forward weather-label acquisition through the
+existing retained-history website: select an immutable dataset, acquire authentic official
+scalar highs, inspect receipt/publication/revision clocks and refusals, freeze a new immutable
+research dataset, and reuse the existing deterministic model gates. Weather Company is the
+actual retained-contract authority; NWS and binary outcomes cannot substitute. October 31
+collection yields two verified October 29 labels and two preliminary October 30 refusals,
+with new receipt-time availability. Sparse forward labels do not satisfy empirical fitting
+or profitability gates. Durable restart/idempotency, corrected/late/protected/source boundaries,
+offline replay/restore and real managed-Chromium page interactions are included in this
+implementation. Ruff/format, strict mypy (542 files), 22 frontend checks, **1,255 pytest
+tests in 609.09s** and the final real-browser procedure pass (seven screenshots, six
+downloads, zero page errors). Authentic offline restore and all 73 original safety/boundary
+hashes verify. Locally retained generated traces/archives require separate retrieval for
+independent inspection; no fresh clean-install pass is claimed. See [label workflow](weather-labels.md),
+[current evidence](../data/weather-label-review/20261031/README.md) and
+[release matrix](v1_acceptance.md). All Git mutations and independent review belong to the
+supervisor; stop for review after this milestone. V1 remains incomplete.
+
+Continue authentic forward acquisition while independent website and paper/shadow capability
+remain usable. Evaluate empirical readiness using preserved clocks and frozen boundaries;
+never wait on unavailable Bitcoin dates before reviewing unrelated functionality. Additional
+market-family selection requires user approval. External-provider verification needs separate
+credential authorization. Certified fees, enough independent history, empirical two-family
+validation and independent release acceptance remain open. No real execution or risk-limit
+changes are part of this milestone.
+
+### Previous private-workbench operating acceptance — October 31, 2026
+
+The previous milestone executes private-workbench operating acceptance using the existing
 `tools/local_acceptance.py` in the permitted runtime. Fresh offline locked Python/npm setup,
 supported Playwright-managed Chromium provisioning, Ruff/format, strict mypy (535 files),
 22 frontend checks and all six real browser procedures pass. Actual page interactions cover

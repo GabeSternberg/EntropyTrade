@@ -160,9 +160,39 @@ function renderWeatherHistory(content, snapshot) {
   if (r.shadow_audit) section.append(node("p", `${r.shadow_audit.verified_cycles} verified shadow cycles · ${r.shadow_audit.decision_samples} exact decision samples · ${r.shadow_audit.sized_books} sized books · ${r.shadow_audit.stale_books} stale books.`), notice(r.shadow_audit.limitation), list(r.shadow_audit.execution_blockers || []), detail("Shadow replay lineage", r.shadow_audit));
   if (r.cohort) section.append(node("p", `Research cohort · ${r.cohort.batches.length} retained history partitions · at most ${r.cohort.partition_size} inputs per batch. Shared frozen calendar; independent events counted once.`), detail("Cohort batches and immutable identities", r.cohort));
   if (snapshot.identity?.selection) section.append(detail("Selected history and outcome partitions", snapshot.identity.selection));
+  if (r.label_acquisition) section.append(detail("Settlement label provenance and refusals", r.label_acquisition));
   if (r.capture_audit) section.append(node("p", `${r.incomplete_captures} incomplete captures · ${r.capture_failures} acquisition failures.`), detail("Original capture clocks, receipts and acquisition failures", r.capture_audit));
   content.append(section);
 }
+async function weatherLabels() {
+  const rows = await api("/api/weather/labels");
+  const content = $("weather-labels"); content.replaceChildren();
+  for (const request of rows.slice(-12).reverse()) {
+    const section = panel("Label acquisition · " + request.status);
+    section.append(node("p", request.detail), node("code", request.id));
+    if (request.result) {
+      const result = request.result;
+      section.append(node("p", `${result.verified_events} verified scalar labels · ${result.refused_events} refused events. Receipt availability is never backdated.`));
+      section.append(detail("Source receipts, rule bindings and label clocks", result));
+      const link = node("a", "Download label evidence");
+      link.href = "/api/weather/labels/" + result.version.slice(7);
+      link.download = "weather-labels-" + request.id + ".json"; section.append(link);
+    }
+    content.append(section);
+  }
+}
+$("weather-label-refresh").addEventListener("click", () => weatherLabels().catch(error => { $("weather-label-message").textContent = error.message; }));
+$("weather-label-acquire").addEventListener("click", async () => {
+  $("weather-label-acquire").disabled = true;
+  try {
+    const dataset_id = $("weather-dataset").value;
+    if (!dataset_id) throw new Error("Freeze and select a retained weather dataset first.");
+    await api("/api/weather/labels", { id: crypto.randomUUID(), dataset_id });
+    $("weather-label-message").textContent = "Acquisition queued. Refresh to inspect receipts and refusals, then freeze a new dataset to include verified labels.";
+    await weatherLabels();
+  } catch (error) { $("weather-label-message").textContent = error.message; }
+  finally { $("weather-label-acquire").disabled = false; }
+});
 async function weatherPartitions() {
   const catalog = await api("/api/weather/partitions");
   for (const [id, placeholder] of [["weather-partition", "All retained inputs (up to 128)"], ["weather-outcomes", "Same partition as history"]]) {
@@ -187,7 +217,7 @@ $("weather-partitions-refresh").addEventListener("click", () => weatherPartition
 async function weatherDatasets(selected) {
   const rows = await api("/api/weather/datasets");
   state.weatherDatasets = rows;
-  const previous = selected || $("weather-dataset").value;
+  const previous = selected || $("weather-dataset").value || globalThis.localStorage?.getItem("entropytrade-weather-dataset");
   $("weather-dataset").replaceChildren(...(rows.length ? rows.map((snapshot) => {
     const option = node("option", `${snapshot.dataset_id.slice(7, 19)} · ${snapshot.readiness.independent_events} events · ${snapshot.readiness.status}`);
     option.value = snapshot.dataset_id.slice(7); return option;
@@ -201,7 +231,10 @@ async function weatherDatasets(selected) {
 function showWeatherReadiness() {
   $("weather-readiness").replaceChildren();
   const snapshot = state.weatherDatasets.find(s => s.dataset_id.slice(7) === $("weather-dataset").value);
-  if (snapshot) renderWeatherHistory($("weather-readiness"), snapshot);
+  if (snapshot) {
+    globalThis.localStorage?.setItem("entropytrade-weather-dataset", snapshot.dataset_id.slice(7));
+    renderWeatherHistory($("weather-readiness"), snapshot);
+  }
 }
 $("weather-dataset").addEventListener("change", () => {
   $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp(); showWeatherReadiness();
@@ -459,7 +492,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await feeEvidence(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await feeEvidence(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {

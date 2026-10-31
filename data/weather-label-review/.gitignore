@@ -1,0 +1,3 @@
+# Preserve generated replay archives/traces locally; retain hashes, reports and screenshots.
+/20261031/authentic-workspace.zip
+/20261031/**/playwright-artifacts/

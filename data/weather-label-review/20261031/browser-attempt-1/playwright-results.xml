@@ -1,0 +1,58 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="32.055476999999996">
+<testsuite name="weather-labels.spec.cjs" timestamp="2026-10-31T09:16:11.181Z" hostname="" tests="1" failures="1" skipped="0" time="29.753" errors="0">
+<testcase name="authentic weather labels: acquire, inspect provenance, freeze and restart" classname="weather-labels.spec.cjs" time="29.753">
+<failure message="weather-labels.spec.cjs:10:1 authentic weather labels: acquire, inspect provenance, freeze and restart" type="FAILURE">
+<![CDATA[  weather-labels.spec.cjs:10:1 › authentic weather labels: acquire, inspect provenance, freeze and restart 
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  locator('#weather-dataset')
+    Expected: "d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b"
+    Received: "371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020"
+    Timeout:  10000ms
+
+    Call log:
+      - Expect "toHaveValue" with timeout 10000ms
+      - waiting for locator('#weather-dataset')
+        2 × locator resolved to <select id="weather-dataset">…</select>
+          - unexpected value ""
+        12 × locator resolved to <select id="weather-dataset">…</select>
+           - unexpected value "371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020"
+
+
+      156 |     }
+      157 |     await stop(); await start(); await page.goto(origin);
+    > 158 |     await expect(page.locator("#weather-dataset")).toHaveValue(selected);
+          |                                                    ^
+      159 |     await page.locator("#history button").filter({ has: page.getByText(idea, { exact: true }) }).click();
+      160 |     await expect(page.locator("#run-header .badge").first()).toHaveText("completed");
+      161 |     assert.deepEqual(await download("Download label evidence", "restart-labels.json"), labelBytes);
+        at /home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs:158:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

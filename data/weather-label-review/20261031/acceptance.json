@@ -1,0 +1,53 @@
+{
+  "scope": "Integrated forward weather-label acquisition intermediate milestone",
+  "milestone_status": "implemented_and_verified",
+  "supervisor_approval": "pending",
+  "complete": false,
+  "v1_complete": false,
+  "branch": "supervisor/20261031-050653",
+  "starting_commit": "a473758",
+  "quality": {
+    "ruff": "passed",
+    "format": "passed (542 backend files)",
+    "strict_mypy": "passed (542 source/test files)",
+    "pytest": {
+      "tests": 1255,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 609.09
+    },
+    "frontend_checks": 22
+  },
+  "browser": {
+    "procedure": "authentic weather labels: acquire, inspect provenance, freeze and restart",
+    "status": "passed",
+    "screenshots": 7,
+    "downloads": 6,
+    "page_errors": [],
+    "identical_reopened_downloads": 3,
+    "managed_chromium": "141.0.7390.37"
+  },
+  "authentic_source": {
+    "verified_events": 2,
+    "refused_preliminary_events": 2,
+    "verified_target_date": "2026-10-29",
+    "refused_target_date": "2026-10-30",
+    "receipt_start": "2026-10-31T09:21:51.917194Z",
+    "provider_publication_revision_clocks": "unknown; no inferred timestamps",
+    "model_probabilities": 0,
+    "binary_label_events": 0,
+    "performance_claims": false
+  },
+  "offline_restore": "passed; original acquisition/batch and two datasets identical",
+  "original_receipt_files_unchanged": 68,
+  "bitcoin_boundary_files_unchanged": 5,
+  "git_mutations_performed": false,
+  "credentials_accessed": false,
+  "submission_enabled": false,
+  "limitations": [
+    "No new clean-install verification.",
+    "Generated archive and trace bytes retained locally with hashes; a checkout alone cannot restore/inspect them.",
+    "Sparse history, empirical two-family validation, certified fees, separately authorized provider verification and independent V1 review remain open."
+  ]
+}

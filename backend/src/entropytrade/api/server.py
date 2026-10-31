@@ -14,6 +14,7 @@ from entropytrade.api.workspace import acquire_workspace
 from entropytrade.api.workspace import workspace_path as workspace_path
 from entropytrade.tracking.runner import ShadowRunner
 from entropytrade.tracking.store import TrackingStore
+from entropytrade.weather.label_service import LabelService
 
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -43,6 +44,8 @@ class WorkbenchServer(ThreadingHTTPServer):
             self.runner = Runner(self.jobs, self.repo, lease_fd=self.lock.fileno())
             self.tracking = TrackingStore(self.jobs)
             self.shadow = ShadowRunner(self.tracking, self.repo, lease_fd=self.lock.fileno())
+            self.labels = LabelService(self.jobs.root)
+            self.labels.recover()
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
@@ -51,8 +54,10 @@ class WorkbenchServer(ThreadingHTTPServer):
             raise
         self.weather_lock = threading.Lock()
         self.token = secrets.token_urlsafe(32)
+        self.labels.thread.start()
 
     def server_close(self) -> None:
+        self.labels.close()
         self.runner.close()
         self.shadow.close()
         super().server_close()
@@ -170,6 +175,18 @@ class Handler(BaseHTTPRequestHandler):
                 self.document(
                     409, {"error": "Fee evidence verification failed: " + type(exc).__name__}
                 )
+        elif path == "/api/weather/labels" or path.startswith("/api/weather/labels/"):
+            try:
+                if path == "/api/weather/labels":
+                    self.document(200, self.server.labels.catalog())
+                else:
+                    label_version = "sha256:" + path.removeprefix("/api/weather/labels/")
+                    from entropytrade.weather.labels import load_batch
+
+                    batch = load_batch(self.server.labels.batch_path(label_version))
+                    self.document(200, batch.model_dump(mode="json"))
+            except (ValueError, OSError, KeyError, TypeError):
+                self.document(409, {"error": "Weather label evidence verification failed"})
         elif path == "/api/weather/partitions":
             self.document(200, self.server.jobs.weather_partitions())
         elif path == "/api/weather/datasets":
@@ -298,6 +315,9 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
+            if self.path == "/api/weather/labels":
+                self.document(202, self.server.labels.create(value))
+                return
             if self.path == "/api/weather/datasets":
                 from entropytrade.tracking.history import anchor
                 from entropytrade.weather.history import build_snapshot
@@ -332,10 +352,13 @@ class Handler(BaseHTTPRequestHandler):
                         captures, outcomes, protected = self.server.jobs.weather_inputs(
                             value.get("partition_id"), value.get("outcome_partition_id")
                         )
+                        from entropytrade.weather.label_service import batches as label_batches
+
                         snapshot = build_snapshot(
                             self.server.jobs.root / "runs/weather-datasets",
                             captures,
                             outcome_roots=outcomes,
+                            scalar_batches=label_batches(self.server.jobs.root),
                             protected_events=protected,
                             frozen_anchor=anchor(self.server.jobs),
                             selection=value or None,

@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "browser_status": "passed",
+  "page_errors": [],
+  "checks": [
+    {
+      "file": "weather-dataset.png",
+      "expected": "9756364c556766b15218ace72f9a8641cb70ffb8b5874d464f18162cc0921e62",
+      "actual": "9756364c556766b15218ace72f9a8641cb70ffb8b5874d464f18162cc0921e62",
+      "matches": true
+    },
+    {
+      "file": "weather-acquisition.png",
+      "expected": "a56fbf40db082c211c3c254c493f048302998e0b42d709460cbbd7885e5a2b86",
+      "actual": "a56fbf40db082c211c3c254c493f048302998e0b42d709460cbbd7885e5a2b86",
+      "matches": true
+    },
+    {
+      "file": "weather-labelled-dataset.png",
+      "expected": "69c1cd47fc3b0c693b16b00b66be547deabdd498bbe85c21913617e0d2997a6b",
+      "actual": "69c1cd47fc3b0c693b16b00b66be547deabdd498bbe85c21913617e0d2997a6b",
+      "matches": true
+    },
+    {
+      "file": "weather-Review.png",
+      "expected": "2273c39415694740c143a63d1c6683c9fb0e6d35a8f15148d7709eace66bee69",
+      "actual": "2273c39415694740c143a63d1c6683c9fb0e6d35a8f15148d7709eace66bee69",
+      "matches": true
+    },
+    {
+      "file": "weather-Probabilities.png",
+      "expected": "a94f2e3ae939e953589708ab1c4ec6e3368ee1d9e9f382744968bdaa4c75fbdb",
+      "actual": "a94f2e3ae939e953589708ab1c4ec6e3368ee1d9e9f382744968bdaa4c75fbdb",
+      "matches": true
+    },
+    {
+      "file": "weather-Evidence---lineage.png",
+      "expected": "cf68eef708bc7380832a692e38ba7810a64500a79094f9089ccc235b7f159658",
+      "actual": "cf68eef708bc7380832a692e38ba7810a64500a79094f9089ccc235b7f159658",
+      "matches": true
+    },
+    {
+      "file": "weather-restart.png",
+      "expected": "26632c73c3faf8e9f222c269ccd1373710fd1acf9523b2e9be1c05cb0fbd257b",
+      "actual": "26632c73c3faf8e9f222c269ccd1373710fd1acf9523b2e9be1c05cb0fbd257b",
+      "matches": true
+    },
+    {
+      "file": "weather-labels.json",
+      "expected": "4b0557be2280aa541300232b0cc77ecaa36acb226d3ac2cac249c3ea99cd4f1a",
+      "actual": "4b0557be2280aa541300232b0cc77ecaa36acb226d3ac2cac249c3ea99cd4f1a",
+      "matches": true
+    },
+    {
+      "file": "weather-review.json",
+      "expected": "6c812d4235269c6e080ef28c220100a120998822647ab598b538cf008634d1ca",
+      "actual": "6c812d4235269c6e080ef28c220100a120998822647ab598b538cf008634d1ca",
+      "matches": true
+    },
+    {
+      "file": "weather-report.txt",
+      "expected": "1a3944900d1186b5dff12bbcdfde6d78472383364b1f0f0395a281dc34bafd3c",
+      "actual": "1a3944900d1186b5dff12bbcdfde6d78472383364b1f0f0395a281dc34bafd3c",
+      "matches": true
+    },
+    {
+      "file": "weather-restart-labels.json",
+      "expected": "4b0557be2280aa541300232b0cc77ecaa36acb226d3ac2cac249c3ea99cd4f1a",
+      "actual": "4b0557be2280aa541300232b0cc77ecaa36acb226d3ac2cac249c3ea99cd4f1a",
+      "matches": true
+    },
+    {
+      "file": "weather-restart-review.json",
+      "expected": "6c812d4235269c6e080ef28c220100a120998822647ab598b538cf008634d1ca",
+      "actual": "6c812d4235269c6e080ef28c220100a120998822647ab598b538cf008634d1ca",
+      "matches": true
+    },
+    {
+      "file": "weather-restart-report.txt",
+      "expected": "1a3944900d1186b5dff12bbcdfde6d78472383364b1f0f0395a281dc34bafd3c",
+      "actual": "1a3944900d1186b5dff12bbcdfde6d78472383364b1f0f0395a281dc34bafd3c",
+      "matches": true
+    }
+  ],
+  "identical_reopened_downloads": 3
+}

@@ -211,6 +211,11 @@ def validate_database(root: Path) -> dict[str, int]:
         from entropytrade.execution.fee_evidence import FeeEvidenceStore
 
         FeeEvidenceStore(root).snapshot()
+        from entropytrade.weather.label_service import LabelService, batches
+
+        # Read-only validation; restoring never resumes source acquisition.
+        LabelService(root).catalog()
+        batches(root)
         validate_registry(root, reviews)
         monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
         if ("table", "shadow_alerts") in actual:

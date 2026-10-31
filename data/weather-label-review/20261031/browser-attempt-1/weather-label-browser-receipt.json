@@ -1,0 +1,258 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-31T09:16:13.852Z",
+  "origin": "http://127.0.0.1:43149",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/weather-label-acceptance-1-weather-labels",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "action": "import",
+      "evidence": {
+        "captures": [
+          {
+            "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+            "decision_time": "2026-10-29T16:35:47.288061+00:00",
+            "job_id": "820608b4-3a80-4cd5-a988-d74bf02d78a1",
+            "manifest_sha256": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+            "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public"
+          },
+          {
+            "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+            "decision_time": "2026-10-29T16:35:37.734441+00:00",
+            "job_id": "e57ed607-ba93-42b8-9545-395256949465",
+            "manifest_sha256": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+            "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public"
+          }
+        ],
+        "evidence": "Authentic retained weather receipt replay; no new acquisition or empirical performance"
+      }
+    },
+    {
+      "action": "start",
+      "epoch": 1
+    },
+    {
+      "action": "authentic-label-acquisition",
+      "id": "33209ead-7089-4f26-b729-ad5cb1b7a052",
+      "result": {
+        "version": "sha256:44d4a60c3ec33050c2e55815789dd6fdc1997411a0f001fd935afd1ddf725786",
+        "source_dataset": "sha256:371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020",
+        "verified_events": 2,
+        "refused_events": 2,
+        "records": [
+          {
+            "target": {
+              "event_id": "KXHIGHCHI-26OCT29",
+              "station": "CLIMDW",
+              "target_date": "2026-10-29",
+              "timezone": "America/Chicago",
+              "rules_hashes": [
+                "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+                "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+                "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+                "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+                "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+                "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+              ],
+              "refusal": ""
+            },
+            "observation": {
+              "source_id": "weather-company",
+              "entity_id": "CLIMDW",
+              "variable": "settlement_high_f",
+              "valid_on": "2026-10-29",
+              "value": "69",
+              "unit": "degF",
+              "model": null,
+              "revision_id": "sha256:f45ee12af1e8d18875dd25924e3b96224f4e21a6a84b29d2ca37881e87283205",
+              "valid_at": null,
+              "issued_at": null,
+              "published_at": null,
+              "available_at": "2026-10-31T09:16:19.466315Z",
+              "received_at": "2026-10-31T09:16:19.466315Z",
+              "ingested_at": "2026-10-31T09:16:19.466315Z",
+              "revised_at": null,
+              "timing_basis": "received",
+              "evidence": "Official Weather Company portal daily maxTemp. Provider issue/revision clocks may be unknown. Availability begins at collection receipt; not a binary settlement certification.",
+              "role": "observation",
+              "raw_ref": "receipt:sha256:1b0436f6a85ca3f6d3dea739c058e53893600f323b486084d371d2e55c68336f",
+              "raw_hash": "sha256:1b0436f6a85ca3f6d3dea739c058e53893600f323b486084d371d2e55c68336f"
+            },
+            "refusal": ""
+          },
+          {
+            "target": {
+              "event_id": "KXHIGHCHI-26OCT30",
+              "station": "CLIMDW",
+              "target_date": "2026-10-30",
+              "timezone": "America/Chicago",
+              "rules_hashes": [
+                "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+                "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+                "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+                "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+                "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+                "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+              ],
+              "refusal": ""
+            },
+            "observation": null,
+            "refusal": "source report is preliminary, missing or nonofficial"
+          },
+          {
+            "target": {
+              "event_id": "KXHIGHPHIL-26OCT29",
+              "station": "CLIPHL",
+              "target_date": "2026-10-29",
+              "timezone": "America/New_York",
+              "rules_hashes": [
+                "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+                "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+                "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+                "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+                "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+                "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+              ],
+              "refusal": ""
+            },
+            "observation": {
+              "source_id": "weather-company",
+              "entity_id": "CLIPHL",
+              "variable": "settlement_high_f",
+              "valid_on": "2026-10-29",
+              "value": "70",
+              "unit": "degF",
+              "model": null,
+              "revision_id": "sha256:50fb9aa290af99c5e424ab3f422a8c3d5e39da8af940b6b265427347d6f4f9ef",
+              "valid_at": null,
+              "issued_at": null,
+              "published_at": null,
+              "available_at": "2026-10-31T09:16:19.466315Z",
+              "received_at": "2026-10-31T09:16:19.466315Z",
+              "ingested_at": "2026-10-31T09:16:19.466315Z",
+              "revised_at": null,
+              "timing_basis": "received",
+              "evidence": "Official Weather Company portal daily maxTemp. Provider issue/revision clocks may be unknown. Availability begins at collection receipt; not a binary settlement certification.",
+              "role": "observation",
+              "raw_ref": "receipt:sha256:1b0436f6a85ca3f6d3dea739c058e53893600f323b486084d371d2e55c68336f",
+              "raw_hash": "sha256:1b0436f6a85ca3f6d3dea739c058e53893600f323b486084d371d2e55c68336f"
+            },
+            "refusal": ""
+          },
+          {
+            "target": {
+              "event_id": "KXHIGHPHIL-26OCT30",
+              "station": "CLIPHL",
+              "target_date": "2026-10-30",
+              "timezone": "America/New_York",
+              "rules_hashes": [
+                "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+                "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+                "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+                "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+                "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+                "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+              ],
+              "refusal": ""
+            },
+            "observation": null,
+            "refusal": "source report is preliminary, missing or nonofficial"
+          }
+        ],
+        "receipts": [
+          {
+            "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-29",
+            "received_at": "2026-10-31T09:16:19.466315Z",
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "date": "Sat, 31 Oct 2026 09:16:19 GMT"
+            },
+            "error": "",
+            "sha256": "sha256:1b0436f6a85ca3f6d3dea739c058e53893600f323b486084d371d2e55c68336f",
+            "bytes": 18880
+          },
+          {
+            "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-30",
+            "received_at": "2026-10-31T09:16:19.505491Z",
+            "status": 200,
+            "headers": {
+              "content-type": "application/json",
+              "date": "Sat, 31 Oct 2026 09:16:19 GMT"
+            },
+            "error": "",
+            "sha256": "sha256:fa08d6c8e9130d43350f36cbd405a1e8f26fc95cc8961e47dd7078aaf7a1e024",
+            "bytes": 18617
+          }
+        ],
+        "submission_enabled": false
+      }
+    },
+    {
+      "action": "research",
+      "id": "49094548-585e-452a-93d5-055791a9e9d9",
+      "dataset_id": "d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b"
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "epoch": 2
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "weather-dataset.png",
+      "sha256": "baa509f6c42ed2a6bd30441f60ef2c3d1a6917ddffdd22e0c39ab827feea7d37"
+    },
+    {
+      "file": "weather-acquisition.png",
+      "sha256": "767284f22b6f9d717f16c13f9e6fd51078e9d1e336284baa27b4dfd1e153443e"
+    },
+    {
+      "file": "weather-labelled-dataset.png",
+      "sha256": "73e9cec695204d0319090d07ad8de1377059eed36af3f533c7377e307203f447"
+    },
+    {
+      "file": "weather-Review.png",
+      "sha256": "c84f71f4c15a87c823ee9f0eb18443787d5d4d400a874ef4fe844a2d01a31878"
+    },
+    {
+      "file": "weather-Probabilities.png",
+      "sha256": "c0d1d96567894dc36b248b659d09dace5091e460eb92b102b1ec000591ef0035"
+    },
+    {
+      "file": "weather-Evidence---lineage.png",
+      "sha256": "de7024444ad875f5596a5dd13d37be7c9653ef242c7b8acd29f6635beabc4419"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "weather-labels.json",
+      "sha256": "7313445cc4bfe1bd336ab1ea01bbae40d193d555370ff6ec4d32c32ea0f6f2e6"
+    },
+    {
+      "file": "weather-review.json",
+      "sha256": "05abf66b7e306817a6b602676c998a71678cd686a8fa36d67c4bef58b3358c0b"
+    },
+    {
+      "file": "weather-report.txt",
+      "sha256": "f753b6a41d242f99cd4fc31766efc1fea1c18ca4cbc9e318bbf71b7bb341d062"
+    }
+  ],
+  "page_errors": [],
+  "limitations": [
+    "Original forward forecast receipt replay plus NEW authentic settlement-source acquisition.",
+    "Official source availability starts at NEW receipt time; preliminary or inaccessible reports remain refused. Sparse history yields no empirical model or returns.",
+    "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+  ],
+  "failure": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveValue\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('#weather-dataset')\nExpected: \u001b[32m\"d4ed978a8426c8e4302db149057104f9afd620f0a23c39d61f93cffd2a56924b\"\u001b[39m\nReceived: \u001b[31m\"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[39m\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveValue\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-dataset')\u001b[22m\n\u001b[2m    2 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m      - unexpected value \"\"\u001b[22m\n\u001b[2m    12 × locator resolved to <select id=\"weather-dataset\">…</select>\u001b[22m\n\u001b[2m       - unexpected value \"371b932589cabe9b5dc36d000211d93e509fc4d24619fd4459600189dad7e020\"\u001b[22m\n\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/weather-labels.spec.cjs:158:52",
+  "finished_at": "2026-10-31T09:16:42.723Z"
+}

@@ -1,3 +1,23 @@
+# Forward weather-label acquisition acceptance — October 31, 2026
+
+**complete=false.** This is an independently useful intermediate milestone, not V1 release
+approval. Implemented in place on `supervisor/20261031-050653`; Git operations and independent
+review remain with the supervisor. [Current evidence](../data/weather-label-review/20261031/README.md)
+separates new authentic source acquisition, original forecast receipt replay, controlled
+refusal/correction tests and browser interactions. Historical results below retain their scope.
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| User-facing acquisition → status → provenance → immutable dataset → research | `frontend/browser/weather-labels.spec.cjs`, actual managed-Chromium receipts/screenshots/downloads | **Scoped pass.** New public acquisition and honest insufficient-data research; identical label/review/report downloads after listener restart. The first failed selection-persistence attempt stays retained. |
+| Authentic source-matched scalar highs | `weather/labels.py`, original public portal JSON and acquisition batch downloads | **Two October 29 station/day labels verified; two October 30 preliminary reports refused.** Existing Philadelphia/Chicago rules name Weather Company; NWS and binary outcomes are not scalar substitutes. More independent dates remain required. |
+| Receipt/publication/revision clocks and leakage | `labels.py`, `label_history.py`, `_verify_labels`, corrected/late/protected tests | **Scoped pass.** New receipt-time availability; absent provider clocks stay null. Revisions stay distinct; only versions known at model cutoff qualify. Original forecasts and frozen splits stay unchanged; protected labels stay excluded. |
+| Restart, idempotency, failures and offline recovery | `test_weather_labels.py`, `test_weather_labels_listener.py`, verified snapshot/restore evidence | **Scoped pass.** Bounded credential-free GETs, persisted partial receipts, terminal refusal batches, active shutdown, interrupted startup without network retry, exact offline label/rule/audit replay and restored download equality. |
+| Reproducible realistic empirical modeling/backtests | Existing model/backtest gates and actual browser research result | **Incomplete.** Sparse labels leave all candidates insufficient; no fitted probabilities, fills, return or profitability claim. More dates, temporal validation and certified effective fees remain open. |
+| Website, paper/shadow and safety | New browser procedure plus existing operating acceptance below; full regression results in current bundle | Existing website/accounting/alert workflows preserved. No real submissions, credentials, execution activation or risk-limit relaxation. New source receipt work does not certify live trading. |
+| Two meaningfully distinct empirically validated market families | Existing weather and optional Bitcoin code/receipts | **Incomplete.** Bitcoin boundaries preserved; no new family selected. Future evidence or another user-approved family is required. |
+| Provider-backed research with authorized credentials | Prior controlled integration below | **External verification deferred.** No credential access or external-provider acceptance claimed. |
+| Quality, install and independent release review | Current execution bundle; prior locked operating acceptance below | **Pass:** Ruff/format and strict mypy (542 files), all **1,255 pytest cases in 609.09s**, 22 frontend checks and actual Chromium acceptance (7 screenshots, 6 downloads, 0 page errors). Offline authentic restore/reparse and all 73 original safety/boundary hashes verify. Large generated trace/archive bytes remain local with checksummed retention evidence. No new clean-install pass is claimed. Independent milestone review and all remaining V1 gates remain required. |
+
 # Private-workbench operating acceptance — October 31, 2026
 
 **complete=false. Private-workbench operating acceptance is verified; V1 remains incomplete.**

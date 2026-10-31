@@ -1,0 +1,552 @@
+{
+  "status": "retained_local_bytes",
+  "files": [
+    {
+      "path": "data/weather-label-review/20261031/authentic-workspace.zip",
+      "bytes": 16353420,
+      "sha256": "sha256:4e7aaf24aa8bff67a0c205b1fe25a78706a0d69a3662366be69642f61ec3d22c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.last-run.json",
+      "bytes": 96,
+      "sha256": "sha256:2b80f0b724144210753c92a4ce924f6c5fac03c4d402ac65b54904d9d17e9f57"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/bdf4c926e003c3f85758-b2ec69b9dd1155090607-pwnetcopy-1.network",
+      "bytes": 163539,
+      "sha256": "sha256:9de3d971114e0d01c83a4f0b00650be1484828e98f6efcd7ddf90afa1cdf4b4e"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/bdf4c926e003c3f85758-b2ec69b9dd1155090607.network",
+      "bytes": 163539,
+      "sha256": "sha256:9de3d971114e0d01c83a4f0b00650be1484828e98f6efcd7ddf90afa1cdf4b4e"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/bdf4c926e003c3f85758-b2ec69b9dd1155090607.trace",
+      "bytes": 2149682,
+      "sha256": "sha256:9f5c153edde897836029213e5a3b7ebe660e69276437ff60d85777b19fbd1dc4"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/079d900fcd6e5fee6f7b1bb838f544570d00ea58.json",
+      "bytes": 46,
+      "sha256": "sha256:1ee4b3e7408c139a6b2dbe8f1a8e12af565890d360454f06dd7607675550810a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/1851675bfe63fb5d4e8739da3f6bce2e020d335f.json",
+      "bytes": 1936,
+      "sha256": "sha256:7beb221c8160e898e56873e9766cf6995e965502aa9405804384003d8e3d4e65"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/1e2b47ec382e0600224a9d51891e12a6b3351dcd.json",
+      "bytes": 1286,
+      "sha256": "sha256:d089251ac389a0a252de5718fa13e956d94ae3b84ee82a1af15088fc8aa9136c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/2189cd2fbf5846445f0fa4862b9bb657d12962c0.json",
+      "bytes": 125,
+      "sha256": "sha256:a573d6c70c73ded73ca711e83d4357a52c44ab0766b59adeba14cc41d5d03cb7"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/312d3ca9ae16e0f6065789008995b24c51522df3.json",
+      "bytes": 409,
+      "sha256": "sha256:6d4fba80714b418c1b72717ca338b3de58f5e3f75c9fdada0316e6802939fc3b"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/46e6b5d4a07cc70370f19196e3ff86de251485f2.json",
+      "bytes": 43,
+      "sha256": "sha256:6b8c76c22e488743402000699198d5b953ddb6c83497032227796bd04f4db887"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/4782a4ace98dabfefc4575037ec1b21064ce973e.json",
+      "bytes": 2852,
+      "sha256": "sha256:33c20f42788bd7e4c4c5eace8a9fa238dbf5b24cb58c103d53c9d4c576eaa764"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/4cf31a98366d296f7057721bdb5619efa0ff7524.json",
+      "bytes": 2850,
+      "sha256": "sha256:58909c236b0c1dc225e86c4741140a911258ded36a16b1834d5feffe7e5c20fe"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/55fcf8090fddc0ce72251659537dc6d7aa11dd85.json",
+      "bytes": 13082,
+      "sha256": "sha256:a0ac68e442970f51d4d5fb78c49fb0ad4b111fa6d804ebb59d31621c327360d3"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/63531cb6da53a9f8b844ce7e99ecb7eed55ae314.json",
+      "bytes": 7693,
+      "sha256": "sha256:1170a0d5391f7908e37324aa94710ff4bf030ecb28c7365ae8d391f69af350fb"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/6bd57138c3d28c42b95c38458a69c56f910e5844.json",
+      "bytes": 7693,
+      "sha256": "sha256:9e9306d55bb5d18a0d74702626460121e6646fac7ed440c35432ddddcd13aaa1"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7008c835dead73d79c0a328fa415cce28021d205.json",
+      "bytes": 756,
+      "sha256": "sha256:0225e22923bc65c0e35e8ec2351738f0f35b04998079a074fbd92946d8b22701"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/75c0d0b84a4eff672cce591259ef1b771831e5ce.json",
+      "bytes": 1317,
+      "sha256": "sha256:c7745b346d2675d7f6f5d8cbf5d0cdc25574f935e82662e267ecfae2003d0f42"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7ba7e0bc98220d2da85524f6626c456ccc2d19df.json",
+      "bytes": 58949,
+      "sha256": "sha256:b8ef9776037d51803d486e7130e53938b9d7b11ed00808d594f06a02461cec51"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7bdfc7de2db17a1d32b8fb50f76338423a4c065a.json",
+      "bytes": 45,
+      "sha256": "sha256:39e7f640132ccc3525fe6145394a95e393b5f32833fa37e9f7ccdd3d91097056"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7d9133b987ab2788d72ba0cf1212a4c8edcf49ab.json",
+      "bytes": 409,
+      "sha256": "sha256:8869b0a5cfaf782d334f9f85682681592010813b98f175ae08a95c5f4b44b529"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/83cfe45bf69549da8d0d5871db1dd8b6f9daa706.json",
+      "bytes": 1319,
+      "sha256": "sha256:bc84d9ba22e6f47d01010b4e717b7bdf0b89e8d9e8bec6dbc8fe9ad8a15165ce"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/88bd2c20e78d4af4df34075ea3acea1e7de50d00.json",
+      "bytes": 241950,
+      "sha256": "sha256:769a09c9a6cb74ec1f154de03a2a4917420b1ef1a3977b9a10ec8af7da0959d0"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/97d170e1550eee4afc0af065b78cda302a97674c.json",
+      "bytes": 2,
+      "sha256": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/9f993e1ca87e258c9dd465370939fbf14ead6996.css",
+      "bytes": 9567,
+      "sha256": "sha256:488ef0a365b99ee72f340633aeb03f2b0303c7d9b4cd6228d2a63ff9f177b1eb"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/b356747a9be8762b8220bd7a949c2ca1fec2a935.json",
+      "bytes": 554,
+      "sha256": "sha256:e0f6fe0918fa21e9146f0801758c6938e5b509a18a08ae0cbf4af0ac26ed2343"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/b4b6ab44b9f4353302b1cd3aad72e7eacad4b6ba.json",
+      "bytes": 7695,
+      "sha256": "sha256:a4b2dcdda881e4ab5215477c3dceaac8c21c1a4ddc9556d36d7f306e9ee055cd"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/bbd7957b24efb21105b79d0213e9cdf54f054206.json",
+      "bytes": 20779,
+      "sha256": "sha256:4ad4ef2fe75c97a147daa059aad0e4b8ece630f09a745d419c3574dd464daf7b"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f.json",
+      "bytes": 2,
+      "sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/cf7c325a5aea6bcd35a2fdd454a13a24981e5834.html",
+      "bytes": 9640,
+      "sha256": "sha256:fb4a7cd08731660386a0c5beda8a9f24f2d03fd53de5dd1ca67d8d985adf014c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/dbf9fbc000f3c2978e6e380f1c78879e39786440.json",
+      "bytes": 613,
+      "sha256": "sha256:8f1a098493db5ac55965aeb61851a2bb37c020386d44e7a7f39de79a5ce3772a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/f3907de878dc91119a5b4cfe2bbf09bca2b7459b.json",
+      "bytes": 204,
+      "sha256": "sha256:fd29022ca95667e4bf8139c2682b7ba846a99fbc3dc7dd6853fcec70d79b5764"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/f7899f3dedd0c1ee3ba9763926fba77414e313b5.json",
+      "bytes": 842,
+      "sha256": "sha256:c366c959df9d85943aea37c9d0982667a6c817817a903c16588fdea4a780c5db"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438174564.jpeg",
+      "bytes": 3134,
+      "sha256": "sha256:ad45d3e3f65f102b9cbf329d3f3b176473f692b88af241145d5910fb621099ab"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438175280.jpeg",
+      "bytes": 52907,
+      "sha256": "sha256:29e975dfbaf007004e5826614cfeb6d4bbe08c395abdddfa4e551705575ace95"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438175293.jpeg",
+      "bytes": 52907,
+      "sha256": "sha256:29e975dfbaf007004e5826614cfeb6d4bbe08c395abdddfa4e551705575ace95"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438175308.jpeg",
+      "bytes": 55161,
+      "sha256": "sha256:55251f9f64bb8d5384a4bd2a148a5b476900fb35589f82fa4668116a68417c9f"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438175319.jpeg",
+      "bytes": 54185,
+      "sha256": "sha256:43b846256d1428d104846e392a4552e10401f4996f513d6ccbb07edbfb009faf"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438176717.jpeg",
+      "bytes": 54185,
+      "sha256": "sha256:43b846256d1428d104846e392a4552e10401f4996f513d6ccbb07edbfb009faf"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438177419.jpeg",
+      "bytes": 56970,
+      "sha256": "sha256:00f2acd95ce76129a064e3610c026306a270c898a196bc5d3d28f6c51e8f16a3"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178168.jpeg",
+      "bytes": 45541,
+      "sha256": "sha256:8f9415f0cc8c4b7b7dec2839af1776c5709ff25527b23738093b1235e18b140a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178224.jpeg",
+      "bytes": 45541,
+      "sha256": "sha256:8f9415f0cc8c4b7b7dec2839af1776c5709ff25527b23738093b1235e18b140a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178465.jpeg",
+      "bytes": 44754,
+      "sha256": "sha256:6f859566c572e8fd36c2832fdf94202d05dd55d3c91b5e946a470b3aa61edfca"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178753.jpeg",
+      "bytes": 12978,
+      "sha256": "sha256:79b5957f664247993662f501f5bdf55212ac5ab9db266e3a9f4ed207cae968e4"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178783.jpeg",
+      "bytes": 44767,
+      "sha256": "sha256:2ba48c53becb986810370b52bd4db23ae9caa48980ed875631a9896a5db43fd1"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178811.jpeg",
+      "bytes": 44767,
+      "sha256": "sha256:2ba48c53becb986810370b52bd4db23ae9caa48980ed875631a9896a5db43fd1"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438178853.jpeg",
+      "bytes": 44604,
+      "sha256": "sha256:aa7579af019089b71b3fc7aff1001b299a672eb8a85133a68050412825edb7fb"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179104.jpeg",
+      "bytes": 44754,
+      "sha256": "sha256:6f859566c572e8fd36c2832fdf94202d05dd55d3c91b5e946a470b3aa61edfca"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179252.jpeg",
+      "bytes": 31260,
+      "sha256": "sha256:3a97b19aae25b78d91a8b3cc8eded11610e23902b6693487f79ad9525bd94612"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179305.jpeg",
+      "bytes": 30646,
+      "sha256": "sha256:4df01dcdae5aed7f8d92946a1cc718e17d2254c8977ca8a06debd1f5aed7f740"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179334.jpeg",
+      "bytes": 31475,
+      "sha256": "sha256:738709d4d999ae85b1ca01743dd37be28e3df2817117d8674e6670adbd71df59"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179361.jpeg",
+      "bytes": 31444,
+      "sha256": "sha256:dcd7b8b06123cdd54b72d0e707923fcc3896e8d63f65537fd65b13a68849645d"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438179391.jpeg",
+      "bytes": 31443,
+      "sha256": "sha256:65aec2c38e334e8c41f66823eefc4bccb68b463b02d7a361178994d3949770e8"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180383.jpeg",
+      "bytes": 31443,
+      "sha256": "sha256:65aec2c38e334e8c41f66823eefc4bccb68b463b02d7a361178994d3949770e8"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180410.jpeg",
+      "bytes": 34189,
+      "sha256": "sha256:5d89068441c9d416304063e3134ceb749808511e3eeb51f7fe6f41787a47d9f0"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180451.jpeg",
+      "bytes": 34189,
+      "sha256": "sha256:5d89068441c9d416304063e3134ceb749808511e3eeb51f7fe6f41787a47d9f0"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180476.jpeg",
+      "bytes": 34189,
+      "sha256": "sha256:e29ec553181823a79f817227d71c47c16d10ec45a9a03ba02bacbe3b2dbcc4f1"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180523.jpeg",
+      "bytes": 2004,
+      "sha256": "sha256:370a5ec5504a0ef06f8463f2156cf283f173106c30bffb9f0aefa0f7847848da"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180794.jpeg",
+      "bytes": 33118,
+      "sha256": "sha256:ff48739669db84819847ca88aebcbe8cf163cf0439a93df823fae6d3e15ab340"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180825.jpeg",
+      "bytes": 33118,
+      "sha256": "sha256:ff48739669db84819847ca88aebcbe8cf163cf0439a93df823fae6d3e15ab340"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180890.jpeg",
+      "bytes": 28304,
+      "sha256": "sha256:9f86fb7b54e64b100854cda22f85fc60f0a37be81b807bb4fda98151a4e3f3bb"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180950.jpeg",
+      "bytes": 44518,
+      "sha256": "sha256:17b7bb72048c49bee80ba8fa43023d8e85a2d18d764515eac8857a0a0cf47119"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438180981.jpeg",
+      "bytes": 44369,
+      "sha256": "sha256:2f639f6f6485ab26a7cebfc8f357efa95512f2dd539557fc97e5fb65cfdee54c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181235.jpeg",
+      "bytes": 44369,
+      "sha256": "sha256:2f639f6f6485ab26a7cebfc8f357efa95512f2dd539557fc97e5fb65cfdee54c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181279.jpeg",
+      "bytes": 44531,
+      "sha256": "sha256:20ed7f7e6602cc824956a438cb24326adfb58bdd80f45fe4a558089a243c6e32"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181353.jpeg",
+      "bytes": 1704,
+      "sha256": "sha256:a57aa0ae55049d6f6ba9794ad09dd32401dea1db35220972c0d55aaf7e01e49c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181659.jpeg",
+      "bytes": 30562,
+      "sha256": "sha256:2bc7fbd719f44dbb7e657753791466cb01803214dc5ed7bb975f90d89781c895"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181708.jpeg",
+      "bytes": 56429,
+      "sha256": "sha256:3203ad9d8bec1a6b31a093dea1b526bfed854a369b1eb0d41bf069d234de62c7"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181760.jpeg",
+      "bytes": 58513,
+      "sha256": "sha256:f716741f5cafdee8b59f65d2184f78971d3daa07865125540371f010fd40dba7"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181801.jpeg",
+      "bytes": 57237,
+      "sha256": "sha256:7ec3f6a44d8e88bdf443537660d7249c08c8f546f48388bf99c3afd78d95f228"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438181841.jpeg",
+      "bytes": 57385,
+      "sha256": "sha256:7cb918966af03d52894acf15ef686a90a4af6af18dcbcda4293e19fc5bd97d5c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438182738.jpeg",
+      "bytes": 59985,
+      "sha256": "sha256:a5970112e32fb2c7db5b70fb238f86a481880ab2bcba384f54f5d6f2645e0a52"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438185738.jpeg",
+      "bytes": 53797,
+      "sha256": "sha256:31c8e1f3bb58739c33fa06725178f3c7e3eb83c53e5ae675aa885f5521b3eaf0"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438187244.jpeg",
+      "bytes": 58518,
+      "sha256": "sha256:ad23a33ee827cc624b0fd9842263550d8003cb610ad1a975944e53155c49a908"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438187736.jpeg",
+      "bytes": 58552,
+      "sha256": "sha256:1a0e359370ead2e4ae7802fd08fb26e34de65341e18c908d670c10ef2582cb27"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438187903.jpeg",
+      "bytes": 4231,
+      "sha256": "sha256:7f4fb636a063a53af727388ff3603ce0e5e8f0dc9c67fc9a3b815de0db48c844"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188044.jpeg",
+      "bytes": 15755,
+      "sha256": "sha256:d72ff7bced349ada81cac29334696475c1955c036910f7b5e332f705a6c8a3d6"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188081.jpeg",
+      "bytes": 15790,
+      "sha256": "sha256:e48910cde7e3798b3cfa385e2d35ff22fff4d81a3e15f758f10ac0a0271b25a3"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188299.jpeg",
+      "bytes": 76311,
+      "sha256": "sha256:86b116607508cc295f80aea83ecaf7e567c8c330877c0a253a796aec5b35a2ed"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188338.jpeg",
+      "bytes": 76311,
+      "sha256": "sha256:86b116607508cc295f80aea83ecaf7e567c8c330877c0a253a796aec5b35a2ed"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188416.jpeg",
+      "bytes": 3656,
+      "sha256": "sha256:c6d11cf9cc983976d787308eb19e74c0b0c861b4f7f4ee6ca4555e0041419d5b"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188684.jpeg",
+      "bytes": 76313,
+      "sha256": "sha256:612820561b283054f9da3b343c307dcc320d4f235bdd72870fa52be8d9676e96"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188717.jpeg",
+      "bytes": 76313,
+      "sha256": "sha256:612820561b283054f9da3b343c307dcc320d4f235bdd72870fa52be8d9676e96"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188750.jpeg",
+      "bytes": 76313,
+      "sha256": "sha256:612820561b283054f9da3b343c307dcc320d4f235bdd72870fa52be8d9676e96"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438188826.jpeg",
+      "bytes": 1966,
+      "sha256": "sha256:7cc59fc09a41a10a4b3cc3b843240c577b3bb8685feed091dcbcff52ca5286bf"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438189097.jpeg",
+      "bytes": 76424,
+      "sha256": "sha256:e659d6009c0a61c3bcdc364bdb7185fa5f5088731b796a60c4bc5c81c98b6d2c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438189110.jpeg",
+      "bytes": 76424,
+      "sha256": "sha256:e659d6009c0a61c3bcdc364bdb7185fa5f5088731b796a60c4bc5c81c98b6d2c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192211.jpeg",
+      "bytes": 76424,
+      "sha256": "sha256:e659d6009c0a61c3bcdc364bdb7185fa5f5088731b796a60c4bc5c81c98b6d2c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192222.jpeg",
+      "bytes": 52907,
+      "sha256": "sha256:29e975dfbaf007004e5826614cfeb6d4bbe08c395abdddfa4e551705575ace95"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192236.jpeg",
+      "bytes": 54185,
+      "sha256": "sha256:43b846256d1428d104846e392a4552e10401f4996f513d6ccbb07edbfb009faf"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192300.jpeg",
+      "bytes": 54414,
+      "sha256": "sha256:42adbbcbb83fcb7b20e326146ed1bd4b413b9415619415725ef1a47730147f37"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192316.jpeg",
+      "bytes": 54414,
+      "sha256": "sha256:42adbbcbb83fcb7b20e326146ed1bd4b413b9415619415725ef1a47730147f37"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438192333.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438193711.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438195211.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438196712.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438198211.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438199710.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438201210.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438202719.jpeg",
+      "bytes": 55076,
+      "sha256": "sha256:0d7c6ff0cfc2cad9e128d448318a47e3e063ec5f0a16e6b9385c1edee0fc888a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@b5aa6337adf3d94c8717107b674c0734-1793438202743.jpeg",
+      "bytes": 55076,
+      "sha256": "sha256:0d7c6ff0cfc2cad9e128d448318a47e3e063ec5f0a16e6b9385c1edee0fc888a"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md",
+      "bytes": 16015,
+      "sha256": "sha256:b840385451b29c1484597142cdab8b4752938205c7741537014a8a54707fc751"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png",
+      "bytes": 147284,
+      "sha256": "sha256:d4c9ec060e4e3638d778ed2be52bce4465242d990224581995386774ca652c27"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-attempt-1/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip",
+      "bytes": 3053700,
+      "sha256": "sha256:703ef9380d475f486f2d50b873ea31df1ae242625797f2e222e65c77142d1f99"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-final/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-final/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip",
+      "bytes": 2633075,
+      "sha256": "sha256:ff73b0ebd667856d41cbfe4bfb53afda82639a2590260d322bd811f3fecef9c0"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-verified/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/weather-label-review/20261031/browser-verified/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip",
+      "bytes": 2658185,
+      "sha256": "sha256:6c175bc3de3db68d04b2e5fcf423bd8c4494d7310f1cb0df7c9518bfe618d45b"
+    }
+  ],
+  "file_count": 108,
+  "total_bytes": 30823291,
+  "limitations": [
+    "Original archive/trace bytes remain at these local repository paths and are excluded from staging.",
+    "A checkout alone contains hashes/reports/screenshots/downloads, not these generated bytes. Obtain and verify them separately for independent trace inspection or workspace restore.",
+    "Hash identity does not establish authenticity or V1 release acceptance."
+  ]
+}
