@@ -155,3 +155,27 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     assert.ok(!descendants(summary).some(child => child.tag === "details"));
   });
 }
+
+for (const tab of ["review", "probabilities", "lineage"]) {
+  test(`${tab}: shadow history clocks, depth and fee blockers stay visible`, () => {
+    const { context, content } = application();
+    const result = fixture(false);
+    delete result.acquisition;
+    result.weather_history = {
+      dataset_id: "sha256:" + "b".repeat(64), capture_count: 128, observation_count: 128,
+      readiness: { status: "insufficient_data", independent_events: 1, date_blocks: 1,
+        protected_events: 0, eligible_events: 1, scalar_label_events: 0, binary_label_events: 1,
+        partitions: {}, blockers: ["No source-matched integer settlement highs"], limitations: [],
+        shadow_audit: { verified_cycles: 128, decision_samples: 128, sized_books: 127, stale_books: 1,
+          limitation: "Forward predictions retain their partition; never promoted to validation.",
+          execution_blockers: ["Missing later labels refuse historical evaluation", "Stale or missing depth refuses executable backtesting", "Certified effective historical fees are unavailable"] } },
+    };
+    context.show(result, tab);
+    const summary = content.children.find(child => child.className.includes("weather-history"));
+    assert.ok(summary);
+    const visible = summary.children.filter(child => child.tag !== "details").map(text).join("\n");
+    for (const value of ["128 verified shadow cycles", "128 exact decision samples", "127 sized books", "1 stale books", "never promoted to validation", "Missing later labels", "Stale or missing depth", "Certified effective historical fees"]) {
+      assert.ok(visible.includes(value), value);
+    }
+  });
+}

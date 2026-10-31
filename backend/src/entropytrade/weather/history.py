@@ -20,7 +20,12 @@ from entropytrade.data.schema import DatasetConfig, MarketEvidence, Observation
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.enums import MarketResult, MarketStatus
 from entropytrade.exchange.kalshi.recorded import market_from_body
-from entropytrade.experiments.data import weather_data
+from entropytrade.experiments.data import (
+    ContractSample,
+    ExperimentData,
+    PredictionBundle,
+    weather_data,
+)
 from entropytrade.families.public import forward_data
 from entropytrade.features.pipeline import build_features
 from entropytrade.features.registry import scientific_hash
@@ -174,10 +179,21 @@ def readiness(features: Path) -> dict[str, Any]:
         **counts,
         "status": "ready_for_model_gates" if not blockers else "insufficient_data",
         "capture_audit": capture_audit,
+        **(
+            {"shadow_audit": manifest["retained_shadow_audit"]}
+            if "retained_shadow_audit" in manifest
+            else {}
+        ),
         "partitions": partitions,
         "blockers": blockers,
         "temporal_boundaries": manifest["temporal_boundaries"],
-        "limitations": LIMITATIONS,
+        "limitations": [
+            "Verified cycle-specific sized depth is retained; stale/missing books "
+            "and uncertified fees refuse execution."
+            if "retained_shadow_audit" in manifest and "executable historical depth" in line
+            else line
+            for line in LIMITATIONS
+        ],
     }
 
 
@@ -226,6 +242,8 @@ def build_snapshot(
     *,
     outcome_roots: Sequence[Path] = (),
     protected_events: frozenset[str] = frozenset(),
+    frozen_anchor: date | None = None,
+    selection: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     from entropytrade.tracking.worker import terms
 
@@ -240,6 +258,17 @@ def build_snapshot(
         raise ValueError(
             "weather history exceeds 128 inputs; select an operator-reviewed partition"
         )
+    from entropytrade.tracking.history import verified_inputs
+
+    shadow: dict[str, tuple[Path, dict[str, Any]]] = {}
+    shadow_captures: dict[Path, ExperimentData] = {}
+    for capture_root in captures:
+        if (capture_root.parent / "decision-inputs.json").is_file():
+            inputs = verified_inputs(capture_root.parent)
+            saved = ExperimentData.model_validate(inputs["data"])
+            protected_events |= saved.protected_events
+            shadow_captures[capture_root] = saved
+            shadow[file_hash(capture_root.parent / "result.json")] = (capture_root.parent, inputs)
     unique: dict[str, Path] = {}
     for root in captures:
         data = forward_data(root)
@@ -274,7 +303,7 @@ def build_snapshot(
         for line in (root / "markets.jsonl").read_text().splitlines():
             item = MarketEvidence.model_validate_json(line)
             markets.append(item.revalidated(raw_ref=prefix + "/" + item.raw_ref))
-            if item.market.open_time <= at < item.market.close_time:
+            if root not in shadow_captures and item.market.open_time <= at < item.market.close_time:
                 decisions.setdefault(item.market.ticker, set()).add(at)
         observed.extend(
             Observation.model_validate_json(line).revalidated(
@@ -282,6 +311,23 @@ def build_snapshot(
             )
             for line in (root / "observations.jsonl").read_text().splitlines()
         )
+    for saved in shadow_captures.values():
+        for sample in saved.samples:
+            if any(
+                m.market.ticker == sample.ticker
+                and m.market.open_time <= sample.decision_time < m.market.close_time
+                for m in markets
+            ):
+                decisions.setdefault(sample.ticker, set()).add(sample.decision_time)
+    shadow_copies: dict[str, str] = {}
+    for digest, (cycle_root, _inputs) in sorted(shadow.items()):
+        prefix = "shadow/" + digest
+        shadow_copies[digest] = prefix
+        result = json.loads((cycle_root / "result.json").read_text())
+        copies[prefix + "/result.json"] = _file(cycle_root, "result.json")
+        for artifact in result["artifacts"]:
+            name = artifact["path"]
+            copies[prefix + "/" + name] = _file(cycle_root, name)
     if not decisions:
         raise ValueError("Retained receipts have no weather contracts open at a recorded decision")
     by_ticker: dict[str, list[MarketEvidence]] = {}
@@ -310,8 +356,8 @@ def build_snapshot(
             )
             originals = by_ticker.get(market.ticker, [])
             if (
-                not originals
-                or any(terms(market) != terms(o.market) for o in originals)
+                any(terms(market) != terms(o.market) for o in originals)
+                or market.ticker != record["ticker"]
                 or receipt["status"] != 200
                 or market.status is not MarketStatus.FINALIZED
                 or market.result not in {MarketResult.YES, MarketResult.NO}
@@ -323,6 +369,8 @@ def build_snapshot(
                 or record["result"] != market.result.value
             ):
                 raise ValueError("weather binary label lacks matching finalized receipt semantics")
+            if not originals:
+                continue  # Later label partitions may also contain unrelated contracts.
             markets.append(
                 MarketEvidence(
                     market=market,
@@ -338,7 +386,9 @@ def build_snapshot(
     ]
     if not dates:
         raise ValueError("No verified weather target dates in retained receipts")
-    anchor = min(dates)
+    anchor = frozen_anchor or min(dates)
+    if min(dates) < anchor:
+        raise ValueError("selected receipts precede frozen weather anchor")
     boundaries = (
         list(next(iter(partitions)))
         if partitions
@@ -361,10 +411,14 @@ def build_snapshot(
         "anchor": min(p["identity"]["anchor"] for p in prior) if prior else anchor.isoformat(),
         "temporal_boundaries": boundaries,
         "protected_events": sorted(protected_events),
+        "shadow_cycles": sorted(shadow),
+        "selection": selection,
         "code": {
             name: file_hash(Path(__file__).parents[1] / name)
             for name in (
                 "weather/history.py",
+                "tracking/history.py",
+                "tracking/replay.py",
                 "data/dataset.py",
                 "features/pipeline.py",
                 "features/registry.py",
@@ -394,6 +448,8 @@ def build_snapshot(
             raise ValueError("weather receipt changed during snapshot")
     for index in range(len(unique)):
         forward_data(staging / f"receipts/{index:04d}")
+    for prefix in shadow_copies.values():
+        verified_inputs(staging / prefix)
     protected_targets = {
         (locations[m.market.series_ticker].station, m.market.rules.settlement_target_date)
         for m in markets
@@ -425,10 +481,137 @@ def build_snapshot(
         ]
         if len({m.market.result for m in finalized}) > 1:
             raise ValueError("conflicting official binary outcome revisions")
-        if finalized:
+        if finalized and row["event_id"] not in protected_events:
             chosen = min(finalized, key=lambda m: m.market.rules.captured_at)
             row["outcome"] = chosen.market.result.value if chosen.market.result else None
             row["outcome_available_at"] = chosen.market.rules.captured_at.isoformat()
+    # Exact cycle-specific joins: a missing/deferred book never borrows another cycle's depth.
+    by_decision: dict[tuple[str, str], ContractSample] = {}
+    for saved in shadow_captures.values():
+        for sample in saved.samples:
+            key = (sample.ticker, sample.decision_time.isoformat())
+            if key in by_decision and by_decision[key] != sample:
+                raise ValueError("conflicting shadow samples at one decision clock")
+            by_decision[key] = sample
+    labels = {}
+    for row in rows:
+        if row["event_id"] in protected_events:
+            row["outcome"] = None
+            row["outcome_available_at"] = None
+        labels[row["market_ticker"]] = (row["outcome"], row["outcome_available_at"])
+        matched = by_decision.get((row["market_ticker"], row["decision_time"]))
+        if matched is None:
+            continue
+        row["market_state_json"] = None
+        row["execution_fidelity"] = matched.fidelity
+        row["executable"] = False
+        if matched.book is not None:
+            row["market_state_json"] = json.dumps(
+                {
+                    "fidelity": "order_book",
+                    "available_at": matched.book.received_at.isoformat(),
+                    "payload": matched.book.model_dump(mode="json"),
+                }
+            )
+            row["executable"] = (
+                bool(matched.book.bids and matched.book.asks)
+                and not matched.book.is_crossed
+                and (matched.decision_time - matched.book.received_at).total_seconds() <= 60
+                and matched.rules_known
+                and matched.decision_time < matched.close_time
+            )
+        provenance = json.loads(row["provenance_json"])
+        provenance["shadow"] = {
+            "feature_hash": matched.feature_hash,
+            "versions": matched.versions,
+            "features_available_at": matched.features_available_at.isoformat(),
+        }
+        row["provenance_json"] = json.dumps(provenance, sort_keys=True)
+    replay_cycles = []
+    for digest, (_cycle_root, inputs) in sorted(shadow.items()):
+        saved = ExperimentData.model_validate(inputs["data"])
+        samples = []
+        for sample in saved.samples:
+            if sample.event_id in protected_events:
+                continue
+            outcome, available = labels.get(sample.ticker, (None, None))
+            samples.append(sample.revalidated(outcome=outcome, outcome_available_at=available))
+        replay_cycles.append(
+            {
+                "result_sha256": digest,
+                "evidence": shadow_copies[digest],
+                "original_replay_verified": True,
+                "frozen_spec": inputs["spec"],
+                "prediction_bundle": PredictionBundle.model_validate(inputs["bundle"])
+                .revalidated(
+                    records=tuple(
+                        p
+                        for p in PredictionBundle.model_validate(inputs["bundle"]).records
+                        if p.event_id not in protected_events and any(p.usable(s) for s in samples)
+                    ),
+                )
+                .model_dump(mode="json"),
+                "saved_decisions": [
+                    d
+                    for d in json.loads((_cycle_root / "result.json").read_text())["decisions"]
+                    if d["event_id"] not in protected_events
+                ],
+                "fee_evidence": json.loads((_cycle_root / "execution/summary.json").read_text())[
+                    "fee_evidence"
+                ],
+                "experiment_data": saved.revalidated(
+                    samples=tuple(samples),
+                    protected_events=protected_events,
+                    provenance={
+                        "purpose": "saved forward shadow samples with subsequent labels",
+                        "source_dataset": saved.dataset_version,
+                        "source_feature_version": saved.feature_version,
+                    },
+                ).model_dump(mode="json"),
+            }
+        )
+    shadow_audit = {
+        "verified_cycles": len(shadow),
+        "decision_samples": len(by_decision),
+        "sized_books": sum(s.book is not None for s in by_decision.values()),
+        "closed_decisions": sum(s.decision_time >= s.close_time for s in by_decision.values()),
+        "stale_books": sum(
+            s.book is not None and (s.decision_time - s.book.received_at).total_seconds() > 60
+            for s in by_decision.values()
+        ),
+        "labelled_samples": sum(
+            labels.get(s.ticker, (None, None))[0] is not None
+            for s in by_decision.values()
+            if s.event_id not in protected_events
+        ),
+        "execution_blockers": [
+            "Missing later labels refuse historical evaluation"
+            if any(
+                labels.get(s.ticker, (None, None))[0] is None
+                for s in by_decision.values()
+                if s.event_id not in protected_events
+            )
+            else "Later binary labels retain their original receipt clocks; "
+            "scalar model gates still apply",
+            "Stale or missing depth refuses executable backtesting",
+            "Certified effective historical fees are unavailable; no fee coefficient substituted",
+        ],
+        "replay_inputs": "shadow-replay.json",
+        "limitation": "Forward predictions retain their partition; never promoted to validation. "
+        "Replay certifies software consistency, not profitability.",
+    }
+    (staging / "shadow-replay.json").write_text(
+        json.dumps(
+            {
+                "schema": "retained-shadow-replay-v1",
+                "dataset_id": version,
+                "submission_enabled": False,
+                "cycles": replay_cycles,
+            },
+            sort_keys=True,
+            indent=2,
+        )
+    )
     dataset = staging / "dataset"
     dataset.mkdir()
     pq.write_table(pa.Table.from_pylist(rows), dataset / "rows.parquet", compression="zstd")
@@ -445,6 +628,7 @@ def build_snapshot(
         "data_kind": "real",
         "config": dataset_config.model_dump(mode="json"),
         "retained_capture_audit": capture_audit,
+        "retained_shadow_audit": shadow_audit,
         "temporal_boundaries": boundaries,
         "protected_events": sorted(protected_events),
     }
@@ -458,6 +642,7 @@ def build_snapshot(
         "features": feature_path,
         "capture_count": len(unique),
         "observation_count": len(observations),
+        "shadow_audit": shadow_audit,
         "readiness": readiness(staging / feature_path),
         "checksums": {
             p.relative_to(staging).as_posix(): file_hash(p)

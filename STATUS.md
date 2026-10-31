@@ -3,7 +3,47 @@
 Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: retained weather history through the browser
+## Current milestone: sustained shadow history to backtest inputs
+
+Implemented on the designated `supervisor/20261030-194338` checkout from `8eab397`.
+The supervisor owns every Git operation and independent acceptance. No credentials,
+exchange orders, live activation, risk-limit changes or new family were used.
+**V1 remains incomplete.**
+
+The private workbench now enumerates all completed retained inputs as explicit partitions
+of at most 128. Users can select a separate later outcome partition. Frozen snapshots
+retain receipts and global calendar/model protections; selecting a later partition first
+cannot move validation boundaries. Shadow ingestion verifies saved decision replay AND
+causal raw-source/book bindings. R2/R4 inputs retain exact shadow decision clocks and
+cycle-specific sized books. Missing labels, stale/future depth and uncertified fees stay
+explicit refusals. Downloads expose original shadow features/versions, probabilities,
+frozen specs, saved decisions, fee versions and later binary labels without promoting
+forward predictions or exposing protected labels in experiment projections.
+
+The 130-cycle CONTROLLED collector/store regression passes restart after cycle 64,
+partitions of 128 and 2, later-label linkage, deterministic decision comparison and offline
+restore without deleting receipts. Separate authentic original shadow receipts still yield
+four events on two dates, zero source-matched scalar highs and honest insufficiency.
+See the [guide](docs/shadow-history.md) and [evidence bundle](data/shadow-history-review/20261030/README.md)
+for final quality results and the exact source fingerprint.
+Final verification passes **1,073 pytest tests in 472.99s**, Ruff lint/format
+(518 files), strict mypy (515 files), and all 21 named frontend assertions. The 538
+frozen application/test/configuration hashes and 68 original receipt files are unchanged.
+
+Managed Chromium installation succeeds; its one launch is denied before page interaction
+at `crashpad/util/linux/socket.cc:45` (`setsockopt: Operation not permitted`, SIGTRAP).
+The failure trace is retained and the denial is not retried. The executable two-procedure
+Playwright harness covers controlled partition selection and authentic insufficiency,
+research, inspection, downloads and offline restore. **Current browser acceptance is
+outstanding**, not inferred from listener or DOM tests. Run both procedures in a permitted
+environment before accepting browser behavior. No fresh clean-install pass is claimed.
+
+Return this substantial intermediate milestone for independent supervisor review. Keep
+forward collection authentic and frozen boundaries intact. Defer credential-dependent
+verification, empirical release acceptance, new-family selection and profitability claims.
+Do not start another major phase.
+
+## Previous milestone: retained weather history through the browser
 
 Implemented on designated `supervisor/20261030-191216` from `c461db3`. The supervisor
 owns all Git operations and independent review. No branch/commit/merge/push operations,

@@ -33,6 +33,10 @@
         <section class="panel" aria-labelledby="weather-datasets-title">
           <h2 id="weather-datasets-title">Retained weather history</h2>
           <p class="hint">Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.</p>
+          <label for="weather-partition">History partition</label><select id="weather-partition"><option value="">All retained inputs (up to 128)</option></select>
+          <label for="weather-outcomes">Outcome partition</label><select id="weather-outcomes"><option value="">Same partition as history</option></select>
+          <p id="weather-partition-counts" class="hint"></p>
+          <button id="weather-partitions-refresh" type="button">Refresh history partitions</button>
           <button id="weather-freeze" type="button">Freeze retained weather dataset</button>
           <label for="weather-dataset">Weather dataset</label><select id="weather-dataset"><option value="">No retained dataset yet</option></select>
           <p id="weather-message" role="status" class="hint"></p>

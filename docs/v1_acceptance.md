@@ -1,3 +1,20 @@
+# Current sustained-history evidence — October 30, 2026
+
+**complete=false.** This is an intermediate implementation record, not independent release
+approval. All Git operations and acceptance sign-off belong to the supervisor.
+
+| Requirement | Evidence | Current result / remaining work |
+|---|---|---|
+| Sustained history without truncation or boundary movement | `tracking/history.py`, `weather/history.py`, `test_shadow_history.py` | CONTROLLED 130 collector/store cycles, partitions 128+2, later partition first, restart and offline restore are exercised. Original receipts remain. Global anchor and calendar/model protections persist. |
+| Causal books, source versions, labels and deterministic replay | Source-binding/tampering regressions; saved shadow replay and projected `ExperimentData` | Replay and raw source/book verification are separate. Exact clocks/books/source and prediction versions persist. Forward predictions stay forward. Later binary receipts do not invent scalar highs; protected labels stay excluded. |
+| Research/inspection/downloads through the website | [Browser harness](../frontend/browser/shadow-history.spec.cjs), [evidence bundle](../data/shadow-history-review/20261030/README.md), real-listener integration | **Browser acceptance outstanding.** Installation succeeded; one Chromium launch was denied (`setsockopt: Operation not permitted`, SIGTRAP). No page interaction or screenshots passed. Both procedures must run in a permitted environment. Listener tests are separately classified software evidence. |
+| Missing labels, stale depth, certified fees and risk boundaries | Controlled experiment refusal tests and unchanged risk/execution suite | No forward-to-validation promotion, fabricated label, fee substitution, live execution or risk-limit change. Authentic retained weather remains insufficient; no empirical return is claimed. |
+| Full quality and durable artifacts | [Current verification](../data/shadow-history-review/20261030/verification.json) | **1,073 pytest passes**, Ruff/format, strict mypy and 21 named frontend assertions pass; final source and original receipts are unchanged. Browser acceptance remains outstanding. Existing environment reused; no new clean installation or independent approval claimed. |
+| Final real-data release | Earlier empirical/source/provider requirements below | **Incomplete.** Source-matched fitting and realistic empirical validation, certified effective fees, authorized external provider verification and two-family release evidence remain open. New-family selection is deferred pending user approval. |
+
+The following October 30/29 matrices are historical. Their browser and quality passes apply
+to those original checkouts, not the current sustained-history implementation.
+
 # V1 acceptance evidence — October 30, 2026
 
 **complete=false.** This milestone implements retained weather history through the

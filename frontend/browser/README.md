@@ -147,3 +147,13 @@ allocates and cleans a short `/tmp/entropytrade-*` directory; durable evidence s
 the requested repository output. No launch flag, event loop or test assertion is relaxed.
 See [current evidence](../../data/provider-review/20261029/README.md) for executed results,
 retained failed attempts and any remaining external/human acceptance steps.
+
+
+`shadow-history.spec.cjs` has separate CONTROLLED 130-cycle and authentic-insufficiency
+procedures. It selects capture/outcome partitions through the page, runs ordinary research,
+inspects all tabs, downloads review/report/shadow inputs and compares downloads after offline
+restore. See [the guide](../../docs/shadow-history.md). Current managed Chromium installation
+succeeds, but the one launch failed with `setsockopt: Operation not permitted` at
+`crashpad/util/linux/socket.cc:45` (SIGTRAP), before page interaction. No new browser pass or
+screenshots are claimed. Run both procedures once in a permitted environment with fresh
+evidence/workspace paths; do not substitute HTTP/DOM checks for browser acceptance.

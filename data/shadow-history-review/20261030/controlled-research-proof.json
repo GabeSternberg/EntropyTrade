@@ -1,0 +1,89 @@
+{
+  "candidate_count": 2,
+  "coverage": {
+    "by_series": {
+      "KXHIGHPHIL": {
+        "eligible_events": 0,
+        "features": {
+          "forecast_high_f": 128,
+          "hours_to_close": 128,
+          "season_cos": 128,
+          "season_sin": 128
+        },
+        "scalar_label_events": 0,
+        "source_counts": {
+          "kalshi": 128,
+          "open-meteo": 128
+        }
+      }
+    },
+    "configured_source_kinds": [
+      "kalshi",
+      "open-meteo",
+      "nws",
+      "weather-company",
+      "nws-cli"
+    ],
+    "contracts": 1,
+    "data_kind": "real",
+    "date_blocks": 1,
+    "dates": [
+      "2026-10-25"
+    ],
+    "eligible_events": 0,
+    "execution_fidelity": {
+      "order_book": 128
+    },
+    "feature_file_hash": "sha256:c2e22d3f63e805ab9c50e111aecf7ed5944295a3950811768d5dec6d545c6f9d",
+    "feature_nonmissing_rows": {
+      "forecast_high_f": 128,
+      "hours_to_close": 128,
+      "season_cos": 128,
+      "season_sin": 128
+    },
+    "feature_version": "sha256:318c7e1e9024cab44a1c5776bc3090a741bb6d1dbf6a12537d85a198039b2b70",
+    "independent_events": 1,
+    "interpreter_capabilities": {
+      "execution_in_research": false,
+      "minimum_edge_basis": "side probability minus limit cost, bounded fees and uncertainty reserve",
+      "supported_subset": [
+        "informational YES/NO; explicit feature/model versions",
+        "fixed contracts or fixed dollars including estimated fees",
+        "immediate orders with time/date/price/spread/size limits",
+        "feature and model probability conjunctions; minimum net edge",
+        "hold to settlement or simple predicate exits"
+      ],
+      "unsupported": [
+        "hedging",
+        "fractional Kelly",
+        "holding-duration exits",
+        "resting or post-only orders"
+      ]
+    },
+    "protection": "all outcomes withheld; rows on/after configured holdout start excluded",
+    "rows": 128,
+    "scalar_label_events": 0,
+    "source_dataset": "sha256:63890e15744e76ea1a68d77dde5087fe6ad67b5f293d3ae8748c2835ae65a8e5",
+    "timing": "features require receipt/publication evidence; hourly maxima are proxies"
+  },
+  "evidence": "CONTROLLED collector/store/source payloads and simulated clocks; not authentic market validation or profitability",
+  "final_holdout_evaluated": false,
+  "job_id": "51b3db7a-eba2-4df2-b263-5edb4e8cba12",
+  "probabilities": 0,
+  "scenarios": 0,
+  "shadow_audit": {
+    "decision_samples": 128,
+    "execution_blockers": [
+      "Later binary labels retain their original receipt clocks; scalar model gates still apply",
+      "Stale or missing depth refuses executable backtesting",
+      "Certified effective historical fees are unavailable; no fee coefficient substituted"
+    ],
+    "labelled_samples": 128,
+    "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+    "replay_inputs": "shadow-replay.json",
+    "sized_books": 128,
+    "stale_books": 0,
+    "verified_cycles": 128
+  },
+  "status": "passed"
+}

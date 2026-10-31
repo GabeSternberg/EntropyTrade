@@ -88,3 +88,10 @@ captures and includes this procedure in its default browser selection. A denied 
 listener remains a failed attempt; no mocked request test counts as browser acceptance.
 Current results and remaining limitations are in the
 [milestone evidence bundle](../data/weather-history-review/20261030/README.md).
+
+
+The sustained-history extension adds browser-selectable partitions and verified shadow
+books/decision clocks. Workspaces exceeding 128 cycles can select bounded capture and
+later outcome partitions without deleting receipts or shifting calendar boundaries.
+See [sustained shadow history](shadow-history.md) for behavior, evidence and the current
+outstanding browser acceptance step; earlier browser passes describe their original checkout.

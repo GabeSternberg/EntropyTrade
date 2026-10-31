@@ -47,7 +47,10 @@ def test_authentic_snapshot_replay_deduplicates_and_preserves_clocks(
     assert first["readiness"]["scalar_label_events"] == 0
     assert first["readiness"]["status"] == "insufficient_data"
     root = tmp_path / "first" / first["dataset_id"].removeprefix("sha256:")
-    decisions = {json.loads((p / "manifest.json").read_text())["decision_time"] for p in captures}
+    decisions = {
+        json.loads((p.parent / "execution/summary.json").read_text())["decision_time"]
+        for p in captures
+    }
     rows = feature_rows(root, first)
     assert {row["decision_time"] for row in rows} == decisions
     assert len(rows) == len({(r["market_ticker"], r["decision_time"]) for r in rows})

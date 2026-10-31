@@ -218,52 +218,17 @@ class Jobs:
             )
         return captures, previous
 
-    def weather_inputs(self) -> tuple[list[Path], list[Path], frozenset[str]]:
-        """Committed weather paths only; independent of the UI history window."""
-        from entropytrade.api.recovery import check_artifacts
-        from entropytrade.features.registry import scientific_hash
+    def weather_partitions(self) -> dict[str, Any]:
+        from entropytrade.tracking.history import catalog
 
-        with self.connect() as db:
-            runs = db.execute(
-                "SELECT id FROM jobs WHERE status='completed' "
-                "AND json_extract(request, '$.family')='weather' "
-                "AND json_extract(request, '$.mode')='public' ORDER BY id LIMIT 129"
-            ).fetchall()
-            tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-            cycles = (
-                db.execute(
-                    "SELECT c.id, c.monitor_id, c.result, c.digest, m.model_binding "
-                    "FROM shadow_cycles c "
-                    "JOIN monitors m ON m.id=c.monitor_id WHERE m.family='weather' "
-                    "AND c.status='completed' ORDER BY c.id LIMIT 129"
-                ).fetchall()
-                if "shadow_cycles" in tables
-                else []
-            )
-        if len(runs) + len(cycles) > 128:
-            raise ValueError(
-                "weather history exceeds 128 inputs; select an operator-reviewed partition"
-            )
-        captures = [self.root / "runs" / identifier(r["id"]) / "public" for r in runs]
-        outcomes = []
-        protected: set[str] = set()
-        for cycle in cycles:
-            root = self.root / "shadow" / identifier(cycle["monitor_id"]) / identifier(cycle["id"])
-            result = json.loads(cycle["result"])
-            if (
-                scientific_hash(result) != cycle["digest"]
-                or json.loads((root / "result.json").read_text()) != result
-                or not {"public/manifest.json", "outcomes/summary.json"}
-                <= {a["path"] for a in result["artifacts"]}
-            ):
-                raise ValueError("retained weather cycle differs from committed evidence")
-            check_artifacts(root, result["artifacts"])
-            captures.append(root / "public")
-            outcomes.append(root)
-            binding = json.loads(cycle["model_binding"]) if cycle["model_binding"] else None
-            if binding and binding.get("snapshot"):
-                protected.update(binding["snapshot"]["protected_events"])
-        return captures, outcomes, frozenset(protected)
+        return catalog(self)
+
+    def weather_inputs(
+        self, partition_id: str | None = None, outcome_partition_id: str | None = None
+    ) -> tuple[list[Path], list[Path], frozenset[str]]:
+        from entropytrade.tracking.history import selected_inputs
+
+        return selected_inputs(self, partition_id, outcome_partition_id)
 
     def update(
         self,

@@ -98,6 +98,9 @@ function renderJob() {
     const report = node("a", "Text report"); report.href = `/api/jobs/${job.id}/report`; report.download = `entropytrade-${job.id}.txt`;
     const review = node("a", "Review JSON"); review.href = `/api/jobs/${job.id}/review`; review.download = `entropytrade-${job.id}.json`;
     append(tools, report, review);
+    if (job.result.artifacts?.some(a => a.path === "shadow-replay.json")) {
+      const inputs = node("a", "Shadow experiment inputs"); inputs.href = `/api/jobs/${job.id}/shadow-inputs`; inputs.download = `shadow-inputs-${job.id}.json`; tools.append(inputs);
+    }
   }
   append(header, append(node("div", null, "run-top"), node("p", "02 / RESEARCH RUN", "eyebrow"), tools), node("h2", job.request.idea, "run-title"),
     append(node("div", null, "meta"), badge(job.status), badge(job.request.mode === "synthetic" ? "SYNTHETIC" : "REAL EVIDENCE"), node("span", `${job.request.family} · ${dateText(job.created_at)}`)), node("p", job.detail, "hint"));
@@ -151,9 +154,25 @@ function renderWeatherHistory(content, snapshot) {
     node("p", `${r.eligible_events} eligible forecast events · ${r.scalar_label_events} source-matched scalar labels · ${r.binary_label_events} binary-label events (unprotected).`),
     table(["Partition", "Events / dates", "Timely matched labels", "Required", "Shortage", "Label cutoff"], Object.entries(r.partitions).map(([name, p]) => [name, `${p.events} / ${p.dates}`, p.timely_source_matched_events, p.minimum_events, p.shortage, p.label_cutoff])),
     list(r.blockers), list(r.limitations));
+  if (r.shadow_audit) section.append(node("p", `${r.shadow_audit.verified_cycles} verified shadow cycles · ${r.shadow_audit.decision_samples} exact decision samples · ${r.shadow_audit.sized_books} sized books · ${r.shadow_audit.stale_books} stale books.`), notice(r.shadow_audit.limitation), list(r.shadow_audit.execution_blockers || []), detail("Shadow replay lineage", r.shadow_audit));
+  if (snapshot.identity?.selection) section.append(detail("Selected history and outcome partitions", snapshot.identity.selection));
   if (r.capture_audit) section.append(node("p", `${r.incomplete_captures} incomplete captures · ${r.capture_failures} acquisition failures.`), detail("Original capture clocks, receipts and acquisition failures", r.capture_audit));
   content.append(section);
 }
+async function weatherPartitions() {
+  const catalog = await api("/api/weather/partitions");
+  for (const [id, placeholder] of [["weather-partition", "All retained inputs (up to 128)"], ["weather-outcomes", "Same partition as history"]]) {
+    const select = $(id), previous = select.value;
+    const empty = node("option", placeholder); empty.value = "";
+    select.replaceChildren(empty, ...catalog.partitions.map(p => {
+      const option = node("option", `Partition ${p.number} · ${p.inputs} inputs (${p.shadow_cycles} shadow) · ${p.first_at} → ${p.last_at}`);
+      option.value = p.partition_id; return option;
+    }));
+    if (catalog.partitions.some(p => p.partition_id === previous)) select.value = previous;
+  }
+  $("weather-partition-counts").textContent = `${catalog.total_inputs} retained inputs across ${catalog.partitions.length} bounded partitions. Each selection processes at most ${catalog.partition_size} captures and ${catalog.partition_size} outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.`;
+}
+$("weather-partitions-refresh").addEventListener("click", () => weatherPartitions().catch(error => { $("weather-message").textContent = error.message; }));
 async function weatherDatasets(selected) {
   const rows = await api("/api/weather/datasets");
   state.weatherDatasets = rows;
@@ -180,7 +199,10 @@ $("weather-freeze").addEventListener("click", async () => {
   $("weather-freeze").disabled = true;
   $("weather-message").textContent = "Verifying receipts and freezing dataset…";
   try {
-    const snapshot = await api("/api/weather/datasets", {});
+    const selection = {};
+    if ($("weather-partition").value) selection.partition_id = $("weather-partition").value;
+    if ($("weather-outcomes").value) selection.outcome_partition_id = $("weather-outcomes").value;
+    const snapshot = await api("/api/weather/datasets", selection);
     await weatherDatasets(snapshot.dataset_id.slice(7));
     $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp();
     $("weather-message").textContent = "Immutable dataset selected. Review its shortages, then start research.";
@@ -334,7 +356,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {

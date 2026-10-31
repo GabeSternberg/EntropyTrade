@@ -137,6 +137,8 @@ class Handler(BaseHTTPRequestHandler):
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
             )
+        elif path == "/api/weather/partitions":
+            self.document(200, self.server.jobs.weather_partitions())
         elif path == "/api/weather/datasets":
             from entropytrade.weather.history import load_snapshot
 
@@ -182,7 +184,11 @@ class Handler(BaseHTTPRequestHandler):
         else:
             route = self.job_route()
             job = self.server.jobs.get(route[0]) if route else None
-            if job is None or route is None or route[1] not in {"", "report", "review"}:
+            if (
+                job is None
+                or route is None
+                or route[1] not in {"", "report", "review", "shadow-inputs"}
+            ):
                 self.document(404, {"error": "not found"})
             elif route[1] == "report":
                 self.send(
@@ -190,6 +196,30 @@ class Handler(BaseHTTPRequestHandler):
                     ((job["result"] or {}).get("report", "Run has no report yet.")).encode(),
                     "text/plain; charset=utf-8",
                 )
+            elif route[1] == "shadow-inputs":
+                from entropytrade.data.sources import file_hash
+
+                artifact = next(
+                    (
+                        a
+                        for a in (job["result"] or {}).get("artifacts", [])
+                        if a["path"] == "shadow-replay.json"
+                    ),
+                    None,
+                )
+                target = self.server.jobs.root / "runs" / route[0] / "workflow/shadow-replay.json"
+                if artifact is None:
+                    self.document(404, {"error": "run has no retained shadow inputs"})
+                elif (
+                    not target.is_file()
+                    or target.is_symlink()
+                    or file_hash(target) != artifact["sha256"]
+                ):
+                    self.document(
+                        409, {"error": "retained shadow inputs failed checksum verification"}
+                    )
+                else:
+                    self.send(200, target.read_bytes())
             elif route[1] == "review":
                 self.document(200, job["result"])
             else:
@@ -211,18 +241,31 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
-            if self.path == "/api/weather/datasets" and value == {}:
+            if self.path == "/api/weather/datasets":
+                from entropytrade.tracking.history import anchor
                 from entropytrade.weather.history import build_snapshot
+
+                if not isinstance(value, dict) or set(value) - {
+                    "partition_id",
+                    "outcome_partition_id",
+                }:
+                    raise ValueError("select history and outcome partition IDs only")
+                if any(not isinstance(v, str) for v in value.values()):
+                    raise ValueError("partition IDs must be strings")
 
                 if not self.server.weather_lock.acquire(blocking=False):
                     raise ValueError("a weather snapshot is already being built")
                 try:
-                    captures, outcomes, protected = self.server.jobs.weather_inputs()
+                    captures, outcomes, protected = self.server.jobs.weather_inputs(
+                        value.get("partition_id"), value.get("outcome_partition_id")
+                    )
                     snapshot = build_snapshot(
                         self.server.jobs.root / "runs/weather-datasets",
                         captures,
                         outcome_roots=outcomes,
                         protected_events=protected,
+                        frozen_anchor=anchor(self.server.jobs),
+                        selection=value or None,
                     )
                     self.document(
                         201,

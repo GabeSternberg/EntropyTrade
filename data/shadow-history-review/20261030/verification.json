@@ -1,0 +1,115 @@
+{
+  "authentic": {
+    "contracts": 24,
+    "dates": 2,
+    "decision_samples": 48,
+    "events": 4,
+    "evidence": "Original authentic receipts, ordinary worker and offline recovery; no browser/new acquisition",
+    "fitted_probabilities": 0,
+    "holdout_evaluated": false,
+    "offline_restore": "passed",
+    "receipt": "authentic-current/authentic-proof.json",
+    "scalar_labels": 0,
+    "scenarios": 0,
+    "sized_books": 20
+  },
+  "branch": "supervisor/20261030-194338",
+  "browser": {
+    "attempts": 1,
+    "discovery": "harness-discovery.log",
+    "downloads": 0,
+    "error": "third_party/crashpad/crashpad/util/linux/socket.cc:45: setsockopt: Operation not permitted (1); SIGTRAP",
+    "launch": "denied",
+    "managed_install": "passed",
+    "page_checks": "not_executed",
+    "procedures_discovered": 2,
+    "report": "browser/playwright-results.json",
+    "required_human_step": "Execute both shadow-history.spec.cjs procedures with fresh paths in a permitted environment; inspect screenshots and download hashes",
+    "screenshots": 0
+  },
+  "constraints": {
+    "credentials_accessed": false,
+    "git_writes": false,
+    "holdout_moved": false,
+    "live_activation": false,
+    "new_family_selected": false,
+    "real_orders": false,
+    "risk_caps_changed": false
+  },
+  "controlled": {
+    "cycles": 130,
+    "evidence": "CONTROLLED wire sources and simulated clocks; not empirical market validation",
+    "offline_restore": "passed",
+    "partition_sizes": [
+      128,
+      2
+    ],
+    "receipt": "controlled-proof.json",
+    "research_candidates": 2,
+    "research_probabilities": 0,
+    "research_receipt": "controlled-research-proof.json",
+    "research_scenarios": 0,
+    "restart_after_cycle": 64,
+    "verified_replays": 130
+  },
+  "earlier_attempts": {
+    "focused_clock": "13 passed, 1 deselected; clock-final.xml",
+    "interrupted_suite": "315 passed then deliberately interrupted for post-close exclusion; pytest-final.xml",
+    "preliminary_suite": "1071 passed in 476.08s; pytest.xml"
+  },
+  "environment": {
+    "clean_install_claimed": false,
+    "complete_suite": "Normal approved credential-free environment; no browser denial retry",
+    "initial_localhost_socket_check": "PermissionError: [Errno 1] Operation not permitted"
+  },
+  "format": {
+    "files": 518,
+    "log": "format-complete-final.log",
+    "status": "passed"
+  },
+  "frontend": {
+    "log": "frontend-complete-final.log",
+    "named_tests": 21,
+    "status": "passed"
+  },
+  "full_suite": {
+    "errors": 0,
+    "failures": 0,
+    "junit": "pytest-complete-final.xml",
+    "log": "pytest-complete-final.log",
+    "seconds": 472.991,
+    "skipped": 0,
+    "status": "passed",
+    "tests": 1073
+  },
+  "limitations": [
+    "Browser acceptance outstanding after environment launch denial; no page interaction pass",
+    "Authentic source-matched scalar highs and empirical model validation absent",
+    "Certified effective fees and two-family release evidence remain incomplete",
+    "External provider verification deferred pending separate credential authorization",
+    "Each explicit selection processes at most 128 capture and 128 outcome inputs; no cross-partition aggregate performance claim",
+    "Existing environment reused; no new clean installation or independent release approval"
+  ],
+  "milestone": "Sustained shadow-history to reproducible backtest inputs",
+  "original_receipts": {
+    "changed": [],
+    "files": 68
+  },
+  "ruff": {
+    "log": "ruff-complete-final.log",
+    "status": "passed"
+  },
+  "source_comparison": {
+    "changed": [],
+    "files": 538,
+    "fingerprint": "final-source.json"
+  },
+  "starting_head": "8eab397",
+  "strict_mypy": {
+    "files": 515,
+    "log": "mypy-complete-final.log",
+    "status": "passed"
+  },
+  "v1_complete": false,
+  "verified_at": "2026-10-31T00:15:11.618833+00:00"
+}

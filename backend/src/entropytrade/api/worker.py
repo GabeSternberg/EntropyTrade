@@ -298,6 +298,17 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
                 )
             }
             review["weather_history"] = summary
+            if "shadow_audit" in weather_history:
+                summary["shadow_audit"] = weather_history["shadow_audit"]
+                # An immutable, downloadable projection of exact original shadow inputs.
+                import shutil
+
+                for name in ("shadow-replay.json",):
+                    target = output / name
+                    shutil.copyfile(root / name, target)
+                    review["artifacts"].append(
+                        {"path": name, "sha256": file_hash(target), "bytes": target.stat().st_size}
+                    )
             review["report"] = "\n".join(
                 [
                     "Retained weather dataset " + summary["dataset_id"],

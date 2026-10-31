@@ -342,6 +342,8 @@ def build_features(
         payload["temporal_boundaries"] = manifest["temporal_boundaries"]
         payload["protected_events"] = manifest.get("protected_events", [])
         payload["retained_capture_audit"] = manifest.get("retained_capture_audit", [])
+        if "retained_shadow_audit" in manifest:
+            payload["retained_shadow_audit"] = manifest["retained_shadow_audit"]
     version = scientific_hash(payload)
     destination = output / version.removeprefix("sha256:")
     if destination.exists():

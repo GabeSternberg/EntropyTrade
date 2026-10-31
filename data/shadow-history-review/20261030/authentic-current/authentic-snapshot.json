@@ -1,0 +1,387 @@
+{
+  "capture_count": 2,
+  "checksums": {
+    "dataset/manifest.json": "sha256:b897458711f43ec1498f8cc3e0700463e425136961bd046970a5d3bf25311055",
+    "dataset/observations.parquet": "sha256:219554147546d51b44b463aee9d16d7054764e00a5e9aad3974ca370c43cb458",
+    "dataset/rows.parquet": "sha256:5cf62f5915ec6b44ab8977cd6ec62f4ba2c6000746dffbcb2de9762b69cb2fff",
+    "features/29fab024fa9d3646cc33b184a636f9055f5289fdc778b2cf141da1dd6b2f0671/features.parquet": "sha256:a31c72ac4463c5ec0881150fb850b505e4deadec5cedc034e5dc7310384e80d6",
+    "features/29fab024fa9d3646cc33b184a636f9055f5289fdc778b2cf141da1dd6b2f0671/features.sha256": "sha256:ca50c9a3bd76fc6174f1f236a8943efe0655363c9fd1dc7a7bea1bd872345028",
+    "features/29fab024fa9d3646cc33b184a636f9055f5289fdc778b2cf141da1dd6b2f0671/manifest.json": "sha256:b8e90a1e01a4cc9c30000d83944d7099de13e18b7098b0a6b315cb8c09194375",
+    "labels/0000/summary.json": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+    "receipts/0000/capture.json": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3",
+    "receipts/0000/manifest.json": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+    "receipts/0000/markets.jsonl": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae",
+    "receipts/0000/observations.jsonl": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15",
+    "receipts/0000/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "receipts/0000/raw/0002.json": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+    "receipts/0000/raw/0003.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "receipts/0000/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "receipts/0000/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "receipts/0000/raw/0006.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "receipts/0000/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "receipts/0000/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "receipts/0000/weather.sqlite": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325",
+    "receipts/0000/weather/manifest.json": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc",
+    "receipts/0000/weather/observations.jsonl": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a",
+    "receipts/0000/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "receipts/0000/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "receipts/0000/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "receipts/0000/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "receipts/0001/capture.json": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a",
+    "receipts/0001/manifest.json": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+    "receipts/0001/markets.jsonl": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc",
+    "receipts/0001/observations.jsonl": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179",
+    "receipts/0001/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "receipts/0001/raw/0002.json": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+    "receipts/0001/raw/0003.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "receipts/0001/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "receipts/0001/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "receipts/0001/raw/0006.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "receipts/0001/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "receipts/0001/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "receipts/0001/weather.sqlite": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422",
+    "receipts/0001/weather/manifest.json": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0",
+    "receipts/0001/weather/observations.jsonl": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128",
+    "receipts/0001/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "receipts/0001/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "receipts/0001/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "receipts/0001/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "shadow-replay.json": "sha256:61a1a46a434f02742c44898bed754ee99ac9d3dc4aa50b596adb006e61f005fa",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/decision-inputs.json": "sha256:2eb8ba47f43ce97316a669de3547f5d1ae12358fde82775dd76fac84c0dc3e06",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0000.json": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0001.json": "sha256:1680c7836a5d2691184c5b99a4f09fcb6157d78d76fbb01630b4911543eadd2d",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0002.json": "sha256:6dcc46370090739dc48de36d4e3cec7d92bb98980ae5daa781b04307304129d2",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0003.json": "sha256:a3ed1bcf3b2b0f9d21d007f534799a425140952b12f288b5c8c85eede8438371",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0004.json": "sha256:6c8d3b86e667373d57a3a572830f51ff4293153016263a43f5041dbcad904ea4",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0005.json": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0006.json": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0007.json": "sha256:a54fb22171651e401d64ca9b5007513232fc287123ca240bc80714a6b07a00f7",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0008.json": "sha256:5f569a40c594f25c59367a7c6b73da4c15af8b3796047d222c92702701b2cb44",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0009.json": "sha256:95f86766e2e231645514ba15e6762bd2c5d689d604576b36d7e9778e8a0b1e62",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/0010.json": "sha256:be92b934edd4fbdd8cd7812d81e2015cb31e0a3a7dcbacc0a71c41c2712ba3ae",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/execution/summary.json": "sha256:17c77de298ba7d86dee5f7354486aaf4161671ce0276b002f8e2b005fa548939",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/outcomes/summary.json": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/capture.json": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/manifest.json": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/markets.jsonl": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/observations.jsonl": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0002.json": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0003.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0006.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather.sqlite": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/manifest.json": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/observations.jsonl": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/public/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "shadow/sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406/result.json": "sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/decision-inputs.json": "sha256:0dbb25f9a8b1830e2e59d038c3e3f8d10151e19dfc33ef6f0892ebfe49457364",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0000.json": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0001.json": "sha256:d5d9633e0e77137f76205cd54eddc64f1688dad063290b474d3263d69aafdfd7",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0002.json": "sha256:1f060597490188192697f4d7d70eb7fce5453eadde4420ce65795ac763e5a35f",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0003.json": "sha256:f85f6b58bd7f43c40fe9638c3de990c5c64f9a8c61c6ad8883060177c6c0ccb6",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0004.json": "sha256:0d14d20282780329fb134bd768574bd18c7c7e56e0e577dedfa252c130aeb57c",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0005.json": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0006.json": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0007.json": "sha256:2caf777652349bf1917b81f844f0e135b786a559f47ba48593e1ad30297cb3d4",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0008.json": "sha256:b8890857ca690084f34d0e7213b9edd59dc7b370c35ea47d08c8d7cfd0c8280f",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0009.json": "sha256:d52351be860f8229cffcdfb88676a807f64697e51f6f0adc0752f23e053f32eb",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/0010.json": "sha256:1c50491d36f11ebad3b8f7cad5a9960bb096d2e0fd7c0095e70336fecf0e0a7f",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/execution/summary.json": "sha256:4391361c4a738f3405593057ea8872881a06218c99f7826ee64863c6122359f4",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/outcomes/summary.json": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/capture.json": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/manifest.json": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/markets.jsonl": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/observations.jsonl": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0002.json": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0003.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0006.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather.sqlite": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/manifest.json": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/observations.jsonl": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/public/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "shadow/sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352/result.json": "sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352"
+  },
+  "dataset_id": "sha256:e479e6ac246d0e2799272bd4e98195b2ce1ee08482bd9e79feb996083010f16c",
+  "features": "features/29fab024fa9d3646cc33b184a636f9055f5289fdc778b2cf141da1dd6b2f0671",
+  "identity": {
+    "anchor": "2026-10-29",
+    "captures": [
+      "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4"
+    ],
+    "code": {
+      "data/dataset.py": "sha256:8e156012e8ec2c5be100e63b38e6bd4cbae4685b338637614f8e8aa1b594e7f0",
+      "features/pipeline.py": "sha256:d1452c9ac58b2dd914143b31d0e63cf44c75252cc10db04520308f6accae924c",
+      "features/registry.py": "sha256:b43d84a247f5abb7fb06fc9d13e0ce7885351469715e875543a7f4e3bcaa6cd3",
+      "ml/evaluation.py": "sha256:dbc659313e086f1bef2bc6164b06d660bc0ab1c5dd0be046c955afdb87176fed",
+      "ml/experiment.py": "sha256:e244b2bd5d7f5b3dcbca6b2d3df029b7d5fadd18e25b7fd778618d8b90751b41",
+      "tracking/history.py": "sha256:84a12032b97b23e43833ae39bbb4193347a863644163bc93927ef45458bacccf",
+      "tracking/replay.py": "sha256:02b4492024980b49c7af8eb682a3588ed76e1c39bb1b71c7aec5730497af9a16",
+      "weather/history.py": "sha256:90507c8e318591e05ecfedccec7728af7a6fc5906d1f65601c370821cf808582"
+    },
+    "outcome_inputs": [
+      "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902"
+    ],
+    "protected_events": [],
+    "schema": "retained-weather-v1",
+    "selection": {
+      "partition_id": "9722effbc5b20bf1dce0aa91aa18bb0754ce97520cc59ab4f1becb452280d60b"
+    },
+    "shadow_cycles": [
+      "sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406",
+      "sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352"
+    ],
+    "temporal_boundaries": [
+      "2026-12-16",
+      "2026-12-28",
+      "2027-01-27"
+    ]
+  },
+  "observation_count": 648,
+  "readiness": {
+    "binary_label_events": 0,
+    "blockers": [
+      "fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00",
+      "calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00",
+      "validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00",
+      "at least ten distinct event dates required for temporal evaluation",
+      "No source-matched integer settlement highs; binary results cannot substitute"
+    ],
+    "capture_audit": [
+      {
+        "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+        "decision_time": "2026-10-29T16:35:37.734441+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:36.806500+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:36.816369+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:37.134925+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:37.269720+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:37.317004+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:37.371831+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:37.498946+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:37.562541+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:36.717089+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+        "decision_time": "2026-10-29T16:35:47.288061+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:46.219716+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:46.237865+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:46.518839+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:46.687087+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:46.773775+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:46.816918+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:46.859886+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:47.145870+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:45.923454+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      }
+    ],
+    "capture_failures": 0,
+    "contracts": 24,
+    "date_blocks": 2,
+    "eligible_events": 4,
+    "incomplete_captures": 0,
+    "independent_events": 4,
+    "limitations": [
+      "Original receipt clocks are preserved; importing a receipt does not backfill availability.",
+      "Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.",
+      "Source-matched integer settlement highs, independent dates and timely labels gate fitting.",
+      "Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.",
+      "Protected final holdout is excluded from research, fitting and evaluation."
+    ],
+    "partitions": {
+      "calibration": {
+        "dates": 0,
+        "events": 0,
+        "label_cutoff": "2026-12-28T00:00:00+00:00",
+        "minimum_events": 20,
+        "shortage": 20,
+        "timely_source_matched_events": 0
+      },
+      "fit": {
+        "dates": 2,
+        "events": 4,
+        "label_cutoff": "2026-12-16T00:00:00+00:00",
+        "minimum_events": 60,
+        "shortage": 60,
+        "timely_source_matched_events": 0
+      },
+      "validation": {
+        "dates": 0,
+        "events": 0,
+        "label_cutoff": "2027-01-27T00:00:00+00:00",
+        "minimum_events": 20,
+        "shortage": 20,
+        "timely_source_matched_events": 0
+      }
+    },
+    "protected_events": 0,
+    "rows": 48,
+    "scalar_label_events": 0,
+    "shadow_audit": {
+      "closed_decisions": 0,
+      "decision_samples": 48,
+      "execution_blockers": [
+        "Missing later labels refuse historical evaluation",
+        "Stale or missing depth refuses executable backtesting",
+        "Certified effective historical fees are unavailable; no fee coefficient substituted"
+      ],
+      "labelled_samples": 0,
+      "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+      "replay_inputs": "shadow-replay.json",
+      "sized_books": 20,
+      "stale_books": 0,
+      "verified_cycles": 2
+    },
+    "status": "insufficient_data",
+    "temporal_boundaries": [
+      "2026-12-16",
+      "2026-12-28",
+      "2027-01-27"
+    ]
+  },
+  "schema": "retained-weather-v1",
+  "shadow_audit": {
+    "closed_decisions": 0,
+    "decision_samples": 48,
+    "execution_blockers": [
+      "Missing later labels refuse historical evaluation",
+      "Stale or missing depth refuses executable backtesting",
+      "Certified effective historical fees are unavailable; no fee coefficient substituted"
+    ],
+    "labelled_samples": 0,
+    "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+    "replay_inputs": "shadow-replay.json",
+    "sized_books": 20,
+    "stale_books": 0,
+    "verified_cycles": 2
+  }
+}

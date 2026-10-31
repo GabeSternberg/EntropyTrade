@@ -9,25 +9,29 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone is browser-accessible retained weather history → research/backtest.
-Completed forward/shadow captures become immutable content-addressed snapshots with
-original availability clocks, deduplicated vintages, actual retained decisions, source-matched
-labels, fixed protection and explicit readiness shortages. The ordinary R2/R4 engines run
-against the selected snapshot and honestly refuse insufficient evidence. Dataset/research
-selection, results/downloads, restart and offline restore have executable acceptance.
-See [guide](weather-history.md) and [current evidence](../data/weather-history-review/20261030/README.md).
-Final checks pass all 1,058 pytest tests, Ruff/format, strict mypy, 18 frontend cases
-and the actual managed-Chromium weather procedure. Authentic receipt replay has four
-events on two dates and no matched scalar highs; no
-empirical probability accuracy, backtest return or profitability is established.
+The current milestone extends the retained workflow into sustained shadow history →
+reproducible experiment inputs. Browser selection enumerates all completed receipts in
+bounded partitions, with separate later-outcome selection. Exact shadow clocks, verified
+sized books, source/prediction/fee versions and subsequent binary labels enter immutable
+snapshots and protected downloads. Replay consistency and causal source binding are checked
+independently. The global calendar anchor, model protections and frozen validation dates
+cannot shift with page selection. Missing labels, stale depth and uncertified fees refuse
+execution. See the [guide](shadow-history.md) and [current evidence](../data/shadow-history-review/20261030/README.md).
 
-Continuous read-only collection continues while independent functionality is delivered.
-Preserve Bitcoin's frozen boundaries; neither unavailable historical windows nor a new
-family selection is required to approve this safe intermediate milestone. Defer external
-provider verification until separately authorized credentials. Return this milestone for
-independent supervisor review; do not silently start another major phase. V1 remains
-incomplete until sufficient authentic data/validation, certified effective fees, robust
-operating/browser evidence and the full independent acceptance matrix pass.
+The 130-cycle CONTROLLED lifecycle, restart and offline restore regression is distinct from
+authentic insufficient-data evidence. This environment denies the one managed-Chromium
+launch before page interaction; the failure trace and executable two-procedure acceptance
+harness remain for supervisor/human execution. Listener/unit checks do not substitute for
+browser acceptance. Final quality passes 1,073 pytest tests, Ruff/format, strict mypy
+and 21 named frontend assertions. V1 is incomplete. No fresh clean-install or empirical return is claimed.
+
+Continue authentic forward collection while independent functionality progresses. Preserve
+Bitcoin's frozen boundaries; do not select another family without user approval. External
+provider verification waits for separately authorized credentials. Return this substantial
+milestone to the supervisor; its next review should execute the outstanding browser
+acceptance in a permitted environment and assess the final quality evidence before choosing
+another phase. Final V1 acceptance still requires sufficient authentic fitting/validation,
+certified effective fees, empirical two-family evidence and independent release review.
 
 ### Prior provider and operating milestones
 

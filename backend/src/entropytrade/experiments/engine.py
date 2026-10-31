@@ -505,6 +505,17 @@ def evaluate_candidate(
         result["reasons"].append(
             "historical execution lacks sized books; candles/prints are not fills"
         )
+    if any(
+        s.book is not None
+        and (
+            s.decision_time - s.book.received_at > timedelta(seconds=config.max_book_age_seconds)
+            or (s.book.exchange_ts is not None and s.book.exchange_ts > s.decision_time)
+        )
+        for s in samples
+    ):
+        result["reasons"].append(
+            "historical execution depth is stale or has a future exchange clock"
+        )
     policy = config.fee_policy
     start = min(s.decision_time for s in samples)
     protected_starts = [s.decision_time for s in data.samples if s.event_id in protected]

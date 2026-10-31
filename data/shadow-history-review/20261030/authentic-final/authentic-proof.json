@@ -1,0 +1,357 @@
+{
+  "backtest_scenarios": 0,
+  "changed_originals": [],
+  "evidence": "Authentic original shadow receipts; direct ordinary-worker and offline recovery, not browser or new acquisition",
+  "job_id": "79098662-3c3c-441e-babf-c82e5611a879",
+  "original_files": {
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/decision-inputs.json": "sha256:0dbb25f9a8b1830e2e59d038c3e3f8d10151e19dfc33ef6f0892ebfe49457364",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0000.json": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0001.json": "sha256:d5d9633e0e77137f76205cd54eddc64f1688dad063290b474d3263d69aafdfd7",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0002.json": "sha256:1f060597490188192697f4d7d70eb7fce5453eadde4420ce65795ac763e5a35f",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0003.json": "sha256:f85f6b58bd7f43c40fe9638c3de990c5c64f9a8c61c6ad8883060177c6c0ccb6",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0004.json": "sha256:0d14d20282780329fb134bd768574bd18c7c7e56e0e577dedfa252c130aeb57c",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0005.json": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0006.json": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0007.json": "sha256:2caf777652349bf1917b81f844f0e135b786a559f47ba48593e1ad30297cb3d4",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0008.json": "sha256:b8890857ca690084f34d0e7213b9edd59dc7b370c35ea47d08c8d7cfd0c8280f",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0009.json": "sha256:d52351be860f8229cffcdfb88676a807f64697e51f6f0adc0752f23e053f32eb",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0010.json": "sha256:1c50491d36f11ebad3b8f7cad5a9960bb096d2e0fd7c0095e70336fecf0e0a7f",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/summary.json": "sha256:4391361c4a738f3405593057ea8872881a06218c99f7826ee64863c6122359f4",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/outcomes/summary.json": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/capture.json": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/manifest.json": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/markets.jsonl": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/observations.jsonl": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0002.json": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0003.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0006.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather.sqlite": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/manifest.json": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/observations.jsonl": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/result.json": "sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/decision-inputs.json": "sha256:2eb8ba47f43ce97316a669de3547f5d1ae12358fde82775dd76fac84c0dc3e06",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0000.json": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0001.json": "sha256:1680c7836a5d2691184c5b99a4f09fcb6157d78d76fbb01630b4911543eadd2d",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0002.json": "sha256:6dcc46370090739dc48de36d4e3cec7d92bb98980ae5daa781b04307304129d2",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0003.json": "sha256:a3ed1bcf3b2b0f9d21d007f534799a425140952b12f288b5c8c85eede8438371",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0004.json": "sha256:6c8d3b86e667373d57a3a572830f51ff4293153016263a43f5041dbcad904ea4",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0005.json": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0006.json": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0007.json": "sha256:a54fb22171651e401d64ca9b5007513232fc287123ca240bc80714a6b07a00f7",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0008.json": "sha256:5f569a40c594f25c59367a7c6b73da4c15af8b3796047d222c92702701b2cb44",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0009.json": "sha256:95f86766e2e231645514ba15e6762bd2c5d689d604576b36d7e9778e8a0b1e62",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0010.json": "sha256:be92b934edd4fbdd8cd7812d81e2015cb31e0a3a7dcbacc0a71c41c2712ba3ae",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/summary.json": "sha256:17c77de298ba7d86dee5f7354486aaf4161671ce0276b002f8e2b005fa548939",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/outcomes/summary.json": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/capture.json": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/manifest.json": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/markets.jsonl": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/observations.jsonl": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0001.json": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0002.json": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0003.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0004.json": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0005.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0006.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0007.json": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0008.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather.sqlite": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/manifest.json": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/observations.jsonl": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/result.json": "sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406"
+  },
+  "probabilities": 0,
+  "readiness": {
+    "binary_label_events": 0,
+    "blockers": [
+      "fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00",
+      "calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00",
+      "validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00",
+      "at least ten distinct event dates required for temporal evaluation",
+      "No source-matched integer settlement highs; binary results cannot substitute"
+    ],
+    "capture_audit": [
+      {
+        "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+        "decision_time": "2026-10-29T16:35:37.734441+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:36.806500+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:36.816369+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:37.134925+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:37.269720+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:37.317004+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:37.371831+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:37.498946+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:37.562541+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:36.717089+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+        "decision_time": "2026-10-29T16:35:47.288061+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:46.219716+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:46.237865+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:46.518839+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:46.687087+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:46.773775+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:46.816918+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:46.859886+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:47.145870+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:45.923454+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      }
+    ],
+    "capture_failures": 0,
+    "contracts": 24,
+    "date_blocks": 2,
+    "eligible_events": 4,
+    "incomplete_captures": 0,
+    "independent_events": 4,
+    "limitations": [
+      "Original receipt clocks are preserved; importing a receipt does not backfill availability.",
+      "Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.",
+      "Source-matched integer settlement highs, independent dates and timely labels gate fitting.",
+      "Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.",
+      "Protected final holdout is excluded from research, fitting and evaluation."
+    ],
+    "partitions": {
+      "calibration": {
+        "dates": 0,
+        "events": 0,
+        "label_cutoff": "2026-12-28T00:00:00+00:00",
+        "minimum_events": 20,
+        "shortage": 20,
+        "timely_source_matched_events": 0
+      },
+      "fit": {
+        "dates": 2,
+        "events": 4,
+        "label_cutoff": "2026-12-16T00:00:00+00:00",
+        "minimum_events": 60,
+        "shortage": 60,
+        "timely_source_matched_events": 0
+      },
+      "validation": {
+        "dates": 0,
+        "events": 0,
+        "label_cutoff": "2027-01-27T00:00:00+00:00",
+        "minimum_events": 20,
+        "shortage": 20,
+        "timely_source_matched_events": 0
+      }
+    },
+    "protected_events": 0,
+    "rows": 48,
+    "scalar_label_events": 0,
+    "shadow_audit": {
+      "decision_samples": 48,
+      "execution_blockers": [
+        "Missing later labels refuse historical evaluation",
+        "Stale or missing depth refuses executable backtesting",
+        "Certified effective historical fees are unavailable; no fee coefficient substituted"
+      ],
+      "labelled_samples": 0,
+      "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+      "replay_inputs": "shadow-replay.json",
+      "sized_books": 20,
+      "stale_books": 0,
+      "verified_cycles": 2
+    },
+    "status": "insufficient_data",
+    "temporal_boundaries": [
+      "2026-12-16",
+      "2026-12-28",
+      "2027-01-27"
+    ]
+  },
+  "replays": [
+    {
+      "decision_count": 24,
+      "limitation": "Reproduces decisions only; does not certify source truth or performance",
+      "submission_enabled": false,
+      "verified": true
+    },
+    {
+      "decision_count": 24,
+      "limitation": "Reproduces decisions only; does not certify source truth or performance",
+      "submission_enabled": false,
+      "verified": true
+    }
+  ],
+  "restore": {
+    "archive_sha256": "sha256:530ea8f64ca80b26259d1ba881725bf608c960ee8b8860d2666a591aa375bfb9",
+    "cycles": 2,
+    "jobs": 2,
+    "monitors": 1,
+    "submission_enabled": false,
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/shadow-history-authentic-final-restored-20261030"
+  },
+  "restored": "data/cache/shadow-history-authentic-final-restored-20261030",
+  "seed": {
+    "catalog": {
+      "partition_size": 128,
+      "partitions": [
+        {
+          "first_at": "2026-10-30T23:58:02.281508+00:00",
+          "inputs": 2,
+          "last_at": "2026-10-30T23:58:02.371894+00:00",
+          "members": [
+            {
+              "at": "2026-10-30T23:58:02.281508+00:00",
+              "id": "95d0fa91-81ed-4331-a318-5ae30ffbc99f",
+              "kind": "shadow",
+              "monitor_id": "73ba7d1b-438d-47c3-8559-a2c142bc5db3"
+            },
+            {
+              "at": "2026-10-30T23:58:02.371894+00:00",
+              "id": "06e56a7c-c21c-46c6-ab8f-332e89fe6bdf",
+              "kind": "shadow",
+              "monitor_id": "73ba7d1b-438d-47c3-8559-a2c142bc5db3"
+            }
+          ],
+          "number": 1,
+          "partition_id": "66d761f46b25dc03968e20f2dbdf47e651b004768fa163a30add20de0ba77c69",
+          "shadow_cycles": 2
+        }
+      ],
+      "total_inputs": 2
+    },
+    "cycles": 2,
+    "evidence": "Authentic original shadow receipts; no new acquisition or performance",
+    "monitor_id": "73ba7d1b-438d-47c3-8559-a2c142bc5db3"
+  },
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/shadow-history-review/20261030/authentic-final/authentic-workspace.zip",
+    "cycles": 2,
+    "jobs": 2,
+    "monitors": 1,
+    "sha256": "sha256:530ea8f64ca80b26259d1ba881725bf608c960ee8b8860d2666a591aa375bfb9",
+    "submission_enabled": false
+  },
+  "v1_complete": false,
+  "workspace": "data/cache/shadow-history-authentic-final-20261030"
+}
