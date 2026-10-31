@@ -18,6 +18,7 @@ from entropytrade.api.jobs import identifier
 from entropytrade.domain.base import DomainModel
 from entropytrade.domain.time import UtcDatetime, utc_now
 from entropytrade.features.registry import scientific_hash
+from entropytrade.weather.label_partitions import PartitionBusyError
 from entropytrade.weather.labels import LabelTarget
 
 if TYPE_CHECKING:
@@ -324,7 +325,10 @@ class LabelScheduler:
                             "scheduled contract rules changed; review selection"
                         ) from None
                     selected.append(actual)
-            request = self.service.enqueue(schedule.inflight, {**current, "targets": selected})
+            try:
+                request = self.service.enqueue(schedule.inflight, {**current, "targets": selected})
+            except PartitionBusyError as exc:
+                return schedule.revalidated(detail=str(exc))
         if request["status"] in {"queued", "running"}:
             return schedule
         now = utc_now()

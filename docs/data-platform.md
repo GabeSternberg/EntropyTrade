@@ -143,10 +143,22 @@ For larger queries use PyArrow Parquet filters (or your own DuckDB installation)
 
 ```python
 import pyarrow.parquet as pq
-rows = pq.read_table("<version-directory>/rows.parquet",
-                     filters=[("target_date", "=", "2026-09-01")])
-print(rows.select(["market_ticker", "decision_time", "features_json",
-                   "historical_context_json", "outcome", "quality_json"]).to_pylist())
+
+rows = pq.read_table(
+    "<version-directory>/rows.parquet", filters=[("target_date", "=", "2026-09-01")]
+)
+print(
+    rows.select(
+        [
+            "market_ticker",
+            "decision_time",
+            "features_json",
+            "historical_context_json",
+            "outcome",
+            "quality_json",
+        ]
+    ).to_pylist()
+)
 ```
 
 ## Strict information boundaries

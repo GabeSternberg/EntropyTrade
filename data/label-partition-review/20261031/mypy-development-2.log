@@ -1,0 +1,2 @@
+backend/src/entropytrade/weather/label_partitions.py:79: error: Need type annotation for "signature" (hint: "signature: list[<type>] = ...")  [var-annotated]
+Found 1 error in 1 file (checked 551 source files)

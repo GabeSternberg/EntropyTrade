@@ -1,0 +1,15 @@
+
+> entropytrade-browser-acceptance@1.0.0 test
+> playwright test label-partitions.spec.cjs forward-validation.spec.cjs --grep 130 controlled|authentic shadow --max-failures=1
+
+
+Running 2 tests using 1 worker
+
+(node:143632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:143632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 forward-validation.spec.cjs:267:1 › continuous forward validation: authentic shadow receipts and new label acquisition (28.1s)
+  ✓  2 label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore (1.9m)
+
+  2 passed (2.4m)

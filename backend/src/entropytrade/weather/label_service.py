@@ -15,6 +15,11 @@ import httpx
 from entropytrade.api.jobs import identifier
 from entropytrade.domain.time import utc_now
 from entropytrade.features.registry import scientific_hash
+from entropytrade.weather.label_partitions import (
+    LabelPartitions,
+    PartitionBusyError,
+    PartitionedBatches,
+)
 from entropytrade.weather.labels import (
     MAX_BODY,
     MAX_DATES,
@@ -49,6 +54,7 @@ class LabelService:
     def __init__(self, workspace: Path, snapshot_lock: threading.Lock | None = None) -> None:
         self.workspace = workspace
         self.root = workspace / "runs/weather-labels"
+        self.partitions = LabelPartitions(self.root)
         self.lock = threading.RLock()
         self.stop = threading.Event()
         self.active_loop: asyncio.AbstractEventLoop | None = None
@@ -82,14 +88,27 @@ class LabelService:
             ],
         }
 
-    def catalog(self) -> list[dict[str, Any]]:
+    def catalog(self, partition_id: str | None = None) -> list[dict[str, Any]]:
+        """Full offline catalog, or one bounded browser-selected partition."""
         with self.lock:
-            if (self.root / "requests").is_symlink():
-                raise ValueError("weather acquisition requests cannot be symlinks")
-            return [self.get(p.stem) for p in sorted((self.root / "requests").glob("*.json"))]
+            roots = (
+                [self.partitions.selected(partition_id)]
+                if partition_id is not None
+                else self.partitions.roots()
+            )
+            return [
+                self.get(p.stem) for root in roots for p in self.partitions.files(root, "requests")
+            ]
+
+    def active_catalog(self) -> list[dict[str, Any]]:
+        with self.lock:
+            root = self.partitions.roots()[-1]
+            if self.partitions.manifest(root):
+                return []  # Crash after seal, before creating the successor: nothing to recover.
+            return [self.get(p.stem) for p in self.partitions.files(root, "requests")]
 
     def get(self, request_id: str) -> dict[str, Any]:
-        path = self.root / "requests" / (identifier(request_id) + ".json")
+        path = self.partitions.locate("requests", identifier(request_id))
         if any(p.is_symlink() for p in (path, *path.parents)) or path.stat().st_size > 24_000_000:
             raise ValueError("unsafe weather acquisition request")
         value: dict[str, Any] = json.loads(path.read_text())
@@ -104,7 +123,12 @@ class LabelService:
         if finished != bool(value["batch_version"]) or finished != bool(value["finished_at"]):
             raise ValueError("weather acquisition completion evidence missing")
         if value["batch_version"]:
-            batch = load_batch(self.batch_path(value["batch_version"]))
+            try:
+                batch = load_batch(self.batch_path(value["batch_version"]))
+            except FileNotFoundError as exc:
+                # Only a missing request itself means an unpublished durable plan.
+                # Missing terminal dependencies must never mint another acquisition.
+                raise ValueError("weather acquisition batch evidence missing") from exc
             if batch != self.batch(value):
                 raise ValueError("weather acquisition batch/request mismatch")
             value["result"] = batch.summary()
@@ -113,7 +137,11 @@ class LabelService:
     def batch_path(self, version: str) -> Path:
         from entropytrade.weather.history import snapshot_id
 
-        return self.root / "batches" / (snapshot_id(version.removeprefix("sha256:")) + ".json")
+        name = snapshot_id(version.removeprefix("sha256:"))
+        try:
+            return self.partitions.locate("batches", name)
+        except FileNotFoundError:
+            return self.partitions.writable() / "batches" / (name + ".json")
 
     def batch(self, request: dict[str, Any]) -> LabelBatch:
         selection = request["selection"]
@@ -133,9 +161,11 @@ class LabelService:
             raise ValueError("acquisition id and dataset_id must be strings")
         request_id, dataset_id = identifier(value["id"]), snapshot_id(value["dataset_id"])
         with self.lock:
-            path = self.root / "requests" / (request_id + ".json")
-            if path.exists():
+            try:
                 previous = self.get(request_id)
+            except FileNotFoundError:
+                previous = None
+            if previous is not None:
                 if previous["selection"]["dataset_id"] != dataset_id:
                     raise ValueError("acquisition id already belongs to another dataset")
                 return previous
@@ -150,14 +180,18 @@ class LabelService:
     def enqueue(self, request_id: str, selection: dict[str, Any]) -> dict[str, Any]:
         """Internal bounded request creation; HTTP callers cannot supply selections or URLs."""
         with self.lock:
-            path = self.root / "requests" / (identifier(request_id) + ".json")
-            if path.exists():
-                return self.get(request_id)
-            rows = self.catalog()
+            identifier(request_id)
+            try:
+                previous = self.get(request_id)
+            except FileNotFoundError:
+                previous = None
+            if previous is not None:
+                if previous["selection"] != selection:
+                    raise ValueError("acquisition id already belongs to another selection")
+                return previous
+            rows = self.active_catalog()
             if sum(r["status"] in {"queued", "running"} for r in rows) >= 8:
-                raise ValueError("weather acquisition queue is full")
-            if len(rows) >= 128:
-                raise ValueError("128 acquisition budget reached; preserve/archive workspace")
+                raise PartitionBusyError("weather acquisition queue is full")
             if (
                 len({t["target_date"] for t in selection["targets"] if not t["refusal"]})
                 > MAX_DATES
@@ -174,12 +208,16 @@ class LabelService:
                 "batch_version": None,
                 "detail": "Waiting for read-only acquisition",
             }
-            atomic(path, request)
+            root = self.partitions.prepare(self)
+            atomic(root / "requests" / (request_id + ".json"), request)
             return request
 
     def save(self, request: dict[str, Any]) -> None:
         with self.lock:
-            atomic(self.root / "requests" / (identifier(request["id"]) + ".json"), request)
+            path = self.partitions.locate("requests", identifier(request["id"]))
+            if path.parent.parent != self.partitions.writable():
+                raise ValueError("sealed label request cannot be changed")
+            atomic(path, request)
 
     def finish(self, request: dict[str, Any], status: str, detail: str) -> None:
         with self.lock:
@@ -201,7 +239,8 @@ class LabelService:
             self.save(request)
 
     def recover(self) -> None:
-        for request in self.catalog():
+        self.partitions.validate()
+        for request in self.active_catalog():
             if request["status"] in {"queued", "running"}:
                 self.finish(
                     request,
@@ -284,7 +323,7 @@ class LabelService:
             request = None
             try:
                 self.scheduler.tick()
-                request = next((r for r in self.catalog() if r["status"] == "queued"), None)
+                request = next((r for r in self.active_catalog() if r["status"] == "queued"), None)
                 if request:
                     asyncio.run(self.bounded(request))
             except (ValueError, OSError, KeyError, TypeError) as exc:
@@ -362,13 +401,5 @@ class LabelService:
                 raise RuntimeError("weather acquisition did not stop; workspace lease retained")
 
 
-def batches(workspace: Path) -> list[Path]:
-    root = workspace / "runs/weather-labels/batches"
-    if any(p.is_symlink() for p in (root, *root.parents)):
-        raise ValueError("weather label batch paths cannot traverse symlinks")
-    paths = sorted(root.glob("*.json"))
-    if len(paths) > 128:
-        raise ValueError("weather labels exceed 128 batches; operator partition required")
-    for path in paths:
-        load_batch(path)
-    return paths
+def batches(workspace: Path) -> PartitionedBatches:
+    return PartitionedBatches(LabelPartitions(workspace / "runs/weather-labels"))

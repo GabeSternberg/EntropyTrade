@@ -286,7 +286,11 @@ def build_snapshot(
     frozen_anchor: date | None = None,
     selection: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    if any(len(v) > MAX_INPUTS for v in (captures, outcome_roots, scalar_batches)):
+    from entropytrade.weather.label_partitions import PartitionedBatches
+
+    if any(len(v) > MAX_INPUTS for v in (captures, outcome_roots)) or (
+        len(scalar_batches) > MAX_INPUTS and not isinstance(scalar_batches, PartitionedBatches)
+    ):
         raise ValueError(
             "weather history exceeds 128 inputs; select an operator-reviewed partition"
         )

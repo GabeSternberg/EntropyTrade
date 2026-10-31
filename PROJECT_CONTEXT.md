@@ -1,35 +1,37 @@
 # EntropyTrade project context
 
-Updated 2026-10-31. **V1 remains incomplete.** Current implementation: continuous forward
-validation, on designated `supervisor/20261031-054650` from `9d9f921`. Git operations and
+Updated 2026-10-31. **V1 remains incomplete.** Current implementation: bounded immutable label
+partitions on designated `supervisor/20261031-073225` from `b62f9c6`. Git operations and
 independent review belong to the supervisor. No Git mutations, supervisor-control changes,
 new family, credentials or real execution.
 
-Explicitly opted-in schedules now connect the existing label service to retained public and
-shadow history: bounded date requests, durable preliminary/outage retries, daily revision
-checks, partial shutdown receipts, crash-safe request identities and browser controls/export.
-Optional following freezes new snapshots one bounded history partition per interval; original
-receipts, model cutoffs and protected boundaries stay fixed. More than eight dates are handled
-in successive batches. The finite 128-acquisition budget blocks safely for operator review.
+Opted-in continuous read-only schedules now continue beyond 128 total requests. Each bounded
+partition holds at most 128 requests; a chained immutable seal retains exact original request/
+batch hashes. Existing flat files are the first partition and remain in place. Requests wait
+for unfinished work before rollover, retain the same durable plan through backpressure and
+crash recovery, and never refetch an archived request ID. Website selection/downloads,
+snapshot construction, retained-input following, cohorts and offline restore include archived
+partitions. Original source clocks, calendar boundaries and protected labels stay fixed.
 
-Final verification passes Ruff/format and strict mypy (546 backend files), all 22 frontend
-checks, **all 1,271 pytest cases in 553.51s** (zero failures/errors/skips), and both actual
-managed-Chromium procedures. Browser evidence retains 10 screenshots, 6 downloads, four
-identical restart/restore comparisons and zero page errors. Authentic scheduling verifies two
-October 29 highs and refuses both October 30 preliminary reports; availability begins at new
-receipts. All 68 original receipt and five Bitcoin boundary hashes remain unchanged. The
-controlled twelve-date transitions prove software behavior, not empirical fitting or returns.
+[Operation](docs/label-partitions.md),
+[executed evidence](data/label-partition-review/20261031/README.md) and the
+[release matrix](docs/v1_acceptance.md) distinguish accelerated controlled rollover checks from
+separately identified authentic public receipts. Exact verification results are recorded in
+the milestone evidence: repository Ruff/format, strict mypy (551 files), 22 frontend checks,
+64 focused tests, 12 integrity/lifecycle checks and all **1,292 pytest cases in 679.34s** pass,
+with zero failures/errors/skips. Both final Chromium procedures pass (14 screenshots,
+12 downloads, zero page errors), and all 262 controlled label-store files match after restart/
+restore. All 73 original receipt/Bitcoin boundary hashes stay unchanged. Authentic acquisition
+verifies three station/day highs and refuses one preliminary report at new real receipt clocks.
+V1 release acceptance is not implied. Controlled revision requests
+do not create independent empirical dates, sufficient history, returns or profitability.
+Multi-day authentic reliability remains an observation gate. Snapshot/recovery storage and
+schedule target budgets remain bounded and explicit; operators must monitor disk use.
 
-[Workflow](docs/forward-validation.md), [execution evidence](data/forward-validation-review/20261031/README.md)
-and [release matrix](docs/v1_acceptance.md) distinguish controlled twelve-date transition tests
-from original authentic shadow replay and new public label receipts. Independent empirical
-models, certified fees, external-provider verification and two-family release evidence remain
-open. Approve safe independent functionality while authentic data accrues; do not wait for
-unavailable Bitcoin validation or autonomously select another family.
-
-Previous operating/checkpoint evidence remains under
-[data/operating-acceptance-review](data/operating-acceptance-review/ARTIFACT_RETENTION.md);
-its retained traces/archives and prior receipts are unchanged.
+Independent empirical models, certified fees, authorized external-provider verification and
+two-family release evidence remain open. Approve safe independent functionality while authentic
+data accrues; do not wait for unavailable Bitcoin validation or autonomously select a family.
+Previous operating/forward-validation evidence keeps its original scope and bytes.
 
 ## Product direction
 

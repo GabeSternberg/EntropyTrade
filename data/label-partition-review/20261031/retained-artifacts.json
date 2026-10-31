@@ -1,0 +1,1076 @@
+{
+  "scope": "Original local browser trace trees and recovery archives; original timestamps and bytes retained.",
+  "limitations": [
+    "A checkout contains these hashes, not ignored trace/archive bytes. Independent inspection requires obtaining and hash-verifying those bytes.",
+    "Hashes establish byte identity, not authenticity, elapsed operation, data sufficiency or profitability."
+  ],
+  "file_count": 213,
+  "total_bytes": 109951420,
+  "files": [
+    {
+      "path": "data/cache/label-partition-20261031-browser-2-forward-authentic.zip",
+      "bytes": 37759912,
+      "sha256": "sha256:f3ea549345b2a1849f6fbf8260256921a0697a720d634e3b38eb1ece92015ef6"
+    },
+    {
+      "path": "data/cache/label-partition-20261031-browser-2-partitions.zip",
+      "bytes": 1895529,
+      "sha256": "sha256:8205af854c55cdb496a0111b0abffe5048645ff1820bacc50030f40b8aa23b84"
+    },
+    {
+      "path": "data/cache/label-partition-20261031-browser-final-forward-authentic.zip",
+      "bytes": 37759915,
+      "sha256": "sha256:a978cf7ee649048bcb980b64f0a38dd8373ae2c914faa1eac7c493b8d3b251d5"
+    },
+    {
+      "path": "data/cache/label-partition-20261031-browser-final-partitions.zip",
+      "bytes": 1895529,
+      "sha256": "sha256:98204ece85163959332779b6f5112893cbbb5e8cdbdf1d5201b9fa28bba2df63"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.last-run.json",
+      "bytes": 96,
+      "sha256": "sha256:ab7e4d118119544e21814355ad6d5af417c1460c9b9c9117ed77baa2f0351d4d"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/3e48bb4b92ab12edcbb7-650f23ea395e9ba3bfb7-pwnetcopy-1.network",
+      "bytes": 484550,
+      "sha256": "sha256:9253a5c6f6c4033e940b1843027fea63954d909765a0e8971ca30eb95ed98017"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/3e48bb4b92ab12edcbb7-650f23ea395e9ba3bfb7.network",
+      "bytes": 485634,
+      "sha256": "sha256:a313737e30d9074593977a8319950b39aa6907c4a0c8fea345279cce1b0f71fd"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/3e48bb4b92ab12edcbb7-650f23ea395e9ba3bfb7.trace",
+      "bytes": 3011885,
+      "sha256": "sha256:d23563917d69601a79b475193b41fda4eedd353f810202cae92e0e91cde43d8f"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/0b216ff292fcfead7aaf82f987bfb09b132f6dd2.json",
+      "bytes": 1607,
+      "sha256": "sha256:8ad96adc26190adbe02cfbc3eb3bdc61204f9960844e2d3f25aebf0bf6c8e78b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/0dc28c8ba933c36e8c0a13688d608e8dc72069d4.json",
+      "bytes": 428,
+      "sha256": "sha256:c5c5b9338a6d84b994404e7b9eb7e852d04a4ce4013c1630cc60b5cbcaa0822e"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/1afea1ec32363a6d80ee3803f211d7e665727aa8.json",
+      "bytes": 170,
+      "sha256": "sha256:7e8138bafa115ab2e2e6b78610f5649bb0fb84916cb9ed146ceeba689fe9c454"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/1f1cb16c98c457a3b3cc108a59b612e4b91c4e70.json",
+      "bytes": 1605,
+      "sha256": "sha256:34b14a79a50d0894097032d7dcac3be44f9a2d44f1a8b5a57e1c9558311212e7"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/1ffe26b20a9f93506cfa621cee61564de7f14a24.json",
+      "bytes": 1607,
+      "sha256": "sha256:31f7fe9966f3ee04fa4c58bb1ebbb746e3821d2b1575a3f5968c23e8a74104cd"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/2528d3079b1109307f625ace816d93640c240f26.json",
+      "bytes": 1607,
+      "sha256": "sha256:d7e8210b739d2895b1a491b9e91e0393e84903ee955c0a11d2f484ecb5517a6a"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/2742b90ad7ba639fad1808390a2ef3944d88f555.json",
+      "bytes": 1605,
+      "sha256": "sha256:4c75fb9c7a06f588f9d4c35c26817d5fe58652fbe2d9e47fe523e898f0df98a2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/27492130eee2be7aacaa09f6b76958c54ec1fad9.json",
+      "bytes": 1380,
+      "sha256": "sha256:b643e7cf882da61b25eb6926a4ba437065e780abce0d181d398b0d0f386bb725"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/279707d5dbe672c554363f2a659fff64179224eb.json",
+      "bytes": 1609,
+      "sha256": "sha256:b15a3503d5150e9d8e721ca31f515128d646110a89e796499e8345b87bb4133b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/283da69f5189dfd7deee8ff00b8d7fd6d55c9253.json",
+      "bytes": 1516,
+      "sha256": "sha256:d06d1646d03604df9784b8c0da17c31affc5e3ae7d6bef11531f691e73b669c2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/286591e251163ac1e403802671187b10d978c945.json",
+      "bytes": 1518,
+      "sha256": "sha256:61d70cd1b1fcafcc24d9fcb244da8618cba1b69a0721ea64e3abe28906e16432"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/286ab62a342ab6a7dccc6bc88ffa9bc61f00d35b.json",
+      "bytes": 1607,
+      "sha256": "sha256:48259cef4d9a1c1290008aa4127422a5fc8b388059bb11d50189f27747f3b339"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/2c8d68a4332ad505aba0d4d9d62722e2de3e4294.json",
+      "bytes": 1516,
+      "sha256": "sha256:b73c4b96e83873df59bae301d69c16a9665f4e738da043b5d837eb22b4a9bba3"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/30154a2c72edfb3680cee5f746a023386a8f1500.json",
+      "bytes": 3854,
+      "sha256": "sha256:cc4520b205d51e4604a5f9c843e5e0978c6a147f0e86b52743dbc01fd0dab7d8"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/3382131bfb53041d1c81ba8e3ecc0279c2456247.json",
+      "bytes": 1516,
+      "sha256": "sha256:96385daf5e188dc983904275c84ed683b6bbb82b84e19e25751aabcfc58d0c3d"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/346e709d4ce7d93e7e9d080463010afd8338c79d.json",
+      "bytes": 1518,
+      "sha256": "sha256:078360b588eca5668804ba932091d602b2fde7bd4c665e1f33bc274bd8cdb9a9"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/39fcddc90426d01327bd1be857785ca9ecc35818.json",
+      "bytes": 1518,
+      "sha256": "sha256:0c3ddf0ad226c62cee2adce7f96d9b568ece23179790fae51909dd8081909101"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/3c5e71a4769f3792ae02179be0919715d55361d5.json",
+      "bytes": 1607,
+      "sha256": "sha256:d9b1f9f023fbddb16be4f4b200305452c829d8c9d574fd7d8941f9d45ef8d905"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/3c99e1bbe8ba4a4930e7ef7de89be596edccca81.json",
+      "bytes": 1518,
+      "sha256": "sha256:6ae4ccf99f5e31e09ff90c81775bf2e93b8a678908b6ad6c4f671f91e3c80162"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/3e66dd079c52c56c69022b34a96cc10951d92022.json",
+      "bytes": 1516,
+      "sha256": "sha256:8e73028e8a793c385250f924ff174d646c8797f83a9e2b979cd3ea8581de1eb4"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/3ec46be1535d7816104371334c9a9efef010c203.json",
+      "bytes": 1607,
+      "sha256": "sha256:f6cfb53686009c3e96e9337299253554f7856f58a254fc8dd3eaa3dd8664a053"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/4090eef76395b24cefd8e51ee758946fde18afcb.json",
+      "bytes": 1607,
+      "sha256": "sha256:ace2d75b4e5810b16fb03a4411568f5ece0a5c28c6cd0e55b0317891431e8fd5"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/423be7a9db038db9bf625abc5f7f2f688d29fe94.json",
+      "bytes": 406287,
+      "sha256": "sha256:9df89a91f7ccf373f5faf966ddb12a3baad81b8fb2c8346404e8d731da91c0b9"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/46e6b5d4a07cc70370f19196e3ff86de251485f2.json",
+      "bytes": 43,
+      "sha256": "sha256:6b8c76c22e488743402000699198d5b953ddb6c83497032227796bd04f4db887"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/4af14d74b42c101ad2f09e51991f2a7b549df765.json",
+      "bytes": 1516,
+      "sha256": "sha256:ffa5b65ccaa61f7c5025a41cb13c8ce9438cfe5c7b72d2374d49560202c56744"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/50b95dfa84c29e5d097ad04c49d792f44375f6f4.json",
+      "bytes": 1609,
+      "sha256": "sha256:f020c883c48c535739577d1032cb628d151eecd12a2241ddc1fe4f0626acd682"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/5294b3bfab120dadc189107fdfc84c2c2136ad64.json",
+      "bytes": 3161,
+      "sha256": "sha256:b02319d9a120d29180f87d742871709756dc3228cd2364eccb157b396f1497f1"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/53ea65dda878205f4b03426b73da29dbc32b3d47.json",
+      "bytes": 404241,
+      "sha256": "sha256:a7396cd397275496760ebf2b76a7594d5c01ce017cc5ebb3048d66beec1ece3c"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/54d3c7b637ee9b63f3c17772b3ea2294bb6be0b1.json",
+      "bytes": 1516,
+      "sha256": "sha256:0bc11f1aa63f1dfd74bd1d62d2d94a05ce333a8858f8b940378700695d0f0e47"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/5737af69bf57b378e66619006be949436ec9a30a.json",
+      "bytes": 1609,
+      "sha256": "sha256:5b4442b5103d107d68fbd265135073b9ef8f16f72add5421581c9c312b39ed7b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/5a88c96c74500992a8e06cf6b870cea6d62fc1a0.json",
+      "bytes": 1605,
+      "sha256": "sha256:14f5022f27337bd9be2b1f957fed6594c38cf44a715f7819735a94a12e4ad934"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/5e308c9b031e3eb7d3ff3b03996c40b9c5bdcc18.json",
+      "bytes": 1609,
+      "sha256": "sha256:8bfc3d9aead06ac69dce7c02d8e4719c5021e14439257ff8a7113a96905e3330"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/60dca4c7b43c73dd83c4e7ab7e504b5cf8253bdf.json",
+      "bytes": 409,
+      "sha256": "sha256:9ea5bb10fd9f32a9154038fdedef44ac817b4b48d3a5595f9873ebe19751cddf"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/63da4f15e9595796c8043fcd7dbf2ec41259c782.json",
+      "bytes": 428,
+      "sha256": "sha256:66a87d4cd414d549505c7212d9f00f568a7e3f57e9b71ed70c2a8064ce60a39c"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/6470589fab7b82571e6671bc4e7ad714b5d6016f.json",
+      "bytes": 1382,
+      "sha256": "sha256:f0b35076c4c7c02b88f9bbf6ad7646602ee2f75db2766b44efaee5965ff2ed17"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/653069b80cc0349d121fbe79492af8e526096a0c.json",
+      "bytes": 435,
+      "sha256": "sha256:505c623ec71ad7df1aa87475e6abb9cb889f719d5cefeb6aefa69190641d2299"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/6565612bea7cbcdfcf2a6d4c6cdc2805715e1d18.json",
+      "bytes": 1516,
+      "sha256": "sha256:5b1f8d6d3e05447a9ba151b88dbd9dba0bd0461a46238500d24f0aaddcbf8291"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/67b3ef45ce996a8b12262d1985c3c766b058035a.json",
+      "bytes": 1518,
+      "sha256": "sha256:ec52116a0b8cf09e331a8ff4780199a563c484a23582bcd2807495c8dcff07c4"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/688b7fe3e97b42949c3321463233b75685d9f02b.json",
+      "bytes": 1516,
+      "sha256": "sha256:4e7f5fd5b4d21f3a8335f765361d1523d5491920f81a80efb1818891ab355de0"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/738633d109a8b65df243d65fc5fb2f9f9d46aae0.json",
+      "bytes": 1607,
+      "sha256": "sha256:1753c059514b349f3ab8049cee5c386bcb24c175dd265859788f03ec9d918aba"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7692f1cf2c7a54f1a0c25c58835bc8e5a644db07.json",
+      "bytes": 1607,
+      "sha256": "sha256:f4413546420f6b60b532d06f91fc3752c85109579e42a8ff9025ab4a33222174"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7bdfc7de2db17a1d32b8fb50f76338423a4c065a.json",
+      "bytes": 45,
+      "sha256": "sha256:39e7f640132ccc3525fe6145394a95e393b5f32833fa37e9f7ccdd3d91097056"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7f4b99b922931ad1a39334060abb70c49cd81a25.json",
+      "bytes": 1607,
+      "sha256": "sha256:dbdbbf36fedf35bcf8edaa9d10fe05348e32fd0562d4ece1d7828d2825f43972"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7f7d2344c41b7092bece8969dfcb1a2b81a87dde.json",
+      "bytes": 1643,
+      "sha256": "sha256:55e79df876902669d684a8e2f2ebf3926a854cf3d2b1878b13f9f2906b5ecdf1"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/8047a3d07c1852217837e03d3b72541d51402204.json",
+      "bytes": 1607,
+      "sha256": "sha256:e8671a757160cd3a5b10b7f4e6a0aa665b3f640eeb0f7d98ff33fed5d5988854"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/858d56a49dd5bd1ad7febccfafc3e68587983e85.json",
+      "bytes": 1607,
+      "sha256": "sha256:39ab879cf3a2818418121c44777884338206449984dfd0cbbda3dba6a26dcdd1"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/86034e875f511c328b0c8d7292137dc0fb5f1eb8.json",
+      "bytes": 3183,
+      "sha256": "sha256:71b12c93b649a2442f20dc1bcb23aef79869f6c1843425b560418d838713a010"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/88f3337dca4e4b9e313c2228bc7820aaf1579b08.json",
+      "bytes": 1607,
+      "sha256": "sha256:2b86acc436e88ac546271011de550002f25a28b31080e7ac78838cf68b9496f4"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/8b00cb92d747146d98d590b3a943a72bba625bf4.json",
+      "bytes": 1518,
+      "sha256": "sha256:e38d3620a3387621eb7a5ead25beba8b4b6d1d5dba777e82c6e8805d0b37c814"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/8b300bed063817c3c5d442acda5db23e8f6151bd.json",
+      "bytes": 1516,
+      "sha256": "sha256:eee0c3b8503d407b2c9a74c584986f8475d7b61c779dcade70f4f931daff068c"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/8b85600f9d841e9d0e78305ee2a0ef02dcfb84cc.json",
+      "bytes": 203,
+      "sha256": "sha256:9355f2dce980f78d465a71395e007f4fe25dbf365900f299ef50af69979d56ec"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/8f5e118d681a003d34858323f337cad0ff31aab0.json",
+      "bytes": 1607,
+      "sha256": "sha256:d78aee68a1b1fc8fcf93701ed7e6b527e9d7aa9c80ce7bcb53cd682369c70c45"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/9144d173498620757bd6e0a4c9be163810366cd4.json",
+      "bytes": 1607,
+      "sha256": "sha256:2e5c1eef9cfdbdb90e884f14b0ea3ea0635e3af65eebbb42103d842cd367fadc"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/916ce6558ec0fcce67abd053548a126ada6831c7.json",
+      "bytes": 1516,
+      "sha256": "sha256:02be9036872220c355608d86c6eef4956aad2f3d319c432ef45aeb3b5f0d5e52"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/97d170e1550eee4afc0af065b78cda302a97674c.json",
+      "bytes": 2,
+      "sha256": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/986b336eb4626338a1abc4e9eef84257a4cb03c6.json",
+      "bytes": 1516,
+      "sha256": "sha256:d4c9ed7d25ab78ed813f5eb8f3bdce5b0030472bfcdcf4f63b8a147c37cc9172"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/99d2c3cf4f255eb423ff32a031f4ac35b39c5874.json",
+      "bytes": 1609,
+      "sha256": "sha256:4064702769c29e1197c918a7fdbf70fc32772055d718ff1ab35b743843ae9224"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/9f993e1ca87e258c9dd465370939fbf14ead6996.css",
+      "bytes": 9567,
+      "sha256": "sha256:488ef0a365b99ee72f340633aeb03f2b0303c7d9b4cd6228d2a63ff9f177b1eb"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/a172794a50bf002c430e8e29414c0432baf65f89.json",
+      "bytes": 1477,
+      "sha256": "sha256:c7278df2631178ffe15f7fcfa355e72db5b09513e863855c982613051ca8bc0c"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/a1c759c4faae768c77e3786a47541a8ff24151dd.json",
+      "bytes": 1645,
+      "sha256": "sha256:66a388a695542af9c80b5d3aea27f4b663a422b33fbc60583ec7d7dd5557e19a"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/acb069cbb0e8567a526b41115229cca306cbb808.json",
+      "bytes": 1607,
+      "sha256": "sha256:8f03843c225bc3077bb53a8e9e8eb55df5b8700110bce083abacf83d2c853dd9"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/acc214312b851eabd03603ca10b3d280b48d5c89.json",
+      "bytes": 1607,
+      "sha256": "sha256:8fd782a5725989f89582f334feadd67e4bab9f9550dd358dd75a293d09131661"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/b05df9859d88e1195fee4f7cb516f23443737463.json",
+      "bytes": 1607,
+      "sha256": "sha256:5c9eac2a53e313988214501358157a3d55219f51d41954a50087fdfc1a03d8ee"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/bc7b853baa1b2f7b4a20d9d03e1c5d68556277a3.json",
+      "bytes": 1607,
+      "sha256": "sha256:96c3a8b3af734f49c221c91f9ae579a79f5b8bd8a139ecd2cd27ce08a2b67c78"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/bcf66e8c091d13c1107fe6cf482a49f5d5c6f5ab.json",
+      "bytes": 1607,
+      "sha256": "sha256:914672068d7609b9d32f1720be3ff0aeb83a74934becb1430021c7c4cb01d11e"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f.json",
+      "bytes": 2,
+      "sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c7f4517ec8e9904f3f4c101529a6c0eb550d859b.json",
+      "bytes": 1609,
+      "sha256": "sha256:dbc9f5f1c0eb1ffe1807fd13669ca10259aaeb985e829d617114129ab0ca9b87"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c8b09cb90300ef8bd43dfb2fbfc727ac6c1f84da.json",
+      "bytes": 55,
+      "sha256": "sha256:16e3ab15ef2bc1a8e6ada064e9309f0318aaec365a276260a458202cd4e6ca2f"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c9271cc460f8f8431ccb7badfd7fed4528ec57b0.json",
+      "bytes": 1574,
+      "sha256": "sha256:9b22482ba489cfa6f47f2b6e0c603ef65c951da1658caa60e84a14ac260893de"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c94ee7e2c2f6b1f982ce0df044fcc7290d5a648a.json",
+      "bytes": 166,
+      "sha256": "sha256:5044c44b71360371ee938d432814490e5c4241dbd9154c3c93addcfca26defda"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c96013ba6175326de471e53732e6f9b78c55029e.json",
+      "bytes": 166,
+      "sha256": "sha256:72c28fc695133d20ef405336cdbb54e31d4277c071053c12a23303bdbc0d86ef"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/ca1989783a2817a1335b0498adecd071456da928.html",
+      "bytes": 11483,
+      "sha256": "sha256:7d335e6d34bc704514a1acd7ef8be232fa880af89456ec3f023ba246ebd11e12"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/cbf2a82676a4aae789b7373dc16c442d1be4c060.json",
+      "bytes": 1607,
+      "sha256": "sha256:654da08d4a308dc7f7d0dec2964e367950adb91f469e662f92811cd4b163961e"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/cc3c2885852d08ac9db67639f252fc804f4d1270.json",
+      "bytes": 1609,
+      "sha256": "sha256:12ac420f2b9bb1eb5764d73434dbb6fd32e8c0b673afe6a495358fa6fc295f23"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/cd4789bef8b7e6ffa803f5d1792b1f2b80b0d7b2.json",
+      "bytes": 426,
+      "sha256": "sha256:c369d5ae7f487ee957861522f1f96fa31ab8a992f64adeb71354ba969f5e76d0"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/d21c6fb21b2b1747148c9c4047e26eca88eaaf71.json",
+      "bytes": 1607,
+      "sha256": "sha256:c8b72af873bb2b2526b6384792ed1fa8d4eaa7aa11b6ed4a773331bbb1e4f3f9"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/d63a4bd70a52d96f878861f7cf4cc6a50aecac2c.json",
+      "bytes": 1518,
+      "sha256": "sha256:61083cff1d49ca59424aaada52b7bc4e96cfc9714b56bfba9afa15ab05e022ea"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/e023accae2f64248f635a4e66cd4c3cb740bb428.json",
+      "bytes": 1607,
+      "sha256": "sha256:46eb444f6009bb33a0f757300e5ade5cf2b29a7a80a8915509e202b377d3d2ab"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/e1b6d70ce0ae8b6e22944298814c97bfc29626f8.json",
+      "bytes": 1516,
+      "sha256": "sha256:383136aab96cd3d84b1f08b79fccddd7f01eb6d10175401dc4079a18f620b9ba"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/e4393b351df71024b0ad009cdfd4f5f7437c77ef.json",
+      "bytes": 1607,
+      "sha256": "sha256:c33bcbfccf7d5850c0e2bd13b4f1b00703e354d47291291988a160a65c2e16bc"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/e70ead2d06470bfe55886da691b128494272ee51.json",
+      "bytes": 1609,
+      "sha256": "sha256:88807cff53d57f9a309c33f86df4db4cf6e7c9dc7549d70b276ecfe145bce4d6"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/ea8590ade4412a95e03ec3d2b7dd46f3e5e425da.json",
+      "bytes": 170,
+      "sha256": "sha256:ec62b199325b83c7064816b86bb255b58ef51a916d6c2e137836257e5d58856b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/f1bb5e5f1e7c262479809f3ff8cbcedfe8c3b2b8.json",
+      "bytes": 1609,
+      "sha256": "sha256:bd13d6e912fdd179af635bd07903cde463b5a9a8784cd4f2d59e0df6b9f8d330"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/f54853c83475c392d8dfdff4e272824bad8a5329.json",
+      "bytes": 4591,
+      "sha256": "sha256:9cefd2fe10da09f54b99f5e9cf79388ebcb1984799044ea226c4d9ed7a21b742"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/ff25611d65f3dcc225e6151ae85406ee9e886649.json",
+      "bytes": 1607,
+      "sha256": "sha256:17e1da3a4069cf728f2d269f8eb6141be944de0c434e02d06fa3fe5f94cb8f67"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446759505.jpeg",
+      "bytes": 3134,
+      "sha256": "sha256:ad45d3e3f65f102b9cbf329d3f3b176473f692b88af241145d5910fb621099ab"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762544.jpeg",
+      "bytes": 57209,
+      "sha256": "sha256:777d82dee311c5ebf4bbd2f288bb2fb8352d1ad0e674b60f6b00b5d9172629be"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762565.jpeg",
+      "bytes": 57209,
+      "sha256": "sha256:777d82dee311c5ebf4bbd2f288bb2fb8352d1ad0e674b60f6b00b5d9172629be"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762575.jpeg",
+      "bytes": 55538,
+      "sha256": "sha256:e3d74cde5c9991c60863a35641accba300b57c9a277ffa7d3d7a03d836b0b404"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762591.jpeg",
+      "bytes": 56445,
+      "sha256": "sha256:0c236fcae523b4d378d18e416ff759574c95c0741c1d93c5ad90c3ab02e1bfcd"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762623.jpeg",
+      "bytes": 56672,
+      "sha256": "sha256:fe77dc327936171b07cf3e9fd07572f9c13f2057d82c9459b7d2151508ebdf15"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762642.jpeg",
+      "bytes": 60832,
+      "sha256": "sha256:3b4ff0b889c3158bbecde17a8c216ed0d047d9dce617216eadedd5eeb818c90b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762694.jpeg",
+      "bytes": 67354,
+      "sha256": "sha256:5c6053a6fef92df25a831459965f3694acadca3be0d9733a28c2cf99b98fa8ec"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762710.jpeg",
+      "bytes": 67369,
+      "sha256": "sha256:aa5c9965e516a141b0b72d0ac1388898aa869b51acd168db8d35464a3420b964"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762758.jpeg",
+      "bytes": 66890,
+      "sha256": "sha256:4e3fb9bb13aa695e736061a002267993f98d4e9efea6167f9fce4daa5939b9bc"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762779.jpeg",
+      "bytes": 65311,
+      "sha256": "sha256:312f92ed042e1e9bfc468b6a0d286021a18c43b153721971dfef662d00b0589a"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446762795.jpeg",
+      "bytes": 70791,
+      "sha256": "sha256:771f782d75798b9b4a1343bf1677b2aa848666146d15e54c882e9dab4af623bf"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763143.jpeg",
+      "bytes": 31125,
+      "sha256": "sha256:70fc7fb670c14f777393b3317a439d384f472b49bf1576bcf96b8232ac9d6eab"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763159.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763266.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763316.jpeg",
+      "bytes": 23610,
+      "sha256": "sha256:fc5b4927081ff2e3964200f7377d3d98a45afa68221ab300c42b9d11075dbeac"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763344.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446763991.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446765493.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446766990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446768491.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446769990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446771490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446772990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446774490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446775990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446777490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446778995.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446780490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446781990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446783523.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446784990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446786500.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446787989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446789523.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446790990.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446792490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446793989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446795489.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446797047.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446798489.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446799989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446801490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446803022.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446804488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446806027.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446807489.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446808988.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446810622.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446812027.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446813489.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446814989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446816489.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446817989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446819488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446820989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446822488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446824065.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446825561.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446827070.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446828490.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446829988.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446831488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446832989.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446834488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446836080.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446837586.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446838988.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446840488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446841987.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446843488.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446845022.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446845436.jpeg",
+      "bytes": 33803,
+      "sha256": "sha256:ccc38dd3669e7164a69992d51ebd21c9a2c85e766413318410fb05fae021c917"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446845494.jpeg",
+      "bytes": 33914,
+      "sha256": "sha256:13115010ca1e4ae0acdfca999e35bcbbde6c51f181aac638457a658258d68732"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446845629.jpeg",
+      "bytes": 23924,
+      "sha256": "sha256:ef344257395678b300676e0231a5c0fa5fc67b27f812f0f6775b8276ffc1a4b4"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446845657.jpeg",
+      "bytes": 33916,
+      "sha256": "sha256:e4813d459a5e6959d84630a186624fd52a1fe65c90eeb795907617f520b727e7"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846357.jpeg",
+      "bytes": 33916,
+      "sha256": "sha256:e4813d459a5e6959d84630a186624fd52a1fe65c90eeb795907617f520b727e7"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846378.jpeg",
+      "bytes": 33902,
+      "sha256": "sha256:1327291d65d073c2658b4a4294fad5418212e5b6fd5efee1282e4dfdf5f782b2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846445.jpeg",
+      "bytes": 23960,
+      "sha256": "sha256:15b7bcf231e60aa96a9d293e0f980ef0b8d61ea1c332409c9ce4b13dbcfaddb9"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846475.jpeg",
+      "bytes": 33902,
+      "sha256": "sha256:1327291d65d073c2658b4a4294fad5418212e5b6fd5efee1282e4dfdf5f782b2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846501.jpeg",
+      "bytes": 33902,
+      "sha256": "sha256:1327291d65d073c2658b4a4294fad5418212e5b6fd5efee1282e4dfdf5f782b2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846546.jpeg",
+      "bytes": 33902,
+      "sha256": "sha256:1327291d65d073c2658b4a4294fad5418212e5b6fd5efee1282e4dfdf5f782b2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846741.jpeg",
+      "bytes": 33902,
+      "sha256": "sha256:1327291d65d073c2658b4a4294fad5418212e5b6fd5efee1282e4dfdf5f782b2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846883.jpeg",
+      "bytes": 46156,
+      "sha256": "sha256:d406109710129ba5431531bc2dd1a15557c558a5eec0a048e936627873da85d2"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446846907.jpeg",
+      "bytes": 33934,
+      "sha256": "sha256:511dff8b539f6476e5d7b6f0468a11563b8fad07793919b2d719b0e9382e984c"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446847655.jpeg",
+      "bytes": 33948,
+      "sha256": "sha256:7e15f0f6e6c27fecc1c0ba592c61606e63c176ac1378f447dd1357e200a31d04"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446847671.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446847744.jpeg",
+      "bytes": 24030,
+      "sha256": "sha256:60d0f5016b063964c9991fecb22837115430e3fe380f2333f32fb8b6ebae40c8"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446847774.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446847950.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848038.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848055.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848074.jpeg",
+      "bytes": 34794,
+      "sha256": "sha256:a607f84587bda1445959cdf9928196eb1bd132f57152617070ea77cb7742e8db"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848086.jpeg",
+      "bytes": 34714,
+      "sha256": "sha256:88688b55b1ca47d528ed52f191ce79ba42b7313cb43d42a117f871560ef223f6"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848183.jpeg",
+      "bytes": 46221,
+      "sha256": "sha256:fd27769c097a74a26c92c89ebf657757569397f75077a5c3934a8e476fdc8afe"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848208.jpeg",
+      "bytes": 35454,
+      "sha256": "sha256:3748d3d1ae69c1ef6866348c4b1bbcabaf3af1d393b13c8532deb2dd8229df7d"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848360.jpeg",
+      "bytes": 35454,
+      "sha256": "sha256:3748d3d1ae69c1ef6866348c4b1bbcabaf3af1d393b13c8532deb2dd8229df7d"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848374.jpeg",
+      "bytes": 34520,
+      "sha256": "sha256:f791a5a50fefe97efadcbdcd89b67a5863144610e402b09f7caf0b9dbb3a408b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848420.jpeg",
+      "bytes": 34527,
+      "sha256": "sha256:d2a8ea10354f292bb908ff3bf2e58d4af43a3eea52f14bcca6b4224f8c943c4b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848491.jpeg",
+      "bytes": 67364,
+      "sha256": "sha256:0cc3bf52d53a8ffa25e4c0c18b499499ea9fb676e0e536dc46e77f4efc021266"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848525.jpeg",
+      "bytes": 68783,
+      "sha256": "sha256:1ac87445328edb7dd0d334d6a63fc5fb669180ab7a2b4c098bcee94a19151e76"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848787.jpeg",
+      "bytes": 33522,
+      "sha256": "sha256:c95cc9e61f259b1549c8b6dc609d7f7e2e2f90c17b4e0525037b35231f7f9e31"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848803.jpeg",
+      "bytes": 33517,
+      "sha256": "sha256:f0a5b44d107144f598d4f774011ce873857bb9353c0ee99513ab94f3e4c731ea"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848902.jpeg",
+      "bytes": 33517,
+      "sha256": "sha256:f0a5b44d107144f598d4f774011ce873857bb9353c0ee99513ab94f3e4c731ea"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848948.jpeg",
+      "bytes": 46299,
+      "sha256": "sha256:6dae1ad6ac69bb3e95d0234c5751d6f854dbbd2ab1dba0d63fda9aeddf05d73e"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446848973.jpeg",
+      "bytes": 33517,
+      "sha256": "sha256:f0a5b44d107144f598d4f774011ce873857bb9353c0ee99513ab94f3e4c731ea"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446849340.jpeg",
+      "bytes": 66424,
+      "sha256": "sha256:ed8485dc8d3c54a6bfb06f28c9d5f9815c2dd8849f4aca5e5f33a7db066ca875"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446849488.jpeg",
+      "bytes": 66424,
+      "sha256": "sha256:ed8485dc8d3c54a6bfb06f28c9d5f9815c2dd8849f4aca5e5f33a7db066ca875"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446849503.jpeg",
+      "bytes": 67176,
+      "sha256": "sha256:6cc5b50fc4a903ae140c8f51b7a30b573185c4720c603f9fe6cde40fc1e5999b"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446849646.jpeg",
+      "bytes": 67801,
+      "sha256": "sha256:8a10e95118de965158c4e347c8b279a96e623d3754f503827a9cf0092c7e99c5"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@6eaf1f4f9750f5682fd44cd1818997b0-1793446850981.jpeg",
+      "bytes": 67801,
+      "sha256": "sha256:8a10e95118de965158c4e347c8b279a96e623d3754f503827a9cf0092c7e99c5"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md",
+      "bytes": 19816,
+      "sha256": "sha256:52396b568a7ce13379b1aa9fbf8ec0a518efc8cddaffcc812a783506cd19664a"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png",
+      "bytes": 177482,
+      "sha256": "sha256:a8ead81f92263028b870cdbad233796717ffe6c93115ce7fba1644b9e8866060"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip",
+      "bytes": 4069414,
+      "sha256": "sha256:3a19c07eb377e2f4bfe0c95780f73103344c774f420f548231ffec1452c51464"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-2/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-2/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 2895191,
+      "sha256": "sha256:024261668cf7c1169ad37cd59445ccd76ee151df77b980b404fe6607092f9e21"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-attempt-2/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip",
+      "bytes": 5518633,
+      "sha256": "sha256:586113e99fb50e9e931bc088dc6fd808965685bf200e70be5f18b0760d45e538"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-final/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-final/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 3082025,
+      "sha256": "sha256:bf046faac4214837565c3ee42792dbf212002ad0a209814f2c28fad7b0325f07"
+    },
+    {
+      "path": "data/label-partition-review/20261031/browser-final/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip",
+      "bytes": 5675941,
+      "sha256": "sha256:9a4833e546996e05c72749f498e4fa18cc48f49a1e328d4bb2efe4a393bcc5a7"
+    }
+  ]
+}

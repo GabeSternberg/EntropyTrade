@@ -1,0 +1,58 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="105.41754">
+<testsuite name="label-partitions.spec.cjs" timestamp="2026-10-31T11:39:15.028Z" hostname="" tests="1" failures="1" skipped="0" time="104.413" errors="0">
+<testcase name="bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore" classname="label-partitions.spec.cjs" time="104.413">
+<failure message="label-partitions.spec.cjs:12:1 bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore" type="FAILURE">
+<![CDATA[  label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#weather-message')
+    Expected substring: "Immutable dataset selected"
+    Received string:    "weather scalar label replay audit mismatch"
+    Timeout: 10000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 10000ms
+      - waiting for locator('#weather-message')
+        3 × locator resolved to <p class="hint" role="status" id="weather-message">Verifying receipts and freezing dataset…</p>
+          - unexpected value "Verifying receipts and freezing dataset…"
+        11 × locator resolved to <p class="hint" role="status" id="weather-message">weather scalar label replay audit mismatch</p>
+           - unexpected value "weather scalar label replay audit mismatch"
+
+
+      176 |     fs.writeFileSync(path.join(evidence, "controlled-requests.json"), JSON.stringify(all, null, 2));
+      177 |     fs.copyFileSync(phaseFile + ".calls.jsonl", path.join(evidence, "controlled-calls.jsonl"));
+    > 178 |     await page.getByRole("button", { name: "Freeze retained weather dataset", exact: true }).click();
+          |                                                    ^
+      179 |     await expect(page.locator("#weather-message")).toContainText("Immutable dataset selected");
+      180 |     await expect(page.locator("#weather-readiness")).toContainText("1 source-matched scalar labels");
+      181 |     await expect(page.locator("#weather-readiness")).toContainText("insufficient data");
+        at /home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs:178:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

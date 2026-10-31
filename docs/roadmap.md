@@ -9,7 +9,30 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current correction finalizes acquisition errors from freshly loaded durable request state.
+The current milestone replaces the finite 128-request workspace cap with bounded immutable
+label partitions, integrated through continuous schedules, dataset/cohort construction,
+browser inspection/downloads and offline recovery. Partition seals retain original file hashes
+and chain to preceding seals. Temporary backpressure and interrupted rollover preserve the
+same request plan. Exact controlled batch, Chromium and authentic operating evidence is in
+[the current bundle](../data/label-partition-review/20261031/README.md); see
+[operation](label-partitions.md). Accelerated rollover tests do not establish elapsed authentic
+operation, sufficient empirical data or performance. Existing snapshot/recovery storage and
+schedule target budgets remain explicit. All Git operations and independent review belong to
+the supervisor; **V1 remains incomplete**. Final checks pass repository Ruff/format, strict mypy
+(551 files), 22 frontend checks, 64 focused cases, 12 integrity/lifecycle cases and all **1,292
+pytest tests in 679.34s**, zero failures/errors/skips. Both final Chromium procedures pass with
+14 screenshots, 12 downloads and zero page errors. All 262 controlled label-store hashes match
+after restart/restore; all 73 original receipt/Bitcoin boundary hashes remain unchanged.
+Authentic acquisition verifies three station/day highs and refuses one preliminary report;
+original receipt-time availability and model insufficiency remain. Stop for review.
+
+Continue original-clock forward collection while independent paper/shadow and website capability
+remain usable. New-family selection, credential-dependent provider verification and real trading
+are deferred. Multi-day authentic reliability, empirical sufficiency, certified effective fees,
+two-family evidence and final independent release acceptance remain open. No earlier evidence,
+Bitcoin boundary or protected validation window is moved to satisfy these gates.
+
+The preceding correction finalizes acquisition errors from freshly loaded durable request state.
 The stale queued copy can no longer erase a response saved before an acquisition or later
 receipt-save error. Actual-loop regressions verify original bytes/timestamps through failure,
 scheduler reconciliation, restart and offline validation; all three terminal states retain
@@ -58,8 +81,8 @@ receipts. All 68 original receipt and five Bitcoin boundary hashes remain unchan
 controlled twelve-date transitions prove software behavior, not empirical fitting or returns.
 
 Continue authentic forward collection while independent website and paper/shadow capability
-remain usable. The existing finite workspace acquisition budget still blocks for operator
-review rather than deleting evidence. New-family selection requires user approval; external
+remain usable. The preceding finite workspace acquisition budget is superseded by the current immutable
+partition rollover; snapshot/recovery storage and per-schedule target budgets remain bounded. New-family selection requires user approval; external
 provider verification requires separate credential authorization. Sufficient empirical history,
 certified effective fees, two-family validation and independent release acceptance remain
 open. No real execution, risk-limit relaxation or fabricated performance is included.

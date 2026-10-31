@@ -161,6 +161,13 @@ def serve(workspace: Path, phase_file: Path, port: int) -> None:
         async def source(req: httpx.Request) -> httpx.Response:
             nonlocal calls
             calls += 1
+            with phase_file.with_name(phase_file.name + ".calls.jsonl").open("a") as log:
+                log.write(
+                    json.dumps(
+                        {"request_id": request["id"], "url": str(req.url), "at": now().isoformat()}
+                    )
+                    + "\n"
+                )
             phase = state()["phase"]
             if phase == "acquisition-error" and calls == 2:
                 retain_before_error(self, request["id"])
@@ -192,6 +199,7 @@ def serve(workspace: Path, phase_file: Path, port: int) -> None:
         patch.object(LabelService, "save", controlled_save),
         patch("entropytrade.weather.label_schedule.utc_now", now),
         patch("entropytrade.weather.label_service.utc_now", now),
+        patch("entropytrade.weather.label_partitions.utc_now", now),
     ):
         server = WorkbenchServer(REPO, workspace, port=port)
         try:

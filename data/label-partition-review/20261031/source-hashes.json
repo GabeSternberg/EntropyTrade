@@ -1,0 +1,22 @@
+{
+  "backend/src/entropytrade/api/recovery.py": "sha256:c204ac5727096e858a07dcfbf5def79888b4849f9eb90152f1a8ad576d09f767",
+  "backend/src/entropytrade/api/server.py": "sha256:8642680b8c5bec13f1c80ed57ad762760521957ce66a0631ce77eff355639fdc",
+  "backend/src/entropytrade/weather/history.py": "sha256:6ceb2fb9874fdc1228fc8eef7cc9b49969b8f099dbc7c1bc27384d0d0a76646f",
+  "backend/src/entropytrade/weather/label_history.py": "sha256:7bae2543232d2620dfd8ebb0324f89a140ac62c70d46434c2d5bf21210a9624c",
+  "backend/src/entropytrade/weather/label_partitions.py": "sha256:c37cc77792e4563154c1b2fe5c4040ffc38adafb9f0dc25d1bd4652fe6503ea7",
+  "backend/src/entropytrade/weather/label_schedule.py": "sha256:c33ffb6a8cf8a17c13bd7cadea7b8f424011d8b8fb9b927b9ec7e76a5ab769bd",
+  "backend/src/entropytrade/weather/label_service.py": "sha256:98ef900698dfbfb324d7f03d3f005168face5cf9068fc641c1cf9dca4de281b3",
+  "backend/tests/integration/forward_validation_fixture.py": "sha256:7cb2d046c3aaedc044dc6b685cca94118d261799280a613dd74b9e4a594a8735",
+  "backend/tests/integration/label_partition_fixture.py": "sha256:c878bd94d79486bd6e6770e27eb5676ec1fcc7c5ebc8ac8b85fcf81eda011fdd",
+  "backend/tests/unit/test_label_acquisition_errors.py": "sha256:24854b546e9344288bb8ba892fec36af3eb99145d385c71a50c1a3bbca8cf44b",
+  "backend/tests/unit/test_label_partitions.py": "sha256:a591b95a01e7906f13abfac5de124837e6880e46eee5bc8a07588206cf3139b9",
+  "backend/tests/unit/test_label_schedule.py": "sha256:524992eb2f5e35dda66714f3f57414c9b1eb4473740a9f10b22b230f4fefe3d6",
+  "frontend/browser/playwright.config.cjs": "sha256:2388ed396ab49d82cd702b76c543628571169e39b871d71c7427e59bb2ea883c",
+  "frontend/browser/label-partitions.spec.cjs": "sha256:8588d8f1194771e9957ccd1347d0ebf7d3acd51778d406bb79ec7f7650cb1e1d",
+  "frontend/browser/forward-validation.spec.cjs": "sha256:27de6b3c8bffc72ae2f225a712d221dcd4c462ce59815c7a6f70447babcea382",
+  "frontend/src/app.js": "sha256:b1fc354496588ced44c9b698afd5c2c9a20f73f457a0bfa31adac18566932f91",
+  "frontend/src/index.html": "sha256:7d335e6d34bc704514a1acd7ef8be232fa880af89456ec3f023ba246ebd11e12",
+  "pyproject.toml": "sha256:217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+  "uv.lock": "sha256:dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b",
+  "data/label-partition-review/20261031/verify_evidence.py": "sha256:ce5eaa68491b834b8bf0e5e9bae86e7ff717fd8d58ca8abc1f4f7ddbe3b66b4d"
+}

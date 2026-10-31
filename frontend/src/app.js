@@ -165,9 +165,24 @@ function renderWeatherHistory(content, snapshot) {
   content.append(section);
 }
 async function weatherLabels() {
-  const rows = await api("/api/weather/labels");
+  const partitions = await api("/api/weather/label-partitions");
+  const select = $("weather-label-partition");
+  const previous = select.value;
+  select.replaceChildren();
+  for (const partition of partitions) {
+    const option = node("option", `${partition.partition_id} · ${partition.status} · ${partition.requests}/${partition.request_limit} requests`);
+    option.value = partition.partition_id; select.append(option);
+  }
+  select.value = partitions.some(p => p.partition_id === previous) ? previous : partitions.at(-1)?.partition_id || "";
+  const selected = partitions.find(p => p.partition_id === select.value);
+  $("weather-label-partition-info").textContent = `${partitions.length} label partitions · ${partitions.reduce((n, p) => n + p.requests, 0)} retained requests. Each partition holds at most 128 requests; sealed receipts stay immutable. Select a partition to inspect all its requests.`;
+  const manifest = $("weather-label-partition-download");
+  manifest.hidden = selected?.status !== "sealed";
+  manifest.href = `/api/weather/label-partitions/${select.value}/manifest`;
+  manifest.download = `label-partition-${select.value}.json`;
+  const rows = selected ? await api("/api/weather/label-partitions/" + select.value) : [];
   const content = $("weather-labels"); content.replaceChildren();
-  for (const request of rows.slice(-12).reverse()) {
+  for (const request of rows.slice().reverse()) {
     const section = panel("Label acquisition · " + request.status);
     section.append(node("p", request.detail), node("code", request.id));
     if (request.result) {
@@ -181,6 +196,7 @@ async function weatherLabels() {
     content.append(section);
   }
 }
+$("weather-label-partition").addEventListener("change", () => weatherLabels().catch(error => { $("weather-label-message").textContent = error.message; }));
 $("weather-label-refresh").addEventListener("click", () => weatherLabels().catch(error => { $("weather-label-message").textContent = error.message; }));
 $("weather-label-acquire").addEventListener("click", async () => {
   $("weather-label-acquire").disabled = true;

@@ -1,0 +1,53 @@
+{
+  "status": "scoped_checks_passed",
+  "complete": false,
+  "milestone": "bounded immutable label partitions for continuous forward collection",
+  "branch": "supervisor/20261031-073225",
+  "base_commit": "b62f9c6",
+  "git_mutations": false,
+  "credential_access": false,
+  "submission_enabled": false,
+  "new_family_selected": false,
+  "supervisor_controls_modified": false,
+  "controlled_service_batches": 260,
+  "controlled_service_partition_requests": [
+    128,
+    128,
+    4
+  ],
+  "controlled_browser_batches": 130,
+  "controlled_browser_unique_source_calls": 130,
+  "controlled_browser_partition_requests": [
+    128,
+    2
+  ],
+  "browser_procedures_passed": 2,
+  "browser_screenshots": 14,
+  "browser_downloads": 12,
+  "browser_page_errors": 0,
+  "authentic_verified_station_days": 3,
+  "authentic_preliminary_refusals": 1,
+  "empirical_profitability_claimed": false,
+  "multi_day_authentic_operation_verified": false,
+  "independent_review": "required",
+  "remaining_gates": [
+    "Multi-day authentic operating observation",
+    "Sufficient independent point-in-time empirical history and validation",
+    "Certified effective fees",
+    "Separately authorized provider verification",
+    "Two-family release evidence and independent V1 acceptance"
+  ],
+  "pytest": {
+    "tests": 1292,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pytest_elapsed_seconds": 679.34,
+  "focused_tests": 64,
+  "integrity_lifecycle_tests": 12,
+  "frontend_tests": 22,
+  "strict_mypy_files": 551,
+  "repository_ruff": true,
+  "repository_format": true
+}

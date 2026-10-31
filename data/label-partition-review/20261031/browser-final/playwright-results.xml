@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="145.086522">
+<testsuite name="forward-validation.spec.cjs" timestamp="2026-10-31T11:50:57.873Z" hostname="" tests="1" failures="0" skipped="0" time="28.479" errors="0">
+<testcase name="continuous forward validation: authentic shadow receipts and new label acquisition" classname="forward-validation.spec.cjs" time="28.479">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="label-partitions.spec.cjs" timestamp="2026-10-31T11:50:57.873Z" hostname="" tests="1" failures="0" skipped="0" time="115.569" errors="0">
+<testcase name="bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore" classname="label-partitions.spec.cjs" time="115.569">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

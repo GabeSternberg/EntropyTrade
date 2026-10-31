@@ -1,0 +1,10 @@
+{
+  "STATUS.md": "sha256:e22f846456286711b06b2890a398287cfce8719b81a5503d830ac56c6efa0394",
+  "PROJECT_CONTEXT.md": "sha256:8c8c5485cbf8d421e59ed0d78727d8a8a4e5c0fbcc7a8b957e9c58f390a5bfe4",
+  "docs/roadmap.md": "sha256:d7441b3a7ff2140a43c48a4840c14c7940ea16863043a14614832e28b6385e68",
+  "docs/v1_acceptance.md": "sha256:3d5bf25796ff61ed1e9a8493a2b9fc562eea14a0dcb69ac42366dc8536a324e0",
+  "docs/forward-validation.md": "sha256:5db7810cfffd3fd4d9152343c5deb248b93445cc733822285f4a308f8c8004b2",
+  "docs/label-partitions.md": "sha256:fdc83c0c87cf02eb1867a837cf7a073b92f2a368ad0a473d9cd6cf44b3b3229d",
+  "docs/data-platform.md": "sha256:78980f542759467478be03aff99ffd2b02c5043a9fcf880c74a124c56cdb5a78",
+  "data/label-partition-review/20261031/README.md": "sha256:14dfa83394883e92210db835b5fa255f91fa8f59884380e0e4d6e32197104ce3"
+}

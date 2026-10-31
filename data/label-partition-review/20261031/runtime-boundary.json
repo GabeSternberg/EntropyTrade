@@ -1,0 +1,9 @@
+{
+  "source": "Transcribed from this session's initial exec tool output; the denied probe was not repeated.",
+  "probe": "socket.socket(); socket.bind((\"127.0.0.1\", 0))",
+  "failure_stage": "socket.socket() construction",
+  "exception": "PermissionError: [Errno 1] Operation not permitted",
+  "browser_launch_attempted_in_restricted_runtime": false,
+  "resolution": "Standard require_escalated tool review allowed the actual asyncio/listener/managed-Chromium commands. No sandbox or browser-security setting was changed.",
+  "supported_chromium_install": "chromium-install.log"
+}

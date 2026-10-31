@@ -345,25 +345,29 @@ def test_active_schedule_shutdown_partial_receipt_and_restart_retry(
     reopened.scheduler.validate()
 
 
-def test_storage_budget_retains_original_plan_until_explicit_resume(
+def test_partition_publication_failure_retains_original_plan_until_explicit_resume(
     controlled: tuple[LabelService, dict[str, Any], SimulatedClock], monkeypatch: pytest.MonkeyPatch
 ) -> None:
     service, initial, _ = controlled
     selected = service.scheduler.create(config(initial))
     schedule_id = selected["config"]["id"]
-    original = service.catalog
-    monkeypatch.setattr(service, "catalog", lambda: [{"status": "completed"}] * 128)
+    original = service.partitions.prepare
+
+    def unavailable(owner: LabelService) -> Path:
+        raise OSError("partition publication unavailable")
+
+    monkeypatch.setattr(service.partitions, "prepare", unavailable)
     service.scheduler.tick()
     blocked = current(service, schedule_id)
     assert blocked.status == "blocked"
-    assert "128 acquisition budget" in blocked.detail
+    assert "partition publication unavailable" in blocked.detail
     assert blocked.inflight
     service.scheduler.tick()
     assert current(service, schedule_id) == blocked
     service.scheduler.control(schedule_id, "pause")
     service.scheduler.tick()
     assert current(service, schedule_id).inflight == blocked.inflight
-    monkeypatch.setattr(service, "catalog", original)
+    monkeypatch.setattr(service.partitions, "prepare", original)
     reopened = LabelService(service.workspace)
     reopened.recover()
     reopened.scheduler.control(schedule_id, "resume")

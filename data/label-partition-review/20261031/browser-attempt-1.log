@@ -1,0 +1,59 @@
+
+> entropytrade-browser-acceptance@1.0.0 test
+> playwright test label-partitions.spec.cjs --max-failures=1
+
+
+Running 1 test using 1 worker
+
+(node:140995) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:140995) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore (1.7m)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('#weather-message')
+    Expected substring: [32m"Immutable dataset selected"[39m
+    Received string:    [31m"weather scalar label replay audit mismatch"[39m
+    Timeout: 10000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 10000ms[22m
+    [2m  - waiting for locator('#weather-message')[22m
+    [2m    3 × locator resolved to <p class="hint" role="status" id="weather-message">Verifying receipts and freezing dataset…</p>[22m
+    [2m      - unexpected value "Verifying receipts and freezing dataset…"[22m
+    [2m    11 × locator resolved to <p class="hint" role="status" id="weather-message">weather scalar label replay audit mismatch</p>[22m
+    [2m       - unexpected value "weather scalar label replay audit mismatch"[22m
+
+
+      176 |     fs.writeFileSync(path.join(evidence, "controlled-requests.json"), JSON.stringify(all, null, 2));
+      177 |     fs.copyFileSync(phaseFile + ".calls.jsonl", path.join(evidence, "controlled-calls.jsonl"));
+    > 178 |     await page.getByRole("button", { name: "Freeze retained weather dataset", exact: true }).click();
+          |                                                    ^
+      179 |     await expect(page.locator("#weather-message")).toContainText("Immutable dataset selected");
+      180 |     await expect(page.locator("#weather-readiness")).toContainText("1 source-matched scalar labels");
+      181 |     await expect(page.locator("#weather-readiness")).toContainText("insufficient data");
+        at /home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs:178:52
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+  1 error was not a part of any test, see above for details

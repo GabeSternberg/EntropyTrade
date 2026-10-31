@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="36.728" timestamp="2026-10-31T07:40:33.277955-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_label_partitions" name="test_260_real_acquisition_batches_two_rollovers_idempotency_and_frozen_clocks" time="33.699"><failure message="ValueError: weather scalar label replay audit mismatch">collected = (&lt;entropytrade.weather.label_service.LabelService object at 0x7640192ef680&gt;, {'schema': 'retained-weather-v1', 'datase...fc1-7eff-4567-b04b-a93511944c32', 'c6c16b5a-337a-47ad-bcf5-0aa58fc4ef88', '77e2800c-b47b-47d3-84f6-8ec671a4555b', ...])
+
+    def test_260_real_acquisition_batches_two_rollovers_idempotency_and_frozen_clocks(
+        collected: tuple[LabelService, dict[str, Any], SimulatedClock, list[str]],
+    ) -&gt; None:
+        service, initial, clock, calls = collected
+        ids = [collect(service, initial, clock) for _ in range(260)]
+        assert calls == ids
+        partitions = service.partitions.catalog()
+        assert [p["requests"] for p in partitions] == [128, 128, 4]
+        assert [p["status"] for p in partitions] == ["sealed", "sealed", "active"]
+        assert len(batches(service.workspace)) == 260
+        assert len(service.active_catalog()) == 4
+        original = service.get(ids[0])
+        assert original["receipts"][0]["received_at"] == NOW.isoformat().replace("+00:00", "Z")
+        before = {p: file_hash(p) for p in service.root.rglob("*.json")}
+        assert service.create({"id": ids[0], "dataset_id": initial["dataset_id"][7:]}) == original
+        assert len(calls) == 260
+        with pytest.raises(ValueError, match="sealed"):
+            service.save(original)
+        stale = {**original, "receipts": []}
+        service.finish(stale, "failed", "stale completion")
+        assert service.get(ids[0]) == original
+        assert service.get(ids[127])["result"]["verified_events"] == 0
+        assert service.get(ids[128])["result"]["verified_events"] == 1
+        assert all(file_hash(p) == digest for p, digest in before.items())
+        reopened = LabelService(service.workspace)
+        reopened.recover()
+        assert reopened.get(ids[0]) == original
+        assert all(file_hash(p) == digest for p, digest in before.items())
+        captures = [
+            service.workspace / "runs" / j.name / "public"
+            for j in (service.workspace / "runs").iterdir()
+            if (j / "public").is_dir()
+        ]
+&gt;       frozen = build_snapshot(
+            service.workspace / "runs/weather-datasets",
+            captures,
+            scalar_batches=batches(service.workspace),
+        )
+
+backend/tests/unit/test_label_partitions.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+backend/src/entropytrade/weather/history.py:297: in build_snapshot
+    return _build_snapshot(
+backend/src/entropytrade/weather/history.py:747: in _build_snapshot
+    load_snapshot(staging)
+backend/src/entropytrade/weather/history.py:102: in load_snapshot
+    _verify_labels(root, manifest)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+root = PosixPath('/tmp/pytest-of-gabriel/pytest-191/test_260_real_acquisition_batc0/controlled/runs/weather-datasets/.building-8c460c1af75049e8dd1c874f0f0dc4b30a1f7d8c6a38d9fa5b84e9f987136d0d')
+manifest = {'capture_count': 1, 'checksums': {'dataset/manifest.json': 'sha256:c8cb4859235a3ab2886a81a928423725cf8c6beda1f000de17...a38d9fa5b84e9f987136d0d', 'features': 'features/2775e3e8a3854464e18f8b35079544eb4e24404b1d0ac1441a081af9573bb8aa', ...}
+
+    def _verify_labels(root: Path, manifest: dict[str, Any]) -&gt; None:
+        """Reparse original label bytes and bind them to original rules during offline load."""
+        from entropytrade.weather.label_history import retained_labels
+        from entropytrade.weather.labels import load_batch
+    
+        paths = sorted((root / "scalar-labels").glob("*.json"))
+        if sorted(load_batch(p).version for p in paths) != manifest["identity"]["scalar_label_inputs"]:
+            raise ValueError("weather scalar label inventory mismatch")
+        markets = [
+            MarketEvidence.model_validate_json(line)
+            for path in sorted((root / "receipts").glob("*/markets.jsonl"))
+            for line in path.read_text().splitlines()
+        ]
+        source = json.loads((root / "dataset/manifest.json").read_text())
+        config = WeatherConfig(locations=tuple(source["config"]["locations"]))
+        observed, audit, _, bodies = retained_labels(
+            paths, markets, config, frozenset(manifest["identity"]["protected_events"])
+        )
+        if source.get("retained_label_audit") != audit:
+&gt;           raise ValueError("weather scalar label replay audit mismatch")
+E           ValueError: weather scalar label replay audit mismatch
+
+backend/src/entropytrade/weather/history.py:125: ValueError</failure></testcase></testsuite></testsuites>

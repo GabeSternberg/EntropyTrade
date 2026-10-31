@@ -41,11 +41,12 @@ response is not claimed as retained evidence. Reconciliation can verify the save
 retry missing dates even when the overall request failed; restart and offline validation
 preserve that same request and immutable batch.
 
-At most eight schedules and 2,048 event/rule targets per schedule are supported. The workspace
-guard stops at 128 acquisition requests to preserve the existing 128-batch reader budget.
-Exhaustion blocks scheduling with an explicit
-operator message, retaining its plan, receipts and backlog. Preserve/snapshot the workspace
-and review partitioning before continuing; pause/resume cannot bypass the budget. Network
+At most eight schedules and 2,048 event/rule targets per schedule are supported. Collection
+now rolls automatically into [bounded immutable label partitions](label-partitions.md) after
+128 requests per partition. Original receipts remain in place and archived IDs stay idempotent.
+Busy partitions drain before sealing; temporary backpressure retains the same schedule plan.
+Filesystem or verification failures block explicitly without losing receipts or backlog.
+Network
 requests still have fixed destinations, no credentials/cookies/redirects, a 2 MB body cap,
 15-second request timeout and a 120-second batch deadline. These limits are not risk limits.
 

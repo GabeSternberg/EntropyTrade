@@ -1,3 +1,23 @@
+# Bounded immutable label partitions — October 31, 2026
+
+**complete=false.** This intermediate milestone on designated `supervisor/20261031-073225`
+removes the finite acquisition cap while retaining bounded evidence partitions. All Git
+operations and independent review remain with the supervisor. See [operator workflow](label-partitions.md)
+and [executed evidence](../data/label-partition-review/20261031/README.md). Historical matrices
+below retain their original scope; their former workspace-wide acquisition limit is superseded.
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Collection beyond 128 controlled batches | `test_label_partitions.py`; managed-Chromium `label-partitions.spec.cjs` | Actual acquisition service executes 260 controlled batches across 128/128/4 partitions; browser executes 130 unique request IDs across 128/2. Accelerated dates/source responses prove software behavior only. |
+| Immutable rollover, idempotency and bounded work | `label_partitions.py`, `label_service.py`, chained seal downloads | Original flat files stay in place; archived IDs do not refetch. Per-partition request/inventory limits, queue/network limits and snapshot/recovery storage budgets remain enforced. |
+| Busy rollover, cancellation and failure recovery | Drain/backpressure regression; after-seal interruption regression; Chromium outage/pause controls | Durable plans retain their identity; busy schedules wait for drain. Source errors, interrupted requests and receipts remain inspectable. Sealed corruption and symlinks fail closed. |
+| Website inspection and immutable datasets | Partition selector, all bounded request rows, manifest/source downloads, dataset freeze | Both actual Chromium procedures pass. Cross-partition audits replay in deterministic hash order. The first browser attempt exposed an audit-order bug and remains recorded as failed. |
+| Original clocks, holdouts and independent event counts | 260-revision snapshot test, existing leakage/risk regression suite, 73 original safety hashes | Receipt clocks and frozen boundaries stay fixed. Many revisions of one event still count as one event; model/history insufficiency remains explicit. |
+| Restart and offline recovery | Browser compares original/restored schedules, seal and archived label bytes; verifies all 262 controlled label-store files | Executed listener restart and offline snapshot/restore pass without duplicate controlled requests. Active restored schedules honor earlier opt-in; pause before inspection exports. |
+| Separately identified authentic operating evidence | Authentic whole-shadow import, two new public source receipts, browser restart/offline restore | Three station/day scalar highs qualify; one preliminary report is refused. This short real-clock sample does not establish multi-day operation, sufficient independent history, empirical models or profitability. |
+| Quality and independent review | Ruff/format, strict mypy, frontend, focused/full pytest and actual Playwright reports in current bundle | Repository Ruff/format, strict mypy (551 files), 22 frontend checks, 64 focused and 12 integrity/lifecycle cases, all 1,292 pytest cases (679.34s; zero failures/errors/skips) and both final Chromium procedures pass. Existing locked environment reused; no new clean-install or independent release approval is claimed. |
+| Outstanding V1 gates and safety | Existing empirical/provider/fee/release gates | V1 remains incomplete. More authentic history, sustained operation, certified fees, authorized provider verification, two-family evidence and independent acceptance remain open. No credentials, new family, real orders, activation or risk-limit changes. |
+
 # Atomic request-claim/cancellation correction — October 31, 2026
 
 **complete=false.** Corrected on designated `supervisor/20261031-054650` from `2f93999`.

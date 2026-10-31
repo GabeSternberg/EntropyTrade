@@ -215,6 +215,7 @@ def validate_database(root: Path) -> dict[str, int]:
 
         # Read-only validation; restoring never resumes source acquisition.
         labels = LabelService(root)
+        labels.partitions.validate()
         labels.catalog()
         labels.scheduler.validate()
         batches(root)

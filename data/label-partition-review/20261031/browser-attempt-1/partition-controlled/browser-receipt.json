@@ -1,0 +1,304 @@
+{
+  "status": "failed",
+  "started_at": "2026-10-31T11:39:15.805Z",
+  "origin": "http://127.0.0.1:43153",
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/label-partition-20261031-browser-1-partitions",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "browser": "141.0.7390.37",
+  "operations": [
+    {
+      "action": "start",
+      "epoch": 1,
+      "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/label-partition-20261031-browser-1-partitions"
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 1,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "c1d3a8c3-edf3-4453-86b6-33c1040d52cc",
+          "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2026-10-31T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:1e88239910a90cad31778ab5004c8139248d09449e561040a81abbe0843cfc73",
+            "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2026-11-01T12:00:00Z",
+            "attempts": 1,
+            "failures": 0,
+            "last_request": "74189643-207f-5c10-8fab-2b8972cb773b",
+            "last_batch": "sha256:903d3f5a1ef5bc5949a44f1fb66e8a562395618bf5d41395fffde73714e409e5",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 1,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 127,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "c1d3a8c3-edf3-4453-86b6-33c1040d52cc",
+          "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-06T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:1e88239910a90cad31778ab5004c8139248d09449e561040a81abbe0843cfc73",
+            "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2027-03-07T12:00:00Z",
+            "attempts": 127,
+            "failures": 0,
+            "last_request": "20b04383-26a1-5696-a276-6557d6ef2655",
+            "last_batch": "sha256:218006a305c0236534f13a28a5e65c24c7d485fcb029c2faf37b2761990a30e6",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 127,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 128,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "c1d3a8c3-edf3-4453-86b6-33c1040d52cc",
+          "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-07T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:1e88239910a90cad31778ab5004c8139248d09449e561040a81abbe0843cfc73",
+            "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "retry",
+            "next_at": "2027-03-07T12:05:00Z",
+            "attempts": 128,
+            "failures": 1,
+            "last_request": "5cefaee8-7ec5-5e99-8d47-949ca91d8fde",
+            "last_batch": "sha256:6c4e52636ca196b047d8bc0b893d2040ad366171e499802f7269e28649daa8fc",
+            "detail": "source HTTP 503"
+          }
+        ],
+        "sequence": 128,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "retry": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 129,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "c1d3a8c3-edf3-4453-86b6-33c1040d52cc",
+          "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-08T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:1e88239910a90cad31778ab5004c8139248d09449e561040a81abbe0843cfc73",
+            "dataset_id": "0e5b4a985713a3ebbda52838ef9403af2a9590bb1051d1ee2fe051eb15bb6717",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2027-03-09T12:00:00Z",
+            "attempts": 129,
+            "failures": 0,
+            "last_request": "d1922fdd-88c8-55a2-a97d-0b135e266ee3",
+            "last_batch": "sha256:fa95395aeae82dd62a6fa0f306ca4dc4765bbfeed98186a5cd069a6f39f09956",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 129,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "no-duplicate-network-requests",
+      "batches": 130,
+      "source_calls": 130,
+      "distinct_request_ids": 130
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    }
+  ],
+  "downloads": [],
+  "screenshots": [
+    {
+      "file": "batch-1.png",
+      "sha256": "5a8696285705aa1cfbad3a2c017ec25e3026cc770dc42d4d4f83c9f7cc83c829"
+    },
+    {
+      "file": "batch-127.png",
+      "sha256": "be1df1e0abbf5b38919fcfd48baabbf958f8c1de2320cd4e2c247cad1a1e8fc3"
+    },
+    {
+      "file": "batch-128.png",
+      "sha256": "ac4a727b28b1d83dea9c667b27a82cbacb5b991a75ba4f3c0d31ae5db3f7e179"
+    },
+    {
+      "file": "boundary-outage.png",
+      "sha256": "cd8cad108d81146e7dc7365a36215b755ff29fd7ed1c88ce9ad7452f4d0253f9"
+    },
+    {
+      "file": "batch-129.png",
+      "sha256": "cfa5cc6c18e17bd0ceb914deb0e6748a5e6f6c90b9904314316f0872cb044756"
+    },
+    {
+      "file": "rolled-over.png",
+      "sha256": "758235bf943ca54b44e02c2f6aad7ec068b672cc76d59ee1127e5b8cefb2a5f7"
+    },
+    {
+      "file": "cancelled-successor.png",
+      "sha256": "f6cc79b768b9aea3659a52ec713bec74b043ad8e3e3d219c91dcb05505d3ffff"
+    }
+  ],
+  "page_errors": [],
+  "evidence_scope": "CONTROLLED source reports and accelerated scheduling clock. No elapsed authentic operation, empirical fitting or performance proof.",
+  "failure": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#weather-message')\nExpected substring: \u001b[32m\"Immutable dataset selected\"\u001b[39m\nReceived string:    \u001b[31m\"weather scalar label replay audit mismatch\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-message')\u001b[22m\n\u001b[2m    3 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">Verifying receipts and freezing dataset…</p>\u001b[22m\n\u001b[2m      - unexpected value \"Verifying receipts and freezing dataset…\"\u001b[22m\n\u001b[2m    11 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">weather scalar label replay audit mismatch</p>\u001b[22m\n\u001b[2m       - unexpected value \"weather scalar label replay audit mismatch\"\u001b[22m\n\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs:178:52",
+  "finished_at": "2026-10-31T11:40:59.825Z"
+}

@@ -1,0 +1,174 @@
+{
+  "config": {
+    "configFile": "/home/gabriel/Projects/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "label-partitions.spec.cjs",
+      "file": "label-partitions.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 104413,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#weather-message')\nExpected substring: \u001b[32m\"Immutable dataset selected\"\u001b[39m\nReceived string:    \u001b[31m\"weather scalar label replay audit mismatch\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-message')\u001b[22m\n\u001b[2m    3 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">Verifying receipts and freezing dataset…</p>\u001b[22m\n\u001b[2m      - unexpected value \"Verifying receipts and freezing dataset…\"\u001b[22m\n\u001b[2m    11 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">weather scalar label replay audit mismatch</p>\u001b[22m\n\u001b[2m       - unexpected value \"weather scalar label replay audit mismatch\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#weather-message')\nExpected substring: \u001b[32m\"Immutable dataset selected\"\u001b[39m\nReceived string:    \u001b[31m\"weather scalar label replay audit mismatch\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-message')\u001b[22m\n\u001b[2m    3 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">Verifying receipts and freezing dataset…</p>\u001b[22m\n\u001b[2m      - unexpected value \"Verifying receipts and freezing dataset…\"\u001b[22m\n\u001b[2m    11 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">weather scalar label replay audit mismatch</p>\u001b[22m\n\u001b[2m       - unexpected value \"weather scalar label replay audit mismatch\"\u001b[22m\n\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs:178:52",
+                    "location": {
+                      "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs",
+                      "column": 52,
+                      "line": 178
+                    },
+                    "snippet": "  176 |     fs.writeFileSync(path.join(evidence, \"controlled-requests.json\"), JSON.stringify(all, null, 2));\n  177 |     fs.copyFileSync(phaseFile + \".calls.jsonl\", path.join(evidence, \"controlled-calls.jsonl\"));\n> 178 |     await page.getByRole(\"button\", { name: \"Freeze retained weather dataset\", exact: true }).click();\n      |                                                    ^\n  179 |     await expect(page.locator(\"#weather-message\")).toContainText(\"Immutable dataset selected\");\n  180 |     await expect(page.locator(\"#weather-readiness\")).toContainText(\"1 source-matched scalar labels\");\n  181 |     await expect(page.locator(\"#weather-readiness\")).toContainText(\"insufficient data\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs",
+                        "column": 52,
+                        "line": 178
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#weather-message')\nExpected substring: \u001b[32m\"Immutable dataset selected\"\u001b[39m\nReceived string:    \u001b[31m\"weather scalar label replay audit mismatch\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#weather-message')\u001b[22m\n\u001b[2m    3 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">Verifying receipts and freezing dataset…</p>\u001b[22m\n\u001b[2m      - unexpected value \"Verifying receipts and freezing dataset…\"\u001b[22m\n\u001b[2m    11 × locator resolved to <p class=\"hint\" role=\"status\" id=\"weather-message\">weather scalar label replay audit mismatch</p>\u001b[22m\n\u001b[2m       - unexpected value \"weather scalar label replay audit mismatch\"\u001b[22m\n\n\n  176 |     fs.writeFileSync(path.join(evidence, \"controlled-requests.json\"), JSON.stringify(all, null, 2));\n  177 |     fs.copyFileSync(phaseFile + \".calls.jsonl\", path.join(evidence, \"controlled-calls.jsonl\"));\n> 178 |     await page.getByRole(\"button\", { name: \"Freeze retained weather dataset\", exact: true }).click();\n      |                                                    ^\n  179 |     await expect(page.locator(\"#weather-message\")).toContainText(\"Immutable dataset selected\");\n  180 |     await expect(page.locator(\"#weather-readiness\")).toContainText(\"1 source-matched scalar labels\");\n  181 |     await expect(page.locator(\"#weather-readiness\")).toContainText(\"insufficient data\");\n    at /home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs:178:52"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T11:39:15.444Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/label-partition-review/20261031/browser-attempt-1/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/gabriel/Projects/EntropyTrade/frontend/browser/label-partitions.spec.cjs",
+                    "column": 52,
+                    "line": 178
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "3e48bb4b92ab12edcbb7-650f23ea395e9ba3bfb7",
+          "file": "label-partitions.spec.cjs",
+          "line": 12,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-31T11:39:14.961Z",
+    "duration": 105417.54000000001,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

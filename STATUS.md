@@ -3,7 +3,43 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: durable acquisition-error finalization
+## Current milestone: bounded immutable label partitions
+
+Implemented in place on designated `supervisor/20261031-073225` from `b62f9c6`. All Git
+operations and independent approval remain with the supervisor. **V1 remains incomplete.**
+
+Continuous read-only schedules now roll beyond the former 128-request workspace cap. Each
+partition retains at most 128 requests; completed partitions seal with chained manifests and
+exact file hashes, without moving or retiming earlier evidence. Temporary queue/full-partition
+backpressure preserves the original schedule plan until drain. Archived request IDs remain
+idempotent; a crash after seal resumes the same unpublished plan. Partial cancellation,
+terminal-state protection and explicit filesystem/verification failures remain enforced.
+
+The website inspects every bounded label partition and downloads its seal and source evidence.
+Manual freezes, following retained inputs and cohort assembly read verified batches across
+partitions under the existing 256 MB snapshot budget. Canonical audit ordering makes cross-
+partition assembly reproducible. Offline recovery validates all seals, inventories, request/
+batch bindings and original source clocks. Repeated revisions do not add independent events
+or repair earlier model cutoffs; frozen holdouts remain unchanged.
+
+Final verification passes repository-wide Ruff/format, strict mypy (551 files), all 22 frontend
+checks, 64 focused tests, 12 integrity/lifecycle checks and **all 1,292 pytest cases in 679.34s**
+(zero failures/errors/skips). Both final managed-Chromium procedures pass, retaining 14 screenshots,
+12 downloads and zero page errors. All 262 controlled label-store files match after restart and
+offline restore; all 73 original receipt/Bitcoin boundary hashes stay unchanged. The 260-batch,
+two-rollover service check and 130-batch browser check are controlled software evidence.
+Separately retained authentic operating evidence verifies three station/day highs and refuses
+one preliminary report, with real receipt-time availability. Multi-day reliability, sufficient
+independent empirical history and profitability are not established. See
+[executed evidence](data/label-partition-review/20261031/README.md) for exact results, retained
+failed/interrupted attempts, the missing-terminal-batch guard and local-artifact requirements.
+
+No new family, credentials, real orders, execution activation, risk-limit changes, Git
+mutations or supervisor-control changes are included. New-family selection and credential-
+dependent provider verification remain deferred. Return this single milestone for independent
+review before starting another major phase. See [operator workflow](docs/label-partitions.md).
+
+## Previous milestone: durable acquisition-error finalization
 
 Corrected in place on designated `supervisor/20261031-054650` from `5d5e893`. Git operations
 and independent approval remain with the supervisor. **V1 remains incomplete.**

@@ -23,11 +23,15 @@ def retained_labels(
         for m in markets
         if m.market.event_ticker in protected and m.market.series_ticker in locations
     }
-    for path in paths:
+    retained_bytes = 0
+    for path in sorted(paths, key=lambda p: p.stem):
         batch = load_batch(path)
         relevant = {m.market.event_ticker for m in markets} & {t.event_id for t in batch.targets}
         if not relevant:
             continue
+        retained_bytes += path.stat().st_size
+        if retained_bytes > 256 * 1024 * 1024:
+            raise ValueError("retained weather label inputs exceed 256 MB budget")
         prefix = "scalar-labels/" + batch.version.removeprefix("sha256:")
         copies[prefix + ".json"] = path
         summary = batch.summary()

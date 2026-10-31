@@ -133,7 +133,7 @@ def test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_a
     reopened.scheduler.validate()
     assert reopened.get(first["id"]) == failed
     assert reopened.scheduler.get(schedule_id) == reconciled
-    assert batches(service.workspace) == [batch_path]
+    assert list(batches(service.workspace)) == [batch_path]
     assert validate_database(service.workspace)["jobs"] == 2
     assert (request_path.read_bytes(), batch_path.read_bytes()) == before
     assert schedule_path.read_bytes() == schedule_before

@@ -189,10 +189,30 @@ class Handler(BaseHTTPRequestHandler):
                 )
             except (ValueError, OSError, KeyError, TypeError):
                 self.document(409, {"error": "Forward validation state verification failed"})
+        elif path == "/api/weather/label-partitions" or path.startswith(
+            "/api/weather/label-partitions/"
+        ):
+            try:
+                with self.server.labels.lock:
+                    label_store = self.server.labels.partitions
+                    if path == "/api/weather/label-partitions":
+                        self.document(200, label_store.catalog())
+                    else:
+                        parts = path.removeprefix("/api/weather/label-partitions/").split("/")
+                        root = label_store.selected(parts[0])
+                        if len(parts) == 2 and parts[1] == "manifest":
+                            label_store.validate()
+                            self.document(200, label_store.manifest(root))
+                        elif len(parts) == 1:
+                            self.document(200, self.server.labels.catalog(parts[0]))
+                        else:
+                            self.document(404, {"error": "not found"})
+            except (ValueError, OSError, KeyError, TypeError):
+                self.document(409, {"error": "Label partition verification failed"})
         elif path == "/api/weather/labels" or path.startswith("/api/weather/labels/"):
             try:
                 if path == "/api/weather/labels":
-                    self.document(200, self.server.labels.catalog())
+                    self.document(200, self.server.labels.active_catalog())
                 else:
                     label_version = "sha256:" + path.removeprefix("/api/weather/labels/")
                     from entropytrade.weather.labels import load_batch
