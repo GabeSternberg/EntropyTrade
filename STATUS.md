@@ -3,7 +3,33 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: atomic label-request claiming and cancellation
+## Current milestone: durable acquisition-error finalization
+
+Corrected in place on designated `supervisor/20261031-054650` from `5d5e893`. Git operations
+and independent approval remain with the supervisor. **V1 remains incomplete.**
+
+The acquisition loop now finalizes errors from freshly loaded durable state. Previously its
+stale queued selection could erase receipts persisted by the owned acquisition request.
+Actual-loop regressions reproduce both acquisition and transient second-receipt-save errors,
+then verify exact retained bytes/timestamps through failure, scheduler reconciliation,
+restart and read-only workspace validation. Existing terminal request/batch protection remains
+tested for all three terminal statuses. Unsaved responses are not claimed as retained receipts.
+
+Ruff/format, strict mypy (548 files), 22 frontend checks and 55 focused pytest cases pass.
+The complete suite passes **all 1,282 pytest cases in 556.02s**, zero failures/errors/skips.
+Both actual managed-Chromium procedures pass through localhost listeners, retaining 13
+screenshots, six downloads and zero page errors. All four partial failed requests and their
+eight file hashes survive restart and offline restore; the earlier startup cancellation and
+schedule-download comparisons still pass. Authentic acquisition verifies three station/day
+highs and refuses one preliminary report; availability begins at the new receipts, with
+empirical fitting and returns still insufficient. All 73 original receipt/Bitcoin boundary
+hashes remain unchanged. See [correction evidence](data/forward-validation-review/20261031-acquisition-errors/README.md)
+for exact reproduction, quality, browser, complete-suite and local-artifact results.
+
+No new family, credentials, real orders, activation, risk-limit changes, Git mutations or
+next major phase are included. Return this same correction for independent review.
+
+## Previous milestone: atomic label-request claiming and cancellation
 
 Corrected in place on designated `supervisor/20261031-054650` from `2f93999`. Git operations
 and independent approval remain with the supervisor. **V1 remains incomplete.**

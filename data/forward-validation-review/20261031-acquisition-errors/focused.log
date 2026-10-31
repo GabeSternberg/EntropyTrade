@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 55 items
+
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[acquisition] PASSED [  1%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[second_receipt_save] PASSED [  3%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[completed] PASSED [  5%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[failed] PASSED [  7%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[interrupted] PASSED [  9%]
+backend/tests/unit/test_label_lifecycle.py::test_queued_selection_cannot_start_after_durable_completion[interrupted] PASSED [ 10%]
+backend/tests/unit/test_label_lifecycle.py::test_queued_selection_cannot_start_after_durable_completion[completed] PASSED [ 12%]
+backend/tests/unit/test_label_lifecycle.py::test_queued_selection_cannot_start_after_durable_completion[failed] PASSED [ 14%]
+backend/tests/unit/test_label_lifecycle.py::test_cancellation_between_active_registration_and_acquisition_start[pause] PASSED [ 16%]
+backend/tests/unit/test_label_lifecycle.py::test_cancellation_between_active_registration_and_acquisition_start[shutdown] PASSED [ 18%]
+backend/tests/unit/test_label_lifecycle.py::test_repeated_claim_cannot_replace_running_ownership PASSED [ 20%]
+backend/tests/unit/test_label_schedule.py::test_over_eight_dates_fair_batches_revisions_restarts_and_immutable_snapshots PASSED [ 21%]
+backend/tests/unit/test_label_schedule.py::test_outages_backoff_pause_recovery_and_no_duplicate_request_after_crash PASSED [ 23%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change0] PASSED [ 25%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change1] PASSED [ 27%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change2] PASSED [ 29%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change3] PASSED [ 30%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change4] PASSED [ 32%]
+backend/tests/unit/test_label_schedule.py::test_optin_budgets_and_scope_fail_closed[change5] PASSED [ 34%]
+backend/tests/unit/test_label_schedule.py::test_protection_added_after_optin_prevents_source_access PASSED [ 36%]
+backend/tests/unit/test_label_schedule.py::test_follow_retained_authentic_shadow_discovery_and_offline_freeze PASSED [ 38%]
+backend/tests/unit/test_label_schedule.py::test_corruption_and_symlink_schedule_fail_closed PASSED [ 40%]
+backend/tests/unit/test_label_schedule.py::test_follow_enrolls_unseen_dates_without_reacquiring_existing_targets PASSED [ 41%]
+backend/tests/unit/test_label_schedule.py::test_active_schedule_shutdown_partial_receipt_and_restart_retry PASSED [ 43%]
+backend/tests/unit/test_label_schedule.py::test_storage_budget_retains_original_plan_until_explicit_resume PASSED [ 45%]
+backend/tests/unit/test_label_schedule.py::test_dangling_symlink_schedule_is_never_followed PASSED [ 47%]
+backend/tests/unit/test_weather_labels.py::test_authentic_portal_high_preserves_unknown_publication_and_real_receipt PASSED [ 49%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[preliminary] PASSED [ 50%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[isOfficial] PASSED [ 52%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_station] PASSED [ 54%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_report_station] PASSED [ 56%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[timezone] PASSED [ 58%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[date] PASSED [ 60%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[response_date] PASSED [ 61%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[missing] PASSED [ 63%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[duplicate] PASSED [ 65%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[float] PASSED [ 67%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[bool] PASSED [ 69%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[null] PASSED [ 70%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[clock_naive] PASSED [ 72%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[future] PASSED [ 74%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_source] PASSED [ 76%]
+backend/tests/unit/test_weather_labels.py::test_controlled_malformed_or_incompatible_labels_fail_closed[protected] PASSED [ 78%]
+backend/tests/unit/test_weather_labels.py::test_late_and_corrected_labels_never_retime_old_versions PASSED [ 80%]
+backend/tests/unit/test_weather_labels.py::test_restart_idempotency_receipt_replay_and_immutable_dataset PASSED [ 81%]
+backend/tests/unit/test_weather_labels.py::test_interrupted_partial_failure_and_holdout_refusal PASSED [ 83%]
+backend/tests/unit/test_weather_labels.py::test_request_scope_immutable_ids_and_untrusted_url_denied PASSED [ 85%]
+backend/tests/unit/test_weather_labels.py::test_network_failure_redirect_and_byte_budget_are_durable_refusals[redirect] PASSED [ 87%]
+backend/tests/unit/test_weather_labels.py::test_network_failure_redirect_and_byte_budget_are_durable_refusals[oversize] PASSED [ 89%]
+backend/tests/unit/test_weather_labels.py::test_network_failure_redirect_and_byte_budget_are_durable_refusals[unavailable] PASSED [ 90%]
+backend/tests/unit/test_weather_labels.py::test_shutdown_cancels_active_network_and_preserves_prior_receipts PASSED [ 92%]
+backend/tests/unit/test_weather_labels.py::test_corrected_batch_uses_latest_known_revision_and_replays_original_bytes PASSED [ 94%]
+backend/tests/unit/test_weather_labels.py::test_wrong_rule_batch_is_refused_and_symlink_store_is_denied PASSED [ 96%]
+backend/tests/integration/test_weather_labels_listener.py::test_label_acquisition_status_refusals_dataset_restart_and_offline_restore PASSED [ 98%]
+backend/tests/integration/test_forward_validation_listener.py::test_continuous_controlled_listener_transitions_restart_and_offline_replay PASSED [100%]
+
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/forward-validation-review/20261031-acquisition-errors/focused.xml -
+============================= 55 passed in 30.96s ==============================

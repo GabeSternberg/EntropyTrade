@@ -290,7 +290,9 @@ class LabelService:
             except (ValueError, OSError, KeyError, TypeError) as exc:
                 if request:
                     self.finish(
-                        request,
+                        # bounded() owns a reloaded copy. Its receipts may already be
+                        # durable even when acquisition or a later save raises.
+                        self.get(request["id"]),
                         "failed",
                         type(exc).__name__
                         + ": acquisition failed; retained receipts may be incomplete",

@@ -9,7 +9,22 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current correction makes label-request claiming and cancellation atomic under the service
+The current correction finalizes acquisition errors from freshly loaded durable request state.
+The stale queued copy can no longer erase a response saved before an acquisition or later
+receipt-save error. Actual-loop regressions verify original bytes/timestamps through failure,
+scheduler reconciliation, restart and offline validation; all three terminal states retain
+their existing protection. Managed-Chromium page interactions inspect both errors and compare
+all four partial failed requests and eight request/batch file hashes after restart/restore.
+Ruff/format, strict mypy (548 files), 22 frontend checks, 55 focused cases and both browser
+procedures pass, with 13 screenshots, six downloads and zero page errors. All 73 original
+receipt/Bitcoin boundary hashes remain unchanged. The complete suite passes **all 1,282
+pytest cases in 556.02s**, zero failures/errors/skips. Authentic acquisition verifies three
+station/day highs and refuses one preliminary report; empirical models and returns remain
+insufficient. See [correction evidence](../data/forward-validation-review/20261031-acquisition-errors/README.md)
+for complete executed results and limits. Return this same milestone for independent review;
+all Git operations remain with the supervisor. **V1 remains incomplete.**
+
+The preceding correction makes label-request claiming and cancellation atomic under the service
 lock. Durable state is reloaded before claiming; terminal requests are skipped; active ownership
 and the running transition are registered together. Pause/shutdown intent protects acquisition
 startup before the event loop delivers cancellation, and stale completion cannot replace terminal

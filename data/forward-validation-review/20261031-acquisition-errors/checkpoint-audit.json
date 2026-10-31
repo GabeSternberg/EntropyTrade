@@ -1,0 +1,8 @@
+{
+  "read_only": true,
+  "staged_paths": [],
+  "prospective_files": 66,
+  "largest_candidate_bytes": 308353,
+  "oversized_candidates": [],
+  "git_mutations": false
+}

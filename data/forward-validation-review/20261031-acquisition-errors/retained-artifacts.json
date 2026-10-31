@@ -1,0 +1,26 @@
+{
+  "scope": "Local-only original trace/workspace archives. No bytes deleted or retimed.",
+  "files": [
+    {
+      "path": "data/cache/20261031-acquisition-errors-browser-forward-authentic.zip",
+      "bytes": 37759913,
+      "sha256": "sha256:ef4eb9ccab1d103b6d550d730c848fd958908bafb26a28b04dc6eaf59166a882"
+    },
+    {
+      "path": "data/cache/20261031-acquisition-errors-browser-forward-controlled.zip",
+      "bytes": 3720909,
+      "sha256": "sha256:fba1865287795a807fc28f7ad9b9d240cd01325a9530be2d2de1d7f371d4e135"
+    },
+    {
+      "path": "data/forward-validation-review/20261031-acquisition-errors/browser/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "bytes": 7468335,
+      "sha256": "sha256:fd0deb11ed7d0b49efec372a005c16be6473b8a9bb599e5ece5a608f3d130b2a"
+    },
+    {
+      "path": "data/forward-validation-review/20261031-acquisition-errors/browser/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 2899104,
+      "sha256": "sha256:e0cacd5e73e02d30f468ba9f7865dfac32e887a44144e51ee63eba8579292754"
+    }
+  ],
+  "total_bytes": 51848261
+}

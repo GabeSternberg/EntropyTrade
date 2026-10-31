@@ -1,0 +1,12 @@
+{
+  "backend/src/entropytrade/weather/label_service.py": "sha256:f78d129fee5de33e551bb219c7f7b5b86e435241be11c33b7f9df081f9cbd9c1",
+  "backend/src/entropytrade/weather/label_schedule.py": "sha256:d6584d401bab0f55a3600d78315258fa61d0acdbc8e3bcb2aeaca06e3b97dd3a",
+  "backend/src/entropytrade/weather/labels.py": "sha256:e8d71bd03c83ba9716622f17d3c511e1e29b9ec44ddb6f09768117d171b17dc8",
+  "backend/src/entropytrade/api/recovery.py": "sha256:3cb05f8fdc922ac69807a88c8c0123d4741c07ba8b9fcd4ecc46bbb714cb6703",
+  "backend/tests/unit/test_label_acquisition_errors.py": "sha256:210fb69fecba8e07a8b634c7021b2cc9b1387ed6ce58641bb5739c3cca963207",
+  "backend/tests/unit/test_label_lifecycle.py": "sha256:34810bda4706a30cc633a76a8e9c600e69b7e5e496cb0694a3322bbaa88ac060",
+  "backend/tests/integration/forward_validation_fixture.py": "sha256:ddf3f29bf12b6c7812683e24bf0e8ddaa0e43e3f5db095d96c697cfadb88b228",
+  "backend/tests/integration/test_forward_validation_listener.py": "sha256:e7cf7a06ecc00e0466c331c46d589220bbb0104b986093bbad9ab95a220b812a",
+  "frontend/browser/forward-validation.spec.cjs": "sha256:27de6b3c8bffc72ae2f225a712d221dcd4c462ce59815c7a6f70447babcea382",
+  "frontend/browser/playwright.config.cjs": "sha256:5e7fc67541f653a0cf9076b0325e4b738547b754d127145791eb9a011ba1c0f0"
+}

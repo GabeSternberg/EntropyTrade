@@ -1,0 +1,8 @@
+{
+  "STATUS.md": "sha256:9c27a3eb706c796750deea05c8b8b76bcc415ec119c6fc3f20c6687fa64fd2c5",
+  "docs/roadmap.md": "sha256:7795fd312f5bfab179a427c5b8244040555da76ea3f59a2bdf78b081acde0470",
+  "docs/forward-validation.md": "sha256:0b27c98926c56d20ea0364bf69919779ad5fe14fbf6c6646e415934ddcf5e9a4",
+  "data/forward-validation-review/20261031-acquisition-errors/README.md": "sha256:7fa409d6e628ecff9bce4bcec9dceb330535ef34a8102d552aa65acf4cd72eb3",
+  "data/forward-validation-review/20261031-acquisition-errors/verify_evidence.py": "sha256:d9d4803b140da51674a57732d2ef10c2d2fa90a32c4f5f97bebea95ddf8c1660",
+  "data/forward-validation-review/20261031-acquisition-errors/acceptance.json": "sha256:931cf6ae63b63e9fd620b343e11a5d8be045ebf0f1b2be1196868b01c6255c1a"
+}

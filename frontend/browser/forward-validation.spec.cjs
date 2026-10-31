@@ -72,9 +72,9 @@ async function procedure(page, browser, controlled) {
     if (server.exitCode === null && server.signalCode === null) { server.kill("SIGKILL"); throw new Error("Graceful shutdown timeout"); }
     receipt.operations.push({ action: "stop", epoch }); save();
   }
-  async function shot(name) {
+  async function shot(name, selector) {
     const file = name + ".png";
-    await page.locator(name === "frozen-insufficient-data" ? "#weather-readiness" : "section[aria-labelledby=forward-validation-title]").screenshot({ path: path.join(evidence, file) });
+    await page.locator(selector || (name === "frozen-insufficient-data" ? "#weather-readiness" : "section[aria-labelledby=forward-validation-title]")).screenshot({ path: path.join(evidence, file) });
     receipt.screenshots.push({ file, sha256: sha(fs.readFileSync(path.join(evidence, file))) }); save();
   }
   async function download(name) {
@@ -85,6 +85,15 @@ async function procedure(page, browser, controlled) {
     receipt.downloads.push({ file: name, sha256: sha(bytes) }); save(); return bytes;
   }
   let scheduleId, cancelledRequest;
+  const failedRequests = [];
+  async function assertFailedEvidence(action) {
+    const rows = await (await fetch(origin + "/api/weather/labels")).json();
+    for (const item of failedRequests) {
+      assert.deepEqual(rows.find(r => r.id === item.request.id), item.request);
+      for (const file of item.files) assert.equal(sha(fs.readFileSync(path.join(workspace, file.path))), file.sha256);
+    }
+    receipt.operations.push({ action, requests: failedRequests.map(item => item.request.id) }); save();
+  }
   async function waitFor(predicate) {
     let value;
     for (let i = 0; i < 400; i++) {
@@ -150,6 +159,32 @@ async function procedure(page, browser, controlled) {
       assert.deepEqual([...new Set(observations.map(o => Number(o.value)))].sort(), [70, 72]);
       assert(observations.every(o => o.available_at === o.received_at));
       receipt.operations.push({ action: "controlled-revisions", schedules: result, batch_versions: rows.map(r => r.batch_version) }); save();
+      for (const [failure, attempts] of [["acquisition-error", 5], ["second-receipt-save-error", 6]]) {
+        await paused(); phase(failure, 86400); await resumed();
+        result = await waitFor(s => !s.inflight && s.work.every(w => w.attempts === attempts));
+        assert.equal(result.counts.verified, 2); assert.equal(result.counts.retry, 10);
+        const requests = (await (await fetch(origin + "/api/weather/labels")).json())
+          .filter(r => r.status === "failed" && !failedRequests.some(item => item.request.id === r.id));
+        assert.equal(requests.length, 2);
+        for (const request of requests) {
+          const prior = JSON.parse(fs.readFileSync(phaseFile + ".before-error-" + request.id + ".json"));
+          assert.equal(prior.status, "running"); assert.equal(prior.receipts.length, 1);
+          assert.deepEqual(request.receipts, prior.receipts);
+          assert.equal(request.created_at, prior.created_at);
+          assert.equal(request.result.verified_events, 1);
+          assert.equal(request.result.refused_events, request.selection.targets.length - 1);
+          assert(request.detail.startsWith(failure === "acquisition-error" ? "ValueError" : "OSError"));
+          const files = ["runs/weather-labels/requests/" + request.id + ".json",
+            "runs/weather-labels/batches/" + request.batch_version.slice(7) + ".json"]
+            .map(file => ({ path: file, sha256: sha(fs.readFileSync(path.join(workspace, file))) }));
+          failedRequests.push({ before: prior, request, files });
+        }
+        await page.getByRole("button", { name: "Refresh label acquisition", exact: true }).click();
+        await expect(page.locator("#weather-labels")).toContainText("failed");
+        await expect(page.locator("#weather-labels")).toContainText("retained receipts may be incomplete");
+        receipt.operations.push({ action: failure, schedule: result, evidence: failedRequests.slice(-2) }); save();
+        await shot(failure + "-retained", "#weather-labels");
+      }
       await paused(); phase("before-start", 86400); await resumed();
       const marker = phaseFile + ".startup.json";
       let registered;
@@ -198,6 +233,7 @@ async function procedure(page, browser, controlled) {
     await stop(); await start(); await page.goto(origin);
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restart-state.json"), stateBytes);
+    if (controlled) await assertFailedEvidence("restart-preserves-failed-receipts");
     if (cancelledRequest) {
       const rows = await (await fetch(origin + "/api/weather/labels")).json();
       assert.deepEqual(rows.find(r => r.id === cancelledRequest.id), cancelledRequest);
@@ -214,6 +250,7 @@ async function procedure(page, browser, controlled) {
     await start(); await page.goto(origin);
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restored-state.json"), stateBytes);
+    if (controlled) await assertFailedEvidence("restore-preserves-failed-receipts");
     if (cancelledRequest) {
       const rows = await (await fetch(origin + "/api/weather/labels")).json();
       assert.deepEqual(rows.find(r => r.id === cancelledRequest.id), cancelledRequest);

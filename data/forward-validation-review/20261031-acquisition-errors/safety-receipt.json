@@ -1,0 +1,373 @@
+{
+  "baseline": "data/forward-validation-review/20261031-atomic-claim/safety-receipt.json",
+  "original_receipt_files": 68,
+  "bitcoin_boundary_files": 5,
+  "all_unchanged": true,
+  "checks": {
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/result.json": {
+      "expected": "sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352",
+      "actual": "sha256:a84abe1182db80ccedccbb92c3551eddf1292ecc857e93396931b10e18c36352",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/decision-inputs.json": {
+      "expected": "sha256:0dbb25f9a8b1830e2e59d038c3e3f8d10151e19dfc33ef6f0892ebfe49457364",
+      "actual": "sha256:0dbb25f9a8b1830e2e59d038c3e3f8d10151e19dfc33ef6f0892ebfe49457364",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/result.json": {
+      "expected": "sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406",
+      "actual": "sha256:3e97f8d98654b6bd28ff8ae23f0793becdf6ded96e2a88e423f596a84d40d406",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/decision-inputs.json": {
+      "expected": "sha256:2eb8ba47f43ce97316a669de3547f5d1ae12358fde82775dd76fac84c0dc3e06",
+      "actual": "sha256:2eb8ba47f43ce97316a669de3547f5d1ae12358fde82775dd76fac84c0dc3e06",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0008.json": {
+      "expected": "sha256:b8890857ca690084f34d0e7213b9edd59dc7b370c35ea47d08c8d7cfd0c8280f",
+      "actual": "sha256:b8890857ca690084f34d0e7213b9edd59dc7b370c35ea47d08c8d7cfd0c8280f",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0009.json": {
+      "expected": "sha256:d52351be860f8229cffcdfb88676a807f64697e51f6f0adc0752f23e053f32eb",
+      "actual": "sha256:d52351be860f8229cffcdfb88676a807f64697e51f6f0adc0752f23e053f32eb",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0000.json": {
+      "expected": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+      "actual": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/summary.json": {
+      "expected": "sha256:4391361c4a738f3405593057ea8872881a06218c99f7826ee64863c6122359f4",
+      "actual": "sha256:4391361c4a738f3405593057ea8872881a06218c99f7826ee64863c6122359f4",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0004.json": {
+      "expected": "sha256:0d14d20282780329fb134bd768574bd18c7c7e56e0e577dedfa252c130aeb57c",
+      "actual": "sha256:0d14d20282780329fb134bd768574bd18c7c7e56e0e577dedfa252c130aeb57c",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0010.json": {
+      "expected": "sha256:1c50491d36f11ebad3b8f7cad5a9960bb096d2e0fd7c0095e70336fecf0e0a7f",
+      "actual": "sha256:1c50491d36f11ebad3b8f7cad5a9960bb096d2e0fd7c0095e70336fecf0e0a7f",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0007.json": {
+      "expected": "sha256:2caf777652349bf1917b81f844f0e135b786a559f47ba48593e1ad30297cb3d4",
+      "actual": "sha256:2caf777652349bf1917b81f844f0e135b786a559f47ba48593e1ad30297cb3d4",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0003.json": {
+      "expected": "sha256:f85f6b58bd7f43c40fe9638c3de990c5c64f9a8c61c6ad8883060177c6c0ccb6",
+      "actual": "sha256:f85f6b58bd7f43c40fe9638c3de990c5c64f9a8c61c6ad8883060177c6c0ccb6",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0005.json": {
+      "expected": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+      "actual": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0006.json": {
+      "expected": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+      "actual": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0002.json": {
+      "expected": "sha256:1f060597490188192697f4d7d70eb7fce5453eadde4420ce65795ac763e5a35f",
+      "actual": "sha256:1f060597490188192697f4d7d70eb7fce5453eadde4420ce65795ac763e5a35f",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/execution/0001.json": {
+      "expected": "sha256:d5d9633e0e77137f76205cd54eddc64f1688dad063290b474d3263d69aafdfd7",
+      "actual": "sha256:d5d9633e0e77137f76205cd54eddc64f1688dad063290b474d3263d69aafdfd7",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather.sqlite": {
+      "expected": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422",
+      "actual": "sha256:bafb9bc6bdc94b34be809a5eb9f51c9ac198aa09e0ed565e752e264beda8e422",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/capture.json": {
+      "expected": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a",
+      "actual": "sha256:2a13953d03150c3876047142ee85330db671aac5c22773dda98472a7d8c4133a",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/observations.jsonl": {
+      "expected": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179",
+      "actual": "sha256:2bcfac29984f3f11519377a4af44d35492590aaea28b2369cfeda303d65cf179",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/markets.jsonl": {
+      "expected": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc",
+      "actual": "sha256:0550eef3a9e86697b458f9e6eb945d357b871a2116bedd474fec150002acadfc",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/manifest.json": {
+      "expected": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+      "actual": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/outcomes/summary.json": {
+      "expected": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+      "actual": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/observations.jsonl": {
+      "expected": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128",
+      "actual": "sha256:983a9c44111976d94edfbd141cbb927ef1038bca71058022d6537b01b3739128",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/manifest.json": {
+      "expected": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0",
+      "actual": "sha256:5f5b7ffb45a399fe4887974e434ce50bf3f48f6a8c93e912b4ac5504ddcbfae0",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0008.json": {
+      "expected": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "actual": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0004.json": {
+      "expected": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+      "actual": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0007.json": {
+      "expected": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+      "actual": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0003.json": {
+      "expected": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+      "actual": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0005.json": {
+      "expected": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "actual": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0006.json": {
+      "expected": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+      "actual": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0002.json": {
+      "expected": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+      "actual": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/raw/0001.json": {
+      "expected": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+      "actual": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/a8a7a7ea-6763-4bb8-8645-c539f3110803.json": {
+      "expected": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+      "actual": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/a2e3f3b0-ce47-40b7-ba21-d8f490ca46e2.json": {
+      "expected": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "actual": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/54fe367c-01dd-40c0-8757-7414db82d50b.json": {
+      "expected": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+      "actual": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public/weather/raw/cf3d80d0-f8b3-4e7c-8de9-7be6dc254879.json": {
+      "expected": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "actual": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0008.json": {
+      "expected": "sha256:5f569a40c594f25c59367a7c6b73da4c15af8b3796047d222c92702701b2cb44",
+      "actual": "sha256:5f569a40c594f25c59367a7c6b73da4c15af8b3796047d222c92702701b2cb44",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0009.json": {
+      "expected": "sha256:95f86766e2e231645514ba15e6762bd2c5d689d604576b36d7e9778e8a0b1e62",
+      "actual": "sha256:95f86766e2e231645514ba15e6762bd2c5d689d604576b36d7e9778e8a0b1e62",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0000.json": {
+      "expected": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+      "actual": "sha256:d002c28a47ac5f577da000eca9973a0ec777597c972a7e238203136cf064fdc1",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/summary.json": {
+      "expected": "sha256:17c77de298ba7d86dee5f7354486aaf4161671ce0276b002f8e2b005fa548939",
+      "actual": "sha256:17c77de298ba7d86dee5f7354486aaf4161671ce0276b002f8e2b005fa548939",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0004.json": {
+      "expected": "sha256:6c8d3b86e667373d57a3a572830f51ff4293153016263a43f5041dbcad904ea4",
+      "actual": "sha256:6c8d3b86e667373d57a3a572830f51ff4293153016263a43f5041dbcad904ea4",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0010.json": {
+      "expected": "sha256:be92b934edd4fbdd8cd7812d81e2015cb31e0a3a7dcbacc0a71c41c2712ba3ae",
+      "actual": "sha256:be92b934edd4fbdd8cd7812d81e2015cb31e0a3a7dcbacc0a71c41c2712ba3ae",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0007.json": {
+      "expected": "sha256:a54fb22171651e401d64ca9b5007513232fc287123ca240bc80714a6b07a00f7",
+      "actual": "sha256:a54fb22171651e401d64ca9b5007513232fc287123ca240bc80714a6b07a00f7",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0003.json": {
+      "expected": "sha256:a3ed1bcf3b2b0f9d21d007f534799a425140952b12f288b5c8c85eede8438371",
+      "actual": "sha256:a3ed1bcf3b2b0f9d21d007f534799a425140952b12f288b5c8c85eede8438371",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0005.json": {
+      "expected": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+      "actual": "sha256:96d8ce0616cb2fa1796c458faef10bf91780e6263b951f2f2e98aad53d2ef6f9",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0006.json": {
+      "expected": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+      "actual": "sha256:07740af4334cf85b226ab628445b98942b7a999985b77b8638782a2d0c571970",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0002.json": {
+      "expected": "sha256:6dcc46370090739dc48de36d4e3cec7d92bb98980ae5daa781b04307304129d2",
+      "actual": "sha256:6dcc46370090739dc48de36d4e3cec7d92bb98980ae5daa781b04307304129d2",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/execution/0001.json": {
+      "expected": "sha256:1680c7836a5d2691184c5b99a4f09fcb6157d78d76fbb01630b4911543eadd2d",
+      "actual": "sha256:1680c7836a5d2691184c5b99a4f09fcb6157d78d76fbb01630b4911543eadd2d",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather.sqlite": {
+      "expected": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325",
+      "actual": "sha256:28eab5a139153f60eae44109e88c9cf0c177c67204368905622a4278018bc325",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/capture.json": {
+      "expected": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3",
+      "actual": "sha256:3744c403768cb89fef4c9062d4479b7dcfe48cfe2696fe9383752962bbaefee3",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/observations.jsonl": {
+      "expected": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15",
+      "actual": "sha256:33840a2e221c3ecb362aad4bad12aadb75363e15699b15ea2c58f35a6a286e15",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/markets.jsonl": {
+      "expected": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae",
+      "actual": "sha256:a0c2c20a3e0e4e44a9d05a9a4dcf7e25c53f0824249fef6fe34f645c15dbecae",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/manifest.json": {
+      "expected": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+      "actual": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/outcomes/summary.json": {
+      "expected": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+      "actual": "sha256:70aa08e7c52c1a712add6684fcb5016765b65d0e4312a8ca1121e0beef647902",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/observations.jsonl": {
+      "expected": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a",
+      "actual": "sha256:de91ec827a6685dea272170ad137f5f8186185db791ad4c41eb0b4065b85809a",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/manifest.json": {
+      "expected": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc",
+      "actual": "sha256:4b4bdc23a99ed5b77a82f3f3d34b00dfd875dc8997c7d75c95948ad169d1c4dc",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0008.json": {
+      "expected": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "actual": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0004.json": {
+      "expected": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+      "actual": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0007.json": {
+      "expected": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+      "actual": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0003.json": {
+      "expected": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+      "actual": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0005.json": {
+      "expected": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "actual": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0006.json": {
+      "expected": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+      "actual": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0002.json": {
+      "expected": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+      "actual": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/raw/0001.json": {
+      "expected": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+      "actual": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/2898be1f-b897-4415-afbc-1e3b55fb3392.json": {
+      "expected": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "actual": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/4a926443-15cd-4217-859a-bafa53f4871f.json": {
+      "expected": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+      "actual": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/c0cf38c6-3518-4a54-9be0-268e8b100b9c.json": {
+      "expected": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "actual": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+      "unchanged": true
+    },
+    "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public/weather/raw/7e561fba-5c36-4ec5-983e-ac5c924f7302.json": {
+      "expected": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+      "actual": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+      "unchanged": true
+    },
+    "backend/src/entropytrade/families/bitcoin_history.py": {
+      "expected": "sha256:507231bba05f8abf221a3a393e2dabf4733a6ba030c0b5146511f3ad89890651",
+      "actual": "sha256:507231bba05f8abf221a3a393e2dabf4733a6ba030c0b5146511f3ad89890651",
+      "unchanged": true
+    },
+    "backend/src/entropytrade/families/bitcoin_models.py": {
+      "expected": "sha256:c5489def8f851a506574c4ea810519d971f6f6b32453b8384e747d004bd8aa99",
+      "actual": "sha256:c5489def8f851a506574c4ea810519d971f6f6b32453b8384e747d004bd8aa99",
+      "unchanged": true
+    },
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/5c0f01b9-bc47-426c-8099-db113bb5c196/history/manifest.json": {
+      "expected": "sha256:78a574e009e39f55eb5f7cf3f7a05d19bfed0779a71ca0b614da5854fd099e10",
+      "actual": "sha256:78a574e009e39f55eb5f7cf3f7a05d19bfed0779a71ca0b614da5854fd099e10",
+      "unchanged": true
+    },
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/a9777aec-59bb-4060-bbc4-e97174f90c4b/history/manifest.json": {
+      "expected": "sha256:7b02880a0d41ea06b360a7e60ff060baccdd2c706fcedeac9b455f1acbdcda23",
+      "actual": "sha256:7b02880a0d41ea06b360a7e60ff060baccdd2c706fcedeac9b455f1acbdcda23",
+      "unchanged": true
+    },
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/0c80b15e-34d1-4c1e-af70-19acf10dc97f/history/manifest.json": {
+      "expected": "sha256:426d29c8a819a2dd2f6012515caacb24c7e3fc2a538f47c604fae30253320295",
+      "actual": "sha256:426d29c8a819a2dd2f6012515caacb24c7e3fc2a538f47c604fae30253320295",
+      "unchanged": true
+    }
+  }
+}

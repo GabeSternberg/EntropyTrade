@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 5 items
+
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[acquisition] PASSED [ 20%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[second_receipt_save] PASSED [ 40%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[completed] PASSED [ 60%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[failed] PASSED [ 80%]
+backend/tests/unit/test_label_acquisition_errors.py::test_loop_error_cannot_replace_terminal_request_or_batch[interrupted] PASSED [100%]
+
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/forward-validation-review/20261031-acquisition-errors/regressions.xml -
+============================== 5 passed in 4.87s ===============================

@@ -1,0 +1,81 @@
+{
+  "base": "5d5e893",
+  "branch": "supervisor/20261031-054650",
+  "browser": {
+    "actual_localhost_listeners": true,
+    "downloads": 6,
+    "failed_request_and_batch_file_hash_comparisons": 16,
+    "failed_request_restart_restore_comparisons": 8,
+    "identical_schedule_state_comparisons": 4,
+    "interrupted_request_restart_restore_comparisons": 2,
+    "managed_chromium": true,
+    "page_errors": 0,
+    "partial_failed_requests": 4,
+    "procedures": 2,
+    "screenshots": 13,
+    "seconds": 69.84636400000001,
+    "status": "passed"
+  },
+  "checked_at": "2026-10-31T11:19:27.389348+00:00",
+  "complete": false,
+  "credential_access": false,
+  "git_mutations": false,
+  "independent_review": "pending",
+  "limitations": [
+    "V1 incomplete; independent supervisor milestone/release review pending.",
+    "Controlled sources, dates, error injection and clocks prove software behavior, never empirical history or performance.",
+    "Authentic new acquisition verifies three station/day highs and refuses one preliminary report; receipt availability is not backdated.",
+    "Sufficient independent point-in-time history, certified effective fees, separately authorized external-provider verification and two-family empirical release evidence remain open.",
+    "Multi-day unattended authentic operation has not been observed.",
+    "Existing locked environment and managed browser cache reused; no new clean-install claim.",
+    "Four trace/workspace archives remain local-only under existing ignores; independent review requires obtaining and hash-verifying those bytes."
+  ],
+  "milestone": "durable weather-label acquisition-error finalization",
+  "quality": {
+    "format": "passed",
+    "frontend": {
+      "checks": 22,
+      "status": "passed"
+    },
+    "full_pytest_stdout_seconds": 556.02,
+    "pytest": {
+      "focused.xml": {
+        "errors": 0,
+        "failures": 0,
+        "seconds": 30.014,
+        "skipped": 0,
+        "tests": 55
+      },
+      "pytest.xml": {
+        "errors": 0,
+        "failures": 0,
+        "seconds": 556.004,
+        "skipped": 0,
+        "tests": 1282
+      },
+      "regressions.xml": {
+        "errors": 0,
+        "failures": 0,
+        "seconds": 3.947,
+        "skipped": 0,
+        "tests": 5
+      }
+    },
+    "ruff": "passed",
+    "strict_mypy": {
+      "files": 548,
+      "status": "passed"
+    }
+  },
+  "reproduction": {
+    "failures": 2,
+    "status": "expected_failures_on_original_path",
+    "tests": 2
+  },
+  "safety": {
+    "bitcoin_boundary_files_unchanged": 5,
+    "original_receipts_unchanged": 68
+  },
+  "status": "scoped_checks_passed",
+  "submission_enabled": false
+}

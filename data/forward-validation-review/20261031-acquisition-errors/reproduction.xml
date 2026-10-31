@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="4.468" timestamp="2026-10-31T07:06:07.208400-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_label_acquisition_errors" name="test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[acquisition]" time="0.266"><failure message="AssertionError: assert [] == [{'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', 'status': 200, 'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01'}]&#10;  &#10;  Right contains one more item: {'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZ...nVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', ...}&#10;  &#10;  Full diff:&#10;  + []&#10;  - [&#10;  -     {&#10;  -         'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==',&#10;  -         'error': '',&#10;  -         'headers': {&#10;  -             'content-type': 'application/json',&#10;  -         },&#10;  -         'received_at': '2026-10-31T12:00:00Z',&#10;  -         'status': 200,&#10;  -         'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01',&#10;  -     },&#10;  - ]">tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-183/test_loop_failure_retains_pers0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x715b9724a810&gt;
+failure = 'acquisition'
+
+    @pytest.mark.parametrize("failure", ["acquisition", "second_receipt_save"])
+    def test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure: str
+    ) -&gt; None:
+        clock = SimulatedClock(NOW)
+        monkeypatch.setattr("entropytrade.weather.label_service.utc_now", clock.now)
+        monkeypatch.setattr("entropytrade.weather.label_schedule.utc_now", clock.now)
+        service = LabelService(tmp_path / "controlled")
+        initial = seed_dates(service.workspace, count=2)
+        schedule_id = str(uuid4())
+        service.scheduler.create(
+            {
+                "id": schedule_id,
+                "dataset_id": initial["dataset_id"][7:],
+                "enabled": True,
+                "interval_seconds": 300,
+                "batch_dates": 8,
+            }
+        )
+        calls: list[str] = []
+        first: dict[str, Any] = {}
+        bodies: list[bytes] = []
+        failed_saves: list[str] = []
+        waits: list[float] = []
+        acquire, save = service.acquire, service.save
+    
+        def source(req: httpx.Request) -&gt; httpx.Response:
+            assert req.method == "GET"
+            assert req.url.host == "weather.com"
+            assert "authorization" not in req.headers
+            assert "cookie" not in req.headers
+            calls.append(req.url.params["date"])
+            if len(calls) == 2:
+                current = service.catalog()[0]
+                assert current["status"] == "running"
+                assert len(current["receipts"]) == 1
+                first.update(current)
+                clock.advance(timedelta(seconds=1))
+                if failure == "acquisition":
+                    raise ValueError("CONTROLLED acquisition error after durable first receipt")
+            response = httpx.Response(200, json=portal(req.url.params["date"]))
+            bodies.append(response.content)
+            return response
+    
+        async def controlled(
+            request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -&gt; None:
+            await acquire(request, httpx.MockTransport(source))
+    
+        def transient_save(request: dict[str, Any]) -&gt; None:
+            if (
+                failure == "second_receipt_save"
+                and request["status"] == "running"
+                and len(request["receipts"]) == 2
+                and not failed_saves
+            ):
+                failed_saves.append(request["id"])
+                raise OSError("CONTROLLED transient second-receipt save error")
+            save(request)
+    
+        def end_iteration(seconds: float) -&gt; bool:
+            waits.append(seconds)
+            service.stop.set()
+            return True
+    
+        monkeypatch.setattr(service, "acquire", controlled)
+        monkeypatch.setattr(service, "save", transient_save)
+        monkeypatch.setattr(service.stop, "wait", end_iteration)
+        # Exercise selection, bounded ownership, real receipt persistence and loop-level
+        # exception finalization, rather than finishing a hand-built partial request.
+        service.loop()
+        assert waits == [0.2]
+        assert calls == ["2026-10-01", "2026-10-02"]
+        assert bool(failed_saves) == (failure == "second_receipt_save")
+        assert len(service.catalog()) == 1
+        failed = service.get(first["id"])
+        assert failed["status"] == "failed"
+        assert failed["detail"].startswith("ValueError" if failure == "acquisition" else "OSError")
+        assert failed["created_at"] == first["created_at"]
+        assert failed["selection"] == first["selection"]
+&gt;       assert failed["receipts"] == first["receipts"]
+E       AssertionError: assert [] == [{'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', 'status': 200, 'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01'}]
+E         
+E         Right contains one more item: {'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZ...nVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', ...}
+E         
+E         Full diff:
+E         + []
+E         - [
+E         -     {
+E         -         'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==',
+E         -         'error': '',
+E         -         'headers': {
+E         -             'content-type': 'application/json',
+E         -         },
+E         -         'received_at': '2026-10-31T12:00:00Z',
+E         -         'status': 200,
+E         -         'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01',
+E         -     },
+E         - ]
+
+backend/tests/unit/test_label_acquisition_errors.py:101: AssertionError</failure></testcase><testcase classname="backend.tests.unit.test_label_acquisition_errors" name="test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation[second_receipt_save]" time="0.228"><failure message="AssertionError: assert [] == [{'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', 'status': 200, 'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01'}]&#10;  &#10;  Right contains one more item: {'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZ...nVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', ...}&#10;  &#10;  Full diff:&#10;  + []&#10;  - [&#10;  -     {&#10;  -         'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==',&#10;  -         'error': '',&#10;  -         'headers': {&#10;  -             'content-type': 'application/json',&#10;  -         },&#10;  -         'received_at': '2026-10-31T12:00:00Z',&#10;  -         'status': 200,&#10;  -         'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01',&#10;  -     },&#10;  - ]">tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-183/test_loop_failure_retains_pers1')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x715b970c4f50&gt;
+failure = 'second_receipt_save'
+
+    @pytest.mark.parametrize("failure", ["acquisition", "second_receipt_save"])
+    def test_loop_failure_retains_persisted_receipt_through_reconciliation_restart_and_validation(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch, failure: str
+    ) -&gt; None:
+        clock = SimulatedClock(NOW)
+        monkeypatch.setattr("entropytrade.weather.label_service.utc_now", clock.now)
+        monkeypatch.setattr("entropytrade.weather.label_schedule.utc_now", clock.now)
+        service = LabelService(tmp_path / "controlled")
+        initial = seed_dates(service.workspace, count=2)
+        schedule_id = str(uuid4())
+        service.scheduler.create(
+            {
+                "id": schedule_id,
+                "dataset_id": initial["dataset_id"][7:],
+                "enabled": True,
+                "interval_seconds": 300,
+                "batch_dates": 8,
+            }
+        )
+        calls: list[str] = []
+        first: dict[str, Any] = {}
+        bodies: list[bytes] = []
+        failed_saves: list[str] = []
+        waits: list[float] = []
+        acquire, save = service.acquire, service.save
+    
+        def source(req: httpx.Request) -&gt; httpx.Response:
+            assert req.method == "GET"
+            assert req.url.host == "weather.com"
+            assert "authorization" not in req.headers
+            assert "cookie" not in req.headers
+            calls.append(req.url.params["date"])
+            if len(calls) == 2:
+                current = service.catalog()[0]
+                assert current["status"] == "running"
+                assert len(current["receipts"]) == 1
+                first.update(current)
+                clock.advance(timedelta(seconds=1))
+                if failure == "acquisition":
+                    raise ValueError("CONTROLLED acquisition error after durable first receipt")
+            response = httpx.Response(200, json=portal(req.url.params["date"]))
+            bodies.append(response.content)
+            return response
+    
+        async def controlled(
+            request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -&gt; None:
+            await acquire(request, httpx.MockTransport(source))
+    
+        def transient_save(request: dict[str, Any]) -&gt; None:
+            if (
+                failure == "second_receipt_save"
+                and request["status"] == "running"
+                and len(request["receipts"]) == 2
+                and not failed_saves
+            ):
+                failed_saves.append(request["id"])
+                raise OSError("CONTROLLED transient second-receipt save error")
+            save(request)
+    
+        def end_iteration(seconds: float) -&gt; bool:
+            waits.append(seconds)
+            service.stop.set()
+            return True
+    
+        monkeypatch.setattr(service, "acquire", controlled)
+        monkeypatch.setattr(service, "save", transient_save)
+        monkeypatch.setattr(service.stop, "wait", end_iteration)
+        # Exercise selection, bounded ownership, real receipt persistence and loop-level
+        # exception finalization, rather than finishing a hand-built partial request.
+        service.loop()
+        assert waits == [0.2]
+        assert calls == ["2026-10-01", "2026-10-02"]
+        assert bool(failed_saves) == (failure == "second_receipt_save")
+        assert len(service.catalog()) == 1
+        failed = service.get(first["id"])
+        assert failed["status"] == "failed"
+        assert failed["detail"].startswith("ValueError" if failure == "acquisition" else "OSError")
+        assert failed["created_at"] == first["created_at"]
+        assert failed["selection"] == first["selection"]
+&gt;       assert failed["receipts"] == first["receipts"]
+E       AssertionError: assert [] == [{'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', 'status': 200, 'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01'}]
+E         
+E         Right contains one more item: {'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZ...nVlfX1dfQ==', 'error': '', 'headers': {'content-type': 'application/json'}, 'received_at': '2026-10-31T12:00:00Z', ...}
+E         
+E         Full diff:
+E         + []
+E         - [
+E         -     {
+E         -         'body_base64': 'eyJkYXRlIjoiMjAyNi0xMC0wMSIsImV2aWRlbmNlIjoiQ09OVFJPTExFRCBmb3J3YXJkLXZhbGlkYXRpb24gc29mdHdhcmUgZXZpZGVuY2U7IHNpbXVsYXRlZCBkYXRlcy9zb3VyY2UvY2xvY2s7IG5vIHBlcmZvcm1hbmNlIiwicmVzdWx0cyI6W3sic3RhdGlvbiI6eyJjbGlJZCI6IlBITCIsImljYW8iOiJLUEhMIiwidGltZXpvbmUiOiJBbWVyaWNhL05ld19Zb3JrIiwiaXNEb21lc3RpYyI6dHJ1ZX0sInN0YXR1cyI6Im9mZmljaWFsIiwiZGF0YSI6eyJzdGF0aW9uSWQiOiJQSEwiLCJyZXBvcnREYXRlIjoiMjAyNi0xMC0wMSIsIm1heFRlbXAiOjcwLCJpc09mZmljaWFsIjp0cnVlfX1dfQ==',
+E         -         'error': '',
+E         -         'headers': {
+E         -             'content-type': 'application/json',
+E         -         },
+E         -         'received_at': '2026-10-31T12:00:00Z',
+E         -         'status': 200,
+E         -         'url': 'https://weather.com/kalshi/api/climate/primary?date=2026-10-01',
+E         -     },
+E         - ]
+
+backend/tests/unit/test_label_acquisition_errors.py:101: AssertionError</failure></testcase></testsuite></testsuites>

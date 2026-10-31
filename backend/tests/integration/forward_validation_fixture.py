@@ -124,6 +124,8 @@ def portal(day: str, phase: str = "official") -> dict[str, Any]:
 
 def serve(workspace: Path, phase_file: Path, port: int) -> None:
     original = LabelService.acquire
+    original_save = LabelService.save
+    failed_saves: set[str] = set()
 
     def state() -> dict[str, str]:
         return dict(json.loads(phase_file.read_text()))
@@ -131,13 +133,40 @@ def serve(workspace: Path, phase_file: Path, port: int) -> None:
     def now() -> datetime:
         return datetime.fromisoformat(state()["now"])
 
+    def retain_before_error(service: LabelService, request_id: str) -> None:
+        atomic(
+            phase_file.with_name(phase_file.name + ".before-error-" + request_id + ".json"),
+            service.get(request_id),
+        )
+
+    def controlled_save(self: LabelService, request: dict[str, Any]) -> None:
+        if (
+            state()["phase"] == "second-receipt-save-error"
+            and request["status"] == "running"
+            and len(request["receipts"]) == 2
+            and request["id"] not in failed_saves
+        ):
+            retain_before_error(self, request["id"])
+            failed_saves.add(request["id"])
+            raise OSError("CONTROLLED transient second-receipt save error")
+        original_save(self, request)
+
     async def controlled(
         self: LabelService,
         request: dict[str, Any],
         transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
+        calls = 0
+
         async def source(req: httpx.Request) -> httpx.Response:
+            nonlocal calls
+            calls += 1
             phase = state()["phase"]
+            if phase == "acquisition-error" and calls == 2:
+                retain_before_error(self, request["id"])
+                raise ValueError("CONTROLLED acquisition error after durable first receipt")
+            if phase in {"acquisition-error", "second-receipt-save-error"}:
+                phase = "official"
             if phase == "stall":
                 await asyncio.Event().wait()
             if phase == "outage":
@@ -160,6 +189,7 @@ def serve(workspace: Path, phase_file: Path, port: int) -> None:
 
     with (
         patch.object(LabelService, "acquire", controlled),
+        patch.object(LabelService, "save", controlled_save),
         patch("entropytrade.weather.label_schedule.utc_now", now),
         patch("entropytrade.weather.label_service.utc_now", now),
     ):

@@ -1,0 +1,4 @@
+{
+  "localhost_listener": "PermissionError(1, 'Operation not permitted')",
+  "asyncio_socketpair": "PermissionError(1, 'Operation not permitted')"
+}

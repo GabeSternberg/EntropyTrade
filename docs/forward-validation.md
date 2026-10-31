@@ -35,6 +35,11 @@ Request selection is rechecked under the service lock before claiming. A queued 
 in that interval cannot start; registering ownership and marking running happen together.
 Pause/shutdown also cancels the interval before acquisition starts, without waiting for the
 event loop's callback. Stale completion cannot replace interrupted or other terminal evidence.
+If acquisition or a later receipt save raises, failure finalization reloads the durable
+request, retaining every previously saved response and its original timestamps. An unsaved
+response is not claimed as retained evidence. Reconciliation can verify the saved date and
+retry missing dates even when the overall request failed; restart and offline validation
+preserve that same request and immutable batch.
 
 At most eight schedules and 2,048 event/rule targets per schedule are supported. The workspace
 guard stops at 128 acquisition requests to preserve the existing 128-batch reader budget.
@@ -79,3 +84,9 @@ The controlled browser procedure also pauses at a test-only startup barrier, ins
 interrupted request with zero source receipts and verifies identical evidence after restart
 and offline restore. The authentic procedure retains original clocks and makes new public
 read-only requests; controlled cancellation is software evidence, not empirical performance.
+
+The [acquisition-error correction](../data/forward-validation-review/20261031-acquisition-errors/README.md)
+adds actual-loop acquisition and transient receipt-save failures after the first saved response.
+Its browser procedure inspects partial failed requests and compares exact retained request/batch
+evidence after restart and offline restore. Both original source timestamps and terminal-state
+protections remain enforced.
