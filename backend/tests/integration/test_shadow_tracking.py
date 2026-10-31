@@ -11,6 +11,7 @@ import pytest
 from entropytrade.api.jobs import Jobs
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.time import SimulatedClock
+from entropytrade.execution.fee_evidence import FeeVersion
 from entropytrade.tracking.replay import verify
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.tracking.worker import collect, execute
@@ -50,7 +51,13 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
         )
         return httpx.Response(200, json={"market": body})
 
-    async def controlled(snapshot: dict[str, Any], repo: Path, root: Path) -> dict[str, Any]:
+    async def controlled(
+        snapshot: dict[str, Any],
+        repo: Path,
+        root: Path,
+        *,
+        fee_versions: tuple[FeeVersion, ...] = (),
+    ) -> dict[str, Any]:
         return await collect(
             snapshot,
             repo,
@@ -60,6 +67,7 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
             execution_transport=httpx.MockTransport(execution_wire),
             outcome_transport=httpx.MockTransport(final),
             clock=clock,
+            fee_versions=fee_versions,
         )
 
     monkeypatch.setattr("entropytrade.tracking.worker.collect", controlled)
@@ -115,7 +123,13 @@ def test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit(
     store = TrackingStore(Jobs(tmp_path))
     monitor_id = monitor(store)
 
-    async def interrupted(_snapshot: dict[str, Any], _repo: Path, root: Path) -> dict[str, Any]:
+    async def interrupted(
+        _snapshot: dict[str, Any],
+        _repo: Path,
+        root: Path,
+        *,
+        fee_versions: tuple[FeeVersion, ...] = (),
+    ) -> dict[str, Any]:
         (root / "partial.json").write_text('{"evidence":"CONTROLLED partial receipt"}')
         raise ValueError("CONTROLLED interrupted acquisition")
 
@@ -130,7 +144,13 @@ def test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit(
     assert cycle["result"]["artifacts"][0]["path"] == "partial.json"
     assert "CONTROLLED interrupted" in cycle["result"]["failure"]
 
-    async def paused(_snapshot: dict[str, Any], _repo: Path, _root: Path) -> dict[str, Any]:
+    async def paused(
+        _snapshot: dict[str, Any],
+        _repo: Path,
+        _root: Path,
+        *,
+        fee_versions: tuple[FeeVersion, ...] = (),
+    ) -> dict[str, Any]:
         store.control(monitor_id, "pause")
         return {"detail": "late", "capture": {"failures": []}, "outcome_failures": []}
 
@@ -200,12 +220,19 @@ def test_frozen_model_collection_books_replay_and_later_outcome(
 
     real_collect = collect
 
-    async def controlled(snapshot: dict[str, Any], repo: Path, root: Path) -> dict[str, Any]:
+    async def controlled(
+        snapshot: dict[str, Any],
+        repo: Path,
+        root: Path,
+        *,
+        fee_versions: tuple[FeeVersion, ...] = (),
+    ) -> dict[str, Any]:
         return await real_collect(
             snapshot,
             repo,
             root,
             clock=clock,
+            fee_versions=fee_versions,
             execution_transport=httpx.MockTransport(execution_wire),
             outcome_transport=httpx.MockTransport(final),
         )
@@ -222,7 +249,7 @@ def test_frozen_model_collection_books_replay_and_later_outcome(
     decision = cycle["result"]["decisions"][0]
     assert decision["prediction"]["model_hash"] == model.model_hash
     assert decision["quote"]["asks"][0]["quantity"] == "4.00"
-    assert decision["reasons"] == ["certified_fees"]
+    assert decision["reasons"] == ["certified_fees", "missing_fee_evidence"]
     assert decision["intent"] is None
     assert verify(tmp_path / "shadow" / monitor_id / first[1])["verified"]
     frozen_bytes = (tmp_path / "shadow" / monitor_id / first[1] / "result.json").read_bytes()

@@ -1,5 +1,18 @@
 # Current research-cohort evidence — October 30, 2026
 
+## Intermediate fee-evidence milestone — October 30, 2026
+
+**V1 is incomplete.** This milestone adds immutable source/fee versions, causal
+selection/refusal, fee-inclusive durable reservations, portable experiment replay and browser
+provenance/downloads. Separate CONTROLLED intentions and authentic original-receipt refusal
+procedures use managed Chromium and actual localhost listeners. Authentic research still
+produces no fitted probabilities, backtest scenarios or profit claims. The official fee
+PDF's fresh HTTP 429 response is retained; no authentic schedule is certified. Exact executed
+checks and limitations are in [the milestone evidence](../data/fee-evidence-review/20261030/README.md)
+and [operating guide](fee-evidence.md). Earlier dated verification below remains historical.
+No release requirement is silently promoted to passed; independent final review is required.
+
+
 **complete=false.** This is a substantial intermediate milestone; independent supervisor
 review and the remaining empirical release requirements are still required.
 

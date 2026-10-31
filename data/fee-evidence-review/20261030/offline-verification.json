@@ -1,0 +1,73 @@
+[
+  {
+    "kind": "controlled",
+    "restored_cycles": [
+      {
+        "verified": true,
+        "decision_count": 1,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 1,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 1,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 1,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 1,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      }
+    ],
+    "restored_experiments": [],
+    "fee_versions_identical": true,
+    "submission_enabled": false
+  },
+  {
+    "kind": "authentic",
+    "restored_cycles": [
+      {
+        "verified": true,
+        "decision_count": 24,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 24,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      },
+      {
+        "verified": true,
+        "decision_count": 24,
+        "submission_enabled": false,
+        "limitation": "Reproduces decisions only; does not certify source truth or performance"
+      }
+    ],
+    "restored_experiments": [
+      {
+        "verified": true,
+        "candidates": 2,
+        "submission_enabled": false,
+        "limitation": "Software repeatability only; no certification of performance or source truth"
+      }
+    ],
+    "fee_versions_identical": true,
+    "submission_enabled": false
+  }
+]

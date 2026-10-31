@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": true,
+  "operations": [
+    {
+      "start": 1
+    },
+    {
+      "start": 2
+    }
+  ],
+  "downloads": [
+    {
+      "file": "fee-version.json",
+      "sha256": "af62b5bfce33592e7820437b63d4ec88f0bb6ce7f7b14ff97334a8e68544183e"
+    },
+    {
+      "file": "fee-source.bin",
+      "sha256": "28e6cfb8ddd440b8dba895bf879549ebe472dc050fcd3eb5e682772123c81235"
+    },
+    {
+      "file": "shadow.json",
+      "sha256": "ad5f223929c53f5a9b03aa9be3ec65d42c571bb3b5160640cd38e217904e429a"
+    },
+    {
+      "file": "experiment-fees.json",
+      "sha256": "68bf7da9f9d17eabdbe34f3eddead52fdca29f6583c0b967cf714e634a9cab46"
+    },
+    {
+      "file": "review.json",
+      "sha256": "2235bc21943ec86826031456d31b721733a21fb4359dd1b3f148670a31666f2f"
+    },
+    {
+      "file": "restarted-version.json",
+      "sha256": "af62b5bfce33592e7820437b63d4ec88f0bb6ce7f7b14ff97334a8e68544183e"
+    },
+    {
+      "file": "restarted-source.bin",
+      "sha256": "28e6cfb8ddd440b8dba895bf879549ebe472dc050fcd3eb5e682772123c81235"
+    },
+    {
+      "file": "restarted-shadow.json",
+      "sha256": "ad5f223929c53f5a9b03aa9be3ec65d42c571bb3b5160640cd38e217904e429a"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "fees-and-shadow.png"
+    },
+    {
+      "file": "authentic-research-refusal.png"
+    },
+    {
+      "file": "restarted.png"
+    }
+  ],
+  "page_errors": [],
+  "limitation": "Original receipt replay, missing fee document/model evidence, no new acquisition",
+  "submission_enabled": false
+}

@@ -10,7 +10,7 @@ process.env.PLAYWRIGHT_BROWSERS_PATH ||= path.join(__dirname, ".browsers");
 
 module.exports = defineConfig({
   testDir: __dirname,
-  testMatch: ["workbench.spec.cjs", "bitcoin-history.spec.cjs", "shadow.spec.cjs", "recovery.spec.cjs", "provider.spec.cjs", "weather-history.spec.cjs", "shadow-history.spec.cjs"],
+  testMatch: ["workbench.spec.cjs", "bitcoin-history.spec.cjs", "shadow.spec.cjs", "recovery.spec.cjs", "provider.spec.cjs", "weather-history.spec.cjs", "shadow-history.spec.cjs", "fees.spec.cjs"],
   workers: 1,
   retries: 0,
   timeout: 600_000,

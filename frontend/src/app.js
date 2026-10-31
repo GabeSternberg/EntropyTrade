@@ -98,6 +98,9 @@ function renderJob() {
     const report = node("a", "Text report"); report.href = `/api/jobs/${job.id}/report`; report.download = `entropytrade-${job.id}.txt`;
     const review = node("a", "Review JSON"); review.href = `/api/jobs/${job.id}/review`; review.download = `entropytrade-${job.id}.json`;
     append(tools, report, review);
+    if (job.result.artifacts?.some(a => a.path === "fee-evidence.json")) {
+      const fees = node("a", "Experiment fee evidence"); fees.href = `/api/jobs/${job.id}/fee-evidence`; fees.download = `experiment-fees-${job.id}.json`; tools.append(fees);
+    }
     if (job.result.artifacts?.some(a => a.path === "shadow-replay.json")) {
       const inputs = node("a", "Shadow experiment inputs"); inputs.href = `/api/jobs/${job.id}/shadow-inputs`; inputs.download = `shadow-inputs-${job.id}.json`; tools.append(inputs);
     }
@@ -256,6 +259,7 @@ function renderReview(content, result) {
     if (hypothesis) append(card, node("p", "Falsification", "label"), node("p", hypothesis.falsification, "small"), detail("Typed hypothesis", hypothesis));
     if (candidate.forecast_metrics) card.append(detail("Forecast validation metrics", candidate.forecast_metrics));
     else card.append(node("p", "No eligible forecast validation metrics. Missing history is not replaced with estimated performance.", "hint"));
+    if (candidate.fee_evidence) card.append(detail("Frozen fee selection and refusals", candidate.fee_evidence));
     if (candidate.model_lineage) card.append(detail("Probability model lineage and refusals", candidate.model_lineage));
     if (candidate.scenarios?.length) {
       append(card, node("p", "Simulated execution scenarios · never observed fills", "label"), table(["Scenario", "Fills", "Simulated P&L", "Fees", "Drawdown at cost"], candidate.scenarios.map((s) => [s.scenario, s.fill_count, s.net_pnl, s.fees_paid, s.drawdown_at_cost])), detail("Full execution diagnostics", candidate.scenarios));
@@ -310,6 +314,25 @@ $("research-form").addEventListener("submit", async (event) => {
   } catch (error) { $("form-message").textContent = error.message; }
   finally { $("submit").disabled = false; }
 });
+async function feeEvidence() {
+  const content = $("fee-evidence");
+  try {
+    const catalog = await api("/api/fees"); content.replaceChildren();
+    if (!catalog.versions?.length) { content.append(notice("Missing fee evidence. Costed shadow intentions and real backtests refuse without applicable reviewed documents.")); return; }
+    for (const version of catalog.versions) {
+      const section = append(node("section"), node("h3", version.evidence_kind === "controlled" ? "CONTROLLED fee fixture · software evidence only" : "Authentic source receipt"),
+        node("p", version.policy ? `Reviewed fee schedule · ${version.series.join(", ")}` : version.refusal),
+        node("p", `Available: ${version.available_at} · Effective: ${version.policy?.effective_from || "unverified"} → ${version.policy?.effective_to || "unverified"}`, "small"));
+      const download = node("a", "Fee version JSON"); download.href = `/api/fees/${version.version.slice(7)}`; download.download = `fee-${version.version.slice(7)}.json`; section.append(download);
+      version.sources.forEach((source, index) => {
+        const link = node("a", `Original fee source ${index + 1}`); link.href = `${download.href}/sources/${index}`; link.download = `fee-source-${index}.bin`;
+        section.append(node("p", `${source.url} · HTTP ${source.status} · Received ${source.received_at} · ${source.sha256}`, "small"), link);
+      });
+      section.append(detail("Fee coefficients, scope, review and citations", version)); content.append(section);
+    }
+  } catch (error) { content.replaceChildren(notice(`Fee evidence refused: ${error.message}`, true)); }
+}
+
 function shadowCandidates() {
   const job = state.job;
   const proposals = job?.status === "completed" && job.result?.data_kind === "real" ?
@@ -360,7 +383,11 @@ async function selectMonitor(id, force = false) {
       section.append(node("p", `Decisions: ${result.decisions?.length || 0}; quotes: ${result.quotes?.length || 0}; official outcomes: ${result.outcomes?.length || 0}.`, "small"));
       if (result.failure) section.append(notice(result.failure, true));
       if (result.model_refusals && Object.keys(result.model_refusals).length) section.append(notice(`Model scoring blocked: ${Object.values(result.model_refusals).join("; ")}`, true));
-      if (result.execution) section.append(node("p", `Sized books: ${result.execution.book_count}; deferred contracts: ${result.execution.deferred_tickers.length}; execution capture failures: ${result.execution.failures.length}. Fee evidence remains uncertified; intentions are blocked.`, "hint"));
+      if (result.execution) section.append(node("p", `Sized books: ${result.execution.book_count}; deferred contracts: ${result.execution.deferred_tickers.length}; execution capture failures: ${result.execution.failures.length}. Fee evidence is checked independently at each decision.`, "hint"));
+      if (result.decisions?.length) {
+        section.append(table(["Fee series", "Fee status", "Version / refusal"], result.decisions.map(d => [d.fee_evidence?.series, d.fee_evidence?.status || "legacy", d.fee_evidence?.version || d.fee_evidence?.reason || "Uncertified legacy evidence"])));
+        section.append(detail("Frozen fee provenance and refusals", { versions: result.fee_versions || [], decisions: result.decisions.map(d => d.fee_evidence) }));
+      }
       if (result.decisions?.length) section.append(table(["Contract", "Status", "P(YES)", "Reasons"], result.decisions.map((d) => [d.ticker, d.status, d.prediction?.probability_yes, d.reasons.join(", ")])));
       section.append(detail("Source receipts, predictions, intended orders, risk checks and artifacts", result));
     }
@@ -378,7 +405,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await feeEvidence(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {

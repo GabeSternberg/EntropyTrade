@@ -577,6 +577,7 @@ def _build_snapshot(
                     for d in json.loads((_cycle_root / "result.json").read_text())["decisions"]
                     if d["event_id"] not in protected_events
                 ],
+                "frozen_fee_versions": inputs.get("fee_versions", []),
                 "fee_evidence": json.loads((_cycle_root / "execution/summary.json").read_text())[
                     "fee_evidence"
                 ],
@@ -615,7 +616,8 @@ def _build_snapshot(
             else "Later binary labels retain their original receipt clocks; "
             "scalar model gates still apply",
             "Stale or missing depth refuses executable backtesting",
-            "Certified effective historical fees are unavailable; no fee coefficient substituted",
+            "Each exact decision requires applicable certified fee evidence; "
+            "current documents cannot backdate receipts",
         ],
         "replay_inputs": "shadow-replay.json",
         "limitation": "Forward predictions retain their partition; never promoted to validation. "

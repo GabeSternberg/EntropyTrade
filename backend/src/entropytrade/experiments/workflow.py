@@ -14,6 +14,7 @@ from entropytrade.agents.evidence import (
 )
 from entropytrade.agents.pipeline import run_research
 from entropytrade.agents.provider import ResearchProviderConfig
+from entropytrade.execution.fee_evidence import FeeVersion
 from entropytrade.experiments.data import (
     AdapterRegistry,
     PredictionProvider,
@@ -43,6 +44,7 @@ def research_and_test(
     market_family: str = "weather",
     progress: Callable[[str, str], None] | None = None,
     local_templates: bool = False,
+    fee_versions: tuple[FeeVersion, ...] | None = None,
 ) -> dict[str, Any]:
     def emit(stage: str, detail: str) -> None:
         if progress is not None:
@@ -112,6 +114,21 @@ def research_and_test(
             features, output / "models", registry, tracking / "models", data_kind=data.data_kind
         )
         config_experiment = experiment_config or ExperimentConfig()
+    if not synthetic and fee_versions is not None:
+        config_experiment = config_experiment.revalidated(
+            fee_policy=None, fee_versions=fee_versions
+        )
+        (output / "fee-evidence.json").write_text(
+            json.dumps(
+                {
+                    "schema": "experiment-fee-evidence-v1",
+                    "submission_enabled": False,
+                    "versions": [v.model_dump(mode="json") for v in fee_versions],
+                },
+                sort_keys=True,
+                indent=2,
+            )
+        )
     try:
         proposed = temporal_plan(
             [

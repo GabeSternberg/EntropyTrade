@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="46.05166200000001">
+<testsuite name="fees.spec.cjs" timestamp="2026-10-31T01:08:30.471Z" hostname="" tests="2" failures="0" skipped="0" time="42.261" errors="0">
+<testcase name="point-in-time fees: CONTROLLED intentions, downloads and restart" classname="fees.spec.cjs" time="16.962">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/fees-point-in-time-fees-CO-6c916-tions-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="point-in-time fees: authentic refusal, downloads and restart" classname="fees.spec.cjs" time="25.299">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/fees-point-in-time-fees-au-f3caf-fusal-downloads-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

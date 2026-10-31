@@ -1,0 +1,8 @@
+{
+  "monitor_id": "b29bfafc-880c-4f36-a076-944622d89908",
+  "evidence": "Authentic original receipts; no new collection",
+  "fee_versions": [
+    "sha256:2d263290d915a492f5325710e7de80b9837fd8e18618ea8def2438ea9dce71b3"
+  ],
+  "submission_enabled": false
+}

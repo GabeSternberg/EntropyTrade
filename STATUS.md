@@ -3,7 +3,50 @@
 Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: reproducible research cohorts across retained partitions
+## Current milestone: point-in-time fee evidence for shadow and experiments
+
+Implemented in place on designated `supervisor/20261030-205940` from `99870f2`.
+The supervisor owns every Git operation and independent acceptance. **V1 remains incomplete.**
+No credentials, exchange orders, live activation, risk-limit changes or new family were used.
+
+Continuous cycles and real research jobs now freeze immutable server-managed fee versions.
+Versions retain official source bytes/hashes, receipt and local review clocks, exact series
+scope, coefficients, citations, rounding and bounded effective intervals. The existing
+FeePolicy/calculator/interpreter/risk engine is reused. Series metadata cannot certify a
+coefficient; failed or unsupported documents cannot certify. Reviewing today cannot backdate
+availability. Missing/conflicting/late/inapplicable/expired evidence refuses explicitly.
+Controlled evidence applies only to synthetic data. Captured series conflicts also refuse.
+
+The website exposes fee provenance/refusal, immutable versions, original-byte downloads,
+per-decision selections and frozen job evidence. Reservations remain fee-inclusive across
+restart. Replays use evidence at decision and simulated execution clocks, including a fee
+change during latency. Portable experiment inputs retain frozen predictions/configuration
+and redact protected features, targets and books; offline verification compares saved results.
+Corrupt evidence fails closed, and the existing workspace recovery retains fee versions.
+
+Separate managed-Chromium procedures execute actual localhost page interaction for CONTROLLED
+eligible-intention/reservation fixtures and authentic original-receipt refusal. They download
+and checksum versions, original source bytes and shadow exports, restart the actual server
+and compare reopened downloads. The authentic flow also submits ordinary research and
+downloads its frozen fee evidence and honest insufficient-data review. Controlled success
+is evaluator/store/browser software evidence, never authentic acquisition or profitability.
+A fresh unauthenticated official fee PDF GET returned HTTP 429 at its original current clock;
+its exact bytes are retained. No authentic fee schedule was certified or historical receipt
+backdated. External source/model/empirical gates remain open.
+
+Final verification passes **1,109 pytest tests in 641.26s**, Ruff lint/format (529 files),
+strict mypy (526 files), all 21 named frontend assertions, 29 targeted fee/shadow cases and
+both actual Chromium procedures (five screenshots, fourteen matching downloads, zero page
+errors). Both workspace restores and controlled/real-refusal experiment replays pass offline.
+All 550 frozen source/configuration hashes match; previously tracked data bytes are unchanged.
+Exact executed coverage and remaining limits are recorded in the
+[milestone evidence](data/fee-evidence-review/20261030/README.md). See the
+[operating guide](docs/fee-evidence.md). Existing source receipts, Bitcoin's frozen boundaries,
+protected partitions and disabled submissions remain intact. No fresh clean-install or V1
+release pass is claimed. Return this substantial milestone for supervisor review; defer
+new-family selection and empirical release claims. Do not start another major phase.
+
+## Previous milestone: reproducible research cohorts across retained partitions
 
 Implemented in place on designated `supervisor/20261030-202711` from `69e2740`.
 All Git operations and independent acceptance belong to the supervisor. **V1 remains

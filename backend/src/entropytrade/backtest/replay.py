@@ -118,6 +118,7 @@ def run_replay(
     window: SplitWindow,
     settlements: Sequence[tuple[datetime, str, MarketResult]] = (),
     series_fees: SeriesFeeTable | None = None,
+    fee_schedule_at: Callable[[str, datetime], FeeSchedule] | None = None,
     max_book_age: timedelta = timedelta(hours=1),
     event_ids: Mapping[str, str] | None = None,
     close_times: Mapping[str, datetime] | None = None,
@@ -223,7 +224,9 @@ def run_replay(
             ticker = book.market_ticker
             if ticker in resolved or stamp >= (close_times or {}).get(ticker, window.end):
                 continue
-            if series_fees is not None:
+            if fee_schedule_at is not None:
+                broker.use_schedule(fee_schedule_at(ticker, stamp))
+            elif series_fees is not None:
                 _apply_series_fee(broker, series_fees, ticker, applied)
             quantities: dict[tuple[str, OutcomeSide], Decimal] = {}
             for order, _ in pending.values():
@@ -308,7 +311,9 @@ def run_replay(
                 {"time": stamp.isoformat(), "status": "unfilled_stale_or_closed", "ticker": ticker}
             )
             continue
-        if series_fees is not None:
+        if fee_schedule_at is not None:
+            broker.use_schedule(fee_schedule_at(ticker, stamp))
+        elif series_fees is not None:
             _apply_series_fee(broker, series_fees, ticker, applied)
         fill_book = (
             execution_book

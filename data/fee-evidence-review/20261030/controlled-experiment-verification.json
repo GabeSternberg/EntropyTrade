@@ -1,0 +1,22 @@
+{
+  "evidence": "CONTROLLED synthetic probability/market/fee fixtures; software repeatability only",
+  "verification": {
+    "verified": true,
+    "candidates": 2,
+    "submission_enabled": false,
+    "limitation": "Software repeatability only; no certification of performance or source truth"
+  },
+  "experiment_id": "sha256:5cc909c7ae43b4fbe97db4059c2ba20c5ceb5ce2b248b1b4409eff9481eef1dd",
+  "scenarios": [
+    {
+      "scenario": "base",
+      "simulated_fills": 20,
+      "simulated_fees": "0.800000",
+      "fee_versions": [
+        "sha256:966bd31fc6eb90056cccd7c3ba1503af5c2cc201716dbb0989a286caf99b8d38",
+        "sha256:c0dcd33d99ded6dcd030646f9f82dbb58d80da592e01494580fc3e2160fedff3"
+      ]
+    }
+  ],
+  "submission_enabled": false
+}

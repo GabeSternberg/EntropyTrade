@@ -10,8 +10,9 @@ from entropytrade.domain.observations import FeatureObservation
 from entropytrade.domain.orders import OrderIntent
 from entropytrade.domain.portfolio import PortfolioSnapshot, SnapshotSource
 from entropytrade.domain.strategy import CalibrationMethod, StrategySpec
+from entropytrade.execution.fee_evidence import FeeVersion, select_fee
+from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
-from entropytrade.experiments.engine import FeePolicy
 from entropytrade.features.registry import scientific_hash
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.strategies.interpret import compile_strategy, resolve_probability_feature
@@ -47,6 +48,8 @@ def evaluate(
     bundle: PredictionBundle,
     *,
     fee: FeePolicy | None = None,
+    fee_versions: tuple[FeeVersion, ...] | None = None,
+    series_fees: tuple[dict[str, Any], ...] = (),
     reservations: tuple[dict[str, Any], ...] = (),
     acquisition_complete: bool = True,
 ) -> list[dict[str, Any]]:
@@ -73,6 +76,21 @@ def evaluate(
         if sample.event_id in protected:
             continue  # Never persist protected feature/target values in a monitoring projection.
         when = sample.decision_time
+        fee_audit = None
+        if fee_versions is not None:
+            fee, fee_audit = select_fee(
+                fee_versions, series=sample.family, when=when, data_kind=data.data_kind
+            )
+            if fee is not None and any(
+                row["series"] == sample.family
+                and (
+                    row["fee_type"] != fee.schedule.fee_type.value
+                    or Decimal(row["fee_multiplier"]) != fee.schedule.fee_multiplier
+                )
+                for row in series_fees
+            ):
+                fee = None
+                fee_audit.update(status="refused", reason="series_metadata_conflict")
         predictions = [
             r
             for r in bundle.records
@@ -130,6 +148,10 @@ def evaluate(
             "status": "blocked",
             "reasons": [name for name, passed in gates.items() if not passed],
         }
+        if fee_audit is not None:
+            row["fee_evidence"] = fee_audit
+            if fee is None:
+                row["reasons"].append(fee_audit["reason"])
         if all(gates.values()):
             assert prediction is not None  # noqa: S101
             assert fee is not None  # noqa: S101

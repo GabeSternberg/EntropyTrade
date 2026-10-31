@@ -7,8 +7,9 @@ from typing import Any
 
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.strategy import StrategySpec
+from entropytrade.execution.fee_evidence import FeeVersion
+from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
-from entropytrade.experiments.engine import FeePolicy
 from entropytrade.features.registry import scientific_hash
 from entropytrade.tracking.evaluate import evaluate, protected_events
 
@@ -21,6 +22,8 @@ def decision_inputs(
     held: tuple[dict[str, Any], ...] = (),
     acquisition_complete: bool = True,
     fee: FeePolicy | None = None,
+    fee_versions: tuple[FeeVersion, ...] | None = None,
+    series_fees: tuple[dict[str, Any], ...] = (),
 ) -> dict[str, Any]:
     protected = protected_events(data, bundle)
     samples = tuple(
@@ -46,7 +49,7 @@ def decision_inputs(
             if p.partition != "holdout" and any(p.usable(s) for s in samples)
         ),
     )
-    return {
+    result = {
         "schema": "shadow-inputs-v1",
         "spec": spec.model_dump(mode="json"),
         "data": {
@@ -59,6 +62,11 @@ def decision_inputs(
         "fee": fee.model_dump(mode="json", exclude_computed_fields=True) if fee else None,
     }
 
+    if fee_versions is not None:
+        result["fee_versions"] = [v.model_dump(mode="json") for v in fee_versions]
+        result["series_fees"] = list(series_fees)
+    return result
+
 
 def reproduce(inputs: dict[str, Any]) -> list[dict[str, Any]]:
     if inputs["schema"] != "shadow-inputs-v1":
@@ -70,6 +78,10 @@ def reproduce(inputs: dict[str, Any]) -> list[dict[str, Any]]:
         reservations=tuple(inputs["reservations"]),
         acquisition_complete=inputs["acquisition_complete"],
         fee=FeePolicy.model_validate(inputs["fee"]) if inputs["fee"] else None,
+        series_fees=tuple(inputs.get("series_fees", ())),
+        fee_versions=tuple(FeeVersion.model_validate(v) for v in inputs["fee_versions"])
+        if "fee_versions" in inputs
+        else None,
     )
 
 

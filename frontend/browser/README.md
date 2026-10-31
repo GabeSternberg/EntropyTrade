@@ -160,3 +160,13 @@ supported approval. The prior sandbox-denied launch remains historical evidence;
 policy/launch flags were not changed. Controlled fits never establish empirical results;
 authentic fitting remains insufficient. Run with fresh evidence/workspace paths and retain
 screenshots/download hashes; HTTP/DOM checks do not replace browser acceptance.
+
+
+For point-in-time fee evidence select `--grep 'point-in-time fees'` with fresh absolute
+workspace/evidence paths. `fees.spec.cjs` separates CONTROLLED synthetic eligible-intention
+fixtures from authentic original-receipt refusal. Both inspect actual pages, download full
+versions and exact original bytes, inspect frozen shadow selections, restart the real server
+and compare downloads. The authentic flow submits ordinary research and downloads frozen
+experiment fees plus its insufficient-data review. See [the guide](../../docs/fee-evidence.md)
+and [executed evidence](../../data/fee-evidence-review/20261030/README.md). These are actual
+managed-Chromium checks; controlled success does not establish empirical data or returns.

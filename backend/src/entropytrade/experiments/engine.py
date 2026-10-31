@@ -15,13 +15,14 @@ from pydantic import Field, model_validator
 from entropytrade.backtest.replay import run_replay
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.base import DomainModel
-from entropytrade.domain.enums import FeeType, FillScenario
-from entropytrade.domain.ids import ContentHash
+from entropytrade.domain.enums import FillScenario
 from entropytrade.domain.numeric import ZERO, ExactDecimal
 from entropytrade.domain.observations import FeatureObservation
 from entropytrade.domain.runs import SampleSplit, SplitWindow
 from entropytrade.domain.strategy import ProbabilityModelRef, StrategySpec
-from entropytrade.domain.time import UtcDatetime, utc_now
+from entropytrade.domain.time import utc_now
+from entropytrade.execution.fee_evidence import FeeVersion, select_fee
+from entropytrade.execution.fee_policy import FeePolicy as FeePolicy
 from entropytrade.execution.fees import FeeSchedule
 from entropytrade.execution.paper import PaperBroker
 from entropytrade.experiments.data import (
@@ -39,27 +40,9 @@ from entropytrade.strategies.interpret import UnsupportedSpecError, compile_stra
 from entropytrade.strategy_registry.store import Registry
 
 
-class FeePolicy(DomainModel):
-    schedule: FeeSchedule
-    version: str
-    available_at: UtcDatetime
-    effective_from: UtcDatetime
-    effective_to: UtcDatetime | None = None
-    evidence: str
-    evidence_hash: ContentHash | None = None
-    certified: bool = False
-
-    @model_validator(mode="after")
-    def supported_schedule(self) -> "FeePolicy":
-        if self.schedule.fee_type is not FeeType.QUADRATIC:
-            raise ValueError("fee formula unsupported; no hidden flat fee approximation")
-        if self.schedule.quadratic_coefficient < 0 or self.schedule.fee_multiplier < 0:
-            raise ValueError("fee coefficients must be nonnegative")
-        return self
-
-
 class ExperimentConfig(DomainModel):
     fee_policy: FeePolicy | None = None
+    fee_versions: tuple[FeeVersion, ...] | None = None
     latency_seconds: int = Field(default=1, ge=0, le=3600)
     max_book_age_seconds: int = Field(default=60, ge=0, le=3600)
     starting_cash: ExactDecimal = Field(default=Decimal("1000"), gt=0)
@@ -78,6 +61,8 @@ class ExperimentConfig(DomainModel):
 
     @model_validator(mode="after")
     def unique_scenarios(self) -> "ExperimentConfig":
+        if self.fee_versions is not None and self.fee_policy is not None:
+            raise ValueError("choose frozen fee evidence or a legacy explicit policy")
         if FillScenario.BASE not in self.scenarios or len(set(self.scenarios)) != len(
             self.scenarios
         ):
@@ -159,6 +144,28 @@ def _scenario(
     end: datetime,
 ) -> dict[str, Any]:
     policy = config.fee_policy
+    bindings: list[dict[str, Any]] = []
+    families = {s.ticker: s.family for s in samples}
+
+    def schedule_at(ticker: str, when: datetime) -> FeeSchedule:
+        chosen, audit = select_fee(
+            config.fee_versions or (), series=families[ticker], when=when, data_kind=data.data_kind
+        )
+        if chosen is None:
+            raise ValueError("execution fee evidence refused: " + str(audit["reason"]))
+        bindings.append(audit)
+        return chosen.schedule.revalidated(
+            quadratic_coefficient=chosen.schedule.quadratic_coefficient
+            * (Decimal("1.5") if scenario is FillScenario.CONSERVATIVE else Decimal(1))
+        )
+
+    if config.fee_versions is not None:
+        policy, _ = select_fee(
+            config.fee_versions,
+            series=samples[0].family,
+            when=samples[0].decision_time,
+            data_kind=data.data_kind,
+        )
     if policy is None:
         raise ValueError("execution needs a fee policy")
     schedule = policy.schedule
@@ -174,6 +181,7 @@ def _scenario(
         strategy=compile_strategy(spec),
         ledger=ledger,
         broker=PaperBroker(ledger, schedule),
+        fee_schedule_at=schedule_at if config.fee_versions is not None else None,
         engine=RiskEngine(
             RiskLimits(
                 bankroll=config.starting_cash,
@@ -219,6 +227,7 @@ def _scenario(
         "scenario": scenario.value,
         "execution_fidelity": "sized_snapshot_taker_simulation",
         "fee_policy": policy.model_dump(mode="json"),
+        "fee_bindings": bindings,
         "fee_schedule_used": schedule.model_dump(mode="json"),
         "fill_count": len(fills),
         "filled_orders": len({f.client_order_id for f in fills}),
@@ -326,6 +335,13 @@ def evaluate_candidate(
     scoped = [
         s for s in data.samples if s.event_id not in data.protected_events and _covers(spec, s)
     ]
+    if config.fee_versions is not None:
+        result["fee_evidence"] = [
+            select_fee(
+                config.fee_versions, series=s.family, when=s.decision_time, data_kind=data.data_kind
+            )[1]
+            for s in scoped
+        ]
     result["coverage"] = {
         "events": len({s.event_id for s in scoped}),
         "eligible_events": len({s.event_id for s in scoped if s.eligible}),
@@ -524,7 +540,28 @@ def evaluate_candidate(
         if protected_starts
         else max(s.close_time for s in samples) + timedelta(days=2)
     )
-    if policy is None or (
+    if config.fee_versions is not None:
+        # Replay decides on the retained book clock and executes after configured latency.
+        # Verify every required clock before producing any scenario; mixed versions are legal.
+        checks = [
+            select_fee(config.fee_versions, series=s.family, when=when, data_kind=data.data_kind)[1]
+            for s in samples
+            for when in {
+                s.decision_time,
+                s.book.received_at if s.book else s.decision_time,
+                (s.book.received_at if s.book else s.decision_time)
+                + timedelta(seconds=config.latency_seconds),
+            }
+        ]
+        result["execution_fee_evidence"] = sorted(
+            checks, key=lambda a: (a["series"], a["decision_time"])
+        )
+        if any(a["status"] != "applicable" for a in checks):
+            result["reasons"].append(
+                "point-in-time fee evidence refused: "
+                + ", ".join(sorted({a["reason"] for a in checks if a["reason"]}))
+            )
+    elif policy is None or (
         data.data_kind == "real" and (not policy.certified or not policy.evidence_hash)
     ):
         result["reasons"].append("verified historical fee schedule unavailable")
@@ -631,6 +668,8 @@ def run_experiments(
         "strategies/interpret.py",
         "execution/paper.py",
         "execution/fees.py",
+        "execution/fee_policy.py",
+        "execution/fee_evidence.py",
         "risk/engine.py",
         "domain/strategy.py",
     ):
@@ -730,6 +769,50 @@ def run_experiments(
             )
     lines += ["", *result["warnings"]]
     (destination / "report.md").write_text("\n".join(lines) + "\n")
+    if config.fee_versions is not None:
+        # Protected labels/features never enter the portable replay projection.
+        protected = set(data.protected_events)
+        for value in cached_provider.cache.values():
+            if isinstance(value, PredictionBundle):
+                protected.update((value.model_metadata.get("split") or {}).get("holdout", []))
+        replay_data = data.revalidated(
+            samples=tuple(
+                s.revalidated(
+                    features={}, versions={}, outcome=None, outcome_available_at=None, book=None
+                )
+                if s.event_id in protected
+                else s
+                for s in data.samples
+            )
+        )
+        bundles = {
+            key: value.revalidated(
+                records=tuple(
+                    p
+                    for p in value.records
+                    if p.event_id not in protected and p.partition != "holdout"
+                )
+            ).model_dump(mode="json")
+            if isinstance(value, PredictionBundle)
+            else value
+            for key, value in cached_provider.cache.items()
+        }
+        (destination / "replay-inputs.json").write_text(
+            json.dumps(
+                {
+                    "schema": "experiment-replay-v1",
+                    "research": research,
+                    "data": {
+                        **replay_data.model_dump(mode="json"),
+                        "protected_events": sorted(data.protected_events),
+                    },
+                    "config": config.model_dump(mode="json"),
+                    "predictions": bundles,
+                },
+                sort_keys=True,
+                indent=2,
+            )
+        )
     (destination / "checksums.json").write_text(
         json.dumps({p.name: file_hash(p) for p in destination.iterdir()}, sort_keys=True)
     )

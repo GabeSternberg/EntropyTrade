@@ -19,6 +19,7 @@ from entropytrade.domain.time import Clock, SystemClock
 from entropytrade.exchange.gateway import GatewayError
 from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.transport import RawCapture
+from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.families.bitcoin_history import OutcomeTransport
 from entropytrade.families.public import capture_public
 from entropytrade.ml.forward import FrozenWeather
@@ -166,12 +167,16 @@ async def collect(
     execution_transport: httpx.AsyncBaseTransport | None = None,
     outcome_transport: httpx.AsyncBaseTransport | None = None,
     clock: Clock | None = None,
+    fee_versions: tuple[FeeVersion, ...] = (),
 ) -> dict[str, Any]:
     implementation = {
         name: file_hash(repo / name)
         for name in (
             "uv.lock",
             "pyproject.toml",
+            "backend/src/entropytrade/execution/fee_evidence.py",
+            "backend/src/entropytrade/execution/fee_policy.py",
+            "backend/src/entropytrade/execution/fees.py",
             "backend/src/entropytrade/tracking/evaluate.py",
             "backend/src/entropytrade/tracking/worker.py",
             "backend/src/entropytrade/tracking/replay.py",
@@ -277,7 +282,15 @@ async def collect(
     complete = (
         not capture["failures"] and capture["universe_complete"] and not execution["failures"]
     )
-    inputs = decision_inputs(spec, data, bundle, held=held, acquisition_complete=complete)
+    inputs = decision_inputs(
+        spec,
+        data,
+        bundle,
+        held=held,
+        acquisition_complete=complete,
+        fee_versions=fee_versions,
+        series_fees=tuple(execution["fee_evidence"]),
+    )
     (root / "decision-inputs.json").write_text(json.dumps(inputs, sort_keys=True, indent=2))
     decisions = evaluate(
         spec,
@@ -285,6 +298,8 @@ async def collect(
         bundle,
         reservations=held,
         acquisition_complete=complete,
+        fee_versions=fee_versions,
+        series_fees=tuple(execution["fee_evidence"]),
     )
     return {
         "schema": "shadow-cycle-v1",
@@ -299,6 +314,7 @@ async def collect(
         "contracts": contracts,
         "quotes": quotes,
         "execution": execution,
+        "fee_versions": [v.summary() for v in fee_versions],
         "model_binding": binding,
         "decisions": decisions,
         "model_refusals": bundle.refusals,
@@ -312,7 +328,8 @@ async def collect(
             "Shadow intentions only. No submissions, fills, balance, P&L or profitability claim.",
             "Frozen research candidate is not approved or promoted. "
             "Only compatible data-only frozen weather models can score forward evidence.",
-            "Series fee receipts are versioned but uncertified; no coefficient is invented.",
+            "Only server-reviewed point-in-time document evidence can certify fees; "
+            "series fields alone cannot.",
             "Outcome receipt clocks never rewrite earlier decisions or protected partitions.",
         ],
     }
@@ -329,7 +346,9 @@ def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) ->
     root = store.jobs.root / "shadow" / identifier(monitor_id) / identifier(cycle_id)
     root.mkdir(parents=True, exist_ok=False)
     try:
-        result = asyncio.run(collect(monitor, repo, root))
+        result = asyncio.run(
+            collect(monitor, repo, root, fee_versions=FeeEvidenceStore(store.jobs.root).snapshot())
+        )
         failed = bool(
             result["capture"]["failures"]
             or result["outcome_failures"]

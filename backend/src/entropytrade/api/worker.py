@@ -12,6 +12,7 @@ from entropytrade.agents.provider import ResearchProviderConfig
 from entropytrade.api.jobs import Jobs, identifier, validate_request
 from entropytrade.api.server import workspace_path
 from entropytrade.data.sources import file_hash
+from entropytrade.execution.fee_evidence import FeeEvidenceStore
 from entropytrade.experiments.data import AdapterRegistry
 from entropytrade.experiments.workflow import research_and_test
 from entropytrade.families.bitcoin_history import build_history, history_data
@@ -282,6 +283,7 @@ def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
             market_family=request["family"],
             progress=progress,
             local_templates=not use_provider and request["mode"] != "synthetic",
+            fee_versions=FeeEvidenceStore(jobs.root).snapshot(),
         )
         failed = result.get("status") == "RESEARCH_FAILED"
         progress("review", "Saving protected research and experiment evidence")

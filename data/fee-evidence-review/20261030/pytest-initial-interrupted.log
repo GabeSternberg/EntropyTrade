@@ -1,0 +1,206 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collected 1104 items
+
+backend/tests/architecture/test_boundaries.py ..                         [  0%]
+backend/tests/exchange/test_collector_service.py .......                 [  0%]
+backend/tests/exchange/test_feed_recorder.py ........                    [  1%]
+backend/tests/exchange/test_gateway_http.py .....                        [  1%]
+backend/tests/exchange/test_recording_v2.py .........                    [  2%]
+backend/tests/exchange/test_wire_session.py ..                           [  2%]
+backend/tests/integration/test_bitcoin_history_listener.py .             [  3%]
+backend/tests/integration/test_recovery_listener.py .                    [  3%]
+backend/tests/integration/test_shadow_history_listener.py .              [  3%]
+backend/tests/integration/test_shadow_tracking.py FFF                    [  3%]
+backend/tests/integration/test_weather_cohorts_listener.py .             [  3%]
+backend/tests/integration/test_weather_history_listener.py .             [  3%]
+backend/tests/integration/test_workbench_listener.py ...                 [  3%]
+backend/tests/integration/test_workbench_process.py ....
+
+=================================== FAILURES ===================================
+_ test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisions _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-36/test_multi_cycle_receipts_offi0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73ee2fc26540>
+
+    def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisions(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        store = TrackingStore(Jobs(tmp_path))
+        monitor_id = monitor(store, family="bitcoin")
+        clock = SimulatedClock(WHEN)
+    
+        def final(request: httpx.Request) -> httpx.Response:
+            assert request.method == "GET"
+            ticker = request.url.path.split("/")[-1]
+            listing_request = httpx.Request(
+                "GET",
+                "https://api.elections.kalshi.com/trade-api/v2/markets",
+                params={
+                    "series_ticker": "KXBTC",
+                    "status": "open",
+                    **({"cursor": "page2"} if ticker.endswith("100001") else {}),
+                },
+            )
+            body = json.loads(listing(listing_request).content)["markets"][0]
+            assert body["ticker"] == ticker
+            body.update(
+                status="finalized",
+                result="no",
+                settlement_value_dollars="0.0000",
+                settlement_ts="2026-10-26T02:00:00Z",
+            )
+            return httpx.Response(200, json={"market": body})
+    
+        async def controlled(snapshot: dict[str, Any], repo: Path, root: Path) -> dict[str, Any]:
+            return await collect(
+                snapshot,
+                repo,
+                root,
+                kalshi_transport=httpx.MockTransport(listing),
+                source_transport=httpx.MockTransport(spot),
+                execution_transport=httpx.MockTransport(execution_wire),
+                outcome_transport=httpx.MockTransport(final),
+                clock=clock,
+            )
+    
+        monkeypatch.setattr("entropytrade.tracking.worker.collect", controlled)
+        first = store.claim()
+        assert first is not None
+        execute(store, REPO, *first)
+        before = store.get(monitor_id, export=True)
+        assert before is not None
+>       assert before["cycles"][0]["status"] == "completed"
+E       AssertionError: assert 'failed' == 'completed'
+E         
+E         - completed
+E         + failed
+
+backend/tests/integration/test_shadow_tracking.py:71: AssertionError
+__ test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit ___
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-36/test_partial_worker_failure_re0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73ee2fc26b40>
+
+    def test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        store = TrackingStore(Jobs(tmp_path))
+        monitor_id = monitor(store)
+    
+        async def interrupted(_snapshot: dict[str, Any], _repo: Path, root: Path) -> dict[str, Any]:
+            (root / "partial.json").write_text('{"evidence":"CONTROLLED partial receipt"}')
+            raise ValueError("CONTROLLED interrupted acquisition")
+    
+        monkeypatch.setattr("entropytrade.tracking.worker.collect", interrupted)
+        claim = store.claim()
+        assert claim is not None
+        execute(store, REPO, *claim)
+        failed = store.get(monitor_id)
+        assert failed is not None
+        cycle = failed["cycles"][0]
+        assert cycle["status"] == "failed"
+>       assert cycle["result"]["artifacts"][0]["path"] == "partial.json"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+backend/tests/integration/test_shadow_tracking.py:130: IndexError
+_________ test_frozen_model_collection_books_replay_and_later_outcome __________
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-36/test_frozen_model_collection_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73ee2fc25e20>
+
+    def test_frozen_model_collection_books_replay_and_later_outcome(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        from entropytrade.data.schema import MarketEvidence
+        from tests.unit.test_tracking_models import inputs, saved_model
+    
+        spec, data, markets, model = inputs()
+        store = TrackingStore(Jobs(tmp_path))
+        monitor_id = store.create(saved_model(store, spec, model))
+        clock = SimulatedClock(data.samples[0].decision_time)
+        market = next(iter(markets.values()))
+        body = _market_body()
+        body.update(
+            ticker=market.ticker,
+            event_ticker=market.event_ticker,
+            open_time=market.open_time.isoformat(),
+            close_time=market.close_time.isoformat(),
+        )
+    
+        async def source(root: Path, **_kwargs: Any) -> Any:
+            root.mkdir()
+            (root / "raw.json").write_text(json.dumps({"markets": [body]}))
+            evidence = MarketEvidence(
+                market=market,
+                capture_basis="receipt",
+                raw_ref="raw.json",
+                raw_hash=file_hash(root / "raw.json"),
+            )
+            (root / "markets.jsonl").write_text(evidence.model_dump_json())
+            return data.revalidated(
+                provenance={
+                    **data.provenance,
+                    "limitations": ["CONTROLLED sources and model; no empirical evidence"],
+                    "capture": {"failures": [], "universe_complete": True},
+                }
+            )
+    
+        def final(_request: httpx.Request) -> httpx.Response:
+            return httpx.Response(
+                200,
+                json={
+                    "market": {
+                        **body,
+                        "status": "finalized",
+                        "result": "yes",
+                        "settlement_value_dollars": "1.0000",
+                        "settlement_ts": (market.close_time + timedelta(minutes=1)).isoformat(),
+                    }
+                },
+            )
+    
+        real_collect = collect
+    
+        async def controlled(snapshot: dict[str, Any], repo: Path, root: Path) -> dict[str, Any]:
+            return await real_collect(
+                snapshot,
+                repo,
+                root,
+                clock=clock,
+                execution_transport=httpx.MockTransport(execution_wire),
+                outcome_transport=httpx.MockTransport(final),
+            )
+    
+        monkeypatch.setattr("entropytrade.tracking.worker.capture_public", source)
+        monkeypatch.setattr("entropytrade.tracking.worker.collect", controlled)
+        first = store.claim()
+        assert first is not None
+        execute(store, REPO, *first)
+        before = store.get(monitor_id, export=True)
+        assert before is not None
+        cycle = before["cycles"][0]
+>       assert cycle["status"] == "completed"
+E       AssertionError: assert 'failed' == 'completed'
+E         
+E         - completed
+E         + failed
+
+backend/tests/integration/test_shadow_tracking.py:221: AssertionError
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/fee-evidence-review/20261030/pytest.xml -
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_shadow_tracking.py::test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisions
+FAILED backend/tests/integration/test_shadow_tracking.py::test_partial_worker_failure_retains_evidence_and_pause_blocks_late_commit
+FAILED backend/tests/integration/test_shadow_tracking.py::test_frozen_model_collection_books_replay_and_later_outcome
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/gabriel/Projects/EntropyTrade/backend/tests/integration/test_workbench_process.py:147: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+=================== 3 failed, 45 passed in 228.01s (0:03:48) ===================

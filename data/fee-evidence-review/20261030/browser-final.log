@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 frontend/browser/fees.spec.cjs:11:3 › point-in-time fees: CONTROLLED intentions, downloads and restart (16.2s)
+  ✓  2 frontend/browser/fees.spec.cjs:11:3 › point-in-time fees: authentic refusal, downloads and restart (24.1s)
+
+  2 passed (41.4s)

@@ -137,6 +137,39 @@ class Handler(BaseHTTPRequestHandler):
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
             )
+        elif path == "/api/fees" or path.startswith("/api/fees/"):
+            from entropytrade.execution.fee_evidence import FeeEvidenceStore
+
+            try:
+                store = FeeEvidenceStore(self.server.jobs.root)
+                if path == "/api/fees":
+                    self.document(
+                        200,
+                        {
+                            "submission_enabled": False,
+                            "versions": [v.summary() for v in store.snapshot()],
+                        },
+                    )
+                else:
+                    fee_route = path.removeprefix("/api/fees/").split("/")
+                    version = store.get("sha256:" + fee_route[0])
+                    if len(fee_route) == 1:
+                        self.document(200, version.model_dump(mode="json"))
+                    elif (
+                        len(fee_route) == 3 and fee_route[1] == "sources" and fee_route[2].isdigit()
+                    ):
+                        # Always download opaque original bytes, including HTML error bodies.
+                        self.send(
+                            200,
+                            version.sources[int(fee_route[2])].body(),
+                            "application/octet-stream",
+                        )
+                    else:
+                        self.document(404, {"error": "not found"})
+            except (ValueError, OSError, IndexError) as exc:
+                self.document(
+                    409, {"error": "Fee evidence verification failed: " + type(exc).__name__}
+                )
         elif path == "/api/weather/partitions":
             self.document(200, self.server.jobs.weather_partitions())
         elif path == "/api/weather/datasets":
@@ -187,7 +220,7 @@ class Handler(BaseHTTPRequestHandler):
             if (
                 job is None
                 or route is None
-                or route[1] not in {"", "report", "review", "shadow-inputs"}
+                or route[1] not in {"", "report", "review", "shadow-inputs", "fee-evidence"}
             ):
                 self.document(404, {"error": "not found"})
             elif route[1] == "report":
@@ -196,18 +229,21 @@ class Handler(BaseHTTPRequestHandler):
                     ((job["result"] or {}).get("report", "Run has no report yet.")).encode(),
                     "text/plain; charset=utf-8",
                 )
-            elif route[1] == "shadow-inputs":
+            elif route[1] in {"shadow-inputs", "fee-evidence"}:
+                artifact_name = (
+                    "shadow-replay.json" if route[1] == "shadow-inputs" else "fee-evidence.json"
+                )
                 from entropytrade.data.sources import file_hash
 
                 artifact = next(
                     (
                         a
                         for a in (job["result"] or {}).get("artifacts", [])
-                        if a["path"] == "shadow-replay.json"
+                        if a["path"] == artifact_name
                     ),
                     None,
                 )
-                target = self.server.jobs.root / "runs" / route[0] / "workflow/shadow-replay.json"
+                target = self.server.jobs.root / "runs" / route[0] / "workflow" / artifact_name
                 if artifact is None:
                     self.document(404, {"error": "run has no retained shadow inputs"})
                 elif (

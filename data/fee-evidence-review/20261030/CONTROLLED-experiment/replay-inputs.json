@@ -1,0 +1,3879 @@
+{
+  "config": {
+    "bootstrap_samples": 100,
+    "fee_policy": null,
+    "fee_versions": [
+      {
+        "citations": [
+          {
+            "locator": "CONTROLLED fixture",
+            "passage": "CONTROLLED fee fixture; not an official document or empirical fee evidence.",
+            "source_hash": "sha256:07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9",
+            "supports": [
+              "coefficient",
+              "rounding",
+              "series",
+              "multiplier",
+              "interval"
+            ]
+          }
+        ],
+        "evidence_kind": "controlled",
+        "policy": {
+          "available_at": "2024-12-22T12:00:00Z",
+          "certified": true,
+          "effective_from": "2024-12-22T12:00:00Z",
+          "effective_to": "2025-02-20T12:00:00.500000Z",
+          "evidence": "Synthetic configured schedule; not a historical Kalshi fee claim",
+          "evidence_hash": "sha256:164c48b528ee90a5df1f32182a25fce88d80e8b619d9c844493f34c81b66e5fd",
+          "schedule": {
+            "fee_multiplier": "1",
+            "fee_type": "quadratic",
+            "maker_fraction": "1",
+            "maker_pays": false,
+            "quadratic_coefficient": "0.07"
+          },
+          "version": "synthetic-illustrative-v1"
+        },
+        "refusal": "",
+        "review": "CONTROLLED server review; software evidence only",
+        "reviewed_at": "2024-12-22T12:00:00Z",
+        "rounding": "cent_ceiling_per_fill",
+        "schema_version": "fee-evidence-v1",
+        "series": [
+          "MENTIONS"
+        ],
+        "sources": [
+          {
+            "body_base64": "Q09OVFJPTExFRCBmZWUgZml4dHVyZTsgbm90IGFuIG9mZmljaWFsIGRvY3VtZW50IG9yIGVtcGlyaWNhbCBmZWUgZXZpZGVuY2Uu",
+            "media_type": "text/plain",
+            "received_at": "2024-12-22T12:00:00Z",
+            "sha256": "sha256:07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9",
+            "status": 200,
+            "url": "https://fixture.invalid/CONTROLLED-fee-document"
+          }
+        ]
+      },
+      {
+        "citations": [
+          {
+            "locator": "CONTROLLED fixture",
+            "passage": "CONTROLLED fee fixture; not an official document or empirical fee evidence.",
+            "source_hash": "sha256:07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9",
+            "supports": [
+              "coefficient",
+              "rounding",
+              "series",
+              "multiplier",
+              "interval"
+            ]
+          }
+        ],
+        "evidence_kind": "controlled",
+        "policy": {
+          "available_at": "2024-12-22T12:00:00Z",
+          "certified": true,
+          "effective_from": "2025-02-20T12:00:00.500000Z",
+          "effective_to": "2025-05-21T12:00:00Z",
+          "evidence": "Synthetic configured schedule; not a historical Kalshi fee claim",
+          "evidence_hash": "sha256:164c48b528ee90a5df1f32182a25fce88d80e8b619d9c844493f34c81b66e5fd",
+          "schedule": {
+            "fee_multiplier": "1",
+            "fee_type": "quadratic",
+            "maker_fraction": "1",
+            "maker_pays": false,
+            "quadratic_coefficient": "0.14"
+          },
+          "version": "synthetic-illustrative-v1"
+        },
+        "refusal": "",
+        "review": "CONTROLLED server review; software evidence only",
+        "reviewed_at": "2024-12-22T12:00:00Z",
+        "rounding": "cent_ceiling_per_fill",
+        "schema_version": "fee-evidence-v1",
+        "series": [
+          "MENTIONS"
+        ],
+        "sources": [
+          {
+            "body_base64": "Q09OVFJPTExFRCBmZWUgZml4dHVyZTsgbm90IGFuIG9mZmljaWFsIGRvY3VtZW50IG9yIGVtcGlyaWNhbCBmZWUgZXZpZGVuY2Uu",
+            "media_type": "text/plain",
+            "received_at": "2024-12-22T12:00:00Z",
+            "sha256": "sha256:07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9",
+            "status": 200,
+            "url": "https://fixture.invalid/CONTROLLED-fee-document"
+          }
+        ]
+      }
+    ],
+    "latency_seconds": 1,
+    "max_book_age_seconds": 60,
+    "min_events": 10,
+    "min_trades": 1,
+    "per_event": "100",
+    "per_trade": "25",
+    "scenarios": [
+      "base"
+    ],
+    "seed": 17,
+    "starting_cash": "1000",
+    "total_deployed": "500"
+  },
+  "data": {
+    "data_kind": "synthetic",
+    "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+    "feature_definitions": {
+      "features": [
+        {
+          "availability": "only evidence available at or before decision",
+          "dependencies": [],
+          "dtype": "float64",
+          "missing_behavior": "null; never fill in source data",
+          "name": "mention_count",
+          "source_requirements": [
+            "fixture-transcript"
+          ],
+          "transformation": "count available before cutoff",
+          "unit": "count",
+          "version": "1"
+        }
+      ]
+    },
+    "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+    "protected_events": [
+      "MENTIONS-E70",
+      "MENTIONS-E71",
+      "MENTIONS-E72",
+      "MENTIONS-E73",
+      "MENTIONS-E74",
+      "MENTIONS-E75",
+      "MENTIONS-E76",
+      "MENTIONS-E77",
+      "MENTIONS-E78",
+      "MENTIONS-E79"
+    ],
+    "provenance": {
+      "source_kinds": [
+        "fixture-transcript"
+      ]
+    },
+    "samples": [
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E0-YES",
+          "received_at": "2025-01-01T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-01T13:00:00Z",
+        "decision_time": "2025-01-01T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E0",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-01T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-01T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-01",
+        "ticker": "MENTIONS-E0-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E1-YES",
+          "received_at": "2025-01-02T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-02T13:00:00Z",
+        "decision_time": "2025-01-02T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E1",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-02T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-02T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-02",
+        "ticker": "MENTIONS-E1-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E2-YES",
+          "received_at": "2025-01-03T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-03T13:00:00Z",
+        "decision_time": "2025-01-03T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E2",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-03T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-03T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-03",
+        "ticker": "MENTIONS-E2-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E3-YES",
+          "received_at": "2025-01-04T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-04T13:00:00Z",
+        "decision_time": "2025-01-04T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E3",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-04T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-04T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-04",
+        "ticker": "MENTIONS-E3-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E4-YES",
+          "received_at": "2025-01-05T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-05T13:00:00Z",
+        "decision_time": "2025-01-05T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E4",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-05T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-05T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-05",
+        "ticker": "MENTIONS-E4-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E5-YES",
+          "received_at": "2025-01-06T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-06T13:00:00Z",
+        "decision_time": "2025-01-06T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E5",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-06T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-06T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-06",
+        "ticker": "MENTIONS-E5-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E6-YES",
+          "received_at": "2025-01-07T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-07T13:00:00Z",
+        "decision_time": "2025-01-07T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E6",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-07T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-07T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-07",
+        "ticker": "MENTIONS-E6-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E7-YES",
+          "received_at": "2025-01-08T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-08T13:00:00Z",
+        "decision_time": "2025-01-08T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E7",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-08T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-08T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-08",
+        "ticker": "MENTIONS-E7-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E8-YES",
+          "received_at": "2025-01-09T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-09T13:00:00Z",
+        "decision_time": "2025-01-09T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E8",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-09T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-09T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-09",
+        "ticker": "MENTIONS-E8-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E9-YES",
+          "received_at": "2025-01-10T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-10T13:00:00Z",
+        "decision_time": "2025-01-10T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E9",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-10T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-10T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-10",
+        "ticker": "MENTIONS-E9-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E10-YES",
+          "received_at": "2025-01-11T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-11T13:00:00Z",
+        "decision_time": "2025-01-11T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E10",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-11T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-11T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-11",
+        "ticker": "MENTIONS-E10-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E11-YES",
+          "received_at": "2025-01-12T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-12T13:00:00Z",
+        "decision_time": "2025-01-12T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E11",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-12T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-12T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-12",
+        "ticker": "MENTIONS-E11-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E12-YES",
+          "received_at": "2025-01-13T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-13T13:00:00Z",
+        "decision_time": "2025-01-13T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E12",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-13T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-13T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-13",
+        "ticker": "MENTIONS-E12-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E13-YES",
+          "received_at": "2025-01-14T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-14T13:00:00Z",
+        "decision_time": "2025-01-14T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E13",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-14T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-14T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-14",
+        "ticker": "MENTIONS-E13-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E14-YES",
+          "received_at": "2025-01-15T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-15T13:00:00Z",
+        "decision_time": "2025-01-15T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E14",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-15T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-15T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-15",
+        "ticker": "MENTIONS-E14-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E15-YES",
+          "received_at": "2025-01-16T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-16T13:00:00Z",
+        "decision_time": "2025-01-16T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E15",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-16T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-16T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-16",
+        "ticker": "MENTIONS-E15-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E16-YES",
+          "received_at": "2025-01-17T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-17T13:00:00Z",
+        "decision_time": "2025-01-17T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E16",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-17T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-17T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-17",
+        "ticker": "MENTIONS-E16-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E17-YES",
+          "received_at": "2025-01-18T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-18T13:00:00Z",
+        "decision_time": "2025-01-18T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E17",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-18T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-18T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-18",
+        "ticker": "MENTIONS-E17-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E18-YES",
+          "received_at": "2025-01-19T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-19T13:00:00Z",
+        "decision_time": "2025-01-19T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E18",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-19T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-19T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-19",
+        "ticker": "MENTIONS-E18-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E19-YES",
+          "received_at": "2025-01-20T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-20T13:00:00Z",
+        "decision_time": "2025-01-20T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E19",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-20T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-20T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-20",
+        "ticker": "MENTIONS-E19-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E20-YES",
+          "received_at": "2025-01-21T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-21T13:00:00Z",
+        "decision_time": "2025-01-21T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E20",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-21T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-21T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-21",
+        "ticker": "MENTIONS-E20-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E21-YES",
+          "received_at": "2025-01-22T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-22T13:00:00Z",
+        "decision_time": "2025-01-22T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E21",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-22T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-22T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-22",
+        "ticker": "MENTIONS-E21-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E22-YES",
+          "received_at": "2025-01-23T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-23T13:00:00Z",
+        "decision_time": "2025-01-23T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E22",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-23T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-23T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-23",
+        "ticker": "MENTIONS-E22-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E23-YES",
+          "received_at": "2025-01-24T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-24T13:00:00Z",
+        "decision_time": "2025-01-24T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E23",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-24T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-24T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-24",
+        "ticker": "MENTIONS-E23-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E24-YES",
+          "received_at": "2025-01-25T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-25T13:00:00Z",
+        "decision_time": "2025-01-25T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E24",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-25T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-25T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-25",
+        "ticker": "MENTIONS-E24-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E25-YES",
+          "received_at": "2025-01-26T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-26T13:00:00Z",
+        "decision_time": "2025-01-26T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E25",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-26T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-26T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-26",
+        "ticker": "MENTIONS-E25-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E26-YES",
+          "received_at": "2025-01-27T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-27T13:00:00Z",
+        "decision_time": "2025-01-27T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E26",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-27T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-27T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-27",
+        "ticker": "MENTIONS-E26-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E27-YES",
+          "received_at": "2025-01-28T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-28T13:00:00Z",
+        "decision_time": "2025-01-28T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E27",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-28T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-28T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-28",
+        "ticker": "MENTIONS-E27-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E28-YES",
+          "received_at": "2025-01-29T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-29T13:00:00Z",
+        "decision_time": "2025-01-29T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E28",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-01-29T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-01-29T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-29",
+        "ticker": "MENTIONS-E28-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E29-YES",
+          "received_at": "2025-01-30T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-30T13:00:00Z",
+        "decision_time": "2025-01-30T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E29",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-01-30T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-30T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-30",
+        "ticker": "MENTIONS-E29-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E30-YES",
+          "received_at": "2025-01-31T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-01-31T13:00:00Z",
+        "decision_time": "2025-01-31T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E30",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-01-31T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-01-31T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-01-31",
+        "ticker": "MENTIONS-E30-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E31-YES",
+          "received_at": "2025-02-01T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-01T13:00:00Z",
+        "decision_time": "2025-02-01T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E31",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-01T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-01T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-01",
+        "ticker": "MENTIONS-E31-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E32-YES",
+          "received_at": "2025-02-02T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-02T13:00:00Z",
+        "decision_time": "2025-02-02T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E32",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-02T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-02T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-02",
+        "ticker": "MENTIONS-E32-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E33-YES",
+          "received_at": "2025-02-03T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-03T13:00:00Z",
+        "decision_time": "2025-02-03T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E33",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-03T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-03T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-03",
+        "ticker": "MENTIONS-E33-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E34-YES",
+          "received_at": "2025-02-04T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-04T13:00:00Z",
+        "decision_time": "2025-02-04T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E34",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-04T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-04T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-04",
+        "ticker": "MENTIONS-E34-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E35-YES",
+          "received_at": "2025-02-05T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-05T13:00:00Z",
+        "decision_time": "2025-02-05T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E35",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-05T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-05T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-05",
+        "ticker": "MENTIONS-E35-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E36-YES",
+          "received_at": "2025-02-06T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-06T13:00:00Z",
+        "decision_time": "2025-02-06T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E36",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-06T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-06T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-06",
+        "ticker": "MENTIONS-E36-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E37-YES",
+          "received_at": "2025-02-07T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-07T13:00:00Z",
+        "decision_time": "2025-02-07T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E37",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-07T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-07T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-07",
+        "ticker": "MENTIONS-E37-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E38-YES",
+          "received_at": "2025-02-08T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-08T13:00:00Z",
+        "decision_time": "2025-02-08T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E38",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-08T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-08T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-08",
+        "ticker": "MENTIONS-E38-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E39-YES",
+          "received_at": "2025-02-09T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-09T13:00:00Z",
+        "decision_time": "2025-02-09T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E39",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-09T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-09T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-09",
+        "ticker": "MENTIONS-E39-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E40-YES",
+          "received_at": "2025-02-10T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-10T13:00:00Z",
+        "decision_time": "2025-02-10T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E40",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-10T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-10T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-10",
+        "ticker": "MENTIONS-E40-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E41-YES",
+          "received_at": "2025-02-11T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-11T13:00:00Z",
+        "decision_time": "2025-02-11T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E41",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-11T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-11T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-11",
+        "ticker": "MENTIONS-E41-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E42-YES",
+          "received_at": "2025-02-12T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-12T13:00:00Z",
+        "decision_time": "2025-02-12T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E42",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-12T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-12T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-12",
+        "ticker": "MENTIONS-E42-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E43-YES",
+          "received_at": "2025-02-13T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-13T13:00:00Z",
+        "decision_time": "2025-02-13T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E43",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-13T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-13T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-13",
+        "ticker": "MENTIONS-E43-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E44-YES",
+          "received_at": "2025-02-14T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-14T13:00:00Z",
+        "decision_time": "2025-02-14T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E44",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-14T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-14T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-14",
+        "ticker": "MENTIONS-E44-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E45-YES",
+          "received_at": "2025-02-15T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-15T13:00:00Z",
+        "decision_time": "2025-02-15T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E45",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-15T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-15T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-15",
+        "ticker": "MENTIONS-E45-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E46-YES",
+          "received_at": "2025-02-16T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-16T13:00:00Z",
+        "decision_time": "2025-02-16T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E46",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-16T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-16T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-16",
+        "ticker": "MENTIONS-E46-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E47-YES",
+          "received_at": "2025-02-17T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-17T13:00:00Z",
+        "decision_time": "2025-02-17T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E47",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-17T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-17T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-17",
+        "ticker": "MENTIONS-E47-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E48-YES",
+          "received_at": "2025-02-18T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-18T13:00:00Z",
+        "decision_time": "2025-02-18T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E48",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-18T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-18T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-18",
+        "ticker": "MENTIONS-E48-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E49-YES",
+          "received_at": "2025-02-19T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-19T13:00:00Z",
+        "decision_time": "2025-02-19T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E49",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-19T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-19T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-19",
+        "ticker": "MENTIONS-E49-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E50-YES",
+          "received_at": "2025-02-20T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-20T13:00:00Z",
+        "decision_time": "2025-02-20T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E50",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-20T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-20T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-20",
+        "ticker": "MENTIONS-E50-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E51-YES",
+          "received_at": "2025-02-21T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-21T13:00:00Z",
+        "decision_time": "2025-02-21T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E51",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-21T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-21T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-21",
+        "ticker": "MENTIONS-E51-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E52-YES",
+          "received_at": "2025-02-22T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-22T13:00:00Z",
+        "decision_time": "2025-02-22T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E52",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-22T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-22T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-22",
+        "ticker": "MENTIONS-E52-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E53-YES",
+          "received_at": "2025-02-23T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-23T13:00:00Z",
+        "decision_time": "2025-02-23T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E53",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-23T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-23T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-23",
+        "ticker": "MENTIONS-E53-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E54-YES",
+          "received_at": "2025-02-24T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-24T13:00:00Z",
+        "decision_time": "2025-02-24T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E54",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-24T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-24T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-24",
+        "ticker": "MENTIONS-E54-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E55-YES",
+          "received_at": "2025-02-25T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-25T13:00:00Z",
+        "decision_time": "2025-02-25T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E55",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-25T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-25T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-25",
+        "ticker": "MENTIONS-E55-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E56-YES",
+          "received_at": "2025-02-26T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-26T13:00:00Z",
+        "decision_time": "2025-02-26T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E56",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-02-26T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-02-26T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-26",
+        "ticker": "MENTIONS-E56-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E57-YES",
+          "received_at": "2025-02-27T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-27T13:00:00Z",
+        "decision_time": "2025-02-27T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E57",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-02-27T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-27T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-27",
+        "ticker": "MENTIONS-E57-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E58-YES",
+          "received_at": "2025-02-28T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-02-28T13:00:00Z",
+        "decision_time": "2025-02-28T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E58",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-02-28T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-02-28T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-02-28",
+        "ticker": "MENTIONS-E58-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E59-YES",
+          "received_at": "2025-03-01T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-01T13:00:00Z",
+        "decision_time": "2025-03-01T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E59",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-03-01T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-01T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-01",
+        "ticker": "MENTIONS-E59-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E60-YES",
+          "received_at": "2025-03-02T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-02T13:00:00Z",
+        "decision_time": "2025-03-02T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E60",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-03-02T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-03-02T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-02",
+        "ticker": "MENTIONS-E60-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E61-YES",
+          "received_at": "2025-03-03T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-03T13:00:00Z",
+        "decision_time": "2025-03-03T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E61",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-03-03T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-03T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-03",
+        "ticker": "MENTIONS-E61-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E62-YES",
+          "received_at": "2025-03-04T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-04T13:00:00Z",
+        "decision_time": "2025-03-04T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E62",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-03-04T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-04T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-04",
+        "ticker": "MENTIONS-E62-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E63-YES",
+          "received_at": "2025-03-05T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-05T13:00:00Z",
+        "decision_time": "2025-03-05T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E63",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-03-05T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-05T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-05",
+        "ticker": "MENTIONS-E63-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E64-YES",
+          "received_at": "2025-03-06T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-06T13:00:00Z",
+        "decision_time": "2025-03-06T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E64",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-03-06T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-03-06T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-06",
+        "ticker": "MENTIONS-E64-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E65-YES",
+          "received_at": "2025-03-07T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-07T13:00:00Z",
+        "decision_time": "2025-03-07T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E65",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-03-07T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-07T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-07",
+        "ticker": "MENTIONS-E65-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E66-YES",
+          "received_at": "2025-03-08T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-08T13:00:00Z",
+        "decision_time": "2025-03-08T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E66",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-03-08T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-08T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-08",
+        "ticker": "MENTIONS-E66-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E67-YES",
+          "received_at": "2025-03-09T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-09T13:00:00Z",
+        "decision_time": "2025-03-09T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E67",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {
+          "mention_count": "1"
+        },
+        "features_available_at": "2025-03-09T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-09T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-09",
+        "ticker": "MENTIONS-E67-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E68-YES",
+          "received_at": "2025-03-10T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-10T13:00:00Z",
+        "decision_time": "2025-03-10T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E68",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {
+          "mention_count": "2"
+        },
+        "features_available_at": "2025-03-10T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "no",
+        "outcome_available_at": "2025-03-10T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-10",
+        "ticker": "MENTIONS-E68-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": {
+          "asks": [
+            {
+              "price": "0.5000",
+              "quantity": "10.00"
+            }
+          ],
+          "bids": [
+            {
+              "price": "0.4000",
+              "quantity": "10.00"
+            }
+          ],
+          "exchange_ts": null,
+          "market_ticker": "MENTIONS-E69-YES",
+          "received_at": "2025-03-11T12:00:00Z",
+          "sequence": null
+        },
+        "close_time": "2025-03-11T13:00:00Z",
+        "decision_time": "2025-03-11T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E69",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {
+          "mention_count": "0"
+        },
+        "features_available_at": "2025-03-11T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": "yes",
+        "outcome_available_at": "2025-03-11T14:00:00Z",
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-11",
+        "ticker": "MENTIONS-E69-YES",
+        "versions": {
+          "mention_count": "1"
+        }
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-12T13:00:00Z",
+        "decision_time": "2025-03-12T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E70",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {},
+        "features_available_at": "2025-03-12T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-12",
+        "ticker": "MENTIONS-E70-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-13T13:00:00Z",
+        "decision_time": "2025-03-13T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E71",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {},
+        "features_available_at": "2025-03-13T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-13",
+        "ticker": "MENTIONS-E71-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-14T13:00:00Z",
+        "decision_time": "2025-03-14T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E72",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {},
+        "features_available_at": "2025-03-14T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-14",
+        "ticker": "MENTIONS-E72-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-15T13:00:00Z",
+        "decision_time": "2025-03-15T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E73",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {},
+        "features_available_at": "2025-03-15T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-15",
+        "ticker": "MENTIONS-E73-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-16T13:00:00Z",
+        "decision_time": "2025-03-16T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E74",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {},
+        "features_available_at": "2025-03-16T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-16",
+        "ticker": "MENTIONS-E74-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-17T13:00:00Z",
+        "decision_time": "2025-03-17T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E75",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {},
+        "features_available_at": "2025-03-17T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-17",
+        "ticker": "MENTIONS-E75-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-18T13:00:00Z",
+        "decision_time": "2025-03-18T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E76",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {},
+        "features_available_at": "2025-03-18T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-18",
+        "ticker": "MENTIONS-E76-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-19T13:00:00Z",
+        "decision_time": "2025-03-19T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E77",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "features": {},
+        "features_available_at": "2025-03-19T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-19",
+        "ticker": "MENTIONS-E77-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-20T13:00:00Z",
+        "decision_time": "2025-03-20T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E78",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+        "features": {},
+        "features_available_at": "2025-03-20T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-20",
+        "ticker": "MENTIONS-E78-YES",
+        "versions": {}
+      },
+      {
+        "book": null,
+        "close_time": "2025-03-21T13:00:00Z",
+        "decision_time": "2025-03-21T12:00:00Z",
+        "eligible": true,
+        "event_id": "MENTIONS-E79",
+        "family": "MENTIONS",
+        "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+        "features": {},
+        "features_available_at": "2025-03-21T11:59:59Z",
+        "fidelity": "order_book",
+        "outcome": null,
+        "outcome_available_at": null,
+        "rules_known": true,
+        "sources": [
+          "fixture-transcript"
+        ],
+        "target_date": "2025-03-21",
+        "ticker": "MENTIONS-E79-YES",
+        "versions": {}
+      }
+    ]
+  },
+  "predictions": {
+    "('provided-frequency', 'sha256:e6e540c024be90e26ba1294636098a1707611985d6898f656b6e64b4b2f672de')": {
+      "model_metadata": {
+        "data_kind": "synthetic",
+        "split": {
+          "holdout": [
+            "MENTIONS-E70",
+            "MENTIONS-E71",
+            "MENTIONS-E72",
+            "MENTIONS-E73",
+            "MENTIONS-E74",
+            "MENTIONS-E75",
+            "MENTIONS-E76",
+            "MENTIONS-E77",
+            "MENTIONS-E78",
+            "MENTIONS-E79"
+          ]
+        }
+      },
+      "records": [
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-20T12:00:00Z",
+          "event_id": "MENTIONS-E50",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-50",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E50-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-21T12:00:00Z",
+          "event_id": "MENTIONS-E51",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-51",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E51-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-22T12:00:00Z",
+          "event_id": "MENTIONS-E52",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-52",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E52-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-23T12:00:00Z",
+          "event_id": "MENTIONS-E53",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-53",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E53-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-24T12:00:00Z",
+          "event_id": "MENTIONS-E54",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-54",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E54-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-25T12:00:00Z",
+          "event_id": "MENTIONS-E55",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-55",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E55-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-26T12:00:00Z",
+          "event_id": "MENTIONS-E56",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-56",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E56-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-27T12:00:00Z",
+          "event_id": "MENTIONS-E57",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-57",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E57-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-02-28T12:00:00Z",
+          "event_id": "MENTIONS-E58",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-58",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E58-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-01T12:00:00Z",
+          "event_id": "MENTIONS-E59",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-59",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E59-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-02T12:00:00Z",
+          "event_id": "MENTIONS-E60",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-60",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E60-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-03T12:00:00Z",
+          "event_id": "MENTIONS-E61",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-61",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E61-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-04T12:00:00Z",
+          "event_id": "MENTIONS-E62",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-62",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E62-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-05T12:00:00Z",
+          "event_id": "MENTIONS-E63",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-63",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E63-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-06T12:00:00Z",
+          "event_id": "MENTIONS-E64",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-64",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E64-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-07T12:00:00Z",
+          "event_id": "MENTIONS-E65",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-65",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E65-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-08T12:00:00Z",
+          "event_id": "MENTIONS-E66",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-66",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E66-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-09T12:00:00Z",
+          "event_id": "MENTIONS-E67",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:c8cd4227e248579d60d454d84c402d52c66dff641c950b1b0b99420dfcf5b7da",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-67",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E67-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-10T12:00:00Z",
+          "event_id": "MENTIONS-E68",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-68",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E68-YES"
+        },
+        {
+          "calibrated_before": null,
+          "calibration": "none",
+          "decision_time": "2025-03-11T12:00:00Z",
+          "event_id": "MENTIONS-E69",
+          "family": "provided-frequency",
+          "feature_hash": "sha256:adfbf6dcec0d16ec30d896c68a79313637a497245a9660b00043ffbfa8b7c32b",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2025-01-31T12:00:00Z",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "partition": "validation",
+          "prediction_id": "prediction-69",
+          "probability_yes": "0.75",
+          "ticker": "MENTIONS-E69-YES"
+        }
+      ],
+      "refusals": {},
+      "source_hash": "sha256:93867eb9f6bed88b5e108d71df3d08c810eda076091acca8150ee22b4769c2c4"
+    }
+  },
+  "research": {
+    "candidates": [
+      {
+        "candidate_id": "mentions",
+        "evidence_ids": [
+          "fixture"
+        ],
+        "hypothesis_id": "h1",
+        "missing_capability": "",
+        "model_family": "provided-frequency",
+        "required_features": [
+          "mention_count"
+        ],
+        "required_sources": [
+          "fixture-transcript"
+        ],
+        "spec": {
+          "assumptions": [
+            "The ask is the fill price and the position is held to settlement."
+          ],
+          "calibration": "none",
+          "citations": [],
+          "created_at": "2026-10-02T16:00:00Z",
+          "description": "Buy YES when the fixture model probability clears a threshold.",
+          "entry_rules": {
+            "all_of": [
+              {
+                "feature": "model_yes_probability",
+                "op": "gt",
+                "threshold": "0.6"
+              }
+            ],
+            "description": "model-driven entry"
+          },
+          "entry_window": {
+            "end": null,
+            "start": null,
+            "target_end": null,
+            "target_start": null
+          },
+          "evidence": [],
+          "execution": {
+            "max_spread": null,
+            "post_only": false,
+            "time_in_force": "fill_or_kill"
+          },
+          "exit_mode": "hold_to_settlement",
+          "exit_rules": {
+            "all_of": [
+              {
+                "feature": "settlement",
+                "op": "eq",
+                "threshold": "1"
+              }
+            ],
+            "description": "hold to settlement"
+          },
+          "features": [
+            {
+              "description": "available transcript count",
+              "name": "mention_count",
+              "version": "1"
+            }
+          ],
+          "generated_by": {
+            "actor_id": "quant",
+            "kind": "agent"
+          },
+          "generation_run_id": "00000000-0000-0000-0000-000000000fa0",
+          "hedging_rules": "",
+          "hypothesis": "Known transcript prefixes may predict a binary mention outcome.",
+          "invalidation_conditions": [
+            "The fixture probability is replaced by a live model."
+          ],
+          "market_universe": {
+            "description": "Philadelphia daily highs",
+            "event_tickers": [],
+            "market_tickers": [],
+            "series_tickers": [
+              "MENTIONS"
+            ],
+            "venue": "kalshi"
+          },
+          "max_entry_price": null,
+          "maximum_holding_period_seconds": null,
+          "min_displayed_quantity": null,
+          "minimum_edge": "0.03",
+          "model_kind": "none",
+          "model_ref": null,
+          "name": "phl-probability-055",
+          "position_sizing": {
+            "contracts": "1.00",
+            "dollars": null,
+            "kelly_fraction": null,
+            "max_contracts": "1.00",
+            "method": "fixed_contracts"
+          },
+          "probability_feature": null,
+          "required_sources": [
+            "fixture-transcript"
+          ],
+          "risk_overrides_allowed": "none",
+          "side": "yes",
+          "slippage_allowance": "0",
+          "strategy_family": "informational",
+          "strategy_id": "mention-strategy",
+          "uncertainty_allowance": "0",
+          "version": 1
+        }
+      },
+      {
+        "candidate_id": "unsupported",
+        "evidence_ids": [
+          "fixture"
+        ],
+        "hypothesis_id": "h2",
+        "missing_capability": "",
+        "model_family": "provided-frequency",
+        "required_features": [
+          "mention_count"
+        ],
+        "required_sources": [
+          "fixture-transcript"
+        ],
+        "spec": {
+          "assumptions": [
+            "The ask is the fill price and the position is held to settlement."
+          ],
+          "calibration": "none",
+          "citations": [],
+          "created_at": "2026-10-02T16:00:00Z",
+          "description": "Buy YES when the fixture model probability clears a threshold.",
+          "entry_rules": {
+            "all_of": [
+              {
+                "feature": "model_yes_probability",
+                "op": "gt",
+                "threshold": "0.6"
+              }
+            ],
+            "description": "model-driven entry"
+          },
+          "entry_window": {
+            "end": null,
+            "start": null,
+            "target_end": null,
+            "target_start": null
+          },
+          "evidence": [],
+          "execution": {
+            "max_spread": null,
+            "post_only": false,
+            "time_in_force": "fill_or_kill"
+          },
+          "exit_mode": "hold_to_settlement",
+          "exit_rules": {
+            "all_of": [
+              {
+                "feature": "settlement",
+                "op": "eq",
+                "threshold": "1"
+              }
+            ],
+            "description": "hold to settlement"
+          },
+          "features": [
+            {
+              "description": "available transcript count",
+              "name": "mention_count",
+              "version": "1"
+            }
+          ],
+          "generated_by": {
+            "actor_id": "quant",
+            "kind": "agent"
+          },
+          "generation_run_id": "00000000-0000-0000-0000-000000000fa0",
+          "hedging_rules": "unimplemented pair hedge",
+          "hypothesis": "Known transcript prefixes may predict a binary mention outcome.",
+          "invalidation_conditions": [
+            "The fixture probability is replaced by a live model."
+          ],
+          "market_universe": {
+            "description": "Philadelphia daily highs",
+            "event_tickers": [],
+            "market_tickers": [],
+            "series_tickers": [
+              "MENTIONS"
+            ],
+            "venue": "kalshi"
+          },
+          "max_entry_price": null,
+          "maximum_holding_period_seconds": null,
+          "min_displayed_quantity": null,
+          "minimum_edge": "0.03",
+          "model_kind": "none",
+          "model_ref": null,
+          "name": "phl-probability-055",
+          "position_sizing": {
+            "contracts": "1.00",
+            "dollars": null,
+            "kelly_fraction": null,
+            "max_contracts": "1.00",
+            "method": "fixed_contracts"
+          },
+          "probability_feature": null,
+          "required_sources": [
+            "fixture-transcript"
+          ],
+          "risk_overrides_allowed": "none",
+          "side": "yes",
+          "slippage_allowance": "0",
+          "strategy_family": "informational",
+          "strategy_id": "mention-strategy",
+          "uncertainty_allowance": "0",
+          "version": 1
+        }
+      }
+    ],
+    "coverage": {
+      "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1"
+    },
+    "decisions": [
+      {
+        "candidate_id": "mentions",
+        "critic": {
+          "accept_for_experiment": true
+        }
+      },
+      {
+        "candidate_id": "unsupported",
+        "critic": {
+          "accept_for_experiment": true
+        }
+      }
+    ],
+    "prompt": "Investigate mentions rather than weather",
+    "run_id": "00000000-0000-0000-0000-000000000fa0",
+    "status": "completed"
+  },
+  "schema": "experiment-replay-v1"
+}

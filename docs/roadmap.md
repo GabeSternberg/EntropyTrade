@@ -9,36 +9,44 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone builds reproducible research cohorts across multiple retained
-history partitions. The browser selects up to eight history partitions and optional later
-outcome partitions, freezes bounded immutable batches, rebuilds shared point-in-time
-features and runs the existing research/model/experiment workflow. Batches remain at most
-128 inputs, with the existing 256 MB aggregate raw-input budget. Global anchoring, original
-clocks, independent-event counts and inherited source/model/holdout protections persist.
-Interrupted assembly reuses completed batches; offline restore preserves identities and
-downloads. Missing labels, stale depth and uncertified fees remain explicit refusals.
-See the [guide](shadow-history.md) and [current evidence](../data/research-cohort-review/20261030/README.md).
+The current milestone integrates point-in-time fee evidence across continuous shadow
+tracking and reproducible experiments. The shared FeePolicy, fee calculator, interpreter and
+risk engine remain authoritative. Immutable server-managed versions retain exact official
+bytes, source/review clocks, series scope, coefficients, cited assumptions, rounding and
+bounded effective intervals. Browser/LLM/series payloads cannot certify fees. Availability
+includes local review, so newly reviewed documents cannot satisfy earlier decisions.
+Missing/conflicting/late/inapplicable evidence fails closed, and controlled versions cannot
+qualify real data. Source/version corruption never falls back to an assumed fee.
 
-CONTROLLED cohorts with 130 captures and 200 city/day events on 100 dates exercise
-deterministic fitting, calibration and evaluation while excluding 20 holdout events.
-The two previously outstanding sustained-shadow Playwright procedures now pass in the
-normally approved environment. A third procedure passes cohort selection, ordinary worker
-research, probabilities, all result tabs, downloads and restore. Screenshots and matching
-download hashes are retained; no browser/security policy was changed. Authentic receipts
-still yield four events on two dates and no source-matched scalar highs. The controlled
-fit is software evidence. V1 is incomplete; no fresh clean-install or empirical return is claimed.
+Shadow cycles and real research jobs freeze versions and selections into downloadable
+artifacts. The browser exposes provenance/refusal and original bytes. Fee-inclusive held
+intentions survive restart. Deterministic replay selects fees at decision and execution
+clocks, including transitions during latency. Self-contained offline experiment inputs retain
+frozen probability outputs while excluding protected feature/target/book values. Existing
+workspace recovery carries the fee evidence without changing original receipts.
 
-Final quality passes 1,083 pytest tests in 563.76s, Ruff lint/format, strict mypy,
-21 frontend assertions and all three actual Chromium procedures. Source and original
-receipt hashes match the evidence freeze. Independent acceptance remains with the supervisor.
+Two real managed-Chromium procedures separately inspect CONTROLLED intentions/reservations
+and authentic original-receipt refusal, exercise downloads/restart and compare exact bytes.
+The authentic case also runs ordinary research with frozen fee evidence and honest missing
+model/data reasons. A fresh official PDF GET returned HTTP 429; the exact response/receipt
+is retained without certification. See [the guide](fee-evidence.md),
+[current status](../STATUS.md) and [executed evidence](../data/fee-evidence-review/20261030/README.md)
+for final checks and limitations. No authentic fee schedule or profitable strategy is claimed.
+
+Final verification passes 1,109 pytest tests in 641.26s, Ruff lint/format, strict mypy,
+21 frontend assertions, 29 targeted fee/shadow tests and both actual Chromium procedures.
+Five screenshots/fourteen matching downloads, zero page errors and offline restore/replay
+proofs are retained. All 550 frozen source/configuration hashes and tracked data remain
+unchanged. Independent acceptance belongs to the supervisor.
 
 Continue authentic forward collection while independent functionality progresses. Preserve
 Bitcoin's frozen boundaries; do not select another family without user approval. External
 provider verification waits for separately authorized credentials. Return this substantial
-milestone to the supervisor; its next review should independently inspect the executed
-browser and final quality evidence before choosing another phase. Final V1 acceptance
-still requires sufficient authentic fitting/validation,
-certified effective fees, empirical two-family evidence and independent release review.
+intermediate milestone for independent supervisor review before further major work. V1
+remains incomplete: authentic fitting/labels, fee certification, realistic empirical two-family
+validation and the independent release acceptance matrix remain open. The existing installation
+is reused; no new clean-install pass is claimed. The preceding cohort milestone remains in
+Git and the status/evidence history; no functionality or source receipts were replaced.
 
 ### Prior provider and operating milestones
 

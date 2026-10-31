@@ -1,0 +1,49 @@
+{
+  "milestone": "point-in-time fee evidence across continuous shadow and reproducible experiments",
+  "designated_branch": "supervisor/20261030-205940",
+  "starting_commit": "99870f2",
+  "pytest": {
+    "passed": 1109,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 641.26,
+    "report": "pytest-final.xml"
+  },
+  "ruff_lint": "passed",
+  "ruff_format": {
+    "status": "passed",
+    "files": 529
+  },
+  "strict_mypy": {
+    "status": "passed",
+    "files": 526
+  },
+  "frontend_named_assertions": 21,
+  "targeted_fee_shadow_tests": 29,
+  "actual_playwright": {
+    "passed": 2,
+    "screenshots": 5,
+    "checksummed_downloads": 14,
+    "page_errors": 0,
+    "managed_chromium": true,
+    "localhost_listener": true,
+    "restart_comparison": true
+  },
+  "offline_restore_replay": "passed for both workspaces and controlled/real-refusal experiments",
+  "frozen_source_files": 550,
+  "source_checksums_unchanged": true,
+  "all_tracked_data_unchanged": true,
+  "fresh_official_pdf_http_status": 429,
+  "authentic_fee_schedules_certified": 0,
+  "credential_access": false,
+  "submission_enabled": false,
+  "git_mutations": false,
+  "clean_install_attempted": false,
+  "v1_complete": false,
+  "remaining": [
+    "Official schedule inaccessible; authentic fee certification absent",
+    "Authentic labels/models and empirical two-family release evidence incomplete",
+    "External provider verification deferred pending separately authorized research credentials",
+    "Independent supervisor and final release acceptance required"
+  ]
+}

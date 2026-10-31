@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": false,
+  "operations": [
+    {
+      "start": 1
+    },
+    {
+      "start": 2
+    }
+  ],
+  "downloads": [
+    {
+      "file": "fee-version.json",
+      "sha256": "a4bdc06485588a56ab7c355612c54cc6df6c28706b37938cfe82e0d791ad53b7"
+    },
+    {
+      "file": "fee-source.bin",
+      "sha256": "07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9"
+    },
+    {
+      "file": "shadow.json",
+      "sha256": "923201a4e3328c4e1b8cf330954cf1415ff14f5b0fd214781fac0022b670c4ac"
+    },
+    {
+      "file": "restarted-version.json",
+      "sha256": "a4bdc06485588a56ab7c355612c54cc6df6c28706b37938cfe82e0d791ad53b7"
+    },
+    {
+      "file": "restarted-source.bin",
+      "sha256": "07cc1bad233ef7c29d321c101f924f08e5c7d63abeae9af3b837efcade3cc2e9"
+    },
+    {
+      "file": "restarted-shadow.json",
+      "sha256": "923201a4e3328c4e1b8cf330954cf1415ff14f5b0fd214781fac0022b670c4ac"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "fees-and-shadow.png"
+    },
+    {
+      "file": "restarted.png"
+    }
+  ],
+  "page_errors": [],
+  "limitation": "CONTROLLED intentions, not empirical evidence",
+  "submission_enabled": false
+}

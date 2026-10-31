@@ -1,0 +1,5 @@
+{
+  "all_previously_tracked_data_unchanged": true,
+  "method": "read-only git diff --exit-code -- data against the designated checkout",
+  "submission_enabled": false
+}
