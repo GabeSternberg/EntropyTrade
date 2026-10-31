@@ -1,0 +1,157 @@
+{
+  "config": {
+    "configFile": "/home/gabriel/Projects/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/harness-discovery/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/harness-discovery/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/harness-discovery/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "alerts.spec.cjs",
+      "file": "alerts.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "45d268e3698d082cd89d-2845af5f5beb2d92f50e",
+          "file": "alerts.spec.cjs",
+          "line": 10,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "paper.spec.cjs",
+      "file": "paper.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "754dee5978d97fc72374-cd259faa27cefc67728f",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "754dee5978d97fc72374-2c785057e787de9c5a84",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-31T05:22:00.622Z",
+    "duration": 57.11400000000003,
+    "expected": 0,
+    "skipped": 3,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

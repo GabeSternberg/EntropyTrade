@@ -3,7 +3,49 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: durable simulated paper accounting in continuous shadow
+## Current milestone: operator readiness for continuous paper/shadow
+
+Implemented in place on designated `supervisor/20261031-011453` from `df304f9`.
+The supervisor owns all Git operations and independent review. **V1 is incomplete.**
+
+The existing website now shows durable alerts for stale collection, three repeated
+failures/incomplete collections and unresolved contracts an hour after close. Incidents
+retain operator detection clocks, exact cycle/contract evidence, idempotent acknowledgement,
+automatic recovery events and fresh acknowledgement on recurrence. Pausing/resuming cannot
+erase a failure streak or an open stale incident. Startup and background checks run without
+an open browser. Monitor exports and verified offline workspace restores preserve lifecycle
+state. Missing models/fees remain visible refusals and cannot be acknowledged into eligibility.
+
+Controlled failure/restart, simultaneous acknowledgement, recovery/recurrence, migration,
+CSRF/scope, account/risk and authentic original-receipt inspection are exercised. Both
+controlled and authentic paper account exports reproduce and restore offline; authentic
+evidence retains zero fills. All 68 original receipt files remain byte-identical.
+The [operator guide](docs/operator-alerts.md) and [evidence bundle](data/operator-readiness-review/20261031/README.md)
+separate executed checks from outstanding acceptance.
+
+Managed Chromium installs successfully into the repository cache. Its one launch fails
+before page interaction at `crashpad/util/linux/socket.cc:45`: `setsockopt: Operation not
+permitted` / SIGTRAP. Socket creation also returns `PermissionError: [Errno 1] Operation
+not permitted`. The browser denial is not retried or bypassed. Both outstanding paper
+procedures and the new alerts procedure are executable/discovered; real page interactions,
+screenshots and real-listener download/restart acceptance remain outstanding in a permitted
+environment. Offline checks and HTTP doubles are not browser acceptance.
+
+Final checks pass **246 focused pytest cases**, all **11 current alert cases**, **22 named
+frontend checks**, backend Ruff lint/format and strict mypy (**534 files**). The alert cases
+are included in the focused total. The complete pytest attempt stalls in the existing
+collector reconnect case and is interrupted. All **228 test files** are then attempted with
+deadlines: **211 pass, six fail on denied localhost sockets (eight cases), eleven time out**.
+The 14-case history file, including the 130-cycle/restart procedure, passes. No complete-suite
+pass is claimed; exact results and diagnostic traces are in the evidence bundle. No fresh clean-install,
+external-provider, authentic empirical-model or V1-release pass is claimed.
+
+Receipt clocks, frozen Bitcoin boundaries, disabled submissions and existing risk caps are
+preserved. Continue authentic forward collection; defer new-family selection and empirical
+claims. Return this substantial implementation for review and finish the environment-blocked
+acceptance gates before milestone approval. No next major phase is started.
+
+## Previous milestone: durable simulated paper accounting in continuous shadow
 
 Implemented on designated `supervisor/20261031-002357` from `92a0ec2`; review
 corrections continue in place from `d8bbb94`. All Git operations and independent

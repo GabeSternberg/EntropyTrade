@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from entropytrade.api.jobs import Jobs, identifier, timestamp
 from entropytrade.features.registry import scientific_hash
+from entropytrade.tracking import alerts
 from entropytrade.tracking.accounting import account_hash, reproduce, summary
 from entropytrade.tracking.models import freeze_binding
 
@@ -40,6 +41,20 @@ class TrackingStore:
             """)
             if "model_binding" not in {r[1] for r in db.execute("PRAGMA table_info(monitors)")}:
                 db.execute("ALTER TABLE monitors ADD COLUMN model_binding TEXT")
+            db.executescript(alerts.SCHEMA)
+
+    def alerts(self) -> list[dict[str, Any]]:
+        with self.jobs.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            alerts.refresh(db, timestamp())
+            return alerts.history(db)
+
+    def acknowledge(self, monitor_id: str, alert_id: str) -> None:
+        with self.jobs.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            now = timestamp()
+            alerts.refresh(db, now)
+            alerts.acknowledge(db, monitor_id, alert_id, now)
 
     def create(self, value: object) -> str:
         from entropytrade.domain.strategy import StrategySpec
@@ -181,6 +196,7 @@ class TrackingStore:
             if latest and latest[0] != account_hash(monitor["paper_account"]):
                 raise ValueError("paper account differs from committed cycle; no bankroll reset")
             monitor["paper_summary"] = summary(monitor["paper_account"])
+            monitor["alerts"] = alerts.history(db, monitor_id)
         monitor["submission_enabled"] = False
         monitor["fills"] = []
         monitor["performance"] = None
@@ -336,6 +352,7 @@ class TrackingStore:
                     "INSERT INTO shadow_events(monitor_id, at, action) VALUES (?, ?, ?)",
                     (monitor_id, now, "paused after five consecutive acquisition/worker failures"),
                 )
+            alerts.refresh(db, now)
             return True
 
     def recover(self) -> None:
@@ -356,3 +373,4 @@ class TrackingStore:
                     "INSERT INTO shadow_events(monitor_id, at, action) VALUES (?, ?, ?)",
                     (row[0], now, "interrupted worker recovered; next poll uses fresh receipts"),
                 )
+            alerts.refresh(db, now)

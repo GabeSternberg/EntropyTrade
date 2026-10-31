@@ -37,6 +37,8 @@ TABLES = {
     "shadow_events": "sequence monitor_id at action",
     "shadow_contracts": "monitor_id ticker market last_attempt outcome",
     "shadow_accounts": "monitor_id state digest",
+    "shadow_alerts": "id monitor_id kind opened_at acknowledged_at resolved_at evidence",
+    "shadow_alert_events": "sequence alert_id at action evidence",
 }
 RUNTIME = {
     ".writer.lock",
@@ -160,7 +162,12 @@ def validate_database(root: Path) -> dict[str, int]:
         ).fetchall()
         actual = {(r["type"], r["name"]) for r in objects}
         expected = {("table", t) for t in TABLES}
-        if actual not in (expected, expected - {("table", "shadow_accounts")}):
+        optional = {
+            ("table", t) for t in ("shadow_accounts", "shadow_alerts", "shadow_alert_events")
+        }
+        if not expected - optional <= actual <= expected or (
+            (("table", "shadow_alerts") in actual) != (("table", "shadow_alert_events") in actual)
+        ):
             raise ValueError("unsupported or incomplete workspace database schema")
         for table, columns in TABLES.items():
             if ("table", table) not in actual:
@@ -206,6 +213,10 @@ def validate_database(root: Path) -> dict[str, int]:
         FeeEvidenceStore(root).snapshot()
         validate_registry(root, reviews)
         monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}
+        if ("table", "shadow_alerts") in actual:
+            from entropytrade.tracking.alerts import validate
+
+            validate(db, set(monitors))
         for monitor in monitors.values():
             if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
                 raise ValueError("invalid restored monitor reference/state")

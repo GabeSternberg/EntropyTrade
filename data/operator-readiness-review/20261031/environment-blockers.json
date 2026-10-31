@@ -1,0 +1,25 @@
+{
+  "socket_creation": {
+    "executed": true,
+    "passed": false,
+    "failure": "PermissionError: [Errno 1] Operation not permitted at socket.socket.__init__"
+  },
+  "managed_chromium_install": {
+    "executed": true,
+    "passed": true,
+    "cache": "frontend/browser/.browsers"
+  },
+  "managed_chromium_launch": {
+    "attempts": 1,
+    "passed": false,
+    "failure": "crashpad/util/linux/socket.cc:45: setsockopt: Operation not permitted (1); SIGTRAP",
+    "page_interaction_executed": false,
+    "permission_denial_retried": false,
+    "launch_flags_modified": false
+  },
+  "outstanding": [
+    "both paper Playwright procedures through a real localhost listener",
+    "operator alert Playwright lifecycle/download/restart/restore procedure",
+    "complete pytest suite in a permitted environment"
+  ]
+}

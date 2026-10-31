@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.786" timestamp="2026-10-31T01:20:54.539071-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.integration.test_recovery_listener" name="test_real_listener_workers_restore_downloads_shadow_recovery_and_cancellation" time="0.118"><failure message="PermissionError: [Errno 1] Operation not permitted">root = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/recovery-listener-75al0w6g')
+
+    def test_real_listener_workers_restore_downloads_shadow_recovery_and_cancellation(
+        root: Path,
+    ) -&gt; None:
+        original, restored = root / "original", root / "restored"
+        evidence = root / "evidence"
+        evidence.mkdir()
+        receipt: dict[str, Any] = {
+            "started_at": timestamp(),
+            "browser_interaction": False,
+            "worker": "unmodified research and shadow subprocesses",
+            "listener": "actual ephemeral loopback HTTP",
+            "empirical_performance": False,
+            "submission_enabled": False,
+        }
+&gt;       with listening(original, shadow_workers=True) as (_, client):
+
+backend/tests/integration/test_recovery_listener.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:46: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;socket.socket fd=-1, family=0, type=0, proto=0&gt;
+family = &lt;AddressFamily.AF_INET: 2&gt;, type = &lt;SocketKind.SOCK_STREAM: 1&gt;
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+&gt;       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError</failure></testcase></testsuite></testsuites>

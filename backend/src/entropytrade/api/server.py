@@ -205,6 +205,10 @@ class Handler(BaseHTTPRequestHandler):
             self.document(200, self.server.jobs.history())
         elif path == "/api/monitors":
             self.document(200, self.server.tracking.history())
+        elif path == "/api/alerts":
+            self.document(
+                200, {"alerts": self.server.tracking.alerts(), "submission_enabled": False}
+            )
         elif path.startswith("/api/monitors/"):
             route = self.monitor_route()
             try:
@@ -362,6 +366,16 @@ class Handler(BaseHTTPRequestHandler):
                 self.document(202, {"id": monitor_id})
                 return
             monitor_route = self.monitor_route()
+            if monitor_route and monitor_route[1] == "acknowledge":
+                if (
+                    not isinstance(value, dict)
+                    or set(value) != {"alert_id"}
+                    or not isinstance(value["alert_id"], str)
+                ):
+                    raise ValueError("provide alert_id only")
+                self.server.tracking.acknowledge(monitor_route[0], value["alert_id"])
+                self.document(200, {"id": monitor_route[0]})
+                return
             if monitor_route and monitor_route[1] in {"pause", "resume"} and value == {}:
                 self.server.tracking.control(*monitor_route)
                 self.document(200, {"id": monitor_route[0]})

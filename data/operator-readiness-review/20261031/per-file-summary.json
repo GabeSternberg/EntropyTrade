@@ -1,0 +1,2248 @@
+{
+  "all_files_attempted": true,
+  "file_count": 228,
+  "seconds": 431.34,
+  "complete_suite_pass": false,
+  "results": [
+    {
+      "file": "backend/tests/architecture/test_boundaries.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.77,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/exchange/test_collector_service.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/exchange/test_feed_recorder.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.27,
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/exchange/test_gateway_http.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/exchange/test_recording_v2.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.77,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/exchange/test_wire_session.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.92,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_bitcoin_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 7.27,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_recovery_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.22,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_shadow_accounting.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 5.72,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_shadow_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 71.07,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_shadow_tracking.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 5.02,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_weather_cohorts_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 7.42,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_weather_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.52,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_workbench_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.57,
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_workbench_process.py",
+      "exit_code": 2,
+      "deadline_exceeded": true,
+      "seconds": 90.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/property/test_accounting.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/property/test_invariants.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.82,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_amsterdam_listing.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.36,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ask_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_austin_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.22,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_before_close.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.37,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_before_occurrence.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.12,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_bid_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_bitcoin_history.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 6.37,
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_book_imbalance.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_calibration_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.77,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_candle_activity.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_candle_change.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_candle_price.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_candle_quotes.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_candle_spread.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_change_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_expiration_cli.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_fold_equity.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.71,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_forecast_error.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_guess_walk.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.37,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_manifest_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.72,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_note.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.71,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_print_guess.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.37,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_print_miss.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.27,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_results.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.22,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_settlement.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_chicago_walk_forward.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.22,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_cli_observations.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_cli_print_guess.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.12,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_cli_window.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.47,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_close_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_cloud_cover.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_dallas_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.32,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_dataset_pipeline.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.12,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_decay.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_dew_point.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ecmwf_ifs.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ecmwf_ifs_previous.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ensemble_ecmwf_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ensemble_hrrr_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ensemble_rank.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_execution_r4.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.02,
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_experiments_r4.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.02
+    },
+    {
+      "file": "backend/tests/unit/test_expiration_check.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_feature_coverage.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.77,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_feature_hash_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.32,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_fee_evidence.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 6.82,
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_forecast_dispersion.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_forecast_mean.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.57,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_gateway.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_gfs_ecmwf_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_gfs_ensemble.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_gfs_hrrr_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_gfs_seamless_previous.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_historical_trades.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_hour_of_day.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_hours_until_resolution.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_houston_listing.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.36,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_hrrr_archive.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_humidity.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_informational_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.62,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_interest_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_interpret.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.86,
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_kxhigh_scan.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 6.57,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_last_print.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.47,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_live_trades_short.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_local_templates.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.02,
+      "tests": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_markets_books_accounting.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_mean_control_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_mean_ecmwf_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_mean_hrrr_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_mexicocity_listing.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.36,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_model_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_model_workflow_r2.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 66.2,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ncep_hrrr.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_ncep_hrrr_previous.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_newyork_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.42,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_numeric_time_ids.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_control_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_daytime.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_detailed_forecast.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_dew_point.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_ecmwf_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_end_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_context.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.07,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_coordinate_count.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_daytime.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_detailed.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_elevation.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_end_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_generated_at.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_generator.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_geometry_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_hrrr_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_icon.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_name.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_number.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_precipitation.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_short.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_start_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_temperature_trend.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_temperature_unit.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_temperatures.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_units.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_update_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_valid_times.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_wind_direction.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_forecast_wind_speed.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_context.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_coordinate_count.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_elevation.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.52,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_generated_at.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_generator.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_geometry_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_units.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_update_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hourly_valid_times.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_hrrr_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_icon.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_mean_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_member_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_metadata.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_period_name.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_period_number.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_astronomical.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_context.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_coordinate_count.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_geometry_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_id.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_property_id.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_property_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_twilight_begin.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_points_type.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_precipitation_probability.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_relative_humidity.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_short_forecast.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_start_time.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_temperature_trend.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_temperature_unit.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_temperature_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_wind_direction.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_nws_wind_speed.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_observed_temperature.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_oklahomacity_rules.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.32,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_operational_research.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_orders_risk_lifecycle.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_paper_risk.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_philadelphia_note.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.67,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_precipitation.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_prediction_coverage.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.17,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_prediction_strategy.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.07,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_previous_day_error.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_previous_model_gap.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_probability_models_r2.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.42,
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_provenance.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 4.37,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_public_dataset.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_public_families.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.82,
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_public_tape.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.41,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_recovery_proof.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 6.17,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_registry.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_related_strikes.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_replay.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_research_pipeline.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_research_pricing.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_research_provider.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.82,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_research_transport.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_revision_bracket.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 5.67,
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_revision_down.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.97,
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_revision_records.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 17.19,
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_revision_rule.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.37,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_scanner.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_seasonality.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_series_fees.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_settlement_score.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.47,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_settlement_value.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_shadow.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_shadow_accounting.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 4.92,
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_shadow_history.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 77.72,
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_short_refresh.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.77,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_spread_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_station_bias.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_strategy_and_pit.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_structure.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_submit_gate.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_tape_score.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_tracking.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 8.83,
+      "tests": 163,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_tracking_alerts.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 8.32,
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_tracking_models.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 5.63,
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_trade_prints.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.52,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_unit_asks.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.61,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_unit_interest.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.56,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_volume_check.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.82,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_volume_values.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_walk_forward.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 1.62,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_archive_r2.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 3.42,
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_baseline.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_cohorts.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 56.54,
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_features_r2.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 3.92,
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_history.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 19.69,
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_weather_recorded.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.46,
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_wind.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_workbench_http.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 2.02,
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_workbench_provider.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.02
+    },
+    {
+      "file": "backend/tests/unit/test_workbench_workflow.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.03
+    },
+    {
+      "file": "backend/tests/unit/test_workspace_recovery.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 25.27,
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_zero_bids.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_zero_volumes.py",
+      "exit_code": 0,
+      "deadline_exceeded": false,
+      "seconds": 0.51,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

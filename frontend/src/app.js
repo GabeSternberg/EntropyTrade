@@ -344,6 +344,7 @@ function shadowCandidates() {
   $("shadow-start").disabled = !proposals.length || !state.token;
 }
 async function shadowHistory() {
+  await shadowAlerts();
   const monitors = await api("/api/monitors");
   $("shadow-history").replaceChildren();
   if (!monitors.length) $("shadow-history").append(node("p", "No saved shadow monitors.", "hint"));
@@ -353,11 +354,43 @@ async function shadowHistory() {
     $("shadow-history").append(button);
   });
 }
+const alertNames = { stale_collection: "Stale collection", repeated_failures: "Repeated failures", unresolved_reconciliation: "Unresolved reconciliation" };
+let alertVersion;
+async function shadowAlerts() {
+  const { alerts } = await api("/api/alerts");
+  const version = JSON.stringify(alerts);
+  if (version === alertVersion) return;
+  alertVersion = version;
+  const content = $("shadow-alerts"); content.replaceChildren(node("h3", "Operator alerts"));
+  const open = alerts.filter(a => !a.resolved_at);
+  content.append(node("p", `${open.length} open · ${open.filter(a => !a.acknowledged_at).length} need acknowledgement. Acknowledging records review; recovery resolves the condition.`, "hint"));
+  alerts.forEach(alert => {
+    const panel = append(node("section", null, "operator-alert"),
+      node("h4", `${alertNames[alert.kind]} · ${alert.resolved_at ? "Resolved" : alert.acknowledged_at ? "Acknowledged / still open" : "Needs acknowledgement"}`),
+      node("p", `${alert.monitor_id.slice(0, 8)} · detected ${alert.opened_at}`, "small"));
+    panel.dataset.alertId = alert.id;
+    const inspect = node("button", "Inspect monitor");
+    inspect.addEventListener("click", () => selectMonitor(alert.monitor_id, true).catch(shadowError));
+    panel.append(inspect);
+    if (!alert.resolved_at && !alert.acknowledged_at) {
+      const ack = node("button", "Acknowledge alert");
+      ack.addEventListener("click", async () => {
+        ack.disabled = true;
+        try {
+          await api(`/api/monitors/${alert.monitor_id}/acknowledge`, { alert_id: alert.id });
+          await shadowAlerts(); if (state.monitor) await selectMonitor(state.monitor.id, true);
+        } catch (error) { ack.disabled = false; shadowError(error); }
+      });
+      panel.append(ack);
+    }
+    panel.append(detail("Alert evidence and lifecycle", alert)); content.append(panel);
+  });
+}
 function shadowError(error) { $("shadow-message").textContent = error.message; }
 async function selectMonitor(id, force = false) {
   const monitor = await api(`/api/monitors/${id}`);
   const version = JSON.stringify([monitor.status, monitor.failures, monitor.next_at, monitor.cycle_count,
-    monitor.cycles[0]?.status, monitor.cycles[0]?.finished_at, monitor.events.length]);
+    monitor.cycles[0]?.status, monitor.cycles[0]?.finished_at, monitor.events.length, monitor.alerts]);
   if (!force && state.monitor?.id === id && state.monitor.version === version) return;
   state.monitor = { id, version };
   const content = $("shadow-evidence"); content.replaceChildren();
@@ -375,6 +408,7 @@ async function selectMonitor(id, force = false) {
     detail("Frozen strategy and research identity", { job_id: monitor.job_id, candidate_id: monitor.candidate_id, spec_hash: monitor.spec_hash, spec: monitor.spec }),
     detail("Frozen model binding", monitor.model_binding || { status: "blocked", reason: "Legacy monitor has no frozen model binding" }),
     detail("Lifecycle and recovery events", monitor.events),
+    detail("Durable operator alerts", monitor.alerts || []),
     detail("Tracked contracts and subsequent official outcomes", monitor.contracts));
   const account = monitor.paper_summary;
   if (account) {

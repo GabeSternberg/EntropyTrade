@@ -64,6 +64,7 @@
           <label for="shadow-interval">Poll interval</label><select id="shadow-interval"><option value="300">5 minutes</option><option value="60">1 minute</option><option value="900">15 minutes</option></select>
           <button id="shadow-start" type="button" disabled>Start shadow monitor</button>
           <p id="shadow-message" role="status" class="hint"></p>
+          <div id="shadow-alerts" aria-live="polite"></div>
           <div id="shadow-history"></div><div id="shadow-evidence" aria-live="polite"></div>
         </section>
         <nav id="tabs" class="tabs" aria-label="Result sections" hidden><button type="button" data-tab="review" aria-pressed="true">Review</button><button type="button" data-tab="probabilities" aria-pressed="false">Probabilities</button><button type="button" data-tab="lineage" aria-pressed="false">Evidence &amp; lineage</button></nav>

@@ -12,6 +12,7 @@ class Element {
     this.children = [];
     this.textContent = "";
     this.className = "";
+    this.dataset = {};
     this.options = [{}, {}];
     this.classList = { add: (...names) => { this.className += " " + names.join(" "); } };
   }
@@ -22,7 +23,7 @@ class Element {
   setAttribute() {}
 }
 
-function application() {
+function application(alerts = []) {
   const elements = new Map();
   const document = {
     getElementById: (id) => {
@@ -35,14 +36,32 @@ function application() {
   document.getElementById("mode").value = "recorded";
   const context = vm.createContext({
     document, setInterval: () => 0,
-    fetch: async (url) => ({ ok: true, json: async () => url === "/api/jobs" ? [] : { csrf_token: "test" } }),
+    fetch: async (url) => ({ ok: true, json: async () =>
+      url === "/api/alerts" ? { alerts } :
+      ["/api/jobs", "/api/monitors", "/api/weather/datasets"].includes(url) ? [] : { csrf_token: "test" } }),
   });
   vm.runInContext(fs.readFileSync(path.join(__dirname, "../src/app.js"), "utf8") +
-    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); };", context);
-  return { context, content: document.getElementById("result-content") };
+    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts;", context);
+  return { context, content: document.getElementById("result-content"), alerts: document.getElementById("shadow-alerts") };
 }
 function text(element) { return [element.textContent, ...element.children.map(text)].join("\n"); }
 function descendants(element) { return [element, ...element.children.flatMap(descendants)]; }
+
+test("operator alerts keep acknowledged incidents open and resolved history inspectable", async () => {
+  const { context, alerts } = application([
+    { id: "a", monitor_id: "monitor-a", kind: "stale_collection", opened_at: "2026-10-31T00:00:00Z", acknowledged_at: "2026-10-31T00:01:00Z", resolved_at: null, evidence: { source: "<img src=x onerror=bad()>" }, events: [] },
+    { id: "b", monitor_id: "monitor-a", kind: "repeated_failures", opened_at: "2026-10-31T00:00:00Z", acknowledged_at: null, resolved_at: null, evidence: {}, events: [] },
+    { id: "c", monitor_id: "monitor-b", kind: "unresolved_reconciliation", opened_at: "2026-10-30T00:00:00Z", acknowledged_at: null, resolved_at: "2026-10-31T00:00:00Z", evidence: {}, events: [] },
+  ]);
+  await context.showAlerts();
+  assert.match(text(alerts), /2 open · 1 need acknowledgement/);
+  assert.match(text(alerts), /Stale collection · Acknowledged \/ still open/);
+  assert.match(text(alerts), /Repeated failures · Needs acknowledgement/);
+  assert.match(text(alerts), /Unresolved reconciliation · Resolved/);
+  assert.equal(descendants(alerts).filter(e => e.tag === "button" && e.textContent === "Acknowledge alert").length, 1);
+  assert.match(text(alerts), /<img src=x onerror=bad\(\)>/);
+  assert.equal(descendants(alerts).filter(e => e.tag === "img").length, 0);
+});
 function fixture(partial) {
   return {
     data_kind: "real", reasoning_limit: "Local templates; no LLM.",

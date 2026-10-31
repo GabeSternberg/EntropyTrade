@@ -9,7 +9,32 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current implementation integrates durable simulated accounting into continuous shadow
+The current operator-readiness implementation adds durable browser-visible alerts for stale
+collection, repeated failures/incompleteness and overdue official-result reconciliation to
+the existing continuous paper/shadow workflow. Incidents preserve detection/evidence clocks,
+restart-safe acknowledgement, recovery and recurrence. Existing account/receipt/risk evidence
+remains shared. Pausing/resuming cannot clear an incident; acknowledging cannot certify fees,
+promote a model or enable submissions. Exports and offline restore retain the alert lifecycle.
+
+Controlled failure/restart/security/risk and authentic blocked-data inspection run alongside
+offline account reproduction/restores. Real managed-Chromium page/download/restart checks
+remain outstanding: installation succeeds, but launch and localhost socket creation are
+OS-denied in this environment. Both existing paper procedures and the new alert procedure
+are executable for a permitted environment; no HTTP-only substitute is counted as browser
+acceptance. The complete pytest attempt stalls in the existing collector path; all-file
+bounded outcomes and separate quality gates are retained: 246 focused pytest cases, 22
+frontend checks, Ruff/format and strict mypy pass; all 228 test files are attempted (211
+pass, six socket-denied files, eleven deadlines). The 130-cycle history procedure passes.
+See [operator readiness](operator-alerts.md),
+[status](../STATUS.md) and [executed evidence](../data/operator-readiness-review/20261031/README.md).
+Return for supervisor review with these acceptance gates explicit. All Git operations remain
+with the supervisor. V1, external-provider verification and empirical validation stay open.
+Continue authentic forward collection while independent functionality is reviewed. Preserve
+Bitcoin's frozen boundaries and defer new-family selection pending user approval.
+
+### Previous simulated-accounting milestone — October 31, 2026
+
+The previous implementation integrates durable simulated accounting into continuous shadow
 collection and the website. PaperBroker/Ledger, fee evidence and official reconciliation
 remain shared. Original observations stay separate from simulated orders/fills, positions,
 cash, fees and settlement. Accounts use causal later sized books, persistent liquidity

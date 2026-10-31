@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.325" timestamp="2026-10-31T01:23:21.428825-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_philadelphia_note" name="test_the_note_matches_the_stored_rules" time="1.161" /></testsuite></testsuites>

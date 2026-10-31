@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="3" failures="0" skipped="3" errors="0" time="0.05711400000000003">
+<testsuite name="alerts.spec.cjs" timestamp="2026-10-31T05:22:00.679Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore" classname="alerts.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="paper.spec.cjs" timestamp="2026-10-31T05:22:00.679Z" hostname="" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" classname="paper.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="durable paper account: authentic refusal, downloads, restart and offline replay" classname="paper.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

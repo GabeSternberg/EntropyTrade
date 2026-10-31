@@ -21,6 +21,7 @@ class ShadowRunner:
         self.lease_fds = () if lease_fd is None else (lease_fd,)
         self.stop = threading.Event()
         self.thread = threading.Thread(target=self.run, name="shadow-monitor", daemon=True)
+        self.next_alert_check = 0.0
 
     def start(self) -> None:
         self.thread.start()
@@ -30,8 +31,14 @@ class ShadowRunner:
         if self.thread.ident is not None:
             self.thread.join(timeout=5)
 
+    def check_alerts(self) -> None:
+        if time.monotonic() >= self.next_alert_check:
+            self.store.alerts()
+            self.next_alert_check = time.monotonic() + 5
+
     def run(self) -> None:
         while not self.stop.is_set():
+            self.check_alerts()
             claim = self.store.claim()
             if claim is None:
                 self.stop.wait(0.25)
@@ -104,6 +111,7 @@ class ShadowRunner:
         ) as process:
             started = time.monotonic()
             while process.poll() is None:
+                self.check_alerts()
                 active = self.store.running(monitor_id, cycle_id)
                 if self.stop.is_set() or not active:
                     process.kill()

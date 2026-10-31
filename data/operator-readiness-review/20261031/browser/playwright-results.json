@@ -1,0 +1,164 @@
+{
+  "config": {
+    "configFile": "/home/gabriel/Projects/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/browser/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/browser/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/browser/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/gabriel/Projects/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "paper.spec.cjs",
+      "file": "paper.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2,
+                  "error": {
+                    "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\n<launched> pid=29\n[pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=29\u001b[22m\n\u001b[2m  - [pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=29] <kill>\u001b[22m\n\u001b[2m  - [pid=29] <will force kill>\u001b[22m\n\u001b[2m  - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>\u001b[22m\n\u001b[2m  - [pid=29] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close end>\u001b[22m\n",
+                    "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\n<launched> pid=29\n[pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=29\u001b[22m\n\u001b[2m  - [pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=29] <kill>\u001b[22m\n\u001b[2m  - [pid=29] <will force kill>\u001b[22m\n\u001b[2m  - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>\u001b[22m\n\u001b[2m  - [pid=29] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close end>\u001b[22m\n"
+                  },
+                  "errors": [
+                    {
+                      "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\n<launched> pid=29\n[pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\nCall log:\n\u001b[2m  - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-BkVEt6 --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=29\u001b[22m\n\u001b[2m  - [pid=29][err] [29:29:1031/011649.222401:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=29] <kill>\u001b[22m\n\u001b[2m  - [pid=29] <will force kill>\u001b[22m\n\u001b[2m  - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>\u001b[22m\n\u001b[2m  - [pid=29] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=29] <gracefully close end>\u001b[22m\n"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-31T05:16:49.105Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/gabriel/Projects/EntropyTrade/data/operator-readiness-review/20261031/browser/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "754dee5978d97fc72374-cd259faa27cefc67728f",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "754dee5978d97fc72374-2c785057e787de9c5a84",
+          "file": "paper.spec.cjs",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-10-31T05:16:48.682Z",
+    "duration": 592.1370000000002,
+    "expected": 0,
+    "skipped": 1,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

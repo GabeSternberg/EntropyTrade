@@ -1,0 +1,47 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_cohort_api_validation_and_existing_research_experiment_pipeline _____
+
+    def test_cohort_api_validation_and_existing_research_experiment_pipeline() -> None:
+        with TemporaryDirectory(prefix="cohort-listener-", dir=REPO / "data/cache") as name:
+            root = Path(name) / "workspace"
+            seed_cohort(root)
+>           with listening(root) as (server, client):
+
+backend/tests/integration/test_weather_cohorts_listener.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:46: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_weather_cohorts_listener.py::test_cohort_api_validation_and_existing_research_experiment_pipeline
+1 failed in 7.05s

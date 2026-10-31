@@ -1,0 +1,16 @@
+{
+  "original_receipt_files": 68,
+  "original_receipts_unchanged": true,
+  "submission_enabled": false,
+  "git_mutations_performed": false,
+  "new_family_selected": false,
+  "credentials_used": false,
+  "browser_or_listener_acceptance_passed": false,
+  "bitcoin_boundary_implementation_and_manifests": {
+    "backend/src/entropytrade/families/bitcoin_history.py": "sha256:507231bba05f8abf221a3a393e2dabf4733a6ba030c0b5146511f3ad89890651",
+    "backend/src/entropytrade/families/bitcoin_models.py": "sha256:c5489def8f851a506574c4ea810519d971f6f6b32453b8384e747d004bd8aa99",
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/5c0f01b9-bc47-426c-8099-db113bb5c196/history/manifest.json": "sha256:78a574e009e39f55eb5f7cf3f7a05d19bfed0779a71ca0b614da5854fd099e10",
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/a9777aec-59bb-4060-bbc4-e97174f90c4b/history/manifest.json": "sha256:7b02880a0d41ea06b360a7e60ff060baccdd2c706fcedeac9b455f1acbdcda23",
+    "data/bitcoin-history-review/20261028T235347Z/listener/workspace/runs/0c80b15e-34d1-4c1e-af70-19acf10dc97f/history/manifest.json": "sha256:426d29c8a819a2dd2f6012515caacb24c7e3fc2a538f47c604fae30253320295"
+  }
+}

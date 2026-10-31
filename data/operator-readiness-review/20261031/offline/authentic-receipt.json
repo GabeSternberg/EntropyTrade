@@ -1,0 +1,53 @@
+{
+  "monitor_id": "3dba32ce-8139-4f3d-9d60-910426ef3fc5",
+  "evidence": "Original authentic receipt replay; no new acquisition",
+  "summary": {
+    "status": "simulated",
+    "data_kind": "real",
+    "starting_cash": "1000.000000",
+    "cash": "1000.000000",
+    "available_cash": "1000.000000",
+    "fees": "0.000000",
+    "realized_pnl": "0.000000",
+    "equity_at_cost": "1000.000000",
+    "positions": [],
+    "fill_count": 0,
+    "settlement_count": 0,
+    "as_of": "2026-10-29T16:35:38.130853+00:00",
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim."
+  },
+  "verified": {
+    "verified": true,
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "limitation": "Accounting replay, not source certification"
+  },
+  "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+  "submission_enabled": false,
+  "replay": {
+    "verified": true,
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "limitation": "Accounting replay, not source certification"
+  },
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/cache/operator-offline-20261031-authentic.zip",
+    "sha256": "sha256:e2e30f2dbe9a3e19961b3e95c2f461523af4d784c56ffd7ff21daf7d7db6f387",
+    "jobs": 1,
+    "monitors": 1,
+    "cycles": 3,
+    "submission_enabled": false
+  },
+  "restore": {
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/operator-offline-20261031-authentic-restored",
+    "archive_sha256": "sha256:e2e30f2dbe9a3e19961b3e95c2f461523af4d784c56ffd7ff21daf7d7db6f387",
+    "jobs": 1,
+    "monitors": 1,
+    "cycles": 3,
+    "submission_enabled": false
+  },
+  "restore_identical": true
+}

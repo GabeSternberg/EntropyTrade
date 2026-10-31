@@ -1,0 +1,5 @@
+Listing tests:
+  alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore
+  paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay
+  paper.spec.cjs:11:3 › durable paper account: authentic refusal, downloads, restart and offline replay
+Total: 3 tests in 2 files

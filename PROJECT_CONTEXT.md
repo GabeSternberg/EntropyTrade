@@ -1,9 +1,8 @@
 # EntropyTrade project context
 
-Updated 2026-10-30. **V1 remains incomplete.** The current milestone builds reproducible
-research cohorts across retained weather/shadow history partitions, reusing the existing
-snapshot, feature, probability-model and experiment pipeline. Work stays on designated
-`supervisor/20261030-202711` from `69e2740`.
+Updated 2026-10-31. **V1 remains incomplete.** The current milestone adds durable operator
+alerts to the existing continuous paper/shadow collector and private website. Work stays
+on designated `supervisor/20261031-011453` from `df304f9`.
 The supervisor owns all Git operations and independent review. No Git mutations,
 supervisor-control edits, new family, credential access or external provider calls.
 
@@ -16,7 +15,42 @@ never fabricate historical availability. Do independent product work while data 
 A new major family requires user approval following a comparison of point-in-time history,
 resolution semantics, modeling feasibility, costs and realistic validation. None is selected.
 
-## Research cohorts across retained history partitions
+## Current operator-readiness milestone
+
+The website exposes stale-collection, repeated-failure/incompleteness and overdue official
+reconciliation incidents across active and paused monitors. Durable acknowledgements record
+review without resolving a condition. Healthy collection or subsequent official outcomes
+record recovery; recurrence receives a new incident ID. Pause/resume and restart cannot erase
+incident history or turn missing models/fees into eligible decisions. Operator clocks remain
+separate from receipt, decision and settlement availability clocks. Existing accounts, risk
+limits, five-failure pause and disabled submissions remain unchanged.
+
+The background runner and startup evaluate conditions even without page interaction. Exports
+and offline workspace recovery retain and validate the incident lifecycle, including legacy
+workspace migration. Controlled failure/restart/risk/security checks and authentic blocked-data
+inspection execute. Controlled and authentic accounting exports reproduce and restore offline;
+all 68 original receipts stay unchanged. See [operation](docs/operator-alerts.md) and
+[precise verification evidence](data/operator-readiness-review/20261031/README.md).
+
+Both existing paper Playwright procedures and a new alert lifecycle procedure are executable.
+The supported repo-local managed Chromium installation succeeds, but its one launch is denied
+at `crashpad/util/linux/socket.cc:45` (`setsockopt: Operation not permitted`, SIGTRAP).
+Socket creation is also denied. No retry/bypass or browser/download/restart pass is claimed;
+these human acceptance steps require a permitted environment. The complete pytest attempt
+stalls in the existing collector reconnect case; bounded diagnostic/all-file results and
+separate lint/format/mypy/frontend checks remain explicit in the evidence bundle. Final
+focused verification passes 246 pytest cases (including all 11 alert cases), 22 frontend
+checks, Ruff/format and strict mypy (534 files). All 228 pytest files are attempted under
+deadlines: 211 pass, six fail on socket permission denials and eleven time out. The 130-cycle
+history/restart/restore case passes with the other 13 history cases. This is not a
+complete-suite pass.
+
+Return this independently useful implementation for supervisor review with those gates open.
+Continue authentic forward collection; defer another market-family commitment, empirical
+claims and V1 release acceptance. Do not wait for unavailable Bitcoin validation before
+reviewing independent paper/shadow capability, and do not start another major phase here.
+
+## Previous research cohorts across retained history partitions
 
 The website can combine up to eight explicitly selected history partitions, with optional
 separate later-outcome partitions, into one immutable weather research dataset. Batches
