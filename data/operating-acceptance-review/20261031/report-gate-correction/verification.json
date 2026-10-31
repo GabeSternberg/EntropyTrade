@@ -1,0 +1,35 @@
+{
+  "checked_at": "2026-10-31T06:09:56.955879+00:00",
+  "implementation_base": "5e2bd03",
+  "branch": "supervisor/20261031-014049",
+  "acceptance_complete": false,
+  "v1_complete": false,
+  "all_applicable_checks_passed": true,
+  "quality_checks": [
+    "ruff",
+    "format",
+    "mypy",
+    "frontend",
+    "focused",
+    "discovery-full",
+    "discovery-partial"
+  ],
+  "focused_pytest": {
+    "tests": 439,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "seconds": 30.1,
+    "driver_cases": 53,
+    "complete_suite": false
+  },
+  "full_discovered_procedures": 6,
+  "partial_discovered_procedures": 1,
+  "all_original_receipt_and_boundary_hashes_match": true,
+  "new_browser_launches": 0,
+  "new_browser_page_interactions": 0,
+  "full_pytest_attempts": 0,
+  "fresh_install_attempts": 0,
+  "git_mutations": 0,
+  "outstanding_acceptance": "In a permitted environment, execute the default full locked driver with all six actual browser procedures and the full pytest suite. Independently review remaining V1 gates."
+}

@@ -1,0 +1,41 @@
+{
+  "started_at": "2026-10-31T06:08:03.644251+00:00",
+  "command": [
+    ".venv/bin/pytest",
+    "backend/tests/unit/test_local_acceptance.py",
+    "backend/tests/unit/test_tracking_alerts.py",
+    "backend/tests/unit/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_accounting.py",
+    "backend/tests/integration/test_shadow_tracking.py",
+    "backend/tests/unit/test_tracking.py",
+    "backend/tests/unit/test_tracking_models.py",
+    "backend/tests/unit/test_fee_evidence.py",
+    "backend/tests/unit/test_workspace_recovery.py",
+    "backend/tests/unit/test_execution_r4.py",
+    "backend/tests/unit/test_paper_risk.py",
+    "backend/tests/unit/test_replay.py",
+    "backend/tests/property/test_accounting.py",
+    "backend/tests/unit/test_recovery_proof.py",
+    "backend/tests/unit/test_shadow.py",
+    "backend/tests/unit/test_markets_books_accounting.py",
+    "-q",
+    "-o",
+    "faulthandler_timeout=45",
+    "--junitxml=data/operating-acceptance-review/20261031/report-gate-correction/focused.xml"
+  ],
+  "cwd": "/home/gabriel/Projects/EntropyTrade",
+  "environment": {
+    "PATH": "/bin:/usr/bin",
+    "TZ": "UTC",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1"
+  },
+  "deadline_seconds": 180,
+  "complete_suite": false,
+  "exit_code": 0,
+  "finished_at": "2026-10-31T06:08:36.596923+00:00",
+  "status": "passed"
+}

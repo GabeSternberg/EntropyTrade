@@ -1,0 +1,203 @@
+{
+  "acceptance_complete": false,
+  "v1_complete": false,
+  "new_browser_interactions": 0,
+  "scope": "Actual --list reports and read-only parsing of unchanged historical reports. No browser launch or listener execution. A historical pass is schema compatibility evidence only.",
+  "checks": [
+    {
+      "name": "actual_full_discovery",
+      "expected_status": "passed",
+      "report": "data/operating-acceptance-review/20261031/report-gate-correction/discovery-full/playwright-results.json",
+      "execution": false,
+      "status": "passed",
+      "procedures": [
+        {
+          "file": "alerts.spec.cjs",
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+        },
+        {
+          "file": "provider.spec.cjs",
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+        },
+        {
+          "file": "recovery.spec.cjs",
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+        },
+        {
+          "file": "weather-history.spec.cjs",
+          "title": "authentic retained weather: freeze, select, research, downloads and restart"
+        }
+      ],
+      "missing_required": [],
+      "errors": [],
+      "sha256": "8bb6f43dc47c90a739d5a578d521045a5dff70641455dad6f92fa393405678d6"
+    },
+    {
+      "name": "actual_partial_discovery",
+      "expected_status": "passed",
+      "report": "data/operating-acceptance-review/20261031/report-gate-correction/discovery-partial/playwright-results.json",
+      "execution": false,
+      "status": "passed",
+      "procedures": [
+        {
+          "file": "alerts.spec.cjs",
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+        }
+      ],
+      "missing_required": [
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+        },
+        {
+          "file": "provider.spec.cjs",
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+        },
+        {
+          "file": "recovery.spec.cjs",
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+        },
+        {
+          "file": "weather-history.spec.cjs",
+          "title": "authentic retained weather: freeze, select, research, downloads and restart"
+        }
+      ],
+      "errors": [],
+      "sha256": "bccb642339fa3b1ea1e70733b0d9c4e343c635b9ee38e495420377ee28858b66"
+    },
+    {
+      "name": "discovery_cannot_count_as_execution",
+      "expected_status": "failed",
+      "report": "data/operating-acceptance-review/20261031/report-gate-correction/discovery-full/playwright-results.json",
+      "execution": true,
+      "status": "failed",
+      "procedures": [
+        {
+          "file": "alerts.spec.cjs",
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+        },
+        {
+          "file": "provider.spec.cjs",
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+        },
+        {
+          "file": "recovery.spec.cjs",
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+        },
+        {
+          "file": "weather-history.spec.cjs",
+          "title": "authentic retained weather: freeze, select, research, downloads and restart"
+        }
+      ],
+      "missing_required": [],
+      "errors": [
+        "Missing or unsuccessful execution results: ('alerts.spec.cjs', 'operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore')",
+        "Missing or unsuccessful execution results: ('paper.spec.cjs', 'durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay')",
+        "Missing or unsuccessful execution results: ('paper.spec.cjs', 'durable paper account: authentic refusal, downloads, restart and offline replay')",
+        "Missing or unsuccessful execution results: ('provider.spec.cjs', 'provider-backed website: opt-in, typed candidates, failures, cancellation and recovery')",
+        "Missing or unsuccessful execution results: ('recovery.spec.cjs', 'local operation and recovery: installed research, snapshot, restore and shadow lifecycle')",
+        "Missing or unsuccessful execution results: ('weather-history.spec.cjs', 'authentic retained weather: freeze, select, research, downloads and restart')",
+        "Playwright statistics are incomplete or inconsistent with test records"
+      ],
+      "sha256": "8bb6f43dc47c90a739d5a578d521045a5dff70641455dad6f92fa393405678d6"
+    },
+    {
+      "name": "historical_weather_report_schema_only",
+      "expected_status": "passed",
+      "report": "data/weather-history-review/20261030/browser-accepted/playwright-results.json",
+      "execution": true,
+      "status": "passed",
+      "procedures": [
+        {
+          "file": "weather-history.spec.cjs",
+          "title": "authentic retained weather: freeze, select, research, downloads and restart"
+        }
+      ],
+      "missing_required": [
+        {
+          "file": "alerts.spec.cjs",
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+        },
+        {
+          "file": "provider.spec.cjs",
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+        },
+        {
+          "file": "recovery.spec.cjs",
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+        }
+      ],
+      "errors": [],
+      "sha256": "4f6bfa172ee4e537267dec9b934e828188ae9ebbf855219bde4072e1faa8913a"
+    },
+    {
+      "name": "historical_denied_paper_report",
+      "expected_status": "failed",
+      "report": "data/paper-accounting-review/20261031/browser/playwright-results.json",
+      "execution": true,
+      "status": "failed",
+      "procedures": [
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+        },
+        {
+          "file": "paper.spec.cjs",
+          "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+        }
+      ],
+      "missing_required": [
+        {
+          "file": "alerts.spec.cjs",
+          "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+        },
+        {
+          "file": "provider.spec.cjs",
+          "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+        },
+        {
+          "file": "recovery.spec.cjs",
+          "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+        },
+        {
+          "file": "weather-history.spec.cjs",
+          "title": "authentic retained weather: freeze, select, research, downloads and restart"
+        }
+      ],
+      "errors": [
+        "Missing or unsuccessful execution results: ('paper.spec.cjs', 'durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay')",
+        "Missing or unsuccessful execution results: ('paper.spec.cjs', 'durable paper account: authentic refusal, downloads, restart and offline replay')",
+        "Playwright statistics are incomplete or inconsistent with test records"
+      ],
+      "sha256": "219bdd73ef54dd62c28ee3a013a624c259fa80c76a652d52076a4f08e0728de4"
+    }
+  ]
+}

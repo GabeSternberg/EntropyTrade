@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-10-31T06:08:03.644475+00:00",
+  "command": [
+    ".venv/bin/ruff",
+    "check",
+    "backend",
+    "tools/local_acceptance.py"
+  ],
+  "cwd": "/home/gabriel/Projects/EntropyTrade",
+  "environment": {
+    "PATH": "/bin:/usr/bin",
+    "TZ": "UTC",
+    "PYTHONNOUSERSITE": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LOKY_MAX_CPU_COUNT": "1"
+  },
+  "deadline_seconds": 180,
+  "complete_suite": false,
+  "exit_code": 0,
+  "finished_at": "2026-10-31T06:08:03.660239+00:00",
+  "status": "passed"
+}

@@ -144,6 +144,11 @@ The default `tools/local_acceptance.py` selects this procedure, `recovery.spec.c
 authentic weather history, **both `paper.spec.cjs` procedures and `alerts.spec.cjs`** from a
 fresh locked Python/npm installation before the complete pytest suite. It retains separate
 discovery reports and checks localhost/asyncio socket capabilities before browser launch.
+It validates JSON reports against six fixed file/title identities, actual successful result
+records and aggregate counts. A zero process exit cannot pass missing, skipped, failed or
+empty results. Full discovery always runs independently of `--browser-grep`; narrowed
+selections have separate discovery reports and can only produce explicitly partial
+receipts with missing procedures listed and `acceptance_complete=false`.
 Denied capabilities block browser/full-suite execution with a nonzero exit and explicit
 unexecuted checks. Browser execution stops after its first failure. `--prepare-only` installs
 and discovers tests without retrying a known environment denial; it cannot pass acceptance.

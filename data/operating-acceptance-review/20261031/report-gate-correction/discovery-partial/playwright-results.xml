@@ -1,0 +1,8 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="1" errors="0" time="0.05698799999999994">
+<testsuite name="alerts.spec.cjs" timestamp="2026-10-31T06:08:04.420Z" hostname="" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore" classname="alerts.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

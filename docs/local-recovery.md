@@ -114,6 +114,13 @@ procedures and operator alerts**. Discovery has separate reports and never count
 interaction. Browser execution stops after the first failure; denied socket capabilities
 stop before browser launch or pytest, retaining an explicit blocked receipt and unexecuted
 checks. A successful socket preflight alone cannot certify Chromium or any workflow.
+The driver parses Playwright JSON reports and records their hashes. Full discovery must
+contain all six required file/title identities. Execution must match the selected discovery
+and contain successful result records with consistent aggregate counts; skipped, failed,
+missing, malformed or empty results fail even when the process exits zero. Discovery's
+empty `--list` results cannot count as execution. `--browser-grep` gets a separate selection
+report; a successful narrowed run records an explicit partial status and missing procedures,
+always keeping `acceptance_complete=false`. Use the default selection for full acceptance.
 Use Python 3.12+, uv, Node/npm and a machine permitting localhost sockets and Chromium:
 
 ```bash
@@ -151,8 +158,9 @@ stalls in the existing collector reconnect test; its 45-second diagnostic stack 
 The stack alone does not prove the cause of that stall. The earlier unbounded attempt was
 interrupted and is also incomplete. No denied browser launch was retried or bypassed.
 
-The current bundle executes the browser steps; independent supervisor review must still
-inspect its screenshots, downloads, listener/worker logs and final complete-suite report,
+The current driver must execute the browser steps in a permitted environment; independent
+supervisor review must inspect its screenshots, downloads, listener/worker logs and final
+complete-suite report,
 then cross-check [V1 acceptance](v1_acceptance.md). Its external-provider check remains
 blocked without separately authorized research credentials. No real-data empirical release
 gate is satisfied by the controlled or synthetic software procedures.

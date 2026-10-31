@@ -5,6 +5,20 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 ## Current milestone: reproducible private-workbench operating acceptance
 
+The report-gate correction is implemented in place from `5e2bd03` on the same designated
+branch. Completion now requires JSON-reporter discovery of the six fixed file/title
+identities and successful execution of every selected procedure, with consistent report
+counts and no skipped, failed, absent or empty results. Process exit zero alone cannot
+pass a browser step. Full discovery is independent of `--browser-grep`; a successful
+narrowed run records missing procedures and an explicit partial status with
+`acceptance_complete=false`. Preparation still cannot complete acceptance. See the
+[correction evidence](data/operating-acceptance-review/20261031/report-gate-correction/README.md).
+Correction checks pass: **439 focused pytest cases in 30.10s**, including 53 acceptance-driver
+cases, Ruff lint/format, strict mypy (535 files), 22 frontend checks and actual full/narrowed
+Playwright discovery. Historical report parsing verifies schema compatibility and refusal;
+it does not establish current browser execution. Earlier evidence below keeps its original scope.
+No restricted browser/listener or full-suite retry is required or claimed for this correction.
+
 Implemented in place on designated `supervisor/20261031-014049` from `b8d2538`.
 All Git operations and independent review remain with the supervisor. **V1 and operating
 acceptance remain incomplete because the environment still denies required sockets.**

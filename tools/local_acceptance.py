@@ -21,6 +21,119 @@ DEFAULT_BROWSER_GREP = (
     "local operation and recovery|provider-backed website|authentic retained weather|"
     "durable paper account|operator alerts"
 )
+REQUIRED_BROWSER_PROCEDURES = (
+    (
+        "recovery.spec.cjs",
+        "local operation and recovery: installed research, snapshot, restore and shadow lifecycle",
+    ),
+    (
+        "provider.spec.cjs",
+        "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery",
+    ),
+    (
+        "weather-history.spec.cjs",
+        "authentic retained weather: freeze, select, research, downloads and restart",
+    ),
+    (
+        "paper.spec.cjs",
+        "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay",
+    ),
+    (
+        "paper.spec.cjs",
+        "durable paper account: authentic refusal, downloads, restart and offline replay",
+    ),
+    (
+        "alerts.spec.cjs",
+        "operator alerts: acknowledgement, listener restart, recovery, recurrence "
+        "and offline restore",
+    ),
+)
+
+
+def inspect_browser_report(path, *, execution, expected=None, require_all=False):
+    """Validate JSON reporter evidence; --list's skipped/empty results prove discovery only."""
+    result = {
+        "report": str(path),
+        "execution": execution,
+        "status": "failed",
+        "procedures": [],
+        "missing_required": [],
+        "errors": [],
+    }
+    errors = result["errors"]
+    procedures = set()
+    test_count = 0
+
+    def walk(suites):
+        nonlocal test_count
+        if not isinstance(suites, list):
+            raise ValueError("suites must be a list")
+        for suite in suites:
+            for spec in suite.get("specs", []):
+                identity = (spec["file"], spec["title"])
+                if not all(isinstance(part, str) and part for part in identity):
+                    raise ValueError("procedure file/title must be nonempty strings")
+                if identity in procedures:
+                    errors.append(f"Duplicate procedure: {identity}")
+                procedures.add(identity)
+                tests = spec["tests"]
+                if not isinstance(tests, list) or not tests:
+                    raise ValueError(f"No test records for {identity}")
+                for test in tests:
+                    test_count += 1
+                    if test.get("expectedStatus") != "passed":
+                        errors.append(f"Procedure is skipped or expects failure: {identity}")
+                    if execution:
+                        attempts = test.get("results")
+                        if (
+                            spec.get("ok") is not True
+                            or test.get("status") != "expected"
+                            or not isinstance(attempts, list)
+                            or not attempts
+                            or any(
+                                attempt.get("status") != "passed"
+                                or attempt.get("error")
+                                or attempt.get("errors")
+                                for attempt in attempts
+                            )
+                        ):
+                            errors.append(f"Missing or unsuccessful execution results: {identity}")
+            walk(suite.get("suites", []))
+
+    try:
+        raw = path.read_bytes()
+        result["sha256"] = hashlib.sha256(raw).hexdigest()
+        report = json.loads(raw)
+        if report["errors"] != []:
+            errors.append("Playwright reported global errors")
+        walk(report["suites"])
+        if not procedures:
+            errors.append("No browser procedures discovered")
+        stats = report["stats"]
+        expected_stats = {
+            "expected": test_count if execution else 0,
+            "skipped": 0 if execution else test_count,
+            "unexpected": 0,
+            "flaky": 0,
+        }
+        if any(stats.get(key) != value for key, value in expected_stats.items()):
+            errors.append("Playwright statistics are incomplete or inconsistent with test records")
+        if expected is not None and procedures != set(expected):
+            errors.append(
+                f"Execution/discovery mismatch: missing={sorted(set(expected) - procedures)}, "
+                f"unexpected={sorted(procedures - set(expected))}"
+            )
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        errors.append(f"Unreadable or malformed Playwright report: {exc}")
+    result["procedures"] = [{"file": file, "title": title} for file, title in sorted(procedures)]
+    result["missing_required"] = [
+        {"file": file, "title": title}
+        for file, title in sorted(set(REQUIRED_BROWSER_PROCEDURES) - procedures)
+    ]
+    if require_all and result["missing_required"]:
+        errors.append("Required browser procedures missing from discovery")
+    result["status"] = "failed" if errors else "passed"
+    return result
 
 
 def now():
@@ -83,6 +196,7 @@ def main():
     parser.add_argument(
         "--browser-grep",
         default=DEFAULT_BROWSER_GREP,
+        help="Narrow browser execution; partial coverage can never complete acceptance",
     )
     parser.add_argument(
         "--prepare-only",
@@ -111,6 +225,10 @@ def main():
         "steps": [],
         "source_files": [],
         "browser_selection": args.browser_grep,
+        "browser_reports": {},
+        "required_browser_procedures": [
+            {"file": file, "title": title} for file, title in REQUIRED_BROWSER_PROCEDURES
+        ],
         "acceptance_complete": False,
         "limitations": [
             "Source export of the working tree; supervisor owns Git sign-off.",
@@ -258,6 +376,13 @@ def main():
         "ENTROPYTRADE_BROWSER_PYTHON": python,
         "ENTROPYTRADE_BROWSER_PORT": str(args.port),
     }
+    browser_command = [
+        node,
+        "frontend/browser/node_modules/@playwright/test/cli.js",
+        "test",
+        "-c",
+        "frontend/browser/playwright.config.cjs",
+    ]
     steps = [
         (
             "lock-check",
@@ -327,19 +452,19 @@ def main():
         ),
         (
             "browser-discovery",
-            [
-                node,
-                "frontend/browser/node_modules/@playwright/test/cli.js",
-                "test",
-                "-c",
-                "frontend/browser/playwright.config.cjs",
-                "--grep",
-                args.browser_grep,
-                "--list",
-            ],
+            [*browser_command, "--grep", DEFAULT_BROWSER_GREP, "--list"],
             {
                 **browser_env,
                 "ENTROPYTRADE_BROWSER_EVIDENCE": str(output / "browser-discovery"),
+            },
+            60,
+        ),
+        (
+            "browser-selection",
+            [*browser_command, "--grep", args.browser_grep, "--list"],
+            {
+                **browser_env,
+                "ENTROPYTRADE_BROWSER_EVIDENCE": str(output / "browser-selection"),
             },
             60,
         ),
@@ -351,16 +476,7 @@ def main():
         ),
         (
             "browser",
-            [
-                node,
-                "frontend/browser/node_modules/@playwright/test/cli.js",
-                "test",
-                "-c",
-                "frontend/browser/playwright.config.cjs",
-                "--grep",
-                args.browser_grep,
-                "--max-failures=1",
-            ],
+            [*browser_command, "--grep", args.browser_grep, "--max-failures=1"],
             browser_env,
             660,
         ),
@@ -408,6 +524,25 @@ def main():
             step.update(
                 finished_at=now(), exit_code=code, status="passed" if code == 0 else "failed"
             )
+            if name in {"browser-discovery", "browser-selection", "browser"}:
+                expected = None
+                if name == "browser":
+                    expected = [
+                        (p["file"], p["title"])
+                        for p in receipt["browser_reports"]["browser-selection"]["procedures"]
+                    ]
+                report_directory = "browser" if name == "browser" else name
+                result = inspect_browser_report(
+                    output / report_directory / "playwright-results.json",
+                    execution=name == "browser",
+                    expected=expected,
+                    require_all=name == "browser-discovery"
+                    or (name == "browser-selection" and args.browser_grep == DEFAULT_BROWSER_GREP),
+                )
+                step["result"] = result
+                receipt["browser_reports"][name] = result
+                if result["status"] != "passed":
+                    step.update(status="failed", failure="; ".join(result["errors"]))
             if name == "environment" and code != 124:
                 step["result"] = json.loads((output / "environment.log").read_text())
                 if code != 0 and step["result"]["status"] == "blocked":
@@ -420,12 +555,13 @@ def main():
                     raise RuntimeError(receipt["failure"])
             save()
             print(f"{name}: {step['status']}", flush=True)  # noqa: T201 - local CLI progress
-            if code != 0 and name in {
+            if step["status"] != "passed" and name in {
                 "lock-check",
                 "locked-sync",
                 "npm-ci",
                 "chromium-install",
                 "browser-discovery",
+                "browser-selection",
                 "environment",
             }:
                 raise RuntimeError(f"{name} failed; inspect {output / (name + '.log')}")
@@ -436,6 +572,13 @@ def main():
             raise RuntimeError("Acceptance incomplete: inspect failed step logs; no release pass")
         if args.prepare_only:
             receipt["status"] = "prepared; browser and full suite unverified"
+        elif receipt["browser_reports"]["browser"]["missing_required"]:
+            receipt.update(
+                status="partial; required browser procedures unexecuted",
+                unexecuted_browser_procedures=receipt["browser_reports"]["browser"][
+                    "missing_required"
+                ],
+            )
         else:
             receipt["acceptance_complete"] = True
     except Exception as exc:
@@ -445,6 +588,10 @@ def main():
             receipt["steps"][-1].update(status="failed", failure=str(exc), finished_at=now())
         raise
     finally:
+        receipt["unexecuted_checks"] = sorted(
+            set(receipt.get("unexecuted_checks", []))
+            | {name for name, *_ in steps if name not in {s["name"] for s in receipt["steps"]}}
+        )
         receipt["finished_at"] = now()
         save()
         acceptance_temp.cleanup()

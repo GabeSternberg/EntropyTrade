@@ -7,6 +7,15 @@ retains fresh locked-install results, exact failed export checks and their repai
 hashes, focused tests and offline recovery evidence. Earlier matrices retain their original
 checkout scope. No historical browser pass certifies the current website.
 
+The [report-gate correction](../data/operating-acceptance-review/20261031/report-gate-correction/README.md)
+requires discovery of all six fixed browser procedure identities and parses both discovery
+and execution JSON reports. Completion requires actual passing result records for every
+procedure, matching selection and aggregate counts. Absent, malformed, skipped, failed or
+empty execution results fail despite a zero process exit. A successful narrowed
+`--browser-grep` run is explicitly partial and keeps `acceptance_complete=false`.
+These parser/orchestration regressions and actual `--list` checks do not execute pages or
+close any outstanding browser, complete-suite or V1 requirement. Existing evidence is retained.
+
 | Requirement | Current executed evidence | Result / remaining work |
 |---|---|---|
 | Reproducible fresh installation | [Final driver receipt](../data/operating-acceptance-review/20261031/locked-reviewed/acceptance.json), lock/sync/package/npm/Chromium logs | **Scoped preparation passes.** New environment, offline package artifacts, 117 Python packages, pinned npm install and Playwright-managed Chromium provisioning; no reused virtualenv or personal browser. `acceptance_complete=false`; preparation is not operating acceptance. |

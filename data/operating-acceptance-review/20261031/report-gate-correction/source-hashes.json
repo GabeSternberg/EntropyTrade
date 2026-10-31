@@ -1,0 +1,58 @@
+[
+  {
+    "path": "tools/local_acceptance.py",
+    "sha256": "04f2bc767da7ef252d87db459428d748d250f035b8cb4653b8bdd71b39f361ec"
+  },
+  {
+    "path": "backend/tests/unit/test_local_acceptance.py",
+    "sha256": "983bfc1d3ef626983ac653a5a4499d9cfe392c01bfaba509267ab4fe00547826"
+  },
+  {
+    "path": "STATUS.md",
+    "sha256": "93dd6088752bce66fd3abac7e068a12b5de15fe53bde32cc4b186041bab78b06"
+  },
+  {
+    "path": "docs/roadmap.md",
+    "sha256": "81ebfdf9da728eeb377b989e709600f6b2648d68c6308e967aa2467b30d3dcde"
+  },
+  {
+    "path": "docs/v1_acceptance.md",
+    "sha256": "dc18b50f60a0f608e97b5a7e0f49cee2051e250e55f6930e7536116b7d4a620e"
+  },
+  {
+    "path": "docs/local-recovery.md",
+    "sha256": "50dbb7ee90304e1926c98f9bd20edd7fcd04566b9eb3c89931b558f30ca48522"
+  },
+  {
+    "path": "frontend/browser/README.md",
+    "sha256": "b2eae12212da9021fb0c99f9ffd02028986cd328f4e4d702bd15a9e082d9a9fd"
+  },
+  {
+    "path": "data/operating-acceptance-review/20261031/report-gate-correction/README.md",
+    "sha256": "11a110cd6201c3fa23727927c945827a6c152c5ad18919787d617e3a6769c4ae"
+  },
+  {
+    "path": "frontend/browser/playwright.config.cjs",
+    "sha256": "9a1735f81adbba038e04e4b802f48cc5e249ba4c789b5c82831bfb7c1eb12d86"
+  },
+  {
+    "path": "frontend/browser/recovery.spec.cjs",
+    "sha256": "069db89deb4a71c21cbcca120dee2aeb087a4116c4ce53b1daae45bd72f0f9b0"
+  },
+  {
+    "path": "frontend/browser/provider.spec.cjs",
+    "sha256": "9813a13b06a3bb3a7161978ebd41b87b153c18aa88cb436fc158d7431e2541ae"
+  },
+  {
+    "path": "frontend/browser/weather-history.spec.cjs",
+    "sha256": "d996930efa71f7353cbe48efafcac90fcfb49be91f229f15b842ccff483d17e9"
+  },
+  {
+    "path": "frontend/browser/paper.spec.cjs",
+    "sha256": "47c2a74cebb838c59ca2a8c77ab3801d12dd0a312acdb41ccb4312c30a649f5b"
+  },
+  {
+    "path": "frontend/browser/alerts.spec.cjs",
+    "sha256": "85c463caedc7ea137c2538302ea9530e2d669b1310f2229484d6e56fab9faa59"
+  }
+]

@@ -14,7 +14,13 @@ existing `tools/local_acceptance.py`. Its default browser selection now includes
 recovery, controlled provider integration, authentic weather history, both paper procedures
 and alerts. Clean exports retain the original v1 compatibility fixture and whole original
 cycles required by paper/alert replay. Discovery and preparation cannot pass browser or
-complete-suite acceptance. Required socket failures stop execution before repeated browser
+complete-suite acceptance. The report-gate correction requires all six fixed procedure
+identities in discovery and actual passing results in Playwright JSON reports, including
+consistent totals. Missing/skipped/failed/empty reports fail even after a zero process exit.
+Narrowed filters may produce explicitly partial receipts, always with
+`acceptance_complete=false`; they cannot waive the six-procedure gate. See the
+[correction checks](../data/operating-acceptance-review/20261031/report-gate-correction/README.md).
+Required socket failures stop execution before repeated browser
 launch or full-suite stalls; no launch flags or assertions are weakened.
 
 Fresh locked offline installation, Ruff/format, strict mypy (535 files), 22 frontend checks,
