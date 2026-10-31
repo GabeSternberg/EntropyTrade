@@ -18,7 +18,7 @@ from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.features.registry import scientific_hash
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.history import build_snapshot
-from entropytrade.weather.label_service import LabelService
+from entropytrade.weather.label_service import LabelService, atomic
 from tests.integration.cohort_fixture import body
 from tests.integration.weather_history_retained import REPO
 from tests.unit.test_public_families import weather
@@ -144,7 +144,19 @@ def serve(workspace: Path, phase_file: Path, port: int) -> None:
                 return httpx.Response(503, text=LABEL + " source outage")
             return httpx.Response(200, json=portal(req.url.params["date"], phase))
 
-        await original(self, request, httpx.MockTransport(source))
+        if state()["phase"] == "before-start":
+            # Test-only cross-process barrier after ownership registration. The browser
+            # pauses through the actual listener before allowing acquisition startup.
+            marker = phase_file.with_name(phase_file.name + ".startup.json")
+            atomic(marker, {"id": request["id"], "stage": "registered"})
+            try:
+                while state()["phase"] == "before-start":
+                    await asyncio.sleep(0.025)
+                await original(self, request, httpx.MockTransport(source))
+            finally:
+                atomic(marker, {"id": request["id"], "stage": "released"})
+        else:
+            await original(self, request, httpx.MockTransport(source))
 
     with (
         patch.object(LabelService, "acquire", controlled),

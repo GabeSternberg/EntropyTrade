@@ -199,7 +199,7 @@ def acquire(
             200, content=receipt(day).body(), headers={"content-type": "application/json"}
         )
 
-    asyncio.run(service.acquire(request, httpx.MockTransport(source)))
+    asyncio.run(service.bounded(request, httpx.MockTransport(source)))
     return service.get(request["id"])
 
 
@@ -321,7 +321,7 @@ def test_network_failure_redirect_and_byte_budget_are_durable_refusals(
             return httpx.Response(302, headers={"location": "https://attacker.invalid"})
         return httpx.Response(200, content=b"x" * 2_000_001)
 
-    asyncio.run(service.acquire(request, httpx.MockTransport(source)))
+    asyncio.run(service.bounded(request, httpx.MockTransport(source)))
     result = service.get(request["id"])
     assert result["status"] == "completed"
     assert result["result"]["verified_events"] == 0
@@ -348,7 +348,9 @@ def test_shutdown_cancels_active_network_and_preserves_prior_receipts(
         await asyncio.Event().wait()
         raise AssertionError("unreachable")
 
-    async def controlled(saved: dict[str, Any]) -> None:
+    async def controlled(
+        saved: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+    ) -> None:
         await original(saved, httpx.MockTransport(stalled))
 
     monkeypatch.setattr(service, "acquire", controlled)

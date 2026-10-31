@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "bytes": 37737013,
+      "path": "data/cache/atomic-claim-verified-20261031-forward-authentic.zip",
+      "sha256": "sha256:c43bffb9033df018ea1bab37ef9f3641018d6cd1238fb1bd0a7662b8fef3bd6c"
+    },
+    {
+      "bytes": 2554720,
+      "path": "data/cache/atomic-claim-verified-20261031-forward-controlled.zip",
+      "sha256": "sha256:75ea86b2d21795d52bce9959eb50e48b9d9c1c3d86222cf9c7194c28541a9b82"
+    },
+    {
+      "bytes": 50,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/playwright-artifacts/.last-run.json",
+      "sha256": "sha256:1a7281262a1426ac837fe9b61ce6b843b45093c204769011f34ad6eafcf2763d"
+    },
+    {
+      "bytes": 218892,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png",
+      "sha256": "sha256:caf514e69e909083081fd8d08e94b14b462f282f05da0a8e17d9cfb796e57d9f"
+    },
+    {
+      "bytes": 4300200,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "sha256": "sha256:99572a77226576e5417fc5506ff31391ae95c15a2b9d15053338a2d5c8787f68"
+    },
+    {
+      "bytes": 45,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/playwright-artifacts/.last-run.json",
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "bytes": 6078664,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "sha256": "sha256:e1af8355cac6b2728fbc3b6bd27e2c916914c6ca3cdc872836db314ef4dc69c0"
+    },
+    {
+      "bytes": 2894873,
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "sha256": "sha256:8bd7b92d29e35c62241105cf2f7fd1705001dccb5462c9efc19c9d5454d62b2c"
+    }
+  ],
+  "limitation": "Generated traces and workspace archives remain locally retained under existing ignore rules. Obtain/hash-verify them separately for independent trace and restore review; checkout alone lacks these bytes."
+}

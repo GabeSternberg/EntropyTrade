@@ -37,7 +37,8 @@ async function procedure(page, browser, controlled) {
   let phaseEpoch = 0;
   function phase(value, seconds = 0) {
     phaseEpoch += seconds;
-    fs.writeFileSync(phaseFile, JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + phaseEpoch * 1000).toISOString() }));
+    fs.writeFileSync(phaseFile + ".pending", JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + phaseEpoch * 1000).toISOString() }));
+    fs.renameSync(phaseFile + ".pending", phaseFile);
     receipt.operations.push({ action: "CONTROLLED-source", phase: value, seconds: phaseEpoch }); save();
   }
   function command(args, name) {
@@ -83,7 +84,7 @@ async function procedure(page, browser, controlled) {
     const bytes = fs.readFileSync(path.join(evidence, name));
     receipt.downloads.push({ file: name, sha256: sha(bytes) }); save(); return bytes;
   }
-  let scheduleId;
+  let scheduleId, cancelledRequest;
   async function waitFor(predicate) {
     let value;
     for (let i = 0; i < 400; i++) {
@@ -149,6 +150,35 @@ async function procedure(page, browser, controlled) {
       assert.deepEqual([...new Set(observations.map(o => Number(o.value)))].sort(), [70, 72]);
       assert(observations.every(o => o.available_at === o.received_at));
       receipt.operations.push({ action: "controlled-revisions", schedules: result, batch_versions: rows.map(r => r.batch_version) }); save();
+      await paused(); phase("before-start", 86400); await resumed();
+      const marker = phaseFile + ".startup.json";
+      let registered;
+      for (let i = 0; i < 400; i++) {
+        registered = fs.existsSync(marker) ? JSON.parse(fs.readFileSync(marker)) : null;
+        if (registered?.stage === "registered") break;
+        await pause(25);
+      }
+      assert.equal(registered?.stage, "registered", "Acquisition did not reach startup barrier");
+      const requestId = registered.id;
+      const beforeStart = (await (await fetch(origin + "/api/weather/labels")).json()).find(r => r.id === requestId);
+      assert.equal(beforeStart.status, "running", "Ownership and running transition must be atomic");
+      assert.deepEqual(beforeStart.receipts, []);
+      await paused(); phase("official");
+      let released;
+      for (let i = 0; i < 400; i++) {
+        released = JSON.parse(fs.readFileSync(marker));
+        if (released.stage === "released") break;
+        await pause(25);
+      }
+      assert.equal(released.stage, "released");
+      const afterPause = (await (await fetch(origin + "/api/weather/labels")).json()).find(r => r.id === requestId);
+      assert.equal(afterPause.status, "interrupted");
+      assert.deepEqual(afterPause.receipts, []);
+      cancelledRequest = afterPause;
+      await page.getByRole("button", { name: "Refresh label acquisition", exact: true }).click();
+      await expect(page.locator("#weather-labels")).toContainText("interrupted");
+      receipt.operations.push({ action: "pause-at-acquisition-startup-barrier", before: beforeStart, after: afterPause }); save();
+      await shot("cancelled-before-start");
     } else {
       const rows = await (await fetch(origin + "/api/weather/labels")).json();
       assert(rows.length >= 1);
@@ -158,7 +188,7 @@ async function procedure(page, browser, controlled) {
       await expect(page.locator("#weather-labels")).toContainText("Receipt availability is never backdated");
       await shot("authentic-source-progress");
     }
-    await paused();
+    if (!controlled) await paused();
     const stateBytes = await download("paused-state.json");
     await page.getByRole("button", { name: "Freeze retained weather dataset", exact: true }).click();
     await expect(page.locator("#weather-message")).toContainText("Immutable dataset selected");
@@ -168,6 +198,11 @@ async function procedure(page, browser, controlled) {
     await stop(); await start(); await page.goto(origin);
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restart-state.json"), stateBytes);
+    if (cancelledRequest) {
+      const rows = await (await fetch(origin + "/api/weather/labels")).json();
+      assert.deepEqual(rows.find(r => r.id === cancelledRequest.id), cancelledRequest);
+      receipt.operations.push({ action: "restart-preserves-interrupted-request", id: cancelledRequest.id }); save();
+    }
     await shot("restart-paused");
     await stop();
     const archive = path.join(repo, "data/cache", path.basename(workspace) + ".zip");
@@ -179,6 +214,11 @@ async function procedure(page, browser, controlled) {
     await start(); await page.goto(origin);
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restored-state.json"), stateBytes);
+    if (cancelledRequest) {
+      const rows = await (await fetch(origin + "/api/weather/labels")).json();
+      assert.deepEqual(rows.find(r => r.id === cancelledRequest.id), cancelledRequest);
+      receipt.operations.push({ action: "restore-preserves-interrupted-request", id: cancelledRequest.id }); save();
+    }
     await shot("offline-restored");
     assert.deepEqual(receipt.page_errors, []);
     receipt.status = "passed";

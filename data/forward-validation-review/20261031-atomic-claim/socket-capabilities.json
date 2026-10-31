@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-10-31T10:33:49.653517+00:00",
+  "status": "blocked",
+  "checks": [
+    {
+      "name": "localhost_listener",
+      "status": "blocked",
+      "operation": "socket creation",
+      "failure": "PermissionError(1, 'Operation not permitted')",
+      "errno": 1
+    },
+    {
+      "name": "asyncio_socketpair",
+      "status": "blocked",
+      "operation": "socketpair send",
+      "failure": "PermissionError(1, 'Operation not permitted')",
+      "errno": 1
+    }
+  ],
+  "limitation": "Socket capability only; browser workflows and pytest remain unverified."
+}

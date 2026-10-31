@@ -1,0 +1,73 @@
+{
+  "base": "2f93999",
+  "branch": "supervisor/20261031-054650",
+  "browser": {
+    "actual_localhost_listeners": true,
+    "downloads": 6,
+    "first_attempt": {
+      "cause": "Harness tried to pause an already paused schedule; corrected in a fresh successful run.",
+      "exit_status": 130,
+      "partial_receipt_status": "running",
+      "passing_tests": 0,
+      "status": "interrupted",
+      "unexecuted_tests": 1
+    },
+    "identical_state_comparisons": 4,
+    "interrupted_request_restart_restore_comparisons": 2,
+    "managed_chromium": true,
+    "page_errors": 0,
+    "procedures": 2,
+    "screenshots": 11,
+    "seconds": 61.848392,
+    "status": "passed"
+  },
+  "checked_at": "2026-10-31T10:49:00.423972+00:00",
+  "complete": false,
+  "credential_access": false,
+  "git_mutations": false,
+  "independent_review": "pending",
+  "limitations": [
+    "V1 incomplete; independent supervisor review pending.",
+    "Controlled cancellation and twelve-date sources/clocks are software evidence, never empirical history or performance.",
+    "Authentic source acquisition verifies two October 29 highs and refuses two October 30 preliminary reports; original clocks retained.",
+    "More independent point-in-time history, effective fee certification, authorized external-provider verification and two-family empirical release evidence remain open.",
+    "Multi-day unattended authentic operation has not been observed.",
+    "Existing locked environment and browser cache reused; no new clean-install claim.",
+    "Generated trace/workspace archive bytes are local-only under existing ignore rules; independent review requires obtaining and hash-verifying them."
+  ],
+  "milestone": "atomic weather-label request claiming and cancellation",
+  "quality": {
+    "format": "passed",
+    "frontend": {
+      "checks": 22,
+      "status": "passed"
+    },
+    "pytest": {
+      "focused.xml": {
+        "errors": 0,
+        "failures": 0,
+        "seconds": 29.86,
+        "skipped": 0,
+        "tests": 50
+      },
+      "pytest.xml": {
+        "errors": 0,
+        "failures": 0,
+        "seconds": 555.127,
+        "skipped": 0,
+        "tests": 1277
+      }
+    },
+    "ruff": "passed",
+    "strict_mypy": {
+      "files": 547,
+      "status": "passed"
+    }
+  },
+  "safety": {
+    "bitcoin_boundary_files_unchanged": 5,
+    "original_receipts_unchanged": 68
+  },
+  "status": "scoped_checks_passed",
+  "submission_enabled": false
+}

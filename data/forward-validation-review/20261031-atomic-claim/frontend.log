@@ -1,0 +1,142 @@
+TAP version 13
+# Subtest: operator alerts keep acknowledged incidents open and resolved history inspectable
+ok 1 - operator alerts keep acknowledged incidents open and resolved history inspectable
+  ---
+  duration_ms: 4.197399
+  type: 'test'
+  ...
+# Subtest: review: failed acquisition is visible without expanding details
+ok 2 - review: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 1.704999
+  type: 'test'
+  ...
+# Subtest: review: partial acquisition is visible without expanding details
+ok 3 - review: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.8236
+  type: 'test'
+  ...
+# Subtest: review: synthetic banner stays visible
+ok 4 - review: synthetic banner stays visible
+  ---
+  duration_ms: 1.1463
+  type: 'test'
+  ...
+# Subtest: review: retained Bitcoin gaps and reconciliation failures are visible
+ok 5 - review: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 1.0585
+  type: 'test'
+  ...
+# Subtest: probabilities: failed acquisition is visible without expanding details
+ok 6 - probabilities: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 0.885199
+  type: 'test'
+  ...
+# Subtest: probabilities: partial acquisition is visible without expanding details
+ok 7 - probabilities: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.9961
+  type: 'test'
+  ...
+# Subtest: probabilities: synthetic banner stays visible
+ok 8 - probabilities: synthetic banner stays visible
+  ---
+  duration_ms: 0.7943
+  type: 'test'
+  ...
+# Subtest: probabilities: retained Bitcoin gaps and reconciliation failures are visible
+ok 9 - probabilities: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 1.4009
+  type: 'test'
+  ...
+# Subtest: lineage: failed acquisition is visible without expanding details
+ok 10 - lineage: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 1.335799
+  type: 'test'
+  ...
+# Subtest: lineage: partial acquisition is visible without expanding details
+ok 11 - lineage: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 1.0916
+  type: 'test'
+  ...
+# Subtest: lineage: synthetic banner stays visible
+ok 12 - lineage: synthetic banner stays visible
+  ---
+  duration_ms: 0.8999
+  type: 'test'
+  ...
+# Subtest: lineage: retained Bitcoin gaps and reconciliation failures are visible
+ok 13 - lineage: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 1.488099
+  type: 'test'
+  ...
+# Subtest: review: provider failure and limits are visible with zero experiment success
+ok 14 - review: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 1.0526
+  type: 'test'
+  ...
+# Subtest: probabilities: provider failure and limits are visible with zero experiment success
+ok 15 - probabilities: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 0.7555
+  type: 'test'
+  ...
+# Subtest: lineage: provider failure and limits are visible with zero experiment success
+ok 16 - lineage: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 0.8444
+  type: 'test'
+  ...
+# Subtest: review: retained weather counts and shortages stay visible
+ok 17 - review: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 1.572599
+  type: 'test'
+  ...
+# Subtest: probabilities: retained weather counts and shortages stay visible
+ok 18 - probabilities: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 0.8258
+  type: 'test'
+  ...
+# Subtest: lineage: retained weather counts and shortages stay visible
+ok 19 - lineage: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 0.8809
+  type: 'test'
+  ...
+# Subtest: review: shadow history clocks, depth and fee blockers stay visible
+ok 20 - review: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 0.9333
+  type: 'test'
+  ...
+# Subtest: probabilities: shadow history clocks, depth and fee blockers stay visible
+ok 21 - probabilities: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 1.301099
+  type: 'test'
+  ...
+# Subtest: lineage: shadow history clocks, depth and fee blockers stay visible
+ok 22 - lineage: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 0.796
+  type: 'test'
+  ...
+1..22
+# tests 22
+# suites 0
+# pass 22
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 56.792786

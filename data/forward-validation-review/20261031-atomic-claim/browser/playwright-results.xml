@@ -1,0 +1,12 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="2" errors="0" time="152.189693">
+<testsuite name="forward-validation.spec.cjs" timestamp="2026-10-31T10:35:06.257Z" hostname="" tests="2" failures="0" skipped="2" time="151.172" errors="0">
+<testcase name="continuous forward validation: controlled twelve-date transitions and recovery" classname="forward-validation.spec.cjs" time="151.172">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="continuous forward validation: authentic shadow receipts and new label acquisition" classname="forward-validation.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

@@ -54,6 +54,7 @@ class LabelService:
         self.active_loop: asyncio.AbstractEventLoop | None = None
         self.active_task: asyncio.Task[None] | None = None
         self.active_request: str | None = None
+        self.cancel_requested = False
         self.snapshot_lock = snapshot_lock or threading.Lock()
         self.thread = threading.Thread(target=self.loop, name="weather-labels", daemon=True)
         if any(p.is_symlink() for p in (self.root, *self.root.parents)):
@@ -181,9 +182,11 @@ class LabelService:
             atomic(self.root / "requests" / (identifier(request["id"]) + ".json"), request)
 
     def finish(self, request: dict[str, Any], status: str, detail: str) -> None:
-        batch = self.batch(request)
-        destination = self.batch_path(batch.version)
         with self.lock:
+            if self.get(request["id"])["status"] in {"completed", "failed", "interrupted"}:
+                return  # A stale worker must never replace terminal evidence.
+            batch = self.batch(request)
+            destination = self.batch_path(batch.version)
             if destination.exists():
                 if load_batch(destination) != batch:
                     raise ValueError("immutable weather batch collision")
@@ -209,8 +212,16 @@ class LabelService:
     async def acquire(
         self, request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
     ) -> None:
-        request.update(status="running", detail="Fetching official daily climate reports")
-        self.save(request)
+        with self.lock:
+            if (
+                self.active_request != request["id"]
+                or self.active_task is not asyncio.current_task()
+            ):
+                raise ValueError("weather acquisition requires active request ownership")
+            if self.get(request["id"])["status"] != "running":
+                return
+            if self.cancel_requested or self.stop.is_set():
+                raise asyncio.CancelledError
         days = sorted(
             {t["target_date"] for t in request["selection"]["targets"] if not t["refusal"]}
         )
@@ -288,14 +299,23 @@ class LabelService:
                     return  # Corrupt store fails closed; no further network requests.
             self.stop.wait(0.2)
 
-    async def bounded(self, request: dict[str, Any]) -> None:
+    async def bounded(
+        self, request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+    ) -> None:
         with self.lock:
+            # catalog() is only a hint: pause/recovery may have finished that copy.
+            request = self.get(request["id"])
+            if request["status"] != "queued" or self.stop.is_set() or self.active_task:
+                return
+            request.update(status="running", detail="Fetching official daily climate reports")
+            self.save(request)
             self.active_loop = asyncio.get_running_loop()
             self.active_task = asyncio.current_task()
             self.active_request = request["id"]
+            self.cancel_requested = False
         try:
             async with asyncio.timeout(120):
-                await self.acquire(request)
+                await self.acquire(request, transport)
         except asyncio.CancelledError:
             self.finish(
                 request, "interrupted", "Stopped during acquisition; prior receipts retained"
@@ -310,19 +330,29 @@ class LabelService:
                 self.active_loop = None
                 self.active_task = None
                 self.active_request = None
+                self.cancel_requested = False
 
     def cancel(self, request_id: str) -> None:
         with self.lock:
             request = self.get(request_id)
             if request["status"] == "queued":
                 self.finish(request, "interrupted", "Schedule paused before acquisition")
-            elif self.active_request == request_id and self.active_loop and self.active_task:
+            elif (
+                request["status"] == "running"
+                and self.active_request == request_id
+                and self.active_loop
+                and self.active_task
+            ):
+                # Cancellation callbacks cannot run until the loop yields. Record intent
+                # now so acquisition startup also sees a pause in this interval.
+                self.cancel_requested = True
                 self.active_loop.call_soon_threadsafe(self.active_task.cancel)
 
     def close(self) -> None:
         self.stop.set()
         with self.lock:
             if self.active_loop and self.active_task:
+                self.cancel_requested = True
                 self.active_loop.call_soon_threadsafe(self.active_task.cancel)
         if self.thread.is_alive():
             self.thread.join(timeout=20)

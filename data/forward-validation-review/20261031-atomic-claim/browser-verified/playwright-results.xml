@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="61.848392">
+<testsuite name="forward-validation.spec.cjs" timestamp="2026-10-31T10:37:53.858Z" hostname="" tests="2" failures="0" skipped="0" time="60.776" errors="0">
+<testcase name="continuous forward validation: controlled twelve-date transitions and recovery" classname="forward-validation.spec.cjs" time="33.532">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="continuous forward validation: authentic shadow receipts and new label acquisition" classname="forward-validation.spec.cjs" time="27.244">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

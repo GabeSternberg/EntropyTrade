@@ -1,0 +1,317 @@
+{
+  "read_only": true,
+  "staged_paths": [],
+  "largest_candidate_bytes": 196722,
+  "oversized_candidates": [],
+  "retained_local_artifacts_ignored": 8,
+  "candidates": [
+    {
+      "path": "STATUS.md",
+      "bytes": 76769
+    },
+    {
+      "path": "backend/src/entropytrade/weather/label_service.py",
+      "bytes": 16086
+    },
+    {
+      "path": "backend/tests/integration/forward_validation_fixture.py",
+      "bytes": 7085
+    },
+    {
+      "path": "backend/tests/unit/test_label_lifecycle.py",
+      "bytes": 6556
+    },
+    {
+      "path": "backend/tests/unit/test_label_schedule.py",
+      "bytes": 15346
+    },
+    {
+      "path": "backend/tests/unit/test_weather_labels.py",
+      "bytes": 17626
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/README.md",
+      "bytes": 8101
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/acceptance.json",
+      "bytes": 2438
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-hashes.json",
+      "bytes": 7631
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified.log",
+      "bytes": 764
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/authentic-inputs.json",
+      "bytes": 1039
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/authentic-source-progress.png",
+      "bytes": 95612
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/browser-receipt.json",
+      "bytes": 72608
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/frozen-insufficient-data.png",
+      "bytes": 135665
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/offline-restored.png",
+      "bytes": 89838
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/paused-state.json",
+      "bytes": 4261
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/restart-paused.png",
+      "bytes": 89838
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/restart-state.json",
+      "bytes": 4261
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/restore.log",
+      "bytes": 283
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/restored-state.json",
+      "bytes": 4261
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/seed-authentic.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/server-1.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/server-2.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/server-3.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/authentic/snapshot.log",
+      "bytes": 268
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/browser-receipt.json",
+      "bytes": 44916
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/cancelled-before-start.png",
+      "bytes": 149934
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/frozen-insufficient-data.png",
+      "bytes": 140145
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/official-progress.png",
+      "bytes": 144167
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/offline-restored.png",
+      "bytes": 145690
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/outage-backoff.png",
+      "bytes": 130997
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/paused-state.json",
+      "bytes": 9997
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/preliminary-backlog.png",
+      "bytes": 143731
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/restart-paused.png",
+      "bytes": 145690
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/restart-state.json",
+      "bytes": 9997
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/restore.log",
+      "bytes": 285
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/restored-state.json",
+      "bytes": 9997
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/seed-controlled.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/server-1.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/server-2.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/server-3.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/controlled/snapshot.log",
+      "bytes": 270
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/playwright-results.json",
+      "bytes": 5389
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser-verified/playwright-results.xml",
+      "bytes": 898
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser.log",
+      "bytes": 761
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/browser-receipt.json",
+      "bytes": 42908
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/cancelled-before-start.png",
+      "bytes": 150087
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/official-progress.png",
+      "bytes": 144322
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/outage-backoff.png",
+      "bytes": 131141
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/preliminary-backlog.png",
+      "bytes": 143899
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/seed-controlled.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/controlled/server-1.log",
+      "bytes": 0
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/playwright-results.json",
+      "bytes": 4880
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/browser/playwright-results.xml",
+      "bytes": 642
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/checkpoint-audit.json",
+      "bytes": 9619
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/chromium-install.log",
+      "bytes": 89
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/documentation-hashes.json",
+      "bytes": 541
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/evidence-format.log",
+      "bytes": 25
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/evidence-ruff.log",
+      "bytes": 19
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/focused.log",
+      "bytes": 6863
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/focused.xml",
+      "bytes": 7778
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/format.log",
+      "bytes": 28
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/frontend.log",
+      "bytes": 4543
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/mypy.log",
+      "bytes": 45
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/pytest.log",
+      "bytes": 154490
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/pytest.xml",
+      "bytes": 196722
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/retained-artifacts.json",
+      "bytes": 2355
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/ruff.log",
+      "bytes": 19
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/safety-receipt.json",
+      "bytes": 28517
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/socket-capabilities.json",
+      "bytes": 581
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/source-hashes.json",
+      "bytes": 72008
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/verification.log",
+      "bytes": 90
+    },
+    {
+      "path": "data/forward-validation-review/20261031-atomic-claim/verify_evidence.py",
+      "bytes": 3798
+    },
+    {
+      "path": "docs/forward-validation.md",
+      "bytes": 6114
+    },
+    {
+      "path": "docs/roadmap.md",
+      "bytes": 34666
+    },
+    {
+      "path": "docs/v1_acceptance.md",
+      "bytes": 47528
+    },
+    {
+      "path": "frontend/browser/forward-validation.spec.cjs",
+      "bytes": 14907
+    }
+  ]
+}

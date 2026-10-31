@@ -1,3 +1,19 @@
+# Atomic request-claim/cancellation correction — October 31, 2026
+
+**complete=false.** Corrected on designated `supervisor/20261031-054650` from `2f93999`.
+Git operations and independent acceptance remain with the supervisor. This correction closes
+the request lifecycle races; it does not close the outstanding empirical or V1 release gates.
+[Current correction evidence](../data/forward-validation-review/20261031-atomic-claim/README.md)
+records exact executions and preserves the interrupted browser attempt separately.
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Cancellation after queue selection, before claiming | Barrier-based `test_queued_selection_cannot_start_after_durable_completion`, parameterized over interrupted/completed/failed | No acquisition starts from a stale queued copy; terminal request and batch bytes stay identical. |
+| Cancellation after ownership registration, before acquisition | Barrier-based pause/shutdown regressions, actual-listener controlled browser startup barrier | Ownership and running status are atomic; pending cancellation prevents source calls before the callback runs. Interrupted evidence survives late completion, restart and restore. |
+| Receipt retention, repeated claiming and existing workflow | Lifecycle/scheduler/label/listener tests; controlled/authentic managed-Chromium procedures | Existing partial receipts, bounded acquisition, provenance, pause/resume, immutable freeze and offline recovery remain covered. Exact quality/browser results are in the current evidence bundle. |
+| Required quality and browser regression gates | Current Ruff/format/mypy, frontend, focused/full JUnit and actual Playwright reports | **Scoped pass:** strict mypy/format cover 547 files; 22 frontend checks, 50 focused tests and all **1,277 pytest cases in 555.99s** pass with no failures/errors/skips. Both actual Chromium procedures pass with 11 screenshots, six downloads and zero page errors. Interrupted first attempt remains explicitly incomplete. Existing environment reused; independent review remains pending. |
+| Safety and release boundaries | Current safety hashes and existing empirical/provider/fee gates | Original receipt and Bitcoin boundaries remain unchanged. No real orders, credentials, risk-limit changes or Git mutations. Sufficient independent data, certified fees, provider verification, two-family validation and independent V1 review remain open. |
+
 # Continuous forward-validation acceptance — October 31, 2026
 
 **complete=false.** This intermediate milestone connects opt-in scheduling to existing

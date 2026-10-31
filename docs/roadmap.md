@@ -9,7 +9,21 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone delivers continuous forward validation through the existing label and
+The current correction makes label-request claiming and cancellation atomic under the service
+lock. Durable state is reloaded before claiming; terminal requests are skipped; active ownership
+and the running transition are registered together. Pause/shutdown intent protects acquisition
+startup before the event loop delivers cancellation, and stale completion cannot replace terminal
+evidence. Deterministic barrier regressions and real-listener managed-Chromium acceptance cover
+the correction, including interrupted evidence after restart/offline restore. See
+[correction evidence](../data/forward-validation-review/20261031-atomic-claim/README.md).
+Final checks pass Ruff/format, strict mypy (547 files), 22 frontend checks, 50 focused cases,
+**all 1,277 pytest cases in 555.99s** and both actual managed-Chromium procedures. The browser
+bundle retains 11 screenshots, six downloads and zero page errors; all 73 original
+receipt/Bitcoin boundary hashes remain unchanged. An interrupted harness attempt is retained
+separately. These results close this correction's software checks, with independent review pending.
+All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**
+
+The preceding milestone delivered continuous forward validation through the existing label and
 shadow infrastructure. Explicit opt-in schedules split histories exceeding eight dates into
 bounded acquisitions, retain durable retries/backoff and revision checks, reconcile crash and
 shutdown state, and expose browser progress, pause/resume and downloads. Optional following

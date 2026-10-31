@@ -31,6 +31,10 @@ The process must remain running for scheduling; closing the browser has no effec
 server shutdown cancels network activity, writes an interrupted batch and stops the thread.
 A normal restart honors the persisted opt-in and retries unfinished dates after reconciliation
 and backoff. It cannot recreate a completed request under a new ID after a bookkeeping crash.
+Request selection is rechecked under the service lock before claiming. A queued request paused
+in that interval cannot start; registering ownership and marking running happen together.
+Pause/shutdown also cancels the interval before acquisition starts, without waiting for the
+event loop's callback. Stale completion cannot replace interrupted or other terminal evidence.
 
 At most eight schedules and 2,048 event/rule targets per schedule are supported. The workspace
 guard stops at 128 acquisition requests to preserve the existing 128-batch reader budget.
@@ -68,3 +72,10 @@ state, restore offline and compare reopened browser downloads. The pytest checks
 exercise active shutdown with a partial batch, crash windows, protections and request identity.
 See [executed evidence](../data/forward-validation-review/20261031/README.md); discovery alone
 never constitutes browser acceptance. V1 remains incomplete.
+
+The [atomic-claim correction evidence](../data/forward-validation-review/20261031-atomic-claim/README.md)
+adds deterministic two-thread barriers for the selection/claim and ownership/startup intervals.
+The controlled browser procedure also pauses at a test-only startup barrier, inspects the
+interrupted request with zero source receipts and verifies identical evidence after restart
+and offline restore. The authentic procedure retains original clocks and makes new public
+read-only requests; controlled cancellation is software evidence, not empirical performance.

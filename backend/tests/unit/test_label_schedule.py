@@ -57,7 +57,7 @@ def execute(service: LabelService, phase: str = "official") -> list[str]:
 
     for request in service.catalog():
         if request["status"] == "queued":
-            asyncio.run(service.acquire(request, httpx.MockTransport(source)))
+            asyncio.run(service.bounded(request, httpx.MockTransport(source)))
     return calls
 
 
@@ -313,7 +313,9 @@ def test_active_schedule_shutdown_partial_receipt_and_restart_retry(
             await asyncio.Event().wait()
         return httpx.Response(200, json=portal(req.url.params["date"]))
 
-    async def controlled_source(request: dict[str, Any]) -> None:
+    async def controlled_source(
+        request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+    ) -> None:
         await original(request, httpx.MockTransport(source))
 
     monkeypatch.setattr(service, "acquire", controlled_source)

@@ -3,7 +3,31 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: continuous forward validation
+## Current milestone: atomic label-request claiming and cancellation
+
+Corrected in place on designated `supervisor/20261031-054650` from `2f93999`. Git operations
+and independent approval remain with the supervisor. **V1 remains incomplete.**
+
+The label worker now reloads durable request state under the service lock, skips requests
+that are no longer queued, and registers active ownership in the same critical section as
+the running transition. Pause/shutdown intent is visible before acquisition startup even
+when the event loop has not delivered its cancellation callback. Terminal request/batch
+evidence cannot be replaced by stale completion. Existing partial receipts remain retained.
+
+Deterministic barriers exercise both cancellation interleavings, all terminal statuses,
+shutdown before startup and repeated claiming. The managed-Chromium regression now pauses
+at a test-only startup barrier through the actual website/listener and compares interrupted
+evidence after restart and offline restore. Exact executed results, retained attempts and
+limitations are in [correction evidence](data/forward-validation-review/20261031-atomic-claim/README.md).
+Final verification passes Ruff/format, strict mypy (547 files), all 22 frontend checks,
+50 focused tests and **all 1,277 pytest cases in 555.99s** (zero failures/errors/skips).
+Both actual managed-Chromium procedures pass, retaining 11 screenshots, six downloads,
+unchanged interrupted evidence after restart/restore and zero page errors. The first
+browser attempt's harness error remains recorded as interrupted, never as a pass.
+No new family, credentials, submission activation, real orders, risk-limit changes or Git
+mutations are included. Return this correction for independent supervisor review.
+
+## Previous milestone: continuous forward validation
 
 Implemented in place on designated `supervisor/20261031-054650` from `9d9f921`. All Git
 operations and independent approval remain with the supervisor. **V1 remains incomplete.**
