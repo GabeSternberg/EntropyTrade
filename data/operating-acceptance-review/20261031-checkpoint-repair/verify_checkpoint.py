@@ -109,7 +109,9 @@ def main():
         "all_manifest_members_ignored_and_untracked": True,
         "prospective_checkpoint_candidates": len(candidates),
         "candidate_files_over_8000000_bytes": oversized,
-        "largest_candidate_bytes": max((REPO / name).stat().st_size for name in candidates),
+        "largest_candidate_bytes": max(
+            ((REPO / name).stat().st_size for name in candidates), default=0,
+        ),
         "staging_index_empty": True,
         "original_checkout_and_installation_hashes_verified": len(receipt["source_files"]),
         "original_safety_hashes_verified": len(safety["checks"]),

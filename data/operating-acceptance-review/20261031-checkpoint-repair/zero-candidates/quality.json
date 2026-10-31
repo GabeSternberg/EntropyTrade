@@ -1,0 +1,81 @@
+{
+  "started_at": "2026-10-31T08:55:46.655263+00:00",
+  "scope": "Zero-candidate correction: focused regression/retention/acceptance-driver tests and read-only audit of historical evidence. No browser/full-suite reexecution or Git mutations.",
+  "checks": [
+    {
+      "name": "ruff",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "backend",
+        "tools"
+      ],
+      "started_at": "2026-10-31T08:55:46.655274+00:00",
+      "finished_at": "2026-10-31T08:55:46.668195+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "backend",
+        "tools"
+      ],
+      "started_at": "2026-10-31T08:55:46.668234+00:00",
+      "finished_at": "2026-10-31T08:55:46.678646+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "mypy",
+      "command": [
+        ".venv/bin/mypy",
+        "backend/src",
+        "backend/tests",
+        "tools/review_artifacts.py"
+      ],
+      "started_at": "2026-10-31T08:55:46.678676+00:00",
+      "finished_at": "2026-10-31T08:55:48.469482+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "pytest",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "backend/tests/unit/test_checkpoint_verifier.py",
+        "backend/tests/unit/test_review_artifacts.py",
+        "backend/tests/unit/test_local_acceptance.py",
+        "--junitxml=data/operating-acceptance-review/20261031-checkpoint-repair/zero-candidates/pytest.xml"
+      ],
+      "started_at": "2026-10-31T08:55:48.469531+00:00",
+      "finished_at": "2026-10-31T08:55:49.744008+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "retention",
+      "command": [
+        "python3",
+        "tools/review_artifacts.py",
+        "verify",
+        "data/operating-acceptance-review/local-artifacts-20261031.json"
+      ],
+      "started_at": "2026-10-31T08:55:49.744056+00:00",
+      "finished_at": "2026-10-31T08:55:50.266935+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "verification",
+      "command": [
+        "python3",
+        "data/operating-acceptance-review/20261031-checkpoint-repair/verify_checkpoint.py"
+      ],
+      "started_at": "2026-10-31T08:55:50.266976+00:00",
+      "finished_at": "2026-10-31T08:55:51.556985+00:00",
+      "exit_code": 0
+    }
+  ],
+  "status": "passed",
+  "finished_at": "2026-10-31T08:55:51.557024+00:00"
+}

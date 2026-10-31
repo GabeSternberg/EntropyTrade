@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-10-31T08:55:15.181173+00:00",
+  "finished_at": "2026-10-31T08:55:16.211162+00:00",
+  "command": [
+    ".venv/bin/pytest",
+    "-q",
+    "backend/tests/unit/test_checkpoint_verifier.py",
+    "--tb=short"
+  ],
+  "exit_code": 1,
+  "scope": "Expected failure before fix: empty-candidate regression. Controlled fixtures and read-only Git responses; no browser/full-suite execution."
+}

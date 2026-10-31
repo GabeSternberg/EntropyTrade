@@ -61,6 +61,45 @@ python3 data/operating-acceptance-review/20261031-checkpoint-repair/verify_check
 The second command requires the original local installation for its historical
 checkout/install comparison. It prints a new receipt without changing earlier ones.
 
+## Zero-candidate correction
+
+The October 31 bounded follow-up on `supervisor/20261031-044002` fixes the audit's
+empty-candidate `max()` failure. After the supervisor checkpoints all changes, a clean
+working tree now reports `prospective_checkpoint_candidates=0` and
+`largest_candidate_bytes=0`. Nonempty candidate sizes and the existing size/index
+refusals retain their behavior.
+
+[The regression](../../../backend/tests/unit/test_checkpoint_verifier.py) runs the complete
+verifier against temporary controlled evidence and explicit read-only Git responses for
+clean/dirty checkouts. It requires no ignored local archives or historical installation,
+executes no Git commands, and asserts that the verifier leaves fixture bytes unchanged.
+Its controlled report/JUnit fixtures establish verifier behavior only. The
+[pre-fix reproduction](zero-candidates/reproduction.log) fails only the empty-candidate
+case; all four cases pass after the correction, including oversized/staged refusals.
+
+[New quality evidence](zero-candidates/quality.json) records passing Ruff lint/format,
+strict mypy (538 files), and **70 focused pytest cases**, with no failures/errors/skips.
+The documented commands above were rerun unchanged: the
+[new retention result](zero-candidates/retention.json) verifies all original 1,096 files /
+261,903,008 bytes, and the [new audit receipt](zero-candidates/verification.json) passes
+all original source/install, safety, browser-artifact, trace and JUnit checks. This audit
+observes the actual working tree containing this correction; the zero-candidate path is
+tested through controlled Git responses. No actual supervisor checkpoint is executed.
+
+Reproduce the bounded test set without rerunning the browser or complete suite:
+
+```bash
+.venv/bin/pytest -q backend/tests/unit/test_checkpoint_verifier.py \
+  backend/tests/unit/test_review_artifacts.py backend/tests/unit/test_local_acceptance.py
+```
+
+The original `quality.json`, `verification.json`, `verification-initial.json`, logs and
+JUnit remain historical evidence. New outputs use exclusive creation under
+`zero-candidates/`; [their preservation check](zero-candidates/preservation.json) compares
+the earlier bytes with [the pre-change fingerprints](zero-candidates/historical-files.json).
+No browser/full-suite rerun, new empirical validation, V1 completion or Git mutation is
+claimed by this correction.
+
 ## Limitations and handoff
 
 The original suite and six real-browser procedures were already recorded as passed;

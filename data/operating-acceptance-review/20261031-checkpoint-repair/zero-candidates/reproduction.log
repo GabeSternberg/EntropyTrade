@@ -1,0 +1,12 @@
+F...                                                                     [100%]
+=================================== FAILURES ===================================
+___________ test_candidate_sizes_in_clean_and_dirty_checkouts[False] ___________
+backend/tests/unit/test_checkpoint_verifier.py:134: in test_candidate_sizes_in_clean_and_dirty_checkouts
+    audit.main()
+data/operating-acceptance-review/20261031-checkpoint-repair/verify_checkpoint.py:112: in main
+    "largest_candidate_bytes": max((REPO / name).stat().st_size for name in candidates),
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ValueError: max() iterable argument is empty
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_checkpoint_verifier.py::test_candidate_sizes_in_clean_and_dirty_checkouts[False]
+1 failed, 3 passed in 0.83s

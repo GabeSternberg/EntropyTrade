@@ -18,6 +18,13 @@ pytest cases and 22 frontend checks. The [read-only audit](data/operating-accept
 finds no eligible changed/untracked candidate above 8,000,000 bytes (largest 971,467),
 verifies all original source/safety/browser artifact hashes and leaves the index empty.
 
+Bounded follow-up on `supervisor/20261031-044002`: the audit now reports
+`largest_candidate_bytes=0` when no prospective checkpoint files exist. Clean/dirty
+checkout regressions and oversized/staged refusals pass within 70 focused cases, with
+Ruff/format and strict mypy (538 files) passing. The documented read-only audit and
+retention check pass again; [new evidence](data/operating-acceptance-review/20261031-checkpoint-repair/README.md#zero-candidate-correction)
+preserves earlier receipts/logs unchanged. No new browser/full-suite run or Git mutation.
+
 Work remains on designated `supervisor/20261031-033238` from `2f8d9ad`; the supervisor
 owns all Git mutations and independent review. The fresh serial locked installation has
 passed Ruff lint/format, strict mypy (535 files), all 22 frontend checks and **all six

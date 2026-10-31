@@ -1,0 +1,89 @@
+{
+  "checked_at": "2026-10-31T08:56:30.959434+00:00",
+  "status": "passed",
+  "historical_files_verified": 12,
+  "historical_files": [
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/format.log",
+      "bytes": 28,
+      "sha256": "bba7439a962d0ccd81713cf62d2b3569c58b682a68e127b47ec5a18d57119b4f"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/frontend.log",
+      "bytes": 4544,
+      "sha256": "33e627225ca97de62b33284a8c42ca555e254ad7815869da8bf57810b3162b46"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/mypy.log",
+      "bytes": 45,
+      "sha256": "0f061caf1f17a63f32e24ce08227d1166295dd0de82c6011ad7d4c69b6862fe2"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/provider-syntax.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/pytest.log",
+      "bytes": 99,
+      "sha256": "362a11687c2bf137601c4cdf6c360a3293120e709b895023bff5f54cc40d5f9b"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/pytest.xml",
+      "bytes": 10001,
+      "sha256": "fb66986e890a12f753ae995c0141effc6214f86e40f1fd76ac89bdf4d3ded572"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/quality.json",
+      "bytes": 2823,
+      "sha256": "a7f3165ff0c568a5a246f266bea48a6c1bb9309773b38ac0829207d81248a959"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/retention.log",
+      "bytes": 135,
+      "sha256": "f54db3ab01ad89cf565efc439e717d7d0cb21b3cbdea724139c579f5157f7c0a"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/ruff.log",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/verification-initial.json",
+      "bytes": 4498,
+      "sha256": "e85191f81cc367180d6d13d32fc7220884fc5b3768d41a0ce3f2930163fa3c05"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/verification.json",
+      "bytes": 4608,
+      "sha256": "c7ba0ddf782522f53f3f2e43b9e3a0cd6c96c6e2e6a36df3e635b087df65649a"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/weather-syntax.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "correction_files": [
+    {
+      "path": "STATUS.md",
+      "sha256": "95fa38ab8cb0c7f373cfa3311ee9f3ee60d955b576823735a733497d1a74baad"
+    },
+    {
+      "path": "backend/tests/unit/test_checkpoint_verifier.py",
+      "sha256": "6c75c27d52ed2f6d96a2a9e94c8ce5a979d69c55bd62992ee159367fee417cc0"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/README.md",
+      "sha256": "4119f25c69fbbe30671ed8e476bfc2be50a41523ecd2a5af0a802fd1597da0ec"
+    },
+    {
+      "path": "data/operating-acceptance-review/20261031-checkpoint-repair/verify_checkpoint.py",
+      "sha256": "d3eec40f06592842035755525d457a1471be43efe999edacd5ad47ae69dce64a"
+    }
+  ],
+  "scope": "Earlier checkpoint-repair receipt/log/JUnit bytes are unchanged; the separate read-only audit rechecks the original operating evidence.",
+  "browser_and_full_suite_reexecuted": false,
+  "git_mutations_performed": false,
+  "v1_complete": false
+}
