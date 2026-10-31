@@ -1,0 +1,200 @@
+{
+  "authentic": {
+    "browser": "141.0.7390.37",
+    "downloads": [
+      {
+        "file": "weather-review.json",
+        "sha256": "b09b56bf1b36ec72360ca745691ad187cab984a0c23cac5b60c921b0bbeece19"
+      },
+      {
+        "file": "weather-report.txt",
+        "sha256": "986bdbee68bbca01d62aa8343a4110a3424948c163cb95e5c06a78fd5c7d7dd1"
+      },
+      {
+        "file": "weather-shadow-inputs.json",
+        "sha256": "87cd871b0acbc4a9381672d1f83da23a450d9760831d9044bb23e52f07b8fb09"
+      },
+      {
+        "file": "weather-restart-review.json",
+        "sha256": "b09b56bf1b36ec72360ca745691ad187cab984a0c23cac5b60c921b0bbeece19"
+      },
+      {
+        "file": "weather-restart-report.txt",
+        "sha256": "986bdbee68bbca01d62aa8343a4110a3424948c163cb95e5c06a78fd5c7d7dd1"
+      },
+      {
+        "file": "weather-restart-shadow-inputs.json",
+        "sha256": "87cd871b0acbc4a9381672d1f83da23a450d9760831d9044bb23e52f07b8fb09"
+      }
+    ],
+    "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+    "finished_at": "2026-10-31T00:39:59.339Z",
+    "limitations": [
+      "Authentic original shadow receipt replay, not new acquisition.",
+      "Source-matched scalar highs and certified fees are absent; no empirical model or returns.",
+      "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+    ],
+    "page_errors": [],
+    "receipt": "data/research-cohort-review/20261030/browser-final/authentic/weather-browser-receipt.json",
+    "screenshots": [
+      {
+        "file": "weather-partition-selection.png",
+        "sha256": "567992471b6525ad7a0d49ee9548538b6a398e0455576e9d28037170b4048db8"
+      },
+      {
+        "file": "weather-dataset.png",
+        "sha256": "3af7e097b457937b8969661db769b60355ba6586e9c0e2aeae8a583bf12f6183"
+      },
+      {
+        "file": "weather-Review.png",
+        "sha256": "450f0c4870c92d1788302284851e97f74cd2ddd133bfa8c0c13e7a36e5b21084"
+      },
+      {
+        "file": "weather-Probabilities.png",
+        "sha256": "a0303cd394cb10777f7220a3c0d8c58c920e7680c9c5bd3d8fff91c090947ae1"
+      },
+      {
+        "file": "weather-Evidence---lineage.png",
+        "sha256": "201b0bcd2d870c603b9b9c91f45343c4129979a88ba0b40e179dad63131e14e9"
+      },
+      {
+        "file": "weather-restart.png",
+        "sha256": "02bb0546aa338fca66592f6a27c058b645f6d0064ba211d55031e2deae0179af"
+      }
+    ],
+    "started_at": "2026-10-31T00:39:29.078Z",
+    "status": "passed"
+  },
+  "cohort": {
+    "browser": "141.0.7390.37",
+    "downloads": [
+      {
+        "file": "weather-review.json",
+        "sha256": "3f826ef15eb5bd09c16ca515b67a3b3db9139bc8f7732a8dbe51411e5691adfd"
+      },
+      {
+        "file": "weather-report.txt",
+        "sha256": "fb6b4252154b3eb3f030206a72802da956466fcc4ebe6f3efad9e81da241ca10"
+      },
+      {
+        "file": "weather-shadow-inputs.json",
+        "sha256": "185768b4bf4bcabcf9cb68f3422146b847de2ef7f0ae5eb0cd86c39e1b43b532"
+      },
+      {
+        "file": "weather-restart-review.json",
+        "sha256": "3f826ef15eb5bd09c16ca515b67a3b3db9139bc8f7732a8dbe51411e5691adfd"
+      },
+      {
+        "file": "weather-restart-report.txt",
+        "sha256": "fb6b4252154b3eb3f030206a72802da956466fcc4ebe6f3efad9e81da241ca10"
+      },
+      {
+        "file": "weather-restart-shadow-inputs.json",
+        "sha256": "185768b4bf4bcabcf9cb68f3422146b847de2ef7f0ae5eb0cd86c39e1b43b532"
+      }
+    ],
+    "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+    "finished_at": "2026-10-31T00:40:51.565Z",
+    "limitations": [
+      "CONTROLLED collector with simulated clocks and wire data, no empirical evidence.",
+      "CONTROLLED scalar labels exercise model fitting/calibration only. No empirical performance or certified fees.",
+      "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+    ],
+    "page_errors": [],
+    "receipt": "data/research-cohort-review/20261030/browser-final/cohort/weather-browser-receipt.json",
+    "screenshots": [
+      {
+        "file": "weather-partition-selection.png",
+        "sha256": "d5c69a82a8f9990fadbab4ac41b4273c504dcd3ecc592c32c7f6f402814f3f9f"
+      },
+      {
+        "file": "weather-dataset.png",
+        "sha256": "d58f0ba82d0f83ab18f2a0db35a4d9c67763a7e248b922a5e44c77dafddffaf5"
+      },
+      {
+        "file": "weather-Review.png",
+        "sha256": "80ef515934ba035ed46af5e57c16c6ae1f50a0717fc8c6ec2d7f0f75f1ff2689"
+      },
+      {
+        "file": "weather-Probabilities.png",
+        "sha256": "27561208af257c5e915ba2dfe4597a8ec5eee43c2416decd8c1da82b9bd58165"
+      },
+      {
+        "file": "weather-Evidence---lineage.png",
+        "sha256": "988bb7de2d30501006ff5c98d47f8652bdadd4457bcb37b0e0446b6df0e741a1"
+      },
+      {
+        "file": "weather-restart.png",
+        "sha256": "6bcac73d7f5298f24f803ab367cf6830c78b7762c511e3ff1e509cd7f73f2eb4"
+      }
+    ],
+    "started_at": "2026-10-31T00:39:59.685Z",
+    "status": "passed"
+  },
+  "controlled": {
+    "browser": "141.0.7390.37",
+    "downloads": [
+      {
+        "file": "weather-review.json",
+        "sha256": "499c11ddc8e6cfcbab49de972f7bf51415025cf694bda224a5a2aa8113a648a8"
+      },
+      {
+        "file": "weather-report.txt",
+        "sha256": "4d963f248f6091fa2cc784932f1e3e60129481236e1428bf5902f8ab939138f0"
+      },
+      {
+        "file": "weather-shadow-inputs.json",
+        "sha256": "2c0619aa3ff8abe51dc7a374b871562d1e080537fde971082e08ba1c13e593a6"
+      },
+      {
+        "file": "weather-restart-review.json",
+        "sha256": "499c11ddc8e6cfcbab49de972f7bf51415025cf694bda224a5a2aa8113a648a8"
+      },
+      {
+        "file": "weather-restart-report.txt",
+        "sha256": "4d963f248f6091fa2cc784932f1e3e60129481236e1428bf5902f8ab939138f0"
+      },
+      {
+        "file": "weather-restart-shadow-inputs.json",
+        "sha256": "2c0619aa3ff8abe51dc7a374b871562d1e080537fde971082e08ba1c13e593a6"
+      }
+    ],
+    "executable": "/home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+    "finished_at": "2026-10-31T00:39:28.626Z",
+    "limitations": [
+      "CONTROLLED collector with simulated clocks and wire data, no empirical evidence.",
+      "Source-matched scalar highs and certified fees are absent; no empirical model or returns.",
+      "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+    ],
+    "page_errors": [],
+    "receipt": "data/research-cohort-review/20261030/browser-final/controlled/weather-browser-receipt.json",
+    "screenshots": [
+      {
+        "file": "weather-partition-selection.png",
+        "sha256": "0fe588960f28b042ad68b7b25789683b5f345c8e0778a9694e2a30f0e7f3727b"
+      },
+      {
+        "file": "weather-dataset.png",
+        "sha256": "5c63455878ce9ab3a36b18ea6fc3a68ba4e32e84768175b9a396207948cab41d"
+      },
+      {
+        "file": "weather-Review.png",
+        "sha256": "d122c94df62b2136d7e58cdbf0e2f71510ca4d829c9422bd523e2588252718bd"
+      },
+      {
+        "file": "weather-Probabilities.png",
+        "sha256": "c1417007579dc06f721ad50771345281391f502b627e214e229394fe94340916"
+      },
+      {
+        "file": "weather-Evidence---lineage.png",
+        "sha256": "d9c4cb60545a983eec4c288ad17f447601fee72e3d6eb4a0bb4e937b13ae10ee"
+      },
+      {
+        "file": "weather-restart.png",
+        "sha256": "5e7335de9e0e7d3d46619463423e64a54fb72e46d82ce3eb8150f92ee8ba686d"
+      }
+    ],
+    "started_at": "2026-10-31T00:37:43.744Z",
+    "status": "passed"
+  }
+}

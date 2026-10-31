@@ -1,0 +1,809 @@
+{
+  "evidence": "CONTROLLED cohort software fixture; simulated receipts/clocks, no empirical performance",
+  "catalog": {
+    "total_inputs": 130,
+    "partition_size": 128,
+    "partitions": [
+      {
+        "partition_id": "46be61d18a9fce823d3a8b7c34cfa8100b78eb5ba9db93af1f9325eeaf551ba8",
+        "number": 1,
+        "inputs": 128,
+        "shadow_cycles": 0,
+        "first_at": "2026-10-31T00:40:01.447761+00:00",
+        "last_at": "2026-10-31T00:40:04.873312+00:00",
+        "members": [
+          {
+            "id": "7423cb69-7bff-4109-8318-54fb24dbffca",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.447761+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f982de10-3e18-497c-8101-c6ecc6e546ca",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.469528+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "437ed30e-0fb3-488e-a0ce-3a0dbd13db93",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.499231+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "fcd2ac1b-9405-4420-8ef0-592b0b9bd20f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.519076+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "a3159189-6dbc-4e9e-befb-eb784be61b12",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.544096+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e8529302-004e-4cac-b4db-bc47c7b23865",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.564482+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "77c87483-69dd-44ea-b8fa-0f44cb16a304",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.589548+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "58b6b65a-f341-4e38-8c6e-d2cd4a80bb6a",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.613041+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "3a4c9e33-8825-4319-b44d-967d028d3e99",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.638436+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "701fd3f3-f09d-482b-932a-eb95216e2f09",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.664659+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "dc0a7eb2-3cd4-41ea-aeb1-9d6a33671975",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.694419+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "aa204c70-52fc-4147-8fb9-1f318457ed34",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.716100+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "af33050f-4a1f-4014-a402-9e529bef1ebb",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.744558+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9cab095d-9aad-4306-a9ea-c9c7aab94a64",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.779882+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "913286a2-7713-4453-b906-7fef11604d75",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.801308+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e9228d41-02e1-4ded-b644-89e5119bb65b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.823573+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5aa7de25-cdea-4278-99ce-73653a60929f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.845297+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "b88cede9-82d6-4a6a-b930-57cc60986736",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.868398+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "86c05fad-1d51-4d46-9ab1-8b88ce440575",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.895985+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "c9527246-b88d-4261-a8f1-0f78a6f5c36f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.920927+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5b58cb2b-8079-485e-8214-1f688b4ed904",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.946385+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "d69573f6-ffb4-4b0b-95b8-a761bb73570c",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.969296+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "526f6a44-001b-465a-ba3a-efe1879e8ccc",
+            "kind": "public",
+            "at": "2026-10-31T00:40:01.999804+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e867bd3d-3c78-4f8f-9cc5-0cac5d0cf1be",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.021741+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "acad867e-0206-4c5c-88f1-5838a362d728",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.045546+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "ce7aac48-9484-440a-91f0-21af3e6cb78c",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.069970+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "7efb22b7-a22b-4a56-98ee-e3f887945091",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.097178+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "04044fe7-27da-4a7e-955a-5eaaef7b8030",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.118322+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "26197c84-2eff-4795-8d82-573ec911ed9d",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.144583+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "66c297d8-5e7e-417a-a3a3-fee313f61932",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.165619+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "a78cb5eb-ba7f-4fa0-ba42-47b61ce79d08",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.187357+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "d6341c56-be9d-4733-abec-b108f7bdf1f6",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.210925+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "b3082b41-39e6-498f-971a-6b975f03083d",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.234429+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "a7f0835d-32ef-4b3c-9b64-7d4bc6cbf45a",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.259274+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e0defbbc-6b22-4212-967b-7132de06204b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.285551+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "8e3e7f11-c39a-4c6b-bfd7-05d2de8c86ec",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.307271+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "c48aa4c8-b415-47ab-88d4-24932ebb44d2",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.336788+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9c0c1343-8dd1-4e3d-a571-a8ee206dde7d",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.360359+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "1d16c1c2-55e9-48e9-9df6-a19edaba9bad",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.386471+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "df38b63d-7785-483c-a785-c9ced364c764",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.407659+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "c9f9fc1e-bda9-4c6a-a5ea-8ad07ca98421",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.428691+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "cbcf19e7-d0f6-44f1-bdaa-f5b5ff679bb9",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.450502+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5857ba7b-c2c6-45ff-8367-fe6fe7b032ea",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.471302+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "cb177abc-ad15-4af5-8e36-7e4c696735fb",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.494967+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "05c0f18c-f8be-433f-9b48-25a489d96b6a",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.516745+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "0200c779-ed8d-4d50-9daf-860a92438ca1",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.537748+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e854328b-55ad-43dc-b7aa-269469703351",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.564180+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e5c8344f-5373-4227-b30c-e9ab0850982e",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.605338+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "bd4c1939-b4bd-42c5-bc75-7ba748ec653d",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.630825+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "77b3c2c1-289b-41c8-b883-fa7136dd34f8",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.659890+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "ae2528f0-62ac-416b-9a07-318961c05bec",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.687915+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "4d677fd9-82ce-4250-9c24-fbad11d9000e",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.709954+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "56996072-b2e4-4de1-bd03-2c2502d52293",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.731679+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "8b179cb4-4aeb-4556-b3dc-e355fc8b7d5b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.755303+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e18e4530-e520-47c4-ba79-1ee9c7cd48c3",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.776951+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "50c72968-7b05-4be4-b6a8-8166110317fc",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.804408+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "feb206e9-13b9-4cee-b829-5ab5d8efdf5b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.827056+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f1127586-a58b-463c-b244-9a42b6d9ee41",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.856481+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "cc41b04d-ffce-4c47-9ec9-c425de0842ca",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.877576+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "b1f96754-86be-4c22-b2bc-10aa3e782214",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.900891+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f39d99ac-de86-4cd4-b2c1-3a4209fb4b68",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.924371+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "498a4f91-173f-42f0-88ad-c21981edcf21",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.950455+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "a4907564-2024-410b-88e9-18bc9e0ece40",
+            "kind": "public",
+            "at": "2026-10-31T00:40:02.977498+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "bf2f226c-1dbf-4fd7-ab78-bf855e658e40",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.003523+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "25f947f2-426c-41d6-a66d-3240976b4703",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.029536+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "88acff1d-13e6-4edc-806c-16409b3cc637",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.054393+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "aefbf0f2-202a-4698-b0b3-002d29ff6d43",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.077641+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "3fb675db-580b-4b77-8888-7312413ee4f4",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.104354+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "1528868d-5561-4c3d-85e2-b4e3e3ee2ebe",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.125674+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9247a3c9-623c-42ce-8a4c-9ab67f939600",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.147246+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "21b0be5a-c023-4258-b3a3-66cdbaed2ba8",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.173981+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "c95c73f2-5dee-4198-874d-63c3a91299eb",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.198180+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "76e4198b-63b7-4e66-adc1-0eaaab677b25",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.225778+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f8155839-15db-4d43-bb9f-9dab1be85312",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.251216+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "827c9252-ea4e-44ce-b3b1-da731d4f073b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.274234+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "35386b3e-240d-406b-af1c-3fd45ddc51b4",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.299816+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5764e0ec-10e9-4235-bf67-4355fdf54fbe",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.322694+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9556e1a9-4052-4842-841d-98f7722053f1",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.346730+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "d3200203-6100-45bd-855c-e4bfabda63b2",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.370876+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "93808f92-3f04-46c4-9312-720b05c93181",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.394464+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "8d221e5e-bd6b-4b79-8542-bd1c430faae2",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.416817+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9b34e815-0e66-4f32-99e5-5ff5528f47d4",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.442622+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "795ea8a8-f2f1-445c-9a74-c7da3800fae7",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.471943+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "93bb9437-74e9-42b8-9153-35d31618214a",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.499409+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "167d4b24-ab06-4516-93e9-34e66be70051",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.541053+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "8db8b16e-6eaf-46e0-9b9a-1c314bafb8ed",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.629845+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9263d864-4712-4c88-9cad-a801d78fa9dd",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.708107+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "0a6eafa4-9a3d-4725-b003-258fc5573993",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.733172+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "1d492258-7f8d-4c7f-93b3-0b804445972e",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.755937+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "a41bf4ab-6bd5-4369-9dcc-6db7471919c5",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.841148+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "d242f770-52b8-47a1-ad18-62634c28325e",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.927798+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f579ed54-2ae2-47a1-b6e9-0c4e024ce938",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.954501+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "03b58b13-c4f5-43b1-82fd-b56cd107e924",
+            "kind": "public",
+            "at": "2026-10-31T00:40:03.980320+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e0b315a4-acc0-4789-a54b-95dc7f1938a1",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.003437+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "1ec8d516-b7ce-4f50-927a-9d11ac680186",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.026190+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "7f34b5fa-7c76-4f01-a614-2a096f92c9ee",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.051731+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9afba2a6-681c-47b7-bde5-548528e5ca93",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.078334+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e40d2709-2113-4825-93bd-2702866a808f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.111455+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "b094152d-6502-45d8-a1fc-692c723bfa7f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.134588+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "6d1bf9b0-68e9-44f0-8d43-14d599a894f3",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.160817+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5d12b53c-5c27-4602-9fb4-6263b40738db",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.190345+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "e52542c0-4804-4007-b3d7-b8e0444ddaf0",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.216218+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "05b77e36-d007-4647-8558-573d2ccfc507",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.237242+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "ea8d0be1-745a-436c-be7c-161520036d2f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.263428+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5ddaf486-f071-454b-864e-28772306fa22",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.290289+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "1b7b419c-405e-4af6-a10f-835252c43589",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.317496+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "661b9c1b-7e0c-49b1-9183-f631849a9a35",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.339320+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5bdacdc1-7b7d-469e-8f3b-47ce84146cba",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.366821+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "fa27bf6a-ec5d-4df6-9ce2-d06e5ff353ce",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.392789+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "424a8151-b6d7-4b98-92e9-15ad3240f31e",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.418299+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5729d36c-53e4-4408-bd19-785bcafad99b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.442015+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "61d3712d-b2a6-4d9a-9c51-869d1bd435c5",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.472732+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "ea2b72b6-6668-4b27-9c76-3cf60d853e5a",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.494334+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "3c3ffd67-8a56-4361-a79f-f1cd1032a1a7",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.526807+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "445888a8-4690-4583-910a-736282f3a646",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.554562+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "5f27d9a3-19d0-4408-8ffe-76d823e3f57c",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.577201+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "7fb1564f-e7d7-4789-b177-c830ea47e2f7",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.602163+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "9a43afdf-4183-4327-8b56-c2641a8f5b1b",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.623280+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "6ca3ecd6-5199-46a9-a6d5-d27b7623715d",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.650584+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "0d9a2f79-9931-4a35-80fa-2a6bb8b98e4f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.676332+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "ef494b3a-c0e0-48b0-9e08-122788c11c12",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.700252+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "95bce84a-4ff0-488b-baf1-f37054ca35ec",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.724723+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "47b273d3-2170-43e3-bd9a-714ba58f0c08",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.746560+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "452656f2-bc9f-45ed-88b3-1ab13b0e9820",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.771496+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "0e1303fe-f4e5-47b9-a4bc-d98a34d81e2f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.796557+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "63caf694-6c7b-4eeb-9a96-40cd213bf37f",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.821111+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "4d808f1d-c059-49a2-953d-d1a7476a071c",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.844980+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "27fcde3f-8f4d-401c-b4a8-64020aba1cec",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.873312+00:00",
+            "monitor_id": null
+          }
+        ]
+      },
+      {
+        "partition_id": "d44121b12753b0809f8c626ea489a3e6cb7e3f61469b8927290799d1a83479b1",
+        "number": 2,
+        "inputs": 2,
+        "shadow_cycles": 0,
+        "first_at": "2026-10-31T00:40:04.895694+00:00",
+        "last_at": "2026-10-31T00:40:04.918042+00:00",
+        "members": [
+          {
+            "id": "f1f93eb2-c45c-4105-9281-8a5123b7e981",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.895694+00:00",
+            "monitor_id": null
+          },
+          {
+            "id": "f8b40f98-d56c-4fca-b8cc-eaf3c8f8b9e5",
+            "kind": "public",
+            "at": "2026-10-31T00:40:04.918042+00:00",
+            "monitor_id": null
+          }
+        ]
+      }
+    ]
+  }
+}

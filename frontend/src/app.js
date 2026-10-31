@@ -155,6 +155,7 @@ function renderWeatherHistory(content, snapshot) {
     table(["Partition", "Events / dates", "Timely matched labels", "Required", "Shortage", "Label cutoff"], Object.entries(r.partitions).map(([name, p]) => [name, `${p.events} / ${p.dates}`, p.timely_source_matched_events, p.minimum_events, p.shortage, p.label_cutoff])),
     list(r.blockers), list(r.limitations));
   if (r.shadow_audit) section.append(node("p", `${r.shadow_audit.verified_cycles} verified shadow cycles · ${r.shadow_audit.decision_samples} exact decision samples · ${r.shadow_audit.sized_books} sized books · ${r.shadow_audit.stale_books} stale books.`), notice(r.shadow_audit.limitation), list(r.shadow_audit.execution_blockers || []), detail("Shadow replay lineage", r.shadow_audit));
+  if (r.cohort) section.append(node("p", `Research cohort · ${r.cohort.batches.length} retained history partitions · at most ${r.cohort.partition_size} inputs per batch. Shared frozen calendar; independent events counted once.`), detail("Cohort batches and immutable identities", r.cohort));
   if (snapshot.identity?.selection) section.append(detail("Selected history and outcome partitions", snapshot.identity.selection));
   if (r.capture_audit) section.append(node("p", `${r.incomplete_captures} incomplete captures · ${r.capture_failures} acquisition failures.`), detail("Original capture clocks, receipts and acquisition failures", r.capture_audit));
   content.append(section);
@@ -169,6 +170,13 @@ async function weatherPartitions() {
       option.value = p.partition_id; return option;
     }));
     if (catalog.partitions.some(p => p.partition_id === previous)) select.value = previous;
+  }
+  for (const id of ["weather-cohort", "weather-cohort-outcomes"]) {
+    const select = $(id), previous = Array.from(select.selectedOptions).map(o => o.value);
+    select.replaceChildren(...catalog.partitions.map(p => {
+      const option = node("option", `Partition ${p.number} · ${p.inputs} inputs · ${p.first_at} → ${p.last_at}`);
+      option.value = p.partition_id; option.selected = previous.includes(p.partition_id); return option;
+    }));
   }
   $("weather-partition-counts").textContent = `${catalog.total_inputs} retained inputs across ${catalog.partitions.length} bounded partitions. Each selection processes at most ${catalog.partition_size} captures and ${catalog.partition_size} outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.`;
 }
@@ -194,6 +202,20 @@ function showWeatherReadiness() {
 }
 $("weather-dataset").addEventListener("change", () => {
   $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp(); showWeatherReadiness();
+});
+$("weather-cohort-freeze").addEventListener("click", async () => {
+  $("weather-cohort-freeze").disabled = true;
+  $("weather-message").textContent = "Verifying cohort batches and rebuilding point-in-time features…";
+  try {
+    const partition_ids = Array.from($("weather-cohort").selectedOptions).map(o => o.value);
+    const outcome_partition_ids = Array.from($("weather-cohort-outcomes").selectedOptions).map(o => o.value);
+    const selection = { partition_ids, ...(outcome_partition_ids.length ? { outcome_partition_ids } : {}) };
+    const snapshot = await api("/api/weather/datasets", selection);
+    await weatherDatasets(snapshot.dataset_id.slice(7));
+    $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp();
+    $("weather-message").textContent = "Immutable research cohort selected. Review its evidence gates, then start research.";
+  } catch (error) { $("weather-message").textContent = error.message; }
+  finally { $("weather-cohort-freeze").disabled = false; }
 });
 $("weather-freeze").addEventListener("click", async () => {
   $("weather-freeze").disabled = true;

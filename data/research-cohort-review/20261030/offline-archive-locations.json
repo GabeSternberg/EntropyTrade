@@ -1,0 +1,29 @@
+[
+  {
+    "original_recorded_path": "data/research-cohort-review/20261030/browser-final/authentic/offline.zip",
+    "original_sha256": "3de794c3768b839ddbf1a5de82e5102ec9ea9d2707b7b62399cdb39b27663486",
+    "original_bytes": 17700308,
+    "retained_original": "data/cache/research-cohort-offline-archives-20261030/authentic-offline.zip",
+    "gzip_copy": "data/research-cohort-review/20261030/browser-final/authentic/offline.zip.gz",
+    "gzip_sha256": "51ba066cd3e264fc5ff7b6d1f98a7ef18faebea5f7b1f6295df22a5147297a82",
+    "verification": "Decompression reproduces the exact archive bytes used by the executed restore."
+  },
+  {
+    "original_recorded_path": "data/research-cohort-review/20261030/browser-final/cohort/offline.zip",
+    "original_sha256": "fd74b0d6d711ecb8f7f7921d933a419f5cd16a356dfe5735114ca85a678abba7",
+    "original_bytes": 34703552,
+    "retained_original": "data/cache/research-cohort-offline-archives-20261030/cohort-offline.zip",
+    "gzip_copy": "data/research-cohort-review/20261030/browser-final/cohort/offline.zip.gz",
+    "gzip_sha256": "66323e3dbe0b6297471d0c4bfec82722b86fc79bec08bad5687a54e965db2fdd",
+    "verification": "Decompression reproduces the exact archive bytes used by the executed restore."
+  },
+  {
+    "original_recorded_path": "data/research-cohort-review/20261030/browser-final/controlled/offline.zip",
+    "original_sha256": "11123cb81429da795e864b81a67839edd2b39f2154ea7425a8ab48d0c7a1b8c9",
+    "original_bytes": 155291053,
+    "retained_original": "data/cache/research-cohort-offline-archives-20261030/controlled-offline.zip",
+    "gzip_copy": "data/research-cohort-review/20261030/browser-final/controlled/offline.zip.gz",
+    "gzip_sha256": "1a9200eb276a6c8d6a924d060f13c2ff31f4a1251e842730f1450586e067a45f",
+    "verification": "Decompression reproduces the exact archive bytes used by the executed restore."
+  }
+]

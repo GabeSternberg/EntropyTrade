@@ -1,0 +1,12 @@
+[
+  {
+    "original_path": "data/research-cohort-review/20261030/browser-shadow",
+    "retained_path": "data/cache/research-cohort-preliminary-20261030/browser-shadow",
+    "classification": "preliminary passing browser evidence; final accepted source is browser-final"
+  },
+  {
+    "original_path": "data/research-cohort-review/20261030/browser-cohort",
+    "retained_path": "data/cache/research-cohort-preliminary-20261030/browser-cohort",
+    "classification": "preliminary passing browser evidence; final accepted source is browser-final"
+  }
+]

@@ -1,4 +1,22 @@
-# Current sustained-history evidence — October 30, 2026
+# Current research-cohort evidence — October 30, 2026
+
+**complete=false.** This is a substantial intermediate milestone; independent supervisor
+review and the remaining empirical release requirements are still required.
+
+| Requirement | Executed evidence | Result / remaining work |
+|---|---|---|
+| Multi-partition research through the website | `weather/cohorts.py`, cohort API/forms, [three-procedure browser harness](../frontend/browser/shadow-history.spec.cjs), [current bundle](../data/research-cohort-review/20261030/README.md) | Controlled sufficient-data cohort and both previously outstanding shadow-history procedures pass actual managed Chromium/localhost interaction, all result tabs, downloads and offline restore. Independent review remains pending. |
+| Point-in-time source lineage, event counts and frozen boundaries | Cohort/batch manifests and controlled 130-capture regression | 200 independent city/day events across 100 dates; duplicate decisions do not inflate counts. Shared 48/12/30-day calendar, inherited source/model protections and 20 excluded holdout events persist. Protected labels cannot enter bias/fitting/evaluation. Original authentic clocks/bytes remain intact. |
+| Deterministic fit, calibration, evaluation and honest execution refusal | `test_weather_cohorts.py`, actual listener/ordinary-worker test, controlled cohort browser downloads | Default minimums admit controlled fitting/Platt calibration/validation; independent model outputs reproduce prediction bytes. Missing labels/protected overlap refuse correctly. Missing sized depth/fees still refuse trading backtests. **Controlled software evidence only.** |
+| Bounded work, restart and durable recovery | Immutable 128-input batch snapshots, eight-partition limit, unchanged 256 MB raw-input budget; interruption/restore regressions | Completed batches survive interrupted assembly. Cohort identities and review/report/shadow-input downloads remain identical after offline restore. Existing shadow risk/submission and forward-prediction boundaries remain. |
+| Authentic modeling and empirical two-family release | Original retained receipts; existing optional Bitcoin path | **Incomplete:** four authentic weather events on two dates, zero matched scalar highs, zero authentic fitted probabilities/returns. Bitcoin boundaries remain frozen; no family selected. No fabricated historical receipts or profitability claim. |
+| Quality, credentials and release review | [Final verification](../data/research-cohort-review/20261030/verification.json); existing credential/risk tests | 1,083 pytest passes in 563.76s, Ruff/format, strict mypy, 21 frontend assertions and three real Chromium procedures pass. 18 screenshots/18 downloads, zero page errors; source/original receipt hashes unchanged. Existing installation reused; no fresh clean-install or authorized external-provider pass claimed. Certified fees, sufficient authentic fitting/evaluation, empirical two-family evidence and independent V1 review remain open. |
+
+The following matrices retain their historical checkout scope, including the earlier
+sandbox-denied browser attempt. That attempt is superseded by the executed procedures
+above, without changing sandbox policy or browser launch flags.
+
+# Historical sustained-history evidence — October 30, 2026
 
 **complete=false.** This is an intermediate implementation record, not independent release
 approval. All Git operations and acceptance sign-off belong to the supervisor.

@@ -1,0 +1,618 @@
+{
+  "calibration_eligible_events": 24,
+  "claims": "Forecast evaluation only; no fills, fees, trading P&L or strategy promotion.",
+  "code": {
+    "__init__.py": "sha256:a54fb64ed2d814669b7e52c267d141ccd195a20eff930a415618ae97490d00ce",
+    "evaluation.py": "sha256:dbc659313e086f1bef2bc6164b06d660bc0ab1c5dd0be046c955afdb87176fed",
+    "experiment.py": "sha256:e244b2bd5d7f5b3dcbca6b2d3df029b7d5fadd18e25b7fd778618d8b90751b41",
+    "forward.py": "sha256:f08ee87c6463fb42a7af1751a6009eb83b92c4ef1b7ab96d593f569b2e6c9cfa",
+    "models.py": "sha256:07540f1b143b75c0105afd5b06add7bcbb1c5e9d57fcf30621180717cabe6385",
+    "probability.py": "sha256:7fe938554695a93d6754f1a49bfd6ca68122c2195d2781481444e0b9fc68e4fe",
+    "synthetic.py": "sha256:dafcbbc028b13fb7676cf6e4769c1a3901affa8c4bc1580b7fc23a4161099c7c"
+  },
+  "config": {
+    "boundaries": [
+      "2025-02-18",
+      "2025-03-02",
+      "2025-04-01"
+    ],
+    "calibration": "platt",
+    "evaluate_holdout": false,
+    "min_boosting_events": 200,
+    "min_calibration_events": 20,
+    "min_evaluation_events": 20,
+    "min_train_events": 60,
+    "raw_sigma_f": 3.0,
+    "seed": 17,
+    "walk_forward": true
+  },
+  "contracts": 200,
+  "coverage": {
+    "missing_features": {
+      "ensemble_mean_f": 260,
+      "ensemble_std_f": 260,
+      "forecast_high_f": 0,
+      "hours_to_close": 0,
+      "model_disagreement_f": 260,
+      "observed_temperature_f": 260,
+      "revision_f": 260,
+      "season_cos": 0,
+      "season_sin": 0,
+      "station_bias_f": 4
+    },
+    "missing_forecast_rows": 0,
+    "unknown_rule_rows": 0
+  },
+  "data_kind": "real",
+  "eligible_events": 200,
+  "feature_file_hash": "sha256:5eca3e25fa50a3cccdb058b61c781b9d736f506834bb47e8bfdc8e1f6211f365",
+  "feature_rows": 260,
+  "feature_schema": {
+    "features": [
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "forecast_high_f",
+        "source_requirements": [
+          "forecast"
+        ],
+        "transformation": "mean of latest full-local-day hourly maximum proxies per provider/model",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "revision_f",
+        "source_requirements": [
+          "two distinct forecast vintages"
+        ],
+        "transformation": "mean latest minus preceding maximum per model; distinct receipt/revision required",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "model_disagreement_f",
+        "source_requirements": [
+          "two forecast models"
+        ],
+        "transformation": "population standard deviation of model maximum proxies",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_mean_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "mean member maxima",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "ensemble_std_f",
+        "source_requirements": [
+          "ensemble members"
+        ],
+        "transformation": "population member spread",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [
+          "forecast_high_f"
+        ],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "station_bias_f",
+        "source_requirements": [
+          "prior verified settlement highs"
+        ],
+        "transformation": "mean prior scalar target minus its frozen decision-time forecast",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "observed_temperature_f",
+        "source_requirements": [
+          "observed temperature"
+        ],
+        "transformation": "last observation valid and available by decision",
+        "unit": "degF",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "hours_to_close",
+        "source_requirements": [
+          "contract rules"
+        ],
+        "transformation": "close minus decision",
+        "unit": "hour",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_sin",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual sine",
+        "unit": "dimensionless",
+        "version": "1"
+      },
+      {
+        "availability": "only evidence available at or before decision",
+        "dependencies": [],
+        "dtype": "float64",
+        "missing_behavior": "null; never fill in source data",
+        "name": "season_cos",
+        "source_requirements": [
+          "target local date"
+        ],
+        "transformation": "annual cosine",
+        "unit": "dimensionless",
+        "version": "1"
+      }
+    ],
+    "schema_version": "weather-features-v1"
+  },
+  "feature_version": "sha256:3aedc876707531200d12050126fa4ad457c79a1ab25afdcb07f0d70e45a1ea15",
+  "holdout_evaluated": false,
+  "independent_date_blocks": 100,
+  "independent_events": 200,
+  "market_benchmark": {
+    "basis": "timed quoted midpoint; not executable fills",
+    "contracts": 0,
+    "independent_events": 0,
+    "predictions": 0,
+    "status": "no_predictions"
+  },
+  "models": {
+    "climatology": {
+      "artifact_hash": "sha256:2406e5793119498d1b7fbcef2c647ee4179bb160a333e8249c228845b40b3698",
+      "calibration": "uncalibrated baseline",
+      "metrics": {
+        "validation": {
+          "brier": 0.25,
+          "calibration_intercept": 0.40542897092051655,
+          "calibration_slope": 0.0,
+          "contracts": 60,
+          "independent_date_blocks": 30,
+          "independent_events": 60,
+          "log_loss": 0.6931471805599455,
+          "predictions": 78,
+          "reliability_bins": [
+            {
+              "lower": 0.5,
+              "observed": 0.6,
+              "predicted": 0.5,
+              "predictions": 78
+            }
+          ],
+          "status": "evaluated"
+        }
+      }
+    },
+    "forecast_error": {
+      "artifact_hash": "sha256:d661b798c089a56f631382d454eb5e2d774244d7b39c577de0e37c05acda5a48",
+      "calibration": "platt",
+      "metrics": {
+        "validation": {
+          "brier": 0.10168154902790623,
+          "calibration_intercept": 35.64999022514105,
+          "calibration_slope": 7.909272073665372,
+          "contracts": 60,
+          "independent_date_blocks": 30,
+          "independent_events": 60,
+          "log_loss": 0.34367560975449335,
+          "predictions": 78,
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "observed": 0.14285714285714285,
+              "predicted": 0.004359537066911596,
+              "predictions": 36
+            },
+            {
+              "lower": 0.2,
+              "observed": 1.0,
+              "predicted": 0.24311943839452677,
+              "predictions": 4
+            },
+            {
+              "lower": 0.9,
+              "observed": 1.0,
+              "predicted": 0.9913285287073796,
+              "predictions": 38
+            }
+          ],
+          "status": "evaluated"
+        }
+      }
+    },
+    "raw_forecast": {
+      "artifact_hash": "sha256:3f8685cce4d16098c3f792582cd609dc6bab9bd2f5750126133500f45a958b0d",
+      "calibration": "uncalibrated baseline",
+      "metrics": {
+        "validation": {
+          "brier": 0.059981098046338874,
+          "calibration_intercept": 9.175145162434612,
+          "calibration_slope": 17.178248478240135,
+          "contracts": 60,
+          "independent_date_blocks": 30,
+          "independent_events": 60,
+          "log_loss": 0.23145458740944103,
+          "predictions": 78,
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "observed": 0.0,
+              "predicted": 0.03843794962130372,
+              "predictions": 16
+            },
+            {
+              "lower": 0.1,
+              "observed": 0.0,
+              "predicted": 0.12167250457438128,
+              "predictions": 4
+            },
+            {
+              "lower": 0.2,
+              "observed": 0.0,
+              "predicted": 0.20232838096364303,
+              "predictions": 4
+            },
+            {
+              "lower": 0.3,
+              "observed": 0.0,
+              "predicted": 0.3085375387259869,
+              "predictions": 8
+            },
+            {
+              "lower": 0.4,
+              "observed": 1.0,
+              "predicted": 0.43381616738909634,
+              "predictions": 4
+            },
+            {
+              "lower": 0.5,
+              "observed": 1.0,
+              "predicted": 0.5661838326109037,
+              "predictions": 4
+            },
+            {
+              "lower": 0.6,
+              "observed": 1.0,
+              "predicted": 0.6914624612740131,
+              "predictions": 12
+            },
+            {
+              "lower": 0.7,
+              "observed": 1.0,
+              "predicted": 0.797671619036357,
+              "predictions": 6
+            },
+            {
+              "lower": 0.8,
+              "observed": 1.0,
+              "predicted": 0.8783274954256187,
+              "predictions": 6
+            },
+            {
+              "lower": 0.9,
+              "observed": 1.0,
+              "predicted": 0.9465650762047583,
+              "predictions": 14
+            }
+          ],
+          "status": "evaluated"
+        }
+      }
+    },
+    "ridge": {
+      "artifact_hash": "sha256:bb334c537c565b377db07ace80a351944bc9ec57437c6056a6fe936be45488af",
+      "calibration": "platt",
+      "metrics": {
+        "validation": {
+          "brier": 0.022278935700214286,
+          "calibration_intercept": 7.548787230469851,
+          "calibration_slope": 6.876455513356949,
+          "contracts": 60,
+          "independent_date_blocks": 30,
+          "independent_events": 60,
+          "log_loss": 0.07074358654011072,
+          "predictions": 78,
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "observed": 0.0,
+              "predicted": 0.0016814573932667442,
+              "predictions": 24
+            },
+            {
+              "lower": 0.1,
+              "observed": 0.0,
+              "predicted": 0.11492066715161522,
+              "predictions": 8
+            },
+            {
+              "lower": 0.4,
+              "observed": 1.0,
+              "predicted": 0.4454820092173082,
+              "predictions": 4
+            },
+            {
+              "lower": 0.8,
+              "observed": 1.0,
+              "predicted": 0.8761641417172001,
+              "predictions": 2
+            },
+            {
+              "lower": 0.9,
+              "observed": 1.0,
+              "predicted": 0.9932335726208213,
+              "predictions": 40
+            }
+          ],
+          "status": "evaluated"
+        }
+      }
+    }
+  },
+  "refusals": {
+    "boosting": "boosting: 96 independent events < 200"
+  },
+  "run_id": "sha256:25c3cf464f88f74b83e27afc9c5173ea3ebd76674fe5b6420338a2fd53142f64",
+  "runtime": {
+    "joblib": "1.6.0",
+    "numpy": "2.5.3",
+    "pyarrow": "19.0.1",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "scikit-learn": "1.9.1"
+  },
+  "scalar_label_events": 180,
+  "source_dataset": "sha256:40c73c1968f5a59898474acd12f993acb70a71a01ca0545d73aba8c16c7961dd",
+  "split": {
+    "calibration": [
+      "KXHIGHCHI-25FEB18",
+      "KXHIGHCHI-25FEB19",
+      "KXHIGHCHI-25FEB20",
+      "KXHIGHCHI-25FEB21",
+      "KXHIGHCHI-25FEB22",
+      "KXHIGHCHI-25FEB23",
+      "KXHIGHCHI-25FEB24",
+      "KXHIGHCHI-25FEB25",
+      "KXHIGHCHI-25FEB26",
+      "KXHIGHCHI-25FEB27",
+      "KXHIGHCHI-25FEB28",
+      "KXHIGHCHI-25MAR01",
+      "KXHIGHPHIL-25FEB18",
+      "KXHIGHPHIL-25FEB19",
+      "KXHIGHPHIL-25FEB20",
+      "KXHIGHPHIL-25FEB21",
+      "KXHIGHPHIL-25FEB22",
+      "KXHIGHPHIL-25FEB23",
+      "KXHIGHPHIL-25FEB24",
+      "KXHIGHPHIL-25FEB25",
+      "KXHIGHPHIL-25FEB26",
+      "KXHIGHPHIL-25FEB27",
+      "KXHIGHPHIL-25FEB28",
+      "KXHIGHPHIL-25MAR01"
+    ],
+    "calibration_asof": "2025-03-02T15:00:00+00:00",
+    "fit": [
+      "KXHIGHCHI-25FEB01",
+      "KXHIGHCHI-25FEB02",
+      "KXHIGHCHI-25FEB03",
+      "KXHIGHCHI-25FEB04",
+      "KXHIGHCHI-25FEB05",
+      "KXHIGHCHI-25FEB06",
+      "KXHIGHCHI-25FEB07",
+      "KXHIGHCHI-25FEB08",
+      "KXHIGHCHI-25FEB09",
+      "KXHIGHCHI-25FEB10",
+      "KXHIGHCHI-25FEB11",
+      "KXHIGHCHI-25FEB12",
+      "KXHIGHCHI-25FEB13",
+      "KXHIGHCHI-25FEB14",
+      "KXHIGHCHI-25FEB15",
+      "KXHIGHCHI-25FEB16",
+      "KXHIGHCHI-25FEB17",
+      "KXHIGHCHI-25JAN01",
+      "KXHIGHCHI-25JAN02",
+      "KXHIGHCHI-25JAN03",
+      "KXHIGHCHI-25JAN04",
+      "KXHIGHCHI-25JAN05",
+      "KXHIGHCHI-25JAN06",
+      "KXHIGHCHI-25JAN07",
+      "KXHIGHCHI-25JAN08",
+      "KXHIGHCHI-25JAN09",
+      "KXHIGHCHI-25JAN10",
+      "KXHIGHCHI-25JAN11",
+      "KXHIGHCHI-25JAN12",
+      "KXHIGHCHI-25JAN13",
+      "KXHIGHCHI-25JAN14",
+      "KXHIGHCHI-25JAN15",
+      "KXHIGHCHI-25JAN16",
+      "KXHIGHCHI-25JAN17",
+      "KXHIGHCHI-25JAN18",
+      "KXHIGHCHI-25JAN19",
+      "KXHIGHCHI-25JAN20",
+      "KXHIGHCHI-25JAN21",
+      "KXHIGHCHI-25JAN22",
+      "KXHIGHCHI-25JAN23",
+      "KXHIGHCHI-25JAN24",
+      "KXHIGHCHI-25JAN25",
+      "KXHIGHCHI-25JAN26",
+      "KXHIGHCHI-25JAN27",
+      "KXHIGHCHI-25JAN28",
+      "KXHIGHCHI-25JAN29",
+      "KXHIGHCHI-25JAN30",
+      "KXHIGHCHI-25JAN31",
+      "KXHIGHPHIL-25FEB01",
+      "KXHIGHPHIL-25FEB02",
+      "KXHIGHPHIL-25FEB03",
+      "KXHIGHPHIL-25FEB04",
+      "KXHIGHPHIL-25FEB05",
+      "KXHIGHPHIL-25FEB06",
+      "KXHIGHPHIL-25FEB07",
+      "KXHIGHPHIL-25FEB08",
+      "KXHIGHPHIL-25FEB09",
+      "KXHIGHPHIL-25FEB10",
+      "KXHIGHPHIL-25FEB11",
+      "KXHIGHPHIL-25FEB12",
+      "KXHIGHPHIL-25FEB13",
+      "KXHIGHPHIL-25FEB14",
+      "KXHIGHPHIL-25FEB15",
+      "KXHIGHPHIL-25FEB16",
+      "KXHIGHPHIL-25FEB17",
+      "KXHIGHPHIL-25JAN01",
+      "KXHIGHPHIL-25JAN02",
+      "KXHIGHPHIL-25JAN03",
+      "KXHIGHPHIL-25JAN04",
+      "KXHIGHPHIL-25JAN05",
+      "KXHIGHPHIL-25JAN06",
+      "KXHIGHPHIL-25JAN07",
+      "KXHIGHPHIL-25JAN08",
+      "KXHIGHPHIL-25JAN09",
+      "KXHIGHPHIL-25JAN10",
+      "KXHIGHPHIL-25JAN11",
+      "KXHIGHPHIL-25JAN12",
+      "KXHIGHPHIL-25JAN13",
+      "KXHIGHPHIL-25JAN14",
+      "KXHIGHPHIL-25JAN15",
+      "KXHIGHPHIL-25JAN16",
+      "KXHIGHPHIL-25JAN17",
+      "KXHIGHPHIL-25JAN18",
+      "KXHIGHPHIL-25JAN19",
+      "KXHIGHPHIL-25JAN20",
+      "KXHIGHPHIL-25JAN21",
+      "KXHIGHPHIL-25JAN22",
+      "KXHIGHPHIL-25JAN23",
+      "KXHIGHPHIL-25JAN24",
+      "KXHIGHPHIL-25JAN25",
+      "KXHIGHPHIL-25JAN26",
+      "KXHIGHPHIL-25JAN27",
+      "KXHIGHPHIL-25JAN28",
+      "KXHIGHPHIL-25JAN29",
+      "KXHIGHPHIL-25JAN30",
+      "KXHIGHPHIL-25JAN31"
+    ],
+    "fit_asof": "2025-02-18T15:01:00+00:00",
+    "holdout": [
+      "KXHIGHCHI-25APR01",
+      "KXHIGHCHI-25APR02",
+      "KXHIGHCHI-25APR03",
+      "KXHIGHCHI-25APR04",
+      "KXHIGHCHI-25APR05",
+      "KXHIGHCHI-25APR06",
+      "KXHIGHCHI-25APR07",
+      "KXHIGHCHI-25APR08",
+      "KXHIGHCHI-25APR09",
+      "KXHIGHCHI-25APR10",
+      "KXHIGHPHIL-25APR01",
+      "KXHIGHPHIL-25APR02",
+      "KXHIGHPHIL-25APR03",
+      "KXHIGHPHIL-25APR04",
+      "KXHIGHPHIL-25APR05",
+      "KXHIGHPHIL-25APR06",
+      "KXHIGHPHIL-25APR07",
+      "KXHIGHPHIL-25APR08",
+      "KXHIGHPHIL-25APR09",
+      "KXHIGHPHIL-25APR10"
+    ],
+    "validation": [
+      "KXHIGHCHI-25MAR02",
+      "KXHIGHCHI-25MAR03",
+      "KXHIGHCHI-25MAR04",
+      "KXHIGHCHI-25MAR05",
+      "KXHIGHCHI-25MAR06",
+      "KXHIGHCHI-25MAR07",
+      "KXHIGHCHI-25MAR08",
+      "KXHIGHCHI-25MAR09",
+      "KXHIGHCHI-25MAR10",
+      "KXHIGHCHI-25MAR11",
+      "KXHIGHCHI-25MAR12",
+      "KXHIGHCHI-25MAR13",
+      "KXHIGHCHI-25MAR14",
+      "KXHIGHCHI-25MAR15",
+      "KXHIGHCHI-25MAR16",
+      "KXHIGHCHI-25MAR17",
+      "KXHIGHCHI-25MAR18",
+      "KXHIGHCHI-25MAR19",
+      "KXHIGHCHI-25MAR20",
+      "KXHIGHCHI-25MAR21",
+      "KXHIGHCHI-25MAR22",
+      "KXHIGHCHI-25MAR23",
+      "KXHIGHCHI-25MAR24",
+      "KXHIGHCHI-25MAR25",
+      "KXHIGHCHI-25MAR26",
+      "KXHIGHCHI-25MAR27",
+      "KXHIGHCHI-25MAR28",
+      "KXHIGHCHI-25MAR29",
+      "KXHIGHCHI-25MAR30",
+      "KXHIGHCHI-25MAR31",
+      "KXHIGHPHIL-25MAR02",
+      "KXHIGHPHIL-25MAR03",
+      "KXHIGHPHIL-25MAR04",
+      "KXHIGHPHIL-25MAR05",
+      "KXHIGHPHIL-25MAR06",
+      "KXHIGHPHIL-25MAR07",
+      "KXHIGHPHIL-25MAR08",
+      "KXHIGHPHIL-25MAR09",
+      "KXHIGHPHIL-25MAR10",
+      "KXHIGHPHIL-25MAR11",
+      "KXHIGHPHIL-25MAR12",
+      "KXHIGHPHIL-25MAR13",
+      "KXHIGHPHIL-25MAR14",
+      "KXHIGHPHIL-25MAR15",
+      "KXHIGHPHIL-25MAR16",
+      "KXHIGHPHIL-25MAR17",
+      "KXHIGHPHIL-25MAR18",
+      "KXHIGHPHIL-25MAR19",
+      "KXHIGHPHIL-25MAR20",
+      "KXHIGHPHIL-25MAR21",
+      "KXHIGHPHIL-25MAR22",
+      "KXHIGHPHIL-25MAR23",
+      "KXHIGHPHIL-25MAR24",
+      "KXHIGHPHIL-25MAR25",
+      "KXHIGHPHIL-25MAR26",
+      "KXHIGHPHIL-25MAR27",
+      "KXHIGHPHIL-25MAR28",
+      "KXHIGHPHIL-25MAR29",
+      "KXHIGHPHIL-25MAR30",
+      "KXHIGHPHIL-25MAR31"
+    ]
+  },
+  "status": "evaluated",
+  "target_assumption": "distribution over source-reported integer Fahrenheit highs",
+  "train_eligible_events": 96
+}

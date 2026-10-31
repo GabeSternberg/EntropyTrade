@@ -1,0 +1,216 @@
+{
+  "classification": "CONTROLLED simulated normalized receipts/clocks. Software evidence only; no empirical model or profitability.",
+  "models": [
+    {
+      "calibration_events": 24,
+      "data_kind": "real",
+      "evidence": "data/research-cohort-review/20261030/controlled-models/9230e8a436930d135fc484c106cebe3ea293091a2218c47a2d8da0f83417e084",
+      "holdout_evaluated": false,
+      "models": {
+        "climatology": {
+          "artifact_hash": "sha256:2406e5793119498d1b7fbcef2c647ee4179bb160a333e8249c228845b40b3698",
+          "calibration": "uncalibrated baseline",
+          "metrics": {
+            "validation": {
+              "brier": 0.25,
+              "calibration_intercept": 0.40542897092051655,
+              "calibration_slope": 0.0,
+              "contracts": 60,
+              "independent_date_blocks": 30,
+              "independent_events": 60,
+              "log_loss": 0.6931471805599455,
+              "predictions": 78,
+              "reliability_bins": [
+                {
+                  "lower": 0.5,
+                  "observed": 0.6,
+                  "predicted": 0.5,
+                  "predictions": 78
+                }
+              ],
+              "status": "evaluated"
+            }
+          }
+        },
+        "forecast_error": {
+          "artifact_hash": "sha256:aa78a39fdf2083e679ada9f8fe8584a25b1ec569d4eb85f46ad460217bdac76b",
+          "calibration": "uncalibrated baseline",
+          "metrics": {
+            "validation": {
+              "brier": 0.0033564415766471523,
+              "calibration_intercept": 0.00600069303591721,
+              "calibration_slope": 4.4181814299961495,
+              "contracts": 60,
+              "independent_date_blocks": 30,
+              "independent_events": 60,
+              "log_loss": 0.023213993540361893,
+              "predictions": 78,
+              "reliability_bins": [
+                {
+                  "lower": 0.0,
+                  "observed": 0.0,
+                  "predicted": 0.0002700369368963562,
+                  "predictions": 24
+                },
+                {
+                  "lower": 0.1,
+                  "observed": 0.0,
+                  "predicted": 0.15865525393145707,
+                  "predictions": 8
+                },
+                {
+                  "lower": 0.8,
+                  "observed": 1.0,
+                  "predicted": 0.8413447460685429,
+                  "predictions": 4
+                },
+                {
+                  "lower": 0.9,
+                  "observed": 1.0,
+                  "predicted": 0.9998312089986365,
+                  "predictions": 42
+                }
+              ],
+              "status": "evaluated"
+            }
+          }
+        },
+        "raw_forecast": {
+          "artifact_hash": "sha256:3f8685cce4d16098c3f792582cd609dc6bab9bd2f5750126133500f45a958b0d",
+          "calibration": "uncalibrated baseline",
+          "metrics": {
+            "validation": {
+              "brier": 0.059981098046338874,
+              "calibration_intercept": 9.175145162434612,
+              "calibration_slope": 17.178248478240135,
+              "contracts": 60,
+              "independent_date_blocks": 30,
+              "independent_events": 60,
+              "log_loss": 0.23145458740944103,
+              "predictions": 78,
+              "reliability_bins": [
+                {
+                  "lower": 0.0,
+                  "observed": 0.0,
+                  "predicted": 0.03843794962130372,
+                  "predictions": 16
+                },
+                {
+                  "lower": 0.1,
+                  "observed": 0.0,
+                  "predicted": 0.12167250457438128,
+                  "predictions": 4
+                },
+                {
+                  "lower": 0.2,
+                  "observed": 0.0,
+                  "predicted": 0.20232838096364303,
+                  "predictions": 4
+                },
+                {
+                  "lower": 0.3,
+                  "observed": 0.0,
+                  "predicted": 0.3085375387259869,
+                  "predictions": 8
+                },
+                {
+                  "lower": 0.4,
+                  "observed": 1.0,
+                  "predicted": 0.43381616738909634,
+                  "predictions": 4
+                },
+                {
+                  "lower": 0.5,
+                  "observed": 1.0,
+                  "predicted": 0.5661838326109037,
+                  "predictions": 4
+                },
+                {
+                  "lower": 0.6,
+                  "observed": 1.0,
+                  "predicted": 0.6914624612740131,
+                  "predictions": 12
+                },
+                {
+                  "lower": 0.7,
+                  "observed": 1.0,
+                  "predicted": 0.797671619036357,
+                  "predictions": 6
+                },
+                {
+                  "lower": 0.8,
+                  "observed": 1.0,
+                  "predicted": 0.8783274954256187,
+                  "predictions": 6
+                },
+                {
+                  "lower": 0.9,
+                  "observed": 1.0,
+                  "predicted": 0.9465650762047583,
+                  "predictions": 14
+                }
+              ],
+              "status": "evaluated"
+            }
+          }
+        },
+        "ridge": {
+          "artifact_hash": "sha256:881d9369f74485a457646b698c896c675327ab354a60b700609f49a7b78d7600",
+          "calibration": "uncalibrated baseline",
+          "metrics": {
+            "validation": {
+              "brier": 0.006038202216860683,
+              "calibration_intercept": 2.2105974099474057,
+              "calibration_slope": 4.973416249352416,
+              "contracts": 60,
+              "independent_date_blocks": 30,
+              "independent_events": 60,
+              "log_loss": 0.030480739324340596,
+              "predictions": 78,
+              "reliability_bins": [
+                {
+                  "lower": 0.0,
+                  "observed": 0.0,
+                  "predicted": 0.004866187591218094,
+                  "predictions": 26
+                },
+                {
+                  "lower": 0.1,
+                  "observed": 0.0,
+                  "predicted": 0.12901839237224874,
+                  "predictions": 6
+                },
+                {
+                  "lower": 0.6,
+                  "observed": 1.0,
+                  "predicted": 0.6861795849628967,
+                  "predictions": 2
+                },
+                {
+                  "lower": 0.7,
+                  "observed": 1.0,
+                  "predicted": 0.7710413714827766,
+                  "predictions": 2
+                },
+                {
+                  "lower": 0.9,
+                  "observed": 1.0,
+                  "predicted": 0.9989611196811643,
+                  "predictions": 42
+                }
+              ],
+              "status": "evaluated"
+            }
+          }
+        }
+      },
+      "refusals": {
+        "boosting": "boosting: 96 independent events < 200"
+      },
+      "run_id": "sha256:9230e8a436930d135fc484c106cebe3ea293091a2218c47a2d8da0f83417e084",
+      "status": "evaluated",
+      "train_events": 96
+    }
+  ],
+  "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/research-cohort-final-20261030-cohort"
+}

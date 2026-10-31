@@ -179,6 +179,7 @@ def readiness(features: Path) -> dict[str, Any]:
         **counts,
         "status": "ready_for_model_gates" if not blockers else "insufficient_data",
         "capture_audit": capture_audit,
+        **({"cohort": manifest["retained_cohort"]} if "retained_cohort" in manifest else {}),
         **(
             {"shadow_audit": manifest["retained_shadow_audit"]}
             if "retained_shadow_audit" in manifest
@@ -245,6 +246,30 @@ def build_snapshot(
     frozen_anchor: date | None = None,
     selection: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    if len(captures) > MAX_INPUTS or len(outcome_roots) > MAX_INPUTS:
+        raise ValueError(
+            "weather history exceeds 128 inputs; select an operator-reviewed partition"
+        )
+    return _build_snapshot(
+        output,
+        captures,
+        outcome_roots=outcome_roots,
+        protected_events=protected_events,
+        frozen_anchor=frozen_anchor,
+        selection=selection,
+    )
+
+
+def _build_snapshot(
+    output: Path,
+    captures: Sequence[Path],
+    *,
+    outcome_roots: Sequence[Path],
+    protected_events: frozenset[str],
+    frozen_anchor: date | None,
+    selection: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Shared assembly after bounded partition verification (including cohort batches)."""
     from entropytrade.tracking.worker import terms
 
     if any(path.is_symlink() for path in (output, *output.parents)):
@@ -253,10 +278,6 @@ def build_snapshot(
         raise ValueError(
             "No retained weather receipts. Fetch public weather sources "
             "or collect shadow cycles first"
-        )
-    if len(captures) > MAX_INPUTS or len(outcome_roots) > MAX_INPUTS:
-        raise ValueError(
-            "weather history exceeds 128 inputs; select an operator-reviewed partition"
         )
     from entropytrade.tracking.history import verified_inputs
 
@@ -632,6 +653,8 @@ def build_snapshot(
         "temporal_boundaries": boundaries,
         "protected_events": sorted(protected_events),
     }
+    if selection and "cohort" in selection:
+        source_manifest["retained_cohort"] = selection["cohort"]
     (dataset / "manifest.json").write_text(json.dumps(source_manifest, sort_keys=True))
     features = build_features(dataset=dataset, archives=(), output=staging / "features")
     feature_path = "features/" + features["feature_version"].removeprefix("sha256:")

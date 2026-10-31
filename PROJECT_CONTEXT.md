@@ -1,8 +1,9 @@
 # EntropyTrade project context
 
-Updated 2026-10-30. **V1 remains incomplete.** The current milestone connects retained
-weather receipts to browser dataset selection and the existing research/model/backtest
-workflow. Work stays on designated `supervisor/20261030-191216` from `c461db3`.
+Updated 2026-10-30. **V1 remains incomplete.** The current milestone builds reproducible
+research cohorts across retained weather/shadow history partitions, reusing the existing
+snapshot, feature, probability-model and experiment pipeline. Work stays on designated
+`supervisor/20261030-202711` from `69e2740`.
 The supervisor owns all Git operations and independent review. No Git mutations,
 supervisor-control edits, new family, credential access or external provider calls.
 
@@ -14,6 +15,38 @@ receipt clocks and frozen validation windows. Prefer forward authentic collectio
 never fabricate historical availability. Do independent product work while data accrues.
 A new major family requires user approval following a comparison of point-in-time history,
 resolution semantics, modeling feasibility, costs and realistic validation. None is selected.
+
+## Research cohorts across retained history partitions
+
+The website can combine up to eight explicitly selected history partitions, with optional
+separate later-outcome partitions, into one immutable weather research dataset. Batches
+remain limited to 128 inputs; the cohort keeps the 256 MB raw-input budget. Completed
+batch snapshots are retained under `runs/weather-datasets/.batches` for restart/retry and
+offline recovery. Final assembly reuses frozen receipt copies and rebuilds features jointly
+instead of concatenating engineered features or averaging partition metrics.
+
+Global calendar anchoring, inherited source/model protections and the 48/12/30-day
+fit/calibration/validation windows remain fixed. Event counts deduplicate city/day events
+across repeated captures. Original receipt, decision, forecast-revision and label clocks
+remain intact. Protected labels cannot enter fitting/evaluation or bias features. All
+existing model minimums, risk, certified-fee and sized-depth gates remain enforced.
+
+CONTROLLED evidence spans 130 captures and 200 events on 100 dates, exercises deterministic
+fit/calibration/evaluation, interrupted-batch retry, missing-label/protected-data refusal
+and offline restore. This is simulated software evidence, never empirical performance.
+Authentic original receipts still have four events on two dates and zero source-matched
+scalar highs. Both outstanding shadow-history browser procedures and the new cohort
+procedure execute with managed Chromium, actual localhost workers, screenshots and
+byte-identical downloads after restore. The previous sandbox launch denial remains
+historical evidence; normal supported approval permits this execution without policy
+changes. See [current evidence](data/research-cohort-review/20261030/README.md) and
+[guide](docs/shadow-history.md). Final gates pass 1,083 pytest tests in 563.76s, Ruff/format
+(522 files), strict mypy (519 files), 21 frontend assertions and all three Chromium
+procedures (18 screenshots, 18 matching downloads, zero page errors). All 544 frozen
+source/configuration hashes and 68 original receipt files remain unchanged.
+Current-environment checks do not establish a fresh clean
+install, authorized external-provider verification, empirical two-family validation or
+an independent V1 release pass. Return for supervisor review; no next phase is started.
 
 ## Retained weather history through the browser
 
@@ -31,8 +64,8 @@ labels cannot leak into prior bias features. Actual next-partition decisions bou
 available for model fitting/calibration. Existing event/date/model/fee/depth/risk minimums
 remain enforced; no real-money execution is introduced. Snapshot publication is atomic,
 repeated receipts reuse a content identity, and staging retry/restart/offline restore
-preserve completed artifacts and request references. Inputs are bounded to 128 captures
-and 256 MB, with explicit refusal rather than truncation.
+preserve completed artifacts and request references. Single partitions are bounded to
+128 captures; the cohort extension above retains bounded batches and the 256 MB budget.
 
 Final verification passes **1,058 pytest tests in 353.35 seconds**, Ruff lint/format
 (backend/tools, 514 files), strict mypy (511 files), 18 named frontend checks and

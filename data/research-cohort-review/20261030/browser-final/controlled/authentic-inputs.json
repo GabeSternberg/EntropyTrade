@@ -1,0 +1,812 @@
+{
+  "catalog": {
+    "partition_size": 128,
+    "partitions": [
+      {
+        "first_at": "2026-10-31T00:37:48.427741+00:00",
+        "inputs": 128,
+        "last_at": "2026-10-31T00:38:29.631431+00:00",
+        "members": [
+          {
+            "at": "2026-10-31T00:37:48.427741+00:00",
+            "id": "e0e709e8-7ac5-4f5d-aba3-e523095724dc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:48.641231+00:00",
+            "id": "6787bd5b-8502-4bdc-8c78-b2e70936c049",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:48.857879+00:00",
+            "id": "b21cdb2a-11be-4ae9-839f-66f7525efeb8",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:49.070216+00:00",
+            "id": "6f6b9661-569b-42d5-b8bb-564a649e5a3f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:49.283891+00:00",
+            "id": "a6de4b55-acda-4daf-88ac-79362438a10a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:49.496782+00:00",
+            "id": "2238cdad-601b-4526-969b-60f0a4297f22",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:49.717375+00:00",
+            "id": "9f161271-e7d4-40d7-bfde-f194b3df5a11",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:49.970794+00:00",
+            "id": "45ff79ff-eccf-4842-bdf2-cad914c16431",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:50.238474+00:00",
+            "id": "038b4a4b-5be3-4850-a597-6caa3d7a1081",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:50.553309+00:00",
+            "id": "2a3a6ace-6c6e-4902-a419-d9e1968d29fb",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:50.869337+00:00",
+            "id": "c00be9a0-9bbf-4c61-9b40-8e2446e8e40e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:51.194754+00:00",
+            "id": "1a462fd1-3498-48cd-bf45-3fad11121e87",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:51.653720+00:00",
+            "id": "157960eb-83c6-478c-b354-2bf9576f72e3",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:51.934945+00:00",
+            "id": "8148c80f-05d6-4c30-a531-ed75ea23dc17",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:52.211809+00:00",
+            "id": "cca87201-c9df-417c-86d5-d440291eb406",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:52.480977+00:00",
+            "id": "1f11e983-b93b-4da9-9b58-c861c1473e3a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:52.766591+00:00",
+            "id": "4ac089c0-305c-4c66-898a-30cf08511c94",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:53.052470+00:00",
+            "id": "5120b6b7-fe9c-4c7d-8b37-b2ba6e616f2e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:53.327999+00:00",
+            "id": "17b134cd-1a63-4fd6-94f7-c509ea8b45ab",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:53.615370+00:00",
+            "id": "86e55b8f-fc68-4979-b1b1-8a9ee1c97e31",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:53.919284+00:00",
+            "id": "738dba3c-902b-4ae2-a9f3-affb83e3bae3",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:54.204132+00:00",
+            "id": "7bb3d229-9252-42b1-9db2-ae1831ab1a12",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:54.621321+00:00",
+            "id": "fe19f5ec-84d8-4859-a0c7-c125bf7979dc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:54.958345+00:00",
+            "id": "c05233f8-a808-463f-9322-8c37d243b287",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:55.269589+00:00",
+            "id": "7e1929b1-f16a-43c8-8fb9-93555c73336a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:55.563885+00:00",
+            "id": "3c900694-fe27-45e4-8521-a95c87346675",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:55.867440+00:00",
+            "id": "8811b7dd-a10d-46c4-b0b2-9da9d612c4ad",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:56.166999+00:00",
+            "id": "02142136-955c-483f-b7b8-0d48a0f50000",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:56.468447+00:00",
+            "id": "608f67fb-91f4-45b2-9236-c53eee43e262",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:56.910642+00:00",
+            "id": "d4e08887-ea96-4ef4-8dcc-f460b772bf31",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:57.276148+00:00",
+            "id": "0e9bc4a4-fbd4-41d4-a5e2-593dc9e59018",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:57.595128+00:00",
+            "id": "89bbf24d-9c35-48bf-9fb9-775e245ea413",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:57.932816+00:00",
+            "id": "4e52d273-6d63-45a5-8281-cdcebd01aa1d",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:58.278518+00:00",
+            "id": "3ac41ff9-7439-4615-9bec-8c69787e8949",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:58.593978+00:00",
+            "id": "809b5b71-7d74-4b4a-a089-8f947a3f9181",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:58.899202+00:00",
+            "id": "464fa43f-cf3f-44e4-979c-00f02af8d7cc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:59.220312+00:00",
+            "id": "8edd3298-06b0-4138-bc6a-52a3d62aabfe",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:59.536979+00:00",
+            "id": "0d3924bb-a1bb-43f0-bda0-93b3427d4cca",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:37:59.855903+00:00",
+            "id": "c469c132-a39b-43f1-a472-53f64f6f6f57",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:00.156470+00:00",
+            "id": "f88d3299-1a7d-4f39-9792-192d469a36a7",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:00.463010+00:00",
+            "id": "96eb5c97-92d7-4950-ba39-5581302ef42e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:00.743453+00:00",
+            "id": "9b521a03-2afa-4c81-b127-c37b7d76d8bc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:01.058940+00:00",
+            "id": "4e0a8989-14c3-4757-996e-f31fc8772c9d",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:01.367957+00:00",
+            "id": "0439c0b6-19c4-48a0-babc-d39bdd21f99f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:01.804166+00:00",
+            "id": "0e7487f8-0ef0-4c02-bd6b-4a2c2c0d6e2b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:02.094214+00:00",
+            "id": "a0c66f99-092a-42c2-aab4-8136bdf03d16",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:02.379308+00:00",
+            "id": "edeb9bb5-ba06-48ee-8980-50c3c232c14e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:02.697840+00:00",
+            "id": "7d359871-70fc-4ca5-8d27-d889ebca1363",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:02.988828+00:00",
+            "id": "a85b6b6d-7553-44e8-b891-9914e7abef54",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:03.292206+00:00",
+            "id": "d5f06621-31c2-4ea3-9fa6-26d1a6ec5d28",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:03.586494+00:00",
+            "id": "e749cb0d-6d1b-4f74-aa71-712f6f1f361a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:03.882375+00:00",
+            "id": "b9029566-54c1-4844-8d0b-36b7a2649fdd",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:04.188140+00:00",
+            "id": "251afea7-79db-422a-955c-9af838b5648f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:04.515905+00:00",
+            "id": "2502ea15-26ef-4f0b-a4c8-3c66d4cef752",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:04.834486+00:00",
+            "id": "a4a37ce0-5824-4cf1-93bd-9daa0d16a184",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:05.121452+00:00",
+            "id": "4495b55d-c3bf-431f-8379-9cae3d016354",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:05.423131+00:00",
+            "id": "cb3176d0-e12c-4d97-b6cb-52bdfd488a33",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:05.703513+00:00",
+            "id": "24bff485-7a30-4250-b2ac-e677337fa0a7",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:05.998408+00:00",
+            "id": "3f7aa0cb-ee8a-45d9-bbca-205237f0f19d",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:06.286217+00:00",
+            "id": "7c802a3c-6114-4781-8d96-1485f6a25fcf",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:06.583003+00:00",
+            "id": "10e43a5a-5b42-4c35-b2f5-219c33671165",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:06.912212+00:00",
+            "id": "95307077-bd66-4273-860e-a742485fdff4",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:07.434565+00:00",
+            "id": "b9899f0e-eec4-4450-adb1-12741fa1d10c",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:07.749161+00:00",
+            "id": "ab0c75a2-345c-41ca-ba21-4bc1543eac41",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:08.042858+00:00",
+            "id": "6f07e769-e942-4e07-8d62-1a78d8f20fb3",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:08.343281+00:00",
+            "id": "38a2de47-d9da-47cd-a0d1-85964653ef0b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:08.625801+00:00",
+            "id": "a1125683-de02-41fe-9017-006f0e38343c",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:08.896878+00:00",
+            "id": "1f3bbd44-d950-4ec5-8c84-b201f176f31f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:09.136243+00:00",
+            "id": "77dcc795-14a0-48ed-bada-da35fc722ec3",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:09.430834+00:00",
+            "id": "b0378d32-b695-404e-8e63-5a550a4038e1",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:09.776943+00:00",
+            "id": "c1a63d1a-be19-421f-a5f7-c46938bf0c63",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:10.097255+00:00",
+            "id": "2bc07a95-14f3-47ea-963a-d20ca2204833",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:10.401751+00:00",
+            "id": "4731973a-c921-4f24-8883-e330a6452426",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:10.715078+00:00",
+            "id": "782c983e-88f1-43ec-bac1-a7c8c89c62a3",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:11.000782+00:00",
+            "id": "83507aa3-1e5d-419e-9a76-ab943ef909bc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:11.321484+00:00",
+            "id": "771a1876-1062-48f4-8b93-763bc56e0959",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:11.617915+00:00",
+            "id": "f0ffd10e-67c0-4ccb-9d2e-997703f9f9e8",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:11.933135+00:00",
+            "id": "11883b38-ddf7-4970-b8e2-17dac9d1bcce",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:12.234750+00:00",
+            "id": "ebadab3c-c2f0-49c8-9375-a0e4607c8596",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:12.786506+00:00",
+            "id": "31476206-9a77-48db-99b5-562e4252c77e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:13.100177+00:00",
+            "id": "86eef3e1-1bf6-4ff8-b87f-d8ae27d7aef4",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:13.416988+00:00",
+            "id": "04849e07-d37a-4fe0-a29a-219d1b507b27",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:13.723759+00:00",
+            "id": "89b489e1-1a56-43b4-92c5-a8a0b3db1764",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:14.052952+00:00",
+            "id": "6fd3f37f-7e1c-4518-99bd-2415d1e3e585",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:14.368362+00:00",
+            "id": "5ccb733a-ae8a-4c9a-8492-866685c4f74b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:14.681617+00:00",
+            "id": "dbde87e1-4c71-4af7-8371-f85738976e64",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:15.005559+00:00",
+            "id": "cfe501c5-9359-4976-8327-a41d041c7d1e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:15.346425+00:00",
+            "id": "9481e20a-0b55-4615-b6d7-a3ec5985359e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:15.680245+00:00",
+            "id": "97ab4cd1-7a81-41c2-a9f0-68798efbf777",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:15.984784+00:00",
+            "id": "6b62e5c6-b3d6-4eef-a390-e1a64838fa38",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:16.271278+00:00",
+            "id": "b2129c24-ae7b-40a7-b52d-b57238dd336a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:16.572343+00:00",
+            "id": "53015d02-1602-4970-a23b-8ba478d2df53",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:16.888012+00:00",
+            "id": "0637b34c-dee1-4455-94c7-7d4d4736e21b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:17.387071+00:00",
+            "id": "14ca09df-3a82-4300-bffc-830729012e91",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:17.740768+00:00",
+            "id": "d1ce91da-7a96-47e3-a617-9efce9e96422",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:18.050875+00:00",
+            "id": "8c43f731-9dd0-47aa-ba17-7862abd741f2",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:18.337357+00:00",
+            "id": "087bd67e-a2ad-4872-979c-47394073432b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:18.626638+00:00",
+            "id": "396999d3-eb2a-4002-b626-57c1f8f87145",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:18.916279+00:00",
+            "id": "de805272-273c-4341-bcff-02160cf06095",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:19.214794+00:00",
+            "id": "8295b5be-3d7f-4f1b-8534-99ae0890a2af",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:19.514553+00:00",
+            "id": "ce4fa8bb-91f8-42e2-82af-45dce622ae94",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:19.834101+00:00",
+            "id": "90c125fc-479a-45b9-aa83-8fed71c331e0",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:21.164087+00:00",
+            "id": "62511e9c-51d0-44a6-88b4-7b8a97ecd2be",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:21.450689+00:00",
+            "id": "ca7af08e-08c7-4834-9eb0-11151fc9009a",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:21.756485+00:00",
+            "id": "a65d7a3b-fa1c-4295-acd7-2c3524bcd368",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:22.049429+00:00",
+            "id": "757173e4-a83a-457a-b8c6-c2bd13b8305f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:22.471200+00:00",
+            "id": "d44638f9-7b35-44ff-9c6b-91bd7604bc9d",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:22.725408+00:00",
+            "id": "5a49dd41-e0f9-4d44-9d1e-27963633bf07",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:23.061250+00:00",
+            "id": "4ac46fd8-da57-4fef-9214-1c9a8554b86e",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:23.551882+00:00",
+            "id": "32fc7c3e-7e5d-49f6-8656-743af1d428b2",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:24.058786+00:00",
+            "id": "cee8ed29-0c46-42d2-8508-fc1f74011dfc",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:24.379372+00:00",
+            "id": "91233242-03a5-43fa-8cd1-3d53c902d3a9",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:24.691886+00:00",
+            "id": "34a0356c-726d-4247-915f-dcc55e98be25",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:25.008237+00:00",
+            "id": "53a443fe-d087-47d9-a961-5ce8c5ae9f41",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:25.330704+00:00",
+            "id": "754f26bb-a7e9-472d-950f-1ae98687054f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:25.648249+00:00",
+            "id": "ce58923d-74ef-4dac-a32b-99fe5c9e699b",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:25.949515+00:00",
+            "id": "98c4d60d-6ddd-4703-81ce-92a9e5a9a7c1",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:26.260181+00:00",
+            "id": "0014e900-ce6b-4ec7-beb5-6a11cce716f1",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:26.580167+00:00",
+            "id": "f3bd60ca-b034-4052-8614-2ed2e4c55c98",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:26.898243+00:00",
+            "id": "3868e2ba-fdfd-4a55-8eab-d99955860d3d",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:27.195671+00:00",
+            "id": "803d9398-81ef-4bc3-871a-7e023e9819b6",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:27.501738+00:00",
+            "id": "79f743de-ba1e-448c-9857-57b91c135740",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:27.800234+00:00",
+            "id": "ebd11f2a-7119-4113-8291-e47c9fdeded1",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:28.095613+00:00",
+            "id": "50bbda64-ce56-486f-acb1-12b7af1aa77f",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:28.521195+00:00",
+            "id": "3da44841-45f3-47a0-9c6f-85a37f3dc22c",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:28.840314+00:00",
+            "id": "92fb2b6a-3799-406e-8742-446656dfe987",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:29.157794+00:00",
+            "id": "980c6def-eeb5-4d62-b219-c4229abbeff5",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:29.631431+00:00",
+            "id": "d90dc41e-e49c-4d92-82fe-717504b28cc0",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          }
+        ],
+        "number": 1,
+        "partition_id": "41e250a62fb236d4976d1ffe103b783b6bef7d5f1e1173a6aebb55effe0add08",
+        "shadow_cycles": 128
+      },
+      {
+        "first_at": "2026-10-31T00:38:29.962834+00:00",
+        "inputs": 2,
+        "last_at": "2026-10-31T00:38:30.379995+00:00",
+        "members": [
+          {
+            "at": "2026-10-31T00:38:29.962834+00:00",
+            "id": "54f18a5f-6be3-4362-8a48-11c7d2a1a327",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          },
+          {
+            "at": "2026-10-31T00:38:30.379995+00:00",
+            "id": "1ab8c552-beb9-453d-b60b-3340066aa860",
+            "kind": "shadow",
+            "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d"
+          }
+        ],
+        "number": 2,
+        "partition_id": "483461cdb0aef06332d7ad1cf71ebbf364e42a0beb09623f869a908f2b672419",
+        "shadow_cycles": 2
+      }
+    ],
+    "total_inputs": 130
+  },
+  "cycles": 130,
+  "evidence": "CONTROLLED collection, simulated clocks and source payloads; no empirical performance",
+  "monitor_id": "cf1b7a06-ab79-476e-857e-bfcab26cbd2d",
+  "restart_after_cycle": 64
+}

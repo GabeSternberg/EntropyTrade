@@ -344,6 +344,8 @@ def build_features(
         payload["retained_capture_audit"] = manifest.get("retained_capture_audit", [])
         if "retained_shadow_audit" in manifest:
             payload["retained_shadow_audit"] = manifest["retained_shadow_audit"]
+        if "retained_cohort" in manifest:
+            payload["retained_cohort"] = manifest["retained_cohort"]
     version = scientific_hash(payload)
     destination = output / version.removeprefix("sha256:")
     if destination.exists():

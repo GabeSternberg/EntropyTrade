@@ -38,6 +38,10 @@
           <p id="weather-partition-counts" class="hint"></p>
           <button id="weather-partitions-refresh" type="button">Refresh history partitions</button>
           <button id="weather-freeze" type="button">Freeze retained weather dataset</button>
+          <label for="weather-cohort">Cohort history partitions</label><select id="weather-cohort" multiple size="4"></select>
+          <label for="weather-cohort-outcomes">Cohort outcome partitions (optional)</label><select id="weather-cohort-outcomes" multiple size="4"></select>
+          <p class="hint">Select up to eight partitions to research together. Leave outcomes empty to use the selected history. Batches retain original clocks and the shared frozen calendar; repeated captures do not increase independent event counts.</p>
+          <button id="weather-cohort-freeze" type="button">Freeze research cohort</button>
           <label for="weather-dataset">Weather dataset</label><select id="weather-dataset"><option value="">No retained dataset yet</option></select>
           <p id="weather-message" role="status" class="hint"></p>
           <div id="weather-readiness"></div>

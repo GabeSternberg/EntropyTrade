@@ -248,25 +248,41 @@ class Handler(BaseHTTPRequestHandler):
                 if not isinstance(value, dict) or set(value) - {
                     "partition_id",
                     "outcome_partition_id",
+                    "partition_ids",
+                    "outcome_partition_ids",
                 }:
                     raise ValueError("select history and outcome partition IDs only")
-                if any(not isinstance(v, str) for v in value.values()):
+                cohort = bool({"partition_ids", "outcome_partition_ids"} & set(value))
+                if cohort and {"partition_id", "outcome_partition_id"} & set(value):
+                    raise ValueError("select a single partition or a cohort")
+                if cohort and any(not isinstance(v, list) for v in value.values()):
+                    raise ValueError("cohort partition IDs must be arrays")
+                if not cohort and any(not isinstance(v, str) for v in value.values()):
                     raise ValueError("partition IDs must be strings")
 
                 if not self.server.weather_lock.acquire(blocking=False):
                     raise ValueError("a weather snapshot is already being built")
                 try:
-                    captures, outcomes, protected = self.server.jobs.weather_inputs(
-                        value.get("partition_id"), value.get("outcome_partition_id")
-                    )
-                    snapshot = build_snapshot(
-                        self.server.jobs.root / "runs/weather-datasets",
-                        captures,
-                        outcome_roots=outcomes,
-                        protected_events=protected,
-                        frozen_anchor=anchor(self.server.jobs),
-                        selection=value or None,
-                    )
+                    if cohort:
+                        from entropytrade.weather.cohorts import build_cohort
+
+                        snapshot = build_cohort(
+                            self.server.jobs,
+                            value.get("partition_ids"),
+                            value.get("outcome_partition_ids"),
+                        )
+                    else:
+                        captures, outcomes, protected = self.server.jobs.weather_inputs(
+                            value.get("partition_id"), value.get("outcome_partition_id")
+                        )
+                        snapshot = build_snapshot(
+                            self.server.jobs.root / "runs/weather-datasets",
+                            captures,
+                            outcome_roots=outcomes,
+                            protected_events=protected,
+                            frozen_anchor=anchor(self.server.jobs),
+                            selection=value or None,
+                        )
                     self.document(
                         201,
                         {

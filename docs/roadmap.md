@@ -9,28 +9,35 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone extends the retained workflow into sustained shadow history →
-reproducible experiment inputs. Browser selection enumerates all completed receipts in
-bounded partitions, with separate later-outcome selection. Exact shadow clocks, verified
-sized books, source/prediction/fee versions and subsequent binary labels enter immutable
-snapshots and protected downloads. Replay consistency and causal source binding are checked
-independently. The global calendar anchor, model protections and frozen validation dates
-cannot shift with page selection. Missing labels, stale depth and uncertified fees refuse
-execution. See the [guide](shadow-history.md) and [current evidence](../data/shadow-history-review/20261030/README.md).
+The current milestone builds reproducible research cohorts across multiple retained
+history partitions. The browser selects up to eight history partitions and optional later
+outcome partitions, freezes bounded immutable batches, rebuilds shared point-in-time
+features and runs the existing research/model/experiment workflow. Batches remain at most
+128 inputs, with the existing 256 MB aggregate raw-input budget. Global anchoring, original
+clocks, independent-event counts and inherited source/model/holdout protections persist.
+Interrupted assembly reuses completed batches; offline restore preserves identities and
+downloads. Missing labels, stale depth and uncertified fees remain explicit refusals.
+See the [guide](shadow-history.md) and [current evidence](../data/research-cohort-review/20261030/README.md).
 
-The 130-cycle CONTROLLED lifecycle, restart and offline restore regression is distinct from
-authentic insufficient-data evidence. This environment denies the one managed-Chromium
-launch before page interaction; the failure trace and executable two-procedure acceptance
-harness remain for supervisor/human execution. Listener/unit checks do not substitute for
-browser acceptance. Final quality passes 1,073 pytest tests, Ruff/format, strict mypy
-and 21 named frontend assertions. V1 is incomplete. No fresh clean-install or empirical return is claimed.
+CONTROLLED cohorts with 130 captures and 200 city/day events on 100 dates exercise
+deterministic fitting, calibration and evaluation while excluding 20 holdout events.
+The two previously outstanding sustained-shadow Playwright procedures now pass in the
+normally approved environment. A third procedure passes cohort selection, ordinary worker
+research, probabilities, all result tabs, downloads and restore. Screenshots and matching
+download hashes are retained; no browser/security policy was changed. Authentic receipts
+still yield four events on two dates and no source-matched scalar highs. The controlled
+fit is software evidence. V1 is incomplete; no fresh clean-install or empirical return is claimed.
+
+Final quality passes 1,083 pytest tests in 563.76s, Ruff lint/format, strict mypy,
+21 frontend assertions and all three actual Chromium procedures. Source and original
+receipt hashes match the evidence freeze. Independent acceptance remains with the supervisor.
 
 Continue authentic forward collection while independent functionality progresses. Preserve
 Bitcoin's frozen boundaries; do not select another family without user approval. External
 provider verification waits for separately authorized credentials. Return this substantial
-milestone to the supervisor; its next review should execute the outstanding browser
-acceptance in a permitted environment and assess the final quality evidence before choosing
-another phase. Final V1 acceptance still requires sufficient authentic fitting/validation,
+milestone to the supervisor; its next review should independently inspect the executed
+browser and final quality evidence before choosing another phase. Final V1 acceptance
+still requires sufficient authentic fitting/validation,
 certified effective fees, empirical two-family evidence and independent release review.
 
 ### Prior provider and operating milestones

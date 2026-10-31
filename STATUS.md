@@ -3,7 +3,51 @@
 Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: sustained shadow history to backtest inputs
+## Current milestone: reproducible research cohorts across retained partitions
+
+Implemented in place on designated `supervisor/20261030-202711` from `69e2740`.
+All Git operations and independent acceptance belong to the supervisor. **V1 remains
+incomplete.** No credentials, orders, live activation, risk changes or new family were used.
+
+The private website now selects up to eight history partitions and optional separate
+outcome partitions as one immutable research cohort. Each history batch retains the existing
+128-input limit; the aggregate retains the 256 MB raw-input budget. Completed immutable
+batches survive interrupted assembly. Cohort features are rebuilt together through the
+existing snapshot/R2/model/R4 pipeline, preserving causal history across batch boundaries.
+Calendar boundaries and workspace/source/model protections remain shared and frozen.
+Repeated captures count as independent city/day events only once. Stale/unknown selections,
+malformed requests, missing labels and protected model partitions fail closed.
+
+The CONTROLLED sufficient-data fixture spans 130 captures, two partitions, 200 city/day
+events on 100 dates, and 20 protected events. It exercises deterministic fitting, Platt
+calibration and validation predictions without evaluating holdout. Predictions reproduce
+byte-for-byte in an independent modeling output. Interruption between batches, offline
+restore, protected label/bias exclusion and missing-label refusal are tested. Authentic
+original receipts still yield four events on two dates and zero source-matched scalar
+highs; no empirical accuracy, backtest returns or profitability is established.
+
+Both formerly outstanding shadow-history Playwright procedures have executed successfully
+using repository-managed Chromium and real localhost listeners in the normally approved
+environment. The new sufficient-data cohort procedure also passes page selection, ordinary
+research, all result tabs, downloads and offline restore with identical reopened downloads.
+Existing missing-depth/fee gates refuse trading backtests despite fitted controlled
+probabilities. No sandbox policy, launch flags or test assertions were weakened.
+
+Final verification passes **1,083 pytest tests in 563.76s**, Ruff lint/format (522 files),
+strict mypy (519 files), all 21 named frontend assertions and all three real Chromium
+procedures (18 screenshots, 18 matching downloads, zero page errors). All 544 frozen
+source/configuration files and 68 original authentic receipt files remain unchanged.
+
+See [milestone evidence](data/research-cohort-review/20261030/README.md) and the
+[operating guide](docs/shadow-history.md) for final quality results and retained browser
+artifacts. This uses the existing installation; no new clean-install or V1 release pass
+is claimed. Return this milestone for supervisor review before another major phase.
+Continue authentic forward collection, preserve Bitcoin's frozen boundaries, defer
+new-family selection pending user approval and external provider checking pending
+separately authorized credentials. Sufficient authentic labels, certified effective fees,
+empirical two-family evidence and independent release acceptance remain open.
+
+## Previous milestone: sustained shadow history to backtest inputs
 
 Implemented on the designated `supervisor/20261030-194338` checkout from `8eab397`.
 The supervisor owns every Git operation and independent acceptance. No credentials,

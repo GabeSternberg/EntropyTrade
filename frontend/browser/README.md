@@ -149,11 +149,14 @@ See [current evidence](../../data/provider-review/20261029/README.md) for execut
 retained failed attempts and any remaining external/human acceptance steps.
 
 
-`shadow-history.spec.cjs` has separate CONTROLLED 130-cycle and authentic-insufficiency
-procedures. It selects capture/outcome partitions through the page, runs ordinary research,
-inspects all tabs, downloads review/report/shadow inputs and compares downloads after offline
-restore. See [the guide](../../docs/shadow-history.md). Current managed Chromium installation
-succeeds, but the one launch failed with `setsockopt: Operation not permitted` at
-`crashpad/util/linux/socket.cc:45` (SIGTRAP), before page interaction. No new browser pass or
-screenshots are claimed. Run both procedures once in a permitted environment with fresh
-evidence/workspace paths; do not substitute HTTP/DOM checks for browser acceptance.
+`shadow-history.spec.cjs` has CONTROLLED 130-cycle, authentic-insufficiency and CONTROLLED
+sufficient-data research-cohort procedures. It selects single or multiple history/outcome
+partitions through the page, runs ordinary research, inspects all tabs, downloads
+review/report/shadow inputs and compares downloads after offline restore. Select all three
+with `--grep 'sustained shadow history|research cohort'`. See
+[the guide](../../docs/shadow-history.md) and [executed evidence](../../data/research-cohort-review/20261030/README.md).
+All three now execute using managed Chromium and real localhost listeners through normal
+supported approval. The prior sandbox-denied launch remains historical evidence; its
+policy/launch flags were not changed. Controlled fits never establish empirical results;
+authentic fitting remains insufficient. Run with fresh evidence/workspace paths and retain
+screenshots/download hashes; HTTP/DOM checks do not replace browser acceptance.
