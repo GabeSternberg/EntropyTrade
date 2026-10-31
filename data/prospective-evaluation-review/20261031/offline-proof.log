@@ -1,0 +1,54 @@
+[
+  {
+    "kind": "synthetic",
+    "report_hash": "sha256:be7273a0f4f7e964953b2a2847d8a607fe8faab96399c9d067e71509342f01c1",
+    "counts": {
+      "pending": 1,
+      "refused": 1,
+      "matched": 11,
+      "contracts": 13,
+      "poll_observations": 39,
+      "independent_events": 12,
+      "independent_dates": 12,
+      "matched_events": 10,
+      "matched_dates": 10,
+      "excluded_protected_events": 0,
+      "protected_boundary_events": 1
+    },
+    "workspace": "data/cache/prospective-proof-20261031-synthetic",
+    "archive": "data/cache/prospective-proof-20261031-synthetic.zip",
+    "archive_sha256": "sha256:3524948a771a27ff0e8d8b53619f94ef6e4d29286d481714d1bbc1c830aa2c23",
+    "restored_workspace": "data/cache/prospective-proof-20261031-synthetic-restored",
+    "cycle_files_unchanged": 23,
+    "restart_identical": true,
+    "offline_report_identical": true,
+    "offline_csv_identical": true,
+    "browser_executed": false
+  },
+  {
+    "kind": "authentic",
+    "report_hash": "sha256:efedb90664e35729eea8a4eecb77bbaaef7b63a0ee48936cf7b113b00e2d842b",
+    "counts": {
+      "pending": 0,
+      "refused": 24,
+      "matched": 0,
+      "contracts": 24,
+      "poll_observations": 48,
+      "independent_events": 4,
+      "independent_dates": 2,
+      "matched_events": 0,
+      "matched_dates": 0,
+      "excluded_protected_events": 0,
+      "protected_boundary_events": 0
+    },
+    "workspace": "data/cache/prospective-proof-20261031-authentic",
+    "archive": "data/cache/prospective-proof-20261031-authentic.zip",
+    "archive_sha256": "sha256:5d826d1ab715b5fd8d6a47dc26404570c3ce82ef598366e79ca756b9bd97eb55",
+    "restored_workspace": "data/cache/prospective-proof-20261031-authentic-restored",
+    "cycle_files_unchanged": 68,
+    "restart_identical": true,
+    "offline_report_identical": true,
+    "offline_csv_identical": true,
+    "browser_executed": false
+  }
+]

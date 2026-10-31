@@ -3,7 +3,52 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: bounded immutable label partitions
+## Current milestone: prospective shadow-evaluation reports
+
+Implemented in place on designated `supervisor/20261031-081845` from `a83b9db`.
+All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**
+
+The private website now projects retained shadow forecasts and later official binary outcomes
+into pending, refused and matched observations, with JSON/CSV exports, source/model lineage,
+independent event/date counts and descriptive forecast diagnostics when evidence permits.
+Reports verify committed cycle digests, raw source/contract bindings, frozen model scoring,
+original availability clocks and protected exclusions. Repeated polls cannot increase independent
+counts or replace the earliest pre-close observation. Diagnostic groups keep real/synthetic data
+and model versions separate; event-weighted Brier/log loss and reliability bins require ten
+matched events on five dates. Trading depth/fee/risk refusals stay separate from forecast quality.
+
+Bounded outcome collection now revisits finalized contracts as well as unresolved ones. Reports
+use the latest verified receipt at their cutoff and retain revisions/refusals; original decisions,
+first accounting settlements and frozen validation boundaries remain intact. Restart and offline
+snapshot/restore reproduce reports and CSV bytes. Controlled scored examples are explicitly
+synthetic; the authentic retained path still has no usable forecast metrics or empirical returns.
+
+Browser acceptance is **outstanding**. Supported managed-Chromium installation succeeded, but
+the first launch failed at `crashpad/util/linux/socket.cc:45` with `setsockopt: Operation not
+permitted` and SIGTRAP; the real-listener test separately failed creating its socket with
+`PermissionError: [Errno 1]`. No denied browser launch is repeated and no mock is claimed as
+browser acceptance. The executable two-procedure harness covers actual page inspection,
+JSON/CSV downloads, listener restart and offline restore in a socket-permitted environment.
+Quality results and exact limitations are retained in
+[current evidence](data/prospective-evaluation-review/20261031/README.md).
+See [operator workflow](docs/prospective-evaluation.md).
+
+Repository Ruff/format, strict mypy (556 files), 24 frontend and 28 focused pytest cases
+pass. Offline reports/CSVs reproduce with 23 synthetic and 68 authentic cycle files unchanged;
+all 73 original receipt/Bitcoin boundary hashes remain unchanged. The bounded all-file run
+attempts 241 files in 477.06s: 217 pass, 12 fail and 12 exceed deadlines. Failures include
+eleven denied localhost cases, two unresolved label-worker shutdown cases and a native
+SIGSEGV in shadow-history testing. The complete-suite gate remains open; see exact logs
+and the isolated crash follow-up in current evidence. All 14 shadow-history tests pass in
+the isolated serial follow-up (71.20s); the prior native-crash cause remains unestablished.
+No full-suite or browser pass is claimed.
+
+Continue authentic forward collection while independent V1 functionality remains usable.
+New-family implementation requires user approval; credential-dependent verification and real
+trading remain deferred. No credentials, live execution, real orders, risk-limit changes,
+Git mutations or supervisor-control changes are included. Return this single milestone for review.
+
+## Previous milestone: bounded immutable label partitions
 
 Implemented in place on designated `supervisor/20261031-073225` from `b62f9c6`. All Git
 operations and independent approval remain with the supervisor. **V1 remains incomplete.**

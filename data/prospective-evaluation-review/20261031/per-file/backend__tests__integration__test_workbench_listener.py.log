@@ -1,0 +1,138 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_listener_to_real_worker_review_and_downloads_survive_restart[recorded] __
+
+workspace = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/workbench-listener-dyi5hn0z')
+mode = 'recorded'
+
+    @pytest.mark.parametrize("mode", ["recorded", "synthetic"])
+    def test_listener_to_real_worker_review_and_downloads_survive_restart(
+        workspace: Path, mode: str
+    ) -> None:
+>       with listening(workspace) as (server, client):
+
+backend/tests/integration/test_workbench_listener.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:51: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+_ test_listener_to_real_worker_review_and_downloads_survive_restart[synthetic] _
+
+workspace = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/workbench-listener-1gvu765y')
+mode = 'synthetic'
+
+    @pytest.mark.parametrize("mode", ["recorded", "synthetic"])
+    def test_listener_to_real_worker_review_and_downloads_survive_restart(
+        workspace: Path, mode: str
+    ) -> None:
+>       with listening(workspace) as (server, client):
+
+backend/tests/integration/test_workbench_listener.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:51: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+_____________ test_listener_cancellation_lock_and_restart_history ______________
+
+workspace = PosixPath('/home/gabriel/Projects/EntropyTrade/data/cache/workbench-listener-yz4xsmzn')
+
+    def test_listener_cancellation_lock_and_restart_history(workspace: Path) -> None:
+>       with listening(workspace, workers=False) as (server, client):
+
+backend/tests/integration/test_workbench_listener.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:51: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_to_real_worker_review_and_downloads_survive_restart[recorded]
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_to_real_worker_review_and_downloads_survive_restart[synthetic]
+FAILED backend/tests/integration/test_workbench_listener.py::test_listener_cancellation_lock_and_restart_history
+3 failed in 1.24s

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="27" time="31.507" timestamp="2026-10-31T08:37:26.445507-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_weather_labels" name="test_authentic_portal_high_preserves_unknown_publication_and_real_receipt" time="0.002" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[preliminary]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[isOfficial]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_station]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_report_station]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[timezone]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[date]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[response_date]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[missing]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[duplicate]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[float]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[bool]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[null]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[clock_naive]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[future]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[wrong_source]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_controlled_malformed_or_incompatible_labels_fail_closed[protected]" time="0.001" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_late_and_corrected_labels_never_retime_old_versions" time="0.002" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_restart_idempotency_receipt_replay_and_immutable_dataset" time="1.563" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_interrupted_partial_failure_and_holdout_refusal" time="1.423" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_request_scope_immutable_ids_and_untrusted_url_denied" time="0.466" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_network_failure_redirect_and_byte_budget_are_durable_refusals[redirect]" time="0.591" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_network_failure_redirect_and_byte_budget_are_durable_refusals[oversize]" time="0.808" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_network_failure_redirect_and_byte_budget_are_durable_refusals[unavailable]" time="0.495" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_shutdown_cancels_active_network_and_preserves_prior_receipts" time="20.458"><failure message="RuntimeError: weather acquisition did not stop; workspace lease retained">setup = (PosixPath('/tmp/pytest-of-gabriel/pytest-239/test_shutdown_cancels_active_n0/workspace'), {'schema': 'retained-weathe...0f0407c02acf49efe1d323358ac1b195faf', ...}, &lt;entropytrade.weather.label_service.LabelService object at 0x7fdfc4346f30&gt;)
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fdfe36dc800&gt;
+
+    def test_shutdown_cancels_active_network_and_preserves_prior_receipts(
+        setup: tuple[Path, dict[str, Any], LabelService], monkeypatch: pytest.MonkeyPatch
+    ) -&gt; None:
+        import threading
+    
+        _, snapshot, service = setup
+        request = service.create({"id": str(uuid4()), "dataset_id": snapshot["dataset_id"][7:]})
+        arrived = threading.Event()
+        original = service.acquire
+    
+        async def stalled(req: httpx.Request) -&gt; httpx.Response:
+            arrived.set()
+            await asyncio.Event().wait()
+            raise AssertionError("unreachable")
+    
+        async def controlled(
+            saved: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -&gt; None:
+            await original(saved, httpx.MockTransport(stalled))
+    
+        monkeypatch.setattr(service, "acquire", controlled)
+        service.thread.start()
+        try:
+            assert arrived.wait(10)
+        finally:
+&gt;           service.close()
+
+backend/tests/unit/test_weather_labels.py:361: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;entropytrade.weather.label_service.LabelService object at 0x7fdfc4346f30&gt;
+
+    def close(self) -&gt; None:
+        self.stop.set()
+        with self.lock:
+            if self.active_loop and self.active_task:
+                self.cancel_requested = True
+                self.active_loop.call_soon_threadsafe(self.active_task.cancel)
+        if self.thread.is_alive():
+            self.thread.join(timeout=20)
+            if self.thread.is_alive():
+&gt;               raise RuntimeError("weather acquisition did not stop; workspace lease retained")
+E               RuntimeError: weather acquisition did not stop; workspace lease retained
+
+backend/src/entropytrade/weather/label_service.py:401: RuntimeError</failure></testcase><testcase classname="backend.tests.unit.test_weather_labels" name="test_corrected_batch_uses_latest_known_revision_and_replays_original_bytes" time="1.229" /><testcase classname="backend.tests.unit.test_weather_labels" name="test_wrong_rule_batch_is_refused_and_symlink_store_is_denied" time="1.123" /></testsuite></testsuites>

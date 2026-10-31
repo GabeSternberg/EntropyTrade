@@ -1,5 +1,14 @@
 # Real workbench browser acceptance
 
+For prospective forecast reports select `prospective.spec.cjs` using fresh absolute evidence
+and workspace paths. Its two procedures inspect explicitly synthetic diagnostics and authentic
+insufficiency through real localhost pages, download JSON/CSV, restart and restore offline with
+byte comparisons and screenshots. See [operation](../../docs/prospective-evaluation.md) and
+[current evidence](../../data/prospective-evaluation-review/20261031/README.md). The current
+restricted runtime denies Chromium socket setup; installation/discovery passed, browser
+interaction/download acceptance remains outstanding. Do not repeat the denied launch or
+substitute DOM/HTTP checks as a browser pass.
+
 For the local-operation/recovery milestone, use the [one-command fresh-install driver](../../docs/local-recovery.md)
 or select `--grep 'local operation and recovery'` with new evidence/workspace paths.
 `recovery.spec.cjs` performs actual research/results, paused and active shadow lifecycle,

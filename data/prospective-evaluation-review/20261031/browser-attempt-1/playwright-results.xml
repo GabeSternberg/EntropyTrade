@@ -1,0 +1,46 @@
+<testsuites id="" name="" tests="2" failures="1" skipped="1" errors="0" time="0.641848">
+<testsuite name="prospective.spec.cjs" timestamp="2026-10-31T12:25:06.949Z" hostname="" tests="2" failures="1" skipped="1" time="0.002" errors="0">
+<testcase name="prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" classname="prospective.spec.cjs" time="0.002">
+<failure message="prospective.spec.cjs:11:3 prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" type="FAILURE">
+<![CDATA[  prospective.spec.cjs:11:3 › prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ERF8fP --remote-debugging-pipe --no-startup-window
+    <launched> pid=29
+    [pid=29][err] [29:29:1031/082507.491357:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-ERF8fP --remote-debugging-pipe --no-startup-window
+      - <launched> pid=29
+      - [pid=29][err] [29:29:1031/082507.491357:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=29] <gracefully close start>
+      - [pid=29] <kill>
+      - [pid=29] <will force kill>
+      - [pid=29] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=29] starting temporary directories cleanup
+      - [pid=29] finished temporary directories cleanup
+      - [pid=29] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore" classname="prospective.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

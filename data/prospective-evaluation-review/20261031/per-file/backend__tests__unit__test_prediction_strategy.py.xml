@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.725" timestamp="2026-10-31T08:34:52.370493-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_prediction_strategy" name="test_cli_aligned_has_no_stored_spec" time="1.252" /></testsuite></testsuites>

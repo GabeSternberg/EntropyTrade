@@ -1,0 +1,27 @@
+{
+  "focused": {
+    "tests": 28,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "serial_shadow_history_cases": 14,
+  "frontend_passed": 24,
+  "mypy_files": 556,
+  "original_and_boundary_hashes_unchanged": 73,
+  "browser_passed": false,
+  "browser_permission_denied": true,
+  "all_test_files_attempted": 241,
+  "file_passes": 217,
+  "bounded_seconds": 477.06,
+  "full_suite_pass": false,
+  "complete": false,
+  "outstanding": [
+    "Actual localhost listener test",
+    "Both real Chromium procedures with downloads/screenshots",
+    "Complete suite in a socket-permitted runtime; investigate shutdown/native failures if repeated",
+    "Independent supervisor review"
+  ],
+  "retained_files": 517,
+  "retained_bytes": 827920
+}

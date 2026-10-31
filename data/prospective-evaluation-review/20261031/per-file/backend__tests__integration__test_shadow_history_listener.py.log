@@ -1,0 +1,85 @@
+Timeout (0:00:30)!
+Thread 0x000070bcc2243080 (most recent call first):
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/api/jobs.py", line 124 in connect
+  File "/usr/lib/python3.12/contextlib.py", line 144 in __exit__
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/tracking/store.py", line 275 in finish
+  File "/home/gabriel/Projects/EntropyTrade/backend/tests/integration/shadow_history_fixture.py", line 125 in seed_sustained
+  File "/home/gabriel/Projects/EntropyTrade/backend/tests/integration/test_shadow_history_listener.py", line 17 in test_sustained_partition_research_downloads_and_offline_listener_restore
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/python.py", line 167 in pytest_pyfunc_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1707 in runtest
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 184 in pytest_runtest_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 250 in <lambda>
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 361 in from_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 249 in call_and_report
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 139 in runtestprotocol
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 118 in pytest_runtest_protocol
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 408 in pytest_runtestloop
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 384 in _main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 330 in wrap_session
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 377 in pytest_cmdline_main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 229 in _main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 253 in _console_main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/bin/pytest", line 10 in <module>
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_sustained_partition_research_downloads_and_offline_listener_restore ___
+
+    def test_sustained_partition_research_downloads_and_offline_listener_restore() -> None:
+        with TemporaryDirectory(prefix="shadow-history-http-", dir=REPO / "data/cache") as name:
+            parent = Path(name)
+            root = parent / "workspace"
+            seed_sustained(root)
+>           with listening(root) as (server, client):
+
+backend/tests/integration/test_shadow_history_listener.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:51: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_shadow_history_listener.py::test_sustained_partition_research_downloads_and_offline_listener_restore
+1 failed in 38.49s

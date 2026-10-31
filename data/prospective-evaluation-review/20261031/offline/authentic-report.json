@@ -1,0 +1,1016 @@
+{
+  "as_of": "2026-10-29T16:35:47.702914+00:00",
+  "counts": {
+    "contracts": 24,
+    "excluded_protected_events": 0,
+    "independent_dates": 2,
+    "independent_events": 4,
+    "matched": 0,
+    "matched_dates": 0,
+    "matched_events": 0,
+    "pending": 0,
+    "poll_observations": 48,
+    "protected_boundary_events": 0,
+    "refused": 24
+  },
+  "cycle_failures": [],
+  "cycle_statuses": {
+    "completed": 2
+  },
+  "diagnostics": [],
+  "evidence": [
+    {
+      "cycle_id": "899e8965-3624-4c00-9e08-ddce012a0d41",
+      "digest": "sha256:9ae68b0d5c13ad9e91579b35a4fceabd72a98a3470536ae430ecf2c58cca6f6a"
+    },
+    {
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0"
+    }
+  ],
+  "historical_validation": false,
+  "limitations": [
+    "Prospective monitoring only; never historical validation, simulated trading accounting or evidence of profitability. No fitting, promotion or orders.",
+    "One earliest retained pre-close observation per contract; later polls cannot replace a missing/refused forecast or increase independent counts. Strikes share event weight.",
+    "Latest verified official binary receipt at the cutoff is used. Revisions are visible; original predictions, receipts, first accounting settlements and holdouts stay unchanged.",
+    "Diagnostics require ten matched events on five target dates per model/data group. These are descriptive diagnostics, without confidence or significance claims.",
+    "Offline verification establishes retained lineage and computation, not external source truth. Synthetic examples establish software behavior only."
+  ],
+  "monitor_id": "a10a7966-8213-40a2-8f2e-460d7385c0a7",
+  "observations": [
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-B68.5"
+    },
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-B70.5"
+    },
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-B72.5"
+    },
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-B74.5"
+    },
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-T68"
+    },
+    {
+      "close_time": "2026-10-30T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT29",
+      "feature_hash": "sha256:360ba662753f31bd97a1325b35d93508f313f22f365d816bb2f15c9423fcae0d",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHCHI-26OCT29-T75"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-B60.5"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-B62.5"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-B64.5"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-B66.5"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-T60"
+    },
+    {
+      "close_time": "2026-10-31T06:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHCHI-26OCT30",
+      "feature_hash": "sha256:c9fa120e8d91324859b55dc26c9883f862fb60af724fef6f183f1b7a2e9d840a",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHCHI-26OCT30-T67"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-B69.5"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-B71.5"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-B73.5"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-B75.5"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-T69"
+    },
+    {
+      "close_time": "2026-10-30T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT29",
+      "feature_hash": "sha256:eb6848467d4d7f4abf8cef8f8bf45bf199f27919e866b4342089935d0f2f6fa1",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-29",
+      "ticker": "KXHIGHPHIL-26OCT29-T76"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-B71.5"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-B73.5"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-B75.5"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-B77.5"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-T71"
+    },
+    {
+      "close_time": "2026-10-31T05:00:00+00:00",
+      "cycle_digest": "sha256:722343c383abddf237987eedb687b067ca1b1cb4429b24a97e6c447a08f42ed0",
+      "cycle_id": "fce6d487-7b1c-4c31-88e2-f512df8ad285",
+      "data_kind": "real",
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:38.130853+00:00",
+      "event_id": "KXHIGHPHIL-26OCT30",
+      "feature_hash": "sha256:16e755258b82f2b75ef0efed4378276cd61b1a1e4dbc063710bde0d0259332f5",
+      "feature_version": "sha256:dc9ec134050165273cfa0fb9daa8192c47340afa03fec8c4cc3761d0ab5d3fc7",
+      "features_available_at": "2026-10-29T16:35:37.734441+00:00",
+      "model_refusals": {
+        "model": "No frozen fitted model for this candidate; collection cannot fit or promote it"
+      },
+      "outcome": null,
+      "outcome_history": [],
+      "outcome_revisions": 0,
+      "poll_observations": 2,
+      "prediction": null,
+      "reason": "missing_or_ambiguous_prediction",
+      "shadow_decision": {
+        "reasons": [
+          "point_in_time_prediction",
+          "sized_book",
+          "certified_fees"
+        ],
+        "status": "blocked"
+      },
+      "source_versions": {
+        "forecast_high_f": "1",
+        "hours_to_close": "1"
+      },
+      "sources": [
+        "kalshi",
+        "nws",
+        "open-meteo"
+      ],
+      "status": "refused",
+      "target_date": "2026-10-30",
+      "ticker": "KXHIGHPHIL-26OCT30-T78"
+    }
+  ],
+  "performance": null,
+  "policy": {
+    "minimum_matched_dates": 5,
+    "minimum_matched_events": 10,
+    "selection": "earliest_retained_preclose_observation_per_contract",
+    "weighting": "equal_event_weight_with_equal_contract_weight_within_event"
+  },
+  "report_hash": "sha256:efedb90664e35729eea8a4eecb77bbaaef7b63a0ee48936cf7b113b00e2d842b",
+  "schema": "prospective-shadow-evaluation-v1",
+  "spec_hash": "sha256:de312642e6b3041b3b0055cf6a09f0776820c7fd1ba6d0fdc26f5835a74f2585",
+  "status": "insufficient",
+  "submission_enabled": false
+}

@@ -1,0 +1,12 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="2" errors="0" time="0.02276400000000001">
+<testsuite name="prospective.spec.cjs" timestamp="2026-10-31T12:28:19.408Z" hostname="" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" classname="prospective.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore" classname="prospective.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

@@ -262,6 +262,21 @@ class Handler(BaseHTTPRequestHandler):
             )
         elif path.startswith("/api/monitors/"):
             route = self.monitor_route()
+            if route and route[1] in {"evaluation", "evaluation.csv"}:
+                from entropytrade.tracking.prospective import csv_report, report
+
+                try:
+                    evaluation = report(self.server.jobs, route[0])
+                    if route[1] == "evaluation.csv":
+                        self.send(200, csv_report(evaluation).encode(), "text/csv; charset=utf-8")
+                    else:
+                        self.document(200, evaluation)
+                except (ValueError, KeyError, OSError, TypeError):
+                    self.document(
+                        409,
+                        {"error": "Prospective evidence verification failed; inspect workspace"},
+                    )
+                return
             try:
                 monitor = (
                     self.server.tracking.get(route[0], export=route[1] == "export")

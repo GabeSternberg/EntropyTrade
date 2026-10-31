@@ -1,0 +1,2587 @@
+[
+  {
+    "path": "data/prospective-evaluation-review/20261031/README.md",
+    "sha256": "sha256:10e3c211c0f3d2a5ee4064aadb5654258199c2999195a64fb4134e9c1883f023",
+    "bytes": 8923
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/bounded-suite.log",
+    "sha256": "sha256:2a38f8657ef4ca8ef7a1a4774e2c7d5445483dff906ec2a15e95cf888b2bdcfe",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-artifacts/.last-run.json",
+    "sha256": "sha256:1b5c3b68db9b11809dbc11e62b2e2f6f25d556f0276c05372f697a5b064120d3",
+    "bytes": 96
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip",
+    "sha256": "sha256:3f97e8066c747f0f64a082daf41916afd33c7fd5ae8c53820b67cfc1afa0a2cd",
+    "bytes": 2439
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-results.json",
+    "sha256": "sha256:d17c3cea739f2b416c6b38717a1983541fc3a3f0cf5f583b3aeb31691cdcd9b8",
+    "bytes": 16914
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/browser-attempt-1/playwright-results.xml",
+    "sha256": "sha256:c30156f585280a8ca455d827dba1db280f5681e3b3e1ba86f89354e78e03784d",
+    "bytes": 5851
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/browser-attempt-1.log",
+    "sha256": "sha256:1f28d3abbf622b48d1b87a1cc528a20e841192a743f4e83cc4c31186255481c8",
+    "bytes": 5651
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/chromium-install.log",
+    "sha256": "sha256:0116f6818c569a775fe0ab61d9a699c59407bcbe458fa6e7ee554fd9fae4fbec",
+    "bytes": 89
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused-attempt-1.log",
+    "sha256": "sha256:585f6e477513a0e588367013dd17539583892a4efb52a5794d515cca47b0faeb",
+    "bytes": 2483
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused-attempt-2.log",
+    "sha256": "sha256:f8cdf88d784ebb895233a74fa09fb79d8d6ae4f96f47a4208fbe7ec51a42992e",
+    "bytes": 983
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused-final-2.log",
+    "sha256": "sha256:86ef190cec4bd17607eb4f32a6fc8d58bf97f34ada8b3497910a3742d4605e64",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused-final.log",
+    "sha256": "sha256:4ec8a717206cc6e509a5714a66e4b84ce53b821f891df2239e393f77509035ae",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused-final.xml",
+    "sha256": "sha256:5d30c9f0e676d4f508824c8cfc6f4101c3bae2daea879430c46dc5e4c1881a49",
+    "bytes": 4501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused.log",
+    "sha256": "sha256:55487b42bfa516f4be001bcf098460a5b9c974e0234c3bee25c7540c5d0f2e1f",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/focused.xml",
+    "sha256": "sha256:e88ce3bc2a2bad3079ebbb159c045c27774eb9b95dd90deec6560d593ba27645",
+    "bytes": 4501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/frontend-direct.log",
+    "sha256": "sha256:2e4c44fd256324e431d610adfeb07d72dc3092229029b179499dc07db078a541",
+    "bytes": 4574
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/frontend-final.log",
+    "sha256": "sha256:e9b0b463e7adecc3e7e30287e417ee3fc59f0fd8b4b7da6f57ae7f51ee6b8ba9",
+    "bytes": 4973
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/frontend-tests.log",
+    "sha256": "sha256:e05cdc42a56b0af1e75590cf6a4e815d459f1d431e5d0fc99e9dc0817192f39c",
+    "bytes": 260
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-discovery/playwright-results.json",
+    "sha256": "sha256:2ba9c0716c39d93f180c18839eed835220f07b8574d368ae6043433b646beb48",
+    "bytes": 3695
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-discovery/playwright-results.xml",
+    "sha256": "sha256:5e052c3c5bc5085dd75ecde8a1ba2a77b682b4a7cf7e59c27372ccb165d92020",
+    "bytes": 659
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-discovery.log",
+    "sha256": "sha256:107240ff631e8bb8a63f9a2fb23ae3167df562718667d17be4cd64afafa6c707",
+    "bytes": 307
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-final-discovery/playwright-results.json",
+    "sha256": "sha256:de9de5ce1f7eab73860c3c08dd5a0c13e32ea9eea02a5ed79a09c3feaf048f99",
+    "bytes": 3713
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-final-discovery/playwright-results.xml",
+    "sha256": "sha256:7a12d274f9b0401236d13b30a261f0ec76780d25898edcb5491da88a69256cb6",
+    "bytes": 659
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/harness-final-discovery.log",
+    "sha256": "sha256:107240ff631e8bb8a63f9a2fb23ae3167df562718667d17be4cd64afafa6c707",
+    "bytes": 307
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/mypy.log",
+    "sha256": "sha256:64078d8034a4cdad592072133b8946d0ac5298976bdc85f17fcba0077c6c00ad",
+    "bytes": 45
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/authentic-observations.csv",
+    "sha256": "sha256:ad52c35e25d5c429f5d108398dda0e783a64cffe46846cc1bc84f4d2b281943b",
+    "bytes": 6038
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/authentic-report.json",
+    "sha256": "sha256:2bec89aad42506447a737e0d90bdc83f7c00228cf06e7a89ff32b19fd6267544",
+    "bytes": 37823
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/authentic-source-hashes.json",
+    "sha256": "sha256:38e48a58e69a658a0d0685d7515818eabd95fea90e3ad79028b3707c9150c2ff",
+    "bytes": 20264
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/receipt.json",
+    "sha256": "sha256:139716cc6dcfc4c6084962bf75105e4a3e38cfd291a8aa1322d790eb40eda5b8",
+    "bytes": 1892
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/synthetic-observations.csv",
+    "sha256": "sha256:a504b97d4a3f9b6f4d09d33db39f9587eba59334a14c063c2d5df4fe4a18adc6",
+    "bytes": 3240
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/synthetic-report.json",
+    "sha256": "sha256:6d77883f94d1484fe9bd349f22be56db3af869a77e7dbf508a012abc2acf5282",
+    "bytes": 41161
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline/synthetic-source-hashes.json",
+    "sha256": "sha256:bf0df513ae85d4ff147adc469508c2047c686bd41930b0dbf2716ca4989d32ff",
+    "bytes": 6689
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline-proof.log",
+    "sha256": "sha256:74e1851f877c1f8b0ca04baec680383657bce3cd5aef93bfc0a804e2b14fc03f",
+    "bytes": 1893
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/offline_proof.py",
+    "sha256": "sha256:d1e05c97f42dd5ba1ab69db471cd90b80ec5256344549e5f1090ae82bfda082a",
+    "bytes": 2484
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__architecture__test_boundaries.py.log",
+    "sha256": "sha256:82a5d30a890be917c24adc4a91ca9bcfaf7a4017ba136230a81859188ed3a6dc",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__architecture__test_boundaries.py.xml",
+    "sha256": "sha256:45519cb326b00344c3c05170179cc9137cdaf8ab374a784dc28cf150b7d4e14c",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_collector_service.py.log",
+    "sha256": "sha256:ee5ccbf667c568cbc37b17d300c40d66d7092d45d81683ee6c8075f58156062a",
+    "bytes": 4664
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_feed_recorder.py.log",
+    "sha256": "sha256:8d9ab151b09bb8b1082e765d791634bcc032af26a975d72d40739f7e6dbaaf79",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_feed_recorder.py.xml",
+    "sha256": "sha256:0d0a30e923003cf1105e68e5663af87eaf1e738b1f58b1ee8ea4c4bc3b48c1a7",
+    "bytes": 1317
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_gateway_http.py.log",
+    "sha256": "sha256:bb63681308ee0a8f09944d44697576e990dd40adc8e3f35a01b922837ec1cddf",
+    "bytes": 4652
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_recording_v2.py.log",
+    "sha256": "sha256:451ed81d445e0c39f36e21e641330e30c78d4e25c03b95f11a8d6da162554ee0",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_recording_v2.py.xml",
+    "sha256": "sha256:d365646acc0aa02c434610a61dc687cc7014a2d8ce6fbe5cd5552099d2e13f4d",
+    "bytes": 2160
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_wire_session.py.log",
+    "sha256": "sha256:a65a2e135668904da5355e90568a4d7e06f5ac7b4e108ec7fe1b6ab82d6a1587",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__exchange__test_wire_session.py.xml",
+    "sha256": "sha256:6a78b84ac0f50860cd1533bb93b6fdb402bfd08539a1f42817099f182ba88946",
+    "bytes": 518
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_bitcoin_history_listener.py.log",
+    "sha256": "sha256:74775abc18250c6f6f1f1881dc1ffe2fc36eae7a089d5e09d418eb98b369cc93",
+    "bytes": 2353
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_bitcoin_history_listener.py.xml",
+    "sha256": "sha256:5c89adc27ea520e308f91d76dd2d1ab63ed3881aff6390011bbb149b373aa279",
+    "bytes": 2410
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_forward_validation_listener.py.log",
+    "sha256": "sha256:cfbde5c2dc281ef93b315d59f5ee9495682dc4ba22baf12fd64dceb82362229d",
+    "bytes": 3718
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_forward_validation_listener.py.xml",
+    "sha256": "sha256:53b2adb69eccbab892d25e434df20f5966c15e00845c5e6316e4f0b5f23ed468",
+    "bytes": 3787
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_prospective_listener.py.log",
+    "sha256": "sha256:81d0af6e89d8ea7afc0c12e1928ac986e541ce81865613950d79d3234a6e559e",
+    "bytes": 2472
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_prospective_listener.py.xml",
+    "sha256": "sha256:35dc3bca479b3d6def2f7f6f04e07ff0b808c23fc3b462cfc0d79b28410ba9b6",
+    "bytes": 2525
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_prospective_offline.py.log",
+    "sha256": "sha256:b9f6d7efd315ba10815d0b60526ef5488d44199802c09dea1558ddd6438cd861",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_prospective_offline.py.xml",
+    "sha256": "sha256:1d207ec202950bfb04e7d84d0e8e5537fe90df6baab9e5d69953342b39a949d3",
+    "bytes": 576
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_recovery_listener.py.log",
+    "sha256": "sha256:4220fe416b477ba97946ce326443c48066ba709428c998697bdec60b238e4607",
+    "bytes": 2815
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_recovery_listener.py.xml",
+    "sha256": "sha256:decd001ea5779d61fb631add16a6461c398253d51b0e4d35a520c288f2583733",
+    "bytes": 2871
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_accounting.py.log",
+    "sha256": "sha256:538f7736032dc6121f626d811a1df32271dadbf77eece233983f84ce253a3413",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_accounting.py.xml",
+    "sha256": "sha256:eba190e2857d6e0e59bc8ae851db64908000eb27493830ba29c8189acee6f197",
+    "bytes": 574
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_history_listener.py.log",
+    "sha256": "sha256:337d70344803f73aa85f29b080e418be7980374b30b15481e15d6af85d3a499f",
+    "bytes": 6744
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_history_listener.py.xml",
+    "sha256": "sha256:128cd5360f71d993074be6a4a991569a2a0f48031ba16a3b4d1d1ba0dd3f7e9a",
+    "bytes": 2470
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_tracking.py.log",
+    "sha256": "sha256:d116ee58b881f4bfd8e1d5b76a40b4cacb50882d35ff99e1fa659fce9342e5e9",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_shadow_tracking.py.xml",
+    "sha256": "sha256:01c62576b2d6efd87674fdffd04697e6b661713192f180ed64d19241669637dd",
+    "bytes": 738
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_cohorts_listener.py.log",
+    "sha256": "sha256:969778261c27a3fe869b4e2a3ee5315d913cec51c4fe97968afcfffda6b1098a",
+    "bytes": 2374
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_cohorts_listener.py.xml",
+    "sha256": "sha256:cb412fde2018d0703135b7f5db6bf800b73912c02637bd76257e34e75dbcdc1a",
+    "bytes": 2427
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_history_listener.py.log",
+    "sha256": "sha256:f2fb13f601a069bf026293eded8a35567ba840639783cc80590dfb457e0eac2b",
+    "bytes": 2416
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_history_listener.py.xml",
+    "sha256": "sha256:a3c29227fa612ba74a70162e882002fa8c14afbca76ce2ecc8a46bae3e886aac",
+    "bytes": 2469
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_labels_listener.py.log",
+    "sha256": "sha256:5b8e94b78a943a36088a33d602e4db85578fcbccfc6fd42fc3120d7a2f1d9571",
+    "bytes": 3266
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_weather_labels_listener.py.xml",
+    "sha256": "sha256:2f0d2cafd4bda3ad475975f885420ed95fb40b752ad071c0eefb6f09a6fefd45",
+    "bytes": 3335
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_workbench_listener.py.log",
+    "sha256": "sha256:2b75794d9728a198f97a8c0785133b7da76ff843569e39a5d755029571960b27",
+    "bytes": 6621
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_workbench_listener.py.xml",
+    "sha256": "sha256:d9bf224de013b37b5abf7e750a649e05adcf56ab73d08083df74198daa15147d",
+    "bytes": 6810
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_workbench_process.py.log",
+    "sha256": "sha256:c714a4df31c9763fa59e631eb6d6d76c7ed9bd3b8c48cae20e988218367983f9",
+    "bytes": 4891
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__integration__test_workbench_process.py.xml",
+    "sha256": "sha256:cab8b6539ba9719de2b3f8aba688082810cc8515501fce57a62e377f3496dc3b",
+    "bytes": 600
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__property__test_accounting.py.log",
+    "sha256": "sha256:8afafe9ad1b44247f833653a0d44ed1c6c99c905c5f43aa417a182803eb96c89",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__property__test_accounting.py.xml",
+    "sha256": "sha256:86941033bc27c4f819140eaa940379abfa9f5682bdd398fc0968cd761736fd58",
+    "bytes": 3084
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__property__test_invariants.py.log",
+    "sha256": "sha256:049d740807699b4e290189270656a88dd063fd71c15ac1b92d8b4f3bbfa8de46",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__property__test_invariants.py.xml",
+    "sha256": "sha256:24238084c4bbafa7d5a7c3eec03cef9c41e743cbb86ac68456dadd1dd6ce31ed",
+    "bytes": 6170
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_amsterdam_listing.py.log",
+    "sha256": "sha256:3be6ffcaecf85b5bd3eef3693ab214b0e7c9eb4e36d117fcf1825652de5eb298",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_amsterdam_listing.py.xml",
+    "sha256": "sha256:b9e42b9706f7ac7499cb9af54510c0ec2d01128df6013bfd5a3840df55a04d7b",
+    "bytes": 383
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ask_values.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ask_values.py.xml",
+    "sha256": "sha256:f354a387b3c66fc37b2f614dc0efd375b8ca6b6d82ef106222c1250cf2f6bf0a",
+    "bytes": 493
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_austin_rules.py.log",
+    "sha256": "sha256:180dd31566b9036fe9212a17926e097c1c5612bf9be82ab4bf455b2e47cd01ff",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_austin_rules.py.xml",
+    "sha256": "sha256:1fb4a4a4b7be28e7a4bbb7d6c480edd340815f29570e47795c49081a6915af70",
+    "bytes": 493
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_before_close.py.log",
+    "sha256": "sha256:3c8e81b55112cdcd16ed089d31e6c86f0f94c27fdedb7fbff6cf9f883e3de983",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_before_close.py.xml",
+    "sha256": "sha256:3c93d333e989b0e71438fd296d8c774204e2e1fc30dfde7d274fadb9be2a4483",
+    "bytes": 489
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_before_occurrence.py.log",
+    "sha256": "sha256:b834d154d8fc19fda76f00fad8fc11f1864ec2cdb75b2d532f7ca2baa05191a8",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_before_occurrence.py.xml",
+    "sha256": "sha256:570c4b85d043d9bccef19ebe4d08d2ca79b88d4203af85b7e9f09a54365755c0",
+    "bytes": 500
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_bid_values.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_bid_values.py.xml",
+    "sha256": "sha256:071735f5fd94f45c96c7a7544e47d585c43f620dfd668191a5f808207570869b",
+    "bytes": 493
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_bitcoin_history.py.log",
+    "sha256": "sha256:dde2bf169e19b890cdcb7200ba98a59f4fcfaa26c198f24d7977f83a90d95b01",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_bitcoin_history.py.xml",
+    "sha256": "sha256:75af470031b969c431286d0b5cafb76edc41497bfa2347ce6e2bddde5fcd168e",
+    "bytes": 3129
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_book_imbalance.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_book_imbalance.py.xml",
+    "sha256": "sha256:1b6f640e1ae5e4cd0a6c6b3a8bb7f39994b70a564e285458e80db83ed7135d5c",
+    "bytes": 497
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_calibration_gap.py.log",
+    "sha256": "sha256:f0a26259c64fcacbb2157c5d37928dbfa090dd0f8b1e463556c55ded9c4d0245",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_calibration_gap.py.xml",
+    "sha256": "sha256:ba6c8eb9fbd9ab5de581a05176f4c1537edc069f61dabb930722c8b1858beb97",
+    "bytes": 385
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_activity.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_activity.py.xml",
+    "sha256": "sha256:1e5bd30aa998ee1d1515859accde805e7909af01ede1aabb4656e647844a8e66",
+    "bytes": 506
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_change.py.log",
+    "sha256": "sha256:d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_change.py.xml",
+    "sha256": "sha256:702f16dee695a6b98797f2110921eec46d3cdb543e4e7266bbb013b3fed93c94",
+    "bytes": 520
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_price.py.log",
+    "sha256": "sha256:7d8791a9bb72e65283b3c0e607dd407e50bce3050f811bc7cf9b37f38c330fda",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_price.py.xml",
+    "sha256": "sha256:919e42bddd5b68e81ff53b32dc866e88f12065f05652e94a29c76e2bdcb49f38",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_quotes.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_quotes.py.xml",
+    "sha256": "sha256:aba49ac3f59b275b78b6d00481224254a358ee6c032db1e43cee8d12e148ca35",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_spread.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_candle_spread.py.xml",
+    "sha256": "sha256:745f891b3355c480959dbbe1ac68cdb05efbb562ad5a982a9aef20d03b5b78f2",
+    "bytes": 514
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_change_values.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_change_values.py.xml",
+    "sha256": "sha256:acf20b3f570f07c78f05532ca79b247ab83867e32ef94646ffb87c430d6b0553",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_checkpoint_verifier.py.log",
+    "sha256": "sha256:44091516c6f7d278c9900d796163d45f95d1ad1819370ffeeaf887bc704f2e38",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_checkpoint_verifier.py.xml",
+    "sha256": "sha256:f2a97edcddd018e645c6e00c053a6ceca86c66d708b0671ed6e86168d2733b38",
+    "bytes": 815
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_expiration_cli.py.log",
+    "sha256": "sha256:f574bf83729b682055fea4742e2eec06cd32be9f8694d8319d5361875228ed00",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_expiration_cli.py.xml",
+    "sha256": "sha256:140e57e3a0f2f90a005c11fb703f9e832f2379091daea75b41afcffc12df10bb",
+    "bytes": 390
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_fold_equity.py.log",
+    "sha256": "sha256:b6533422d1630740f5655134f45127452989eca69913155ff0cdf6331ecfe21d",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_fold_equity.py.xml",
+    "sha256": "sha256:171470279f59cd66e611f02776643a979663b712a7334827a6cb210d7244508a",
+    "bytes": 410
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_forecast_error.py.log",
+    "sha256": "sha256:a132c74d7b7c74739e7571fb00cd0a8be848d9686b936586ce31a93451c151b2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_forecast_error.py.xml",
+    "sha256": "sha256:75fea068f2351a4ac64673759debc270fe47723b147431cfde577a566d9342d9",
+    "bytes": 388
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_guess_walk.py.log",
+    "sha256": "sha256:073b1bbed3fedd224b758a734fc16517c5bf3d17bd10f69d131ecd1b1c9690ca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_guess_walk.py.xml",
+    "sha256": "sha256:5910428211c01886b1dcbc25d4fc8b3c469b841f84581b78f1874f537dc2dce2",
+    "bytes": 379
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_manifest_gap.py.log",
+    "sha256": "sha256:99d161a645be50b349f708e7258256d26012e07682341df9edd3b5d8fc1da2cf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_manifest_gap.py.xml",
+    "sha256": "sha256:ed8851355155e8d7958615e8170ef1c4f19663874888e019199ced723393cf39",
+    "bytes": 378
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_note.py.log",
+    "sha256": "sha256:b6533422d1630740f5655134f45127452989eca69913155ff0cdf6331ecfe21d",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_note.py.xml",
+    "sha256": "sha256:54e900f3c0c113f865f214d16de6039a9890c6e4a5a9acd53be2fa667c21f760",
+    "bytes": 379
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_print_guess.py.log",
+    "sha256": "sha256:f9c9506451c8c246d741ba6f531e0c5616255ea5048df68bdc58562afc09939b",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_print_guess.py.xml",
+    "sha256": "sha256:e1372bb85faf6134c5036a2d61c27aa4260e0e225a6ed43acae4a180d01c11e2",
+    "bytes": 385
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_print_miss.py.log",
+    "sha256": "sha256:f110ea65f6d33cdc6322b155f056abd01a7abd63e18b0f61e05569402024ad9d",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_print_miss.py.xml",
+    "sha256": "sha256:0d497a7aad610dc377651fd2bc992420b21a726359e5173f364f8ca3acbf9172",
+    "bytes": 381
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_results.py.log",
+    "sha256": "sha256:3b4ad3097d7020cd8b172384869bd1db1102ffc4c9316bde31fef1b3bcacf9c6",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_results.py.xml",
+    "sha256": "sha256:05bc21d6ecd132df8d1c9aed8911a784ab5f0b8c5d648fd5580762b3d1d9b7ae",
+    "bytes": 373
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_rules.py.log",
+    "sha256": "sha256:a19de940ee1161f7b864e19072a57cfe4e83c15e9f50ca486c06e286dff9165b",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_rules.py.xml",
+    "sha256": "sha256:6bdf5467e1719e97e290fd5fd785ff2f95074aef904328f7371a58364100bccd",
+    "bytes": 507
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_settlement.py.log",
+    "sha256": "sha256:36ee6125777253800df314c891baf72e42248a17540db95c6bdb02de742e24de",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_settlement.py.xml",
+    "sha256": "sha256:2b87207b7249b29968488c0941138ec5f3330eb13259a4d830627e0142ed53f0",
+    "bytes": 387
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_walk_forward.py.log",
+    "sha256": "sha256:1d4a11fc90a7086c182cc06bc43bebeb59a36928082944ef103c86041aa4cf49",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_chicago_walk_forward.py.xml",
+    "sha256": "sha256:e19efc5dfa52642cc6fe2e6ea978a8051ce01dcdbbd8d4b556571501751054b7",
+    "bytes": 375
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_observations.py.log",
+    "sha256": "sha256:4a6070b078e8713685bb7d423b62e85d6415f822c5c557fbcd20f48e88981629",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_observations.py.xml",
+    "sha256": "sha256:2771053d564f84a9b22a900a51d2204844adce4c2c3de71e462e16f6473fe3c0",
+    "bytes": 641
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_print_guess.py.log",
+    "sha256": "sha256:2279ec65d7821a5fdf0d326061fe8c4bae70ad1962651b6925df69fa8b30a84e",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_print_guess.py.xml",
+    "sha256": "sha256:a8f6af56e8f6ba7e71879df35fc657623c988aa4f4f7efbd9e12555adf64e441",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_window.py.log",
+    "sha256": "sha256:686b4ed9a084cc13a88ea4749c9895e659d7faa3540b7c04eedf6fa858d9cc2c",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cli_window.py.xml",
+    "sha256": "sha256:85045fb104f0d6183b229863ca924dde3ccad968c3de6dbd5be6848948647e84",
+    "bytes": 507
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_close_values.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_close_values.py.xml",
+    "sha256": "sha256:dce86071adae9ce00dd07dd38b826f72a2a0a72981f86b2de00a574630e2482b",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cloud_cover.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_cloud_cover.py.xml",
+    "sha256": "sha256:fab6305f3d47367ecb55024782a8b1190248703413eac081a5eafb0449d10b23",
+    "bytes": 505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dallas_rules.py.log",
+    "sha256": "sha256:cd1b9f16b1054b9ce79591aa6b83e2c61a55c24b440c16589366dfb8f9027bb4",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dallas_rules.py.xml",
+    "sha256": "sha256:f009005c360da64112b6623a1bf13f149f450929da31a3f4901a2e9833dab565",
+    "bytes": 493
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dataset_pipeline.py.log",
+    "sha256": "sha256:e02f6535f1e9ed73ca090163d98a6a8d25ce7a253ee807e280811c8071965a91",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dataset_pipeline.py.xml",
+    "sha256": "sha256:c1b70a4eae0f47e52fcfb7b0dfb2853cf4f12c333e3d4f7a093df3e79b2b98c3",
+    "bytes": 2228
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_decay.py.log",
+    "sha256": "sha256:2b0629437046edf89a33cc088f4cc22685d44b1e154e6d9af02a0954cba3ac22",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_decay.py.xml",
+    "sha256": "sha256:1870e2f4c33b788fdc77b7c0db141573d54115ecef2b38ccdb8c283c808b48b5",
+    "bytes": 974
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dew_point.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_dew_point.py.xml",
+    "sha256": "sha256:5059d8e4979d43b872bcc0578a890047ce1122717f342d1685a2df6c0d3a49c5",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ecmwf_ifs.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ecmwf_ifs.py.xml",
+    "sha256": "sha256:781342a0848d47f881d8fb9b5930cea86b72b6992a4ac0ae4e71a274c1c7eeb3",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ecmwf_ifs_previous.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ecmwf_ifs_previous.py.xml",
+    "sha256": "sha256:1b89266224bf460a2649f0bc77122fa30ca3326a3ef0036f0a9bcc02181262a5",
+    "bytes": 526
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_ecmwf_gap.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_ecmwf_gap.py.xml",
+    "sha256": "sha256:8e466a4b3eef83085db28ff6b43bbb0fabca9898fff947fd67ed66c34a8af837",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_hrrr_gap.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_hrrr_gap.py.xml",
+    "sha256": "sha256:f2304f37a2065ae55da3700924f4b35e2092e893f81a39e390acde63cce85553",
+    "bytes": 514
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_rank.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ensemble_rank.py.xml",
+    "sha256": "sha256:b25856ee3ac280539bfe58e93bd8e83a7866de18edcfff5d39c3b5a08a6d9e53",
+    "bytes": 500
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_execution_r4.py.log",
+    "sha256": "sha256:9e8a6c0ae3a8e3e9ecda4665ba9b940e6353ccb9fe90808ccf3a5e6bda72ef20",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_execution_r4.py.xml",
+    "sha256": "sha256:4f6e927f0c2fc7d5b01c2b3eff6c3c06cc51de57d1665552c9289f2c20c8b773",
+    "bytes": 2608
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_experiments_r4.py.log",
+    "sha256": "sha256:4aff9b661892e0e53cadcb9c0209af291f4f31036f30df5b92184b6120163f42",
+    "bytes": 4906
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_expiration_check.py.log",
+    "sha256": "sha256:d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_expiration_check.py.xml",
+    "sha256": "sha256:0b1d96a9406a12475c9a1c2c1b7a41da73f204a536bd2ae1b6586311c6348ef4",
+    "bytes": 516
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_feature_coverage.py.log",
+    "sha256": "sha256:112cf07500ee123a9f8378ec6c740d3b5da5ea152baf972040a6586cc194d38a",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_feature_coverage.py.xml",
+    "sha256": "sha256:1af66c18a06c995d5c64003c566dc170cef61b202e18e9ea181fa707917f207f",
+    "bytes": 378
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_feature_hash_gap.py.log",
+    "sha256": "sha256:f4ea00f50ce290b49e54b69852d194d58ca6f8d8cb6774ce181cf2db7b9e8c75",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_feature_hash_gap.py.xml",
+    "sha256": "sha256:80ef3198dc1c70459a9758457c64f328fad3c8a94307e5421f286d6ddb05b8ad",
+    "bytes": 392
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_fee_evidence.py.log",
+    "sha256": "sha256:8324ca8fb7d4c4eaada4b534c7fe7fd0e62d01c079f19befce2b620ce177b564",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_fee_evidence.py.xml",
+    "sha256": "sha256:2f7003b04c602a2b0a8c4130909c638b0e9b049e0955b713df45d283221b8ceb",
+    "bytes": 3869
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_forecast_dispersion.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_forecast_dispersion.py.xml",
+    "sha256": "sha256:b1277d757bbd704dd8a43a8f3f4d66de1e48628189d72f2ea44b999c11ddbf1e",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_forecast_mean.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_forecast_mean.py.xml",
+    "sha256": "sha256:e1802cc9f51b2f6972036522c9ffbd240193057035f968e3e8875b43f33df9dc",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gateway.py.log",
+    "sha256": "sha256:5c9258a0de83f38243aa16ddbdf4932629810a56e692fb8852a52f3a6f665024",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gateway.py.xml",
+    "sha256": "sha256:636b3681cee66d1333ab9da1155bbc496e94c6ba3cd050111294b7002bb85011",
+    "bytes": 885
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_ecmwf_gap.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_ecmwf_gap.py.xml",
+    "sha256": "sha256:410aff3ee2f561b96324e5606e3015f7d83ed1173abb3fdba17dc61b684b9fb0",
+    "bytes": 507
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_ensemble.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_ensemble.py.xml",
+    "sha256": "sha256:483a41d201d95894a8dda820e846e63c2f5ca5f7dce893ff8c9d7f41e8c9818b",
+    "bytes": 508
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_hrrr_gap.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_hrrr_gap.py.xml",
+    "sha256": "sha256:66e69e6260cf57d51a4bd426ab1d5afa97716073c39fdea67bd42bebb6a0ce07",
+    "bytes": 504
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_seamless_previous.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_gfs_seamless_previous.py.xml",
+    "sha256": "sha256:c58aef1a097a3347aab8371cfb7d2b3241f85030e5676143c0fd3adf5136335f",
+    "bytes": 530
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_historical_trades.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_historical_trades.py.xml",
+    "sha256": "sha256:3dc2622e823d97f11c3f41ac9f95df53193820b3a6716f40f56c482a394d0eb3",
+    "bytes": 526
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hour_of_day.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hour_of_day.py.xml",
+    "sha256": "sha256:b4df167679c7507e937c6132ddf4db73c6bf5a5197e1e82b945620470d720c13",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hours_until_resolution.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hours_until_resolution.py.xml",
+    "sha256": "sha256:83c0a95f3ad5fc2e64d581282e0fc1617233af0c60ae01f9c7dc2fae140e0c79",
+    "bytes": 533
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_houston_listing.py.log",
+    "sha256": "sha256:09229b326b028651d725fa47cd1bae9fd8e0145ff8779bdb84ae2762c00ab737",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_houston_listing.py.xml",
+    "sha256": "sha256:b23eaf3963073894f35ce02bfd73d28d6bd7609d50d0e7f6bd5081b7858d47a6",
+    "bytes": 362
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hrrr_archive.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_hrrr_archive.py.xml",
+    "sha256": "sha256:d2f53de85c7997387a6be4b2f7d5b7df1b94069f5d67f9390ec3cad140f87ec8",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_humidity.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_humidity.py.xml",
+    "sha256": "sha256:5d5a1c369f1a1a67c026319b3fdcd5593ee4e0695c2061c02950709588bf8326",
+    "bytes": 496
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_informational_rules.py.log",
+    "sha256": "sha256:a040e19bb29542ee594a84f25f5d3481197aa83a1beebae31768eab37e3de90b",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_informational_rules.py.xml",
+    "sha256": "sha256:45b4d1b1471661f07820ad90623376a42c2c6231f45352b2a2c7036d3658309a",
+    "bytes": 804
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_interest_values.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_interest_values.py.xml",
+    "sha256": "sha256:cd60b67755199b674ace43e7e36e112c20614d847a96181562b426afd49ab899",
+    "bytes": 505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_interpret.py.log",
+    "sha256": "sha256:32474846ae4372c596eb55783e16b294e33c945a8fe0076ae5634338fd1acc37",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_interpret.py.xml",
+    "sha256": "sha256:0b216bce5659fec45e81942bfe5de7fa0522020ecdfff167cf21860ade7a4813",
+    "bytes": 1190
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_kxhigh_scan.py.log",
+    "sha256": "sha256:02c5dfcf1833086d76d92ea26073bdcf33b0cb1e7c335865faab83befb6481ad",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_kxhigh_scan.py.xml",
+    "sha256": "sha256:dae8921bd463ab4aefb10ac94c85b6dc0690cc6c91b65fb621fc4ffffd9ac664",
+    "bytes": 483
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_acquisition_errors.py.log",
+    "sha256": "sha256:4f0345b5a71deef2f260e78533b0cf1b8de66d87c6f558355cc018d2cdde5d4f",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_acquisition_errors.py.xml",
+    "sha256": "sha256:f8d8aabd56beab10f1540878bede1e0c867857cebd689b6d24969ba51059349a",
+    "bytes": 1133
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_lifecycle.py.log",
+    "sha256": "sha256:3d9b73992f88c090293a7cd3b97f41c043b4bd53a1a5843bd353e147b588caaa",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_lifecycle.py.xml",
+    "sha256": "sha256:23dc077f9257cd6ac7aaaff83344b055a66f2f81a9d5ee0aca887e63cd3dfe5c",
+    "bytes": 1173
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_partitions.py.log",
+    "sha256": "sha256:35e4912c6a040bf2bbc26681077f885302197b6f670dec5250771a6f308688b4",
+    "bytes": 471
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_partitions.py.xml",
+    "sha256": "sha256:2bdf3ab8428e91a5b27abe1d8560ab64f24c92fcc444979ad0d862179b56382f",
+    "bytes": 740
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_schedule.py.log",
+    "sha256": "sha256:a3f98d39c7a8462044d729e2d0562de7f4df371dc8c7c0ca903df103efa7a89a",
+    "bytes": 2823
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_label_schedule.py.xml",
+    "sha256": "sha256:5fe39923dd986d1d636d3a02e437ae5b77d9a8115ef7f040c2b1ae4a4b563d2c",
+    "bytes": 4892
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_last_print.py.log",
+    "sha256": "sha256:4c6bad4ac374f5dd9834cdf5a1807642d4da8bc99ff2885a353e139b03ba8ed5",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_last_print.py.xml",
+    "sha256": "sha256:4f00ef401db3cf333c68ed33bf732ec2c63f113aaa82ac7f1ac5314267f8e85e",
+    "bytes": 492
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_live_trades_short.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_live_trades_short.py.xml",
+    "sha256": "sha256:7bc06eac9d6098f5b2f10cdfd1d1b2feaf95fe88265d6dda8310bfe19c83f792",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_local_acceptance.py.log",
+    "sha256": "sha256:4ff29a15266178a942d54abbd0b9e07939c3300ba38e11850dbfc23e44f32243",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_local_acceptance.py.xml",
+    "sha256": "sha256:6e2ebc9cb2ac4d27f60e00544512273d503f81a062152b2711e136de5a3adec3",
+    "bytes": 8072
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_local_templates.py.log",
+    "sha256": "sha256:284470bfc2eba17674f0691dbf5fa802942cbe5248fe5d7515b025397bed54c2",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_local_templates.py.xml",
+    "sha256": "sha256:129f00d819437674cd7e939be8fdcf6516ec8b5d283c134063cbf8b275ad1f7e",
+    "bytes": 8922
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_markets_books_accounting.py.log",
+    "sha256": "sha256:ae476c44df701617872cb7fc32388fa38a452053c346e4ac7abef0ccad6abb66",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_markets_books_accounting.py.xml",
+    "sha256": "sha256:99b33a97b73505b9b46225bf63f3d643ec7af2cd01ee36929485908cb9760c90",
+    "bytes": 1505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_control_gap.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_control_gap.py.xml",
+    "sha256": "sha256:e6ec2ac2862d70fb1ff744e671b148bf05f98800f81465bb5578dca22cf0d460",
+    "bytes": 512
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_ecmwf_gap.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_ecmwf_gap.py.xml",
+    "sha256": "sha256:0cb6a2201018e2c7ff01031790ce0a916e27dcc1a60c3d17403877d8ddf6bb56",
+    "bytes": 506
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_hrrr_gap.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mean_hrrr_gap.py.xml",
+    "sha256": "sha256:909e356f70420985482eb1e1975c5e20de02b11929c1a1f3b0923e9d6cfc0dcf",
+    "bytes": 503
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mexicocity_listing.py.log",
+    "sha256": "sha256:e596cce97643441f2f2c7ef01ee068b6705ce1e028a07a32ba3bd3b3d35d7353",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_mexicocity_listing.py.xml",
+    "sha256": "sha256:ba37ae5e06099797b42d74022f3ef5f87d0de87ba142862e0b090daeaaa8c0ac",
+    "bytes": 369
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_model_gap.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_model_gap.py.xml",
+    "sha256": "sha256:c17d813d8ae323fe741018ef7b21836bc67876f66625adb1321c9f5c726b9ddb",
+    "bytes": 493
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_model_workflow_r2.py.log",
+    "sha256": "sha256:167b07755f12d3d4b9fde86182ce009f8b8bb0f78f1646fbc8110220a2d9fa38",
+    "bytes": 10374
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_model_workflow_r2.py.xml",
+    "sha256": "sha256:6388aec8b72b1a2a07b3615d1f2136a2b5cb7a77e9d4f0d07063d0841af95385",
+    "bytes": 872
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ncep_hrrr.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ncep_hrrr.py.xml",
+    "sha256": "sha256:65e7a67b1b267fea4fd43334bcd2da3cb4be18d4ed8e0a6b8d64272a7fe2b0b9",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ncep_hrrr_previous.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_ncep_hrrr_previous.py.xml",
+    "sha256": "sha256:b42597e0a5e1bde6a7c51fa1b085e58ee77f770b20881f80dc51d8a8d4188673",
+    "bytes": 525
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_newyork_rules.py.log",
+    "sha256": "sha256:00d5ef44fec2f2bebb2bb8a4abc2950e874d68385f34d0f2ffe7160e0a2a119e",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_newyork_rules.py.xml",
+    "sha256": "sha256:7676050db36f6b9c989e64ab604192129bd0c3613908eb4e8b8b94ce0e6dbbd0",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_numeric_time_ids.py.log",
+    "sha256": "sha256:f374d45aa1a832cf5c888b78fa022f02ac39cdea4b2c0a2fd154f44805163a71",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_numeric_time_ids.py.xml",
+    "sha256": "sha256:fe499f4d89c26a7af7b03c560da9b7d52a5fbad189351199988832967b15c791",
+    "bytes": 2010
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_control_gap.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_control_gap.py.xml",
+    "sha256": "sha256:7ac38b69df4e81734d2df9f82785f44a520029d6c01e3bf57cba3e27dd4afb26",
+    "bytes": 507
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_daytime.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_daytime.py.xml",
+    "sha256": "sha256:c56c2407d16acc6373882fcc054a65119a2a45c38595873b8e85e7dcf7c18b79",
+    "bytes": 488
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_detailed_forecast.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_detailed_forecast.py.xml",
+    "sha256": "sha256:8cd042de9ae45e777267edfe5c64b91d0c7d81d5967fda4a0aaea6ef42df2ff6",
+    "bytes": 518
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_dew_point.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_dew_point.py.xml",
+    "sha256": "sha256:1fb3ce0263422d02393591aa6d02516f64d25d96a94db9e6d14d76ff38a14a28",
+    "bytes": 488
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_ecmwf_gap.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_ecmwf_gap.py.xml",
+    "sha256": "sha256:abb07e2a9c07fe434c6da081f4d7c2e4ae9c5d3aec2797949186dc6e60d3b931",
+    "bytes": 501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_end_time.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_end_time.py.xml",
+    "sha256": "sha256:a77a0d9693c3d02ae91372b40424d2f571516f66d1cea6c516a1d4ab9ecca831",
+    "bytes": 486
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast.py.xml",
+    "sha256": "sha256:fd4107405f781369fc7b208321f849d8a6464b6df6f88cedaa9ddc278391c129",
+    "bytes": 508
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_context.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_context.py.xml",
+    "sha256": "sha256:28b219555a27f1e105ba8f81bf537bde49273b2c25810b37030c218f580ea3ef",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_coordinate_count.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_coordinate_count.py.xml",
+    "sha256": "sha256:893c180e5ed4e935f089050d278fb89610b61a9c382db9ea9724e1d36dedf15e",
+    "bytes": 522
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_daytime.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_daytime.py.xml",
+    "sha256": "sha256:27ec31e2ec3e5e386982e6fb333164138c534bedf945bcfee66ca46746d37488",
+    "bytes": 515
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_detailed.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_detailed.py.xml",
+    "sha256": "sha256:cd670bc2791af058456083d18fc9c669fb77b1ed6f51a290caff8418ecad7b88",
+    "bytes": 512
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_elevation.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_elevation.py.xml",
+    "sha256": "sha256:34558fd865c77986820539be7a24822bd64be08482d737f3ad9d7ecbb6a8b263",
+    "bytes": 513
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_end_time.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_end_time.py.xml",
+    "sha256": "sha256:68a7e726f9aec20d6648681647c3968b2cd4a510c3370e6a7142c0e6976ebcae",
+    "bytes": 513
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_generated_at.py.log",
+    "sha256": "sha256:3b4ad3097d7020cd8b172384869bd1db1102ffc4c9316bde31fef1b3bcacf9c6",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_generated_at.py.xml",
+    "sha256": "sha256:991f8e367c71856a22dfb5c1051b626d0eb7603996c797bc136c8bc462296714",
+    "bytes": 387
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_generator.py.log",
+    "sha256": "sha256:d907fec0e0445cfe67a7272e864304e81194b234052d6bdfcb6ec87c0b123e62",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_generator.py.xml",
+    "sha256": "sha256:db13ac495a7072a6e2eb2366fe69f692983a9962061ff348dd694e1bbf7584cd",
+    "bytes": 383
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_geometry_type.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_geometry_type.py.xml",
+    "sha256": "sha256:1f779923b8514c9872773ef032bced88bacbef318c99045dacb0e5c4558660ce",
+    "bytes": 514
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_hrrr_gap.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_hrrr_gap.py.xml",
+    "sha256": "sha256:6ec47f918133008ca77d45d719859454632af453c3d9ca237ef51d23a58893b6",
+    "bytes": 527
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_icon.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_icon.py.xml",
+    "sha256": "sha256:0206e5853ca4a6a7d2556065157f7fd568befc42c71deab2b7d637d07d4e0bb2",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_name.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_name.py.xml",
+    "sha256": "sha256:526869bed3e8d950b651734edbaa749c63b7ace7a380ab141779534f210d8d6c",
+    "bytes": 509
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_number.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_number.py.xml",
+    "sha256": "sha256:981106247b434991c3e46f163358cf397198e13feae1e3ee783264bc534090b6",
+    "bytes": 515
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_precipitation.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_precipitation.py.xml",
+    "sha256": "sha256:50b15f3487cddcb96943d4049872a328849d9637dbd97674cebb8d98285db068",
+    "bytes": 546
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_short.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_short.py.xml",
+    "sha256": "sha256:fb274dc156883e5f5196d642a60ff10aaf1d3ce2b3c6a22832cf708547db9b61",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_start_time.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_start_time.py.xml",
+    "sha256": "sha256:77cd974ad6f0638c626d4278f3fe5c3cf25b211bae300b66e06f1411bf99d27f",
+    "bytes": 519
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperature_trend.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperature_trend.py.xml",
+    "sha256": "sha256:eab9816cc39d021f167bb6c44e5e412dedfb8f44a346ad33b780c3e3bae3510b",
+    "bytes": 532
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperature_unit.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperature_unit.py.xml",
+    "sha256": "sha256:14a1993a8a9907130eddd33635dac5c1f50290318cbfb96b22acd546a5a9bc41",
+    "bytes": 533
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperatures.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_temperatures.py.xml",
+    "sha256": "sha256:281f31d58186f1ee31d8820425f274de1efb221caf6a0159f709ef7812e96d96",
+    "bytes": 529
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_type.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_type.py.xml",
+    "sha256": "sha256:516d8275b384442988d2e9794e86f964965773f9fb5a019cd89dc12a1bedcb15",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_units.py.log",
+    "sha256": "sha256:d2d744b6b2df2bbb0d73cb7a43f6675bd03881bc2a2c2a74e54ecf18667789e2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_units.py.xml",
+    "sha256": "sha256:aa32f874f1bd4b00da7066e8635c77617880136e1faa0ee11309648345843622",
+    "bytes": 376
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_update_time.py.log",
+    "sha256": "sha256:d2d744b6b2df2bbb0d73cb7a43f6675bd03881bc2a2c2a74e54ecf18667789e2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_update_time.py.xml",
+    "sha256": "sha256:9d57b5f67f0bb788d9b0b01174ee99fab2f84d78b481dd112ceab5e26f0c0b74",
+    "bytes": 385
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_valid_times.py.log",
+    "sha256": "sha256:364fae48cbe8f4ef8e995f8fb3224d43792e784eb9919ceefea2fe0106918edf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_valid_times.py.xml",
+    "sha256": "sha256:7c69751544c5715ae462fc4a848003c864112fee0f395fca784f396b2892018d",
+    "bytes": 380
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_wind_direction.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_wind_direction.py.xml",
+    "sha256": "sha256:178b081606d7dafa165c90959730ced2b52fed0f5fd224253818c4299707a53b",
+    "bytes": 529
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_wind_speed.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_forecast_wind_speed.py.xml",
+    "sha256": "sha256:928b5b993a7415e12d1960d79d9830c2114419ac62266855f1d44d4feaa165ec",
+    "bytes": 513
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly.py.xml",
+    "sha256": "sha256:60dd26d6661e9bea4fe89c5be8c7c39afcca05d7ed7becc29b142ade5d98deb4",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_context.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_context.py.xml",
+    "sha256": "sha256:78ffe6f3850aed898bede6885bfb57422baa5d2f53a7f5bf4a756aae0a3cf8ad",
+    "bytes": 505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_coordinate_count.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_coordinate_count.py.xml",
+    "sha256": "sha256:ae383bb49ca9ba83618666d6c9e74cdcbe535dc0b67e1cb23edc0d3a90448372",
+    "bytes": 525
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_elevation.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_elevation.py.xml",
+    "sha256": "sha256:c85862bfb1d58877f45aa2b7d19f8e8d645d72a98590f01f9975e6e9f0f4c820",
+    "bytes": 507
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_generated_at.py.log",
+    "sha256": "sha256:3b4ad3097d7020cd8b172384869bd1db1102ffc4c9316bde31fef1b3bcacf9c6",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_generated_at.py.xml",
+    "sha256": "sha256:3fd32aef7e651aa0cfff874e7d96dcc0478965a3279d98c7df65337e00db0945",
+    "bytes": 392
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_generator.py.log",
+    "sha256": "sha256:d2d744b6b2df2bbb0d73cb7a43f6675bd03881bc2a2c2a74e54ecf18667789e2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_generator.py.xml",
+    "sha256": "sha256:151f541751c6fa0cf3ff36d8073be9b51f0d3fb4713bdf63f5e81243ffb17f31",
+    "bytes": 379
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_geometry_type.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_geometry_type.py.xml",
+    "sha256": "sha256:6425662a95c30b87e942aa9fa3f28b4b7dd27f10c9ef2eda9c9b5057a445ca30",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_type.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_type.py.xml",
+    "sha256": "sha256:8fc0118f6700d2fb07c62eee687a035900d5c7cafd88e69564e7abb47db3e8e3",
+    "bytes": 501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_units.py.log",
+    "sha256": "sha256:a132c74d7b7c74739e7571fb00cd0a8be848d9686b936586ce31a93451c151b2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_units.py.xml",
+    "sha256": "sha256:19620ae32bbe892cd2f0f7bcd1d62a0f544a2aab9c099d4d5f88e672d8d5d0f0",
+    "bytes": 372
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_update_time.py.log",
+    "sha256": "sha256:d2d744b6b2df2bbb0d73cb7a43f6675bd03881bc2a2c2a74e54ecf18667789e2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_update_time.py.xml",
+    "sha256": "sha256:fd15be58b429f8b47fbdf3d01574248d9aa50936017d3931bc3c18412ebc0962",
+    "bytes": 390
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_valid_times.py.log",
+    "sha256": "sha256:364fae48cbe8f4ef8e995f8fb3224d43792e784eb9919ceefea2fe0106918edf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hourly_valid_times.py.xml",
+    "sha256": "sha256:fceefc36a271fe5170552b9bbfdf3bc94031ae24215450775869a5a92bd10f6e",
+    "bytes": 385
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hrrr_gap.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_hrrr_gap.py.xml",
+    "sha256": "sha256:44c95a6d06c7de3a264110d5879aa0a4bc7d262f060103645621b7ebc74a24c7",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_icon.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_icon.py.xml",
+    "sha256": "sha256:93fc4522c0c1cf8efd67b2111bd38b9ef55f7ed87e07f6f759cd06128230108b",
+    "bytes": 478
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_mean_gap.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_mean_gap.py.xml",
+    "sha256": "sha256:2ea8c656d25bbbe5c592163d7444d19fa8b8b8c55e0400a4be8f33a93340ba2c",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_member_gap.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_member_gap.py.xml",
+    "sha256": "sha256:835b2bd0009e3402572f93cacc39d8f8d7be1373ad22c926d42041fb8bb8d617",
+    "bytes": 506
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_metadata.py.log",
+    "sha256": "sha256:e294d58817276d5377bf3bcb35039ecb555722eb3cfdba356c1a9238baaf8280",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_metadata.py.xml",
+    "sha256": "sha256:4e58580adf796a05b9f892863f04dd9fadedd15d394e58e666d1b64bf544450a",
+    "bytes": 1111
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_period_name.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_period_name.py.xml",
+    "sha256": "sha256:2abf9b819978d2961fabefc15e051fe8d4b4c251c4e2155022b65c80529bd596",
+    "bytes": 500
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_period_number.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_period_number.py.xml",
+    "sha256": "sha256:0c5ef80bb0fab1d64a9c56bfd464dea9d4e8423d1e1e5378182fc755080ad12d",
+    "bytes": 502
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_astronomical.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_astronomical.py.xml",
+    "sha256": "sha256:05e6612f38946f5685f8231ac5462208cd2ead224727f3cd877820f94c673795",
+    "bytes": 512
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_context.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_context.py.xml",
+    "sha256": "sha256:68a19c9bb8449908bfa416b0edbd8a751d6a7139e44b328be4ed185f698b8135",
+    "bytes": 505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_coordinate_count.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_coordinate_count.py.xml",
+    "sha256": "sha256:93cb26310f7e07350aa7bd8745a59b0ac5d18f8f74e3ba9f4d2f39f08fe893db",
+    "bytes": 525
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_geometry_type.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_geometry_type.py.xml",
+    "sha256": "sha256:dab8e35a64fdbfccdc485edec5ee806e5aeff43d813cd417c40114f43938c726",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_id.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_id.py.xml",
+    "sha256": "sha256:d985db8a9cbb0df542ae83658b5f7929d77176a4f2c122f05b798f329f382310",
+    "bytes": 484
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_property_id.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_property_id.py.xml",
+    "sha256": "sha256:35215e1bbc7e68a7276148b6a32ec6163ffec79937f53249ba2b102fbde103fb",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_property_type.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_property_type.py.xml",
+    "sha256": "sha256:5a740fc4348bb523bbf82a939b488d7961fff481d7563187cb007f6284702bd9",
+    "bytes": 519
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_twilight_begin.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_twilight_begin.py.xml",
+    "sha256": "sha256:5e8a3e2573f3740a15bf6fb9c9c3376d4944599fb28afffa6278b43ea850915c",
+    "bytes": 513
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_type.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_points_type.py.xml",
+    "sha256": "sha256:0fc5a92d5ed6ecf1d6f736ebe437edc71d07e25fc262ef4479b24bccebc8b524",
+    "bytes": 501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_precipitation_probability.py.log",
+    "sha256": "sha256:3c82e1d3305214e6527e81a3191d87bd710aba47bc834df9a486aeefacb40faf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_precipitation_probability.py.xml",
+    "sha256": "sha256:1c3ca91a8491647804fa9c2a9774ff60b602abe2eaebf59744f128330c22ef7f",
+    "bytes": 548
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_relative_humidity.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_relative_humidity.py.xml",
+    "sha256": "sha256:8d981a06624d4baaf27a82b137ed7c57c424625517c7cabca8ea278dd17ed4a5",
+    "bytes": 512
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_short_forecast.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_short_forecast.py.xml",
+    "sha256": "sha256:9e3b7622b86c86287c87489afe2d431686b3c56fabd9a6ed7154c9fbcdb4e62d",
+    "bytes": 503
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_start_time.py.log",
+    "sha256": "sha256:fa665775964cf05a4b8c9ca6f3bb541d55819b03a8e9277e22b2aa4799804700",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_start_time.py.xml",
+    "sha256": "sha256:f71eaf5b993fe05af236f3cf4c6e05b42fe1fbed6407785f3802051ca3f74ce8",
+    "bytes": 492
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_trend.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_trend.py.xml",
+    "sha256": "sha256:d6a5b850fda76c5fb477dba209b67a5dc1707f2b956e6dcf5c1756426771c43c",
+    "bytes": 517
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_unit.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_unit.py.xml",
+    "sha256": "sha256:73d8da9479cb1e15517645dddbeba94207a1efd54f5c43a0d5461de010dfa3d2",
+    "bytes": 506
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_values.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_temperature_values.py.xml",
+    "sha256": "sha256:f5d911d52b9245143e165aee5844283ba527aace9c79e1bbba3d911b049b83cc",
+    "bytes": 521
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_wind_direction.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_wind_direction.py.xml",
+    "sha256": "sha256:3e091446dd24f946f19ece62004686c8ef4181892de10196c697474e4d7e6d6a",
+    "bytes": 501
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_wind_speed.py.log",
+    "sha256": "sha256:d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_nws_wind_speed.py.xml",
+    "sha256": "sha256:336b730eaf9ddfb214fa04db08d5f8331064993474f4aaa011883ac33c74ef78",
+    "bytes": 495
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_observed_temperature.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_observed_temperature.py.xml",
+    "sha256": "sha256:0439cc495e1d6fb7b1bd7f742a8557db15718058025f1f6d4791d6f41e809912",
+    "bytes": 532
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_oklahomacity_rules.py.log",
+    "sha256": "sha256:e17a6f157ca4dd80321b41558b0bc556d3d950258853d1bfccbe5a114c9135f1",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_oklahomacity_rules.py.xml",
+    "sha256": "sha256:368725607df3a6dd1a9d7db28e61f9aa96ff5228daefa49018b8c6cbe5c15519",
+    "bytes": 519
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_operational_research.py.log",
+    "sha256": "sha256:aec8df52742ce5bde4e08c0b5b71a8add8f3e7a8e70cc3f9cfc47c2f5c7e2dc0",
+    "bytes": 4878
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_orders_risk_lifecycle.py.log",
+    "sha256": "sha256:505b048eca0d279784a20a5e90abdc0747042c3bbb94819870216bec62b927e6",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_orders_risk_lifecycle.py.xml",
+    "sha256": "sha256:fbc9dc62b0b31cce750da5f70068f5a18002964ab1358b03832f70d730c04a3a",
+    "bytes": 1593
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_paper_risk.py.log",
+    "sha256": "sha256:53bfc578068637863b1f5dd990dd2975e908b0f4cfda417188081cc84b128383",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_paper_risk.py.xml",
+    "sha256": "sha256:d453b368e9d4084627de2c95207b5526b2c64dceb806a8331f36fba1cecac46f",
+    "bytes": 3013
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_philadelphia_note.py.log",
+    "sha256": "sha256:21a96a691c92fe45e75034007f207c9a0cf98e14fff2d1e56a2a0ba5eff07377",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_philadelphia_note.py.xml",
+    "sha256": "sha256:70c32d1561638dd8755578cfc1afcd4cdc3669b90ce89e1b8d353ccdfc0bfee4",
+    "bytes": 376
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_precipitation.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_precipitation.py.xml",
+    "sha256": "sha256:6e6baa27e3d2a761fa1c4f1260f350194aec16acc0536d926747c133f09f085d",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prediction_coverage.py.log",
+    "sha256": "sha256:acc1897d867539d151e7c16b72fe1b4a462f5b2bd7492cb811b3a9905344ee0b",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prediction_coverage.py.xml",
+    "sha256": "sha256:dd4671ec1a379d70767ed1bbac637f9610ab690b19b1c985aae9d94d150672d3",
+    "bytes": 387
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prediction_strategy.py.log",
+    "sha256": "sha256:cea56812b2feed537d72f533dcd9bbebe462ea81cec364b5fd190dfe7346f2cf",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prediction_strategy.py.xml",
+    "sha256": "sha256:f87f74e5c18d8835a228cf4daf5267e4f695116d39ea043af39a0e40b92046ba",
+    "bytes": 375
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_previous_day_error.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_previous_day_error.py.xml",
+    "sha256": "sha256:fe477bd464bc6139fff0d1f9a11380453af5e970b09359a636af683cc373a61f",
+    "bytes": 522
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_previous_model_gap.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_previous_model_gap.py.xml",
+    "sha256": "sha256:8c4d229440334b107a325346ea2ab7052fa2c08b01232a1d795db1c5b6d32509",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_probability_models_r2.py.log",
+    "sha256": "sha256:272776e4c8939d420c247402ba7d8712b839461145f3635166e650ca1cfebe93",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_probability_models_r2.py.xml",
+    "sha256": "sha256:7d2b66a9009d05e3fb0e20bddecdb4c453e592954412243086812a21163881df",
+    "bytes": 2113
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prospective.py.log",
+    "sha256": "sha256:0caa1b81f6077b1c12e7a98b5bfe6384e65e9130ffaae860717f223a1abbf673",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_prospective.py.xml",
+    "sha256": "sha256:b1aeb16fa6b85973852599ae2070bdcee57b555462dbc122d74c74d260a56562",
+    "bytes": 3689
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_provenance.py.log",
+    "sha256": "sha256:9a29046c90750af49b467ad92dc4beece6ee950647875b378019c92056bcd7b1",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_provenance.py.xml",
+    "sha256": "sha256:e6db34799d42e31491c53e898b93891b5fc9c1dc5463c49233629ec3fe7110be",
+    "bytes": 630
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_dataset.py.log",
+    "sha256": "sha256:6493f6f0cf5d50dbd27bff2dc5ab7081995d89c8e1da9f7b1843f4ad03b610ec",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_dataset.py.xml",
+    "sha256": "sha256:d99a94d2310676e768f09a707075deda3021724992d7496ddb6be4d6205ab6c0",
+    "bytes": 638
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_families.py.log",
+    "sha256": "sha256:e4e7ef6526c65e7c5e4f6cadb4f69cb3327776ca0eb68ae197db5978c0d49bd0",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_families.py.xml",
+    "sha256": "sha256:f4118ba6808a4efb6b821b33bc58bea1e182427a3f57168ab7dfa52cd5749357",
+    "bytes": 4055
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_tape.py.log",
+    "sha256": "sha256:c67e541fd068f1dc781192f208ee5378278d4121a29b58ff089a2b0504263f5c",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_public_tape.py.xml",
+    "sha256": "sha256:bd1bebdc32b20a6319e0d3ae7a648c1ff65938907036452b76b1f1b7c83a91b1",
+    "bytes": 604
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_recovery_proof.py.log",
+    "sha256": "sha256:af279a024c7929d873a22b50ddc4e6bd7a60752c464a7f592421ce7303d6bf1a",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_recovery_proof.py.xml",
+    "sha256": "sha256:748adb297561a55106f71907f18b7c3d1d041f7086e967ec544ae337b33dbac4",
+    "bytes": 1633
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_registry.py.log",
+    "sha256": "sha256:06268581f5e2beade0a87babe32cdecc8eb20f186e92b084a619ed27150c4c4d",
+    "bytes": 5530
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_related_strikes.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_related_strikes.py.xml",
+    "sha256": "sha256:5717a86f966906db22ea0e649dfa7c6dfd096cd81f67efbc90cda6c687e2be43",
+    "bytes": 503
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_replay.py.log",
+    "sha256": "sha256:90d9370f450c12eb76e48644d868e2458d10c22d5371a726ad49a853390a4a97",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_replay.py.xml",
+    "sha256": "sha256:7eab9017062df5d537732242b67e8004245112cfd7c3784b848adaa948a6a796",
+    "bytes": 1056
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_research_pipeline.py.log",
+    "sha256": "sha256:cd1a3c15b423dada03f3233e5a5f1076110774a1ccaa1e33dbf9ba6183854bc9",
+    "bytes": 5538
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_research_pricing.py.log",
+    "sha256": "sha256:ae3fdd70b2333b6361bd51873ee1391bf8f0807ec354302192138135c03be750",
+    "bytes": 4780
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_research_provider.py.log",
+    "sha256": "sha256:39b075a82204be3926b0b7583a68619906f30c676edc9ac233e40f46ceaf441d",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_research_provider.py.xml",
+    "sha256": "sha256:a34ccd17616b830ac0d8605863c15290c6c176a5a1521cb068ebb060d586b2d9",
+    "bytes": 853
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_research_transport.py.log",
+    "sha256": "sha256:da9ae0206b81a312f0132d2dd7563a60b7b1b1e90cce4c95f21b08c66df6957d",
+    "bytes": 4663
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_review_artifacts.py.log",
+    "sha256": "sha256:bcc18f81f2b868f2d324a8c78ff54b3e1894321e6f39eb5b25238d04e3a3dd37",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_review_artifacts.py.xml",
+    "sha256": "sha256:84f1f0a69d5804a5512cea9c11232f082d45204775436c1b1e0e00f9554030af",
+    "bytes": 2181
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_bracket.py.log",
+    "sha256": "sha256:d54e62486ebeae2e4cb85cc7efa0f37df0e3c6faec62f1fbbdca02aa2b3d4c18",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_bracket.py.xml",
+    "sha256": "sha256:d8d1613b7eba6e3711c6995b703488d3876926689d6262528de7632deb5e39a7",
+    "bytes": 2913
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_down.py.log",
+    "sha256": "sha256:b240a97420306a928e6989252af9151cab74501cf24794b9a85241aabe14a6a0",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_down.py.xml",
+    "sha256": "sha256:c1a3b81024980622ce5dfc15c3dca3ac33d1ba6344ffa9ce81f358b465ca4f78",
+    "bytes": 897
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_records.py.log",
+    "sha256": "sha256:28e91c47008688ca4359f4693d76e273d8b98cf1e642eefac6f311023bd6c714",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_records.py.xml",
+    "sha256": "sha256:bb3a6ee2929e41c9cdbbf7665a3085ab069f18bfe3aa6c4fcc576fdd25fb061e",
+    "bytes": 1184
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_rule.py.log",
+    "sha256": "sha256:f478df494d9365bda5ff0582c504f688bcdf7e85618c46b15bd9e0dfaefa7495",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_revision_rule.py.xml",
+    "sha256": "sha256:5b0cabc6acad89c581a5575212aa752a2f66fd91c4a0edd1cb80c63c4be912e6",
+    "bytes": 629
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_scanner.py.log",
+    "sha256": "sha256:bf57a87e7fe91a0d8a8815a680d416938ba682dee7e8a176a4973cb35e527edc",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_scanner.py.xml",
+    "sha256": "sha256:062cb399b022e8f43463373e004b69d90a327be8d07b8a686a893fa7ca717682",
+    "bytes": 1121
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_seasonality.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_seasonality.py.xml",
+    "sha256": "sha256:cb3d73fe9f67f13fce6fb353310407c069ab70378ddab85d8bb9c35d2ec5e413",
+    "bytes": 503
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_series_fees.py.log",
+    "sha256": "sha256:3de0922879cc7b6509a3ad1ea40ed1f93b71bfe1a47df2a0588277d5be9a14dd",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_series_fees.py.xml",
+    "sha256": "sha256:c8282c403f0a7a413b688e9de0d8caf0152988260acdc69676c7b2f73cb533c7",
+    "bytes": 937
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_settlement_score.py.log",
+    "sha256": "sha256:ed4e09caf2c123cc998a4a054db510aefa9991486486560067423d72e1530bca",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_settlement_score.py.xml",
+    "sha256": "sha256:21826971b97184779b602b04288e75360a4f2fce9c2e107e0b50745dd83c1699",
+    "bytes": 499
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_settlement_value.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_settlement_value.py.xml",
+    "sha256": "sha256:d0125ca78b7efce41ae63bea3e64394437107aef9703a7ac2efcb75141a88125",
+    "bytes": 509
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_shadow.py.log",
+    "sha256": "sha256:90d9370f450c12eb76e48644d868e2458d10c22d5371a726ad49a853390a4a97",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_shadow.py.xml",
+    "sha256": "sha256:418fc38391f902491e3a260d214b821645d90f44b6e7d1044c1006892558621e",
+    "bytes": 974
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_shadow_accounting.py.log",
+    "sha256": "sha256:2b274539cb589ab5620c7a24febf8f3f045a2e80d73d230f501846f7da34d573",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_shadow_accounting.py.xml",
+    "sha256": "sha256:1d199ebb497e859d49e4ef781f244ec05e79f3779ecbc6564b13fb5567fe9994",
+    "bytes": 5217
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_shadow_history.py.log",
+    "sha256": "sha256:586c1528214299b97611f1a0be36fb9cb85d0df5a56d6350686aa19b95df967b",
+    "bytes": 185
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_short_refresh.py.log",
+    "sha256": "sha256:4d4324b86087ac7c37dae6b8dbfadf37a051796a0d773b900a32b6a8e3e201ad",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_short_refresh.py.xml",
+    "sha256": "sha256:75180dea22d162a43eab90521b2562ae7a2a94153feca8c0a85324e4618e4678",
+    "bytes": 515
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_spread_values.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_spread_values.py.xml",
+    "sha256": "sha256:cbac9e3a227274b3c91173c92074099cc2774f9030aa6109635043ccb7b9bf23",
+    "bytes": 496
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_station_bias.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_station_bias.py.xml",
+    "sha256": "sha256:d1883b3146660ab196519b16e0291dc549419fc00be3d2aff13b4762fdf2f894",
+    "bytes": 505
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_strategy_and_pit.py.log",
+    "sha256": "sha256:63d7a2372c998e5eece86a21ba5445a6882758fc30f56b0cfbe09136c18f82d3",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_strategy_and_pit.py.xml",
+    "sha256": "sha256:de68e89e255bef5d85326e084958512650e1f28f9f4bde012fc354348383dd06",
+    "bytes": 1481
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_structure.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_structure.py.xml",
+    "sha256": "sha256:5e67946ad4b39593b74f14b20ef1776248d2e05f06f5e7b6a823c4fad9c865a2",
+    "bytes": 487
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_submit_gate.py.log",
+    "sha256": "sha256:c67e541fd068f1dc781192f208ee5378278d4121a29b58ff089a2b0504263f5c",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_submit_gate.py.xml",
+    "sha256": "sha256:05a84d960bd89197a67fb33889a2786efde3dcaf0078c6ec387c429a42b04cd7",
+    "bytes": 624
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tape_score.py.log",
+    "sha256": "sha256:4de64934605dc63b561f8b2a59ff4a7fa10d1068e8dfcae0f632ddefa3a3b684",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tape_score.py.xml",
+    "sha256": "sha256:4ea0b6bfe17579b63c3ffecf365cea24aba18b9e7b83572d1833babb1edd76a5",
+    "bytes": 484
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking.py.log",
+    "sha256": "sha256:6feb6c354566dd7dcfb70734a7a7bf43fe196bd33999992b20dd6baabdc90f81",
+    "bytes": 260
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking.py.xml",
+    "sha256": "sha256:95f1ad3144e90a60e37fd0eb1a531f00a856054e20a4b2fa311b08e186546811",
+    "bytes": 28064
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking_alerts.py.log",
+    "sha256": "sha256:3023844bd8571d844baa1e096993f5855d85cc81f98f415f973fdfcf41b6c1a7",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking_alerts.py.xml",
+    "sha256": "sha256:0fef668e433fab973ac6b4cdf3394d28bc643b1610efada657d2b30f2bb9009a",
+    "bytes": 2014
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking_models.py.log",
+    "sha256": "sha256:655adc0881ca48770aaa86c9b1077b548f38e1f4e5041f622f66d6eee8269f98",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_tracking_models.py.xml",
+    "sha256": "sha256:95c1b9d00f0e68f5b5a96c6683f1b19cc2f2260f716415dbe17274698d9e15b8",
+    "bytes": 7656
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_trade_prints.py.log",
+    "sha256": "sha256:bc9507cf730567da3d80c9df14fc5d069992b9bda90f54ce5b21db23cc23d1b1",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_trade_prints.py.xml",
+    "sha256": "sha256:6c575b9192fb93500edfeea26ad2d5dad1a4b7938bc35354cd14a23a0f8a60f9",
+    "bytes": 770
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_unit_asks.py.log",
+    "sha256": "sha256:d2e19278f2acef7cfe468afa87fbba8925315ff38a8d23649526ec4f7bbe6521",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_unit_asks.py.xml",
+    "sha256": "sha256:c3bc31283f072cba6cf279e977412ee1621adb52ecd0e77abb803063331cca90",
+    "bytes": 482
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_unit_interest.py.log",
+    "sha256": "sha256:d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_unit_interest.py.xml",
+    "sha256": "sha256:3b536c957df605116c154e247bfe88017fdc05c464c7f05b0e31b8e6ce2adce5",
+    "bytes": 498
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_volume_check.py.log",
+    "sha256": "sha256:29dfaadb73977f4d958826f9fe727776d7cfc85207543b453ecdd2304ffa15cd",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_volume_check.py.xml",
+    "sha256": "sha256:05baeb8993364f98fce057e9647de25b067bd25a0b4e21c5e3fdcd8da2ce55a7",
+    "bytes": 511
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_volume_values.py.log",
+    "sha256": "sha256:7a20eee6295224dc03c515c61effeca0082f5cf97cc770f7af5dcd2d4e9fd718",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_volume_values.py.xml",
+    "sha256": "sha256:ccf56b436d1a4abb67b0cdf0160b005c82b72eb4e99218babb50dde57a645713",
+    "bytes": 496
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_walk_forward.py.log",
+    "sha256": "sha256:ed8e49fdbcb7f4d8639c92f312ca8f857495c1e6535285f90f3a3175ef2676d4",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_walk_forward.py.xml",
+    "sha256": "sha256:48df66fb7c399f82543af9f3427d50e24b77ef1465ab5590bfa466e1a1b5dcfa",
+    "bytes": 774
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_archive_r2.py.log",
+    "sha256": "sha256:2ba2da6a18aa2e20b1d08de8607302a72296f722b8c1db912e2c9d36f451d080",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_archive_r2.py.xml",
+    "sha256": "sha256:f3b948bcd6a772e9c8367262d4f6fac88383fe714b439f47d6fcbf7dea08fc8c",
+    "bytes": 1853
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_baseline.py.log",
+    "sha256": "sha256:9c714207acdb4637742c0d3473ba4d87be7b978f65d5b0063c39ad919e6fa9d7",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_baseline.py.xml",
+    "sha256": "sha256:8786ac15c495938f6ed6e700eab5b682a4d829b9106236819a92351241e82f63",
+    "bytes": 811
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_cohorts.py.log",
+    "sha256": "sha256:972eb35840458f4a0f11fc74871ee79e75885e9811416193c1e2f5eb5911c082",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_cohorts.py.xml",
+    "sha256": "sha256:fc110fb5397077deeb9b5084303c2912e495055297b2454abdf5d48bc3c68570",
+    "bytes": 1513
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_features_r2.py.log",
+    "sha256": "sha256:2ba2da6a18aa2e20b1d08de8607302a72296f722b8c1db912e2c9d36f451d080",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_features_r2.py.xml",
+    "sha256": "sha256:39e80638b6b62459e5f294c6011cd4ba82fdccf5bb4a85da80daf4d8fd510377",
+    "bytes": 1944
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_history.py.log",
+    "sha256": "sha256:add845efc0a2218fecde514053a756d46e6fbd31993a135a636d1af0d5734538",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_history.py.xml",
+    "sha256": "sha256:099ef12f00bc80ae29f83eedb7b675553ce67c5be8d703ea74d27d089c4a30a9",
+    "bytes": 1767
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_labels.py.log",
+    "sha256": "sha256:47cd75378f8d4c19d09fd91c439b6bb2e6bdbb4facaea19bc1beebeedadcebb7",
+    "bytes": 2625
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_labels.py.xml",
+    "sha256": "sha256:a2222f57b2ad00c4a4e7b04526152ea047e1bee848130c977d7ef4a6e2b83fbd",
+    "bytes": 6690
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_recorded.py.log",
+    "sha256": "sha256:22bd0602e485e21676279c5aedc8d008bea4469ff3deb2b3a7f910f429e6b2dd",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_weather_recorded.py.xml",
+    "sha256": "sha256:b9f4b539c07640d4a3fd35ab946094548ff12fb3e9db7cde7a4a6ee381d74e5b",
+    "bytes": 1722
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_wind.py.log",
+    "sha256": "sha256:7e15266061ed0d31aa89e2241ce9ed802cf0173def79bf29c0398d727932d5d2",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_wind.py.xml",
+    "sha256": "sha256:b00f548c33ee4f2d35f29e547d1df1d7f800d3915b3927e2b34a0a4e974a3f1d",
+    "bytes": 484
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workbench_http.py.log",
+    "sha256": "sha256:b8415f15c22187cd754992898e2578e30791f9a0c5181245675c6d302b7278a6",
+    "bytes": 99
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workbench_http.py.xml",
+    "sha256": "sha256:0c2307640ec52d2576f6c55a5df47b9f0c497d6eace24be4f03abc10343fcc9f",
+    "bytes": 2252
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workbench_provider.py.log",
+    "sha256": "sha256:3ba416a9cdb7414e6e6ef83b781c8f736578a2946ef07e5b4912b71a536ae4b5",
+    "bytes": 4922
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workbench_workflow.py.log",
+    "sha256": "sha256:77e90206cadcdb8c5fae3482d385a1043558ea99e24a925b94ae8b6f2cda4e2e",
+    "bytes": 5011
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workspace_recovery.py.log",
+    "sha256": "sha256:80e84ddd16f3482b6876055af950e5d602254075b49baedb18eec4d80e26e29b",
+    "bytes": 100
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_workspace_recovery.py.xml",
+    "sha256": "sha256:d1712476d97a14ca16f1aa97c444d7dc4db3aebebaea7d3fd16887acda5d57b6",
+    "bytes": 5600
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_zero_bids.py.log",
+    "sha256": "sha256:92a008925f96648e3b59dfa05639da80fb0fe814a2b8c5ac4f49c054b800fd07",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_zero_bids.py.xml",
+    "sha256": "sha256:4155f4fbdc6a07ce26445ab0a93ad81e17522758c0a34323e3ec8c679fe22e7b",
+    "bytes": 476
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_zero_volumes.py.log",
+    "sha256": "sha256:d93889f221cdc3bc84deebee275273e73d9bbcac5d2e8b030b80fca71478fc33",
+    "bytes": 98
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file/backend__tests__unit__test_zero_volumes.py.xml",
+    "sha256": "sha256:073106b88d834bcd4e9cb26cca1fd5defc682db7bce8bbc02d6618f554bb1ce3",
+    "bytes": 486
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/per-file-summary.json",
+    "sha256": "sha256:b5376f21f1001c8ec91fb26024aa7fafd668a3363837005e08e11d3c60df30f5",
+    "bytes": 54904
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/pytest-collection.log",
+    "sha256": "sha256:9933b0a67b993d2b7071598f5b7b5c2dc9ebacf92d7f3c2d7b125ca97f5d21a9",
+    "bytes": 140588
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/pytest-full.log",
+    "sha256": "sha256:5ec1f7e700f37c3d0b2981d04855fc34b94aaa15457b05ca571817442d228f81",
+    "bytes": 2
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/ruff-format.log",
+    "sha256": "sha256:e3a4ffeb8558663a87ec6468828703d272162a28ffbfc89e5a772d2d1cd849b0",
+    "bytes": 28
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/ruff-lint-attempt-1.log",
+    "sha256": "sha256:82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "bytes": 19
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/ruff-lint.log",
+    "sha256": "sha256:82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "bytes": 19
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/run_bounded_pytest.py",
+    "sha256": "sha256:41bc85eddf62a25d6522dd2522c4c416cb1bdac6646183ab1789474918212fe4",
+    "bytes": 2503
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/safety-receipt.json",
+    "sha256": "sha256:f12d88ab426c10e75b485e40c3145eebf36ea39f2ad49631b8bd84d4ea6873a5",
+    "bytes": 26688
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/shadow-history-isolated.log",
+    "sha256": "sha256:a0a18b229d5e6db62ef42c50922dfd8d7279218c0ec7d4f9f6e97e1fa1cb706c",
+    "bytes": 4356
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/shadow-history-isolated.xml",
+    "sha256": "sha256:0a5a823606a2392da83c975f304218493ce3e0e43ccf76bb28a069d164d23a1d",
+    "bytes": 2396
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/source-hashes.json",
+    "sha256": "sha256:45647c66de9ae98dc561f43be3b8cf13d26f8cb77399b44e3935415296605bfc",
+    "bytes": 3011
+  },
+  {
+    "path": "data/prospective-evaluation-review/20261031/verify_evidence.py",
+    "sha256": "sha256:0b500603c71e1e4b5771666ec29bc6b05b9a71b286603783041cb3fc2e6969ee",
+    "bytes": 5660
+  }
+]

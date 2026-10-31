@@ -1,0 +1,71 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__ test_label_acquisition_status_refusals_dataset_restart_and_offline_restore __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73944c76ed20>
+
+    def test_label_acquisition_status_refusals_dataset_restart_and_offline_restore(
+        monkeypatch: pytest.MonkeyPatch,
+    ) -> None:
+        original = LabelService.acquire
+        calls: list[str] = []
+    
+        async def controlled(
+            self: LabelService,
+            request: dict[str, Any],
+            transport: httpx.AsyncBaseTransport | None = None,
+        ) -> None:
+            def source(req: httpx.Request) -> httpx.Response:
+                calls.append(str(req.url))
+                return httpx.Response(
+                    200,
+                    content=receipt(req.url.params["date"]).body(),
+                    headers={"content-type": "application/json"},
+                )
+    
+            await original(self, request, httpx.MockTransport(source))
+    
+        monkeypatch.setattr(LabelService, "acquire", controlled)
+        with TemporaryDirectory(prefix="weather-labels-", dir=REPO / "data/cache") as name:
+            parent = Path(name)
+            root = parent / "workspace"
+            seed_retained(root)
+>           with listening(root, workers=False) as (_, client):
+
+backend/tests/integration/test_weather_labels_listener.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+backend/tests/integration/test_workbench_listener.py:29: in listening
+    with WorkbenchServer(REPO, workspace, port=0) as server:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend/src/entropytrade/api/server.py:51: in __init__
+    super().__init__(("127.0.0.1", port), Handler)
+/usr/lib/python3.12/socketserver.py:453: in __init__
+    self.socket = socket.socket(self.address_family,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.socket fd=-1, family=0, type=0, proto=0>
+family = <AddressFamily.AF_INET: 2>, type = <SocketKind.SOCK_STREAM: 1>
+proto = 0, fileno = None
+
+    def __init__(self, family=-1, type=-1, proto=-1, fileno=None):
+        # For user code address family and type values are IntEnum members, but
+        # for the underlying _socket.socket they're just integers. The
+        # constructor of _socket.socket converts the given argument to an
+        # integer automatically.
+        if fileno is None:
+            if family == -1:
+                family = AF_INET
+            if type == -1:
+                type = SOCK_STREAM
+            if proto == -1:
+                proto = 0
+>       _socket.socket.__init__(self, family, type, proto, fileno)
+E       PermissionError: [Errno 1] Operation not permitted
+
+/usr/lib/python3.12/socket.py:233: PermissionError
+=========================== short test summary info ============================
+FAILED backend/tests/integration/test_weather_labels_listener.py::test_label_acquisition_status_refusals_dataset_restart_and_offline_restore
+1 failed in 3.43s

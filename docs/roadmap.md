@@ -9,7 +9,28 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone replaces the finite 128-request workspace cap with bounded immutable
+The current milestone delivers reproducible prospective shadow-evaluation reports through the
+private website, using verified persisted forecasts and subsequent official binary receipts.
+Pending/refused/matched observations, independent event/date counts, protected exclusions,
+JSON/CSV exports and model-specific descriptive diagnostics are implemented. Repeated polls
+cannot inflate evidence; revised outcomes retain their receipt clocks and never rewrite earlier
+predictions or first simulated accounting settlements. Synthetic scored examples stay separate;
+authentic retained observations remain insufficient for metrics. These reports do not count as
+historical validation, empirical returns or V1 release acceptance.
+
+Offline restart/restore and focused checks execute; real-browser acceptance remains blocked by
+runtime socket permission. Supported Chromium installation succeeded, the first launch's exact
+failure is retained, and an executable real-page/listener/download/restart/restore harness awaits
+a permitted environment. No security flags or assertions are relaxed. See
+[operation](prospective-evaluation.md) and
+[current evidence](../data/prospective-evaluation-review/20261031/README.md) for exact executed
+quality results, the interrupted full-suite attempt and bounded per-file checks.
+All Git operations and independent approval remain with the supervisor. **V1 remains incomplete.**
+Finish this milestone's environment-dependent acceptance before claiming its browser gate passed.
+New-family implementation, credential-dependent verification and real trading remain deferred;
+preserve authentic forward collection and the existing Bitcoin boundaries.
+
+The preceding milestone replaces the finite 128-request workspace cap with bounded immutable
 label partitions, integrated through continuous schedules, dataset/cohort construction,
 browser inspection/downloads and offline recovery. Partition seals retain original file hashes
 and chain to preceding seals. Temporary backpressure and interrupted rollover preserve the

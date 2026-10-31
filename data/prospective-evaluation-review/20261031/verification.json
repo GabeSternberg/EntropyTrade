@@ -1,0 +1,281 @@
+{
+  "focused": {
+    "tests": 28,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "serial_shadow_history_cases": 14,
+  "frontend_passed": 24,
+  "mypy_files": 556,
+  "original_and_boundary_hashes_unchanged": 73,
+  "offline": [
+    {
+      "kind": "synthetic",
+      "report_hash": "sha256:be7273a0f4f7e964953b2a2847d8a607fe8faab96399c9d067e71509342f01c1",
+      "counts": {
+        "pending": 1,
+        "refused": 1,
+        "matched": 11,
+        "contracts": 13,
+        "poll_observations": 39,
+        "independent_events": 12,
+        "independent_dates": 12,
+        "matched_events": 10,
+        "matched_dates": 10,
+        "excluded_protected_events": 0,
+        "protected_boundary_events": 1
+      },
+      "workspace": "data/cache/prospective-proof-20261031-synthetic",
+      "archive": "data/cache/prospective-proof-20261031-synthetic.zip",
+      "archive_sha256": "sha256:3524948a771a27ff0e8d8b53619f94ef6e4d29286d481714d1bbc1c830aa2c23",
+      "restored_workspace": "data/cache/prospective-proof-20261031-synthetic-restored",
+      "cycle_files_unchanged": 23,
+      "restart_identical": true,
+      "offline_report_identical": true,
+      "offline_csv_identical": true,
+      "browser_executed": false
+    },
+    {
+      "kind": "authentic",
+      "report_hash": "sha256:efedb90664e35729eea8a4eecb77bbaaef7b63a0ee48936cf7b113b00e2d842b",
+      "counts": {
+        "pending": 0,
+        "refused": 24,
+        "matched": 0,
+        "contracts": 24,
+        "poll_observations": 48,
+        "independent_events": 4,
+        "independent_dates": 2,
+        "matched_events": 0,
+        "matched_dates": 0,
+        "excluded_protected_events": 0,
+        "protected_boundary_events": 0
+      },
+      "workspace": "data/cache/prospective-proof-20261031-authentic",
+      "archive": "data/cache/prospective-proof-20261031-authentic.zip",
+      "archive_sha256": "sha256:5d826d1ab715b5fd8d6a47dc26404570c3ce82ef598366e79ca756b9bd97eb55",
+      "restored_workspace": "data/cache/prospective-proof-20261031-authentic-restored",
+      "cycle_files_unchanged": 68,
+      "restart_identical": true,
+      "offline_report_identical": true,
+      "offline_csv_identical": true,
+      "browser_executed": false
+    }
+  ],
+  "browser_passed": false,
+  "browser_permission_denied": true,
+  "all_test_files_attempted": 241,
+  "file_passes": 217,
+  "file_failures": [
+    {
+      "file": "backend/tests/integration/test_bitcoin_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 5.98,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_forward_validation_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 4.77,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_prospective_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 4.42,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_recovery_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.27,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_shadow_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 39.38,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_weather_cohorts_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 6.78,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_weather_history_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.57,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_weather_labels_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 4.32,
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/integration/test_workbench_listener.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 1.57,
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_label_schedule.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 36.18,
+      "tests": 15,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_shadow_history.py",
+      "exit_code": -11,
+      "deadline_exceeded": false,
+      "seconds": 33.83
+    },
+    {
+      "file": "backend/tests/unit/test_weather_labels.py",
+      "exit_code": 1,
+      "deadline_exceeded": false,
+      "seconds": 32.67,
+      "tests": 27,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "file_deadlines": [
+    {
+      "file": "backend/tests/exchange/test_collector_service.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/exchange/test_gateway_http.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/integration/test_workbench_process.py",
+      "exit_code": 2,
+      "deadline_exceeded": true,
+      "seconds": 90.41,
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_experiments_r4.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.02
+    },
+    {
+      "file": "backend/tests/unit/test_label_partitions.py",
+      "exit_code": 2,
+      "deadline_exceeded": true,
+      "seconds": 91.57,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "backend/tests/unit/test_operational_research.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_registry.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_research_pipeline.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_research_pricing.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_research_transport.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.01
+    },
+    {
+      "file": "backend/tests/unit/test_workbench_provider.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.02
+    },
+    {
+      "file": "backend/tests/unit/test_workbench_workflow.py",
+      "exit_code": -9,
+      "deadline_exceeded": true,
+      "seconds": 95.03
+    }
+  ],
+  "bounded_seconds": 477.06,
+  "full_suite_pass": false,
+  "complete": false,
+  "outstanding": [
+    "Actual localhost listener test",
+    "Both real Chromium procedures with downloads/screenshots",
+    "Complete suite in a socket-permitted runtime; investigate shutdown/native failures if repeated",
+    "Independent supervisor review"
+  ],
+  "retained_files": 517,
+  "retained_bytes": 827920
+}

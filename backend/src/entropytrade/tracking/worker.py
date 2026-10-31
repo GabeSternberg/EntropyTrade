@@ -54,19 +54,22 @@ async def outcomes(
 ) -> dict[str, Any]:
     now = (clock or SystemClock()).now
     root.mkdir()
-    pending = [
-        c
-        for c in contracts
-        if c["outcome"] is None and Market.model_validate(c["market"]["market"]).close_time <= now()
+    closed = [
+        c for c in contracts if Market.model_validate(c["market"]["market"]).close_time <= now()
     ]
-    pending.sort(key=lambda c: (c["last_attempt"], c["ticker"]))
-    selected = pending[:10]
+    closed.sort(key=lambda c: (c["last_attempt"], c["ticker"]))
+    pending = [c for c in closed if c["outcome"] is None]
+    finalized = [c for c in closed if c["outcome"] is not None]
+    # Reserve revision capacity without starving unresolved contracts. Accounting still
+    # freezes its first settlement; subsequent official observations are monitoring only.
+    selected = pending[:5] + finalized[:5]
+    selected += [c for c in closed if c not in selected][: 10 - len(selected)]
     receipts: list[dict[str, Any]] = []
     result: dict[str, Any] = {
         "outcomes": [],
         "outcome_attempts": [],
         "outcome_failures": [],
-        "outcome_deferred": max(0, len(pending) - 10),
+        "outcome_deferred": max(0, len(closed) - 10),
         "outcome_receipts": receipts,
     }
 
@@ -317,7 +320,9 @@ async def collect(
         "as_of": (clock or SystemClock()).now().isoformat(),
         "event_ids": {t: m["event_ticker"] for t, m in all_contracts.items()},
         "close_times": {t: m["close_time"] for t, m in all_contracts.items()},
-        "outcomes": reconciliation["outcomes"],
+        "outcomes": [
+            o for o in reconciliation["outcomes"] if known[o["ticker"]]["outcome"] is None
+        ],
         "execution_books": {},
         "execution_series_fees": [],
     }

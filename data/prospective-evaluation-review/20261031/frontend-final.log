@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: prospective evaluation: authentic insufficiency has no invented metrics
+ok 1 - prospective evaluation: authentic insufficiency has no invented metrics
+  ---
+  duration_ms: 4.56141
+  type: 'test'
+  ...
+# Subtest: prospective evaluation: synthetic diagnostics are labeled
+ok 2 - prospective evaluation: synthetic diagnostics are labeled
+  ---
+  duration_ms: 1.072802
+  type: 'test'
+  ...
+# Subtest: operator alerts keep acknowledged incidents open and resolved history inspectable
+ok 3 - operator alerts keep acknowledged incidents open and resolved history inspectable
+  ---
+  duration_ms: 1.515903
+  type: 'test'
+  ...
+# Subtest: review: failed acquisition is visible without expanding details
+ok 4 - review: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 1.050303
+  type: 'test'
+  ...
+# Subtest: review: partial acquisition is visible without expanding details
+ok 5 - review: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.898602
+  type: 'test'
+  ...
+# Subtest: review: synthetic banner stays visible
+ok 6 - review: synthetic banner stays visible
+  ---
+  duration_ms: 0.960802
+  type: 'test'
+  ...
+# Subtest: review: retained Bitcoin gaps and reconciliation failures are visible
+ok 7 - review: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 1.226303
+  type: 'test'
+  ...
+# Subtest: probabilities: failed acquisition is visible without expanding details
+ok 8 - probabilities: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 1.139203
+  type: 'test'
+  ...
+# Subtest: probabilities: partial acquisition is visible without expanding details
+ok 9 - probabilities: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 1.259103
+  type: 'test'
+  ...
+# Subtest: probabilities: synthetic banner stays visible
+ok 10 - probabilities: synthetic banner stays visible
+  ---
+  duration_ms: 1.087802
+  type: 'test'
+  ...
+# Subtest: probabilities: retained Bitcoin gaps and reconciliation failures are visible
+ok 11 - probabilities: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 1.080502
+  type: 'test'
+  ...
+# Subtest: lineage: failed acquisition is visible without expanding details
+ok 12 - lineage: failed acquisition is visible without expanding details
+  ---
+  duration_ms: 1.888904
+  type: 'test'
+  ...
+# Subtest: lineage: partial acquisition is visible without expanding details
+ok 13 - lineage: partial acquisition is visible without expanding details
+  ---
+  duration_ms: 0.895703
+  type: 'test'
+  ...
+# Subtest: lineage: synthetic banner stays visible
+ok 14 - lineage: synthetic banner stays visible
+  ---
+  duration_ms: 0.824601
+  type: 'test'
+  ...
+# Subtest: lineage: retained Bitcoin gaps and reconciliation failures are visible
+ok 15 - lineage: retained Bitcoin gaps and reconciliation failures are visible
+  ---
+  duration_ms: 0.974102
+  type: 'test'
+  ...
+# Subtest: review: provider failure and limits are visible with zero experiment success
+ok 16 - review: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 1.396403
+  type: 'test'
+  ...
+# Subtest: probabilities: provider failure and limits are visible with zero experiment success
+ok 17 - probabilities: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 0.827202
+  type: 'test'
+  ...
+# Subtest: lineage: provider failure and limits are visible with zero experiment success
+ok 18 - lineage: provider failure and limits are visible with zero experiment success
+  ---
+  duration_ms: 0.881202
+  type: 'test'
+  ...
+# Subtest: review: retained weather counts and shortages stay visible
+ok 19 - review: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 1.202303
+  type: 'test'
+  ...
+# Subtest: probabilities: retained weather counts and shortages stay visible
+ok 20 - probabilities: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 1.309203
+  type: 'test'
+  ...
+# Subtest: lineage: retained weather counts and shortages stay visible
+ok 21 - lineage: retained weather counts and shortages stay visible
+  ---
+  duration_ms: 0.866602
+  type: 'test'
+  ...
+# Subtest: review: shadow history clocks, depth and fee blockers stay visible
+ok 22 - review: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 0.922702
+  type: 'test'
+  ...
+# Subtest: probabilities: shadow history clocks, depth and fee blockers stay visible
+ok 23 - probabilities: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 0.780302
+  type: 'test'
+  ...
+# Subtest: lineage: shadow history clocks, depth and fee blockers stay visible
+ok 24 - lineage: shadow history clocks, depth and fee blockers stay visible
+  ---
+  duration_ms: 1.793504
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 48.633911

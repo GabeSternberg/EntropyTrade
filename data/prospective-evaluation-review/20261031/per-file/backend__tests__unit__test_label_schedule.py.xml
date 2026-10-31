@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="15" time="35.112" timestamp="2026-10-31T08:33:32.091623-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_label_schedule" name="test_over_eight_dates_fair_batches_revisions_restarts_and_immutable_snapshots" time="1.538" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_outages_backoff_pause_recovery_and_no_duplicate_request_after_crash" time="1.300" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change0]" time="0.523" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change1]" time="0.537" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change2]" time="0.524" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change3]" time="0.538" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change4]" time="0.511" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_optin_budgets_and_scope_fail_closed[change5]" time="0.535" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_protection_added_after_optin_prevents_source_access" time="0.747" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_follow_retained_authentic_shadow_discovery_and_offline_freeze" time="1.554" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_corruption_and_symlink_schedule_fail_closed" time="0.575" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_follow_enrolls_unseen_dates_without_reacquiring_existing_targets" time="1.226" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_active_schedule_shutdown_partial_receipt_and_restart_retry" time="20.704"><failure message="RuntimeError: weather acquisition did not stop; workspace lease retained">controlled = (&lt;entropytrade.weather.label_service.LabelService object at 0x7795db8ba360&gt;, {'schema': 'retained-weather-v1', 'datase...eaf9a56a6db746e4703ce2d88627967f03571cc67f8', ...}, &lt;entropytrade.domain.time.SimulatedClock object at 0x7795d9040f20&gt;)
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7795d90414c0&gt;
+
+    def test_active_schedule_shutdown_partial_receipt_and_restart_retry(
+        controlled: tuple[LabelService, dict[str, Any], SimulatedClock], monkeypatch: pytest.MonkeyPatch
+    ) -&gt; None:
+        import threading
+    
+        service, initial, clock = controlled
+        selected = service.scheduler.create(config(initial))
+        schedule_id = selected["config"]["id"]
+        arrived = threading.Event()
+        calls: list[str] = []
+        original = service.acquire
+    
+        async def source(req: httpx.Request) -&gt; httpx.Response:
+            calls.append(req.url.params["date"])
+            if len(calls) == 2:
+                arrived.set()
+                await asyncio.Event().wait()
+            return httpx.Response(200, json=portal(req.url.params["date"]))
+    
+        async def controlled_source(
+            request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -&gt; None:
+            await original(request, httpx.MockTransport(source))
+    
+        monkeypatch.setattr(service, "acquire", controlled_source)
+        service.thread.start()
+        try:
+            assert arrived.wait(10)
+        finally:
+&gt;           service.close()
+
+backend/tests/unit/test_label_schedule.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;entropytrade.weather.label_service.LabelService object at 0x7795db8ba360&gt;
+
+    def close(self) -&gt; None:
+        self.stop.set()
+        with self.lock:
+            if self.active_loop and self.active_task:
+                self.cancel_requested = True
+                self.active_loop.call_soon_threadsafe(self.active_task.cancel)
+        if self.thread.is_alive():
+            self.thread.join(timeout=20)
+            if self.thread.is_alive():
+&gt;               raise RuntimeError("weather acquisition did not stop; workspace lease retained")
+E               RuntimeError: weather acquisition did not stop; workspace lease retained
+
+backend/src/entropytrade/weather/label_service.py:401: RuntimeError</failure></testcase><testcase classname="backend.tests.unit.test_label_schedule" name="test_partition_publication_failure_retains_original_plan_until_explicit_resume" time="0.648" /><testcase classname="backend.tests.unit.test_label_schedule" name="test_dangling_symlink_schedule_is_never_followed" time="0.551" /></testsuite></testsuites>

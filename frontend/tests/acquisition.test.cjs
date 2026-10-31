@@ -41,11 +41,33 @@ function application(alerts = []) {
       ["/api/jobs", "/api/monitors", "/api/weather/datasets"].includes(url) ? [] : { csrf_token: "test" } }),
   });
   vm.runInContext(fs.readFileSync(path.join(__dirname, "../src/app.js"), "utf8") +
-    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts;", context);
+    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts; globalThis.showProspective = prospectiveEvaluation;", context);
   return { context, content: document.getElementById("result-content"), alerts: document.getElementById("shadow-alerts") };
 }
 function text(element) { return [element.textContent, ...element.children.map(text)].join("\n"); }
 function descendants(element) { return [element, ...element.children.flatMap(descendants)]; }
+
+for (const synthetic of [false, true]) {
+  test(`prospective evaluation: ${synthetic ? "synthetic diagnostics are labeled" : "authentic insufficiency has no invented metrics"}`, async () => {
+    const { context } = application();
+    const panel = new Element("section");
+    const value = {
+      status: synthetic ? "diagnostics_available" : "insufficient", as_of: "2026-10-31T00:00:00Z",
+      counts: { pending: 1, refused: 1, matched: synthetic ? 11 : 0, independent_events: 12, independent_dates: 12, matched_events: synthetic ? 10 : 0, matched_dates: synthetic ? 10 : 0, poll_observations: 39 },
+      diagnostics: synthetic ? [{ data_kind: "synthetic", model_hash: "frozen-model", calibration: "none", independent_events: 10, independent_dates: 10, metrics: { event_weighted_brier: .0875, event_weighted_log_loss: .3, reliability_bins: [] } }] : [],
+      observations: [{ ticker: "<script>source</script>", event_id: "event", target_date: "2026-10-31", status: "refused", reason: "missing_prediction", outcome_revisions: 0 }],
+      cycle_statuses: { interrupted: 1 }, cycle_failures: [], limitations: ["No profitability claim"], report_hash: "hash",
+    };
+    context.fetch = async () => ({ ok: true, json: async () => value });
+    await context.showProspective("monitor", panel);
+    assert.match(text(panel), /separate from historical validation and simulated paper accounting/);
+    assert.match(text(panel), /Forecast evaluation JSON/); assert.match(text(panel), /Forecast observations CSV/);
+    if (synthetic) { assert.match(text(panel), /CONTROLLED SYNTHETIC/); assert.match(text(panel), /Event-weighted Brier score/); }
+    else { assert.match(text(panel), /Insufficient evidence: no forecast metrics/); assert.doesNotMatch(text(panel), /Event-weighted Brier score/); }
+    assert.match(text(panel), /<script>source<\/script>/);
+    assert.equal(descendants(panel).filter(e => e.tag === "script").length, 0);
+  });
+}
 
 test("operator alerts keep acknowledged incidents open and resolved history inspectable", async () => {
   const { context, alerts } = application([

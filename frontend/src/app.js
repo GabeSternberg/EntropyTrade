@@ -507,6 +507,11 @@ async function selectMonitor(id, force = false) {
     detail("Lifecycle and recovery events", monitor.events),
     detail("Durable operator alerts", monitor.alerts || []),
     detail("Tracked contracts and subsequent official outcomes", monitor.contracts));
+  const evaluationPanel = append(node("section"), node("h3", "Prospective forecast evaluation"));
+  evaluationPanel.id = "shadow-evaluation";
+  evaluationPanel.append(node("p", "Loading retained forecast evidence…", "hint"));
+  content.append(evaluationPanel);
+  prospectiveEvaluation(id, evaluationPanel);
   const account = monitor.paper_summary;
   if (account) {
     const panel = append(node("section"), node("h3", "Simulated paper account"));
@@ -544,6 +549,35 @@ async function selectMonitor(id, force = false) {
     }
     section.append(node("code", cycle.digest || "No committed result digest")); content.append(section);
   });
+}
+async function prospectiveEvaluation(id, panel) {
+  try {
+    const report = await api(`/api/monitors/${id}/evaluation`);
+    panel.replaceChildren(node("h3", "Prospective forecast evaluation"),
+      notice("Monitoring diagnostics only · separate from historical validation and simulated paper accounting · no profitability claim."),
+      node("p", `Status: ${report.status} · evidence cutoff: ${report.as_of || "No retained observations"}.`));
+    const json = node("a", "Forecast evaluation JSON"); json.href = `/api/monitors/${id}/evaluation`; json.download = `forecast-evaluation-${id}.json`;
+    const csv = node("a", "Forecast observations CSV"); csv.href = `/api/monitors/${id}/evaluation.csv`; csv.download = `forecast-observations-${id}.csv`;
+    panel.append(append(node("div", null, "run-tools"), json, csv));
+    const c = report.counts;
+    panel.append(table(["Pending", "Refused", "Matched", "Independent events", "Target dates", "Matched events / dates", "Poll observations"],
+      [[c.pending, c.refused, c.matched, c.independent_events, c.independent_dates, `${c.matched_events} / ${c.matched_dates}`, c.poll_observations]]));
+    if (!report.diagnostics.some(g => g.metrics)) panel.append(notice(report.status === "refused"
+      ? "Evidence verification refused: no forecast metrics. Inspect the retained failures below."
+      : "Insufficient evidence: no forecast metrics. Ten matched independent events on five target dates per model are required."));
+    report.diagnostics.forEach(group => {
+      panel.append(notice(group.data_kind === "synthetic" ? "CONTROLLED SYNTHETIC · software demonstration only; never empirical performance" : "Authentic retained evidence · descriptive monitoring only"),
+        node("p", `${group.model_hash} · ${group.calibration} · ${group.independent_events} matched events / ${group.independent_dates} dates.`, "small"));
+      if (group.metrics) panel.append(table(["Event-weighted Brier score", "Event-weighted log loss"], [[group.metrics.event_weighted_brier, group.metrics.event_weighted_log_loss]]), detail("Forecast reliability bins", group.metrics.reliability_bins));
+    });
+    panel.append(table(["Contract", "Event / date", "Status", "P(YES)", "Official result", "Available at", "Revisions", "Reason"], report.observations.map(r =>
+      [r.ticker, `${r.event_id} / ${r.target_date}`, r.status, r.prediction?.probability_yes, r.outcome?.result, r.outcome?.available_at, r.outcome_revisions, r.reason])),
+      detail("Forecast, source and outcome lineage", report.observations),
+      detail("Excluded, failed and interrupted evidence", { excluded_protected_events: c.excluded_protected_events, cycle_statuses: report.cycle_statuses, failures: report.cycle_failures }),
+      list(report.limitations), node("code", report.report_hash));
+  } catch (error) {
+    panel.replaceChildren(node("h3", "Prospective forecast evaluation"), notice(error.message, true));
+  }
 }
 $("shadow-start").addEventListener("click", async () => {
   $("shadow-start").disabled = true;

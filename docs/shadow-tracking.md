@@ -111,8 +111,15 @@ Official binary outcomes are not scalar weather/index labels and do not certify 
 settlement semantics. Outcome availability is the new receipt time; earlier decisions,
 model partitions and historical holdout boundaries are never rewritten. Pending lookups
 rotate by oldest attempt, so a large set does not starve later contracts.
-The first accepted finalized result freezes that contract's outcome; monitoring later
-corrections to finalized outcomes remains a release limitation.
+The first accepted finalized result freezes that contract's accounting outcome. Bounded later
+lookups now reserve up to five slots for unresolved contracts and five for finalized revision
+checks, filling spare capacity from the oldest remaining attempts, with ten contracts maximum
+(the existing historical fallback is allowed only after a live-endpoint 404).
+Later receipts never rewrite the frozen accounting result. The separate
+[prospective forecast report](prospective-evaluation.md) verifies subsequent official receipts,
+shows corrections and uses the latest valid binary outcome available at its evidence cutoff.
+Changed terms, preliminary results, malformed responses and exceptional settlement semantics
+remain refused. Absence of a later receipt cannot prove the outcome has not changed externally.
 
 Pause interrupts an active cycle atomically and prevents its late result from committing.
 Resume starts a fresh collection; completed cycles remain unchanged. Restart marks any

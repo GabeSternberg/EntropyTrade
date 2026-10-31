@@ -1,0 +1,59 @@
+............F..                                                          [100%]
+=================================== FAILURES ===================================
+_______ test_active_schedule_shutdown_partial_receipt_and_restart_retry ________
+
+controlled = (<entropytrade.weather.label_service.LabelService object at 0x7795db8ba360>, {'schema': 'retained-weather-v1', 'datase...eaf9a56a6db746e4703ce2d88627967f03571cc67f8', ...}, <entropytrade.domain.time.SimulatedClock object at 0x7795d9040f20>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7795d90414c0>
+
+    def test_active_schedule_shutdown_partial_receipt_and_restart_retry(
+        controlled: tuple[LabelService, dict[str, Any], SimulatedClock], monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import threading
+    
+        service, initial, clock = controlled
+        selected = service.scheduler.create(config(initial))
+        schedule_id = selected["config"]["id"]
+        arrived = threading.Event()
+        calls: list[str] = []
+        original = service.acquire
+    
+        async def source(req: httpx.Request) -> httpx.Response:
+            calls.append(req.url.params["date"])
+            if len(calls) == 2:
+                arrived.set()
+                await asyncio.Event().wait()
+            return httpx.Response(200, json=portal(req.url.params["date"]))
+    
+        async def controlled_source(
+            request: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -> None:
+            await original(request, httpx.MockTransport(source))
+    
+        monkeypatch.setattr(service, "acquire", controlled_source)
+        service.thread.start()
+        try:
+            assert arrived.wait(10)
+        finally:
+>           service.close()
+
+backend/tests/unit/test_label_schedule.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <entropytrade.weather.label_service.LabelService object at 0x7795db8ba360>
+
+    def close(self) -> None:
+        self.stop.set()
+        with self.lock:
+            if self.active_loop and self.active_task:
+                self.cancel_requested = True
+                self.active_loop.call_soon_threadsafe(self.active_task.cancel)
+        if self.thread.is_alive():
+            self.thread.join(timeout=20)
+            if self.thread.is_alive():
+>               raise RuntimeError("weather acquisition did not stop; workspace lease retained")
+E               RuntimeError: weather acquisition did not stop; workspace lease retained
+
+backend/src/entropytrade/weather/label_service.py:401: RuntimeError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_label_schedule.py::test_active_schedule_shutdown_partial_receipt_and_restart_retry
+1 failed, 14 passed in 35.19s

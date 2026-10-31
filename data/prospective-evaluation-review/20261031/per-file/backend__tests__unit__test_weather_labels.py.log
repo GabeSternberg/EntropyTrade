@@ -1,0 +1,55 @@
+........................F..                                              [100%]
+=================================== FAILURES ===================================
+______ test_shutdown_cancels_active_network_and_preserves_prior_receipts _______
+
+setup = (PosixPath('/tmp/pytest-of-gabriel/pytest-239/test_shutdown_cancels_active_n0/workspace'), {'schema': 'retained-weathe...0f0407c02acf49efe1d323358ac1b195faf', ...}, <entropytrade.weather.label_service.LabelService object at 0x7fdfc4346f30>)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fdfe36dc800>
+
+    def test_shutdown_cancels_active_network_and_preserves_prior_receipts(
+        setup: tuple[Path, dict[str, Any], LabelService], monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        import threading
+    
+        _, snapshot, service = setup
+        request = service.create({"id": str(uuid4()), "dataset_id": snapshot["dataset_id"][7:]})
+        arrived = threading.Event()
+        original = service.acquire
+    
+        async def stalled(req: httpx.Request) -> httpx.Response:
+            arrived.set()
+            await asyncio.Event().wait()
+            raise AssertionError("unreachable")
+    
+        async def controlled(
+            saved: dict[str, Any], transport: httpx.AsyncBaseTransport | None = None
+        ) -> None:
+            await original(saved, httpx.MockTransport(stalled))
+    
+        monkeypatch.setattr(service, "acquire", controlled)
+        service.thread.start()
+        try:
+            assert arrived.wait(10)
+        finally:
+>           service.close()
+
+backend/tests/unit/test_weather_labels.py:361: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <entropytrade.weather.label_service.LabelService object at 0x7fdfc4346f30>
+
+    def close(self) -> None:
+        self.stop.set()
+        with self.lock:
+            if self.active_loop and self.active_task:
+                self.cancel_requested = True
+                self.active_loop.call_soon_threadsafe(self.active_task.cancel)
+        if self.thread.is_alive():
+            self.thread.join(timeout=20)
+            if self.thread.is_alive():
+>               raise RuntimeError("weather acquisition did not stop; workspace lease retained")
+E               RuntimeError: weather acquisition did not stop; workspace lease retained
+
+backend/src/entropytrade/weather/label_service.py:401: RuntimeError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_weather_labels.py::test_shutdown_cancels_active_network_and_preserves_prior_receipts
+1 failed, 26 passed in 31.73s

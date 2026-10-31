@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.777" timestamp="2026-10-31T08:32:51.216806-04:00" hostname="DESKTOP-35K4BNH"><testcase classname="backend.tests.unit.test_chicago_manifest_gap" name="test_chicago_has_no_prediction_record" time="1.629" /></testsuite></testsuites>

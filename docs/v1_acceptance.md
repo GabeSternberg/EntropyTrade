@@ -1,3 +1,21 @@
+# Prospective shadow-evaluation reports — October 31, 2026
+
+**complete=false.** Implemented on designated `supervisor/20261031-081845` from `a83b9db`;
+Git operations and independent review remain with the supervisor. See
+[operation](prospective-evaluation.md) and
+[executed evidence](../data/prospective-evaluation-review/20261031/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Pending, refused and matched forecasts | `tracking/prospective.py`, website panel, JSON/CSV routes | Implemented using verified saved forecasts and subsequent raw official receipts; original sample/model/receipt clocks stay visible. |
+| Repeated polls and independent evidence | `test_prospective.py`, offline synthetic projection | 39 poll observations yield 13 contracts, 12 events/dates and only ten matched events; strikes share event weight. Earliest pre-close observation cannot be replaced by a later forecast. Controlled evidence only. |
+| Causal matching, revisions and protection | Late receipt, wrong terms/payout, same-clock conflicts, later protection and rehashed-source forgery tests | No backdated availability; invalid/ambiguous results refuse. Protected rows/predictions are excluded. Finalized contracts receive bounded revision checks. |
+| Forecast diagnostics versus accounting | Per-model/data-kind Brier/log loss/reliability bins; real collector revision regression | Ten matched events on five dates are descriptive-monitoring minimums. Trading fees/depth/risk remain separate; original first settlements and monetary caps stay fixed. No validation or return claim. |
+| Authentic evidence | Unchanged 68-file original shadow import and offline exports | 24 refused contracts, four events, two dates, 48 polls, no usable predictions or metrics. Authentic empirical evaluation remains insufficient. |
+| Restart and offline replay | `test_prospective_offline.py`, durable offline proof | JSON reports and CSV bytes reproduce after restart and verified snapshot/restore, with all 23 synthetic and 68 authentic cycle files unchanged. |
+| Real website/browser acceptance | `prospective.spec.cjs`; retained installation, discovery, launch and listener logs | **Outstanding.** Chromium launch denied at `socket.cc:45` (`setsockopt`, SIGTRAP); actual listener denied socket creation (`Errno 1`). Two executable real-page/download/restart/restore procedures remain for a permitted environment. No screenshots/downloads were executed in this runtime. |
+| Complete quality/release acceptance | Current evidence logs and bounded all-file summary | Scoped lint/type/frontend/offline tests are recorded separately from incomplete full-suite/browser gates. V1, independent review, sufficient authentic history, authorized provider verification and approved second-family evidence remain open. |
+
 # Bounded immutable label partitions — October 31, 2026
 
 **complete=false.** This intermediate milestone on designated `supervisor/20261031-073225`

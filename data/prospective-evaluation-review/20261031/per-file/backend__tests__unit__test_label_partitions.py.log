@@ -1,0 +1,8 @@
+Timeout (0:00:30)!
+Thread 0x000073be0365f080 (most recent call first):
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/weather/label_partitions.py", line 27 in <genexpr>
+...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/weather/labels.py:68: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+3 passed in 90.58s (0:01:30)

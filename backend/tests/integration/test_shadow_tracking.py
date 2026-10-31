@@ -28,6 +28,7 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
     store = TrackingStore(Jobs(tmp_path))
     monitor_id = monitor(store, family="bitcoin")
     clock = SimulatedClock(WHEN)
+    official_result = "no"
 
     def final(request: httpx.Request) -> httpx.Response:
         assert request.method == "GET"
@@ -45,8 +46,8 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
         assert body["ticker"] == ticker
         body.update(
             status="finalized",
-            result="no",
-            settlement_value_dollars="0.0000",
+            result=official_result,
+            settlement_value_dollars="1.0000" if official_result == "yes" else "0.0000",
             settlement_ts="2026-10-26T02:00:00Z",
         )
         return httpx.Response(200, json={"market": body})
@@ -110,6 +111,30 @@ def test_multi_cycle_receipts_official_outcomes_and_restart_keep_original_decisi
                 file_hash(tmp_path / "shadow" / monitor_id / cycle["id"] / artifact["path"])
                 == artifact["sha256"]
             )
+    # A later official correction remains visible without rewriting first settlements,
+    # earlier decisions, reserved collateral releases or simulated accounting.
+    official_result = "yes"
+    prior_contracts = after["contracts"]
+    prior_account = after["paper_account"]
+    clock.advance(timedelta(minutes=1))
+    reopened.control(monitor_id, "pause")
+    reopened.control(monitor_id, "resume")
+    third = reopened.claim()
+    assert third is not None
+    execute(reopened, REPO, *third)
+    revised = reopened.get(monitor_id, export=True)
+    assert revised is not None
+    assert revised["cycles"][0]["status"] == "completed"
+    assert len(revised["cycles"][0]["result"]["outcomes"]) == 2
+    assert all(o["result"] == "yes" for o in revised["cycles"][0]["result"]["outcomes"])
+    assert revised["cycles"][0]["result"]["paper_inputs"]["outcomes"] == []
+    assert all(c["outcome"]["result"] == "no" for c in revised["contracts"])
+    assert [c["outcome"] for c in revised["contracts"]] == [c["outcome"] for c in prior_contracts]
+    assert (
+        revised["paper_account"]["ledger"]["settlements"] == prior_account["ledger"]["settlements"]
+    )
+    assert all(file_hash(path) == digest for path, digest in frozen_files.items())
+    assert verify(tmp_path / "shadow" / monitor_id / third[1])["verified"]
     inputs = tmp_path / "shadow" / monitor_id / after["cycles"][0]["id"] / "decision-inputs.json"
     inputs.write_text("{}")
     with pytest.raises(ValueError, match="checksum/path mismatch"):

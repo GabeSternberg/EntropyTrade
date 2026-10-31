@@ -1,0 +1,4 @@
+Timeout (0:00:30)!
+Thread 0x0000776693eb0080 (most recent call first):
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/data/sources.py", line 18 in <lambda>
+  File 
