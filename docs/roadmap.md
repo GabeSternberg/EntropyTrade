@@ -9,7 +9,20 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone is reproducible private-workbench operating acceptance using the
+The current correction fixes the reported provider-deadline verification failure. The
+old test raced a 50 ms pipeline budget against agent setup and incorrectly required HTTP
+to have started. The repaired test expires the actual asyncio deadline at controlled
+request arrival; additional regressions check delayed setup and real pre-request expiry,
+durable failed reviews and guard recovery. Production limits, original receipts and
+frozen boundaries remain unchanged. Focused checks and the real provider browser procedure
+pass, along with the **complete 1,210-case pytest suite in 532.60s**, Ruff/format,
+strict mypy and 22 named frontend checks. The provider browser procedure retains eight
+screenshots and 14 verified downloads. See [debugging evidence](../data/debugging-review/20261031-provider-deadline/README.md).
+Return this correction for supervisor review before another milestone. It does not close
+the six-procedure operating or authentic empirical release gates. All Git operations remain
+with the supervisor; V1 stays incomplete.
+
+The preceding milestone is reproducible private-workbench operating acceptance using the
 existing `tools/local_acceptance.py`. Its default browser selection now includes research,
 recovery, controlled provider integration, authentic weather history, both paper procedures
 and alerts. Clean exports retain the original v1 compatibility fixture and whole original

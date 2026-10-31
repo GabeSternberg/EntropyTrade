@@ -1,0 +1,73 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0 -- /home/gabriel/Projects/EntropyTrade/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+rootdir: /home/gabriel/Projects/EntropyTrade
+configfile: pyproject.toml
+plugins: hypothesis-6.168.3, cov-7.1.0, anyio-4.15.1, platformdirs-4.12.2
+collecting ... collected 1 item
+
+backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[deadline-True] FAILED [100%]
+
+=================================== FAILURES ===================================
+_ test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[deadline-True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-gabriel/pytest-151/test_provider_job_runs_typed_r0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77c23afb2c30>
+case = 'deadline', delayed_setup = True
+
+    @pytest.mark.parametrize(
+        ("case", "delayed_setup"),
+        [("success", False), ("outage", False), ("malformed", False), ("deadline", False),
+         ("deadline", True)],
+    )
+    def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        case: str,
+        delayed_setup: bool,
+    ) -> None:
+        original = run_research
+        calls: list[dict[str, Any]] = []
+    
+        if delayed_setup:
+            original_agent = team.operational_agent
+    
+            def delayed_agent(*args: Any, **kwargs: Any) -> Any:
+                # Cold schema construction/load can exceed the old fixture's 50 ms budget.
+                time.sleep(0.1)
+                return original_agent(*args, **kwargs)
+    
+            monkeypatch.setattr(team, "operational_agent", delayed_agent)
+    
+        async def controlled_research(**kwargs: Any) -> dict[str, Any]:
+            return await wire_research(original, case=case, calls=calls, **kwargs)
+    
+        monkeypatch.setattr(workflow, "run_research", controlled_research)
+        jobs = Jobs(tmp_path)
+        job_id = jobs.create(REQUEST, provider=CONFIG)
+        jobs.update(job_id, "starting", "Starting controlled provider transport check")
+        execute_job(jobs, REPO, job_id)
+        job = jobs.get(job_id)
+        assert job is not None
+        review = job["result"]
+        assert review is not None, job["detail"]
+        assert provider_requests_blocked()
+        assert review["reasoning"] == "provider"
+        assert "mock" not in review["reasoning_limit"]
+        assert review["research"]["provider"] == CONFIG
+        assert review["research"]["limits"]["requests"] == 16
+        assert not review["final_holdout_evaluated"]
+        assert not review["probabilities"]
+        assert "fixture-dedicated-key" not in json.dumps(job)
+        assert json.loads((tmp_path / "runs" / job_id / "review.json").read_text()) == review
+        assert Jobs(tmp_path).get(job_id) == job
+        assert all(a["sha256"] for a in review["artifacts"])
+>       assert calls
+E       assert []
+
+backend/tests/unit/test_workbench_provider.py:76: AssertionError
+- generated xml file: /home/gabriel/Projects/EntropyTrade/data/debugging-review/20261031-provider-deadline/reproduced.xml -
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_workbench_provider.py::test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure[deadline-True] - assert []
+============================== 1 failed in 4.79s ===============================

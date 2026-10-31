@@ -1,4 +1,26 @@
-# Current private-workbench operating acceptance — October 31, 2026
+# Provider deadline debugging correction — October 31, 2026
+
+**complete=false.** The [current correction evidence](../data/debugging-review/20261031-provider-deadline/README.md)
+reproduces the reported `assert calls` failure with a controlled slow agent setup and
+repairs the timing-dependent HTTP fixture without changing production deadlines or risk
+limits. Separate regressions require actual timeout cancellation during HTTP and zero
+requests on real startup expiry, unchanged failed-review recovery bytes and a released
+worker guard. Ruff/format, strict mypy, 64 focused pytest cases and 22 named frontend checks
+pass. The [complete suite](../data/debugging-review/20261031-provider-deadline/full-suite.log)
+passes **1,210 tests in 532.60s**, with no failures or skips, including all deadline
+regressions. This closes the reported verification failure for this correction's source.
+
+The existing controlled provider procedure now executes in managed Chromium through a real
+localhost listener using the supported approval path: 8 screenshots, 14 hash-verified
+downloads, cancellation/restart and zero page errors. The [execution-report check](../data/debugging-review/20261031-provider-deadline/browser-verification.json)
+requires its exact identity and successful result records. It explicitly records the other
+five required procedures as missing; this scoped pass cannot complete operating acceptance.
+There is no fresh-install or external-provider pass and no new authentic model/fee/two-family
+evidence. All 68 original receipts and five Bitcoin boundary files remain byte-identical.
+Independent release review and all remaining V1 requirements stay open. No Git operations
+or real orders are performed. The following matrix retains its earlier execution scope.
+
+# Prior private-workbench operating acceptance — October 31, 2026
 
 **complete=false. Operating acceptance is externally blocked.** Implementation/checks are
 on designated `supervisor/20261031-014049` from `b8d2538`; all Git operations and independent

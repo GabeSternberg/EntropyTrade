@@ -1,0 +1,44 @@
+{
+  "browser_procedure": {
+    "report": "data/debugging-review/20261031-provider-deadline/browser/playwright-results.json",
+    "execution": true,
+    "status": "passed",
+    "procedures": [
+      {
+        "file": "provider.spec.cjs",
+        "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery"
+      }
+    ],
+    "missing_required": [
+      {
+        "file": "alerts.spec.cjs",
+        "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay"
+      },
+      {
+        "file": "paper.spec.cjs",
+        "title": "durable paper account: authentic refusal, downloads, restart and offline replay"
+      },
+      {
+        "file": "recovery.spec.cjs",
+        "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle"
+      },
+      {
+        "file": "weather-history.spec.cjs",
+        "title": "authentic retained weather: freeze, select, research, downloads and restart"
+      }
+    ],
+    "errors": [],
+    "sha256": "81c3a7788e2951f54dfec499022e37ba10801f79b7d3e3397cdfc70f9e95912b"
+  },
+  "receipt_status": "passed",
+  "screenshots_verified": 8,
+  "downloads_verified": 14,
+  "page_errors": [],
+  "all_required_browser_procedures_executed": false,
+  "operating_acceptance_complete": false,
+  "v1_complete": false
+}

@@ -1,0 +1,23 @@
+{
+  "command": ".venv/bin/python tools/local_acceptance.py --check-environment",
+  "checked_at": "2026-10-31T07:08:20.415757+00:00",
+  "status": "blocked",
+  "checks": [
+    {
+      "name": "localhost_listener",
+      "status": "blocked",
+      "operation": "socket creation",
+      "failure": "PermissionError(1, 'Operation not permitted')",
+      "errno": 1
+    },
+    {
+      "name": "asyncio_socketpair",
+      "status": "blocked",
+      "operation": "socketpair send",
+      "failure": "PermissionError(1, 'Operation not permitted')",
+      "errno": 1
+    }
+  ],
+  "scope": "Exact prior restricted-runtime probe output retained from this session; not a fresh retry.",
+  "followup": "Local tests and browser execution used the supported require_escalated approval path, which was approved. No socket, event-loop or sandbox patch was applied."
+}

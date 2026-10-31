@@ -3,6 +3,7 @@
 import asyncio
 import json
 from collections.abc import Awaitable, Callable
+from contextlib import ExitStack
 from typing import Any
 from unittest.mock import patch
 from uuid import uuid4
@@ -21,6 +22,7 @@ async def wire_research(
     *,
     case: str,
     calls: list[dict[str, Any]],
+    timeout_seconds: float = 180,
     **kwargs: Any,
 ) -> dict[str, Any]:
     data, run_id = kwargs["evidence"], str(uuid4())
@@ -28,14 +30,33 @@ async def wire_research(
     for topic in ("coverage", "markets", "features", "models", "history"):
         data.inspect(EvidenceQuery.model_validate({"topic": topic}))
     outputs = [m.custom_output_args for m in operational_models(kwargs["prompt"], data, run_id)]
+    original_timeout = asyncio.timeout
+    research_deadline: asyncio.Timeout | None = None
+
+    def capture_timeout(delay: float | None) -> asyncio.Timeout:
+        nonlocal research_deadline
+        deadline = original_timeout(delay)
+        if research_deadline is None:
+            assert delay == timeout_seconds
+            research_deadline = deadline
+        return deadline
 
     async def response(request: httpx.Request) -> httpx.Response:
         body = json.loads(request.content)
         calls.append(body)
         assert request.url.host == "api.openai.com"
         assert request.headers["authorization"] == "Bearer fixture-dedicated-key"
-        if case in {"deadline", "slow"}:
-            await asyncio.sleep(120 if case == "slow" else 1)
+        if case == "deadline":
+            # Expire the pipeline's actual timeout only once HTTP is in flight. A tiny
+            # startup budget races schema construction and may never reach this seam.
+            assert research_deadline is not None
+            research_deadline.reschedule(asyncio.get_running_loop().time())
+            try:
+                await asyncio.Future[None]()
+            finally:
+                assert research_deadline.expired()
+        if case == "slow":
+            await asyncio.sleep(120)
         if case == "outage":
             return httpx.Response(503, json={"error": {"message": "fixture-dedicated-key"}})
         index = len(calls) - 1
@@ -105,9 +126,16 @@ async def wire_research(
         selected = OpenAIProvider(api_key="fixture-dedicated-key", http_client=client)
         selected.client.max_retries = 0
         model = OpenAIChatModel("gpt-4.1-mini", provider=selected)
-        with patch.object(provider_module, "research_model", return_value=model):
+        with ExitStack() as stack:
+            stack.enter_context(patch.object(provider_module, "research_model", return_value=model))
+            if case == "deadline":
+                stack.enter_context(
+                    patch(
+                        "entropytrade.agents.pipeline.asyncio.timeout", side_effect=capture_timeout
+                    )
+                )
             return await original(
                 **kwargs,
                 run_id=run_id,
-                timeout_seconds=0.05 if case == "deadline" else 180,
+                timeout_seconds=timeout_seconds,
             )

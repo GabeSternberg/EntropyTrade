@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 frontend/browser/provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (40.9s)
+
+  1 passed (44.8s)

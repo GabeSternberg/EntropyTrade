@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-10-31T07:16:53.374777+00:00",
+  "scope": "Current tested provider/timeout code, existing browser procedure and dependency configuration. Git state is not inspected or mutated.",
+  "sha256": {
+    "backend/tests/provider_support.py": "576a4a6058e0fe2edaf861e245c6d85c5e73f9e603436d5c81344b2f9d30a908",
+    "backend/tests/unit/test_workbench_provider.py": "69756f2dee750ddb24ae36b78ac75d1193de3c25d19117f2c146f1ae05394055",
+    "backend/src/entropytrade/agents/pipeline.py": "7c88c1c2cc621f25044bed457e4b803cd7db60287036435c956fe9c4cebea164",
+    "backend/src/entropytrade/agents/team.py": "9164104eb813176fb0d70cfe0850a6e18fe9004018a339d0d8e9567e079e87ec",
+    "backend/src/entropytrade/agents/guard.py": "5b341fdbe7fbe2cbd8b9414be6f2e41fd230f4a33fbebd3fd44889c337818ff8",
+    "backend/src/entropytrade/agents/provider.py": "bf9d97fc0cff355d926be933569117c4cb37de26b7365d0e5092f2b239a6d495",
+    "backend/src/entropytrade/agents/pricing.py": "63fa39559e5dd0765b3126b4ffb7c6222ea3a25499a6307238557499f068c35c",
+    "frontend/browser/provider.spec.cjs": "9813a13b06a3bb3a7161978ebd41b87b153c18aa88cb436fc158d7431e2541ae",
+    "frontend/browser/playwright.config.cjs": "9a1735f81adbba038e04e4b802f48cc5e249ba4c789b5c82831bfb7c1eb12d86",
+    "pyproject.toml": "217f56d0e949973635dcbbffbb73aa0d98d5c55652a5203bd11c33e8536758e4",
+    "uv.lock": "dccd66ea4f1ce64a7080272f2c01c125f8c8ea7517fa3db29ba9677a9613232b"
+  }
+}

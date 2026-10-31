@@ -1,0 +1,50 @@
+{
+  "verified_at": "2026-10-31T07:21:30.122905+00:00",
+  "scope": "Provider deadline fixture repair and regressions; production research budgets and safety controls unchanged.",
+  "reproduction": {
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 4.138
+  },
+  "focused_pytest": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 9.442
+  },
+  "complete_pytest": {
+    "tests": 1210,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 532.585
+  },
+  "ruff_lint": "passed",
+  "ruff_format": "passed (535 files)",
+  "strict_mypy": "passed (535 files)",
+  "frontend_named_checks": 22,
+  "browser": {
+    "procedures_passed": 1,
+    "seconds": 44.8,
+    "screenshots_verified": 8,
+    "downloads_verified": 14,
+    "page_errors": []
+  },
+  "original_receipts_unchanged": 68,
+  "bitcoin_boundaries_unchanged": 5,
+  "tested_source_hashes_match": true,
+  "git_operations": "None; supervisor retains all Git operations and independent review.",
+  "operating_acceptance_complete": false,
+  "v1_complete": false,
+  "remaining_release_scope": [
+    "Other five required browser procedures",
+    "Fresh-install six-procedure operating acceptance",
+    "Separately authorized external-provider verification",
+    "Sufficient authentic empirical model/backtest and effective fee evidence",
+    "Two-family empirical release evidence",
+    "Independent supervisor review"
+  ]
+}

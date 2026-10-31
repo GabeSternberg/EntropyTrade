@@ -3,7 +3,34 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: reproducible private-workbench operating acceptance
+## Current correction: deterministic provider deadline verification
+
+The reported provider-job `assert calls` failure is reproduced and repaired in test
+support. A 50 ms whole-pipeline deadline could expire during agent/schema setup before
+HTTP, while the fixture required a request. The controlled stalled-HTTP fixture now
+expires the real asyncio deadline at request arrival. Added regressions cover slow setup
+and a separate real 50 ms startup timeout with zero requests, durable failure recovery,
+no experiments/holdout and worker-guard release. Production budgets and safety gates are
+unchanged. See [reproduction and verification](data/debugging-review/20261031-provider-deadline/README.md).
+
+Ruff/format, strict mypy (535 files), **64 focused pytest cases in 9.52s**, and all
+22 named frontend checks pass. The existing provider procedure passes through actual
+managed Chromium and a localhost listener: **8 screenshots, 14 verified downloads, zero
+page errors**, with cancellation/restart and identical reopened downloads. Restricted
+execution still denies sockets; local test/browser execution used the approved standard
+permission path without patching the sandbox or launch settings. The **complete pytest
+suite passes all 1,210 cases in 532.60s**, with no failures or skips, including every
+repaired deadline case. Exact logs, JUnit, source hashes and browser artifacts are retained
+in the debugging bundle.
+
+All 68 original receipts and five Bitcoin boundary files match the prior safety hashes.
+V1 and six-procedure operating acceptance remain incomplete; the other five procedures,
+fresh-install operating acceptance, external-provider and authentic empirical/fee/two-family
+evidence remain open. Preserve authentic forward collection and optional Bitcoin work;
+another major family requires user approval. No Git operations or next major phase are
+performed; return this debugging correction for independent supervisor review.
+
+## Previous milestone: reproducible private-workbench operating acceptance
 
 The report-gate correction is implemented in place from `5e2bd03` on the same designated
 branch. Completion now requires JSON-reporter discovery of the six fixed file/title

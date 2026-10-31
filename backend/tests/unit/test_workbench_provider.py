@@ -1,12 +1,14 @@
 """Provider jobs use real serialization and deterministic gates; controlled HTTP only."""
 
 import json
+import time
 from pathlib import Path
 from typing import Any
 
 import pytest
 
-from entropytrade.agents.guard import provider_requests_blocked
+from entropytrade.agents import team
+from entropytrade.agents.guard import provider_requests_blocked, research_requests
 from entropytrade.agents.pipeline import run_research
 from entropytrade.api.jobs import Jobs, validate_request
 from entropytrade.api.worker import execute_job
@@ -24,17 +26,44 @@ REQUEST = {
 }
 
 
-@pytest.mark.parametrize("case", ["success", "outage", "malformed", "deadline"])
+@pytest.mark.parametrize(
+    ("case", "delayed_setup"),
+    [
+        ("success", False),
+        ("outage", False),
+        ("malformed", False),
+        ("deadline", False),
+        ("deadline", True),
+        ("startup_deadline", True),
+    ],
+)
 def test_provider_job_runs_typed_research_then_deterministic_experiments_or_saved_failure(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
     case: str,
+    delayed_setup: bool,
 ) -> None:
     original = run_research
     calls: list[dict[str, Any]] = []
 
+    if delayed_setup:
+        original_agent = team.operational_agent
+
+        def delayed_agent(*args: Any, **kwargs: Any) -> Any:
+            # Cold schema construction/load can exceed the old fixture's 50 ms budget.
+            time.sleep(0.1)
+            return original_agent(*args, **kwargs)
+
+        monkeypatch.setattr(team, "operational_agent", delayed_agent)
+
     async def controlled_research(**kwargs: Any) -> dict[str, Any]:
-        return await wire_research(original, case=case, calls=calls, **kwargs)
+        return await wire_research(
+            original,
+            case="success" if case == "startup_deadline" else case,
+            calls=calls,
+            timeout_seconds=0.05 if case == "startup_deadline" else 180,
+            **kwargs,
+        )
 
     monkeypatch.setattr(workflow, "run_research", controlled_research)
     jobs = Jobs(tmp_path)
@@ -56,7 +85,12 @@ def test_provider_job_runs_typed_research_then_deterministic_experiments_or_save
     assert json.loads((tmp_path / "runs" / job_id / "review.json").read_text()) == review
     assert Jobs(tmp_path).get(job_id) == job
     assert all(a["sha256"] for a in review["artifacts"])
-    assert calls
+    if case == "startup_deadline":
+        assert calls == []
+        assert review["research"]["limits"]["timeout_seconds"] == 0.05
+    else:
+        assert calls
+        assert review["research"]["limits"]["timeout_seconds"] == 180
     if case == "success":
         assert job["status"] == "completed"
         assert len(calls) == 5
@@ -88,8 +122,20 @@ def test_provider_job_runs_typed_research_then_deterministic_experiments_or_save
         assert review["research"]["failure"]["stage"] == "research"
         assert "experiments" not in {e["stage"] for e in job["events"]}
         assert not (tmp_path / "runs" / job_id / "workflow/experiments").exists()
-        if case == "deadline":
+        if case in {"deadline", "startup_deadline"}:
             assert review["research"]["failure"]["type"] == "TimeoutError"
+            assert review["research"]["stages"] == []
+            assert review["research"]["responses"] == []
+            assert review["research"]["usage"]["requests"] == 0
+            assert len(calls) == (0 if case == "startup_deadline" else 1)
+            # Cancellation/timeout must release the worker guard and preserve failure bytes.
+            saved_bytes = (tmp_path / "runs" / job_id / "review.json").read_bytes()
+            reopened = Jobs(tmp_path)
+            reopened.recover()
+            assert reopened.get(job_id) == job
+            assert (tmp_path / "runs" / job_id / "review.json").read_bytes() == saved_bytes
+            with research_requests(enabled=False):
+                assert provider_requests_blocked()
 
 
 @pytest.mark.parametrize(
