@@ -1,4 +1,17 @@
-# Current research-cohort evidence — October 30, 2026
+# Current paper-accounting evidence — October 31, 2026
+
+**complete=false.** Durable simulated paper accounting is implemented as an intermediate
+milestone, separately from observed evidence. See [the operating guide](paper-accounting.md)
+and [executed evidence](../data/paper-accounting-review/20261031/README.md). Controlled cases
+prove causal execution, liquidity non-reuse, fee transitions, risk caps, restart/recovery,
+duplicate settlement and offline accounting; they remain synthetic. Authentic receipts
+still refuse for missing models/fees. Managed Chromium installation succeeded but browser
+launch was denied before page interaction; screenshots, browser downloads and the new
+localhost UI workflow are **not verified**. Full-suite socket/listener gaps also remain open.
+Existing earlier browser acceptance is historical and does not certify this changed website.
+No clean-install or final empirical/provider/release gate is promoted to passed.
+
+# Historical research-cohort evidence — October 30, 2026
 
 ## Intermediate fee-evidence milestone — October 30, 2026
 

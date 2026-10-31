@@ -46,6 +46,15 @@ class ShadowRunner:
         if not self.store.running(monitor_id, cycle_id):
             return
         root = self.store.jobs.root / "shadow" / monitor_id / cycle_id
+        root.mkdir(parents=True, exist_ok=True)
+        result_file = root / "result.json"
+        if result_file.is_file():
+            # A worker can die after writing its outbox but before the account transaction.
+            # Preserve those bytes as uncommitted evidence, never as a simulated fill commit.
+            uncommitted = root / "uncommitted-result.json"
+            if uncommitted.exists():
+                raise ValueError("uncommitted worker evidence already exists")
+            result_file.rename(uncommitted)
         result = {
             "detail": detail,
             "failure": detail,
@@ -67,6 +76,7 @@ class ShadowRunner:
             # Interrupted bytes remain indexed even if normalization did not finish.
             with suppress(ValueError, OSError):
                 result["capture"] = json.loads(capture.read_text())
+        result_file.write_text(json.dumps(result, sort_keys=True, indent=2))
         self.store.finish(monitor_id, cycle_id, result, failed=True)
 
     def execute(self, monitor_id: str, cycle_id: str) -> None:

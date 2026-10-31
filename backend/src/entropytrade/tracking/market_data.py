@@ -152,6 +152,7 @@ async def capture_execution(
             sample.revalidated(
                 decision_time=decision,
                 features=features,
+                versions={**sample.versions, "hours_to_close": "1"},
                 book=captured_book,
                 fidelity="order_book" if captured_book is not None else "missing",
                 feature_hash=scientific_hash(

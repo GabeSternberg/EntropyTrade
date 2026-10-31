@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from entropytrade.api.jobs import Jobs, identifier, timestamp
 from entropytrade.features.registry import scientific_hash
+from entropytrade.tracking.accounting import account_hash, reproduce, summary
 from entropytrade.tracking.models import freeze_binding
 
 
@@ -34,6 +35,8 @@ class TrackingStore:
                     monitor_id TEXT NOT NULL, ticker TEXT NOT NULL, market TEXT NOT NULL,
                     last_attempt TEXT NOT NULL, outcome TEXT,
                     PRIMARY KEY(monitor_id, ticker));
+                CREATE TABLE IF NOT EXISTS shadow_accounts (
+                    monitor_id TEXT PRIMARY KEY, state TEXT NOT NULL, digest TEXT NOT NULL);
             """)
             if "model_binding" not in {r[1] for r in db.execute("PRAGMA table_info(monitors)")}:
                 db.execute("ALTER TABLE monitors ADD COLUMN model_binding TEXT")
@@ -163,6 +166,21 @@ class TrackingStore:
                     (monitor_id,),
                 )
             ]
+            account = db.execute(
+                "SELECT state, digest FROM shadow_accounts WHERE monitor_id=?", (monitor_id,)
+            ).fetchone()
+            monitor["paper_account"] = json.loads(account[0]) if account else None
+            if account and account_hash(monitor["paper_account"]) != account[1]:
+                raise ValueError("paper account checksum mismatch")
+            latest = db.execute(
+                "SELECT json_extract(result, '$.paper.state_hash') FROM shadow_cycles "
+                "WHERE monitor_id=? AND json_extract(result, '$.paper.state_hash') IS NOT NULL "
+                "ORDER BY sequence DESC LIMIT 1",
+                (monitor_id,),
+            ).fetchone()
+            if latest and latest[0] != account_hash(monitor["paper_account"]):
+                raise ValueError("paper account differs from committed cycle; no bankroll reset")
+            monitor["paper_summary"] = summary(monitor["paper_account"])
         monitor["submission_enabled"] = False
         monitor["fills"] = []
         monitor["performance"] = None
@@ -249,6 +267,35 @@ class TrackingStore:
             ).fetchone()
             if not monitor or monitor["status"] != "active" or not cycle or cycle[0] != "running":
                 return False
+            if "paper" in result:
+                account = db.execute(
+                    "SELECT state, digest FROM shadow_accounts WHERE monitor_id=?", (monitor_id,)
+                ).fetchone()
+                previous = json.loads(account[0]) if account else None
+                latest = db.execute(
+                    "SELECT json_extract(result, '$.paper.state_hash') FROM shadow_cycles "
+                    "WHERE monitor_id=? AND json_extract(result, '$.paper.state_hash') IS NOT NULL "
+                    "ORDER BY sequence DESC LIMIT 1",
+                    (monitor_id,),
+                ).fetchone()
+                if latest and latest[0] != account_hash(previous):
+                    raise ValueError(
+                        "paper account differs from committed cycle; no bankroll reset"
+                    )
+                if (account and account_hash(previous) != account[1]) or (
+                    result["paper_inputs"]["before"] != previous
+                    or result["paper_inputs"]["before_hash"] != account_hash(previous)
+                ):
+                    raise ValueError("stale/corrupt paper account; cycle cannot commit")
+                if reproduce(result["paper_inputs"]) != result["paper"]:
+                    raise ValueError("paper result differs from frozen inputs")
+                state = result["paper"]["state"]
+                db.execute(
+                    "INSERT INTO shadow_accounts VALUES (?, ?, ?) "
+                    "ON CONFLICT(monitor_id) DO UPDATE SET state=excluded.state, "
+                    "digest=excluded.digest",
+                    (monitor_id, json.dumps(state, sort_keys=True), account_hash(state)),
+                )
             for contract in result.get("contracts", []):
                 db.execute(
                     "INSERT OR IGNORE INTO shadow_contracts VALUES (?, ?, ?, '', NULL)",

@@ -36,6 +36,7 @@ TABLES = {
     "shadow_cycles": "id monitor_id sequence status started_at finished_at detail result digest",
     "shadow_events": "sequence monitor_id at action",
     "shadow_contracts": "monitor_id ticker market last_attempt outcome",
+    "shadow_accounts": "monitor_id state digest",
 }
 RUNTIME = {
     ".writer.lock",
@@ -157,9 +158,13 @@ def validate_database(root: Path) -> dict[str, int]:
         objects = db.execute(
             "SELECT type, name FROM sqlite_master WHERE type != 'index'"
         ).fetchall()
-        if {(r["type"], r["name"]) for r in objects} != {("table", t) for t in TABLES}:
+        actual = {(r["type"], r["name"]) for r in objects}
+        expected = {("table", t) for t in TABLES}
+        if actual not in (expected, expected - {("table", "shadow_accounts")}):
             raise ValueError("unsupported or incomplete workspace database schema")
         for table, columns in TABLES.items():
+            if ("table", table) not in actual:
+                continue  # Legacy workspace before paper accounting; never invent past fills.
             if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
                 raise ValueError("unsupported workspace database columns")
         if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
@@ -258,6 +263,23 @@ def validate_database(root: Path) -> dict[str, int]:
                     raise ValueError("cycle result disagrees with database")
         if any(seq != list(range(1, len(seq) + 1)) for seq in sequences.values()):
             raise ValueError("incomplete cycle sequence")
+        from entropytrade.tracking.accounting import account_hash, verify_export
+
+        accounts = {}
+        if ("table", "shadow_accounts") in actual:
+            for row in db.execute("SELECT * FROM shadow_accounts"):
+                state = json.loads(row["state"])
+                if row["monitor_id"] not in monitors or account_hash(state) != row["digest"]:
+                    raise ValueError("orphaned/corrupt paper account")
+                accounts[row["monitor_id"]] = state
+        for monitor_id in monitors:
+            cycles = [
+                {**dict(row), "result": json.loads(row["result"]) if row["result"] else None}
+                for row in db.execute(
+                    "SELECT * FROM shadow_cycles WHERE monitor_id=?", (monitor_id,)
+                )
+            ]
+            verify_export({"cycles": cycles, "paper_account": accounts.get(monitor_id)})
         for table, field, references in (
             ("events", "job_id", jobs),
             ("shadow_events", "monitor_id", monitors),

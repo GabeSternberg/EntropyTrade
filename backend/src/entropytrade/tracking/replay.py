@@ -97,6 +97,15 @@ def verify(root: Path) -> dict[str, Any]:
     rows = reproduce(json.loads((root / "decision-inputs.json").read_text()))
     if json.loads(json.dumps(rows)) != result["decisions"]:
         raise ValueError("shadow decisions differ from retained result")
+    if "paper" in result:
+        from entropytrade.tracking.accounting import reproduce as reproduce_paper
+
+        paper_inputs = json.loads((root / "paper-inputs.json").read_text())
+        if (
+            paper_inputs != result["paper_inputs"]
+            or reproduce_paper(paper_inputs) != result["paper"]
+        ):
+            raise ValueError("paper accounting differs from retained result")
     return {
         "verified": True,
         "decision_count": len(rows),

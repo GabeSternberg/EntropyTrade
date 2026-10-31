@@ -14,6 +14,7 @@ from entropytrade.execution.fee_evidence import FeeVersion, select_fee
 from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.features.registry import scientific_hash
+from entropytrade.portfolio.ledger import Ledger
 from entropytrade.risk.engine import RiskEngine, RiskLimits
 from entropytrade.strategies.interpret import compile_strategy, resolve_probability_feature
 
@@ -52,6 +53,8 @@ def evaluate(
     series_fees: tuple[dict[str, Any], ...] = (),
     reservations: tuple[dict[str, Any], ...] = (),
     acquisition_complete: bool = True,
+    ledger: Ledger | None = None,
+    event_ids: dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     strategy = compile_strategy(spec)
     probability_name = resolve_probability_feature(spec)
@@ -197,6 +200,7 @@ def evaluate(
                 DecisionView(
                     records,
                     when,
+                    ledger=ledger,
                     schedule=fee.schedule,
                     pending=pending,
                     target_date=sample.target_date,
@@ -220,9 +224,21 @@ def evaluate(
                     ),
                     ZERO,
                 )
+                if ledger is not None:
+                    collateral += sum((p.total_cost + p.fees_paid for p in ledger.positions), ZERO)
+                    event_cost += sum(
+                        (
+                            p.total_cost + p.fees_paid
+                            for p in ledger.positions
+                            if (event_ids or {}).get(p.contract.market_ticker) == sample.event_id
+                        ),
+                        ZERO,
+                    )
                 decision = engine.evaluate(
                     intent,
-                    portfolio=PortfolioSnapshot(
+                    portfolio=ledger.snapshot()
+                    if ledger is not None
+                    else PortfolioSnapshot(
                         as_of=when,
                         source=SnapshotSource.PAPER,
                         cash_balance=limits.bankroll - collateral,
@@ -231,9 +247,9 @@ def evaluate(
                     book=sample.book,
                     now=when,
                     event_deployed=event_cost,
-                    realized_pnl=ZERO,
-                    peak_equity=limits.bankroll,
-                    equity=limits.bankroll,
+                    realized_pnl=ledger.realized_pnl if ledger is not None else ZERO,
+                    peak_equity=ledger.peak_equity if ledger is not None else limits.bankroll,
+                    equity=ledger.equity() if ledger is not None else limits.bankroll,
                     open_orders=len(held),
                     model_as_of=prediction.fitted_before,
                 )
@@ -260,6 +276,7 @@ def evaluate(
                     and intended_cost + event_cost <= limits.per_event
                     and intended_cost + collateral <= limits.total_deployed
                     and intended_cost + collateral <= limits.bankroll
+                    and (ledger is None or intended_cost <= ledger.available_cash)
                 )
                 eligible = (
                     decision.approved

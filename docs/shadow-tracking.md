@@ -1,5 +1,10 @@
 # Continuous read-only shadow monitoring
 
+October 31: cycles also maintain an isolated simulated paper account. See
+[paper accounting](paper-accounting.md) for execution semantics, persistence, browser
+downloads and outstanding acceptance. The historical shadow-intention layer described below
+remains separate from simulated fills and balances. No exchange submissions are enabled.
+
 Run `uv run entropytrade-web` and open `http://127.0.0.1:43128`. Complete a real
 weather research run, for example `Test forecast_high_f > 70` in Recorded mode. Select
 its typed candidate under **Continuous shadow tracking**, choose a poll interval, and
@@ -40,8 +45,10 @@ combined cycle can therefore be interrupted and retained as a failure by that de
 Series fee metadata retains its raw hash, receipt clock, metadata-update time and version,
 but **does not certify the coefficient or effective interval**. Fees remain uncertified and
 intentions remain blocked even if a compatible frozen model can score. Missing models,
-features, semantics or books also fail closed. There are no fills, balances, P&L estimates
-or profitability claims. No UI endpoint imports models, changes fees or loosens risk caps.
+features, semantics or books also fail closed. Original shadow intentions have no observed
+fills or performance claims. The separate paper account reports only simulated accounting;
+authentic missing-evidence cases still have no fills. No UI endpoint imports models or
+loosens risk caps. Server-reviewed fee versions are described in [fee evidence](fee-evidence.md).
 
 Every completed collection saves `decision-inputs.json`, with targets removed and protected
 records excluded using the union of dataset protection and model-metadata holdout events.

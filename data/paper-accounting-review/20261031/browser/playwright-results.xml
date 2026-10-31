@@ -1,0 +1,80 @@
+<testsuites id="" name="" tests="2" failures="2" skipped="0" errors="0" time="2.213584">
+<testsuite name="paper.spec.cjs" timestamp="2026-10-31T04:29:52.912Z" hostname="" tests="2" failures="2" skipped="0" time="0.006" errors="0">
+<testcase name="durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" classname="paper.spec.cjs" time="0.003">
+<failure message="paper.spec.cjs:11:3 durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" type="FAILURE">
+<![CDATA[  paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-H3Jdby --remote-debugging-pipe --no-startup-window
+    <launched> pid=45
+    [pid=45][err] [45:45:1031/002954.440593:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-H3Jdby --remote-debugging-pipe --no-startup-window
+      - <launched> pid=45
+      - [pid=45][err] [45:45:1031/002954.440593:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=45] <gracefully close start>
+      - [pid=45] <kill>
+      - [pid=45] <will force kill>
+      - [pid=45] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=45] starting temporary directories cleanup
+      - [pid=45] finished temporary directories cleanup
+      - [pid=45] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/paper-accounting-review/20261031/browser/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/paper-accounting-review/20261031/browser/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="durable paper account: authentic refusal, downloads, restart and offline replay" classname="paper.spec.cjs" time="0.003">
+<failure message="paper.spec.cjs:11:3 durable paper account: authentic refusal, downloads, restart and offline replay" type="FAILURE">
+<![CDATA[  paper.spec.cjs:11:3 › durable paper account: authentic refusal, downloads, restart and offline replay 
+
+    Error: browserType.launch: Target page, context or browser has been closed
+    Browser logs:
+
+    <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-9aFfPY --remote-debugging-pipe --no-startup-window
+    <launched> pid=59
+    [pid=59][err] [59:59:1031/002954.999073:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+    Call log:
+      - <launching> /home/gabriel/Projects/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-9aFfPY --remote-debugging-pipe --no-startup-window
+      - <launched> pid=59
+      - [pid=59][err] [59:59:1031/002954.999073:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:45] setsockopt: Operation not permitted (1)
+      - [pid=59] <gracefully close start>
+      - [pid=59] <kill>
+      - [pid=59] <will force kill>
+      - [pid=59] <process did exit: exitCode=null, signal=SIGTRAP>
+      - [pid=59] starting temporary directories cleanup
+      - [pid=59] finished temporary directories cleanup
+      - [pid=59] <gracefully close end>
+
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/paper-accounting-review/20261031/browser/playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/paper-accounting-review/20261031/browser/playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

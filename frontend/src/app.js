@@ -362,7 +362,7 @@ async function selectMonitor(id, force = false) {
   state.monitor = { id, version };
   const content = $("shadow-evidence"); content.replaceChildren();
   append(content, node("h3", `Shadow monitor · ${monitor.status}`), node("p", monitor.id, "small"),
-    notice("SHADOW ONLY · submission disabled · zero fills · no performance claim. Monitoring does not approve a strategy."),
+    notice("SHADOW / SIMULATED PAPER ONLY · submission disabled · no observed fills or profitability claim. Monitoring does not approve a strategy."),
     node("p", `${monitor.cycle_count} durable cycles; showing latest ${monitor.cycles.length}. Poll every ${monitor.interval_seconds}s. Next eligible poll: ${monitor.next_at}. Consecutive failures: ${monitor.failures}.`, "hint"));
   const action = monitor.status === "active" ? "pause" : "resume";
   const control = node("button", action === "pause" ? "Pause monitor" : "Resume monitor");
@@ -376,6 +376,21 @@ async function selectMonitor(id, force = false) {
     detail("Frozen model binding", monitor.model_binding || { status: "blocked", reason: "Legacy monitor has no frozen model binding" }),
     detail("Lifecycle and recovery events", monitor.events),
     detail("Tracked contracts and subsequent official outcomes", monitor.contracts));
+  const account = monitor.paper_summary;
+  if (account) {
+    const panel = append(node("section"), node("h3", "Simulated paper account"));
+    panel.id = "paper-account";
+    const paperDownload = node("a", "Paper account JSON");
+    paperDownload.href = `/api/monitors/${id}/paper`; paperDownload.download = `paper-${id}.json`;
+    panel.append(paperDownload);
+    if (account.status === "simulated") {
+      panel.append(notice(account.data_kind === "synthetic" ? "CONTROLLED SYNTHETIC · software evidence only" : "Simulated accounting on retained real evidence; eligibility can remain blocked."),
+        table(["Cash", "Fees paid", "Realized simulated P&L", "Equity at cost", "Fills", "Settlements"], [[account.cash, account.fees, account.realized_pnl, account.equity_at_cost, account.fill_count, account.settlement_count]]),
+        node("p", account.limitation, "hint"), detail("Simulated positions", account.positions),
+        detail("Paper account state and liquidity consumption", monitor.paper_account));
+    } else panel.append(node("p", account.reason, "hint"));
+    content.append(panel);
+  }
   monitor.cycles.forEach((cycle) => {
     const section = append(node("section"), node("h3", `Cycle ${cycle.sequence} · ${cycle.status}`), node("p", cycle.detail, "hint"));
     const result = cycle.result;
@@ -389,6 +404,11 @@ async function selectMonitor(id, force = false) {
         section.append(detail("Frozen fee provenance and refusals", { versions: result.fee_versions || [], decisions: result.decisions.map(d => d.fee_evidence) }));
       }
       if (result.decisions?.length) section.append(table(["Contract", "Status", "P(YES)", "Reasons"], result.decisions.map((d) => [d.ticker, d.status, d.prediction?.probability_yes, d.reasons.join(", ")])));
+      if (result.paper) {
+        section.append(detail("Simulated decisions, execution risk, fills and settlements", result.paper));
+        section.append(table(["Paper contract", "Execution status", "Refusal / fill quantity"], result.paper.executions.map(e => [e.ticker, e.status, e.reason || e.order?.filled_quantity])));
+        section.append(table(["Paper decision", "Status", "Reasons"], result.paper.decisions.map(d => [d.ticker, d.status, d.reasons.join(", ")])));
+      }
       section.append(detail("Source receipts, predictions, intended orders, risk checks and artifacts", result));
     }
     section.append(node("code", cycle.digest || "No committed result digest")); content.append(section);

@@ -1,0 +1,53 @@
+{
+  "evidence": "Original authentic receipt replay; no new acquisition",
+  "identical_export_after_restore": true,
+  "monitor_id": "eb1e7ffc-58c0-451d-ad73-1f1b1171943f",
+  "offline_replay": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "verified": true
+  },
+  "restore": {
+    "archive_sha256": "sha256:fd77aa3ebb17a74bed0bafd5ac1dd73dd81eada4227f5da95195bd5bb32fd0d3",
+    "cycles": 3,
+    "jobs": 1,
+    "monitors": 1,
+    "submission_enabled": false,
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/paper-accounting-final-20261031-authentic-restored"
+  },
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/cache/paper-accounting-final-20261031-authentic.zip",
+    "cycles": 3,
+    "jobs": 1,
+    "monitors": 1,
+    "sha256": "sha256:fd77aa3ebb17a74bed0bafd5ac1dd73dd81eada4227f5da95195bd5bb32fd0d3",
+    "submission_enabled": false
+  },
+  "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+  "submission_enabled": false,
+  "summary": {
+    "as_of": "2026-10-29T16:35:38.130853+00:00",
+    "available_cash": "1000.000000",
+    "cash": "1000.000000",
+    "data_kind": "real",
+    "equity_at_cost": "1000.000000",
+    "fees": "0.000000",
+    "fill_count": 0,
+    "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim.",
+    "positions": [],
+    "realized_pnl": "0.000000",
+    "settlement_count": 0,
+    "starting_cash": "1000.000000",
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "status": "simulated"
+  },
+  "verified": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "verified": true
+  }
+}

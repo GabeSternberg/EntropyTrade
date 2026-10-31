@@ -207,11 +207,28 @@ class Handler(BaseHTTPRequestHandler):
             self.document(200, self.server.tracking.history())
         elif path.startswith("/api/monitors/"):
             route = self.monitor_route()
-            monitor = (
-                self.server.tracking.get(route[0], export=route[1] == "export") if route else None
-            )
-            if monitor is None or route is None or route[1] not in {"", "export"}:
+            try:
+                monitor = (
+                    self.server.tracking.get(route[0], export=route[1] == "export")
+                    if route
+                    else None
+                )
+            except ValueError:
+                self.document(
+                    409, {"error": "Paper account verification failed; inspect workspace"}
+                )
+                return
+            if monitor is None or route is None or route[1] not in {"", "export", "paper"}:
                 self.document(404, {"error": "not found"})
+            elif route[1] == "paper":
+                self.document(
+                    200,
+                    {
+                        "account": monitor["paper_account"],
+                        "summary": monitor["paper_summary"],
+                        "submission_enabled": False,
+                    },
+                )
             else:
                 self.document(200, monitor)
         else:

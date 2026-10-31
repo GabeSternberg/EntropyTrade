@@ -1,0 +1,66 @@
+{
+  "complete": false,
+  "branch": "supervisor/20261031-002357",
+  "base_commit": "92a0ec2",
+  "frozen_source_files": 561,
+  "frozen_hashes_match": true,
+  "checks": {
+    "ruff": "passed",
+    "format": "passed",
+    "mypy_files": 531,
+    "frontend_named_assertions": 21,
+    "targeted_pytest": {
+      "passed": 293,
+      "seconds": 61.89,
+      "junit": "final/accounting-and-recovery.xml"
+    },
+    "collected_tests": 1130,
+    "full_pytest": "incomplete; initial collector stalled and was interrupted",
+    "per_file": {
+      "passed": 208,
+      "failed": 6,
+      "timeout": 11,
+      "unverified": 1
+    },
+    "per_file_scope": "Broad checks during implementation; final targeted checks apply to frozen source",
+    "browser": {
+      "installation": "passed; existing managed browser cache",
+      "procedures_passed": 0,
+      "launch_failures": 2,
+      "screenshots": 0,
+      "browser_downloads": 0,
+      "error": "crashpad/util/linux/socket.cc:45 setsockopt: Operation not permitted; SIGTRAP",
+      "pending": "Execute both paper.spec.cjs procedures in a permitted environment"
+    },
+    "controlled": {
+      "limitation": "Accounting replay, not source certification",
+      "paper_cycles": 5,
+      "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+      "submission_enabled": false,
+      "verified": true
+    },
+    "authentic": {
+      "limitation": "Accounting replay, not source certification",
+      "paper_cycles": 1,
+      "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+      "submission_enabled": false,
+      "verified": true
+    },
+    "identical_exports_after_restore": true
+  },
+  "safety": {
+    "submission_enabled": false,
+    "credentials_accessed": false,
+    "git_mutations": false,
+    "new_family": false,
+    "risk_caps_increased": false,
+    "tracked_data_changed": false
+  },
+  "limitations": [
+    "No complete-suite or new browser pass",
+    "No clean install",
+    "Controlled fills are synthetic",
+    "Authentic missing models/fees block all fills",
+    "No empirical returns/profitability, provider or final release acceptance"
+  ]
+}

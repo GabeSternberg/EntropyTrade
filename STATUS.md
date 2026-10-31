@@ -1,9 +1,54 @@
 # EntropyTrade — current status
 
-Updated 2026-10-30. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: point-in-time fee evidence for shadow and experiments
+## Current milestone: durable simulated paper accounting in continuous shadow
+
+Implemented on designated `supervisor/20261031-002357` from `92a0ec2`. All Git
+operations and independent review remain with the supervisor. **V1 is incomplete.**
+
+The existing collector now maintains a separate per-monitor simulated $1,000 account
+through PaperBroker/Ledger. Original shadow evidence/intentions remain separate from paper
+decisions, orders, fills, positions, cash, fees and settlement. Paper decisions use actual
+simulated holdings and existing risk caps; execution needs a later sized receipt after at
+least one second, clamps price improvements, rechecks risk/edge and selects effective fee
+evidence again. Consumed side snapshots cannot replenish on another poll or an opposite-side
+change. IOC size reductions are explicit; FOK cannot silently shrink. Remainders do not queue.
+
+Cycle/account updates commit atomically with previous-state checks. Paused/interrupted/late
+workers cannot apply fills; uncommitted result bytes survive separately. Missing/corrupt
+accounts cannot reset the bankroll. Official binary results settle at receipt availability,
+with duplicate/conflicting outcomes guarded. Workspace snapshot/restore verifies the entire
+account chain, including legacy workspaces without retroactive fills. JSON exports reproduce
+offline. The website exposes simulated account balances, positions, decisions, execution
+refusals, fees and settlements, with account and full-evidence downloads.
+
+Authentic retained receipts still block on missing models/fees and yield zero fills.
+Successful controlled accounting is explicitly synthetic and proves no empirical returns.
+No family was added, receipts backdated, protected boundary changed, credential accessed,
+risk cap raised or exchange submission enabled. Existing Bitcoin work remains optional.
+
+Ruff/format, strict mypy, targeted accounting/collector/recovery and broader independent
+checks are recorded in [milestone evidence](data/paper-accounting-review/20261031/README.md).
+Current-source verification passes **293 targeted pytest cases in 61.89s**, Ruff/format
+and strict mypy (531 files), 21 named frontend assertions and both offline export/restores.
+The broader per-file run passes 208 files; six listener files fail on denied socket creation,
+eleven files reach their external deadlines, and the first collector file remains interrupted.
+The complete-suite attempt stalls in the existing collector path in this restricted
+environment; isolated files retain their exact results and deadlines, including denied
+localhost listener cases. **No complete-suite pass is claimed.** Managed Chromium installation
+succeeds, but launch fails at `crashpad/util/linux/socket.cc:45` with `setsockopt: Operation
+not permitted`/SIGTRAP before page interaction. Traces are retained; no further launch retry,
+permission bypass, screenshot or browser-download pass is claimed. The executable
+[Playwright harness](frontend/browser/paper.spec.cjs) needs execution in a permitted environment.
+
+See [operation and remaining acceptance](docs/paper-accounting.md). Return this implementation
+for supervisor review; finish full-suite/browser acceptance before approving those gates.
+No new clean install, authentic model/fee certification, empirical two-family validation,
+external provider verification or V1 release acceptance is claimed. Do not start another phase.
+
+## Previous milestone: point-in-time fee evidence for shadow and experiments
 
 Implemented in place on designated `supervisor/20261030-205940` from `99870f2`.
 The supervisor owns every Git operation and independent acceptance. **V1 remains incomplete.**

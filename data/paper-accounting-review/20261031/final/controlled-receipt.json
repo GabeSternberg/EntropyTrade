@@ -1,0 +1,53 @@
+{
+  "evidence": "CONTROLLED SYNTHETIC paper fills, fees and settlement; never empirical",
+  "identical_export_after_restore": true,
+  "monitor_id": "67911cc6-7fc1-4a2e-a135-9fed22e39dc7",
+  "offline_replay": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 5,
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "submission_enabled": false,
+    "verified": true
+  },
+  "restore": {
+    "archive_sha256": "sha256:efa101b82e3e87d788b9abf7d71f027450244bf8480090d6b8a0e97580f8da09",
+    "cycles": 5,
+    "jobs": 1,
+    "monitors": 1,
+    "submission_enabled": false,
+    "workspace": "/home/gabriel/Projects/EntropyTrade/data/cache/paper-accounting-final-20261031-controlled-restored"
+  },
+  "snapshot": {
+    "archive": "/home/gabriel/Projects/EntropyTrade/data/cache/paper-accounting-final-20261031-controlled.zip",
+    "cycles": 5,
+    "jobs": 1,
+    "monitors": 1,
+    "sha256": "sha256:efa101b82e3e87d788b9abf7d71f027450244bf8480090d6b8a0e97580f8da09",
+    "submission_enabled": false
+  },
+  "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+  "submission_enabled": false,
+  "summary": {
+    "as_of": "2025-02-20T14:13:22+00:00",
+    "available_cash": "1001.420000",
+    "cash": "1001.420000",
+    "data_kind": "synthetic",
+    "equity_at_cost": "1001.420000",
+    "fees": "0.080000",
+    "fill_count": 2,
+    "limitation": "Per-monitor simulated $1000 account; open positions valued at cost. No observed fills, mark-to-market return or profitability claim.",
+    "positions": [],
+    "realized_pnl": "1.420000",
+    "settlement_count": 1,
+    "starting_cash": "1000.000000",
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "status": "simulated"
+  },
+  "verified": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 5,
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "submission_enabled": false,
+    "verified": true
+  }
+}

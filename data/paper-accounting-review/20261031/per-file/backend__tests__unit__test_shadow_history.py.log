@@ -1,0 +1,37 @@
+Timeout (0:00:45)!
+Thread 0x000078905ea0d080 (most recent call first):
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/api/jobs.py", line 121 in connect
+  File "/usr/lib/python3.12/contextlib.py", line 144 in __exit__
+  File "/home/gabriel/Projects/EntropyTrade/backend/src/entropytrade/tracking/store.py", line 259 in finish
+  File "/home/gabriel/Projects/EntropyTrade/backend/tests/integration/shadow_history_fixture.py", line 125 in seed_sustained
+  File "/home/gabriel/Projects/EntropyTrade/backend/tests/unit/test_shadow_history.py", line 40 in test_130_collector_cycles_partition_restart_and_offline_restore
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/python.py", line 167 in pytest_pyfunc_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/python.py", line 1707 in runtest
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 184 in pytest_runtest_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 250 in <lambda>
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 361 in from_call
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 249 in call_and_report
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 139 in runtestprotocol
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/runner.py", line 118 in pytest_runtest_protocol
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 408 in pytest_runtestloop
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 384 in _main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 330 in wrap_session
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/main.py", line 377 in pytest_cmdline_main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_callers.py", line 121 in _multicall
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_manager.py", line 120 in _hookexec
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/pluggy/_hooks.py", line 512 in __call__
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 229 in _main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/lib/python3.12/site-packages/_pytest/config/__init__.py", line 253 in _console_main
+  File "/home/gabriel/Projects/EntropyTrade/.venv/bin/pytest", line 10 in <module>

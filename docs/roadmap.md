@@ -1,6 +1,6 @@
 # Capability roadmap
 
-## Current product direction — October 30, 2026
+## Current product direction — October 31, 2026
 
 EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.
 Weather was first; Bitcoin remains optional. Preserve its receipts/code and frozen
@@ -9,7 +9,27 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone integrates point-in-time fee evidence across continuous shadow
+The current implementation integrates durable simulated accounting into continuous shadow
+collection and the website. PaperBroker/Ledger, fee evidence and official reconciliation
+remain shared. Original observations stay separate from simulated orders/fills, positions,
+cash, fees and settlement. Accounts use causal later sized books, persistent liquidity
+consumption, execution-time fee/edge/risk checks and atomic restart-safe commits. Portable
+exports and verified workspace restores preserve the account chain. Missing authentic
+models/fees stay blocked; controlled success remains synthetic. No new family is selected.
+
+See [paper accounting](paper-accounting.md), [status](../STATUS.md) and
+[executed evidence](../data/paper-accounting-review/20261031/README.md). Current browser
+acceptance remains outstanding: managed installation succeeds but launch is OS-denied
+before any page interaction. The harness retains traces and awaits a permitted environment;
+listener/socket-dependent full-suite gaps remain explicit. Complete independent software
+checks before returning to future-data gates. Preserve source timestamps, frozen validation
+boundaries and Bitcoin functionality. Continue authentic forward collection; no new family
+commitment without user approval. Supervisor review precedes another major phase; all Git
+operations remain with the supervisor. V1 and empirical validation remain incomplete.
+
+### Previous fee-evidence milestone — October 30, 2026
+
+The previous milestone integrates point-in-time fee evidence across continuous shadow
 tracking and reproducible experiments. The shared FeePolicy, fee calculator, interpreter and
 risk engine remain authoritative. Immutable server-managed versions retain exact official
 bytes, source/review clocks, series scope, coefficients, cited assumptions, rounding and

@@ -23,6 +23,8 @@ from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.families.bitcoin_history import OutcomeTransport
 from entropytrade.families.public import capture_public
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.tracking.accounting import account_hash
+from entropytrade.tracking.accounting import reproduce as reproduce_paper
 from entropytrade.tracking.evaluate import evaluate, shadow_limits
 from entropytrade.tracking.market_data import capture_execution
 from entropytrade.tracking.models import score
@@ -182,6 +184,9 @@ async def collect(
             "backend/src/entropytrade/tracking/replay.py",
             "backend/src/entropytrade/tracking/models.py",
             "backend/src/entropytrade/tracking/market_data.py",
+            "backend/src/entropytrade/tracking/accounting.py",
+            "backend/src/entropytrade/execution/paper.py",
+            "backend/src/entropytrade/portfolio/ledger.py",
             "backend/src/entropytrade/ml/forward.py",
             "backend/src/entropytrade/ml/probability.py",
             "backend/src/entropytrade/strategies/interpret.py",
@@ -301,6 +306,42 @@ async def collect(
         fee_versions=fee_versions,
         series_fees=tuple(execution["fee_evidence"]),
     )
+    all_contracts = {c["ticker"]: c["market"]["market"] for c in monitor["contracts"]}
+    for contract in contracts:
+        all_contracts.setdefault(contract["ticker"], contract["market"])
+    paper_inputs = {
+        "schema": "shadow-paper-inputs-v1",
+        "before": monitor.get("paper_account"),
+        "before_hash": account_hash(monitor.get("paper_account")),
+        "decision_inputs": inputs,
+        "as_of": (clock or SystemClock()).now().isoformat(),
+        "event_ids": {t: m["event_ticker"] for t, m in all_contracts.items()},
+        "close_times": {t: m["close_time"] for t, m in all_contracts.items()},
+        "outcomes": reconciliation["outcomes"],
+        "execution_books": {},
+        "execution_series_fees": [],
+    }
+    paper_inputs = json.loads(json.dumps(paper_inputs))
+    preview = reproduce_paper(paper_inputs)
+    eligible = {d["ticker"] for d in preview["decisions"] if d["status"] == "shadow_eligible"}
+    paper_execution = None
+    if eligible:
+        # This is local simulated execution only. Both captures remain bounded public GETs.
+        await asyncio.sleep(1)
+        later, paper_execution = await capture_execution(
+            root / "paper-execution",
+            data.revalidated(samples=tuple(s for s in data.samples if s.ticker in eligible)),
+            market_map,
+            transport=execution_transport,
+            clock=clock,
+        )
+        paper_inputs["execution_books"] = {
+            s.ticker: s.book.model_dump(mode="json") for s in later.samples if s.book is not None
+        }
+        paper_inputs["execution_series_fees"] = paper_execution["fee_evidence"]
+        paper_inputs["as_of"] = (clock or SystemClock()).now().isoformat()
+    paper = reproduce_paper(paper_inputs)
+    (root / "paper-inputs.json").write_text(json.dumps(paper_inputs, sort_keys=True, indent=2))
     return {
         "schema": "shadow-cycle-v1",
         "submission_enabled": False,
@@ -317,6 +358,9 @@ async def collect(
         "fee_versions": [v.summary() for v in fee_versions],
         "model_binding": binding,
         "decisions": decisions,
+        "paper": paper,
+        "paper_inputs": paper_inputs,
+        "paper_execution": paper_execution,
         "model_refusals": bundle.refusals,
         "model_source_hash": bundle.source_hash,
         "risk_limits": shadow_limits().model_dump(mode="json"),
@@ -325,7 +369,8 @@ async def collect(
         **reconciliation,
         "limitations": [
             *data.provenance["limitations"],
-            "Shadow intentions only. No submissions, fills, balance, P&L or profitability claim.",
+            "Observed shadow evidence and simulated paper account are separate. "
+            "No exchange submissions, observed fills or profitability claim.",
             "Frozen research candidate is not approved or promoted. "
             "Only compatible data-only frozen weather models can score forward evidence.",
             "Only server-reviewed point-in-time document evidence can certify fees; "
@@ -353,6 +398,7 @@ def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) ->
             result["capture"]["failures"]
             or result["outcome_failures"]
             or result.get("execution", {}).get("failures")
+            or (result.get("paper_execution") or {}).get("failures")
         )
     except Exception as exc:  # noqa: BLE001 - worker records a fail-closed bounded cycle
         result = {

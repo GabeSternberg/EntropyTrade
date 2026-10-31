@@ -5,7 +5,8 @@
   "description": "Real loopback workbench acceptance using isolated Playwright Chromium",
   "scripts": {
     "install:chromium": "playwright install chromium",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:paper": "playwright test paper.spec.cjs --max-failures=1"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"
