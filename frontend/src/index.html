@@ -51,6 +51,7 @@
           <button id="weather-label-refresh" type="button">Refresh label acquisition</button>
           <p id="weather-label-message" role="status" class="hint"></p>
           <div id="weather-labels"></div>
+
         </section>
         <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
       </aside>
@@ -72,6 +73,18 @@
           <p id="shadow-message" role="status" class="hint"></p>
           <div id="shadow-alerts" aria-live="polite"></div>
           <div id="shadow-history"></div><div id="shadow-evidence" aria-live="polite"></div>
+        </section>
+        <section class="panel" aria-labelledby="forward-validation-title">
+          <h2 id="forward-validation-title">Continuous forward validation</h2>
+          <p class="hint">Opt in to read-only label collection while this server runs. Batches cover at most eight dates. Preliminary reports and outages retry with backoff; official reports are checked daily for revisions. New snapshots preserve original receipt clocks and frozen boundaries.</p>
+          <label for="weather-schedule-interval">Label retry interval</label><select id="weather-schedule-interval"><option value="21600">6 hours</option><option value="3600">1 hour</option><option value="300">5 minutes</option></select>
+          <label for="weather-schedule-batch">Dates per label batch</label><select id="weather-schedule-batch"><option value="8">8 dates</option><option value="1">1 date</option></select>
+          <label><input id="weather-schedule-follow" type="checkbox"> Also enroll new retained public and shadow weather inputs and freeze updated snapshots</label>
+          <label><input id="weather-schedule-optin" type="checkbox"> I enable continuous read-only forward validation, including recovery after restart.</label>
+          <button id="weather-schedule-create" type="button">Enable forward validation</button>
+          <button id="weather-schedule-refresh" type="button">Refresh forward validation</button>
+          <p id="weather-schedule-message" role="status" class="hint"></p>
+          <div id="weather-schedules"></div>
         </section>
         <nav id="tabs" class="tabs" aria-label="Result sections" hidden><button type="button" data-tab="review" aria-pressed="true">Review</button><button type="button" data-tab="probabilities" aria-pressed="false">Probabilities</button><button type="button" data-tab="lineage" aria-pressed="false">Evidence &amp; lineage</button></nav>
         <div id="result-content"><section class="panel empty"><span class="empty-mark" aria-hidden="true">↗</span><p class="eyebrow">A REJECTION IS A RESULT</p><h2>Put your next idea to the test.</h2><p>Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.</p><div class="empty-grid"><div><strong>01</strong><h3>Source &amp; formulate</h3><p>Actual contract rules, bounded source receipts, typed hypotheses.</p></div><div><strong>02</strong><h3>Model &amp; evaluate</h3><p>Temporal training gates, realistic simulated execution, explicit refusals.</p></div><div><strong>03</strong><h3>Inspect &amp; trace</h3><p>Candidate decisions, validation probabilities, immutable input identities.</p></div></div><p class="hint">Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.</p></section></div>

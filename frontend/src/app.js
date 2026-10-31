@@ -193,6 +193,54 @@ $("weather-label-acquire").addEventListener("click", async () => {
   } catch (error) { $("weather-label-message").textContent = error.message; }
   finally { $("weather-label-acquire").disabled = false; }
 });
+async function weatherSchedules() {
+  const rows = await api("/api/weather/schedules");
+  const encoded = JSON.stringify(rows);
+  if (state.scheduleJSON === encoded) return;
+  state.scheduleJSON = encoded;
+  const content = $("weather-schedules"); content.replaceChildren();
+  if (!rows.length) content.append(node("p", "No continuous validation enabled. Label collection is opt-in.", "hint"));
+  for (const schedule of rows) {
+    const section = panel("Forward validation · " + schedule.status);
+    section.dataset.scheduleId = schedule.config.id;
+    section.append(node("code", schedule.config.id), node("p", schedule.detail),
+      node("p", `${schedule.counts.pending || 0} pending · ${schedule.counts.retry || 0} retry · ${schedule.counts.verified || 0} verified · ${schedule.counts.refused || 0} refused dates`),
+      node("p", `At most ${schedule.config.batch_dates} dates per batch · retry starts at ${schedule.config.interval_seconds} seconds · ${schedule.config.follow_retained ? "Following retained public/shadow weather inputs" : "Selected immutable dataset"}.`),
+      node("p", schedule.limitation));
+    if (schedule.inflight) section.append(node("p", "Active batch: " + schedule.inflight));
+    section.append(table(["Date", "State", "Attempts", "Next check", "Detail"], schedule.work.map(w => [w.day, w.status, w.attempts, w.next_at, w.detail])));
+    const action = schedule.status === "active" ? "pause" : "resume";
+    const control = node("button", action === "pause" ? "Pause forward validation" : "Resume forward validation");
+    control.type = "button";
+    control.addEventListener("click", async () => {
+      control.disabled = true;
+      try { await api(`/api/weather/schedules/${schedule.config.id}/${action}`, {}); await weatherSchedules(); }
+      catch (error) { $("weather-schedule-message").textContent = error.message; }
+      finally { control.disabled = false; }
+    });
+    const link = node("a", "Download forward validation state");
+    link.href = "/api/weather/schedules/" + schedule.config.id;
+    link.download = "forward-validation-" + schedule.config.id + ".json";
+    section.append(control, link, detail("Pinned targets, batches and operator history", schedule));
+    content.append(section);
+  }
+}
+$("weather-schedule-refresh").addEventListener("click", () => weatherSchedules().catch(error => { $("weather-schedule-message").textContent = error.message; }));
+$("weather-schedule-create").addEventListener("click", async () => {
+  const button = $("weather-schedule-create"); button.disabled = true;
+  try {
+    if (!$("weather-schedule-optin").checked) throw new Error("Explicit continuous validation opt-in is required.");
+    const dataset_id = $("weather-dataset").value;
+    if (!dataset_id) throw new Error("Freeze and select a retained weather dataset first.");
+    await api("/api/weather/schedules", { id: crypto.randomUUID(), dataset_id, enabled: true,
+      interval_seconds: Number($("weather-schedule-interval").value),
+      batch_dates: Number($("weather-schedule-batch").value), follow_retained: $("weather-schedule-follow").checked });
+    $("weather-schedule-optin").checked = false;
+    $("weather-schedule-message").textContent = "Forward validation enabled. Inspect the durable backlog below; pause at any time.";
+    await weatherSchedules();
+  } catch (error) { $("weather-schedule-message").textContent = error.message; }
+  finally { button.disabled = false; }
+});
 async function weatherPartitions() {
   const catalog = await api("/api/weather/partitions");
   for (const [id, placeholder] of [["weather-partition", "All retained inputs (up to 128)"], ["weather-outcomes", "Same partition as history"]]) {
@@ -492,7 +540,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await feeEvidence(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await weatherSchedules(); await feeEvidence(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {
@@ -505,6 +553,7 @@ setInterval(async () => {
       if (state.job.id === requestedId && job.updated_at !== state.updated) { state.job = job; renderJob(); await history(); }
     }
     await shadowHistory();
+    await weatherSchedules();
     if (state.monitor) await selectMonitor(state.monitor.id);
     $("connection").replaceChildren();
   } catch (error) { $("connection").replaceChildren(notice(`Progress connection interrupted: ${error.message}. Retrying…`, true)); }

@@ -1,0 +1,15 @@
+
+> entropytrade-browser-acceptance@1.0.0 test
+> playwright test forward-validation.spec.cjs --max-failures=1
+
+
+Running 2 tests using 1 worker
+
+(node:121683) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:121683) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 forward-validation.spec.cjs:189:1 › continuous forward validation: controlled twelve-date transitions and recovery (34.3s)
+  ✓  2 forward-validation.spec.cjs:190:1 › continuous forward validation: authentic shadow receipts and new label acquisition (30.4s)
+
+  2 passed (1.1m)

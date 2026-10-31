@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/preliminary-backlog.png",
+      "sha256": "sha256:fadb72075d179e70c26c5c34c8d636ed5a2ea4bf6bac6e0a0b94b6335fe45518"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/outage-backoff.png",
+      "sha256": "sha256:61c50972a95e7a4cb9a125884a2f3d8a7b4128dda8fa213c665662c5620ffa9d"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/official-progress.png",
+      "sha256": "sha256:614bf1653ac03f18dafa14b5ffd85497c439036b2faa65fce71b3c03946732b3"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/frozen-insufficient-data.png",
+      "sha256": "sha256:057102b4b22ce8f52fddcbf596f28f19bf532b2079b390ebd994cb0d75d9c407"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/restart-paused.png",
+      "sha256": "sha256:40b59ef4da2a48c2e2ffb9502e5c73cdd63fc0a04621fad5c09aece25d8caaa5"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/offline-restored.png",
+      "sha256": "sha256:40b59ef4da2a48c2e2ffb9502e5c73cdd63fc0a04621fad5c09aece25d8caaa5"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/paused-state.json",
+      "sha256": "sha256:48caa0c37d1631be5b821c1929a35f9fe58495bc15c66d6f975a1153cb44889a"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/restart-state.json",
+      "sha256": "sha256:48caa0c37d1631be5b821c1929a35f9fe58495bc15c66d6f975a1153cb44889a"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/controlled/restored-state.json",
+      "sha256": "sha256:48caa0c37d1631be5b821c1929a35f9fe58495bc15c66d6f975a1153cb44889a"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/authentic-source-progress.png",
+      "sha256": "sha256:a91475c5805078a81bd57e8e4a2d98074631bd842c27bb1aaac2fc852fdbda79"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/frozen-insufficient-data.png",
+      "sha256": "sha256:261c15298d015ad2c86bb881d0b5b471bf831de9a53f1720df657b711cade3fb"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/restart-paused.png",
+      "sha256": "sha256:d7320ef091ea589087438bcc4ab8cc99e2319a49ad062fece36dd13cff9c5891"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/offline-restored.png",
+      "sha256": "sha256:d7320ef091ea589087438bcc4ab8cc99e2319a49ad062fece36dd13cff9c5891"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/paused-state.json",
+      "sha256": "sha256:b3982dae735a9d762f013a13fff031eed7e21e559428bd8f18f2cea9ba7f5249"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/restart-state.json",
+      "sha256": "sha256:b3982dae735a9d762f013a13fff031eed7e21e559428bd8f18f2cea9ba7f5249"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/authentic/restored-state.json",
+      "sha256": "sha256:b3982dae735a9d762f013a13fff031eed7e21e559428bd8f18f2cea9ba7f5249"
+    }
+  ],
+  "identical_download_comparisons": 4
+}

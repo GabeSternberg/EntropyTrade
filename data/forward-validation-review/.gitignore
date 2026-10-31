@@ -1,0 +1,3 @@
+# Generated traces and workspace archives remain local, with checksummed inventory.
+**/playwright-artifacts/
+**/*.zip

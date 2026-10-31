@@ -3,7 +3,36 @@
 Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: integrated forward weather-label acquisition
+## Current milestone: continuous forward validation
+
+Implemented in place on designated `supervisor/20261031-054650` from `9d9f921`. All Git
+operations and independent approval remain with the supervisor. **V1 remains incomplete.**
+
+The existing label/shadow website now offers explicit opt-in scheduling, bounded date batches,
+a durable retry backlog and browser-visible progress/controls. Histories over eight dates
+are split automatically. Preliminary reports and outages back off; official reports receive
+daily revision checks. Optional following of retained public/shadow inputs freezes new
+immutable datasets one bounded partition at a time. Crash recovery reuses the original
+planned request ID; shutdown preserves partial receipt evidence. Offline validation and
+restore include pinned source, request and batch references. Original availability clocks,
+frozen calendar boundaries, model insufficiency and disabled submissions remain enforced.
+
+Final verification passes Ruff/format and strict mypy (546 backend files), all 22 frontend
+checks, **all 1,271 pytest cases in 553.51s** (zero failures/errors/skips), and both actual
+managed-Chromium procedures. Browser evidence retains 10 screenshots, 6 downloads, four
+identical restart/restore comparisons and zero page errors. Authentic scheduling verifies two
+October 29 highs and refuses both October 30 preliminary reports; availability begins at new
+receipts. All 68 original receipt and five Bitcoin boundary hashes remain unchanged. The
+controlled twelve-date transitions prove software behavior, not empirical fitting or returns.
+
+See [operator workflow](docs/forward-validation.md) and
+[current executed evidence](data/forward-validation-review/20261031/README.md). Quality and
+browser results are recorded there with authentic/controlled evidence kept separate.
+No new family, credentials, real orders, execution activation, risk-limit changes or Git
+mutations are included. Preserve forward collection and Bitcoin boundaries; return this
+single substantial milestone for independent supervisor review.
+
+## Previous milestone: integrated forward weather-label acquisition
 
 Implemented in place on designated `supervisor/20261031-050653` from `a473758`. All Git
 operations and independent approval remain with the supervisor. **V1 is incomplete.**

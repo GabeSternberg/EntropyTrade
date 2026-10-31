@@ -1,0 +1,10 @@
+{
+  "read_only": true,
+  "git_mutations": false,
+  "candidate_files": 152,
+  "largest_candidate": {
+    "path": "data/forward-validation-review/20261031/browser-attempt-2/controlled/restart-paused.png",
+    "bytes": 946145
+  },
+  "over_8mb": []
+}

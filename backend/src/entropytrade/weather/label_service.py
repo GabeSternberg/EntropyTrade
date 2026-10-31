@@ -1,12 +1,13 @@
 """Bounded read-only acquisition jobs with durable receipts and explicit restart recovery."""
 
+from __future__ import annotations
+
 import asyncio
 import base64
 import json
 import os
 import threading
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
 import httpx
@@ -25,6 +26,9 @@ from entropytrade.weather.labels import (
     targets,
 )
 
+if TYPE_CHECKING:
+    from pathlib import Path
+
 
 def atomic(path: Path, value: object) -> None:
     if any(p.is_symlink() for p in (path, *path.parents)):
@@ -42,16 +46,40 @@ def atomic(path: Path, value: object) -> None:
 
 
 class LabelService:
-    def __init__(self, workspace: Path) -> None:
+    def __init__(self, workspace: Path, snapshot_lock: threading.Lock | None = None) -> None:
         self.workspace = workspace
         self.root = workspace / "runs/weather-labels"
         self.lock = threading.RLock()
         self.stop = threading.Event()
         self.active_loop: asyncio.AbstractEventLoop | None = None
         self.active_task: asyncio.Task[None] | None = None
+        self.active_request: str | None = None
+        self.snapshot_lock = snapshot_lock or threading.Lock()
         self.thread = threading.Thread(target=self.loop, name="weather-labels", daemon=True)
         if any(p.is_symlink() for p in (self.root, *self.root.parents)):
             raise ValueError("weather label paths cannot traverse symlinks")
+        from entropytrade.weather.label_schedule import LabelScheduler
+
+        self.scheduler = LabelScheduler(self)
+
+    def selection(self, dataset_id: str) -> dict[str, Any]:
+        from entropytrade.weather.history import load_snapshot, snapshot_id
+
+        dataset_id = snapshot_id(dataset_id)
+        datasets = self.workspace / "runs/weather-datasets"
+        protected = frozenset(
+            e
+            for parent in (datasets, datasets / ".batches")
+            for p in parent.glob("[0-9a-f]" * 64)
+            for e in load_snapshot(p)["identity"]["protected_events"]
+        )
+        return {
+            "dataset_id": dataset_id,
+            "protected_events": sorted(protected),
+            "targets": [
+                t.model_dump(mode="json") for t in targets(datasets / dataset_id, protected)
+            ],
+        }
 
     def catalog(self) -> list[dict[str, Any]]:
         with self.lock:
@@ -96,7 +124,7 @@ class LabelService:
         )
 
     def create(self, value: object) -> dict[str, Any]:
-        from entropytrade.weather.history import load_snapshot, snapshot_id
+        from entropytrade.weather.history import snapshot_id
 
         if not isinstance(value, dict) or set(value) != {"id", "dataset_id"}:
             raise ValueError("provide acquisition id and retained dataset_id only")
@@ -110,25 +138,30 @@ class LabelService:
                 if previous["selection"]["dataset_id"] != dataset_id:
                     raise ValueError("acquisition id already belongs to another dataset")
                 return previous
+            selection = self.selection(dataset_id)
+            if (
+                len({t["target_date"] for t in selection["targets"] if not t["refusal"]})
+                > MAX_DATES
+            ):
+                raise ValueError("acquisition exceeds eight dates; opt in to bounded scheduling")
+            return self.enqueue(request_id, selection)
+
+    def enqueue(self, request_id: str, selection: dict[str, Any]) -> dict[str, Any]:
+        """Internal bounded request creation; HTTP callers cannot supply selections or URLs."""
+        with self.lock:
+            path = self.root / "requests" / (identifier(request_id) + ".json")
+            if path.exists():
+                return self.get(request_id)
             rows = self.catalog()
             if sum(r["status"] in {"queued", "running"} for r in rows) >= 8:
                 raise ValueError("weather acquisition queue is full")
-            datasets = self.workspace / "runs/weather-datasets"
-            protected = frozenset(
-                e
-                for p in datasets.glob("[0-9a-f]" * 64)
-                for e in load_snapshot(p)["identity"]["protected_events"]
-            )
-            selected = targets(datasets / dataset_id, protected)
-            if len({t.target_date for t in selected if not t.refusal}) > MAX_DATES:
-                raise ValueError(
-                    "acquisition exceeds eight dates; select a smaller history partition"
-                )
-            selection = {
-                "dataset_id": dataset_id,
-                "protected_events": sorted(protected),
-                "targets": [t.model_dump(mode="json") for t in selected],
-            }
+            if len(rows) >= 128:
+                raise ValueError("128 acquisition budget reached; preserve/archive workspace")
+            if (
+                len({t["target_date"] for t in selection["targets"] if not t["refusal"]})
+                > MAX_DATES
+            ):
+                raise ValueError("weather acquisition exceeds eight dates")
             request: dict[str, Any] = {
                 "id": request_id,
                 "selection": selection,
@@ -239,6 +272,7 @@ class LabelService:
         while not self.stop.is_set():
             request = None
             try:
+                self.scheduler.tick()
                 request = next((r for r in self.catalog() if r["status"] == "queued"), None)
                 if request:
                     asyncio.run(self.bounded(request))
@@ -258,6 +292,7 @@ class LabelService:
         with self.lock:
             self.active_loop = asyncio.get_running_loop()
             self.active_task = asyncio.current_task()
+            self.active_request = request["id"]
         try:
             async with asyncio.timeout(120):
                 await self.acquire(request)
@@ -274,6 +309,15 @@ class LabelService:
             with self.lock:
                 self.active_loop = None
                 self.active_task = None
+                self.active_request = None
+
+    def cancel(self, request_id: str) -> None:
+        with self.lock:
+            request = self.get(request_id)
+            if request["status"] == "queued":
+                self.finish(request, "interrupted", "Schedule paused before acquisition")
+            elif self.active_request == request_id and self.active_loop and self.active_task:
+                self.active_loop.call_soon_threadsafe(self.active_task.cancel)
 
     def close(self) -> None:
         self.stop.set()

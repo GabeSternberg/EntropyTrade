@@ -44,15 +44,16 @@ class WorkbenchServer(ThreadingHTTPServer):
             self.runner = Runner(self.jobs, self.repo, lease_fd=self.lock.fileno())
             self.tracking = TrackingStore(self.jobs)
             self.shadow = ShadowRunner(self.tracking, self.repo, lease_fd=self.lock.fileno())
-            self.labels = LabelService(self.jobs.root)
+            self.weather_lock = threading.Lock()
+            self.labels = LabelService(self.jobs.root, self.weather_lock)
             self.labels.recover()
+            self.labels.scheduler.validate()
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
         except BaseException:
             self.lock.close()
             raise
-        self.weather_lock = threading.Lock()
         self.token = secrets.token_urlsafe(32)
         self.labels.thread.start()
 
@@ -175,6 +176,19 @@ class Handler(BaseHTTPRequestHandler):
                 self.document(
                     409, {"error": "Fee evidence verification failed: " + type(exc).__name__}
                 )
+        elif path == "/api/weather/schedules" or path.startswith("/api/weather/schedules/"):
+            try:
+                scheduler = self.server.labels.scheduler
+                self.document(
+                    200,
+                    scheduler.catalog()
+                    if path == "/api/weather/schedules"
+                    else scheduler.summary(
+                        scheduler.get(path.removeprefix("/api/weather/schedules/"))
+                    ),
+                )
+            except (ValueError, OSError, KeyError, TypeError):
+                self.document(409, {"error": "Forward validation state verification failed"})
         elif path == "/api/weather/labels" or path.startswith("/api/weather/labels/"):
             try:
                 if path == "/api/weather/labels":
@@ -315,6 +329,15 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
+            if self.path == "/api/weather/schedules":
+                self.document(202, self.server.labels.scheduler.create(value))
+                return
+            if self.path.startswith("/api/weather/schedules/"):
+                parts = self.path.removeprefix("/api/weather/schedules/").split("/")
+                if len(parts) != 2 or value != {}:
+                    raise ValueError("schedule control requires ID, pause/resume and empty body")
+                self.document(200, self.server.labels.scheduler.control(parts[0], parts[1]))
+                return
             if self.path == "/api/weather/labels":
                 self.document(202, self.server.labels.create(value))
                 return

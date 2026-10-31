@@ -1,3 +1,22 @@
+# Continuous forward-validation acceptance — October 31, 2026
+
+**complete=false.** This intermediate milestone connects opt-in scheduling to existing
+label/shadow infrastructure on `supervisor/20261031-054650` from `9d9f921`. Git operations
+and independent review remain with the supervisor. [Current evidence](../data/forward-validation-review/20261031/README.md)
+separates controlled transitions, authentic original receipts and new public acquisition.
+Prior evidence below keeps its original scope; no release acceptance is inferred.
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Opt-in continuous workflow and browser progress | `weather/label_schedule.py`, website controls, `forward-validation.spec.cjs` | Executed managed Chromium covers enable/refused missing opt-in, date progress, outage details, pause/resume and downloads through actual localhost listeners. Following existing public/shadow partitions is separately opt-in. |
+| Bounded histories over eight dates and repeatability | Controlled twelve-date pytest/listener/browser procedures | Requests split into batches of eight and four dates. Preliminary-to-official transitions, outage backoff and daily revisions retain distinct immutable receipts. These controlled dates/results are software evidence only. |
+| Authentic point-in-time labels and source semantics | Authentic whole-shadow import and new scheduled Weather Company acquisition | Two October 29 highs qualify; two October 30 preliminary station reports are refused. Availability starts at each new receipt. Sparse authentic history cannot establish fitting or performance. |
+| Shutdown/restart, idempotency and offline replay | Active partial-batch cancellation, before-enqueue crash, post-acquisition bookkeeping recovery, browser restart/offline restore | Original planned request IDs survive recovery and pause/block. Reopened/restored paused-state downloads compare byte-for-byte; source/rule/batch references revalidate offline. Continuous multi-day authentic operation has not been observed. |
+| Immutable snapshots, revisions and protected boundaries | Shared history pipeline, late-protection tests, offline source/reference validation | New snapshots preserve calendars, original receipt/publication/revision semantics and protected holdouts. Existing insufficient-data gates remain in force; a new receipt cannot repair an earlier cutoff. |
+| Paper/risk/credential boundaries | Existing deterministic shadow/accounting engines and regression suite | No new order transport, credentials, submission activation, model promotion or risk-cap changes. Acquisition capacity exhaustion blocks with durable backlog; no evidence deletion. |
+| Reproducible realistic empirical backtests, two families and providers | Existing model/experiment/provider gates; no new empirical claim | **Incomplete.** More authentic independent dates and validation, certified fees, separately authorized external-provider verification and two-family release evidence remain open. Bitcoin boundaries are preserved; no additional family is selected. |
+| Quality, install and independent review | Exact executed logs and artifact verification in current bundle | **Pass:** Ruff/format and strict mypy (546 files), all 22 frontend checks, all **1,271 pytest cases in 553.51s** with no failures/errors/skips, and both managed-Chromium procedures (10 screenshots, 6 downloads, 0 page errors). All 73 original receipt/boundary hashes verify. Existing locked environment reused; no new clean-install or independent release pass is claimed. Supervisor review remains required. |
+
 # Forward weather-label acquisition acceptance — October 31, 2026
 
 **complete=false.** This is an independently useful intermediate milestone, not V1 release

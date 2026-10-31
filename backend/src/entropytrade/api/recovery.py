@@ -214,7 +214,9 @@ def validate_database(root: Path) -> dict[str, int]:
         from entropytrade.weather.label_service import LabelService, batches
 
         # Read-only validation; restoring never resumes source acquisition.
-        LabelService(root).catalog()
+        labels = LabelService(root)
+        labels.catalog()
+        labels.scheduler.validate()
         batches(root)
         validate_registry(root, reviews)
         monitors = {identifier(r["id"]): dict(r) for r in db.execute("SELECT * FROM monitors")}

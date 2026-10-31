@@ -1,0 +1,11 @@
+{
+  "restricted_probe": {
+    "socket": "PermissionError: [Errno 1] Operation not permitted",
+    "socketpair": "not reached after socket() raised"
+  },
+  "standard_approved_probe": {
+    "socket_and_localhost_bind": "passed",
+    "socketpair": "passed"
+  },
+  "browser": "Supported Playwright-managed Chromium installation and page interactions passed via the standard approval path. No sandbox or launch-security settings changed."
+}

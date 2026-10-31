@@ -1,0 +1,6 @@
+
+> entropytrade-browser-acceptance@1.0.0 install:chromium
+> playwright install chromium
+
+Failed to install browsers
+Error: EROFS: read-only file system, mkdir '/home/gabriel/.cache/ms-playwright/__dirlock'

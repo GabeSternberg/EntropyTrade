@@ -1,0 +1,26 @@
+TC003 Move standard library import `pathlib.Path` into a type-checking block
+  --> backend/src/entropytrade/weather/label_service.py:10:21
+   |
+ 8 | import os
+ 9 | import threading
+10 | from pathlib import Path
+   |                     ^^^^
+11 | from typing import Any
+12 | from uuid import uuid4
+   |
+help: Move into type-checking block
+
+RUF043 Pattern passed to `match=` contains metacharacters but is neither escaped nor raw
+   --> backend/tests/unit/test_label_schedule.py:199:42
+    |
+197 | ) -> None:
+198 |     service, initial, _ = controlled
+199 |     with pytest.raises(ValueError, match="opt-in|validation error"):
+    |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+200 |         service.scheduler.create(config(initial, **change))
+201 |     assert service.catalog() == []
+    |
+help: Use a raw string or `re.escape()` to make the intention explicit
+
+Found 2 errors.
+No fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).

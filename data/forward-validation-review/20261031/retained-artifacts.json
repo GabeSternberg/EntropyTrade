@@ -1,0 +1,226 @@
+{
+  "files": [
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.last-run.json",
+      "bytes": 96,
+      "sha256": "sha256:bc0d8bc1615d9bf8d2e8fbf3905b25cd9341ff3ad93efc33cd92d77eb84ef877"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/55d13a4622f26ef19e43-85338156d27ae2aebc48-pwnetcopy-1.network",
+      "bytes": 65330,
+      "sha256": "sha256:91d325427da68b705b21c9116c83ffea08574c79423c3b901baab97f7e2150f0"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/55d13a4622f26ef19e43-85338156d27ae2aebc48.network",
+      "bytes": 65330,
+      "sha256": "sha256:91d325427da68b705b21c9116c83ffea08574c79423c3b901baab97f7e2150f0"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/55d13a4622f26ef19e43-85338156d27ae2aebc48.trace",
+      "bytes": 233821,
+      "sha256": "sha256:80f57f31ec7c674c3910ac29ca06ce66f3d6cf9a71225c5b825d9c0acd964031"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/19fa45322aa6710eae62d2409f7b33bc832a398d.json",
+      "bytes": 1836,
+      "sha256": "sha256:4dafd917fbbcc23c0ce480ca0beb2e7222e78562bd871a856b745b7d3c36f981"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/46e6b5d4a07cc70370f19196e3ff86de251485f2.json",
+      "bytes": 43,
+      "sha256": "sha256:6b8c76c22e488743402000699198d5b953ddb6c83497032227796bd04f4db887"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/7bdfc7de2db17a1d32b8fb50f76338423a4c065a.json",
+      "bytes": 45,
+      "sha256": "sha256:39e7f640132ccc3525fe6145394a95e393b5f32833fa37e9f7ccdd3d91097056"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/97d170e1550eee4afc0af065b78cda302a97674c.json",
+      "bytes": 2,
+      "sha256": "sha256:4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/9f993e1ca87e258c9dd465370939fbf14ead6996.css",
+      "bytes": 9567,
+      "sha256": "sha256:488ef0a365b99ee72f340633aeb03f2b0303c7d9b4cd6228d2a63ff9f177b1eb"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/c8743cb2b9919049ade3f2727797ee592dfc9dcf.json",
+      "bytes": 409,
+      "sha256": "sha256:4cba7efd12e7a1b6e8744f6ac9c7c535e46b0973ff9f96e66848e6737fddda30"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/e812cf7cfece32c483f31fa04d4eb1eac8ce134f.json",
+      "bytes": 9492,
+      "sha256": "sha256:113b7e0e31eeb984b691292947cd1a30416d5d3fd69a522f071fdd042e3c6728"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/efbe7835d51cfcd1d49625fa0fbf0756915819cc.json",
+      "bytes": 5220,
+      "sha256": "sha256:f37d01006a1377ee15f9918d76d989dc9c7a149b98e0655cadd152dcb25fe27f"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/f4e00c9a236a28641ba651a3fe22c3bec92b9f5b.html",
+      "bytes": 11053,
+      "sha256": "sha256:1b9b3143b60e43f35aee124044fb05de7136a72037473025f4d5136e22f101d0"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440528521.jpeg",
+      "bytes": 3134,
+      "sha256": "sha256:ad45d3e3f65f102b9cbf329d3f3b176473f692b88af241145d5910fb621099ab"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440531468.jpeg",
+      "bytes": 52907,
+      "sha256": "sha256:29e975dfbaf007004e5826614cfeb6d4bbe08c395abdddfa4e551705575ace95"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440531477.jpeg",
+      "bytes": 52907,
+      "sha256": "sha256:29e975dfbaf007004e5826614cfeb6d4bbe08c395abdddfa4e551705575ace95"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440531491.jpeg",
+      "bytes": 54185,
+      "sha256": "sha256:43b846256d1428d104846e392a4552e10401f4996f513d6ccbb07edbfb009faf"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440531508.jpeg",
+      "bytes": 54414,
+      "sha256": "sha256:42adbbcbb83fcb7b20e326146ed1bd4b413b9415619415725ef1a47730147f37"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440531539.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440532893.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440534394.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440535893.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440537394.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440538893.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440540393.jpeg",
+      "bytes": 57037,
+      "sha256": "sha256:cc72a279ad773a278aa8e2d17b4685e3eb76ff1b1c0006b5bd77391ac7473f7c"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/.playwright-artifacts-0/traces/resources/page@2287654fc1f1fc675e6159ed80f64cd4-1793440541902.jpeg",
+      "bytes": 55076,
+      "sha256": "sha256:0d7c6ff0cfc2cad9e128d448318a47e3e063ec5f0a16e6b9385c1edee0fc888a"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/error-context.md",
+      "bytes": 21616,
+      "sha256": "sha256:77de27c04e4bbab3614a10b3d87df8d568a79eb381ea76808442681b9b4651dd"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png",
+      "bytes": 147280,
+      "sha256": "sha256:c6251c87027b02507dcc08c1ed9b99165221e31a06bff84a8f4eed4dab12a611"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "bytes": 734026,
+      "sha256": "sha256:888ae9814366152adaabdc95a91a84e83871e33f8750076019365a5576ba00d0"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-2/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-2/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "bytes": 1972926,
+      "sha256": "sha256:669b8de88013405b969c47148a844ec791c7b6efa78e7c62b206a94b5a192000"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-attempt-2/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 1598659,
+      "sha256": "sha256:2e183dff4d2650d504d35599b1d8693f20e018a7386485558b1a83efede5da4b"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-final/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-final/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "bytes": 5111205,
+      "sha256": "sha256:52b9fe1832037adfbe93920d7a30e45fc9aa34bc741a2b4e860f23fd3ce29aa0"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-final/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 2885105,
+      "sha256": "sha256:1d803ce5e155af669ed89b61ce86f3da45f953a50a2306cb3547ccf502adcca9"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/playwright-artifacts/.last-run.json",
+      "bytes": 45,
+      "sha256": "sha256:91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip",
+      "bytes": 5242427,
+      "sha256": "sha256:c6b411cb7c647e36dbd93b59947abc04d98a46fbead60ee5749b52f12156f3f6"
+    },
+    {
+      "path": "data/forward-validation-review/20261031/browser-verified/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip",
+      "bytes": 2880947,
+      "sha256": "sha256:aada25006af59833cd9a4a8414afeacc8cbc5ef99133e204513240b8ce58da42"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-2-forward-authentic.zip",
+      "bytes": 37737011,
+      "sha256": "sha256:ff1641570fd8630e6ef7562957d445af3a372d1f4bbce91852c07824eb12fc4c"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-2-forward-controlled.zip",
+      "bytes": 2047448,
+      "sha256": "sha256:f9fb96c972a098a789674dea5506eedefa71c9adac1de598e979b491fe8c9096"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-final-forward-authentic.zip",
+      "bytes": 37737013,
+      "sha256": "sha256:e7f9aa03a0b7ecb2375c161d4f013af686e131d1f049aeda1e254820cbabb176"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-final-forward-controlled.zip",
+      "bytes": 2047448,
+      "sha256": "sha256:c2cc960a0c77f1c9d3882593c25167985f1bdafb70d1dc6a45ac2babdd63db63"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-verified-forward-authentic.zip",
+      "bytes": 37737006,
+      "sha256": "sha256:3d51dd89ac390391f5f87280c6c3b1d50d4f040af2ecd41d94a6362b51aa5fc4"
+    },
+    {
+      "path": "data/cache/forward-validation-browser-verified-forward-controlled.zip",
+      "bytes": 2047444,
+      "sha256": "sha256:cb848cc99e6d7884c952933151d4d405704c69def18744cced04d64b98a5b5d3"
+    }
+  ],
+  "total_bytes": 141021822,
+  "limitation": "Generated trace/archive bytes stay local at original paths and are excluded by the scoped ignore policy. Obtain and verify these bytes separately for independent trace/restore review; a checkout alone lacks them."
+}

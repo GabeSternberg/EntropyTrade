@@ -1,0 +1,70 @@
+{
+  "milestone": "continuous forward validation",
+  "status": "implementation verified; independent supervisor review required",
+  "complete": false,
+  "v1_complete": false,
+  "milestone_checks_passed": true,
+  "branch": "supervisor/20261031-054650",
+  "base_commit": "9d9f921",
+  "git_mutations": false,
+  "pytest": {
+    "tests": 1271,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 553.51,
+    "log": "pytest-verified.log",
+    "junit": "pytest-verified.xml"
+  },
+  "focused": {
+    "passed": 44,
+    "seconds": 29.31
+  },
+  "ruff": "passed; 546 formatted backend files",
+  "strict_mypy": "passed; 546 files",
+  "frontend": {
+    "passed": 22
+  },
+  "browser": {
+    "procedures_passed": 2,
+    "screenshots": 10,
+    "downloads": 6,
+    "identical_restart_restore_comparisons": 4,
+    "page_errors": 0,
+    "report": "browser-verified/playwright-results.json"
+  },
+  "authentic": {
+    "original_shadow_cycles": 2,
+    "verified_scalar_events": 2,
+    "preliminary_refusals": 2,
+    "dates": 2,
+    "empirical_model_status": "insufficient_data",
+    "multi_day_unattended_collection": "not observed"
+  },
+  "controlled": {
+    "dates": 12,
+    "transitions": [
+      "preliminary",
+      "outage",
+      "official",
+      "revised"
+    ],
+    "empirical_evidence": false
+  },
+  "safety": {
+    "original_receipt_files_unchanged": 68,
+    "bitcoin_boundary_files_unchanged": 5,
+    "submission_enabled": false,
+    "new_family_selected": false,
+    "credentials_used": false,
+    "risk_limits_changed": false
+  },
+  "remaining_v1_gates": [
+    "sufficient authentic point-in-time validation history",
+    "certified effective fees",
+    "separately authorized external-provider verification",
+    "two-family empirical validation",
+    "independent release acceptance"
+  ],
+  "clean_install": "not rerun; existing locked environment reused"
+}

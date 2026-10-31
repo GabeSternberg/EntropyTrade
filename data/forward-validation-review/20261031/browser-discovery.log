@@ -1,0 +1,8 @@
+
+> entropytrade-browser-acceptance@1.0.0 test
+> playwright test forward-validation.spec.cjs --list
+
+Listing tests:
+  forward-validation.spec.cjs:189:1 › continuous forward validation: controlled twelve-date transitions and recovery
+  forward-validation.spec.cjs:190:1 › continuous forward validation: authentic shadow receipts and new label acquisition
+Total: 2 tests in 1 file

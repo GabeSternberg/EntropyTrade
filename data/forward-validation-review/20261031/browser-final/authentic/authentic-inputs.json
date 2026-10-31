@@ -1,0 +1,33 @@
+{
+  "catalog": {
+    "partition_size": 128,
+    "partitions": [
+      {
+        "first_at": "2026-10-31T09:59:07.314351+00:00",
+        "inputs": 2,
+        "last_at": "2026-10-31T09:59:07.372733+00:00",
+        "members": [
+          {
+            "at": "2026-10-31T09:59:07.314351+00:00",
+            "id": "543b1b6e-b451-4906-99a4-f729d2a273fa",
+            "kind": "shadow",
+            "monitor_id": "08213f91-9580-4e2f-98b6-e44a5446b97a"
+          },
+          {
+            "at": "2026-10-31T09:59:07.372733+00:00",
+            "id": "0c7e6c0b-e9a9-4dd4-86d0-f597ae3d6b84",
+            "kind": "shadow",
+            "monitor_id": "08213f91-9580-4e2f-98b6-e44a5446b97a"
+          }
+        ],
+        "number": 1,
+        "partition_id": "7b394f24e14d266e802fc37e3ac870f91db0a7b7d3f0557576be943e7db01db6",
+        "shadow_cycles": 2
+      }
+    ],
+    "total_inputs": 2
+  },
+  "cycles": 2,
+  "evidence": "Authentic original shadow receipts; no new acquisition or performance",
+  "monitor_id": "08213f91-9580-4e2f-98b6-e44a5446b97a"
+}

@@ -1,0 +1,525 @@
+<testsuites id="" name="" tests="2" failures="1" skipped="1" errors="0" time="18.392453">
+<testsuite name="forward-validation.spec.cjs" timestamp="2026-10-31T09:55:23.940Z" hostname="" tests="2" failures="1" skipped="1" time="17.6" errors="0">
+<testcase name="continuous forward validation: controlled twelve-date transitions and recovery" classname="forward-validation.spec.cjs" time="17.6">
+<failure message="forward-validation.spec.cjs:189:1 continuous forward validation: controlled twelve-date transitions and recovery" type="FAILURE">
+<![CDATA[  forward-validation.spec.cjs:189:1 › continuous forward validation: controlled twelve-date transitions and recovery 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#weather-readiness')
+    Timeout: 10000ms
+    - Expected substring  -   1
+    + Received string     + 232
+
+    - insufficient_data
+    + Retained weather dataset · insufficient datasha256:3a19d713f527461f0b62f2adf09e0aa42b871cadcfafd0e2bd795be219e254f712 captures · 0 deduplicated observations · 12 events on 12 dates · 0 protected events.0 eligible forecast events · 0 source-matched scalar labels · 0 binary-label events (unprotected).PartitionEvents / datesTimely matched labelsRequiredShortageLabel cutoffcalibration0 / 0020202026-11-30T00:00:00+00:00fit12 / 12060602026-11-18T00:00:00+00:00validation0 / 0020202026-12-30T00:00:00+00:00fit: 0/60 independent source-matched events available before 2026-11-18T00:00:00+00:00calibration: 0/20 independent source-matched events available before 2026-11-30T00:00:00+00:00validation: 0/20 independent source-matched events available before 2026-12-30T00:00:00+00:00temporal partitions must all contain eventsNo complete known forecast with verified contract semanticsNo source-matched integer settlement highs; binary results cannot substituteOriginal receipt clocks are preserved; importing a receipt does not backfill availability.Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.Source-matched integer settlement highs, independent dates and timely labels gate fitting.Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.Protected final holdout is excluded from research, fitting and evaluation.0 verified shadow cycles · 0 exact decision samples · 0 sized books · 0 stale books.Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.Later binary labels retain their original receipt clocks; scalar model gates still applyStale or missing depth refuses executable backtestingEach exact decision requires applicable certified fee evidence; current documents cannot backdate receiptsShadow replay lineage{
+    +   "closed_decisions": 0,
+    +   "decision_samples": 0,
+    +   "execution_blockers": [
+    +     "Later binary labels retain their original receipt clocks; scalar model gates still apply",
+    +     "Stale or missing depth refuses executable backtesting",
+    +     "Each exact decision requires applicable certified fee evidence; current documents cannot backdate receipts"
+    +   ],
+    +   "labelled_samples": 0,
+    +   "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+    +   "replay_inputs": "shadow-replay.json",
+    +   "sized_books": 0,
+    +   "stale_books": 0,
+    +   "verified_cycles": 0
+    + }0 incomplete captures · 0 acquisition failures.Original capture clocks, receipts and acquisition failures[
+    +   {
+    +     "dataset_version": "sha256:149268733a1371131410f9a12ee45b4f9a1bff07a1c77f5307f516b9bafb1921",
+    +     "decision_time": "2026-10-09T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:478c3c7caff4bec97c902459b1f2f1fefcaa3b13b76d7b95af563eba19261c1b",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-09T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-09T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:227a9618a27d6d5bfc9ad400d8085df15f4eee0503539d77f7c0a45d00877b55",
+    +     "decision_time": "2026-10-07T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:661661f0a1c3444b455aa41165fb64ee5e5deb8abc094a69950529ff918f90a6",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-07T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-07T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:32a563bc30a0ea308cbf99549788201983ec1e0842b42fe484b2b916ffec7d60",
+    +     "decision_time": "2026-10-04T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:b65b5d39a39eae3f730f8e5d6f2219dcdfebf07cdadcfa13a3b29a53b3bdf403",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-04T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-04T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:3375369835c7a43e875763be1895819becfba83de702784896b9ecb0de3f7057",
+    +     "decision_time": "2026-10-12T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:405908df52be2168e1fffd304560f09009caeacc26df395a376231a12213f4c2",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-12T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-12T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:50339a07ddfd29f68812395ace28834f8115be48718157c66f3c8f77b6aad542",
+    +     "decision_time": "2026-10-11T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:1b34c7c45f349b436f2b9367dde75a2d09acd531bc7d9a103c55084ac2e96fc3",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-11T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-11T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:8e681314b5af6f44391add58d888538dc5694c3ca08b036f3e9480f0c134a21e",
+    +     "decision_time": "2026-10-05T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:343427bbad426f003d36c6d680737ed319efa84fb933bfdeff7fa8d5c5454c9c",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-05T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-05T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:960f41074b0885f2d5cbee72b24279cbb5614a372a4790a2cf5048157eed86d0",
+    +     "decision_time": "2026-10-06T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:2e9b9eef73ae8718787e9677c9701087e9774edd545c3dbb97f17482d2954e7d",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-06T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-06T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:a3dcd70570ece03a504d5a1919239fdeefa6b0508630141f7ebd4dc4be8c9a62",
+    +     "decision_time": "2026-10-01T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:feb2f39f770a33f7c8b409bfcca9de676a26208b624df45d16576b63e40a63ab",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-01T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-01T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:bbd392cf145c859ba8a9fc526e2173e60ffd0aedec586ad6b98dbe71c219556a",
+    +     "decision_time": "2026-10-08T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:6fc3ed632b1eed04fe7d60fbd73f00b5523f525c6011a00bb7ffc7919330999c",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-08T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-08T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:bc118bee20a8a8d6cb17cced71f41b45d3056a056091fe69dde5c0913d74d0ec",
+    +     "decision_time": "2026-10-10T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:fcfceb7e26ef4da310bfad8629c311c28323a38a914eda6fa50ea51270b1060c",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-10T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-10T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:d99bd8246e05455d5321c37cfc5b37d57c4294969a520582a8e3269fd64adb6f",
+    +     "decision_time": "2026-10-02T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:7ae67a5f7357156f289c05a73c03957c676fb6fd2702008a971d1fef236ca313",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-02T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-02T15:00:00+00:00",
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:e7e44836113df5a70cb143ec68bcc8d85ebdbfa9a37a22b706bed2adfb91b5ec",
+    +     "decision_time": "2026-10-03T15:00:00+00:00",
+    +     "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:4c69327880c8bd3b2a1ef08f3e5bc41e987cd58668f26a5eea067c654bc447c6",
+    +         "raw_ref": "raw/controlled.json",
+    +         "received_at": "2026-10-03T15:00:00+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-03T15:00:00+00:00",
+    +     "universe_complete": true
+    +   }
+    + ]
+
+    Call log:
+      - Expect "toContainText" with timeout 10000ms
+      - waiting for locator('#weather-readiness')
+        14 × locator resolved to <div id="weather-readiness">…</div>
+           - unexpected value "Retained weather dataset · insufficient datasha256:3a19d713f527461f0b62f2adf09e0aa42b871cadcfafd0e2bd795be219e254f712 captures · 0 deduplicated observations · 12 events on 12 dates · 0 protected events.0 eligible forecast events · 0 source-matched scalar labels · 0 binary-label events (unprotected).PartitionEvents / datesTimely matched labelsRequiredShortageLabel cutoffcalibration0 / 0020202026-11-30T00:00:00+00:00fit12 / 12060602026-11-18T00:00:00+00:00validation0 / 0020202026-12-30T00:00:00+00:00fit: 0/60 independent source-matched events available before 2026-11-18T00:00:00+00:00calibration: 0/20 independent source-matched events available before 2026-11-30T00:00:00+00:00validation: 0/20 independent source-matched events available before 2026-12-30T00:00:00+00:00temporal partitions must all contain eventsNo complete known forecast with verified contract semanticsNo source-matched integer settlement highs; binary results cannot substituteOriginal receipt clocks are preserved; importing a receipt does not backfill availability.Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.Source-matched integer settlement highs, independent dates and timely labels gate fitting.Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.Protected final holdout is excluded from research, fitting and evaluation.0 verified shadow cycles · 0 exact decision samples · 0 sized books · 0 stale books.Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.Later binary labels retain their original receipt clocks; scalar model gates still applyStale or missing depth refuses executable backtestingEach exact decision requires applicable certified fee evidence; current documents cannot backdate receiptsShadow replay lineage{
+      "closed_decisions": 0,
+      "decision_samples": 0,
+      "execution_blockers": [
+        "Later binary labels retain their original receipt clocks; scalar model gates still apply",
+        "Stale or missing depth refuses executable backtesting",
+        "Each exact decision requires applicable certified fee evidence; current documents cannot backdate receipts"
+      ],
+      "labelled_samples": 0,
+      "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+      "replay_inputs": "shadow-replay.json",
+      "sized_books": 0,
+      "stale_books": 0,
+      "verified_cycles": 0
+    }0 incomplete captures · 0 acquisition failures.Original capture clocks, receipts and acquisition failures[
+      {
+        "dataset_version": "sha256:149268733a1371131410f9a12ee45b4f9a1bff07a1c77f5307f516b9bafb1921",
+        "decision_time": "2026-10-09T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:478c3c7caff4bec97c902459b1f2f1fefcaa3b13b76d7b95af563eba19261c1b",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-09T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-09T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:227a9618a27d6d5bfc9ad400d8085df15f4eee0503539d77f7c0a45d00877b55",
+        "decision_time": "2026-10-07T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:661661f0a1c3444b455aa41165fb64ee5e5deb8abc094a69950529ff918f90a6",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-07T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-07T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:32a563bc30a0ea308cbf99549788201983ec1e0842b42fe484b2b916ffec7d60",
+        "decision_time": "2026-10-04T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:b65b5d39a39eae3f730f8e5d6f2219dcdfebf07cdadcfa13a3b29a53b3bdf403",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-04T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-04T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:3375369835c7a43e875763be1895819becfba83de702784896b9ecb0de3f7057",
+        "decision_time": "2026-10-12T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:405908df52be2168e1fffd304560f09009caeacc26df395a376231a12213f4c2",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-12T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-12T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:50339a07ddfd29f68812395ace28834f8115be48718157c66f3c8f77b6aad542",
+        "decision_time": "2026-10-11T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:1b34c7c45f349b436f2b9367dde75a2d09acd531bc7d9a103c55084ac2e96fc3",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-11T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-11T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:8e681314b5af6f44391add58d888538dc5694c3ca08b036f3e9480f0c134a21e",
+        "decision_time": "2026-10-05T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:343427bbad426f003d36c6d680737ed319efa84fb933bfdeff7fa8d5c5454c9c",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-05T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-05T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:960f41074b0885f2d5cbee72b24279cbb5614a372a4790a2cf5048157eed86d0",
+        "decision_time": "2026-10-06T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:2e9b9eef73ae8718787e9677c9701087e9774edd545c3dbb97f17482d2954e7d",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-06T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-06T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:a3dcd70570ece03a504d5a1919239fdeefa6b0508630141f7ebd4dc4be8c9a62",
+        "decision_time": "2026-10-01T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:feb2f39f770a33f7c8b409bfcca9de676a26208b624df45d16576b63e40a63ab",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-01T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-01T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:bbd392cf145c859ba8a9fc526e2173e60ffd0aedec586ad6b98dbe71c219556a",
+        "decision_time": "2026-10-08T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:6fc3ed632b1eed04fe7d60fbd73f00b5523f525c6011a00bb7ffc7919330999c",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-08T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-08T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:bc118bee20a8a8d6cb17cced71f41b45d3056a056091fe69dde5c0913d74d0ec",
+        "decision_time": "2026-10-10T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:fcfceb7e26ef4da310bfad8629c311c28323a38a914eda6fa50ea51270b1060c",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-10T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-10T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:d99bd8246e05455d5321c37cfc5b37d57c4294969a520582a8e3269fd64adb6f",
+        "decision_time": "2026-10-02T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:7ae67a5f7357156f289c05a73c03957c676fb6fd2702008a971d1fef236ca313",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-02T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-02T15:00:00+00:00",
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:e7e44836113df5a70cb143ec68bcc8d85ebdbfa9a37a22b706bed2adfb91b5ec",
+        "decision_time": "2026-10-03T15:00:00+00:00",
+        "evidence": "CONTROLLED forward-validation software evidence; simulated dates/source/clock; no performance",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "receipts": [
+          {
+            "hash": "sha256:4c69327880c8bd3b2a1ef08f3e5bc41e987cd58668f26a5eea067c654bc447c6",
+            "raw_ref": "raw/controlled.json",
+            "received_at": "2026-10-03T15:00:00+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-03T15:00:00+00:00",
+        "universe_complete": true
+      }
+    ]"
+
+
+      117 |       await expect(page.locator("#weather-message")).toContainText("Immutable dataset selected");
+      118 |     }
+    > 119 |     await expect(page.locator("#weather-readiness")).toContainText("insufficient_data");
+          |                                                      ^
+      120 |     assert.equal((await (await fetch(origin + "/api/weather/schedules")).json()).length, 0);
+      121 |     await page.getByRole("button", { name: "Enable forward validation", exact: true }).click();
+      122 |     await expect(page.locator("#weather-schedule-message")).toContainText("opt-in is required");
+        at procedure (/home/gabriel/Projects/EntropyTrade/frontend/browser/forward-validation.spec.cjs:119:54)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/forward-validation-review/20261031/browser-attempt-1/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="continuous forward validation: authentic shadow receipts and new label acquisition" classname="forward-validation.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

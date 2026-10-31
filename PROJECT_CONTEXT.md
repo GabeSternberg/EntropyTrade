@@ -1,23 +1,35 @@
 # EntropyTrade project context
 
-Updated 2026-10-31. **V1 remains incomplete.** The current milestone executes private-workbench
-operating acceptance with the existing locked installation/browser tools. Work stays
-on designated `supervisor/20261031-033238` from `2f8d9ad`.
-The supervisor owns all Git operations and independent review. No Git mutations,
-supervisor-control edits, new family, credential access or external provider calls.
+Updated 2026-10-31. **V1 remains incomplete.** Current implementation: continuous forward
+validation, on designated `supervisor/20261031-054650` from `9d9f921`. Git operations and
+independent review belong to the supervisor. No Git mutations, supervisor-control changes,
+new family, credentials or real execution.
 
-The current checkpoint repair retains all generated trace/archive bytes locally and
-excludes them from new staging with a scoped review-artifact policy. The
-[retention manifest](data/operating-acceptance-review/local-artifacts-20261031.json)
-hashes 1,096 files (261,903,008 bytes) from all four attempts, including the reported
-13,926,914-byte raw trace. Reports/downloads/screenshots remain checkpoint candidates.
-[Retention and verification](data/operating-acceptance-review/ARTIFACT_RETENTION.md)
-explain that a checkout alone lacks local trace/restore bytes. Earlier failed/pass reports
-are preserved. Existing tracked large artifacts remain unchanged pending separate review.
-No checkpoint, new acceptance execution or V1 release pass is claimed by this repair.
-The [repair audit](data/operating-acceptance-review/20261031-checkpoint-repair/README.md)
-passes lint/format, strict mypy, 66 focused tests and 22 frontend checks; no eligible
-changed/untracked candidate exceeds 8 MB. Original source/safety/browser bytes still match.
+Explicitly opted-in schedules now connect the existing label service to retained public and
+shadow history: bounded date requests, durable preliminary/outage retries, daily revision
+checks, partial shutdown receipts, crash-safe request identities and browser controls/export.
+Optional following freezes new snapshots one bounded history partition per interval; original
+receipts, model cutoffs and protected boundaries stay fixed. More than eight dates are handled
+in successive batches. The finite 128-acquisition budget blocks safely for operator review.
+
+Final verification passes Ruff/format and strict mypy (546 backend files), all 22 frontend
+checks, **all 1,271 pytest cases in 553.51s** (zero failures/errors/skips), and both actual
+managed-Chromium procedures. Browser evidence retains 10 screenshots, 6 downloads, four
+identical restart/restore comparisons and zero page errors. Authentic scheduling verifies two
+October 29 highs and refuses both October 30 preliminary reports; availability begins at new
+receipts. All 68 original receipt and five Bitcoin boundary hashes remain unchanged. The
+controlled twelve-date transitions prove software behavior, not empirical fitting or returns.
+
+[Workflow](docs/forward-validation.md), [execution evidence](data/forward-validation-review/20261031/README.md)
+and [release matrix](docs/v1_acceptance.md) distinguish controlled twelve-date transition tests
+from original authentic shadow replay and new public label receipts. Independent empirical
+models, certified fees, external-provider verification and two-family release evidence remain
+open. Approve safe independent functionality while authentic data accrues; do not wait for
+unavailable Bitcoin validation or autonomously select another family.
+
+Previous operating/checkpoint evidence remains under
+[data/operating-acceptance-review](data/operating-acceptance-review/ARTIFACT_RETENTION.md);
+its retained traces/archives and prior receipts are unchanged.
 
 ## Product direction
 
@@ -28,7 +40,7 @@ never fabricate historical availability. Do independent product work while data 
 A new major family requires user approval following a comparison of point-in-time history,
 resolution semantics, modeling feasibility, costs and realistic validation. None is selected.
 
-## Current private-workbench operating acceptance
+## Previous private-workbench operating acceptance
 
 The permitted runtime passes localhost/socketpair checks through the standard approval
 path. A new offline locked Python/npm installation and supported managed-Chromium

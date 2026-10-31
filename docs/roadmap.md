@@ -9,31 +9,40 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
-The current milestone delivers integrated forward weather-label acquisition through the
-existing retained-history website: select an immutable dataset, acquire authentic official
-scalar highs, inspect receipt/publication/revision clocks and refusals, freeze a new immutable
-research dataset, and reuse the existing deterministic model gates. Weather Company is the
-actual retained-contract authority; NWS and binary outcomes cannot substitute. October 31
-collection yields two verified October 29 labels and two preliminary October 30 refusals,
-with new receipt-time availability. Sparse forward labels do not satisfy empirical fitting
-or profitability gates. Durable restart/idempotency, corrected/late/protected/source boundaries,
-offline replay/restore and real managed-Chromium page interactions are included in this
-implementation. Ruff/format, strict mypy (542 files), 22 frontend checks, **1,255 pytest
-tests in 609.09s** and the final real-browser procedure pass (seven screenshots, six
-downloads, zero page errors). Authentic offline restore and all 73 original safety/boundary
-hashes verify. Locally retained generated traces/archives require separate retrieval for
-independent inspection; no fresh clean-install pass is claimed. See [label workflow](weather-labels.md),
-[current evidence](../data/weather-label-review/20261031/README.md) and
-[release matrix](v1_acceptance.md). All Git mutations and independent review belong to the
-supervisor; stop for review after this milestone. V1 remains incomplete.
+The current milestone delivers continuous forward validation through the existing label and
+shadow infrastructure. Explicit opt-in schedules split histories exceeding eight dates into
+bounded acquisitions, retain durable retries/backoff and revision checks, reconcile crash and
+shutdown state, and expose browser progress, pause/resume and downloads. Optional following
+of retained public/shadow partitions automatically freezes new immutable snapshots and enrolls
+unseen targets; market collection remains the existing separately enabled shadow workflow.
+Receipt clocks, source revisions, protected boundaries and insufficient-data gates stay intact.
+See [operation](forward-validation.md), [executed evidence](../data/forward-validation-review/20261031/README.md)
+and [V1 matrix](v1_acceptance.md). All Git operations and independent review remain with the
+supervisor; stop for review after this coherent milestone. **V1 remains incomplete.**
 
-Continue authentic forward acquisition while independent website and paper/shadow capability
-remain usable. Evaluate empirical readiness using preserved clocks and frozen boundaries;
-never wait on unavailable Bitcoin dates before reviewing unrelated functionality. Additional
-market-family selection requires user approval. External-provider verification needs separate
-credential authorization. Certified fees, enough independent history, empirical two-family
-validation and independent release acceptance remain open. No real execution or risk-limit
-changes are part of this milestone.
+Final verification passes Ruff/format and strict mypy (546 backend files), all 22 frontend
+checks, **all 1,271 pytest cases in 553.51s** (zero failures/errors/skips), and both actual
+managed-Chromium procedures. Browser evidence retains 10 screenshots, 6 downloads, four
+identical restart/restore comparisons and zero page errors. Authentic scheduling verifies two
+October 29 highs and refuses both October 30 preliminary reports; availability begins at new
+receipts. All 68 original receipt and five Bitcoin boundary hashes remain unchanged. The
+controlled twelve-date transitions prove software behavior, not empirical fitting or returns.
+
+Continue authentic forward collection while independent website and paper/shadow capability
+remain usable. The existing finite workspace acquisition budget still blocks for operator
+review rather than deleting evidence. New-family selection requires user approval; external
+provider verification requires separate credential authorization. Sufficient empirical history,
+certified effective fees, two-family validation and independent release acceptance remain
+open. No real execution, risk-limit relaxation or fabricated performance is included.
+
+### Previous forward weather-label acquisition — October 31, 2026
+
+The prior milestone added bounded manual source-matched scalar-high acquisition, immutable
+receipt batches, offline replay and browser research integration. Authentic collection verified
+two October 29 station/day highs and refused two October 30 preliminary reports. Its recorded
+Ruff/mypy, 1,255 pytest and Chromium results retain their original scope in
+[prior evidence](../data/weather-label-review/20261031/README.md). The current scheduling
+milestone reuses that service and its original receipts rather than backdating labels.
 
 ### Previous private-workbench operating acceptance — October 31, 2026
 
