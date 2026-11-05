@@ -1,5 +1,16 @@
 # Capability roadmap
 
+## Authentic forward collection off-container — November 5, 2026
+
+Scheduled cloud sessions cannot reach public sources (issue #3), but GitHub-hosted runners can.
+`forward-collection.yml` with `entropytrade.operations.forward` runs the existing website
+headlessly for bounded windows and chains verified workspace snapshots between runs. This
+unblocks the multi-day authentic operation gate in principle. Evidence still accrues only once
+the workflow is on `main` (cron) and runs regularly; see [operator](forward-operator.md).
+Recommended order after merge: let it run for several days, then promote a snapshot into a
+reviewed evidence directory with a manifest, and use it for the next model-readiness review.
+Fee certification, provider verification and the second-family choice still need a human.
+
 ## Current product direction — October 31, 2026
 
 EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.

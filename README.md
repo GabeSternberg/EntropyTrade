@@ -36,7 +36,8 @@ broader recovery results are recorded in [current evidence](data/provider-review
 Offline workspace recovery preserves original receipts and model/holdout boundaries. See [local operation and recovery](docs/local-recovery.md), the incomplete
 [V1 acceptance matrix](docs/v1_acceptance.md), the
 [shadow operating guide](docs/shadow-tracking.md) and the earlier
-[executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Production trading
+[executed evidence and collection decision](data/bitcoin-history-review/20261029T001500Z/README.md). Authentic read-only forward collection can now run headlessly on GitHub-hosted runners;
+see [forward operator](docs/forward-operator.md). Production trading
 is disabled; the Kalshi gateway refuses orders.
 
 ## Setup and checks
