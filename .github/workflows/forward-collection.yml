@@ -25,6 +25,7 @@ on:
     branches: ["claude/**"]
     paths:
       - ".github/workflows/forward-collection.yml"
+      - "backend/src/entropytrade/operations/**"
 
 permissions:
   contents: read
