@@ -201,7 +201,7 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
     await stop(); originalFiles = hashes();
     fs.writeFileSync(path.join(evidence, "original-label-files.json"), JSON.stringify(originalFiles, null, 2));
     await start(); await verifyReopened("restart"); await stop();
-    const archive = path.join(repo, "data/cache", path.basename(workspace) + ".zip");
+    const archive = workspace + ".zip";
     command(["-m", "entropytrade.api.recovery", "snapshot", "--workspace", workspace, "--archive", archive], "snapshot");
     const restored = workspace + "-restored";
     command(["-m", "entropytrade.api.recovery", "restore", "--workspace", restored, "--archive", archive], "restore");
