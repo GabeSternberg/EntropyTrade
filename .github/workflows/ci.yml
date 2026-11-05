@@ -1,0 +1,74 @@
+# Offline quality gates for every push and pull request.
+#
+# Uses no repository secrets, research/provider keys or exchange credentials and never
+# enables submission. Real-browser and public-source acceptance remain separate, evidence-
+# retaining procedures (frontend/browser/README.md) and are not claimed by this workflow.
+name: ci
+
+on:
+  push:
+    branches: [main, "claude/**", "recovery/**", "supervisor/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: lint, types, frontend, pytest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      UV_FROZEN: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+          python-version: "3.13"
+          enable-cache: true
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install locked dependencies
+        run: uv sync --locked
+
+      - name: Ruff lint
+        run: uv run ruff check backend
+
+      - name: Ruff format
+        run: uv run ruff format --check backend
+
+      - name: Strict mypy
+        run: uv run mypy
+
+      - name: Frontend DOM tests
+        run: node --test frontend/tests/acquisition.test.cjs
+
+      - name: Pytest (complete offline suite)
+        run: >-
+          uv run pytest -p no:cacheprovider
+          -o faulthandler_timeout=600
+          --junitxml=pytest-results.xml
+
+      - name: Retain pytest results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-results
+          path: pytest-results.xml
+          if-no-files-found: ignore
+          retention-days: 14
