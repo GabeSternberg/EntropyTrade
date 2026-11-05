@@ -98,7 +98,7 @@ reports 25 passed, including the new regression.
 The committed bundle holds logs, receipts, Playwright JSON/JUnit and JSON/CSV downloads under
 512 KB, plus one screenshot. [`MANIFEST.sha256`](MANIFEST.sha256) lists the SHA-256 of **every**
 file produced, 1,440 files in total. Traces, screenshots, snapshot archives, copied workspaces and
-models (about 850 MB in total) stay untracked in this container (heavy types are ignored by `../.gitignore`) and will not survive it.
+models (about 850 MB in total) stay untracked in this container (ignored by `../.gitignore`, along with other un-committed per-run outputs) and will not survive it.
 Receipts also record per-file screenshot/download hashes. Workspaces live in
 `data/cache/browser-regression-20261105-*`.
 
