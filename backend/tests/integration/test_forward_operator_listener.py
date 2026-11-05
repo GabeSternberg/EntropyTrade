@@ -9,16 +9,18 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import httpx
-import pytest
 
 from entropytrade.operations.forward import ensure_monitor, ensure_schedule, summarize
 from entropytrade.weather.label_service import LabelService
 from tests.integration.forward_validation_fixture import portal, seed_dates
 from tests.integration.test_workbench_listener import listening
 from tests.integration.weather_history_retained import REPO
+
+if TYPE_CHECKING:
+    import pytest
 
 
 class ClientApi:
