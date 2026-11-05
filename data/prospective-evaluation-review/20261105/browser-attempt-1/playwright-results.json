@@ -1,0 +1,195 @@
+{
+  "config": {
+    "configFile": "/home/user/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/user/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/user/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs",
+          "prospective.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "prospective.spec.cjs",
+      "file": "prospective.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 40085,
+                  "error": {
+                    "message": "AssertionError: Recovery refused: unable to open database file\n\n\n1 !== 0\n",
+                    "stack": "AssertionError: Recovery refused: unable to open database file\n\n\n1 !== 0\n\n    at command (/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:32:14)\n    at /home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:85:7",
+                    "location": {
+                      "file": "/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs",
+                      "column": 14,
+                      "line": 32
+                    },
+                    "snippet": "  30 |     function command(args) {\n  31 |       const result = spawnSync(python, args, { cwd: repo, env, encoding: \"utf8\", timeout: 120_000 });\n> 32 |       assert.equal(result.status, 0, result.stdout + result.stderr); return result.stdout;\n     |              ^\n  33 |     }\n  34 |     async function start() {\n  35 |       assert(!await fetch(origin + \"/api/catalog\").catch(() => null), \"Port occupied\");"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs",
+                        "column": 14,
+                        "line": 32
+                      },
+                      "message": "AssertionError: Recovery refused: unable to open database file\n\n\n1 !== 0\n\n\n  30 |     function command(args) {\n  31 |       const result = spawnSync(python, args, { cwd: repo, env, encoding: \"utf8\", timeout: 120_000 });\n> 32 |       assert.equal(result.status, 0, result.stdout + result.stderr); return result.stdout;\n     |              ^\n  33 |     }\n  34 |     async function start() {\n  35 |       assert(!await fetch(origin + \"/api/catalog\").catch(() => null), \"Port occupied\");\n    at command (/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:32:14)\n    at /home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:85:7"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-05T20:25:22.904Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs",
+                    "column": 14,
+                    "line": 32
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "5e33f7978b991c5d2004-2c569c3cf0f0a582532d",
+          "file": "prospective.spec.cjs",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5e33f7978b991c5d2004-63ffeb64799c642feba5",
+          "file": "prospective.spec.cjs",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "\u001b[31mTesting stopped early after 1 maximum allowed failures.\u001b[39m"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-11-05T20:25:22.162Z",
+    "duration": 41480.153999999995,
+    "expected": 0,
+    "skipped": 1,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

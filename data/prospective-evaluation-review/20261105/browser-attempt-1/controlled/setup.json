@@ -1,0 +1,1038 @@
+{
+  "monitor_id": "075ff62b-4b40-410b-b88a-d44ee66331d9",
+  "report": {
+    "schema": "prospective-shadow-evaluation-v1",
+    "monitor_id": "075ff62b-4b40-410b-b88a-d44ee66331d9",
+    "spec_hash": "sha256:e1cfb481504800b672897cab6a20535db0c6c0b5d56433112ef2ef3be64ea531",
+    "policy": {
+      "minimum_matched_events": 10,
+      "minimum_matched_dates": 5,
+      "selection": "earliest_retained_preclose_observation_per_contract",
+      "weighting": "equal_event_weight_with_equal_contract_weight_within_event"
+    },
+    "as_of": "2026-11-09T15:00:00+00:00",
+    "status": "diagnostics_available",
+    "counts": {
+      "pending": 1,
+      "refused": 1,
+      "matched": 11,
+      "contracts": 13,
+      "poll_observations": 39,
+      "independent_events": 12,
+      "independent_dates": 12,
+      "matched_events": 10,
+      "matched_dates": 10,
+      "excluded_protected_events": 0,
+      "protected_boundary_events": 1
+    },
+    "cycle_statuses": {
+      "completed": 3
+    },
+    "cycle_failures": [],
+    "evidence": [
+      {
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293"
+      },
+      {
+        "cycle_id": "f2f25193-527b-4677-8cea-98cb326e7bfd",
+        "digest": "sha256:53ba03dc5daa17dc6571ed4f48e9ab691ffafdce01dcff8e64b079bebd32ec13"
+      },
+      {
+        "cycle_id": "97e8cfad-2d6e-4420-a570-4c3212afa9a8",
+        "digest": "sha256:13e7b5e08e3c54cf81a303e41aeddbc1087066c3486686411c1d73d3f53255d2"
+      }
+    ],
+    "observations": [
+      {
+        "ticker": "KXHIGHPHIL-26OCT25-T89",
+        "event_id": "KXHIGHPHIL-26OCT25",
+        "target_date": "2026-10-25",
+        "decision_time": "2026-10-25T15:00:00+00:00",
+        "close_time": "2026-10-25T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-25T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT25",
+          "ticker": "KXHIGHPHIL-26OCT25-T89",
+          "decision_time": "2026-10-25T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:6fcb6d90861d4b10bbbc9008751c064906c6f78c5b4ff5e64d8fd3f4da539ede"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89",
+            "raw_ref": "outcomes/0000.json",
+            "received_at": "2026-11-09T15:00:00+00:00",
+            "sha256": "sha256:387ca31a7484c203e6a5b4d8fc3a850f81ce4aeec843398126df06302436f357",
+            "status": 200
+          },
+          "available_at": "2026-11-09T15:00:00+00:00",
+          "reason": null,
+          "result": "no",
+          "settled_at": "2026-10-25T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89",
+              "raw_ref": "outcomes/0000.json",
+              "received_at": "2026-10-25T17:00:00+00:00",
+              "sha256": "sha256:5eb63430df70d930ff1645bca97c4c4ab82626aeb1ef82142340b3decfe3afb2",
+              "status": 200
+            },
+            "available_at": "2026-10-25T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-25T16:01:00+00:00"
+          },
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89",
+              "raw_ref": "outcomes/0000.json",
+              "received_at": "2026-11-09T15:00:00+00:00",
+              "sha256": "sha256:387ca31a7484c203e6a5b4d8fc3a850f81ce4aeec843398126df06302436f357",
+              "status": 200
+            },
+            "available_at": "2026-11-09T15:00:00+00:00",
+            "reason": null,
+            "result": "no",
+            "settled_at": "2026-10-25T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 1
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT25-T90",
+        "event_id": "KXHIGHPHIL-26OCT25",
+        "target_date": "2026-10-25",
+        "decision_time": "2026-10-25T15:00:00+00:00",
+        "close_time": "2026-10-25T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-25T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT25",
+          "ticker": "KXHIGHPHIL-26OCT25-T90",
+          "decision_time": "2026-10-25T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:fd807fc51d64751b884bafd47969d2064af75c9306563507c14740c16da718ba"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T90",
+            "raw_ref": "outcomes/0010.json",
+            "received_at": "2026-10-25T17:00:00+00:00",
+            "sha256": "sha256:7e54d7b6de959e806819620ec90b11ba0434cf4e54049e8a251497aa8002bbd7",
+            "status": 200
+          },
+          "available_at": "2026-10-25T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-25T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T90",
+              "raw_ref": "outcomes/0010.json",
+              "received_at": "2026-10-25T17:00:00+00:00",
+              "sha256": "sha256:7e54d7b6de959e806819620ec90b11ba0434cf4e54049e8a251497aa8002bbd7",
+              "status": 200
+            },
+            "available_at": "2026-10-25T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-25T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT26-T89",
+        "event_id": "KXHIGHPHIL-26OCT26",
+        "target_date": "2026-10-26",
+        "decision_time": "2026-10-26T15:00:00+00:00",
+        "close_time": "2026-10-26T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-26T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT26",
+          "ticker": "KXHIGHPHIL-26OCT26-T89",
+          "decision_time": "2026-10-26T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:cc3205bd246070b70975a6051a2ff2aa6da2ed0fa281380103e8ebccda46b1ef"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT26-T89",
+            "raw_ref": "outcomes/0001.json",
+            "received_at": "2026-10-26T17:00:00+00:00",
+            "sha256": "sha256:f63536d9f2c5afaa44999454c053d8f0e3b7f6722883b055a98271461f56dadf",
+            "status": 200
+          },
+          "available_at": "2026-10-26T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-26T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT26-T89",
+              "raw_ref": "outcomes/0001.json",
+              "received_at": "2026-10-26T17:00:00+00:00",
+              "sha256": "sha256:f63536d9f2c5afaa44999454c053d8f0e3b7f6722883b055a98271461f56dadf",
+              "status": 200
+            },
+            "available_at": "2026-10-26T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-26T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT27-T89",
+        "event_id": "KXHIGHPHIL-26OCT27",
+        "target_date": "2026-10-27",
+        "decision_time": "2026-10-27T15:00:00+00:00",
+        "close_time": "2026-10-27T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-27T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT27",
+          "ticker": "KXHIGHPHIL-26OCT27-T89",
+          "decision_time": "2026-10-27T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:c5cd82313a2b2e232c4846223ec20d10018b52d2b57eca4a2a4fab041f33ded3"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT27-T89",
+            "raw_ref": "outcomes/0002.json",
+            "received_at": "2026-10-27T17:00:00+00:00",
+            "sha256": "sha256:03faed5f73c311d659d5a8d9ec31f213b2a826338e4773372b1200cda199dd27",
+            "status": 200
+          },
+          "available_at": "2026-10-27T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-27T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT27-T89",
+              "raw_ref": "outcomes/0002.json",
+              "received_at": "2026-10-27T17:00:00+00:00",
+              "sha256": "sha256:03faed5f73c311d659d5a8d9ec31f213b2a826338e4773372b1200cda199dd27",
+              "status": 200
+            },
+            "available_at": "2026-10-27T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-27T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT28-T89",
+        "event_id": "KXHIGHPHIL-26OCT28",
+        "target_date": "2026-10-28",
+        "decision_time": "2026-10-28T15:00:00+00:00",
+        "close_time": "2026-10-28T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-28T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT28",
+          "ticker": "KXHIGHPHIL-26OCT28-T89",
+          "decision_time": "2026-10-28T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:3611fe29de546d945b12eecbefa8d590dfed27c6d79941fb60891f298b0b7927"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT28-T89",
+            "raw_ref": "outcomes/0003.json",
+            "received_at": "2026-10-28T17:00:00+00:00",
+            "sha256": "sha256:aa13edcadc8c7dc8ffb385e919a4a47eba824e86edc26ca2c913d19c5325b3e0",
+            "status": 200
+          },
+          "available_at": "2026-10-28T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-28T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT28-T89",
+              "raw_ref": "outcomes/0003.json",
+              "received_at": "2026-10-28T17:00:00+00:00",
+              "sha256": "sha256:aa13edcadc8c7dc8ffb385e919a4a47eba824e86edc26ca2c913d19c5325b3e0",
+              "status": 200
+            },
+            "available_at": "2026-10-28T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-28T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT29-T89",
+        "event_id": "KXHIGHPHIL-26OCT29",
+        "target_date": "2026-10-29",
+        "decision_time": "2026-10-29T15:00:00+00:00",
+        "close_time": "2026-10-29T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-29T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT29",
+          "ticker": "KXHIGHPHIL-26OCT29-T89",
+          "decision_time": "2026-10-29T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:e37b0e98bdd9e83ee277bd319508c3440654a262677e66a1688e159a7490c76f"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT29-T89",
+            "raw_ref": "outcomes/0004.json",
+            "received_at": "2026-10-29T17:00:00+00:00",
+            "sha256": "sha256:e363e3a43387817ad17aced72948848a85801c903e7458a25d5911a63983e704",
+            "status": 200
+          },
+          "available_at": "2026-10-29T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-29T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT29-T89",
+              "raw_ref": "outcomes/0004.json",
+              "received_at": "2026-10-29T17:00:00+00:00",
+              "sha256": "sha256:e363e3a43387817ad17aced72948848a85801c903e7458a25d5911a63983e704",
+              "status": 200
+            },
+            "available_at": "2026-10-29T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-29T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT30-T89",
+        "event_id": "KXHIGHPHIL-26OCT30",
+        "target_date": "2026-10-30",
+        "decision_time": "2026-10-30T15:00:00+00:00",
+        "close_time": "2026-10-30T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-30T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT30",
+          "ticker": "KXHIGHPHIL-26OCT30-T89",
+          "decision_time": "2026-10-30T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:294a4180ed29dc6cc91cb33a09df392f05052e33bdbfed5d59423b5a12fc366a"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT30-T89",
+            "raw_ref": "outcomes/0005.json",
+            "received_at": "2026-10-30T17:00:00+00:00",
+            "sha256": "sha256:c2fd2ad2bb3047aa17533be075898298bcc9d872245e4dc81af167b3e4a0b9c1",
+            "status": 200
+          },
+          "available_at": "2026-10-30T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-30T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT30-T89",
+              "raw_ref": "outcomes/0005.json",
+              "received_at": "2026-10-30T17:00:00+00:00",
+              "sha256": "sha256:c2fd2ad2bb3047aa17533be075898298bcc9d872245e4dc81af167b3e4a0b9c1",
+              "status": 200
+            },
+            "available_at": "2026-10-30T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-30T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26OCT31-T89",
+        "event_id": "KXHIGHPHIL-26OCT31",
+        "target_date": "2026-10-31",
+        "decision_time": "2026-10-31T15:00:00+00:00",
+        "close_time": "2026-10-31T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-10-31T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26OCT31",
+          "ticker": "KXHIGHPHIL-26OCT31-T89",
+          "decision_time": "2026-10-31T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:b84fdf29962e6fc967a630d625e2f818e33516d3dd3e127b7eda39739df04e13"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT31-T89",
+            "raw_ref": "outcomes/0006.json",
+            "received_at": "2026-10-31T17:00:00+00:00",
+            "sha256": "sha256:1e753af7ebce4af9292b2f64eb513427678957aee4f1d1900b303655f7b2abf6",
+            "status": 200
+          },
+          "available_at": "2026-10-31T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-10-31T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26OCT31-T89",
+              "raw_ref": "outcomes/0006.json",
+              "received_at": "2026-10-31T17:00:00+00:00",
+              "sha256": "sha256:1e753af7ebce4af9292b2f64eb513427678957aee4f1d1900b303655f7b2abf6",
+              "status": 200
+            },
+            "available_at": "2026-10-31T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-10-31T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV01-T89",
+        "event_id": "KXHIGHPHIL-26NOV01",
+        "target_date": "2026-11-01",
+        "decision_time": "2026-11-01T15:00:00+00:00",
+        "close_time": "2026-11-01T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-11-01T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26NOV01",
+          "ticker": "KXHIGHPHIL-26NOV01-T89",
+          "decision_time": "2026-11-01T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:23d9e0ee529afb0a95c409c09604ccde4744774a0f1caeaaf87056e9adf9e85c"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV01-T89",
+            "raw_ref": "outcomes/0007.json",
+            "received_at": "2026-11-01T17:00:00+00:00",
+            "sha256": "sha256:a3637f422e5ffb3c87916fcf9c68e859a604445045eff45e5d07c97f4720d8c5",
+            "status": 200
+          },
+          "available_at": "2026-11-01T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-11-01T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV01-T89",
+              "raw_ref": "outcomes/0007.json",
+              "received_at": "2026-11-01T17:00:00+00:00",
+              "sha256": "sha256:a3637f422e5ffb3c87916fcf9c68e859a604445045eff45e5d07c97f4720d8c5",
+              "status": 200
+            },
+            "available_at": "2026-11-01T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-11-01T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV02-T89",
+        "event_id": "KXHIGHPHIL-26NOV02",
+        "target_date": "2026-11-02",
+        "decision_time": "2026-11-02T15:00:00+00:00",
+        "close_time": "2026-11-02T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-11-02T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26NOV02",
+          "ticker": "KXHIGHPHIL-26NOV02-T89",
+          "decision_time": "2026-11-02T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:7c606c46eef74c221b24b874886bc8e4f5e12eb4e42ffe7d9666b41ba6ccd2ad"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV02-T89",
+            "raw_ref": "outcomes/0008.json",
+            "received_at": "2026-11-02T17:00:00+00:00",
+            "sha256": "sha256:129c8e9f1f567d60ceeafacf2b9346ae340c0279fb9e147909344f3fe0fd6886",
+            "status": 200
+          },
+          "available_at": "2026-11-02T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-11-02T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV02-T89",
+              "raw_ref": "outcomes/0008.json",
+              "received_at": "2026-11-02T17:00:00+00:00",
+              "sha256": "sha256:129c8e9f1f567d60ceeafacf2b9346ae340c0279fb9e147909344f3fe0fd6886",
+              "status": 200
+            },
+            "available_at": "2026-11-02T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-11-02T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV03-T89",
+        "event_id": "KXHIGHPHIL-26NOV03",
+        "target_date": "2026-11-03",
+        "decision_time": "2026-11-03T15:00:00+00:00",
+        "close_time": "2026-11-03T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-11-03T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26NOV03",
+          "ticker": "KXHIGHPHIL-26NOV03-T89",
+          "decision_time": "2026-11-03T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:91f0dd59457f74c222912405935be8a555336ec61a47ee778dee88c97eeebcb0"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "matched",
+        "reason": null,
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV03-T89",
+            "raw_ref": "outcomes/0009.json",
+            "received_at": "2026-11-03T17:00:00+00:00",
+            "sha256": "sha256:471060b936bf4fbefe0c8db5929cc0b54a685199802410b3d0027f0c7fb1be69",
+            "status": 200
+          },
+          "available_at": "2026-11-03T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-11-03T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV03-T89",
+              "raw_ref": "outcomes/0009.json",
+              "received_at": "2026-11-03T17:00:00+00:00",
+              "sha256": "sha256:471060b936bf4fbefe0c8db5929cc0b54a685199802410b3d0027f0c7fb1be69",
+              "status": 200
+            },
+            "available_at": "2026-11-03T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-11-03T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV04-T89",
+        "event_id": "KXHIGHPHIL-26NOV04",
+        "target_date": "2026-11-04",
+        "decision_time": "2026-11-04T15:00:00+00:00",
+        "close_time": "2026-11-04T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-11-04T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": {
+          "event_id": "KXHIGHPHIL-26NOV04",
+          "ticker": "KXHIGHPHIL-26NOV04-T89",
+          "decision_time": "2026-11-04T15:00:00Z",
+          "family": "provided-frequency",
+          "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+          "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+          "fitted_before": "2026-10-24T15:00:00Z",
+          "calibrated_before": null,
+          "calibration": "none",
+          "probability_yes": "0.75",
+          "partition": "forward",
+          "prediction_id": "sha256:9ea3df09a6fd187046e8ce3eb8051861d0410cc0f50eba7d1601c18a7c0630f6"
+        },
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "pending",
+        "reason": null,
+        "outcome": null,
+        "outcome_history": [],
+        "outcome_revisions": 0
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV05-T89",
+        "event_id": "KXHIGHPHIL-26NOV05",
+        "target_date": "2026-11-05",
+        "decision_time": "2026-11-05T15:00:00+00:00",
+        "close_time": "2026-11-05T16:00:00+00:00",
+        "data_kind": "synthetic",
+        "dataset_version": "sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398",
+        "feature_version": "sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1",
+        "feature_hash": "sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41",
+        "source_versions": {
+          "mention_count": "1"
+        },
+        "sources": [
+          "fixture-transcript"
+        ],
+        "features_available_at": "2026-11-05T15:00:00+00:00",
+        "cycle_id": "550dbe36-ae12-4582-89d5-35fee1754910",
+        "cycle_digest": "sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293",
+        "poll_observations": 3,
+        "prediction": null,
+        "model_refusals": {},
+        "shadow_decision": {
+          "status": "blocked",
+          "reasons": [
+            "point_in_time_prediction",
+            "sized_book",
+            "certified_fees"
+          ]
+        },
+        "status": "refused",
+        "reason": "missing_or_ambiguous_prediction",
+        "outcome": {
+          "receipt": {
+            "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV05-T89",
+            "raw_ref": "outcomes/0011.json",
+            "received_at": "2026-11-05T17:00:00+00:00",
+            "sha256": "sha256:0417cca3b05973baf8004ff248eaea39aeeb24e4b8a8e62f2eab453887fab50e",
+            "status": 200
+          },
+          "available_at": "2026-11-05T17:00:00+00:00",
+          "reason": null,
+          "result": "yes",
+          "settled_at": "2026-11-05T16:01:00+00:00"
+        },
+        "outcome_history": [
+          {
+            "receipt": {
+              "path": "/trade-api/v2/markets/KXHIGHPHIL-26NOV05-T89",
+              "raw_ref": "outcomes/0011.json",
+              "received_at": "2026-11-05T17:00:00+00:00",
+              "sha256": "sha256:0417cca3b05973baf8004ff248eaea39aeeb24e4b8a8e62f2eab453887fab50e",
+              "status": 200
+            },
+            "available_at": "2026-11-05T17:00:00+00:00",
+            "reason": null,
+            "result": "yes",
+            "settled_at": "2026-11-05T16:01:00+00:00"
+          }
+        ],
+        "outcome_revisions": 0
+      }
+    ],
+    "diagnostics": [
+      {
+        "group_id": "sha256:333e9c6c16accc9dda700aeaa6f4f43dd6ac062862a0f847f4aad73fabd3e8f3",
+        "data_kind": "synthetic",
+        "model_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "calibration": "none",
+        "matched_contracts": 11,
+        "independent_events": 10,
+        "independent_dates": 10,
+        "status": "diagnostics_available",
+        "reason": null,
+        "metrics": {
+          "event_weighted_brier": 0.0875,
+          "event_weighted_log_loss": 0.342612686885,
+          "log_loss_clip": 1e-15,
+          "reliability_bins": [
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "contracts": 11,
+              "weight": 1.0,
+              "mean_probability": 0.75,
+              "observed_yes_rate": 0.95
+            }
+          ]
+        }
+      }
+    ],
+    "limitations": [
+      "Prospective monitoring only; never historical validation, simulated trading accounting or evidence of profitability. No fitting, promotion or orders.",
+      "One earliest retained pre-close observation per contract; later polls cannot replace a missing/refused forecast or increase independent counts. Strikes share event weight.",
+      "Latest verified official binary receipt at the cutoff is used. Revisions are visible; original predictions, receipts, first accounting settlements and holdouts stay unchanged.",
+      "Diagnostics require ten matched events on five target dates per model/data group. These are descriptive diagnostics, without confidence or significance claims.",
+      "Offline verification establishes retained lineage and computation, not external source truth. Synthetic examples establish software behavior only."
+    ],
+    "submission_enabled": false,
+    "historical_validation": false,
+    "performance": null,
+    "report_hash": "sha256:7a24edcbad4dcea40a5b899d2bfa690c0b77aecfd81cf3085c7e285071a9bc45"
+  },
+  "evidence": "CONTROLLED SYNTHETIC software evidence; never empirical performance"
+}
