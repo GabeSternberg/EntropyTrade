@@ -51,10 +51,10 @@ def verify_recovery(repo: Path, workspace: Path, restored_workspace: Path, outpu
                     if (store.jobs.root / name).is_file():
                         with (
                             sqlite3.connect(
-                                (store.jobs.root / name).as_uri() + "?mode=ro"
+                                (store.jobs.root / name).as_uri() + "?mode=ro", uri=True
                             ) as original_db,
                             sqlite3.connect(
-                                (restored.jobs.root / name).as_uri() + "?mode=ro"
+                                (restored.jobs.root / name).as_uri() + "?mode=ro", uri=True
                             ) as target,
                         ):
                             if list(original_db.iterdump()) != list(target.iterdump()):
