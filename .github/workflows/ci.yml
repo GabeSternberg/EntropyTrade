@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     env:
-      UV_FROZEN: "1"
+      UV_LOCKED: "1"
       PYTHONDONTWRITEBYTECODE: "1"
       OMP_NUM_THREADS: "1"
       OPENBLAS_NUM_THREADS: "1"
@@ -44,7 +44,7 @@ jobs:
           node-version: "22"
 
       - name: Install locked dependencies
-        run: uv sync --locked
+        run: uv sync
 
       - name: Ruff lint
         run: uv run ruff check backend
