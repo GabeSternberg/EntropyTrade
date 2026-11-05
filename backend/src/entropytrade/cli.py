@@ -109,6 +109,17 @@ def _parser() -> argparse.ArgumentParser:
     integrated.add_argument("--days", type=int, default=240)
     integrated.add_argument("--research-run", type=Path)
     integrated.add_argument("--json", action="store_true", help="include full structured results")
+    family = commands.add_parser(
+        "family-screen", help="compare market families from retained public catalog receipts"
+    )
+    family.add_argument("--receipt", type=Path, action="append", default=[])
+    family.add_argument("--fetched", type=Path, action="append", default=[])
+    family.add_argument(
+        "--fetch-series", action="append", default=[], help="read-only catalog GET; repeatable"
+    )
+    family.add_argument("--fetch-dir", type=Path, help="NEW directory for fetched receipts")
+    family.add_argument("--max-pages", type=int, default=3)
+    family.add_argument("--output", type=Path, help="write the JSON report (must not exist)")
     return parser
 
 
@@ -235,6 +246,36 @@ def main() -> None:
         print(
             json.dumps({"history": data.provenance, "experiment": result}, sort_keys=True, indent=2)
         )
+    elif args.command == "family-screen":
+        from entropytrade.families.screening import (
+            ScreeningError,
+            load_catalog,
+            render_table,
+            run_fetch,
+            screen,
+        )
+
+        fetched = list(args.fetched)
+        if args.output is not None and args.output.exists():
+            raise SystemExit(f"family-screen refused: {args.output} already exists")
+        try:
+            if args.fetch_series:
+                if args.fetch_dir is None:
+                    raise ScreeningError("--fetch-series requires a new --fetch-dir")
+                manifest = run_fetch(args.fetch_dir, args.fetch_series, args.max_pages)
+                failed = [c for c in manifest["calls"] if c.get("status") != 200]
+                print(f"fetched {len(manifest['calls'])} requests; {len(failed)} not usable")
+                fetched.append(args.fetch_dir)
+            report = screen(load_catalog(args.receipt, fetched))
+        except ScreeningError as exc:
+            raise SystemExit(f"family-screen refused: {exc}") from exc
+        if args.output is not None:
+            try:
+                with args.output.open("x") as stream:
+                    stream.write(json.dumps(report, indent=2, sort_keys=True) + "\n")
+            except FileExistsError as exc:
+                raise SystemExit(f"family-screen refused: {args.output} already exists") from exc
+        print(render_table(report))
     elif args.command == "research-and-test":
         from entropytrade.agents.provider import ResearchProviderConfig
         from entropytrade.experiments.engine import ExperimentConfig
