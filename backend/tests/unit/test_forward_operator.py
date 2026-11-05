@@ -165,7 +165,7 @@ def test_schedule_freezes_dataset_and_opts_in_once() -> None:
             "/api/weather/schedules": [],
             "/api/weather/partitions": {"total_inputs": 3},
             "POST /api/weather/datasets": {"dataset_id": "sha256:" + "a" * 64},
-            "POST /api/weather/schedules": lambda body: {"id": body["id"]},
+            "POST /api/weather/schedules": lambda body: {"config": body, "status": "active"},
         }
     )
     result = ensure_schedule(api, 7200)
@@ -182,9 +182,9 @@ def test_schedule_freezes_dataset_and_opts_in_once() -> None:
 
 
 def test_existing_schedules_are_kept_or_reported_never_resumed() -> None:
-    kept = FakeApi({"/api/weather/schedules": [{"id": "s1", "status": "active"}]})
+    kept = FakeApi({"/api/weather/schedules": [{"config": {"id": "s1"}, "status": "active"}]})
     assert ensure_schedule(kept, 3600) == {"action": "schedule_kept", "schedule_id": "s1"}
-    paused = FakeApi({"/api/weather/schedules": [{"id": "s1", "status": "paused"}]})
+    paused = FakeApi({"/api/weather/schedules": [{"config": {"id": "s1"}, "status": "paused"}]})
     assert ensure_schedule(paused, 3600)["action"] == "operator_review_required"
     assert kept.posts == paused.posts == []
 
@@ -209,7 +209,13 @@ def test_summary_counts_only_this_runs_cycles() -> None:
                 "fills": [],
                 "submission_enabled": False,
             },
-            "/api/weather/schedules": [{"id": "s1", "status": "active", "detail": "ok"}],
+            "/api/weather/schedules": [
+                {
+                    "config": {"id": "s1", "follow_retained": True},
+                    "status": "active",
+                    "detail": "ok",
+                }
+            ],
             "/api/weather/partitions": {"total_inputs": 2, "partitions": [{}]},
             "/api/weather/labels": [{}, {}],
             "/api/alerts": {"alerts": [], "submission_enabled": False},
@@ -222,6 +228,8 @@ def test_summary_counts_only_this_runs_cycles() -> None:
     assert monitor["model_binding"] == "blocked"
     assert summary["retained_inputs"] == {"total_inputs": 2, "partitions": 1}
     assert summary["label_requests"] == 2
+    assert summary["schedules"][0]["id"] == "s1"
+    assert summary["schedules"][0]["follow_retained"] is True
     assert summary["submission_enabled"] is False
 
 

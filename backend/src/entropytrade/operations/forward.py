@@ -48,6 +48,7 @@ JOB_REQUEST = {
     "reasoning": "local",
     "enable_provider": False,
 }
+SCHEDULE_RETRY_SECONDS = 300.0
 TERMINAL_JOB = {"completed", "failed", "cancelled", "interrupted"}
 
 
@@ -172,17 +173,22 @@ def ensure_monitor(
     }
 
 
+def schedule_id(schedule: dict[str, Any]) -> str:
+    """Schedule summaries nest their identity in the validated configuration."""
+    return str(schedule["config"]["id"])
+
+
 def ensure_schedule(api: Api, interval_seconds: int) -> dict[str, Any]:
     """Enable one following forward-validation schedule once retained inputs exist."""
     schedules = api.get("/api/weather/schedules")
     if schedules:
         active = [s for s in schedules if s.get("status") == "active"]
         if active:
-            return {"action": "schedule_kept", "schedule_id": active[0]["id"]}
+            return {"action": "schedule_kept", "schedule_id": schedule_id(active[0])}
         return {
             "action": "operator_review_required",
             "reason": "existing schedule is not active; the operator never resumes a pause",
-            "schedules": [{"id": s["id"], "status": s.get("status")} for s in schedules],
+            "schedules": [{"id": schedule_id(s), "status": s.get("status")} for s in schedules],
         }
     partitions = api.get("/api/weather/partitions")
     if not partitions.get("total_inputs"):
@@ -202,7 +208,7 @@ def ensure_schedule(api: Api, interval_seconds: int) -> dict[str, Any]:
     )
     return {
         "action": "schedule_created",
-        "schedule_id": schedule["id"],
+        "schedule_id": schedule_id(schedule),
         "dataset_id": dataset_id,
         "follow_retained": True,
         "interval_seconds": interval_seconds,
@@ -236,7 +242,11 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
             }
         )
     schedules = [
-        {k: s.get(k) for k in ("id", "status", "detail", "updated_at", "counts", "dates")}
+        {
+            "id": schedule_id(s),
+            "follow_retained": s["config"].get("follow_retained"),
+            **{k: s.get(k) for k in ("status", "detail", "updated_at", "next_discovery", "counts")},
+        }
         for s in api.get("/api/weather/schedules")
     ]
     partitions = api.get("/api/weather/partitions")
@@ -324,12 +334,18 @@ def operate(
                 actions.append({"at": now().isoformat(), **ensure_monitor(api, monitor_interval)})
             deadline = time.monotonic() + seconds
             scheduled = False
+            next_attempt = 0.0
             while True:
-                if not scheduled:
+                if not scheduled and time.monotonic() >= next_attempt:
                     try:
                         result = ensure_schedule(api, schedule_interval)
-                    except (ApiError, OSError) as exc:
-                        result = {"action": "schedule_error", "reason": str(exc)}
+                    except (ApiError, OSError, KeyError, TypeError, ValueError) as exc:
+                        # Retried later; an already-created schedule is then found and kept.
+                        result = {
+                            "action": "schedule_error",
+                            "reason": f"{type(exc).__name__}: {exc}",
+                        }
+                        next_attempt = time.monotonic() + SCHEDULE_RETRY_SECONDS
                     if (
                         result["action"] != "schedule_waiting"
                         or not actions
