@@ -9,7 +9,7 @@ remain recoverable on their original branches. R3 was integrated into main befor
 |---|---|---|
 | Read-only SQLite URI fix and prospective-evaluation gates | PR #1 `claude/vibrant-bohr-l2suow` | Open, awaiting review. Until it merges, `main` fails offline-recovery and listener tests with `unable to open database file`. |
 | Browser regression sweep, label-partition render fix, first CI workflow | PR #2 `claude/vibrant-bohr-b1kuuh`, stacked on #1 | Open, awaiting review. |
-| Market-family screening (this milestone) | `claude/vibrant-bohr-0m71vf`, from `main` | PR open, awaiting review. |
+| Market-family screening (this milestone) | PR #4 `claude/vibrant-bohr-0m71vf`, from `main` | Open, awaiting review. Merge after #1. |
 | No public egress in scheduled sessions | Issue #3 | Blocks authentic forward collection, fresh-acquisition browser specs and catalog fetches. |
 
 ## Current milestone: market-family screening (2026-11-05)
