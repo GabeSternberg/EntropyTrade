@@ -1,3 +1,15 @@
+# Browser regression sweep and CI — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-b1kuuh` stacked on PR #1.
+[Executed evidence](../data/browser-regression-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| All website procedures on the current tree | 14 `frontend/browser/*.spec.cjs`, receipts, Playwright JSON, `MANIFEST.sha256` | **Pass:** 19 tests in 12 spec files, plus 3/4 workbench workflows, 0 page errors. **Open:** `weather-labels` and workbench workflow 3 need public egress; they fail honestly with `ConnectError` here. |
+| Label-partition UI consistency | `frontend/src/app.js`, new DOM regression | **Defect fixed:** an out-of-order overlapping render could show another partition's requests. |
+| Repeatable acceptance runs | 7 specs derive archive/import paths from unique workspaces | **Harness fixed:** run-to-run archive collisions; unignored `data/recovery/`. |
+| Continuous integration | `.github/workflows/ci.yml`, GitHub run 42116073148 | **Pass:** Ruff, strict mypy, 25 frontend tests, **1,320 pytest in 693.83s** on a clean runner with no secrets. Browser/public acceptance stays separate. |
+
 # Prospective-evaluation acceptance completion — November 5, 2026
 
 **complete=false (V1).** Branch `claude/vibrant-bohr-l2suow` from main `55b2bea`. Closes the

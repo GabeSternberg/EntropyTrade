@@ -3,7 +3,42 @@
 Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective-evaluation acceptance completion (2026-11-05)
+## Current milestone: full browser regression sweep and CI (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-b1kuuh`, stacked on PR #1 (its SQLite URI
+fix is needed for offline restore); PR opened against main for review. **V1 remains incomplete.**
+
+**Browser sweep.** All 14 `frontend/browser` spec files ran against the current tree through
+real listeners and managed Chromium.
+- **Passing:** 19 tests across 12 spec files, plus 3 of 4 workbench workflows, all with zero
+  page errors.
+- **Failing for network only:** `weather-labels` and workbench workflow 3 need public egress,
+  which this runtime's proxy refuses. The app retained `ConnectError` receipts and refused
+  honestly.
+- **Shadow:** `shadow.spec.cjs` passes its lifecycle checks, but all of its public acquisition
+  failed, so it is not ingestion evidence.
+
+**Fixes.**
+- **App defect:** overlapping label-partition renders could show one partition's requests
+  while another was selected. Now only the newest render is applied. A DOM regression
+  reproduces the old behaviour.
+- **Harness defects:** a fixed or basename-derived archive path collided across runs, and
+  `data/recovery/` was not ignored. The outage screenshot now targets the HTTP 503 request.
+
+**CI.** New `.github/workflows/ci.yml` runs locked uv, Ruff, strict mypy, frontend DOM tests and
+the full pytest suite with no secrets. It passes on GitHub: **1,320 tests in 693.83s**.
+
+See [evidence](data/browser-regression-review/20261105/README.md).
+
+**Next recommended milestone:**
+1. Re-run `weather-labels` and workbench workflow 3 in a runtime with public egress.
+2. Continue authentic forward collection (needs elapsed real time).
+3. Prepare the user-approval comparison for a second market family.
+
+Credential-dependent provider verification, certified fees and real trading remain blocked on
+the user.
+
+## Previous milestone: prospective-evaluation acceptance completion (2026-11-05)
 
 Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
 against main for review. **V1 remains incomplete.**

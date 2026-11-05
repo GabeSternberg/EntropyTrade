@@ -1,0 +1,7 @@
+# Heavy browser artifacts stay local; hashes are kept in each run MANIFEST.sha256.
+*.zip
+*.png
+*.parquet
+*.joblib
+*.sqlite
+**/runs/

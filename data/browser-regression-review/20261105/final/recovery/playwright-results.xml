@@ -1,0 +1,40 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="1.3109359999999997">
+<testsuite name="recovery.spec.cjs" timestamp="2026-11-05T22:03:51.509Z" hostname="" tests="1" failures="1" skipped="0" time="0.269" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="0.269">
+<failure message="recovery.spec.cjs:10:1 local operation and recovery: installed research, snapshot, restore and shadow lifecycle" type="FAILURE">
+<![CDATA[  recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle 
+
+    AssertionError: Acceptance paths must be new
+
+      17 |   const restored = original + "-restored";
+      18 |   const archive = path.join(repo, "data/recovery/local-acceptance.zip");
+    > 19 |   for (const p of [original, restored, archive]) assert(!fs.existsSync(p), "Acceptance paths must be new");
+         |                                                  ^
+      20 |   assert(chromium.executablePath().startsWith(path.join(__dirname, ".browsers/")));
+      21 |   fs.mkdirSync(evidence, { recursive: true });
+      22 |   const receiptPath = path.join(evidence, "recovery-browser-receipt.json");
+        at /home/user/EntropyTrade/frontend/browser/recovery.spec.cjs:19:50
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/final/recovery/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/final/recovery/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/final/recovery/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

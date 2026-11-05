@@ -1,0 +1,100 @@
+{
+  "started_at": "2026-11-05T22:06:49.229Z",
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:18791",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/shadow",
+  "page_errors": [],
+  "screenshots": [
+    {
+      "file": "shadow-paused.png",
+      "sha256": "390f5ad04287809f93db5cce30c779c46d8de64dc005dbdb9a3fe3a6196efd59"
+    },
+    {
+      "file": "shadow-restarted.png",
+      "sha256": "adb8b36de62d85c25bf5306426f27ac84d54fa8021817aec619524840ea17ffa"
+    },
+    {
+      "file": "shadow-second-cycle.png",
+      "sha256": "b25a3cd24fe34e12f7f2ec75d51acc57204666e5bf84f4276ff94add398dba91"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "shadow-paused.json",
+      "sha256": "be655a30117a5a0aa7fb47e23917c8c18af205511300166fa8374f03be52c5ef"
+    },
+    {
+      "file": "shadow-restarted.json",
+      "sha256": "be655a30117a5a0aa7fb47e23917c8c18af205511300166fa8374f03be52c5ef"
+    },
+    {
+      "file": "shadow-second-cycle.json",
+      "sha256": "c9971034f6029b74775fb2bc22cb6370fecab79eedafcab8977378f5ea51495a"
+    }
+  ],
+  "limitations": [
+    "Real forward access may fail; completed capture and successful ingestion are asserted separately.",
+    "No empirical model, fee/depth certification, profitability or release acceptance is implied."
+  ],
+  "acquisition": {
+    "decision_time": "2026-11-05T22:07:12.145834+00:00",
+    "failures": [
+      {
+        "failed_at": "2026-11-05T22:07:12.108945+00:00",
+        "failure": "GatewayError",
+        "source": "KXHIGHPHIL"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.111212+00:00",
+        "failure": "GatewayError",
+        "source": "KXHIGHCHI"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.134049+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.135252+00:00",
+        "failure": "NoForecastVintage",
+        "source": "weather:open-meteo:CLIPHL"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.137119+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.weather.gov/points/39.87,-75.23"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.139596+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.140413+00:00",
+        "failure": "NoForecastVintage",
+        "source": "weather:open-meteo:CLIMDW"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.141843+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.weather.gov/points/41.79,-87.75"
+      },
+      {
+        "failed_at": "2026-11-05T22:07:12.143796+00:00",
+        "failure": "IncompleteCapture",
+        "source": "weather"
+      }
+    ],
+    "family": "weather",
+    "history_complete": false,
+    "listed_contracts": 0,
+    "observations": 0,
+    "receipts": [],
+    "started_at": "2026-11-05T22:07:11.990205+00:00",
+    "truncated_universe": true,
+    "universe_complete": false
+  },
+  "finished_at": "2026-11-05T22:07:24.248Z"
+}
