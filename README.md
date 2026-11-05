@@ -51,7 +51,8 @@ make check                 # Ruff lint/format, strict mypy, pytest + Hypothesis
 ```
 
 Without arguments the CLI prints the version and default mode (`read_only`).
-See [data commands](docs/data-platform.md) for `collect`, `health`, `dataset` and `inspect`.
+See [data commands](docs/data-platform.md) for `collect`, `health`, `dataset` and `inspect`,
+and [family screening](docs/family-selection.md) for `family-screen`.
 `.env.example` lists configuration names; no credentials are required
 for the offline suite. [Weather/model commands](docs/weather-modeling.md) cover forward capture,
 features, real-data insufficiency diagnostics and the explicitly synthetic full proof. In a workspace with a read-only home cache, set

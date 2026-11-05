@@ -1,9 +1,74 @@
 # EntropyTrade — current status
 
-Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective shadow-evaluation reports
+## Open work (read first)
+
+| Item | Branch / link | State |
+|---|---|---|
+| Read-only SQLite URI fix and prospective-evaluation gates | PR #1 `claude/vibrant-bohr-l2suow` | Open, awaiting review. Until it merges, `main` fails offline-recovery and listener tests with `unable to open database file`. |
+| Browser regression sweep, label-partition render fix, first CI workflow | PR #2 `claude/vibrant-bohr-b1kuuh`, stacked on #1 | Open, awaiting review. |
+| Market-family screening (this milestone) | `claude/vibrant-bohr-0m71vf`, from `main` | PR open, awaiting review. |
+| No public egress in scheduled sessions | Issue #3 | Blocks authentic forward collection, fresh-acquisition browser specs and catalog fetches. |
+
+## Current milestone: market-family screening (2026-11-05)
+
+**V1 remains incomplete.** The new `entropytrade family-screen` command compares Kalshi
+series using retained public catalog receipts. It is meant to support the user's
+second-family decision, and it never selects a family.
+
+Per series, it reports:
+
+- coverage;
+- finalized YES/NO labels;
+- event and date counts;
+- contract structure;
+- traded share and volume;
+- rule wording (verbatim earliest and latest text);
+- fee and source metadata;
+- the existing fitting minimum of 40 labeled events on 20 dates with both outcomes.
+
+The JSON is deterministic and hashes every input. Malformed, contradictory or tampered
+receipts are refused.
+
+The optional `--fetch-series` mode sends unauthenticated GETs to Kalshi's catalog paths
+only, through the existing `BoundedTransport`. It keeps every response, including failures,
+with a hashed manifest.
+
+**Retained-receipt result.** 29 receipts were screened, covering 4,576 markets:
+
+- KXHIGHPHIL meets the label minimum: 681 events on 681 dates, 2024-11-21 to 2026-10-04.
+  Its rule wording changed from the NWS Daily Climate Report to The Weather Company, so
+  older labels do not share current settlement semantics.
+- The retained KXBTC captures contain no finalized results.
+- KXNHL and KXMVECROSSCATEGORY have series metadata only.
+
+The one live fetch attempt failed with no egress (issue #3); no fetched catalog is claimed.
+See [docs/family-selection.md](docs/family-selection.md) and the
+[evidence](data/family-screening-review/20261105/README.md).
+
+**Checks.**
+
+- Ruff lint and format pass on the repository.
+- Strict mypy passes on 558 files.
+- All 25 screening tests pass.
+- Full suite on this branch: 1,285 passed and 57 failed in 554.06s on this branch. All 57 failures come from the
+  pre-existing `main` read-only SQLite URI defect (56 log `unable to open database file`).
+  With only PR #1's two-file fix applied to `main`, all 57 pass in 239.63s. This is not a
+  clean full-suite pass; it becomes one once PR #1 merges.
+
+**Next.**
+
+1. Review and merge PRs #1, #2 and this PR, in that order.
+2. In an environment with egress, fetch three to six candidate series from non-temperature
+   categories, screen them, and record the user's written family choice.
+3. Resume authentic forward collection once egress exists.
+
+New-family implementation, credentials and real trading remain out of scope without
+approval.
+
+## Previous milestone: prospective shadow-evaluation reports
 
 Implemented in place on designated `supervisor/20261031-081845` from `a83b9db`.
 All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**

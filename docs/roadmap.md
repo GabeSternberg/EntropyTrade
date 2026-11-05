@@ -1,5 +1,19 @@
 # Capability roadmap
 
+## November 5, 2026 — family screening
+
+The new `entropytrade family-screen` command ([guide](family-selection.md)) compares series
+using retained or freshly fetched public catalog receipts. It prepares the user's decision on
+the second family; it does not make it.
+
+Next steps, in order:
+
+1. Fetch candidate catalogs where egress exists (issue #3).
+2. Get the user's written family approval.
+3. Begin that family's point-in-time source and label work.
+
+Merge PRs #1 and #2 first.
+
 ## Current product direction — October 31, 2026
 
 EntropyTrade is a general Kalshi research, modeling, backtesting and paper/shadow platform.
