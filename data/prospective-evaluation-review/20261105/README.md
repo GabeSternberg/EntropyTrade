@@ -61,9 +61,18 @@ not claimed.
 - Strict mypy: [log](mypy.log), no issues in 557 source files.
 - Frontend DOM tests: [log](frontend.log), 24/24 (presentation doubles, not browser tests).
 - Original receipt/Bitcoin boundary hashes: [safety receipt](safety-receipt.json), all 73 unchanged.
-- Complete pytest suite: see the section below.
+- Complete pytest suite: 1,320 passed, see below.
 
-FULL_SUITE_PLACEHOLDER
+## Complete pytest suite (passes)
+
+`uv run pytest -v -p no:cacheprovider -o faulthandler_timeout=300` (diagnostic stack dump only)
+passed **all 1,320 tests in 619.14s, zero failures/errors/skips** after the fix:
+[log](pytest-full.log), [JUnit](pytest-full.xml). This includes all eleven localhost-listener
+cases (among them `test_prospective_listener.py`), all 14 `test_shadow_history.py` cases in the
+same process (the October 31 SIGSEGV did not recur; its cause remains unestablished) and the
+weather-label lifecycle shutdown cases that failed in the October 31 bounded run. An earlier
+`-q` invocation in this session was terminated by me after I misjudged slow listener tests as a
+stall; it produced no result and is not counted.
 
 ## Retention
 
