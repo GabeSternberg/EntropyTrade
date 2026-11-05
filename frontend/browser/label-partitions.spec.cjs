@@ -152,7 +152,7 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
         assert.equal(schedule.counts.retry, 1);
         await selectPartition("00000000");
         await expect(page.locator("#weather-labels")).toContainText("HTTP 503");
-        await shot("boundary-outage", "#weather-labels > section:first-child");
+        await shot("boundary-outage", "#weather-labels > section:has-text(\"HTTP 503\") >> nth=0");
       }
     }
     let rows = await (await fetch(origin + "/api/weather/label-partitions")).json();
