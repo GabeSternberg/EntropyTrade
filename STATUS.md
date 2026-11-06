@@ -1,5 +1,61 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): measured storage runway; one cycle per scheduled window
+
+Branch `claude/vibrant-bohr-jux3wd` (PR #22), **stacked on PR #20** (`claude/vibrant-bohr-ab8h5b`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#20 had no
+reviews, review threads or check runs; none were merged. Issues #3 and #6 remain open. New
+issue **#21** records the storage decision described below.
+
+- **PR #20 confirmed on a real runner.** Chain run `42231627280` (`ab8h5b`, continuing
+  `42224274925`; 58 cycles, 0 errors, server exit 0) shows a 2026-11-06 backlog item for
+  **CLIDFW/CLINYC** next to CLIMDW/CLIPHL. All four `station_bindings` are `matched`.
+- **Gap: the chain cannot reach its own validation calendar.**
+  - Frozen boundaries are anchor + 48/60/90 days. The chain's `validation_end` is **2027-02-03**.
+  - Snapshots refuse a workspace over 4 GiB expanded or 2 GiB distinct bytes. Receipts are
+    never deleted, so the chain stalls when either budget is reached.
+  - Expanded bytes grow about 2.5× faster than distinct bytes, because each discovery dataset
+    stores a shadow cycle's capture twice (`receipts/NNNN/` and `shadow/<digest>/public/`).
+  - A local replay of the two retained authentic cycles gives dataset bytes 5,302,528 for
+    2,635,728 input bytes.
+- **Change (`operations/forward.py`, workflow, docs).**
+  - Every summary carries `runway`: footprint before the server starts and after it stops,
+    growth per completed cycle for the expanded, distinct and file budgets, cycles left, the
+    binding budget, and an extrapolated `exhausted_on` (6 cycles a day assumed) against
+    `validation_end`. The job summary warns when the status is `short_of_validation_end`.
+  - Scheduled windows drop from 1,500 s to **540 s**: one cycle per 4-hourly window. Extra
+    polls in a window add no independent events or dates to any gate. Manual dispatch still
+    defaults to 1,500 s.
+- **Evidence.**
+  - Push trial `42234521029`: a fresh trial workspace, not the chain. Two cycles, `runway`
+    reported, 0 errors.
+  - Chain continuation **`42239530977`** (this branch, `continue_from_run=42231627280`,
+    540 s, `chain=head`): exactly **1 cycle**, about 11 minutes total, 59 cycles overall.
+    Workspace 959,513,085 expanded and 261,884,536 distinct bytes (`budget_used` 0.2234).
+    `runway`: binding `distinct_bytes`, 453 cycles left, `exhausted_on` 2027-01-21,
+    **`short_of_validation_end`**, and the warning fired.
+  - That single run wrote no dataset, so its expanded growth (4.19 MB per cycle) is
+    understated. Over runs `42231627280` and `42239530977` (six cycles), growth was about
+    9.5 MB expanded and 4.1 MB distinct per cycle. At six cycles a day that reaches the
+    expanded budget around **2027-01-03** and the distinct budget around 2027-01-21
+    (extrapolated). Both fall short of 2027-02-03.
+  - Ruff lint/format pass; strict mypy passes (566 files). **Full pytest: 1,409 passed in
+    638.64s**, with zero failures, errors or skips. New tests: runway arithmetic and binding,
+    refusal to project without growth, over-budget workspace, frozen-calendar reading, and
+    the real-server operate check.
+  - Labels: still 2 verified events (2026-11-05 CLIMDW/CLIPHL). 2026-11-06 work (all four
+    stations) first becomes due at 2026-11-07T06:00Z.
+- **Chain head is now this branch** (`42239530977`). Do not dispatch `ab8h5b` or earlier
+  branches again, or the chain forks.
+
+**Next autonomous milestone:** dispatch this branch again within 7 days
+(`continue_from_run` = the newest completed chain run). Check whether 2026-11-06 labels for
+all four stations verify; expect next-morning source lag. Compare `runway.per_cycle` across
+several runs. The storage fix needs the user's decision in **#21**: cold storage for sealed
+evidence, a dataset layout without the duplicate copy, or a larger restore budget. Without
+one, the chain stalls before the validation end. Merging the stack to `main` is still needed
+to activate the cron; also confirm the Actions minutes and artifact-storage quota (#21).
+
 ## Current milestone (2026-11-06): new forward locations reach label targets
 
 Branch `claude/vibrant-bohr-ab8h5b`, **stacked on PR #19** (`claude/vibrant-bohr-xq6pdo`).

@@ -123,6 +123,11 @@ reports `growth_this_run`, `per_cycle`, `remaining` and `cycles_left`. The small
 - `status` is `covers_validation_end`, `short_of_validation_end` (the job summary adds a
   `::warning::`), `measured` (no frozen calendar yet) or `unmeasured` (no start footprint,
   no completed cycles or no growth). A run with no cycles never projects.
+- **One run's growth is uneven.** Discovery freezes a window's cycles in a later window, so a
+  run that writes no dataset understates expanded growth, and the next run overstates it.
+  Compare `per_cycle` across several runs before acting. For example, run `42239530977`
+  (one cycle, no new dataset) measured 4.19 MB expanded per cycle, while run `42231627280`
+  (five cycles, with discovery) measured 10.6 MB.
 
 Why it matters: a workspace over any budget cannot be snapshotted, so the chain stalls, and
 receipts are never deleted to make room. Expanded bytes grow about 2.5 times faster than
@@ -131,8 +136,11 @@ distinct bytes, because each discovery dataset stores a shadow cycle's capture t
 two retained authentic cycles in `data/shadow-review/20261029-model-integration` gives
 dataset bytes of about 2.0 times their input cycle bytes (5,302,528 for 2,635,728). On
 2026-11-06 the chain's per-cycle growth was about 9.2 MB expanded and 3.7 MB distinct (run
-`42224274925`, after slim captures). Read the chain's actual `validation_end` from its
-summary; this document does not assume the chain's anchor date.
+`42224274925`, after slim captures). Over runs `42231627280` and `42239530977` (six cycles),
+growth was 57.3 MB expanded and 24.8 MB distinct: about 9.5 MB and 4.1 MB per cycle. The
+chain's frozen calendar ends validation on **2027-02-03**. At six cycles a day, the expanded
+budget lasts until about 2027-01-03 and the distinct budget until about 2027-01-21. Both are
+extrapolations, and both fall short.
 
 **Scheduled windows are 540 s** (before 2026-11-06: 1,500 s). The monitor polls when the
 server starts and every 600 s, so a scheduled window now takes one cycle instead of three.
@@ -140,9 +148,10 @@ The gates do not count the extra polls: prospective evaluation keeps the earlies
 observation per event, and fitting takes one timely example per event. At three cycles per
 window (18 per day), the 4 GiB restore budget would be reached in about three weeks. At one
 cycle per window, it would last about two months. Both figures are extrapolations, and
-neither reaches the validation end on its own. A manual dispatch still defaults to 1,500 s.
+neither reaches the validation end on its own. The first 540 s chain run (`42239530977`)
+completed exactly one cycle and finished in about 11 minutes. A manual dispatch still defaults to 1,500 s.
 Removing the duplicate capture copy inside datasets, or moving sealed evidence to durable
-storage, is still needed. That decision is tracked separately and has not been started.
+storage, is still needed. That decision is tracked in issue #21 and has not been started.
 
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
