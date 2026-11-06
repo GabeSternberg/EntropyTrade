@@ -74,6 +74,24 @@ order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created 
 `42167132149`, but the push ran first. Creation order would have made the push run's
 fresh-chain snapshot "newest" and orphaned the continued chain.
 
+### Push runs are trials, not chain heads
+
+A push that changes the workflow or operations code runs a **trial**: it restores the branch's
+chain head (if any), collects for 900 s and uploads its snapshot as `forward-trial-workspace`
+(3-day retention). Only `schedule` and `workflow_dispatch` runs upload `forward-workspace`, and
+chain lookup skips `push` runs entirely, including push runs from older workflow versions that
+used the chain name. Push runs also use their own concurrency group
+(`forward-collection-trial-<ref>`). Both rules come from 2026-11-06:
+
+- Push `42162670639` was the first run on `claude/vibrant-bohr-g16hbp`, found no snapshot and
+  started a fresh chain. Later pushes on that branch continued it instead of the authentic chain.
+- GitHub keeps only one *pending* run per concurrency group. Push `42167132149` queued behind
+  a running trial and replaced continuation dispatch `42167131442`, which was cancelled
+  before it started.
+
+`lineage.txt` records `event` and `chain=head|trial`. Trial receipts are authentic, but they are
+a fork: never add trial counts to chain counts.
+
 Step conditions use step outputs and plain file tests, never `hashFiles()`. Hosted runners
 abort `hashFiles()` after 120 s. In run `42162688233` that limit was hit on a 243 MB
 `workspace.zip`, so a successful 14-cycle window's snapshot was never uploaded. The upload now
@@ -99,8 +117,8 @@ runs only when the snapshot step has written the archive, checksum and lineage
 ## Operating it
 
 Scheduled runs only start after the workflow is on the default branch. Before that, a push
-to a `claude/**` branch that changes the workflow file runs one verification window on that
-branch's own chain. To run manually after merging, use **Actions → forward-collection → Run
+to a `claude/**` branch that changes the workflow file runs one verification trial (see
+above); it never extends the chain. To run manually after merging, use **Actions → forward-collection → Run
 workflow** (`seconds`, optional `fresh` or `continue_from_run`).
 
 ### Continuing a chain on another branch
