@@ -1,0 +1,27 @@
+Retained Bitcoin history · receipt-time official binary targets
+Captures: 3; retained events: 3; protected events: 1.
+Only exact BRTI sixty-second-average strictly-above rule templates and finalized binary Kalshi results are modeled.
+Coinbase is a predictor, never a settlement price. Outcome availability is receipt time.
+Exceptional settlement paths remain unverified; rules_known stays false for execution.
+No historical depth or certified fees; trading backtests and returns remain blocked.
+Repeated snapshots are one event. Fixed fit/validation/holdout dates persist across snapshots and never roll forward.
+Fitting: 0/40 events on 0/20 dates with finalized labels received by 2026-08-30T00:00:00+00:00.
+Fitting outcome classes: none; both YES and NO required.
+Validation: 1/20 events on 1/10 dates; finalized labels cover 1 events on 1 dates.
+Fixed validation window: 2026-08-30 inclusive to 2026-09-29 exclusive. Later receipts cannot backfill earlier decisions or move protected dates.
+Minimum counts do not certify domain coverage, model quality or execution.
+Reconciliation: {"attempts": {"KXBTC-26AUG3017-T100000": "2026-10-01T12:00:00+00:00", "KXBTC-26JUL0117-T100000": "2026-10-01T12:00:00+00:00", "KXBTC-26SEP2917-T100000": "2026-10-01T12:00:00+00:00"}, "deferred": 0, "failures": [], "fetch_enabled": true, "finished_at": "2026-11-05T22:04:43.171638+00:00", "receipts": [{"hash": "sha256:e29f971b1c07aebbff05419443e3ed01f372dad4ace8da5074358333986b82f5", "path": "/trade-api/v2/markets/KXBTC-26AUG3017-T100000", "raw_ref": "0000.json", "received_at": "2026-10-01T12:00:00+00:00", "status": 200}, {"hash": "sha256:3fab8a9f1e281205dabc855a104f916ed34e5229fdfc1528282cc88fb4ee2062", "path": "/trade-api/v2/markets/KXBTC-26JUL0117-T100000", "raw_ref": "0001.json", "received_at": "2026-10-01T12:00:00+00:00", "status": 200}, {"hash": "sha256:03cb696c4c82861dc988f73242ef6bd2a46f091ab8c1a0d6da2c9c01a518c226", "path": "/trade-api/v2/markets/KXBTC-26SEP2917-T100000", "raw_ref": "0002.json", "received_at": "2026-10-01T12:00:00+00:00", "status": 200}], "requested": 0, "retained_receipts": 3, "started_at": "2026-11-05T22:04:43.065508+00:00"}
+
+# Research-to-experiment report
+
+Data: real. Research run: 9c55567e-9a80-4ff6-a9d7-c6f5aa1c5f15
+Final holdout: not evaluated. No trading authorization.
+
+template-c0: INSUFFICIENT_DATA
+need 40 fit events on 20 dates with finalized labels received before fit cutoff; execution P&L is unavailable without certified rules, sized books and fee evidence
+template-c1: INSUFFICIENT_DATA
+need 40 fit events on 20 dates with finalized labels received before fit cutoff; execution P&L is unavailable without certified rules, sized books and fee evidence
+
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.
