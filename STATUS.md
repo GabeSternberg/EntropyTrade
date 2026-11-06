@@ -40,14 +40,16 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   - The uploaded workspace artifact was **22,797,927 bytes**, down from 53,324,794 for the v1
     archive of run `42190762987`.
   - Push trial `42196833722` succeeded.
-  - **Not yet exercised:** a real-runner restore of a v2 archive. Continuation dispatch from
-    `42197652880` is queued; confirm its restore step and footprint.
+  - **v2 restore on a real runner passed.** Continuation `42201841307`
+    (`continue_from_run=42197652880`) downloaded the v2 archive and passed the fail-closed
+    restore step in 19 s (10:20:34–10:20:53Z). Its collection window was still running at the
+    end of this session; record its footprint and `chain=head` next.
 
-**Canonical chain head: run `42197652880` on `claude/vibrant-bohr-gcmz6m`** (expires about
-2026-11-13), or its successful continuation. Dispatch this branch next, or `main` after merge.
+**Canonical chain head: run `42201841307` on `claude/vibrant-bohr-gcmz6m` if it succeeded,
+otherwise `42197652880`** (expires about 2026-11-13). Dispatch this branch next, or `main` after merge.
 
-**Next autonomous milestone:** confirm the queued continuation restores the v2 archive and that
-`distinct_bytes` keeps growing far slower than `bytes`. The expanded 4 GiB bound now binds
+**Next autonomous milestone:** confirm `42201841307` succeeded and that `distinct_bytes` keeps
+growing far slower than `bytes`. The expanded 4 GiB bound now binds
 (about 3 weeks of runway); the next storage step is to stop each cycle writing raw responses
 twice and decision inputs about 3 times. Then confirm 2026-11-05 verifies once the official
 climate report is published. The V1 gate for matched forecasts remains the monitor's
