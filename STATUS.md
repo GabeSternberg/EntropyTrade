@@ -30,6 +30,13 @@ keep that chain alive.
   with 0 page errors. All bytes are CONTROLLED test bytes; see
   [evidence](data/fee-evidence-review/20261106-manual-import/README.md).
 - **Not established.** No authentic schedule has been imported or certified.
+- **Chain upkeep.** Forward-collection run `42150045698` (success) restored `42143557484`.
+  - Monitor and schedule were kept, with 3 cycles this window and 8 in total, each `24 shadow decisions; 0 acquisition failures`.
+  - 8 retained inputs; the schedule is active with 2 pending dates and 0 label requests.
+  - 0 errors and server exit 0; snapshot `sha256:1390bff9…`.
+  - Two `stale_collection` alerts were listed (status/detected_at null). They reflect gaps between discontinuous dispatched windows and were not investigated further.
+  - Fee capture skipped both documents: the schedule's 429 was under 3 h old and the rounding page was fetched under 24 h ago.
+  - Collection stays bounded to manual dispatches until #5/#7 merge, which enables the 4-hourly cron on `main`.
 
 **Next for the user:** download the schedule PDF in a browser, import it with the command
 above, then perform the `--review` attestation (the agent must not certify fees). Review/merge
