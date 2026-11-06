@@ -26,8 +26,15 @@ sections; no code changed in that merge. Issues #3 and #6 remain open.
 - **Tests.** 2 label cases (authentic bytes plus controlled odd bodies), 1 forward backlog case
   (including a mismatched-batch refusal) and a real-listener assertion in
   `test_forward_validation_listener.py`. Ruff lint/format pass; strict mypy passes (564 files).
-  Full pytest: running at commit time; result recorded in a follow-up commit.
-- **Real-runner evidence:** push trial `42203061775` was running at commit time; the chain continuation from `42201841307` is pending.
+  **Full pytest: 1,398 passed in 721.95s**, with zero failures, errors or skips.
+- **Real-runner evidence.**
+  - PR #16's chain continuation `42201841307` succeeded with `chain=head` after a v2 restore:
+    38 cycles, 0 errors, server exit 0. Footprint: 756,173,837 expanded bytes and
+    **173,070,185 distinct (22.9%)**; `budget_used` 0.1761. Distinct bytes grew 13.1 MB over
+    3 cycles while expanded bytes grew 44.4 MB.
+  - Push trial `42203061775` on this branch succeeded.
+  - Chain dispatch `42205430152` on this branch (`continue_from_run=42201841307`) was
+    still running at the end of this session; read its `source` for 2026-11-05 next.
 
 **Next autonomous milestone:** read `schedules[].backlog.dates[].source` for 2026-11-05 in
 the newest chain run. If `officialReports` is still 0 well after the 13:27Z retry, the
