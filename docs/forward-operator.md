@@ -169,6 +169,13 @@ and raw hashes. Earlier captures are unchanged and still verify: readers only fo
 manifest's own checksums and each observation's `raw_ref`. If a body has no identical retained
 response, it is copied to `weather/raw/` as before, never dropped.
 
+The collector code lives in `families/weather_capture.py`. `families/public.py` is **frozen**:
+`forward_data` binds every capture's `feature_version` to that file's hash, and
+`verified_inputs` refuses a retained shadow cycle whose saved version differs. The first
+attempt at this change edited `public.py` and failed 16 authentic replay tests with
+"shadow source version mismatch". `test_forward_data_module_is_frozen_for_retained_shadow_cycles`
+now pins the hash with that explanation.
+
 Runs on one branch are serialized by the concurrency group, so completion order is chain
 order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push
 `42167132149`, but the push ran first. Creation order would have made the push run's
