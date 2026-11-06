@@ -187,3 +187,60 @@ def test_explicit_continuation_fails_closed(
     assert message in result.stdout
     assert "run_id" not in outputs
     assert BRANCH_RUNS not in calls
+
+
+def _steps() -> list[dict[str, Any]]:
+    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+    steps: list[dict[str, Any]] = workflow["jobs"]["collect"]["steps"]
+    return steps
+
+
+def _step(name: str) -> dict[str, Any]:
+    return next(step for step in _steps() if step.get("name") == name)
+
+
+def test_no_step_condition_hashes_files() -> None:
+    # hashFiles() reads whole files and is cut off after 120 s on hosted runners; with a
+    # 243 MB archive that skipped the snapshot upload (run 42162688233) and broke the chain.
+    conditions = [str(step.get("if", "")) for step in _steps()]
+    assert not [condition for condition in conditions if "hashFiles" in condition]
+
+
+def test_snapshot_upload_depends_on_completed_archive() -> None:
+    snapshot = _step("Snapshot workspace")
+    upload = _step("Upload workspace snapshot")
+    assert snapshot["id"] == "snapshot"
+    assert upload["if"] == "always() && steps.snapshot.outputs.archive == 'true'"
+    lines = [line.strip() for line in str(snapshot["run"]).splitlines() if line.strip()]
+    # The output is the last command, so a failed snapshot, checksum or lineage never uploads.
+    assert lines[-1] == 'echo "archive=true" >> "$GITHUB_OUTPUT"'
+    for name in (
+        "Capture official fee documents (unreviewed, at most daily)",
+        "Snapshot workspace",
+    ):
+        assert _step(name)["if"] == "always() && steps.workspace.outputs.exists == 'true'"
+
+
+@pytest.mark.parametrize("present", [True, False])
+def test_workspace_check_step(tmp_path: Path, present: bool) -> None:
+    step = _step("Check for a workspace")
+    assert step["id"] == "workspace"
+    assert step["if"] == "always()"
+    workspace = tmp_path / "forward"
+    workspace.mkdir()
+    if present:
+        (workspace / "jobs.sqlite").write_bytes(b"")
+    output = tmp_path / "github_output"
+    output.write_text("", encoding="utf-8")
+    bash = shutil.which("bash")
+    assert bash is not None
+    result = subprocess.run(  # noqa: S603 - the script is this repository's workflow step
+        [bash, "--noprofile", "--norc", "-eo", "pipefail", "-c", str(step["run"])],
+        env={"PATH": os.environ["PATH"], "WORKSPACE": str(workspace), "GITHUB_OUTPUT": str(output)},
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert output.read_text(encoding="utf-8") == f"exists={'true' if present else 'false'}\n"

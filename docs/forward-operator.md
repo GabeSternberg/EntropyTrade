@@ -69,6 +69,12 @@ Summaries written before this change listed every alert with `status: null`.
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 
+Step conditions use step outputs and plain file tests, never `hashFiles()`. Hosted runners
+abort `hashFiles()` after 120 s. In run `42162688233` that limit was hit on a 243 MB
+`workspace.zip`, so a successful 14-cycle window's snapshot was never uploaded. The upload now
+runs only when the snapshot step has written the archive, checksum and lineage
+(`steps.snapshot.outputs.archive`).
+
 ## Safety boundaries
 
 - Every network request is made by existing bounded adapters: fixed public URLs, unauthenticated
