@@ -549,6 +549,130 @@ def disk_headroom(workspace: Path) -> dict[str, Any]:
     return {"total_bytes": usage.total, "free_bytes": usage.free}
 
 
+DATASET_DIR = re.compile(r"^[0-9a-f]{64}$")
+SAFE_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9-]{0,127}$")
+# Parts of a frozen dataset: the capture copies (`receipts/NNNN/`, `shadow/<digest>/`), label
+# copies, the replay/rows/features derived from them, and the manifest.
+DATASET_PARTS = {
+    "receipts": "receipts",
+    "shadow": "shadow",
+    "labels": "labels",
+    "scalar-labels": "scalar_labels",
+    "shadow-replay.json": "shadow_replay",
+    "dataset": "rows",
+    "features": "features",
+    "snapshot.json": "manifest",
+}
+
+
+def dataset_ids(workspace: Path) -> set[str]:
+    """Published weather dataset directories (by content id); read-only."""
+    root = workspace / "runs" / "weather-datasets"
+    if not root.is_dir():
+        return set()
+    return {p.name for p in root.iterdir() if p.is_dir() and DATASET_DIR.match(p.name)}
+
+
+def _tree_bytes(root: Path) -> tuple[int, int]:
+    size = files = 0
+    for path in root.rglob("*"):
+        if path.is_file() and not path.is_symlink():
+            size += path.stat().st_size
+            files += 1
+    return size, files
+
+
+def _input_bytes(workspace: Path, input_id: str) -> int | None:
+    """Bytes of one retained catalog input (shadow cycle or public job), if it is found."""
+    if not SAFE_ID.match(input_id):
+        return None
+    roots = [workspace / "runs" / input_id, *sorted(workspace.glob(f"shadow/*/{input_id}"))]
+    found = [r for r in roots if r.is_dir() and not r.is_symlink()]
+    if len(found) != 1:
+        return None
+    return _tree_bytes(found[0])[0]
+
+
+def dataset_costs(workspace: Path, before: set[str] | None) -> dict[str, Any]:
+    """What the datasets published during this run cost, per discovered input (read-only).
+
+    One run's dataset growth depends on how many inputs its discovery froze: discovery runs
+    on the schedule's own clock, so a window can freeze several earlier windows' cycles at
+    once, or none. This turns that attribution into a measurement: for each new dataset, the
+    inputs its selection names, their current retained bytes, the dataset's bytes split by
+    part, and the ratio. Unfinished `.building-*` staging directories (left by an interrupted
+    freeze) are reported separately because the footprint counts them too.
+    """
+    root = workspace / "runs" / "weather-datasets"
+    if before is None:
+        return {"status": "unmeasured", "reason": "no start inventory"}
+    written = []
+    for name in sorted(dataset_ids(workspace) - before):
+        directory = root / name
+        parts: Counter[str] = Counter()
+        files = 0
+        for path in directory.rglob("*"):
+            if path.is_file() and not path.is_symlink():
+                top = path.relative_to(directory).parts[0]
+                parts[DATASET_PARTS.get(top, "other")] += path.stat().st_size
+                files += 1
+        selection: Any = None
+        captures: Any = None
+        try:
+            manifest = json.loads((directory / "snapshot.json").read_text())
+            selection = manifest["identity"].get("selection")
+            captures = manifest.get("capture_count")
+        except (OSError, ValueError, KeyError, TypeError, AttributeError):
+            pass
+        inputs = selection.get("inputs") if isinstance(selection, dict) else None
+        inputs = [str(i) for i in inputs] if isinstance(inputs, list) else None
+        sizes = [_input_bytes(workspace, i) for i in inputs] if inputs else []
+        input_bytes = (
+            sum(s for s in sizes if s is not None) if sizes and None not in sizes else None
+        )
+        total = sum(parts.values())
+        written.append(
+            {
+                "dataset_id": name,
+                "discovery": selection.get("discovery") if isinstance(selection, dict) else None,
+                "inputs": len(inputs) if inputs is not None else None,
+                "captures": captures,
+                "bytes": total,
+                "files": files,
+                "parts": dict(sorted(parts.items())),
+                "input_bytes": input_bytes,
+                "bytes_per_input": round(total / len(inputs), 1) if inputs else None,
+                "ratio_to_inputs": round(total / input_bytes, 3) if input_bytes else None,
+            }
+        )
+    staging = (
+        [p for p in root.iterdir() if p.is_dir() and p.name.startswith(".building-")]
+        if root.is_dir()
+        else []
+    )
+    counted = [w for w in written if w["inputs"]]
+    total_inputs = sum(w["inputs"] for w in counted)
+    total_bytes = sum(w["bytes"] for w in written)
+    measured = [w for w in counted if w["input_bytes"]]
+    return {
+        "status": "measured",
+        "written": written,
+        "datasets_this_run": len(written),
+        "bytes_this_run": total_bytes,
+        "inputs_this_run": total_inputs,
+        "bytes_per_input": round(sum(w["bytes"] for w in counted) / total_inputs, 1)
+        if total_inputs
+        else None,
+        "ratio_to_inputs": round(
+            sum(w["bytes"] for w in measured) / sum(w["input_bytes"] for w in measured), 3
+        )
+        if measured
+        else None,
+        "staging_leftovers": len(staging),
+        "staging_bytes": sum(_tree_bytes(p)[0] for p in staging),
+    }
+
+
 BINDING_STATION = re.compile(r"\((CLI[A-Z]{3})\)")
 
 
@@ -877,6 +1001,11 @@ def operate(
     except OSError as exc:
         start_footprint = None
         errors.append(f"start footprint {type(exc).__name__}: {exc}")
+    try:
+        datasets_before: set[str] | None = dataset_ids(workspace)
+    except OSError as exc:
+        datasets_before = None
+        errors.append(f"start dataset inventory {type(exc).__name__}: {exc}")
     with log_path.open("ab") as log:
         # Fixed argv: this interpreter, the bundled server module and validated options.
         process = subprocess.Popen(  # noqa: S603
@@ -976,6 +1105,10 @@ def operate(
                 "ledger_rows": len(chained),
                 "ledger_reset": reset,
             }
+    try:
+        summary["datasets"] = dataset_costs(workspace, datasets_before)
+    except OSError as exc:
+        errors.append(f"datasets {type(exc).__name__}: {exc}")
     try:
         summary["disk"] = disk_headroom(workspace)
     except OSError as exc:
