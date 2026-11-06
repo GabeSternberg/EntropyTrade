@@ -58,6 +58,21 @@ section, so chain progress is visible without downloading artifacts:
   event verified by several revisions counts once; an earlier refusal later verified counts
   as verified. Events never verified are counted with their refusal reasons.
 
+Each entry in `schedules` also carries a `backlog`, so zero settlement labels can be read as
+"not yet due" or "stuck" without downloading the workspace:
+
+- `dates`: one row per scheduled local day with `status`, `next_at`, `attempts`, `failures`,
+  target count, stations and detail. A pending day first becomes due at the end of its local
+  day (the latest station timezone); failed acquisitions back off from the schedule interval.
+- `next_due_at`: the earliest due time of any pending/retry day (verified revision checks
+  and refused days are excluded).
+- `overdue_dates`: days already due at summary time while no label request was in flight.
+  The label worker ticks every 0.2 s while the server runs, so a non-empty list at the end of
+  a window means the schedule did not advance and needs review. It is reported, never repaired.
+
+Labels are only requested while a run's server is up. Until the cron runs on `main`, a day
+that becomes due between dispatched runs waits for the next run.
+
 If the website refuses to verify the evidence (HTTP 409), readiness reports
 `verification_failed` with the message. It is never retried into a pass or repaired. These
 are counts of retained evidence only, not model quality, calibration or returns.
