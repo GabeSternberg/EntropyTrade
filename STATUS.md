@@ -1,5 +1,60 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): four forward locations with station-binding evidence
+
+Branch `claude/vibrant-bohr-3bmoqc`, **stacked on PR #17** (`claude/vibrant-bohr-f4e7df`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#17 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Gap.** The V1 matched-forecast gate is blocked by the monitor's `model_binding`, which
+  needs a fitted authentic model. The fitting gate needs **60/20/20 independent
+  fit/calibration/validation events** (`ml/experiment.py`). With two stations, that is
+  about 50 days of collection. The bottleneck is station/days per date, not code.
+- **Change.** `configs/data/weather-forward.json` adds New York City (`KXHIGHNY`, CLINYC,
+  America/New_York) and Dallas (`KXHIGHTDAL`, CLIDFW, America/Chicago), and
+  `weather/labels.py` `STATIONS` allowlists exactly those two. Retained authentic evidence
+  backs each value:
+  - the catalog listing (PR #8) has the series;
+  - the retained rules name the stations (`data/public/{newyork,dallas}/manifest.json`);
+  - the retained 2026-10-29 portal receipt has the `cliId`/ICAO/timezone;
+  - the coordinates are the retained `api.weather.gov/stations/K…` values.
+
+  Oklahoma City is not added, because its retained coordinates are a city-centre geocode.
+  The monitor's frozen universe is unchanged: new series are captured and labelled but make
+  no shadow decisions.
+- **Station bindings.** `operations/forward.py` `station_bindings()` adds a read-only
+  `station_bindings` section to `summary.json` and the job-log line. It reads the newest
+  retained capture. For each location it reports the contracts, the CLI stations the rules
+  name, the contracts the existing label gate accepts, and a status:
+  `matched`/`mismatch`/`unnamed`/`partial`/`no_contracts`. On the retained authentic
+  2026-10-29 workspace, both PHL and CHI are `matched` (12/12 contracts each).
+- **Tests.** `test_forward_station_bindings.py` has 5 cases. They check the config against
+  the retained portal, rules and coordinate receipts, check authentic capture bindings, cover
+  every status, and select the newest capture. Ruff lint/format pass; strict mypy passes
+  (565 files). The first full run had **2 failures, 1,401 passed**. Both
+  failures were CONTROLLED cohort tests whose fixture read the operational config, so 100
+  dates × 4 locations gave 400 events where the test expects 200. The fixture
+  (`tests/integration/cohort_fixture.py`) is now pinned to its original two locations, and
+  the assertions are unchanged. **Full pytest after the fix: 1,403 passed in 626.00s**, with
+  zero failures, errors or skips.
+- **Real-runner evidence.**
+  - Chain dispatch `42209909820` on this branch (`continue_from_run=42205430152`) ran on
+    the old two-location code and succeeded with `chain=head`: 44 cycles, 0 errors, server
+    exit 0.
+  - Its footprint is the **two-location baseline**: 820,649,024 expanded bytes and
+    198,034,812 distinct. Distinct bytes grew 14.27 MB over 3 cycles (about 4.76 MB per
+    cycle), and `budget_used` was 0.1911.
+  - The 2026-11-05 retry is still scheduled for 13:27Z, after that run's window.
+  - The first four-location chain dispatch (`continue_from_run=42209909820`) was queued at
+    the end of this session. Its `station_bindings` and footprint are not yet recorded.
+
+**Next autonomous milestone:** confirm on the first 4-location chain run that
+`station_bindings.status` is `ok`: NYC and DAL must be `matched`, with the rules naming
+CLINYC and CLIDFW. Then confirm their first label days verify. Measure `distinct_bytes` growth
+per cycle against the 2-location baseline of about 4.4 MB. If runway falls under about
+2 weeks, the storage step is next: stop writing each cycle's raw weather responses twice and
+observations about 3 times, keeping provenance. Then recheck 2026-11-05 PHL/CHI labels.
+
 ## Current milestone (2026-11-06): label-source diagnostics for unverified days
 
 Branch `claude/vibrant-bohr-f4e7df` (PR #17), **stacked on PR #16** (`claude/vibrant-bohr-gcmz6m`).

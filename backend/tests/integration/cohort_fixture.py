@@ -57,7 +57,11 @@ def seed_cohort(workspace: Path, *, labels: bool = True) -> dict[str, Any]:
         raise ValueError("CONTROLLED cohort needs a fresh workspace")
     jobs = Jobs(workspace)
     TrackingStore(jobs)
-    config = weather()
+    # Pinned to the two original locations so the CONTROLLED counts (200 events on 100
+    # dates) do not move when the operational forward config adds locations.
+    config = weather().revalidated(
+        locations=tuple(p for p in weather().locations if p.series in {"KXHIGHPHIL", "KXHIGHCHI"})
+    )
     for n in range(130):
         day = START + timedelta(days=n * 100 // 130)
         at = datetime.combine(day, datetime.min.time(), UTC) + timedelta(hours=15, minutes=n % 2)
