@@ -1,0 +1,148 @@
+{
+  "status": "passed",
+  "started_at": "2026-11-05T22:01:41.405Z",
+  "origin": "http://127.0.0.1:18763",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/shadow-history-authentic",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "action": "import",
+      "evidence": {
+        "catalog": {
+          "partition_size": 128,
+          "partitions": [
+            {
+              "first_at": "2026-11-05T22:01:48.637856+00:00",
+              "inputs": 2,
+              "last_at": "2026-11-05T22:01:48.660142+00:00",
+              "members": [
+                {
+                  "at": "2026-11-05T22:01:48.637856+00:00",
+                  "id": "6a2560b0-ced4-4c7e-8b3e-46e237810fae",
+                  "kind": "shadow",
+                  "monitor_id": "ed48a97e-0a61-4e66-9ba0-dcdb2fbfccac"
+                },
+                {
+                  "at": "2026-11-05T22:01:48.660142+00:00",
+                  "id": "d8d1dda7-7fa2-4d9d-872b-46b5280649b1",
+                  "kind": "shadow",
+                  "monitor_id": "ed48a97e-0a61-4e66-9ba0-dcdb2fbfccac"
+                }
+              ],
+              "number": 1,
+              "partition_id": "b23ccf1bd0813d7ed010a634dfcee10ea889e67c95066e7a6373858fffede598",
+              "shadow_cycles": 2
+            }
+          ],
+          "total_inputs": 2
+        },
+        "cycles": 2,
+        "evidence": "Authentic original shadow receipts; no new acquisition or performance",
+        "monitor_id": "ed48a97e-0a61-4e66-9ba0-dcdb2fbfccac"
+      }
+    },
+    {
+      "action": "start",
+      "epoch": 1
+    },
+    {
+      "action": "research",
+      "id": "8e01225b-1c33-43c7-b1a0-84815cd615e9",
+      "dataset_id": "61690c418391133e1ea550892f64d100829e89edf68af8f278c4b56fac2df21a"
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "snapshot",
+      "receipt": {
+        "archive": "/home/user/EntropyTrade/data/browser-regression-review/20261105/final/shadow-history/authentic/offline.zip",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 1,
+        "sha256": "sha256:e142473084b66513865de5de98c93cbd8b1b961ce8a9b130d67dff939bf26c37",
+        "submission_enabled": false
+      }
+    },
+    {
+      "action": "restore",
+      "receipt": {
+        "archive_sha256": "sha256:e142473084b66513865de5de98c93cbd8b1b961ce8a9b130d67dff939bf26c37",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 1,
+        "submission_enabled": false,
+        "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/shadow-history-authentic-restored"
+      }
+    },
+    {
+      "action": "start",
+      "epoch": 2
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "weather-partition-selection.png",
+      "sha256": "bc74251835a6f1029e7a33a7a3970318741e4a1527a184b67916ae39e0d2b40b"
+    },
+    {
+      "file": "weather-dataset.png",
+      "sha256": "71da11ece619f9a886846fb59c1bb33a124dbe377d4961b1a158d73f7b039e80"
+    },
+    {
+      "file": "weather-Review.png",
+      "sha256": "19ff4cac9447aa976a64c9efa1d9a93234ab71ad051d6a4c412afe7fdb0bef6e"
+    },
+    {
+      "file": "weather-Probabilities.png",
+      "sha256": "42739be16897b94382b832d12d85c2075668da6673ebf8294e7b4e02fc3dd7c1"
+    },
+    {
+      "file": "weather-Evidence---lineage.png",
+      "sha256": "8a1583c9444eb268ae11c062a3d718f6b743e60c8d326e2012696d0a833842ae"
+    },
+    {
+      "file": "weather-restart.png",
+      "sha256": "4397ae380f36ffa8e22f8dc0fb5a190a83e717ef6edbfade11e1dcef6f0f23d5"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "weather-review.json",
+      "sha256": "e555a622c18b5efaa71d16b632221057a6cd2a9238a792212aa6c8d1203cbd0d"
+    },
+    {
+      "file": "weather-report.txt",
+      "sha256": "7fb9cc2206acfe9f4c4b3ee6bef603ff2fc44ac78be9373788d927e3ee87871c"
+    },
+    {
+      "file": "weather-shadow-inputs.json",
+      "sha256": "79e2f237393099cb49316855631ecb911753bb6b56bbcbaaaf1b9a17da936576"
+    },
+    {
+      "file": "weather-restart-review.json",
+      "sha256": "e555a622c18b5efaa71d16b632221057a6cd2a9238a792212aa6c8d1203cbd0d"
+    },
+    {
+      "file": "weather-restart-report.txt",
+      "sha256": "7fb9cc2206acfe9f4c4b3ee6bef603ff2fc44ac78be9373788d927e3ee87871c"
+    },
+    {
+      "file": "weather-restart-shadow-inputs.json",
+      "sha256": "79e2f237393099cb49316855631ecb911753bb6b56bbcbaaaf1b9a17da936576"
+    }
+  ],
+  "page_errors": [],
+  "limitations": [
+    "Authentic original shadow receipt replay, not new acquisition.",
+    "Source-matched scalar highs and certified fees are absent; no empirical model or returns.",
+    "External provider verification deferred; no credentials accessed. V1 remains incomplete."
+  ],
+  "finished_at": "2026-11-05T22:02:41.497Z"
+}

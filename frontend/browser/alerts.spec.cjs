@@ -101,7 +101,7 @@ test("operator alerts: acknowledgement, listener restart, recovery, recurrence a
     await expect(page.locator(`[data-alert-id="${incident.id}"]`)).toContainText("Needs acknowledgement");
     await shot("recurring.png");
     const final = await download("final.json"); await stop();
-    const archive = path.join(repo, "data/cache", `operator-${path.basename(workspace)}.zip`);
+    const archive = workspace + "-operator.zip";
     run("entropytrade.api.recovery", ["snapshot", "--workspace", workspace, "--archive", archive]);
     const restored = workspace + "-restored";
     run("entropytrade.api.recovery", ["restore", "--workspace", restored, "--archive", archive]);
