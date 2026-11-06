@@ -37,6 +37,33 @@ uv run entropytrade family-screen --fetch-series KXEXAMPLE --fetch-dir data/cach
 uv run entropytrade family-screen --fetched data/cache/catalog-YYYYMMDD --output screen.json
 ```
 
+### Discovering candidate tickers
+
+Candidate tickers must come from a catalog receipt, not from memory. `family-discover`
+retains one unauthenticated `GET /trade-api/v2/series?category=…` per category (at most
+12) into a NEW directory with a hashed manifest, then lists every series alphabetically
+with its title, category, frequency, tags, fee type and named settlement sources. It never
+ranks, recommends or selects. Only that one path is permitted; the bounded transport's
+request and byte limits apply, and an over-budget, failed or non-200 response is recorded
+in `unusable_calls`, never retried. The listing refuses tampered, escaping or malformed
+receipts and conflicting descriptions of one ticker.
+
+```bash
+uv run entropytrade family-discover --category Economics --category Financials \
+  --fetch-dir data/cache/discovery-YYYYMMDD --output listing.json
+uv run entropytrade family-discover --discovered data/cache/discovery-YYYYMMDD   # offline
+```
+
+### Running on a GitHub-hosted runner
+
+Scheduled cloud sessions cannot reach the catalog (issue #3). The `family-catalog`
+workflow (`.github/workflows/family-catalog.yml`, dispatch or a push that changes it) runs
+discovery for the given categories and, when `series` is given, one bounded
+`family-screen --fetch-series` per ticker, then screens the fetched receipts together with
+the retained weather/fee receipts. It prints the listing, per-call statuses, rule examples
+and file hashes to the job log and uploads every retained file (90-day artifact). It uses
+no secrets and calls no order endpoint.
+
 ### Fetch limits
 
 Fetching sends unauthenticated GET requests to `api.elections.kalshi.com` and nowhere
