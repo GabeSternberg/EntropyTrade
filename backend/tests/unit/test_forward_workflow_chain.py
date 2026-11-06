@@ -1,8 +1,9 @@
 """Chain selection in forward-collection.yml, executed against a stubbed ``gh`` CLI.
 
-The step script is read from the workflow file itself, so these cases exercise exactly the
-shell that runs on GitHub. ``gh`` is replaced by a stub that answers each API path with
-canned (already ``--jq``-filtered) output, or fails for paths it does not know.
+The step scripts are read from the workflow file itself, so these cases exercise exactly the
+shell that runs on GitHub. ``gh`` is replaced by a stub that answers each API path with raw
+JSON, applies the step's own ``--jq`` filter with the real ``jq`` binary (as ``gh`` does),
+and fails for paths it does not know.
 """
 
 from __future__ import annotations
@@ -25,16 +26,26 @@ REPOSITORY = "GabeSternberg/EntropyTrade"
 STEP_NAME = "Locate previous workspace snapshot"
 
 STUB = """#!{python}
-import json, os, sys
-path = sys.argv[2].split("?")[0] if len(sys.argv) > 2 else ""
+import json, os, subprocess, sys
+args = sys.argv[1:]
+assert args[0] == "api" and args[2] == "--jq" and len(args) == 4, args
+path, query = args[1].split("?")[0], args[3]
 answers = json.loads(os.environ["GH_STUB_ANSWERS"])
 with open(os.environ["GH_STUB_LOG"], "a") as log:
-    log.write(path + "\\n")
+    log.write(args[1] + "\\n")
 if path not in answers:
     sys.stderr.write("HTTP 404: " + path + "\\n")
     sys.exit(1)
-sys.stdout.write(answers[path])
+done = subprocess.run(
+    [os.environ["GH_STUB_JQ"], "-r", query], input=json.dumps(answers[path]),
+    capture_output=True, text=True,
+)
+sys.stdout.write(done.stdout)
+sys.stderr.write(done.stderr)
+sys.exit(done.returncode)
 """
+
+BRANCH_RUNS = f"repos/{REPOSITORY}/actions/workflows/forward-collection.yml/runs"
 
 
 def _step_script() -> str:
@@ -51,13 +62,52 @@ def _runs(path: str) -> str:
     return f"repos/{REPOSITORY}/actions/runs/{path}"
 
 
+def _branch_runs(*runs: tuple[int, str, str]) -> dict[str, Any]:
+    """API listing in creation order (newest first): (id, status, updated_at)."""
+    return {
+        "workflow_runs": [
+            {"id": run_id, "status": status, "updated_at": updated}
+            for run_id, status, updated in runs
+        ]
+    }
+
+
+def _artifacts(*items: tuple[str, bool]) -> dict[str, Any]:
+    return {
+        "artifacts": [
+            {"id": 1000 + index, "name": name, "expired": expired}
+            for index, (name, expired) in enumerate(items)
+        ]
+    }
+
+
+SNAPSHOT = _artifacts(("forward-summary", False), ("forward-workspace", False))
+NO_SNAPSHOT = _artifacts(("forward-summary", False))
+
+
+def _meta(
+    branch: str = "claude/chain",
+    path: str = ".github/workflows/forward-collection.yml",
+    repo: str = REPOSITORY,
+    status: str = "completed",
+) -> dict[str, Any]:
+    return {
+        "path": path,
+        "head_branch": branch,
+        "repository": {"full_name": repo},
+        "status": status,
+    }
+
+
 def _run(
     tmp_path: Path,
-    answers: dict[str, str],
+    answers: dict[str, Any],
     *,
     continue_from: str = "",
     fresh: str = "false",
 ) -> tuple[subprocess.CompletedProcess[str], dict[str, str], list[str]]:
+    jq = shutil.which("jq")
+    assert jq is not None, "jq is preinstalled on GitHub-hosted runners and required here"
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
     stub = bin_dir / "gh"
@@ -71,6 +121,7 @@ def _run(
         "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
         "GH_STUB_ANSWERS": json.dumps(answers),
         "GH_STUB_LOG": str(log),
+        "GH_STUB_JQ": jq,
         "GITHUB_REPOSITORY": REPOSITORY,
         "GITHUB_REF_NAME": "main",
         "GITHUB_RUN_ID": "900",
@@ -92,42 +143,91 @@ def _run(
     outputs = dict(
         line.split("=", 1) for line in output.read_text(encoding="utf-8").splitlines() if line
     )
-    calls = [line for line in log.read_text(encoding="utf-8").splitlines() if line]
+    calls = [line.split("?")[0] for line in log.read_text(encoding="utf-8").splitlines() if line]
     return result, outputs, calls
 
 
-BRANCH_RUNS = f"repos/{REPOSITORY}/actions/workflows/forward-collection.yml/runs"
-
-
-def _meta(
-    branch: str = "claude/chain",
-    path: str = ".github/workflows/forward-collection.yml",
-    repo: str = REPOSITORY,
-    status: str = "completed",
-) -> str:
-    return f"{path}\t{branch}\t{repo}\t{status}\n"
-
-
-def test_same_branch_selects_newest_run_with_unexpired_snapshot(tmp_path: Path) -> None:
+def test_same_branch_selects_latest_completed_run_with_unexpired_snapshot(
+    tmp_path: Path,
+) -> None:
     answers = {
-        BRANCH_RUNS: "803\n802\n801\n",
-        _runs("803/artifacts"): "",
-        _runs("802/artifacts"): "5555\n",
+        BRANCH_RUNS: _branch_runs(
+            (900, "in_progress", "2026-11-06T06:00:00Z"),  # this run
+            (803, "completed", "2026-11-06T05:30:00Z"),
+            (802, "completed", "2026-11-06T05:00:00Z"),
+            (801, "completed", "2026-11-06T04:00:00Z"),
+        ),
+        _runs("803/artifacts"): NO_SNAPSHOT,
+        _runs("802/artifacts"): SNAPSHOT,
     }
     result, outputs, calls = _run(tmp_path, answers)
     assert result.returncode == 0, result.stderr
     assert outputs == {"run_id": "802", "source_branch": "main"}
     assert _runs("801/artifacts") not in calls
+    assert _runs("900/artifacts") not in calls
+
+
+def test_expired_snapshot_is_not_selected(tmp_path: Path) -> None:
+    answers = {
+        BRANCH_RUNS: _branch_runs(
+            (803, "completed", "2026-11-06T05:30:00Z"),
+            (802, "completed", "2026-11-06T05:00:00Z"),
+        ),
+        _runs("803/artifacts"): _artifacts(("forward-workspace", True)),
+        _runs("802/artifacts"): SNAPSHOT,
+    }
+    result, outputs, _ = _run(tmp_path, answers)
+    assert result.returncode == 0, result.stderr
+    assert outputs["run_id"] == "802"
+
+
+def test_completion_order_not_creation_order_defines_the_chain(tmp_path: Path) -> None:
+    # Observed on 2026-11-06: dispatch 42167131442 was created before push 42167132149, but
+    # the push run executed first. The dispatch finished last, so its snapshot is newest.
+    answers = {
+        BRANCH_RUNS: _branch_runs(
+            (42167132149, "completed", "2026-11-06T05:50:00Z"),
+            (42167131442, "completed", "2026-11-06T06:20:00Z"),
+            (42162670639, "completed", "2026-11-06T04:44:00Z"),
+        ),
+        _runs("42167132149/artifacts"): SNAPSHOT,
+        _runs("42167131442/artifacts"): SNAPSHOT,
+        _runs("42162670639/artifacts"): SNAPSHOT,
+    }
+    result, outputs, calls = _run(tmp_path, answers)
+    assert result.returncode == 0, result.stderr
+    assert outputs["run_id"] == "42167131442"
+    assert calls[1] == _runs("42167131442/artifacts")
+
+
+def test_incomplete_runs_are_never_selected(tmp_path: Path) -> None:
+    answers = {
+        BRANCH_RUNS: _branch_runs(
+            (804, "queued", "2026-11-06T07:00:00Z"),
+            (803, "in_progress", "2026-11-06T06:30:00Z"),
+            (802, "completed", "2026-11-06T05:00:00Z"),
+        ),
+        _runs("802/artifacts"): SNAPSHOT,
+    }
+    result, outputs, _ = _run(tmp_path, answers)
+    assert result.returncode == 0, result.stderr
+    assert outputs["run_id"] == "802"
 
 
 def test_same_branch_without_snapshot_starts_new_chain(tmp_path: Path) -> None:
-    result, outputs, _ = _run(tmp_path, {BRANCH_RUNS: ""})
+    result, outputs, _ = _run(tmp_path, {BRANCH_RUNS: _branch_runs()})
     assert result.returncode == 0, result.stderr
     assert outputs == {"run_id": "", "source_branch": "main"}
 
 
 def test_artifact_listing_error_fails_instead_of_using_older_snapshot(tmp_path: Path) -> None:
-    answers = {BRANCH_RUNS: "803\n802\n", _runs("802/artifacts"): "5555\n"}
+    answers = {
+        BRANCH_RUNS: _branch_runs(
+            (803, "completed", "2026-11-06T05:30:00Z"),
+            (802, "completed", "2026-11-06T05:00:00Z"),
+        ),
+        _runs("802/artifacts"): SNAPSHOT,
+    }
     result, outputs, _ = _run(tmp_path, answers)
     assert result.returncode != 0
     assert "could not list artifacts of run 803" in result.stdout
@@ -135,7 +235,7 @@ def test_artifact_listing_error_fails_instead_of_using_older_snapshot(tmp_path: 
 
 
 def test_explicit_continuation_from_another_branch(tmp_path: Path) -> None:
-    answers = {_runs("42156641720"): _meta(), _runs("42156641720/artifacts"): "77\n"}
+    answers = {_runs("42156641720"): _meta(), _runs("42156641720/artifacts"): SNAPSHOT}
     result, outputs, calls = _run(tmp_path, answers, continue_from="42156641720")
     assert result.returncode == 0, result.stderr
     assert outputs == {"run_id": "42156641720", "source_branch": "claude/chain"}
@@ -168,7 +268,13 @@ def test_explicit_continuation_from_another_branch(tmp_path: Path) -> None:
         (
             "41",
             "false",
-            {_runs("41"): _meta(), _runs("41/artifacts"): ""},
+            {_runs("41"): _meta(), _runs("41/artifacts"): NO_SNAPSHOT},
+            "no unexpired forward-workspace snapshot",
+        ),
+        (
+            "41",
+            "false",
+            {_runs("41"): _meta(), _runs("41/artifacts"): _artifacts(("forward-workspace", True))},
             "no unexpired forward-workspace snapshot",
         ),
         ("41", "false", {}, ""),  # unknown run: gh fails, step fails
@@ -178,10 +284,14 @@ def test_explicit_continuation_fails_closed(
     tmp_path: Path,
     continue_from: str,
     fresh: str,
-    answers: dict[str, str],
+    answers: dict[str, Any],
     message: str,
 ) -> None:
-    answers = {**answers, BRANCH_RUNS: "803\n", _runs("803/artifacts"): "5555\n"}
+    answers = {
+        **answers,
+        BRANCH_RUNS: _branch_runs((803, "completed", "2026-11-06T05:00:00Z")),
+        _runs("803/artifacts"): SNAPSHOT,
+    }
     result, outputs, calls = _run(tmp_path, answers, continue_from=continue_from, fresh=fresh)
     assert result.returncode != 0
     assert message in result.stdout

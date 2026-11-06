@@ -104,10 +104,13 @@ jobs:
             fi
             found=$CONTINUE_FROM
           else
-            # Newest run of this workflow on this branch that uploaded an unexpired snapshot.
-            # Failed runs still upload their verified snapshot, so receipts are never skipped.
-            runs=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/forward-collection.yml/runs?branch=$GITHUB_REF_NAME&per_page=50" \
-              --jq ".workflow_runs[] | select(.id != $GITHUB_RUN_ID) | .id")
+            # Most recently COMPLETED run of this workflow on this branch that uploaded an
+            # unexpired snapshot. Runs on one branch are serialized (concurrency group), so
+            # completion order is chain order; creation order is not (a queued dispatch can
+            # be created before a push run that executes first). Failed runs still upload
+            # their verified snapshot, so receipts are never skipped.
+            runs=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/forward-collection.yml/runs?branch=$GITHUB_REF_NAME&status=completed&per_page=50" \
+              --jq "[.workflow_runs[] | select(.id != $GITHUB_RUN_ID and .status == \"completed\")] | sort_by(.updated_at) | reverse | .[].id")
             for id in $runs; do
               if has_snapshot "$id"; then found=$id; break; fi
             done

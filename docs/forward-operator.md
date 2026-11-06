@@ -10,8 +10,8 @@ headlessly, so authentic forward receipts can accrue without a human-operated ma
 
 ## What one run does
 
-1. Finds the newest run of this workflow **on the same branch** that uploaded an unexpired
-   `forward-workspace` snapshot, downloads it, checks its SHA-256 and restores it with the
+1. Finds the most recently **completed** run of this workflow **on the same branch** (by
+   completion time, not creation time) that uploaded an unexpired `forward-workspace` snapshot, downloads it, checks its SHA-256 and restores it with the
    existing verified `entropytrade.api.recovery restore`. If a previous snapshot exists but
    cannot be downloaded, verified or restored (for example after a `uv.lock` change), the run
    **fails**. It never silently starts a new chain. The first run on a branch, or a manual
@@ -68,6 +68,11 @@ Summaries written before this change listed every alert with `status: null`.
 
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
+
+Runs on one branch are serialized by the concurrency group, so completion order is chain
+order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push
+`42167132149`, but the push ran first. Creation order would have made the push run's
+fresh-chain snapshot "newest" and orphaned the continued chain.
 
 Step conditions use step outputs and plain file tests, never `hashFiles()`. Hosted runners
 abort `hashFiles()` after 120 s. In run `42162688233` that limit was hit on a 243 MB

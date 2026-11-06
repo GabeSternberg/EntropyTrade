@@ -23,15 +23,22 @@ had no reviews, review threads or change requests and no failing checks; none we
   step conditions now use step outputs and plain file tests; the upload requires
   `steps.snapshot.outputs.archive`, which is set only after the archive, checksum and lineage are written.
   The #5/#7/#9/#10 branches still carry the `hashFiles()` guards and can lose snapshots the same way.
+- **Second defect found and fixed: chain order.** Same-branch lookup took the newest
+  run by *creation*. Dispatch `42167131442` was created before push `42167132149`, but the
+  push executed first (the concurrency group serializes them). Creation order would have
+  picked the push run's fresh-chain snapshot after both finished, orphaning the continued chain. Lookup
+  now considers only completed runs, ordered by completion (`updated_at`). The test stub now
+  applies the workflow's real `--jq` filters with `jq`.
 - **First readiness on authentic data** (run `42162688233`, job log): prospective report
   `insufficient`: 24 contracts, 0 pending, 24 refused, 0 matched; 4 independent events on
   2 dates; 10 events / 5 dates still needed. Settlement labels: 1 partition, 0 verified,
   0 unverified (no label requests yet). All 4 `stale_collection` alerts were resolved; they
   mark the gaps between windows.
-- **Tests.** `backend/tests/unit/test_forward_workflow_chain.py` (15 cases) runs the
-  workflow's own step scripts against a stubbed `gh`. It covers same-branch selection,
-  continuation, 7 fail-closed cases and the API-error refusal, and asserts that no condition
-  uses `hashFiles()`. 4 of these fail against the previous workflow.
+- **Tests.** `backend/tests/unit/test_forward_workflow_chain.py` (19 cases) runs the
+  workflow's own step scripts against a stubbed `gh` that evaluates the real `--jq` filters.
+  It covers same-branch selection, expiry, completion order, incomplete runs, continuation,
+  8 fail-closed cases and the API-error refusal, and asserts that no condition uses
+  `hashFiles()`. 4 cases fail on the first commit's workflow (hashFiles) and 2 on the second's (ordering).
 - **Results.** Ruff lint/format pass; strict mypy passes (564 files); **full pytest 1,368 passed
   in 610.83s** at `65d7bea` (zero failures/errors/skips). The re-run continuation result is
   recorded below.
