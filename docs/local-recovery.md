@@ -37,8 +37,12 @@ models. Research configurations and bundled recorded datasets come from the inst
 project, not the workspace archive. Keep the project version with the backup.
 
 The manifest records SHA-256, sizes, directories, database counts, format version and
-`uv.lock`/`pyproject.toml` hashes. Current limits are 100,000 files/directories, 256 MiB per
-file and 2 GiB total files. Restore stages verification before publishing a destination:
+`uv.lock`/`pyproject.toml` hashes. Current archives (`entropytrade-workspace-v2`) store each
+distinct content once as a `blobs/<sha256>` member, since immutable datasets copy retained
+receipts byte for byte; every manifest path is still restored as its own file and verified
+against its checksum (no hard links). Current limits are 100,000 files/directories, 256 MiB
+per file, 2 GiB of distinct content and 4 GiB of expanded files. Per-path `v1` archives
+remain restorable within their original 2 GiB expanded limit. Restore stages verification before publishing a destination:
 ZIP members, paths/types, checksums, database integrity/schema/references, research registry
 lineage, strategy/model binding identities, contiguous cycle sequences, result digests
 and referenced artifacts must agree. Missing evidence and incompatible locks fail closed.

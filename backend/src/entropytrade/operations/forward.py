@@ -273,24 +273,35 @@ FOOTPRINT_CRITICAL = 0.8
 
 
 def footprint(workspace: Path) -> dict[str, Any]:
-    """Bytes the next snapshot will carry, by area, against the snapshot size budget.
+    """Bytes the next snapshot will carry, by area, against both snapshot budgets.
 
-    Read-only and metadata-only: file sizes, never contents. Runtime files the snapshot
-    excludes (locks, WAL/SHM, caches) are excluded here too.
+    Read-only. Snapshots store each distinct content once, so file contents are hashed to
+    count distinct bytes (against ``MAX_BYTES``); expanded bytes are what a restore writes
+    (against ``MAX_EXPANDED_BYTES``). The tighter of the two drives ``status``. Runtime files
+    the snapshot excludes (locks, WAL/SHM, caches) are excluded here too.
     """
-    from entropytrade.api.recovery import MAX_BYTES, RUNTIME
+    from entropytrade.api.recovery import MAX_BYTES, MAX_EXPANDED_BYTES, RUNTIME
+    from entropytrade.data.sources import file_hash
 
     areas: Counter[str] = Counter()
+    distinct: dict[str, int] = {}
     files = 0
+
+    def count(area: str, path: Path) -> None:
+        nonlocal files
+        size = path.stat().st_size
+        areas[area] += size
+        distinct.setdefault(file_hash(path), size)
+        files += 1
+
     if workspace.is_dir():
         for child in sorted(workspace.iterdir()):
             if child.name in RUNTIME or child.is_symlink():
                 continue
             if child.is_file():
-                areas[child.name] += child.stat().st_size
-                files += 1
+                count(child.name, child)
                 continue
-            for path in child.rglob("*"):
+            for path in sorted(child.rglob("*")):
                 if path.is_file() and not path.is_symlink():
                     parts = path.relative_to(workspace).parts
                     area = (
@@ -298,15 +309,17 @@ def footprint(workspace: Path) -> dict[str, Any]:
                         if parts[:2] == ("runs", "weather-datasets")
                         else (parts[0])
                     )
-                    areas[area] += path.stat().st_size
-                    files += 1
+                    count(area, path)
     total = sum(areas.values())
-    used = total / MAX_BYTES
+    unique = sum(distinct.values())
+    used = max(unique / MAX_BYTES, total / MAX_EXPANDED_BYTES)
     return {
         "bytes": total,
+        "distinct_bytes": unique,
         "files": files,
         "areas": dict(sorted(areas.items())),
         "snapshot_budget_bytes": MAX_BYTES,
+        "expanded_budget_bytes": MAX_EXPANDED_BYTES,
         "budget_used": round(used, 4),
         "status": "critical"
         if used >= FOOTPRINT_CRITICAL
