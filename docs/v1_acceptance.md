@@ -1,3 +1,15 @@
+# Market-family screening — November 5, 2026
+
+**complete=false.** This milestone supports the two-family gate; it does not satisfy it. See
+[family-selection.md](family-selection.md).
+
+| Requirement | Evidence | Result / remaining gate |
+|---|---|---|
+| Reproducible comparison of candidate families | `families/screening.py`, `test_family_screening.py`, `data/family-screening-review/20261105/` | Deterministic, hashed per-series report over 29 retained receipts; a rerun is byte-identical. |
+| Fail-closed receipt handling | Tests for malformed, contradictory, tampered and existing-output cases | Ambiguous evidence is refused; no outcome or authority is inferred. |
+| Read-only bounded catalog acquisition | Fetch tests with a mock transport; one real attempt | Software behaviour is tested. The real attempt was blocked (no egress, issue #3), so no fetched catalog exists. |
+| Two empirically validated families | — | **Open.** Candidate catalogs still need fetching, the user still needs to approve a family in writing, and that family still needs point-in-time sources, labels and validation. |
+
 # Browser regression sweep and CI — November 5, 2026
 
 **complete=false (V1).** Branch `claude/vibrant-bohr-b1kuuh` stacked on PR #1.
