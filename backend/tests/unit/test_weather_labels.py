@@ -484,3 +484,14 @@ def test_source_states_bound_controlled_odd_bodies_without_raising() -> None:
         None,
     )
     assert missing["stations"] == {}
+
+
+@pytest.mark.parametrize("results", [123, True, "unexpected", {"station": "PHL"}])
+def test_source_states_report_malformed_result_collections_without_raising(results: Any) -> None:
+    from entropytrade.weather.labels import source_states
+
+    body = response_body()
+    body["results"] = results
+    states = source_states(receipt(body=body), ("CLIPHL",))
+    assert states["body"] == "results is not a list"
+    assert states["stations"] == {}
