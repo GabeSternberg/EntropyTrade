@@ -96,6 +96,11 @@ The screen refuses instead of guessing when:
 
 ## Handling repeated receipts of one ticker
 
+Every supplied update clock is validated, including unique and superseded observations.
+Dated revisions are resolved in clock order before observations without clocks are merged;
+changing receipt-file order cannot erase an unclocked final result. Lifetime volume is
+compared across both legacy integer and fixed-point catalog fields.
+
 - **Different `updated_time` values:** the later receipt wins, and the ticker counts toward
   `revised_tickers`.
 - **No ordering clock:** this happens when both receipts share an `updated_time`, for
