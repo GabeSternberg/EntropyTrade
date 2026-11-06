@@ -16,7 +16,7 @@ import re
 from collections import Counter, defaultdict
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from statistics import median
@@ -74,6 +74,7 @@ class ReceiptInput:
 @dataclass
 class Catalog:
     inputs: list[ReceiptInput] = field(default_factory=list)
+    observations: list[dict[str, Any]] = field(default_factory=list)
     markets: dict[str, dict[str, Any]] = field(default_factory=dict)
     series: dict[str, dict[str, Any]] = field(default_factory=dict)
     revised_tickers: set[str] = field(default_factory=set)
@@ -86,20 +87,36 @@ def _canonical(value: object) -> str:
 
 def _updated(market: dict[str, Any]) -> datetime | None:
     value = market.get("updated_time")
-    if not isinstance(value, str) or not value:
+    if value is None or value == "":
         return None
+    if not isinstance(value, str):
+        raise ScreeningError(f"{market['ticker']}: invalid updated_time {value!r}")
     try:
         return ensure_utc(datetime.fromisoformat(value))
     except ValueError as exc:
         raise ScreeningError(f"{market['ticker']}: invalid updated_time {value!r}") from exc
 
 
-def _add_market(catalog: Catalog, market: object, source: str) -> None:
+def _retain_market(catalog: Catalog, market: object, source: str) -> None:
     if not isinstance(market, dict):
         raise ScreeningError(f"{source}: market entry is not an object")
     ticker, event = market.get("ticker"), market.get("event_ticker")
     if not isinstance(ticker, str) or not ticker or not isinstance(event, str) or not event:
         raise ScreeningError(f"{source}: market without ticker/event_ticker")
+    # Validate even unique or subsequently superseded observations, before any are discarded.
+    _updated(market)
+    _close_date(market)
+    _volume(market)
+    catalog.observations.append(market)
+
+
+def _revision_key(market: dict[str, Any]) -> tuple[bool, datetime, str]:
+    updated = _updated(market)
+    return updated is None, updated or datetime.min.replace(tzinfo=UTC), _canonical(market)
+
+
+def _add_market(catalog: Catalog, market: dict[str, Any]) -> None:
+    ticker = market["ticker"]
     previous = catalog.markets.get(ticker)
     if previous is None:
         catalog.markets[ticker] = market
@@ -133,9 +150,9 @@ def _merge_tie(first: dict[str, Any], second: dict[str, Any]) -> dict[str, Any]:
         raise ScreeningError(f"{ticker}: receipts report different final results")
     if right and not left:
         merged["status"], merged["result"] = second.get("status"), second.get("result")
-    for key in ("volume_fp", "volume"):
-        if key in first or key in second:
-            merged[key] = str(max(_decimal(first.get(key)), _decimal(second.get(key))))
+    if any("volume_fp" in item or "volume" in item for item in (first, second)):
+        key = "volume_fp" if "volume_fp" in first or "volume_fp" in second else "volume"
+        merged[key] = _number(max(_volume(first), _volume(second)))
     return merged
 
 
@@ -164,7 +181,7 @@ def _add_body(catalog: Catalog, body: bytes, label: str) -> None:
     if not isinstance(markets, list):
         raise ScreeningError(f"{label}: markets is not a list")
     for market in markets:
-        _add_market(catalog, market, label)
+        _retain_market(catalog, market, label)
     catalog.inputs.append(ReceiptInput(label, digest, len(markets), series_name))
 
 
@@ -189,6 +206,12 @@ def load_catalog(receipts: Iterable[Path] = (), fetched: Iterable[Path] = ()) ->
             _add_body(catalog, body, str(root / call["path"]))
     if not catalog.inputs:
         raise ScreeningError("no receipts supplied")
+    # Resolve dated revisions first, then conservatively combine unclocked observations.
+    # Streaming ties can otherwise lend an undated result an arbitrary earlier clock and
+    # let a later unresolved receipt erase it, depending on input-file order.
+    for market in sorted(catalog.observations, key=_revision_key):
+        _add_market(catalog, market)
+    catalog.observations.clear()
     return catalog
 
 

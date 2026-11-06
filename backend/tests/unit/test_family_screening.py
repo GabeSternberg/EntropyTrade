@@ -6,6 +6,7 @@ import json
 import subprocess
 import sys
 from datetime import UTC, date, datetime, timedelta
+from itertools import permutations
 from pathlib import Path
 from typing import Any
 
@@ -147,6 +148,54 @@ def test_unordered_receipts_merge_cumulative_volume_and_final_result(tmp_path: P
         assert report["merged_tickers"] == 1
         assert row["total_volume"] == "233.36"
         assert row["labeled_markets"] == {"yes": 0, "no": 1}
+
+
+def test_unclocked_result_survives_later_dated_polls_in_every_input_order(tmp_path: Path) -> None:
+    final = market("KXA-26JAN01-B1", result="yes")
+    final.pop("updated_time")
+    observations = [
+        final,
+        market("KXA-26JAN01-B1", status="active", result="", updated="2026-01-01T00:00:00Z"),
+        market("KXA-26JAN01-B1", status="active", result="", updated="2026-01-02T00:00:00Z"),
+    ]
+    paths = [write(tmp_path / f"{i}.json", [row]) for i, row in enumerate(observations)]
+    reports = [screen(load_catalog(order)) for order in permutations(paths)]
+    assert all(report["series"] == reports[0]["series"] for report in reports)
+    assert all(report["revised_tickers"] == 1 for report in reports)
+    assert all(report["merged_tickers"] == 1 for report in reports)
+    assert reports[0]["series"][0]["labeled_markets"] == {"yes": 1, "no": 0}
+
+
+def test_dated_outcome_revision_precedes_unclocked_poll_in_every_order(tmp_path: Path) -> None:
+    poll = market("KXA-26JAN01-B1", status="active", result="")
+    poll.pop("updated_time")
+    observations = [
+        market("KXA-26JAN01-B1", result="no", updated="2026-01-01T00:00:00Z"),
+        market("KXA-26JAN01-B1", result="yes", updated="2026-01-02T00:00:00Z"),
+        poll,
+    ]
+    paths = [write(tmp_path / f"{i}.json", [row]) for i, row in enumerate(observations)]
+    for order in permutations(paths):
+        assert screen(load_catalog(order))["series"][0]["labeled_markets"] == {"yes": 1, "no": 0}
+
+
+@pytest.mark.parametrize("updated", ["malformed", 123, ["2026-01-02T00:00:00Z"]])
+def test_unique_and_superseded_invalid_update_clocks_refuse(tmp_path: Path, updated: Any) -> None:
+    bad = write(tmp_path / "bad-clock.json", [market("KXA-26JAN01-B1", updated=updated)])
+    good = write(tmp_path / "good-clock.json", [market("KXA-26JAN01-B1")])
+    for paths in ([bad], [bad, good], [good, bad]):
+        with pytest.raises(ScreeningError, match="invalid updated_time"):
+            load_catalog(paths)
+
+
+def test_unordered_volume_merges_across_catalog_numeric_formats(tmp_path: Path) -> None:
+    legacy = market("KXA-26JAN01-B1")
+    legacy.pop("volume_fp")
+    legacy["volume"] = "100"
+    modern = market("KXA-26JAN01-B1", volume="5.00")
+    paths = [write(tmp_path / f"{i}.json", [row]) for i, row in enumerate([legacy, modern])]
+    for order in permutations(paths):
+        assert screen(load_catalog(order))["series"][0]["total_volume"] == "100"
 
 
 @pytest.mark.parametrize(
