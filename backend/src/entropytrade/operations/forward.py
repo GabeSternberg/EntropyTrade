@@ -31,7 +31,7 @@ import urllib.error
 import urllib.request
 import uuid
 from collections import Counter
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Protocol
 
@@ -328,6 +328,94 @@ def footprint(workspace: Path) -> dict[str, Any]:
         if used >= FOOTPRINT_WARNING
         else "ok",
     }
+
+
+# Projection cadence: the 4-hourly cron (6 windows/day) at one monitor cycle per scheduled
+# window. An assumption stated in every summary, never a measurement.
+CYCLES_PER_DAY = 6.0
+
+
+def frozen_calendar(workspace: Path) -> list[str] | None:
+    """Temporal boundaries every frozen weather dataset shares (read-only, unverified copy).
+
+    The dataset builder refuses conflicting partitions, so any one manifest names them.
+    """
+    root = workspace / "runs" / "weather-datasets"
+    for manifest in sorted(root.glob("[0-9a-f]" * 64 + "/snapshot.json")):
+        try:
+            boundaries = json.loads(manifest.read_text())["identity"]["temporal_boundaries"]
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+        if isinstance(boundaries, list) and len(boundaries) == 3:
+            return [str(b) for b in boundaries]
+    return None
+
+
+def runway(
+    start: dict[str, Any] | None,
+    end: dict[str, Any],
+    cycles: int,
+    *,
+    at: datetime,
+    boundaries: list[str] | None,
+    cycles_per_day: float = CYCLES_PER_DAY,
+) -> dict[str, Any]:
+    """How many more monitor cycles fit before a snapshot budget refuses the workspace.
+
+    Growth is measured between this run's start and end footprints and divided by the cycles
+    completed in this run, so it includes the discovery datasets and label receipts the same
+    window wrote. A workspace over any budget cannot be snapshotted and the chain stalls
+    (receipts are never deleted to make room). Days are extrapolated at ``cycles_per_day``.
+    The calendar's validation end is the last date the fixed fit/calibration/validation
+    partitions need; a runway shorter than that cannot reach the empirical model gates.
+    """
+    from entropytrade.api.recovery import MAX_FILES
+
+    result: dict[str, Any] = {
+        "cycles_this_run": cycles,
+        "cycles_per_day_assumed": cycles_per_day,
+        "validation_end": boundaries[2] if boundaries else None,
+    }
+    if start is None or cycles <= 0:
+        return {**result, "status": "unmeasured", "reason": "no start footprint or no cycles"}
+    budgets = {
+        "expanded_bytes": ("bytes", end["expanded_budget_bytes"]),
+        "distinct_bytes": ("distinct_bytes", end["snapshot_budget_bytes"]),
+        "files": ("files", MAX_FILES),
+    }
+    limits: dict[str, Any] = {}
+    for name, (key, budget) in budgets.items():
+        growth = int(end[key]) - int(start[key])
+        per_cycle = growth / cycles
+        left = budget - int(end[key])
+        limits[name] = {
+            "growth_this_run": growth,
+            "per_cycle": round(per_cycle, 1),
+            "remaining": left,
+            # An existing violation still prevents snapshots when growth is flat or negative.
+            "cycles_left": 0
+            if left < 0
+            else None
+            if per_cycle <= 0
+            else max(0, int(left // per_cycle)),
+        }
+    finite = {k: v["cycles_left"] for k, v in limits.items() if v["cycles_left"] is not None}
+    result["budgets"] = limits
+    if not finite:
+        return {**result, "status": "unmeasured", "reason": "no measured growth this run"}
+    binding = min(finite, key=lambda k: finite[k])
+    days = finite[binding] / cycles_per_day
+    exhausted = (at + timedelta(days=days)).date()
+    result.update(
+        binding=binding,
+        cycles_left=finite[binding],
+        days_left=round(days, 1),
+        exhausted_on=exhausted.isoformat(),
+    )
+    if boundaries is None:
+        return {**result, "status": "measured"}
+    short = exhausted < date.fromisoformat(boundaries[2])
+    return {**result, "status": "short_of_validation_end" if short else "covers_validation_end"}
 
 
 BINDING_STATION = re.compile(r"\((CLI[A-Z]{3})\)")
@@ -645,11 +733,17 @@ def operate(
     log_path: Path,
     create_monitor: bool = True,
     poll: float = 30.0,
+    cycles_per_day: float = CYCLES_PER_DAY,
 ) -> dict[str, Any]:
     started_at = now()
     actions: list[dict[str, Any]] = []
     errors: list[str] = []
     api = HttpApi(port)
+    try:
+        start_footprint: dict[str, Any] | None = footprint(workspace)
+    except OSError as exc:
+        start_footprint = None
+        errors.append(f"start footprint {type(exc).__name__}: {exc}")
     with log_path.open("ab") as log:
         # Fixed argv: this interpreter, the bundled server module and validated options.
         process = subprocess.Popen(  # noqa: S603
@@ -704,6 +798,18 @@ def operate(
         summary["workspace"] = footprint(workspace)
     except OSError as exc:
         errors.append(f"footprint {type(exc).__name__}: {exc}")
+    if "workspace" in summary:
+        cycles = sum(
+            sum(m.get("cycles_this_run", {}).values()) for m in summary.get("monitors", [])
+        )
+        summary["runway"] = runway(
+            start_footprint,
+            summary["workspace"],
+            cycles,
+            at=now(),
+            boundaries=frozen_calendar(workspace),
+            cycles_per_day=cycles_per_day,
+        )
     try:
         summary["station_bindings"] = station_bindings(workspace)
     except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -732,9 +838,17 @@ def main() -> None:
     parser.add_argument("--monitor-interval", type=int, default=600)
     parser.add_argument("--schedule-interval", type=int, default=3600)
     parser.add_argument("--log", type=Path)
+    parser.add_argument(
+        "--cycles-per-day",
+        type=float,
+        default=CYCLES_PER_DAY,
+        help="Projection assumption for the storage runway (not a measurement)",
+    )
     args = parser.parse_args()
     if not 60 <= args.seconds <= 5 * 3600:
         parser.error("--seconds must be 60-18000")
+    if not 0 < args.cycles_per_day <= 1440:
+        parser.error("--cycles-per-day must be in (0, 1440]")
     if args.summary.exists():
         parser.error("--summary already exists; use a new path")
     repo = Path(__file__).resolve().parents[4]
@@ -748,6 +862,7 @@ def main() -> None:
         monitor_interval=args.monitor_interval,
         schedule_interval=args.schedule_interval,
         log_path=log,
+        cycles_per_day=args.cycles_per_day,
     )
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -759,6 +874,7 @@ def main() -> None:
             "server_exit_code",
             "readiness",
             "workspace",
+            "runway",
             "station_bindings",
         )
     }

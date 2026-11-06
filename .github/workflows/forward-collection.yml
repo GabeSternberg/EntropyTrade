@@ -165,9 +165,13 @@ jobs:
         id: collect
         continue-on-error: true
         run: |
+          # Scheduled windows are 540 s: the monitor polls on start and every 600 s, so each
+          # 4-hourly window takes exactly one cycle. Repeated polls inside a window add no
+          # independent events or dates to any gate, but each cycle grows the restored
+          # workspace by about 9 MB (see `runway` in summary.json and docs/forward-operator.md).
           seconds="${{ inputs.seconds }}"
           if [ -z "$seconds" ]; then
-            if [ "${{ github.event_name }}" = "push" ]; then seconds=900; else seconds=1500; fi
+            if [ "${{ github.event_name }}" = "push" ]; then seconds=900; else seconds=540; fi
           fi
           uv run python -m entropytrade.operations.forward \
             --workspace "$WORKSPACE" --seconds "$seconds" \
@@ -254,7 +258,7 @@ jobs:
             echo "## Forward collection"
             echo '```json'
             if [ -f "$OUT/summary.json" ]; then
-              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
+              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','runway','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
             else
               echo '{"summary": "missing"}'
             fi
@@ -266,6 +270,9 @@ jobs:
           # Surface snapshot-budget pressure before a snapshot can be refused (2 GB budget).
           if [ -f "$OUT/summary.json" ]; then
             python3 -c "import json,sys; w=json.load(open(sys.argv[1])).get('workspace') or {}; s=w.get('status'); s in ('warning','critical') and print('::warning::workspace footprint %s: %s bytes (%s distinct), %s of the snapshot budget' % (s, w.get('bytes'), w.get('distinct_bytes'), w.get('budget_used')))" "$OUT/summary.json"
+            # The chain stalls when a budget is reached; warn while it cannot reach the
+            # frozen calendar's validation end at the measured per-cycle growth.
+            python3 -c "import json,sys; r=json.load(open(sys.argv[1])).get('runway') or {}; r.get('status') == 'short_of_validation_end' and print('::warning::storage runway %s: %s cycles (%s days at %s/day) before the %s budget, exhausted %s, validation ends %s' % (r.get('status'), r.get('cycles_left'), r.get('days_left'), r.get('cycles_per_day_assumed'), r.get('binding'), r.get('exhausted_on'), r.get('validation_end')))" "$OUT/summary.json"
           fi
 
       - name: Fail if collection failed
