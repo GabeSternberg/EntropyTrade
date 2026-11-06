@@ -30,10 +30,20 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   - Both targets were refused with `source report is preliminary, missing or nonofficial`.
     The status is `retry`, with the next attempt at 07:27Z. Day 2026-11-06 is pending until
     2026-11-07T06:00Z. `overdue_dates` was empty.
+  - Follow-up chain dispatch `42177275885` (3000 s window) also succeeded. It continued
+    `42174401711` on the same branch, collected 5 cycles (21 total) with 0 errors and server
+    exit 0, and produced snapshot `sha256:2385f2be…` with `chain=head`.
+  - That run made label request 2 at the 07:27Z retry. Day 2026-11-05 was still
+    preliminary, so it now has `failures: 2`, with the next attempt at 09:27Z (backoff
+    doubling, capped at 24 h). `overdue_dates` was empty.
+  - The existing `unresolved_reconciliation` alert opened at 07:00Z, because official
+    results for the 2026-11-05 shadow contracts are not yet reconciled. It is left open for
+    review and not acknowledged by automation.
 - **Readiness.** The prospective report is still `insufficient`: 24 contracts, all refused,
   covering 4 events on 2 dates. Settlement labels: 0 verified, 2 unverified (preliminary).
 
-**Canonical chain head: the newest successful dispatch on this branch.** Labels are only
+**Canonical chain head: run `42177275885` on this branch** (the newest successful dispatch;
+snapshot expires 2026-11-13). Labels are only
 requested while a run is up, and runs happen only on dispatch until the workflow reaches
 `main` (cron every 4 h). The snapshot expires 7 days after its run.
 
