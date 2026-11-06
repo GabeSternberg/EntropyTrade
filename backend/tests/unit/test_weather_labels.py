@@ -437,3 +437,61 @@ def test_wrong_rule_batch_is_refused_and_symlink_store_is_denied(
     (unsafe.root / "requests").symlink_to(service.root / "requests", target_is_directory=True)
     with pytest.raises(ValueError, match="symlinks"):
         unsafe.catalog()
+
+
+def test_source_states_tell_preliminary_portal_lag_from_station_gaps() -> None:
+    from entropytrade.weather.labels import source_states
+
+    # Authentic retained bytes: next-morning portal still preliminary for every station.
+    lagging = source_states(receipt("2026-10-30"), ("CLIMDW", "CLIPHL"))
+    assert lagging["http_status"] == 200
+    assert lagging["portal"]["officialReports"] == 0
+    assert lagging["portal"]["preliminaryReports"] == 45
+    for station in ("CLIMDW", "CLIPHL"):
+        state = lagging["stations"][station]
+        assert state["status"] == "preliminary"
+        assert state["isOfficial"] is False
+        assert state["reportDate"] == "2026-10-30"
+        assert state["integer_high_present"] is True
+        assert "maxTemp" not in state  # an unverified value is never echoed
+    official = source_states(receipt(), ("CLIPHL",))["stations"]["CLIPHL"]
+    assert (official["status"], official["isOfficial"]) == ("official", True)
+    # The parser's refusal text is unchanged; frozen dataset audits replay it byte for byte.
+    with pytest.raises(ValueError, match=r"^source report is preliminary, missing or nonofficial$"):
+        parse_label(target().revalidated(target_date=date(2026, 10, 30)), receipt("2026-10-30"))
+
+
+def test_source_states_bound_controlled_odd_bodies_without_raising() -> None:
+    from entropytrade.weather.labels import source_states
+
+    body = response_body()
+    body["results"].append(philly(body))
+    philly(body)["status"] = "x" * 500
+    states = source_states(receipt(body=body), ("CLIPHL", "CLIMDW", "UNKNOWN"))
+    assert states["stations"]["CLIPHL"] == {"records": 2}
+    assert states["stations"]["UNKNOWN"] == {"records": 0}
+    del body["results"][-1]
+    states = source_states(receipt(body=body), ("CLIPHL",))
+    assert len(states["stations"]["CLIPHL"]["status"]) == 64
+    assert source_states(receipt(body=[1]), ("CLIPHL",))["body"] == "not an object"  # type: ignore[arg-type]
+    bad = receipt().revalidated(body_base64=base64.b64encode(b"{not json").decode())
+    assert source_states(bad, ("CLIPHL",))["body"].startswith("unparseable")
+    empty = receipt().revalidated(status=None, body_base64="", error="ConnectTimeout")
+    missing = source_states(empty, ("CLIPHL",))
+    assert (missing["body"], missing["error"], missing["http_status"]) == (
+        "missing",
+        "ConnectTimeout",
+        None,
+    )
+    assert missing["stations"] == {}
+
+
+@pytest.mark.parametrize("results", [123, True, "unexpected", {"station": "PHL"}])
+def test_source_states_report_malformed_result_collections_without_raising(results: Any) -> None:
+    from entropytrade.weather.labels import source_states
+
+    body = response_body()
+    body["results"] = results
+    states = source_states(receipt(body=body), ("CLIPHL",))
+    assert states["body"] == "results is not a list"
+    assert states["stations"] == {}

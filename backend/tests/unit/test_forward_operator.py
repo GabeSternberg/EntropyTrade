@@ -284,6 +284,57 @@ def test_label_backlog_distinguishes_not_yet_due_from_overdue() -> None:
     assert label_backlog({**schedule, "inflight": "r1"}, at)["overdue_dates"] == []
 
 
+def test_label_backlog_shows_what_the_retained_portal_receipt_said() -> None:
+    from entropytrade.weather.labels import LabelBatch, LabelTarget
+    from tests.unit.test_weather_labels import receipt
+
+    day = "2026-10-30"
+    batch = LabelBatch(
+        source_dataset="sha256:" + "a" * 64,
+        protected_events=(),
+        targets=(
+            LabelTarget(
+                event_id="KXHIGHPHIL-26OCT30",
+                station="CLIPHL",
+                target_date=datetime.fromisoformat(day).date(),
+                timezone="America/New_York",
+                rules_hashes=("controlled-unit-rule",),
+            ),
+        ),
+        receipts=(receipt(day),),  # authentic retained bytes; the portal was preliminary
+    )
+    retry = {**_work(day, "retry", "2026-11-06T13:27:00Z", "CLIPHL"), "last_batch": batch.version}
+    corrupt = {
+        **_work("2026-10-29", "retry", "2026-11-06T13:27:00Z", "CLIPHL"),
+        "last_batch": "sha256:" + "f" * 64,
+    }
+    pending = {**_work("2026-10-31", "pending", "2026-11-07T06:00:00Z", "CLIPHL")}
+    api = FakeApi(
+        {
+            "/api/weather/labels/" + batch.version.removeprefix("sha256:"): batch.model_dump(
+                mode="json"
+            ),
+            # A server returning a different batch than the recorded version is refused.
+            "/api/weather/labels/" + "f" * 64: batch.model_dump(mode="json"),
+        }
+    )
+    schedule = {"inflight": None, "work": [retry, corrupt, pending]}
+    backlog = label_backlog(
+        schedule,
+        datetime(2026, 11, 6, 10, tzinfo=UTC),
+        forward.label_sources(api, schedule),
+    )
+    by_day = {d["day"]: d for d in backlog["dates"]}
+    source = by_day[day]["source"]
+    assert source["batch"] == batch.version
+    assert source["portal"]["preliminaryReports"] == 45
+    assert source["stations"]["CLIPHL"]["status"] == "preliminary"
+    assert source["stations"]["CLIPHL"]["isOfficial"] is False
+    assert by_day["2026-10-29"]["source"] == {"error": "ValueError: label batch identity mismatch"}
+    assert "source" not in by_day["2026-10-31"]  # pending dates have no receipt yet
+    assert len(api.gets) == 2
+
+
 def test_label_backlog_reports_unparseable_clocks_without_raising() -> None:
     at = datetime(2026, 11, 6, 6, 0, tzinfo=UTC)
     schedule = {

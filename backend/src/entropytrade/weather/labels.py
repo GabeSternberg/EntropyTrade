@@ -238,6 +238,74 @@ def parse_label(target: LabelTarget, receipt: LabelReceipt) -> Observation:
     )
 
 
+DIAGNOSTIC_TEXT = 64
+
+
+def _short(value: object) -> object:
+    """Bound provider-controlled diagnostic values; only scalar JSON types pass through."""
+    if value is None or isinstance(value, bool | int | float):
+        return value
+    return str(value)[:DIAGNOSTIC_TEXT]
+
+
+def source_states(receipt: LabelReceipt, stations: tuple[str, ...]) -> dict[str, Any]:
+    """Describe what the retained portal receipt said for each settlement station.
+
+    Operator diagnostics only: it never raises, never decides acceptance and never feeds a
+    batch summary, audit or label. ``parse_label`` alone verifies labels, so its refusal text
+    (replayed into frozen dataset audits) stays unchanged.
+    """
+    state: dict[str, Any] = {
+        "url": receipt.url,
+        "received_at": receipt.received_at.isoformat(),
+        "http_status": receipt.status,
+        "error": _short(receipt.error) if receipt.error else None,
+        "last_modified": _short(receipt.headers.get("last-modified")),
+        "stations": {},
+    }
+    raw = receipt.body()
+    try:
+        body = json.loads(raw) if raw else None
+    except ValueError as exc:
+        state["body"] = "unparseable: " + str(exc)[:DIAGNOSTIC_TEXT]
+        return state
+    if not isinstance(body, dict):
+        state["body"] = "missing" if body is None else "not an object"
+        return state
+    state["portal"] = {
+        k: _short(body.get(k))
+        for k in ("date", "officialReports", "revisedReports", "preliminaryReports", "noReports")
+    }
+    entries = body.get("results")
+    if entries is None:
+        entries = []
+    if not isinstance(entries, list):
+        state["body"] = "results is not a list"
+        return state
+    results = [r for r in entries if isinstance(r, dict)]
+    for station in stations:
+        cli = STATIONS.get(station, ("",))[0]
+        found = [
+            r
+            for r in results
+            if isinstance(r.get("station"), dict) and r["station"].get("cliId") == cli
+        ]
+        if len(found) != 1:
+            state["stations"][station] = {"records": len(found)}
+            continue
+        record, data = found[0], found[0].get("data")
+        data = data if isinstance(data, dict) else {}
+        state["stations"][station] = {
+            "records": 1,
+            "status": _short(record.get("status")),
+            "revised_at": _short(record.get("revisedAt")),
+            **{k: _short(data.get(k)) for k in ("reportDate", "isOfficial", "issueTime")},
+            # Never the value itself: an unverified high must not read as a label.
+            "integer_high_present": type(data.get("maxTemp")) is int,
+        }
+    return state
+
+
 class LabelBatch(DomainModel):
     schema_version: str = "weather-label-batch-v1"
     source_dataset: str

@@ -1,5 +1,63 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): label-source diagnostics for unverified days
+
+Branch `claude/vibrant-bohr-f4e7df` (PR #17), **stacked on PR #16** (`claude/vibrant-bohr-gcmz6m`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#16 had no
+reviews, comments or failing checks; none were merged. PR #16 was `dirty`: #15 had gained a
+STATUS-only commit after #16 branched. This branch merges #15's head and keeps both STATUS
+sections; no code changed in that merge. Issues #3 and #6 remain open.
+
+- **Gap.** 2026-11-05 (CLIMDW, CLIPHL) was refused 3 times with "source report is
+  preliminary, missing or nonofficial". That message covers several source states, and
+  sessions cannot download workspaces, so the planned 24h investigation had no data.
+- **Change.** `weather/labels.py` `source_states()` plus `operations/forward.py`
+  `label_sources()`. Each `retry`/`refused` backlog date (newest 8) now carries `source`, read
+  from its immutable batch through the existing API, with the batch version re-checked. It
+  shows portal-wide official/preliminary/no-report counts and per-station `status`,
+  `isOfficial`, `reportDate`, `issueTime` and `integer_high_present`. The unverified high is
+  never echoed. `parse_label`, its refusal text and `LabelBatch.summary()` are unchanged:
+  frozen datasets replay that text in `_verify_labels`, so changing it would break existing
+  snapshots.
+- **Authentic retained evidence.** The 2026-10-30 portal receipt was still preliminary for
+  **all 45 stations** at 09:08Z the next morning (`officialReports: 0`). A next-morning
+  preliminary refusal is therefore expected source lag, not by itself a station-mapping
+  defect.
+- **Tests.** 2 label cases (authentic bytes plus controlled odd bodies), 1 forward backlog case
+  (including a mismatched-batch refusal) and a real-listener assertion in
+  `test_forward_validation_listener.py`. Ruff lint/format pass; strict mypy passes (564 files).
+  **Full pytest: 1,398 passed in 721.95s**, with zero failures, errors or skips.
+- **Real-runner evidence.**
+  - PR #16's chain continuation `42201841307` succeeded with `chain=head` after a v2 restore:
+    38 cycles, 0 errors, server exit 0. Footprint: 756,173,837 expanded bytes and
+    **173,070,185 distinct (22.9%)**; `budget_used` 0.1761. Distinct bytes grew 13.1 MB over
+    3 cycles while expanded bytes grew 44.4 MB.
+  - Push trial `42203061775` on this branch succeeded.
+  - Chain dispatch `42205430152` on this branch (`continue_from_run=42201841307`) succeeded
+    with `chain=head`: 41 cycles, 0 errors, server exit 0. Footprint: 768,928,242 expanded
+    bytes and 183,761,475 distinct; `budget_used` 0.179.
+  - **First authentic `source` diagnosis.** The 2026-11-05 retry's batch
+    (`sha256:1c987e1b…`, receipt 09:27:09Z, HTTP 200) shows portal-wide
+    `officialReports: 0`, `preliminaryReports: 42` and `noReports: 10`. CLIMDW and CLIPHL each
+    have one record with `status: preliminary`, `isOfficial: false`, the correct `reportDate`
+    and an empty `issueTime`. **This is source-wide publication lag, not a station-mapping
+    defect.** It matches the retained 2026-10-30 receipt. The next retry is at 13:27Z.
+
+**Canonical chain head: run `42205430152` on `claude/vibrant-bohr-f4e7df`** (expires about
+2026-11-13). Dispatch this branch next with `continue_from_run`, or `main` after the stack merges.
+
+**Next autonomous milestone:** read `schedules[].backlog.dates[].source` for 2026-11-05 in
+the newest chain run. If the portal still has `officialReports: 0` after the 13:27Z retry,
+record how long the portal takes to go official; backoff already reaches 24h, so
+correctness is unaffected. Only if other stations turn official while CLIMDW/CLIPHL do not,
+investigate the mapping. Then confirm 2026-11-05 verifies and its contracts reconcile. The
+storage step (each cycle writes raw weather responses twice, plus `weather.sqlite` bodies and
+decision inputs about 3 times) is lower priority: v2 snapshots dedupe identical files and
+leave about 3 weeks of expanded-budget runway. The duplicated weather records also carry
+provenance (receipt and failure tables), so any reduction needs a careful design. Scheduled
+cron collection starts only once the stack reaches `main`, which needs review and merge by
+the user.
+
 ## Current milestone (2026-11-06): content-addressed workspace snapshots (schema v2)
 
 Branch `claude/vibrant-bohr-gcmz6m`, **stacked on PR #15** (`claude/vibrant-bohr-iisaao`).

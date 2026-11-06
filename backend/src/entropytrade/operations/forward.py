@@ -248,7 +248,7 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
             "follow_retained": s["config"].get("follow_retained"),
             **{k: s.get(k) for k in ("status", "detail", "updated_at", "next_discovery", "counts")},
             "inflight": s.get("inflight"),
-            "backlog": label_backlog(s, at),
+            "backlog": label_backlog(s, at, label_sources(api, s)),
         }
         for s in api.get("/api/weather/schedules")
     ]
@@ -329,7 +329,47 @@ def footprint(workspace: Path) -> dict[str, Any]:
     }
 
 
-def label_backlog(schedule: dict[str, Any], at: datetime) -> dict[str, Any]:
+SOURCE_DATES = 8
+
+
+def label_sources(api: Api, schedule: dict[str, Any]) -> dict[str, Any]:
+    """What the latest retained portal receipt said for each unverified date.
+
+    A refusal such as "preliminary, missing or nonofficial" covers several distinct source
+    states; this reads them from the immutable batch so the job log can tell them apart.
+    Diagnostics only: failures are reported per date, and nothing is retried or repaired.
+    """
+    from entropytrade.weather.labels import URL, LabelBatch, source_states
+
+    sources: dict[str, Any] = {}
+    unverified = [
+        w
+        for w in schedule.get("work") or []
+        if w.get("status") in {"retry", "refused"} and w.get("last_batch")
+    ]
+    unverified.sort(key=lambda w: str(w.get("day")), reverse=True)
+    for work in unverified[:SOURCE_DATES]:
+        day = str(work.get("day"))
+        stations = tuple(sorted({str(t.get("station")) for t in work.get("targets") or []}))
+        try:
+            version = str(work["last_batch"]).removeprefix("sha256:")
+            batch = LabelBatch.model_validate(api.get("/api/weather/labels/" + version))
+            if batch.version != work["last_batch"]:
+                raise ValueError("label batch identity mismatch")
+            receipt = next((r for r in batch.receipts if r.url == URL + day), None)
+            sources[day] = (
+                {"batch": work["last_batch"], "receipt": None}
+                if receipt is None
+                else {"batch": work["last_batch"], **source_states(receipt, stations)}
+            )
+        except (ApiError, ValueError, KeyError, TypeError) as exc:
+            sources[day] = {"error": f"{type(exc).__name__}: {str(exc)[:200]}"}
+    return sources
+
+
+def label_backlog(
+    schedule: dict[str, Any], at: datetime, sources: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Per-date label work, so zero labels reads as 'not yet due' or 'overdue', never vague.
 
     A pending/retry date becomes due at the end of its local day (then on backoff). Work that
@@ -351,6 +391,8 @@ def label_backlog(schedule: dict[str, Any], at: datetime) -> dict[str, Any]:
                 "detail": work.get("detail"),
             }
         )
+        if sources and str(work.get("day")) in sources:
+            dates[-1]["source"] = sources[str(work.get("day"))]
     dates.sort(key=lambda d: (str(d["day"]), str(d["next_at"])))
     waiting = []
     for d in dates:
