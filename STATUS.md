@@ -28,10 +28,28 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   helper and footprint test, and a dedup assertion in the authentic-receipt listener test.
   Ruff lint/format pass; strict mypy passes (564 files). **Full pytest: 1,395 passed in
   656.90s**, with zero failures, errors or skips.
-- **Real-runner evidence.** RUNNER_PLACEHOLDER
+- **Real-runner evidence.**
+  - Chain dispatch `42197652880` on this branch (`continue_from_run=42190762987`, which is
+    PR #15's last chain run with 32 cycles) succeeded with `chain=head`.
+  - It **restored the v1 per-path archive** in 13 s, collected 3 cycles (35 total) with 0
+    errors and server exit 0, and wrote the first v2 snapshot
+    (`sha256:79c24187…`).
+  - The authentic footprint was 711,751,918 expanded bytes and **159,961,923 distinct bytes
+    (22.5%)**. `budget_used` was 0.1657, bound by the expanded 4 GiB budget (it had been
+    0.30 against 2 GiB logical).
+  - The uploaded workspace artifact was **22,797,927 bytes**, down from 53,324,794 for the v1
+    archive of run `42190762987`.
+  - Push trial `42196833722` succeeded.
+  - **Not yet exercised:** a real-runner restore of a v2 archive. Continuation dispatch from
+    `42197652880` is queued; confirm its restore step and footprint.
 
-**Next autonomous milestone:** confirm on the next chain runs that `distinct_bytes` stays well
-under `bytes` and that v2 archives restore. Then confirm 2026-11-05 verifies once the official
+**Canonical chain head: run `42197652880` on `claude/vibrant-bohr-gcmz6m`** (expires about
+2026-11-13), or its successful continuation. Dispatch this branch next, or `main` after merge.
+
+**Next autonomous milestone:** confirm the queued continuation restores the v2 archive and that
+`distinct_bytes` keeps growing far slower than `bytes`. The expanded 4 GiB bound now binds
+(about 3 weeks of runway); the next storage step is to stop each cycle writing raw responses
+twice and decision inputs about 3 times. Then confirm 2026-11-05 verifies once the official
 climate report is published. The V1 gate for matched forecasts remains the monitor's
 `blocked` model binding (no fitted authentic forward model); that is data-limited and needs
 multi-day collection, which this change keeps alive.
