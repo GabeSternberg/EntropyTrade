@@ -16,6 +16,12 @@ REPO = Path(__file__).resolve().parents[3]
 AUTHENTIC = (
     REPO / "data/local-operation-review/20261029-leased-source-final/listener-recovery/workspace"
 )
+# Pin the verified weather capture. This workspace also retains an interrupted cycle whose
+# public directory has no manifest; filesystem iteration order cannot identify the fixture.
+AUTHENTIC_CAPTURE = (
+    AUTHENTIC
+    / "shadow/f0995225-3eaa-43a4-8854-c1e01b8fc661/52c8a2b8-ae2b-4fb5-a9f3-4aacfcdbe276/public"
+)
 PORTAL = REPO / "data/weather-label-review/20261031/probe/primary-2026-10-29.json"
 RETAINED_RULES = {
     "KXHIGHNY": REPO / "data/public/newyork/manifest.json",
@@ -165,9 +171,8 @@ def test_station_bindings_report_mismatch_unnamed_missing_and_newest_capture(
 
 
 def test_station_bindings_ignore_non_weather_and_unreadable_manifests(tmp_path: Path) -> None:
-    shutil.copytree(
-        next(AUTHENTIC.glob("shadow/*/*/public")).parent, tmp_path / "shadow/m/c", symlinks=False
-    )
+    assert json.loads((AUTHENTIC_CAPTURE / "manifest.json").read_text())["family"] == "weather"
+    shutil.copytree(AUTHENTIC_CAPTURE.parent, tmp_path / "shadow/m/c", symlinks=False)
     bad = tmp_path / "shadow/m/broken/public"
     bad.mkdir(parents=True)
     (bad / "manifest.json").write_text("{not json")
