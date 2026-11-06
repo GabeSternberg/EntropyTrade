@@ -1,5 +1,73 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): carry the authentic chain across branches; fix lost snapshot uploads
+
+Branch `claude/vibrant-bohr-g16hbp`, **stacked on PR #10** (`claude/vibrant-bohr-23la5m`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5, #7, #8, #9 and #10
+had no reviews, review threads or change requests and no failing checks; none were merged.
+
+- **Why.** Snapshots are found per branch. The authentic chain (11 cycles) lived only on #7's
+  branch, so merging to `main` would have restarted it empty, and the readiness summary from
+  #10 had never run on real data.
+- **Cross-branch continuation.** `workflow_dispatch` input `continue_from_run` restores a
+  named run's snapshot. It fails closed on a non-numeric ID, a run of another workflow or
+  repository, an incomplete run, a missing or expired snapshot, or `fresh: true`. It never
+  falls back. An artifact-listing API error now fails the run instead of silently choosing an
+  older snapshot. `lineage.txt` adds `branch`/`previous_branch`; the source lineage travels
+  as `previous-lineage.txt`.
+- **Defect found on the real runner and fixed.** Run `42162688233` restored run
+  `42156641720` (branch `claude/vibrant-bohr-ypomud`, 11 cycles) and collected 3 cycles
+  (14 total, 0 errors, server exit 0, snapshot `sha256:f8c028b2…`). But `hashFiles()` on the
+  243 MB `workspace.zip` exceeded the runner's 120 s limit, so **the snapshot was never
+  uploaded and those 3 cycles are lost** (only the 90-day `forward-summary` survives). All
+  step conditions now use step outputs and plain file tests; the upload requires
+  `steps.snapshot.outputs.archive`, which is set only after the archive, checksum and lineage are written.
+  The #5/#7/#9/#10 branches still carry the `hashFiles()` guards and can lose snapshots the same way.
+- **Second defect found and fixed: chain order.** Same-branch lookup took the newest
+  run by *creation*. Dispatch `42167131442` was created before push `42167132149`, but the
+  push executed first (the concurrency group serializes them). Creation order would have
+  picked the push run's fresh-chain snapshot after both finished, orphaning the continued chain. Lookup
+  now considers only completed runs, ordered by completion (`updated_at`). The test stub now
+  applies the workflow's real `--jq` filters with `jq`.
+- **First readiness on authentic data** (run `42162688233`, job log): prospective report
+  `insufficient`: 24 contracts, 0 pending, 24 refused, 0 matched; 4 independent events on
+  2 dates; 10 events / 5 dates still needed. Settlement labels: 1 partition, 0 verified,
+  0 unverified (no label requests yet). All 4 `stale_collection` alerts were resolved; they
+  mark the gaps between windows.
+- **Tests.** `backend/tests/unit/test_forward_workflow_chain.py` (19 cases) runs the
+  workflow's own step scripts against a stubbed `gh` that evaluates the real `--jq` filters.
+  It covers same-branch selection, expiry, completion order, incomplete runs, continuation,
+  8 fail-closed cases and the API-error refusal, and asserts that no condition uses
+  `hashFiles()`. 4 cases fail on the first commit's workflow (hashFiles) and 2 on the second's (ordering).
+- **Results.** Ruff lint/format pass; strict mypy passes (564 files). **Full pytest 1,376 passed
+  in 590.28s** at head `f4d4fc3` (zero failures/errors/skips); it was 1,368 at `65d7bea`.
+- **Canonical continuation succeeded:** run `42168444616` at `f4d4fc3`.
+  - It restored `42156641720` (`claude/vibrant-bohr-ypomud`, 11 cycles, `sha256:4a8125a5…`).
+  - It kept the monitor and schedule, ending at 14 cycles. There were 0 errors, the server
+    exited 0, and the snapshot is `sha256:0ff3a700…` (243 MB zip; 17.7 MB artifact).
+  - Readiness is unchanged: 24 refused, 0 matched, 4 events on 2 dates, 0 verified labels.
+  - The fee schedule was skipped after its recent 429.
+  - Its predecessor `42167131442` was cancelled by GitHub before it started: a newer pending
+    push run replaced it in the concurrency group. That pending-run replacement is now
+    documented. Push runs `42162670639` and `42167132149` hold a separate,
+    **non-canonical** fresh chain; ignore them.
+- **Observed gap (not investigated):** the schedule shows 2 pending dates but has made 0
+  label requests across every window, so settlement-label readiness cannot advance. Find out
+  whether it is waiting for official reports or is stuck.
+
+**Canonical chain:** from now on, upkeep dispatches go to this branch, or to `main` after
+merge via `continue_from_run`. **Do not dispatch `claude/vibrant-bohr-ypomud` again**, or the
+chains diverge from a shared history; their counts must never be added together.
+Run `42156641720`'s snapshot expires about 2026-11-13.
+
+**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → #11. After merging, dispatch once on
+`main` with `continue_from_run=42168444616` (or the newest successful run on this branch); the 4-hourly cron then continues
+it. Fee PDF import remains issue #6.
+**Next autonomous milestone:** diagnose why the following schedule makes no label requests
+(0 across all windows). Keep the canonical chain alive with plain dispatches on this branch,
+without `continue_from_run`, and never push while one is queued. Archive sizes (243 MB per snapshot) need
+attention: consider compressing the archive or measuring which files grow per cycle.
+
 ## Current milestone (2026-11-06): evidence readiness in forward-collection summaries
 
 Branch `claude/vibrant-bohr-23la5m`, **stacked on PR #9** (`claude/vibrant-bohr-1hw7xm`).

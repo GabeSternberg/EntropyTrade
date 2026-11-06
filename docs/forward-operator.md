@@ -10,12 +10,13 @@ headlessly, so authentic forward receipts can accrue without a human-operated ma
 
 ## What one run does
 
-1. Finds the newest run of this workflow **on the same branch** that uploaded an unexpired
-   `forward-workspace` snapshot, downloads it, checks its SHA-256 and restores it with the
+1. Finds the most recently **completed** run of this workflow **on the same branch** (by
+   completion time, not creation time) that uploaded an unexpired `forward-workspace` snapshot, downloads it, checks its SHA-256 and restores it with the
    existing verified `entropytrade.api.recovery restore`. If a previous snapshot exists but
    cannot be downloaded, verified or restored (for example after a `uv.lock` change), the run
    **fails**. It never silently starts a new chain. The first run on a branch, or a manual
-   dispatch with `fresh: true`, starts a new empty workspace.
+   dispatch with `fresh: true`, starts a new empty workspace. A manual dispatch may instead
+   name `continue_from_run` (see [continuing a chain on another branch](#continuing-a-chain-on-another-branch)).
 2. Runs `python -m entropytrade.operations.forward` for a bounded window (default 1,500 s;
    900 s for verification pushes). The operator starts `entropytrade.api.server` on
    127.0.0.1 and uses only the browser's HTTP API:
@@ -68,6 +69,17 @@ Summaries written before this change listed every alert with `status: null`.
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 
+Runs on one branch are serialized by the concurrency group, so completion order is chain
+order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push
+`42167132149`, but the push ran first. Creation order would have made the push run's
+fresh-chain snapshot "newest" and orphaned the continued chain.
+
+Step conditions use step outputs and plain file tests, never `hashFiles()`. Hosted runners
+abort `hashFiles()` after 120 s. In run `42162688233` that limit was hit on a 243 MB
+`workspace.zip`, so a successful 14-cycle window's snapshot was never uploaded. The upload now
+runs only when the snapshot step has written the archive, checksum and lineage
+(`steps.snapshot.outputs.archive`).
+
 ## Safety boundaries
 
 - Every network request is made by existing bounded adapters: fixed public URLs, unauthenticated
@@ -89,7 +101,34 @@ retained receipt. The run is still marked failed.
 Scheduled runs only start after the workflow is on the default branch. Before that, a push
 to a `claude/**` branch that changes the workflow file runs one verification window on that
 branch's own chain. To run manually after merging, use **Actions → forward-collection → Run
-workflow** (`seconds`, optional `fresh`).
+workflow** (`seconds`, optional `fresh` or `continue_from_run`).
+
+### Continuing a chain on another branch
+
+Snapshots are found per branch, so a merge to `main` (or a new branch) would otherwise start an
+empty chain and leave the accumulated receipts to expire after 7 days. Dispatch once with
+`continue_from_run=<run ID>` to restore that run's snapshot instead. The step **fails closed**
+unless the ID is numeric, the run is a completed `forward-collection.yml` run of this
+repository, it has an unexpired `forward-workspace` artifact, and `fresh` is false. It never
+falls back to the branch's own snapshot or a fresh chain. An error listing artifacts now
+also fails the run, instead of silently selecting an older snapshot. Restore still requires
+the same `uv.lock`/`pyproject.toml`.
+
+`lineage.txt` now records `branch` and `previous_branch`, and the snapshot artifact carries the
+source run's `previous-lineage.txt`, so the cross-branch hop stays traceable. Later runs on the
+new branch continue from its own newest snapshot as usual.
+
+**Do not push to the branch, or let a scheduled run start, while a continuation dispatch is
+queued.** A GitHub concurrency group keeps at most one *pending* run, and a newer pending run
+cancels the older one. That happened on 2026-11-06: push run `42167372741` cancelled queued
+dispatch `42167131442` before it started. A cancelled continuation leaves the chain unchanged,
+but it must be dispatched again. On `main`, dispatch soon after a scheduled run finishes, not
+just before `:23` past a 4-hour mark.
+
+Continuing copies evidence; it does not merge chains. After continuing, **stop dispatching the
+source branch**, or the two chains diverge from a shared history and their counts must never be
+added together. `backend/tests/unit/test_forward_workflow_chain.py` runs the actual step script
+against a stubbed `gh`.
 
 Inspect a chain locally (offline, after `uv sync --locked`):
 

@@ -21,6 +21,11 @@ on:
         description: Start a NEW workspace chain even if a previous snapshot exists
         type: boolean
         default: false
+      continue_from_run:
+        description: >-
+          Optional run ID of this workflow (any branch) whose snapshot to continue from,
+          e.g. to carry a branch chain onto main. Blank uses this branch's newest snapshot.
+        default: ""
   push:
     branches: ["claude/**"]
     paths:
@@ -65,20 +70,54 @@ jobs:
         id: previous
         env:
           GH_TOKEN: ${{ github.token }}
+          CONTINUE_FROM: ${{ inputs.continue_from_run }}
+          FRESH: ${{ inputs.fresh }}
         run: |
-          # Newest run of this workflow on this branch that uploaded an unexpired snapshot.
-          # Failed runs still upload their verified snapshot, so receipts are never skipped.
-          runs=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/forward-collection.yml/runs?branch=$GITHUB_REF_NAME&per_page=50" \
-            --jq ".workflow_runs[] | select(.id != $GITHUB_RUN_ID) | .id")
-          found=""
-          for id in $runs; do
-            if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/artifacts" \
-                --jq '.artifacts[] | select(.name == "forward-workspace" and (.expired | not)) | .id' | grep -q .; then
-              found=$id; break
+          has_snapshot() {
+            # An API error fails the run instead of silently selecting an older snapshot.
+            ids=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$1/artifacts" \
+              --jq '.artifacts[] | select(.name == "forward-workspace" and (.expired | not)) | .id') \
+              || { echo "::error::could not list artifacts of run $1"; exit 1; }
+            [ -n "$ids" ]
+          }
+          found=""; source_branch="$GITHUB_REF_NAME"
+          if [ -n "$CONTINUE_FROM" ]; then
+            # Explicit cross-branch continuation. Fails closed: never falls back to a fresh
+            # chain or to this branch's own snapshot when the named run is unusable.
+            if [ "$FRESH" = "true" ]; then
+              echo "::error::continue_from_run and fresh are mutually exclusive"; exit 1
             fi
-          done
+            if ! printf '%s' "$CONTINUE_FROM" | grep -Eq '^[0-9]{1,20}$'; then
+              echo "::error::continue_from_run must be a numeric run ID"; exit 1
+            fi
+            meta=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$CONTINUE_FROM" \
+              --jq '[.path, .head_branch, .repository.full_name, .status] | @tsv')
+            IFS=$'\t' read -r path source_branch repo status <<< "$meta"
+            if [ "$repo" != "$GITHUB_REPOSITORY" ] || [ "${path%%@*}" != ".github/workflows/forward-collection.yml" ]; then
+              echo "::error::run $CONTINUE_FROM is not a forward-collection run of this repository"; exit 1
+            fi
+            if [ "$status" != "completed" ]; then
+              echo "::error::run $CONTINUE_FROM has not completed ($status)"; exit 1
+            fi
+            if ! has_snapshot "$CONTINUE_FROM"; then
+              echo "::error::run $CONTINUE_FROM has no unexpired forward-workspace snapshot"; exit 1
+            fi
+            found=$CONTINUE_FROM
+          else
+            # Most recently COMPLETED run of this workflow on this branch that uploaded an
+            # unexpired snapshot. Runs on one branch are serialized (concurrency group), so
+            # completion order is chain order; creation order is not (a queued dispatch can
+            # be created before a push run that executes first). Failed runs still upload
+            # their verified snapshot, so receipts are never skipped.
+            runs=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/forward-collection.yml/runs?branch=$GITHUB_REF_NAME&status=completed&per_page=50" \
+              --jq "[.workflow_runs[] | select(.id != $GITHUB_RUN_ID and .status == \"completed\")] | sort_by(.updated_at) | reverse | .[].id")
+            for id in $runs; do
+              if has_snapshot "$id"; then found=$id; break; fi
+            done
+          fi
           echo "run_id=$found" >> "$GITHUB_OUTPUT"
-          echo "Previous snapshot run: ${found:-none}"
+          echo "source_branch=$source_branch" >> "$GITHUB_OUTPUT"
+          echo "Previous snapshot run: ${found:-none} (branch ${source_branch})"
 
       - name: Download previous snapshot
         if: steps.previous.outputs.run_id != '' && inputs.fresh != true
@@ -102,11 +141,17 @@ jobs:
             uv run python -m entropytrade.api.recovery restore \
               --archive data/cache/forward-previous/workspace.zip --workspace "$WORKSPACE"
             echo "${{ steps.previous.outputs.run_id }}" > "$OUT/previous-run-id"
+            echo "${{ steps.previous.outputs.source_branch }}" > "$OUT/previous-branch"
+            # The source lineage travels forward so a continued chain stays traceable.
+            if [ -f data/cache/forward-previous/lineage.txt ]; then
+              cp data/cache/forward-previous/lineage.txt "$OUT/previous-lineage.txt"
+            fi
           elif [ -n "${{ steps.previous.outputs.run_id }}" ] && [ "${{ inputs.fresh }}" != "true" ]; then
             echo "::error::previous snapshot exists but was not downloaded"; exit 1
           else
             echo "Starting a new workspace chain"
             echo "" > "$OUT/previous-run-id"
+            echo "" > "$OUT/previous-branch"
           fi
 
       - name: Collect (bounded window)
@@ -121,18 +166,31 @@ jobs:
             --workspace "$WORKSPACE" --seconds "$seconds" \
             --summary "$OUT/summary.json" --log "$OUT/server.log"
 
+      - name: Check for a workspace
+        # Plain file tests, not hashFiles(): hashFiles reads whole files and is cut off after
+        # 120 s, which skipped the snapshot upload of a 243 MB archive in run 42162688233.
+        id: workspace
+        if: always()
+        run: |
+          if [ -f "$WORKSPACE/jobs.sqlite" ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Capture official fee documents (unreviewed, at most daily)
         # Runs after the server has stopped and released the workspace lease. Captures are
         # retained as immutable UNREVIEWED receipts inside the chained workspace; they never
         # certify a fee. Certification stays a local operator review (docs/fee-evidence.md).
-        if: always() && hashFiles('data/cache/forward/jobs.sqlite') != ''
+        if: always() && steps.workspace.outputs.exists == 'true'
         continue-on-error: true
         run: |
           uv run python -m entropytrade.execution.fee_admin \
             --workspace "$WORKSPACE" --capture-due schedule rounding | tee "$OUT/fee-capture.json"
 
       - name: Snapshot workspace
-        if: always() && hashFiles('data/cache/forward/jobs.sqlite') != ''
+        id: snapshot
+        if: always() && steps.workspace.outputs.exists == 'true'
         run: |
           uv run python -m entropytrade.api.recovery snapshot \
             --workspace "$WORKSPACE" --archive "$OUT/workspace.zip" | tee "$OUT/snapshot.json"
@@ -140,14 +198,18 @@ jobs:
           {
             echo "commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
+            echo "branch=$GITHUB_REF_NAME"
             echo "previous_run_id=$(cat "$OUT/previous-run-id")"
+            echo "previous_branch=$(cat "$OUT/previous-branch")"
             echo "uv_lock=sha256:$(sha256sum uv.lock | cut -d' ' -f1)"
             echo "pyproject=sha256:$(sha256sum pyproject.toml | cut -d' ' -f1)"
           } > "$OUT/lineage.txt"
           ls -l "$OUT"
+          # Set only after the archive, checksum and lineage are all written.
+          echo "archive=true" >> "$GITHUB_OUTPUT"
 
       - name: Upload workspace snapshot
-        if: always() && hashFiles('data/cache/forward-out/workspace.zip') != ''
+        if: always() && steps.snapshot.outputs.archive == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: forward-workspace
@@ -155,6 +217,7 @@ jobs:
             data/cache/forward-out/workspace.zip
             data/cache/forward-out/workspace.sha256
             data/cache/forward-out/lineage.txt
+            data/cache/forward-out/previous-lineage.txt
           retention-days: 7
           if-no-files-found: error
 
