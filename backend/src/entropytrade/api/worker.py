@@ -17,7 +17,8 @@ from entropytrade.experiments.data import AdapterRegistry
 from entropytrade.experiments.workflow import research_and_test
 from entropytrade.families.bitcoin_history import build_history, history_data
 from entropytrade.families.bitcoin_models import MODELS, BitcoinPredictions
-from entropytrade.families.public import ForwardPredictions, capture_public, forward_data
+from entropytrade.families.public import ForwardPredictions, forward_data
+from entropytrade.families.weather_capture import capture_public
 from entropytrade.weather.collection import WeatherConfig
 from entropytrade.weather.history import load_snapshot
 

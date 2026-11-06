@@ -153,6 +153,33 @@ Adding locations raises per-cycle storage. Going from 2 to 4 locations raised di
 from about 4.8 to about 6.0 MB per cycle and expanded growth to about 12.9 MB per cycle (run
 `42217215001`). Watch `workspace` growth per cycle before adding more.
 
+### Capture layout (since 2026-11-06)
+
+Each public weather capture keeps every response body exactly once, under `raw/NNNN.json`
+(listed with URL, status, hash and receipt time in `capture.json`). Forecast observations cite
+that same file: same bytes, same `raw_hash`. The forecast archive database is a parsing
+intermediate built in a temporary directory and is not retained. The capture keeps only:
+
+- `weather/manifest.json`: the archive summary (coverage, vintage/failure counts, snapshot hash);
+- `weather/receipts.json` (`entropytrade-weather-receipts-v1`): every archive receipt with its
+  URL, status, receipt and ingestion clocks, body hash, `raw_ref`, and the vintage or parse
+  failure it produced.
+
+Before this change each capture also kept `weather.sqlite`, a second copy of every forecast
+body (`weather/raw/`) and a second observation file (`weather/observations.jsonl`). Replaying
+the retained authentic 2026-10-29 two-location capture through the new code shrinks it from
+2,346,335 to 939,526 bytes (19 to 14 files), with identical observation values, revision IDs
+and raw hashes. Earlier captures are unchanged and still verify: readers only follow each
+manifest's own checksums and each observation's `raw_ref`. If a body has no identical retained
+response, it is copied to `weather/raw/` as before, never dropped.
+
+The collector code lives in `families/weather_capture.py`. `families/public.py` is **frozen**:
+`forward_data` binds every capture's `feature_version` to that file's hash, and
+`verified_inputs` refuses a retained shadow cycle whose saved version differs. The first
+attempt at this change edited `public.py` and failed 16 authentic replay tests with
+"shadow source version mismatch". `test_forward_data_module_is_frozen_for_retained_shadow_cycles`
+now pins the hash with that explanation.
+
 Runs on one branch are serialized by the concurrency group, so completion order is chain
 order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push
 `42167132149`, but the push ran first. Creation order would have made the push run's

@@ -21,7 +21,7 @@ from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.transport import RawCapture
 from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.families.bitcoin_history import OutcomeTransport
-from entropytrade.families.public import capture_public
+from entropytrade.families.weather_capture import capture_public
 from entropytrade.ml.forward import FrozenWeather
 from entropytrade.tracking.accounting import account_hash
 from entropytrade.tracking.accounting import reproduce as reproduce_paper

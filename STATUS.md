@@ -1,5 +1,99 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): each weather body retained once per capture
+
+Branch `claude/vibrant-bohr-xq6pdo`, **stacked on PR #18** (`claude/vibrant-bohr-3bmoqc`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#18 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Four-location confirmation (PR #18's next step).** Chain run `42213570196`
+  (`chain=head`, 46 cycles, server exit 0) reported `station_bindings.status: ok`: KXHIGHPHIL
+  CLIPHL, KXHIGHCHI CLIMDW, KXHIGHNY CLINYC and KXHIGHTDAL CLIDFW are all `matched`, 6/6
+  contracts each, with the rules naming exactly the configured station. That run still used the
+  pre-rounding coordinates, so its 2 cycles failed with NWS acquisition failures (monitor
+  `failures: 2`, still active). Run `42217215001` on `05bcea6` (rounded coordinates, old
+  capture layout, 3,000 s) succeeded with `chain=head`: 48 cycles, **2 completed with 0
+  acquisition failures**, monitor `failures: 0`, and the stale-collection alert resolved.
+  `station_bindings` is still `ok` with all four `matched`. Label backlog dates still list
+  only CLIMDW/CLIPHL: four-location captures had not yet been through a discovery
+  (`next_discovery` 13:28Z).
+- **Measured four-location growth (old layout), 42213570196 → 42217215001, 2 cycles.**
+  - Expanded: 830,372,605 → 856,230,326 bytes, about **12.9 MB per cycle**.
+  - Distinct: 206,858,327 → 218,830,577 bytes, about **6.0 MB per cycle**.
+  - `shadow` +11.7 MB and `runs/weather-datasets` +13.2 MB.
+  - Real windows give about 2 cycles per run, so a 4-hourly cron gives about 12 cycles per
+    day. That leaves about 22 days of expanded budget and 26 days of distinct budget.
+- **Gap: storage runway.** Snapshots refuse a workspace over 2 GiB distinct or 4 GiB expanded
+  bytes. After run `42213570196`: 830,372,605 expanded and 206,858,327 distinct bytes, with
+  `runs/weather-datasets` 641.9 MB and `shadow` 165.4 MB. Each capture kept every forecast
+  body three times (`raw/`, `weather.sqlite`, `weather/raw/`), plus a second observation
+  file. Discovery datasets then copy every capture file again. The measured runway below is
+  about three weeks, which is too short for the about 25 days four stations need to reach
+  60/20/20 events.
+- **Change.** `families/weather_capture.py` is the collector's capture
+  (shadow and research workers). Observations cite the capture's identical `raw/NNNN.json`
+  receipt: same bytes, same `raw_hash`, unchanged availability clocks. The forecast archive
+  is built in a temporary directory. `weather/receipts.json` keeps each receipt's URL, status,
+  clocks, body hash, `raw_ref` and the vintage or parse failure it produced. A body with no
+  identical retained response is still copied to `weather/raw/`. Older captures are unchanged
+  and verify through their own manifests.
+- **Frozen module.** The first attempt edited `families/public.py` and failed 16 authentic
+  replay tests ("shadow source version mismatch"). `forward_data` binds every capture's
+  `feature_version` to that file's hash, so any edit invalidates every retained shadow cycle,
+  including the live chain. It is restored byte-for-byte. A new test pins its hash and says why.
+- **Evidence.** Replaying the exact bytes of the retained authentic 2026-10-29 two-location
+  capture through the new code gives **2,346,335 → 939,526 bytes (−60%)**, 19 → 14 files, 648
+  observations. Values, revision IDs and raw hashes are identical; only the replay clocks and
+  `raw_ref` differ. Discovery datasets copy captures, so the expanded saving applies twice.
+  Tests: capture-layout and failure-ledger assertions in `test_public_families.py`, plus the
+  frozen-hash guard. Ruff lint/format pass; strict mypy passes (566 files).
+  **Full pytest: 1,404 passed in 614.49s**, with zero failures, errors or skips. The guard test
+  was added after that run; its file passes 22/22.
+- **Real runner: chain run `42224274925` on this branch** (`c6b38ff`,
+  `continue_from_run=42217215001`, 3,000 s) succeeded with `chain=head`. It restored the
+  old-layout workspace and recorded 53 cycles, **5 completed with 0 failures**, `errors: []`,
+  server exit 0, and `station_bindings` `ok`. Discovery froze old- and new-layout captures
+  together without error (retained inputs 45 → 50). **2026-11-05 CLIMDW/CLIPHL are now
+  `verified`** ("Official labels retained; revision check scheduled"). These are the first
+  verified authentic forward labels in this chain, after the portal went official between
+  09:27Z and 13:27Z (backoff retry 4).
+- **Measured growth per cycle, old layout (2 cycles) → new layout (5 cycles):**
+
+  | Area | Old layout | New layout | Change |
+  |---|---|---|---|
+  | `shadow` | 5.84 MB | 3.25 MB | −44% |
+  | distinct | 5.99 MB | 3.66 MB | −39% |
+  | expanded | 12.93 MB | 9.19 MB | −29% |
+
+  The expanded figure is an upper bound. That run's discovery also copied earlier old-layout
+  captures, so `runs/weather-datasets` grew 27.1 MB. Expected runway at about 12 cycles per
+  day is now about **31 days** of the 4 GiB expanded budget (902,205,069 bytes used) and about
+  43 days of the 2 GiB distinct budget (237,114,816 bytes used).
+- **Defect found (not fixed): NYC/DAL are captured but never labelled.** `_build_snapshot`
+  (`weather/history.py`) creates decision rows for shadow captures only from the monitor's
+  saved samples. The monitor's frozen universe is PHL/CHI, so KXHIGHNY/KXHIGHTDAL contracts
+  never become dataset rows and so never become label targets. The run output agrees: after
+  discovering four-location captures, the 2026-11-06 backlog still lists only CLIMDW/CLIPHL.
+  PR #18's claim that new series are "captured and labelled" is therefore only half true. The
+  fix changes point-in-time decision semantics for out-of-universe contracts in shadow
+  captures, so it needs its own milestone and tests. It is not rushed here.
+
+**Canonical chain head: run `42224274925` on `claude/vibrant-bohr-xq6pdo`** (expires about
+2026-11-13). Dispatch this branch next with `continue_from_run`.
+
+**Next autonomous milestone: label targets for out-of-universe captured contracts.** For
+shadow captures, add decision rows for captured contracts outside the monitor's universe:
+- Use the capture's own `decision_time`, only while the contract is open.
+- Apply the same protected-event and holdout exclusions as public captures.
+- Do not change in-universe shadow samples or any frozen dataset.
+- Test that NYC/DAL rows appear, that post-close/protected contracts stay excluded, and that
+  earlier snapshots replay unchanged.
+
+Then confirm on a real runner that NYC/DAL dates enter the backlog and verify. Durable cold
+storage for sealed evidence (for example release assets, since workflow artifacts expire)
+still needs a user decision. Scheduled cron collection starts only once the stack reaches
+`main`.
+
 ## Current milestone (2026-11-06): four forward locations with station-binding evidence
 
 Branch `claude/vibrant-bohr-3bmoqc`, **stacked on PR #17** (`claude/vibrant-bohr-f4e7df`).
