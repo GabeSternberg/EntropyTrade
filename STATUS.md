@@ -24,10 +24,32 @@ remain open.
   See [forward operator](docs/forward-operator.md#push-runs-are-trials-not-chain-heads).
 - **Tests.** `test_forward_workflow_chain.py` now has 22 cases. The 3 new cases fail against
   PR #11's workflow and pass here. Trial counts are a fork and must never be added to chain counts.
-- **Results.** Ruff lint/format pass; strict mypy passes (564 files). Full pytest: see below.
+- **Results.** Ruff lint/format pass; strict mypy passes (564 files). **Full pytest: 1,379
+  passed in 862.37s** at `1b92736`, with zero failures, errors or skips.
+- **Real-runner evidence.**
+  - Push trial `42168484729` uploaded only `forward-trial-workspace` (984,461 bytes).
+  - Continuation dispatch `42168490905` (`continue_from_run=42156641720`) **started while that
+    trial was still running**. Under #11's workflow it would have waited and could have been
+    replaced.
+  - The dispatch restored `sha256:4a8125a5…` (11 cycles, branch `claude/vibrant-bohr-ypomud`)
+    and ended at **13 cycles** with 0 errors and server exit 0. The new snapshot is
+    `sha256:d1e69060…`, and lineage records `event=workflow_dispatch` and `chain=head`.
+  - The `forward-workspace` artifact is 17,190,118 bytes compressed and expires
+    2026-11-13T05:53Z.
+  - The fee schedule PDF was skipped after the earlier HTTP 429, per the daily cadence.
+- **Readiness** (unchanged by 2 more cycles): the prospective report is `insufficient`. It has
+  24 contracts, all refused, covering 4 events on 2 dates; 0 matched. There are 0 settlement
+  labels and 0 open alerts.
 
-**Canonical chain:** this branch, once the continuation dispatch below completes. Do not
-dispatch `claude/vibrant-bohr-g16hbp` or `claude/vibrant-bohr-ypomud` again.
+**Canonical chain head: run `42168490905` on this branch.** Do not dispatch
+`claude/vibrant-bohr-g16hbp` (fresh fork) or `claude/vibrant-bohr-ypomud` again. Before
+2026-11-13, dispatch this branch, or `main` after merge with
+`continue_from_run=<newest chain run here>`.
+
+**Next autonomous milestone:** settlement-label readiness is 0 because the chained workspace
+has no label requests. Make the forward run enable the existing opt-in label schedule on the
+first chained run, idempotently, and verify labels on a real runner. The cron fires only after
+the workflow is on `main`.
 
 ## Current milestone (2026-11-06): carry the authentic chain across branches; fix lost snapshot uploads
 
