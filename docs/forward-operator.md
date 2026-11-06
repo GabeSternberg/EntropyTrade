@@ -200,7 +200,10 @@ location is backed by retained authentic evidence, checked by
   retained receipt `data/weather-label-review/20261031/probe/primary-2026-10-29.json`.
   `weather/labels.py` `STATIONS` allowlists exactly those values.
 - **Forecast coordinates.** These are the coordinates returned by the retained
-  `api.weather.gov/stations/K…` receipt. Oklahoma City (CLIOKC) is **not** added: its
+  `api.weather.gov/stations/K…` receipt, **rounded to 4 decimals**. api.weather.gov
+  `/points` redirects (301) a point with more decimals. The bounded client does not follow
+  redirects, so every cycle then fails, and 5 consecutive failures pause the monitor (run
+  `42213570196`). A test enforces at most 4 decimals. Oklahoma City (CLIOKC) is **not** added: its
   retained coordinates are a city-centre geocode, not the station.
 
 The existing monitor's frozen strategy universe is unchanged, so new series make no shadow
@@ -226,8 +229,9 @@ The top-level `status` is `ok` only when every location is `matched`. A mismatch
 is never relabelled. The label gate already refuses it, and this section only makes that
 visible without downloading the workspace.
 
-Adding locations raises per-cycle storage. Watch `workspace.distinct_bytes` growth per
-cycle before adding more.
+Adding locations raises per-cycle storage. Going from 2 to 4 locations raised distinct growth
+from about 4.8 to about 6.0 MB per cycle and expanded growth to about 12.9 MB per cycle (run
+`42217215001`). Watch `workspace` growth per cycle before adding more.
 
 ### Capture layout (since 2026-11-06)
 
@@ -322,6 +326,13 @@ the same `uv.lock`/`pyproject.toml`.
 `lineage.txt` now records `branch` and `previous_branch`, and the snapshot artifact carries the
 source run's `previous-lineage.txt`, so the cross-branch hop stays traceable. Later runs on the
 new branch continue from its own newest snapshot as usual.
+
+**Do not push to the branch, or let a scheduled run start, while a continuation dispatch is
+queued.** A GitHub concurrency group keeps at most one *pending* run, and a newer pending run
+cancels the older one. That happened on 2026-11-06: push run `42167372741` cancelled queued
+dispatch `42167131442` before it started. A cancelled continuation leaves the chain unchanged,
+but it must be dispatched again. On `main`, dispatch soon after a scheduled run finishes, not
+just before `:23` past a 4-hour mark.
 
 Continuing copies evidence; it does not merge chains. After continuing, **stop dispatching the
 source branch**, or the two chains diverge from a shared history and their counts must never be
