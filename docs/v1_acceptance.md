@@ -8,7 +8,7 @@
 | Headless operation through the existing website API | `operations/forward.py`; 15 unit cases and 1 real-listener case (CONTROLLED seeded inputs, mock source transport) | Pass. One active monitor is kept or created; one following schedule is created; pauses are never resumed; the run refuses if submissions are enabled; shutdown uses SIGINT. |
 | Chained restart/restore across runs | `forward-collection.yml` runs 1 and 2 (see STATUS) | Run 2 restored run 1's verified snapshot. Restore fails closed on a checksum or lock mismatch. |
 | Multi-day authentic operation | Scheduled runs after merge to `main` | **Not yet observed.** Verification windows are not multi-day operation. |
-| Chain survives a branch change | `continue_from_run`; run `42162688233` restored run `42156641720` from another branch | Restore passes. That run's own upload was lost to the `hashFiles()` timeout, now fixed; see STATUS for the re-run. |
+| Chain survives a branch change | `continue_from_run`; run `42162688233` restored run `42156641720` from another branch | Restore passes. That run's upload was lost to the `hashFiles()` timeout, now fixed. Re-run `42168444616` restored, collected (14 cycles, 0 errors) and uploaded `sha256:0ff3a700…`. |
 | Readiness on authentic chain | Run `42162688233` job log | Insufficient: 0 matched of 24 contracts (24 refused); 4 events on 2 dates; 0 verified labels. |
 | Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
 

@@ -39,20 +39,33 @@ had no reviews, review threads or change requests and no failing checks; none we
   It covers same-branch selection, expiry, completion order, incomplete runs, continuation,
   8 fail-closed cases and the API-error refusal, and asserts that no condition uses
   `hashFiles()`. 4 cases fail on the first commit's workflow (hashFiles) and 2 on the second's (ordering).
-- **Results.** Ruff lint/format pass; strict mypy passes (564 files); **full pytest 1,368 passed
-  in 610.83s** at `65d7bea` (zero failures/errors/skips). The re-run continuation result is
-  recorded below.
+- **Results.** Ruff lint/format pass; strict mypy passes (564 files). **Full pytest 1,376 passed
+  in 590.28s** at head `f4d4fc3` (zero failures/errors/skips); it was 1,368 at `65d7bea`.
+- **Canonical continuation succeeded:** run `42168444616` at `f4d4fc3`.
+  - It restored `42156641720` (`claude/vibrant-bohr-ypomud`, 11 cycles, `sha256:4a8125a5…`).
+  - It kept the monitor and schedule, ending at 14 cycles. There were 0 errors, the server
+    exited 0, and the snapshot is `sha256:0ff3a700…` (243 MB zip; 17.7 MB artifact).
+  - Readiness is unchanged: 24 refused, 0 matched, 4 events on 2 dates, 0 verified labels.
+  - The fee schedule was skipped after its recent 429.
+  - Its predecessor `42167131442` was cancelled by GitHub before it started: a newer pending
+    push run replaced it in the concurrency group. That pending-run replacement is now
+    documented. Push runs `42162670639` and `42167132149` hold a separate,
+    **non-canonical** fresh chain; ignore them.
+- **Observed gap (not investigated):** the schedule shows 2 pending dates but has made 0
+  label requests across every window, so settlement-label readiness cannot advance. Find out
+  whether it is waiting for official reports or is stuck.
 
 **Canonical chain:** from now on, upkeep dispatches go to this branch, or to `main` after
 merge via `continue_from_run`. **Do not dispatch `claude/vibrant-bohr-ypomud` again**, or the
 chains diverge from a shared history; their counts must never be added together.
 Run `42156641720`'s snapshot expires about 2026-11-13.
 
-**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → this PR. After merging, dispatch once on
-`main` with `continue_from_run=<newest run on this branch>`; the 4-hourly cron then continues
+**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → #11. After merging, dispatch once on
+`main` with `continue_from_run=42168444616` (or the newest successful run on this branch); the 4-hourly cron then continues
 it. Fee PDF import remains issue #6.
-**Next autonomous milestone:** keep the canonical chain alive. Once labels are requested and
-verified, check settlement-label readiness. Archive sizes (243 MB per snapshot) need
+**Next autonomous milestone:** diagnose why the following schedule makes no label requests
+(0 across all windows). Keep the canonical chain alive with plain dispatches on this branch,
+without `continue_from_run`, and never push while one is queued. Archive sizes (243 MB per snapshot) need
 attention: consider compressing the archive or measuring which files grow per cycle.
 
 ## Current milestone (2026-11-06): evidence readiness in forward-collection summaries
