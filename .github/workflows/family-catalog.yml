@@ -78,7 +78,9 @@ jobs:
           done
           retained=()
           for f in data/public/kalshi-public/historical-0*.json data/public/kalshi-public/markets-*.json \
-                   data/public/kalshi-fees/*.json; do retained+=(--receipt "$f"); done
+                   data/public/kalshi-fees/{KXHIGHPHIL,KXNHL,KXMVECROSSCATEGORY}.json; do
+            retained+=(--receipt "$f")
+          done
           uv run entropytrade family-screen "${retained[@]}" "${fetched[@]}" --output "$OUT/screen.json"
           python3 - <<'PY'
           import json, os
