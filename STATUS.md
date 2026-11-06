@@ -12,6 +12,47 @@ remain recoverable on their original branches. R3 was integrated into main befor
 | Market-family screening (this milestone) | PR #4 `claude/vibrant-bohr-0m71vf`, from `main` | Reconciled with tested main; receipt-order, update-clock, and numeric-format review findings fixed. Final CI pending. |
 | No public egress in scheduled sessions | Issue #3 | Blocks authentic forward collection, fresh-acquisition browser specs and catalog fetches. |
 
+## Current milestone (2026-11-06): runner catalog discovery and candidate screen
+
+Branch `claude/vibrant-bohr-etkgi2`, **stacked on PR #4** (`claude/vibrant-bohr-0m71vf`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7 had no
+review comments and no failing checks, so this run did not duplicate them. It also
+dispatched forward-collection run `42143557484` on PR #7's branch to keep that chain going.
+
+- **What.** `entropytrade family-discover` retains unauthenticated `GET /series?category=`
+  receipts with a hashed manifest and lists every series alphabetically. It never ranks or
+  selects. The `family-catalog` workflow runs discovery, then optional per-ticker
+  `family-screen --fetch-series`, on GitHub-hosted runners, which have the egress that cloud
+  sessions lack (issue #3). Its file was committed through the contents API.
+- **Tests.** Full pytest: 1,300 passed and 57 failed (628.45s). The failures are the same 57 #1-dependent tests PR #4 recorded on this base. `backend/tests/unit/test_family_discovery.py` has 14 cases:
+  - receipt retention, including non-200 responses;
+  - deterministic listing;
+  - tamper, path-escape and conflicting-ticker refusals;
+  - malformed bodies;
+  - byte-budget and transport errors with no retry;
+  - category validation before any request;
+  - path allow-list;
+  - offline CLI.
+- **Real results.**
+  - Discovery listed 3,646 series. Entertainment, Politics and Sports exceeded the 2 MB
+    response budget and are recorded as unusable.
+  - Screening six candidates confirmed from the listing gave these finalized daily labels:
+    KXAAAGASD 70 events, KXSOFRD 64, KXTNOTED 40 (history ends 2026-07-01) and
+    KXTXERCOTPEAKD 38.
+  - KXTSA and KXEURUSDD had no markets.
+  - Coverage is truncated by the 3-page cap.
+  - See [evidence](data/family-screening-review/20261106/README.md).
+- **Not established.** Point-in-time predictors, effective fees, depth and skill are not
+  established for any candidate.
+
+**Next for the user:**
+1. Review and merge #1 → #2 → #4 → this PR, and #5 → #7.
+2. Record a written second-family choice (see `docs/family-selection.md`).
+
+**Next autonomous milestone:** keep the forward-collection chain alive. Once a family is
+approved, design its point-in-time predictor capture. Without approval, a deeper screen
+(`max_pages` or additional candidates) is the only family work allowed.
+
 ## Current milestone: market-family screening (2026-11-05)
 
 **V1 remains incomplete.** The new `entropytrade family-screen` command compares Kalshi

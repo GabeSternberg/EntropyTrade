@@ -120,6 +120,15 @@ def _parser() -> argparse.ArgumentParser:
     family.add_argument("--fetch-dir", type=Path, help="NEW directory for fetched receipts")
     family.add_argument("--max-pages", type=int, default=3)
     family.add_argument("--output", type=Path, help="write the JSON report (must not exist)")
+    discover = commands.add_parser(
+        "family-discover", help="list Kalshi series from retained public /series receipts"
+    )
+    discover.add_argument(
+        "--category", action="append", default=[], help="read-only /series GET; repeatable"
+    )
+    discover.add_argument("--fetch-dir", type=Path, help="NEW directory for fetched receipts")
+    discover.add_argument("--discovered", type=Path, action="append", default=[])
+    discover.add_argument("--output", type=Path, help="write the JSON listing (must not exist)")
     return parser
 
 
@@ -276,6 +285,31 @@ def main() -> None:
             except FileExistsError as exc:
                 raise SystemExit(f"family-screen refused: {args.output} already exists") from exc
         print(render_table(report))
+    elif args.command == "family-discover":
+        from entropytrade.families.discovery import list_discovered, render_listing, run_discovery
+        from entropytrade.families.screening import ScreeningError
+
+        roots = list(args.discovered)
+        if args.output is not None and args.output.exists():
+            raise SystemExit(f"family-discover refused: {args.output} already exists")
+        try:
+            if args.category:
+                if args.fetch_dir is None:
+                    raise ScreeningError("--category requires a new --fetch-dir")
+                manifest = run_discovery(args.fetch_dir, args.category)
+                failed = [c for c in manifest["calls"] if c.get("status") != 200]
+                print(f"fetched {len(manifest['calls'])} requests; {len(failed)} not usable")
+                roots.append(args.fetch_dir)
+            listing = list_discovered(roots)
+        except ScreeningError as exc:
+            raise SystemExit(f"family-discover refused: {exc}") from exc
+        if args.output is not None:
+            try:
+                with args.output.open("x") as stream:
+                    stream.write(json.dumps(listing, indent=2, sort_keys=True) + "\n")
+            except FileExistsError as exc:
+                raise SystemExit(f"family-discover refused: {args.output} already exists") from exc
+        print(render_listing(listing))
     elif args.command == "research-and-test":
         from entropytrade.agents.provider import ResearchProviderConfig
         from entropytrade.experiments.engine import ExperimentConfig
