@@ -26,6 +26,9 @@ Fresh review fixes:
 - #17: report non-list portal `results` as malformed diagnostics instead of crashing or
   describing missing stations. The label parser, refusal text, frozen audits and original
   receipt bytes remain unchanged.
+- #18: pin the verified authentic weather capture used by the station-diagnostic test. The
+  retained workspace also contains an interrupted capture without a manifest; selecting the
+  first filesystem entry caused an order-dependent CI failure. Existing assertions remain.
 - #22: an already exceeded snapshot budget remains binding when that dimension's measured
   growth is flat or negative. This changes no budget, calendar, evidence or collection cadence.
 
