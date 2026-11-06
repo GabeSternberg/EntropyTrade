@@ -64,3 +64,12 @@ older branch, create an empty replacement chain or assume a scheduled run migrat
 
 No production submission, real-money order, risk-limit increase, fee certification or
 credential use is authorized by this reconciliation.
+
+## V1 gate report
+
+`uv run entropytrade v1-gates [--root data/acceptance]` is a read-only report of the eight gates
+above. A gate is `attested` only when a human-written `<gate_id>.json` in `data/acceptance/` names
+the attester and clock and lists evidence files whose SHA-256 values match; otherwise it is `open`
+or `invalid` (fail closed). The command exits non-zero until every gate is attested. It never
+creates attestations, certifies fees, selects a family or authorizes credentials. Synthetic
+tests cover only the checker; no gate is attested today.
