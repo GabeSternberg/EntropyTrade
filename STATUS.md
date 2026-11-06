@@ -21,7 +21,20 @@ checks at the start of this run; none were merged, so this run avoided duplicati
 - **Chain upkeep.** Dispatched forward-collection run `42136454980` on PR #5's branch to
   continue that chain (labels for 2026-11-05 are now due).
 
-Results: local Ruff lint/format and strict mypy (562 files) pass; full pytest and runner verification run `42136976908` are in progress at this commit and will be recorded in a follow-up commit.
+Results:
+- Local: Ruff lint/format and strict mypy (562 files) pass; **full pytest 1,341 passed in
+  645.79s** (zero failures/errors/skips).
+- Runner verification `42136976908` (success, new chain on this branch): monitor created,
+  2 cycles each `24 shadow decisions; 0 acquisition failures`, schedule created (follow
+  retained, 2 pending dates), 0 errors, server exit 0, snapshot `sha256:ed298521…`.
+- **Fee capture (real result):** the schedule PDF URL returned **HTTP 429** with a 24,732-byte
+  `text/html` body (`is_pdf: false`, `sha256:0ea1dac4…`) even from the GitHub runner. The
+  rounding page returned HTTP 200 HTML (131,209 bytes, `sha256:010b5152…`). Both were
+  retained as unreviewed receipts. **No authentic fee schedule PDF has been obtained**, so the
+  certified-fee gate stays blocked; the capture will retry at most every 3 h while failing. It
+  does not change the User-Agent or otherwise try to evade the rate limit. A human may need
+  to download the PDF in a browser and import it for review (an import path does not exist
+  yet; see issue #6).
 
 **Next for the user:** review/merge #1 → #5 → this PR so the 4-hourly cron runs on `main`.
 Once a run reports `is_pdf: true` for the schedule, restore that snapshot locally and perform
