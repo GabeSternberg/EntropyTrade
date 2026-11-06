@@ -1,0 +1,3 @@
+fetched 12 requests; 3 not usable
+series=3646 by_category={'Climate and Weather': 501, 'Commodities': 1, 'Companies': 192, 'Crypto': 294, 'Economics': 866, 'Entertainment': 2, 'Financials': 1130, 'Health': 94, 'Politics': 5, 'Science and Technology': 389, 'Sports': 1, 'Transportation': 34, 'World': 137}
+by_frequency={'annual': 482, 'custom': 969, 'daily': 318, 'fifteen_min': 28, 'hourly': 72, 'monthly': 419, 'one_off': 1180, 'quarterly': 16, 'weekly': 162}

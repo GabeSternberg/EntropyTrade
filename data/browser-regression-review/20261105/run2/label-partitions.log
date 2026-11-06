@@ -1,0 +1,46 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore (1.6m)
+
+
+  1) label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+
+    Error: locator.screenshot: Element is not attached to the DOM
+    Call log:
+    [2m  - taking element screenshot[22m
+    [2m  - waiting for fonts to load...[22m
+    [2m  - fonts loaded[22m
+    [2m  - attempting scroll into view action[22m
+    [2m    - waiting for element to be stable[22m
+    [2m    - element is not stable[22m
+    [2m  - retrying scroll into view action[22m
+    [2m    - waiting for element to be stable[22m
+
+
+      68 |   async function shot(name, selector = "#weather-label-partition-info") {
+      69 |     const file = name + ".png";
+    > 70 |     await page.locator(selector).screenshot({ path: path.join(evidence, file) });
+         |                                  ^
+      71 |     receipt.screenshots.push({ file, sha256: sha(fs.readFileSync(path.join(evidence, file))) }); save();
+      72 |   }
+      73 |   async function download(name, linkName) {
+        at shot (/home/user/EntropyTrade/frontend/browser/label-partitions.spec.cjs:70:34)
+        at /home/user/EntropyTrade/frontend/browser/label-partitions.spec.cjs:143:15
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run2/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/browser-regression-review/20261105/run2/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run2/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run2/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 

@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart (34.1s)
+
+  1 passed (35.3s)

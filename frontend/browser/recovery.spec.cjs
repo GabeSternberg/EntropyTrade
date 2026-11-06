@@ -15,7 +15,7 @@ test("local operation and recovery: installed research, snapshot, restore and sh
   const origin = `http://127.0.0.1:${Number(process.env.ENTROPYTRADE_BROWSER_PORT || 43134)}`;
   assert(original && path.isAbsolute(original) && original.startsWith(path.join(repo, "data/cache/")));
   const restored = original + "-restored";
-  const archive = path.join(repo, "data/recovery/local-acceptance.zip");
+  const archive = original + ".zip"; // unique per run, never a fixed shared path
   for (const p of [original, restored, archive]) assert(!fs.existsSync(p), "Acceptance paths must be new");
   assert(chromium.executablePath().startsWith(path.join(__dirname, ".browsers/")));
   fs.mkdirSync(evidence, { recursive: true });
