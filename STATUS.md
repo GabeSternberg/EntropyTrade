@@ -1,5 +1,61 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): chained storage runway and runner disk headroom
+
+Branch `claude/vibrant-bohr-dndtp2` (PR #23), **stacked on PR #22** (`claude/vibrant-bohr-jux3wd`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#22 had no
+reviews, review threads or check runs, and none were merged. Issues #3, #6 and #21 remain open.
+The #21 storage decision has no user answer yet.
+
+- **Gap.** #22 projects the runway from a single run's growth, which swings widely:
+  - Run `42239530977` (1 cycle, no dataset) measured 4.19 MB expanded per cycle.
+  - This branch's chain run `42243733103` (1 cycle, one discovery dataset written) measured
+    **27.3 MB expanded and 6.5 MB distinct**. Of that, `runs/weather-datasets` grew 23.1 MB
+    (715.8 → 738.9 MB).
+  - A single run can therefore under- or over-state the runway several times over.
+  - #21 also needs runner disk headroom confirmed before a larger budget is considered.
+    Nothing measured it.
+- **Change (`operations/forward.py`, workflow, docs).**
+  - **`runway-ledger.jsonl`.** Start and end footprint rows, with the monitors' total cycle
+    count, are carried beside the snapshot artifact and passed back with `--ledger-in`.
+  - **`chain_runway`.** Projects over a trailing 7-day window. The ledger restarts, with a
+    reason, if cycles or clocks go backwards. A malformed ledger is discarded. A run that
+    measured nothing carries the rows forward.
+  - **`disk`.** Reports the runner's free and total bytes.
+  - **Warning.** The job-summary warning prefers `chain_runway`.
+  - **No budget changed.**
+- **Evidence.**
+  - Chain run **`42243733103`** (`continue_from_run=42239530977`, 540 s, `chain=head`):
+    - success, 1 cycle ("24 shadow decisions; 0 acquisition failures"), 60 cycles total;
+    - workspace 986,819,116 expanded and 268,409,104 distinct bytes;
+    - `chain_runway` (1 run so far): binding `expanded_bytes`, 121 cycles left,
+      `short_of_validation_end`, and the warning fired.
+  - **`disk`** (after the server stopped, with a 0.99 GB workspace on disk): **free 11.05 GB
+    of 76.9 GB**. A snapshot stages a second full copy of the workspace, plus the archive and
+    the downloaded previous archive. So roughly 5 GiB expanded is the most a standard runner
+    can hold without freeing space first. An 8 GiB budget (option 3) would **not** fit as the
+    workflow stands. This is an inference from one measurement.
+  - The backlog now holds **2026-11-07 for all four stations** (CLIDFW/CLIMDW/CLINYC/CLIPHL).
+    2026-11-06 work remains `pending` until 2026-11-07T06:00Z. Labels: still 2 verified events.
+  - Local checks: Ruff lint and format pass, and strict mypy passes (566 files). **Full pytest:
+    1,415 passed in 749.23s**, with zero failures, errors or skips. 8 new or extended tests
+    cover window averaging, fork, clock and malformed-ledger resets, retirement, CLI
+    carry-through, disk headroom, and the actual collect-step shell with a stub `uv`.
+- **Chain head is now this branch** (`42243733103`). Do not dispatch `jux3wd` or earlier
+  branches again, or the chain forks. The push trial `42243723993` uses a separate trial
+  workspace and is not part of the chain.
+
+**Next autonomous milestone:** after 2026-11-07T06:00Z, dispatch this branch again
+(`continue_from_run` = the newest completed chain run, `seconds=540`). Check:
+- whether 2026-11-06 labels verify for all four stations;
+- that `chain_runway.runs_in_window` grows and `ledger_reset` stays null;
+- whether a discovery run's large dataset growth (about 23 MB) recurs. If it does, the
+  dataset cost per input is far above the 2× replay estimate in #21, so find out what a
+  discovery dataset stores beyond the two capture copies.
+
+The storage fix still needs the user's decision in #21. Merging the stack to `main` is still
+needed to activate the cron.
+
 ## Current milestone (2026-11-06): measured storage runway; one cycle per scheduled window
 
 Branch `claude/vibrant-bohr-jux3wd` (PR #22), **stacked on PR #20** (`claude/vibrant-bohr-ab8h5b`).

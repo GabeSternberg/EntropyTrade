@@ -32,6 +32,7 @@ import urllib.request
 import uuid
 from collections import Counter
 from datetime import UTC, date, datetime, timedelta
+from itertools import pairwise
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Protocol
 
@@ -418,6 +419,141 @@ def runway(
     return {**result, "status": "short_of_validation_end" if short else "covers_validation_end"}
 
 
+# Chain ledger: one row per footprint measurement (start and end of every run), carried from
+# run to run beside the snapshot. Operational metadata only; never evidence, never restored
+# into the workspace. A single run's growth is uneven (a window may or may not write a
+# discovery dataset or label receipts), so the chain projection averages over a trailing
+# window of runs instead.
+LEDGER_KEYS = ("at", "monitor_cycles", "bytes", "distinct_bytes", "files")
+LEDGER_MAX_ROWS = 256
+LEDGER_RETAIN_DAYS = 30
+CHAIN_WINDOW_DAYS = 7.0
+
+
+def read_ledger(path: Path | None) -> tuple[list[dict[str, Any]], str | None]:
+    """Parse a previous ledger; any malformed row discards the whole ledger (with a reason)."""
+    if path is None or not path.is_file():
+        return [], None
+    rows: list[dict[str, Any]] = []
+    try:
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if not isinstance(row, dict) or any(k not in row for k in LEDGER_KEYS):
+                raise ValueError("ledger row lacks required keys")
+            if any(
+                isinstance(row[k], bool) or not isinstance(row[k], int) or row[k] < 0
+                for k in LEDGER_KEYS[1:]
+            ):
+                raise ValueError("ledger counts must be non-negative integers")
+            at = datetime.fromisoformat(str(row["at"]))
+            if at.tzinfo is None:
+                raise ValueError("ledger clocks must be timezone-aware")
+            rows.append(row)
+    except (OSError, ValueError) as exc:
+        return [], f"previous ledger unreadable: {type(exc).__name__}: {exc}"
+    return rows, None
+
+
+def ledger_row(
+    footprint_: dict[str, Any], *, at: datetime, monitor_cycles: int, run_id: str | None
+) -> dict[str, Any]:
+    return {
+        "at": at.isoformat(),
+        "run_id": run_id,
+        "monitor_cycles": monitor_cycles,
+        "bytes": int(footprint_["bytes"]),
+        "distinct_bytes": int(footprint_["distinct_bytes"]),
+        "files": int(footprint_["files"]),
+    }
+
+
+def extend_ledger(
+    previous: list[dict[str, Any]], rows: list[dict[str, Any]], *, at: datetime
+) -> tuple[list[dict[str, Any]], str | None]:
+    """Append this run's rows; restart the ledger if it does not continue this workspace.
+
+    A previous ledger continues this workspace only if its clocks and monitor cycle counts
+    never decrease into this run's first row. Otherwise (a fresh chain, a fork restored from
+    an older snapshot, a clock error) the old rows describe another workspace and are dropped,
+    so they can never distort the projection. Rows older than 30 days are retired.
+    """
+    reason = None
+    combined = [*previous, *rows]
+    for before, after in pairwise(combined):
+        if (
+            datetime.fromisoformat(after["at"]) < datetime.fromisoformat(before["at"])
+            or after["monitor_cycles"] < before["monitor_cycles"]
+        ):
+            reason = "previous ledger does not continue this workspace; restarted"
+            combined = list(rows)
+            break
+    cutoff = at - timedelta(days=LEDGER_RETAIN_DAYS)
+    kept = [r for r in combined if datetime.fromisoformat(r["at"]) >= cutoff]
+    return kept[-LEDGER_MAX_ROWS:], reason
+
+
+def chain_runway(
+    ledger: list[dict[str, Any]],
+    end: dict[str, Any],
+    *,
+    at: datetime,
+    boundaries: list[str] | None,
+    cycles_per_day: float = CYCLES_PER_DAY,
+    window_days: float = CHAIN_WINDOW_DAYS,
+) -> dict[str, Any]:
+    """The same projection as ``runway`` over a trailing window of chained runs.
+
+    Growth is measured from the oldest ledger row inside the window to the newest row (this
+    run's end), divided by the monitor cycles completed between them. It therefore averages
+    runs that wrote discovery datasets or label receipts with runs that did not.
+    """
+    if not ledger:
+        return {"basis": "chain", "status": "unmeasured", "reason": "no ledger rows"}
+    newest = ledger[-1]
+    since = datetime.fromisoformat(newest["at"]) - timedelta(days=window_days)
+    oldest = next(r for r in ledger if datetime.fromisoformat(r["at"]) >= since)
+    cycles = newest["monitor_cycles"] - oldest["monitor_cycles"]
+    report = runway(
+        oldest,
+        {**end, **{k: newest[k] for k in ("bytes", "distinct_bytes", "files")}},
+        cycles,
+        at=at,
+        boundaries=boundaries,
+        cycles_per_day=cycles_per_day,
+    )
+    report.pop("cycles_this_run", None)
+    for budget in report.get("budgets", {}).values():
+        budget["growth_in_window"] = budget.pop("growth_this_run")
+    return {
+        "basis": "chain",
+        "window_days": window_days,
+        "since": oldest["at"],
+        "rows_in_window": sum(1 for r in ledger if datetime.fromisoformat(r["at"]) >= since),
+        "runs_in_window": len(
+            {r.get("run_id") for r in ledger if datetime.fromisoformat(r["at"]) >= since}
+        ),
+        "cycles_in_window": cycles,
+        **report,
+    }
+
+
+def disk_headroom(workspace: Path) -> dict[str, Any]:
+    """Free space on the filesystem holding the workspace (evidence for a budget decision).
+
+    A snapshot copies the whole workspace into a staging payload before compressing it, so a
+    restored workspace needs roughly twice its expanded bytes free at snapshot time. Read-only.
+    """
+    import shutil
+
+    target = workspace if workspace.exists() else workspace.parent
+    while not target.exists() and target != target.parent:
+        target = target.parent
+    usage = shutil.disk_usage(target)
+    return {"total_bytes": usage.total, "free_bytes": usage.free}
+
+
 BINDING_STATION = re.compile(r"\((CLI[A-Z]{3})\)")
 
 
@@ -734,6 +870,8 @@ def operate(
     create_monitor: bool = True,
     poll: float = 30.0,
     cycles_per_day: float = CYCLES_PER_DAY,
+    ledger: list[dict[str, Any]] | None = None,
+    run_id: str | None = None,
 ) -> dict[str, Any]:
     started_at = now()
     actions: list[dict[str, Any]] = []
@@ -802,14 +940,51 @@ def operate(
         cycles = sum(
             sum(m.get("cycles_this_run", {}).values()) for m in summary.get("monitors", [])
         )
+        boundaries = frozen_calendar(workspace)
         summary["runway"] = runway(
             start_footprint,
             summary["workspace"],
             cycles,
             at=now(),
-            boundaries=frozen_calendar(workspace),
+            boundaries=boundaries,
             cycles_per_day=cycles_per_day,
         )
+        monitors = summary.get("monitors")
+        if isinstance(monitors, list) and all(
+            isinstance(m.get("cycle_count"), int) for m in monitors
+        ):
+            total = sum(int(m["cycle_count"]) for m in monitors)
+            rows = []
+            if start_footprint is not None:
+                rows.append(
+                    ledger_row(
+                        start_footprint,
+                        at=started_at,
+                        monitor_cycles=max(0, total - cycles),
+                        run_id=run_id,
+                    )
+                )
+            finished = now()
+            rows.append(
+                ledger_row(summary["workspace"], at=finished, monitor_cycles=total, run_id=run_id)
+            )
+            chained, reset = extend_ledger(ledger or [], rows, at=finished)
+            summary["runway_ledger"] = chained
+            summary["chain_runway"] = {
+                **chain_runway(
+                    chained,
+                    summary["workspace"],
+                    at=finished,
+                    boundaries=boundaries,
+                    cycles_per_day=cycles_per_day,
+                ),
+                "ledger_rows": len(chained),
+                "ledger_reset": reset,
+            }
+    try:
+        summary["disk"] = disk_headroom(workspace)
+    except OSError as exc:
+        errors.append(f"disk {type(exc).__name__}: {exc}")
     try:
         summary["station_bindings"] = station_bindings(workspace)
     except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -844,6 +1019,11 @@ def main() -> None:
         default=CYCLES_PER_DAY,
         help="Projection assumption for the storage runway (not a measurement)",
     )
+    parser.add_argument(
+        "--ledger-in", type=Path, help="Previous run's runway ledger (JSONL), if any"
+    )
+    parser.add_argument("--ledger-out", type=Path, help="Write this chain's runway ledger here")
+    parser.add_argument("--run-id", help="Identifier recorded on this run's ledger rows")
     args = parser.parse_args()
     if not 60 <= args.seconds <= 5 * 3600:
         parser.error("--seconds must be 60-18000")
@@ -851,6 +1031,9 @@ def main() -> None:
         parser.error("--cycles-per-day must be in (0, 1440]")
     if args.summary.exists():
         parser.error("--summary already exists; use a new path")
+    if args.ledger_out is not None and args.ledger_out.exists():
+        parser.error("--ledger-out already exists; use a new path")
+    previous_ledger, ledger_note = read_ledger(args.ledger_in)
     repo = Path(__file__).resolve().parents[4]
     workspace = args.workspace if args.workspace.is_absolute() else repo / args.workspace
     log = args.log or args.summary.with_suffix(".server.log")
@@ -863,7 +1046,20 @@ def main() -> None:
         schedule_interval=args.schedule_interval,
         log_path=log,
         cycles_per_day=args.cycles_per_day,
+        ledger=previous_ledger,
+        run_id=args.run_id,
     )
+    # Without a measurement this run, carry the previous rows forward unchanged.
+    chained = result.pop("runway_ledger", None)
+    if chained is None:
+        chained = previous_ledger
+    if ledger_note and isinstance(result.get("chain_runway"), dict):
+        result["chain_runway"]["ledger_reset"] = ledger_note
+    if args.ledger_out is not None:
+        args.ledger_out.parent.mkdir(parents=True, exist_ok=True)
+        args.ledger_out.write_text(
+            "".join(json.dumps(row, sort_keys=True) + "\n" for row in chained), encoding="utf-8"
+        )
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     brief = {
@@ -875,6 +1071,8 @@ def main() -> None:
             "readiness",
             "workspace",
             "runway",
+            "chain_runway",
+            "disk",
             "station_bindings",
         )
     }

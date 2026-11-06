@@ -153,6 +153,10 @@ jobs:
             if [ -f data/cache/forward-previous/lineage.txt ]; then
               cp data/cache/forward-previous/lineage.txt "$OUT/previous-lineage.txt"
             fi
+            # Storage-growth rows of earlier runs (operational metadata, not evidence).
+            if [ -f data/cache/forward-previous/runway-ledger.jsonl ]; then
+              cp data/cache/forward-previous/runway-ledger.jsonl "$OUT/previous-runway-ledger.jsonl"
+            fi
           elif [ -n "${{ steps.previous.outputs.run_id }}" ] && [ "${{ inputs.fresh }}" != "true" ]; then
             echo "::error::previous snapshot exists but was not downloaded"; exit 1
           else
@@ -173,9 +177,14 @@ jobs:
           if [ -z "$seconds" ]; then
             if [ "${{ github.event_name }}" = "push" ]; then seconds=900; else seconds=540; fi
           fi
+          ledger_in=()
+          if [ -f "$OUT/previous-runway-ledger.jsonl" ]; then
+            ledger_in=(--ledger-in "$OUT/previous-runway-ledger.jsonl")
+          fi
           uv run python -m entropytrade.operations.forward \
             --workspace "$WORKSPACE" --seconds "$seconds" \
-            --summary "$OUT/summary.json" --log "$OUT/server.log"
+            --summary "$OUT/summary.json" --log "$OUT/server.log" \
+            "${ledger_in[@]}" --ledger-out "$OUT/runway-ledger.jsonl" --run-id "$GITHUB_RUN_ID"
 
       - name: Check for a workspace
         # Plain file tests, not hashFiles(): hashFiles reads whole files and is cut off after
@@ -233,6 +242,7 @@ jobs:
             data/cache/forward-out/workspace.sha256
             data/cache/forward-out/lineage.txt
             data/cache/forward-out/previous-lineage.txt
+            data/cache/forward-out/runway-ledger.jsonl
           retention-days: ${{ github.event_name == 'push' && 3 || 7 }}
           if-no-files-found: error
 
@@ -258,7 +268,7 @@ jobs:
             echo "## Forward collection"
             echo '```json'
             if [ -f "$OUT/summary.json" ]; then
-              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','runway','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
+              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','runway','chain_runway','disk','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
             else
               echo '{"summary": "missing"}'
             fi
@@ -271,8 +281,9 @@ jobs:
           if [ -f "$OUT/summary.json" ]; then
             python3 -c "import json,sys; w=json.load(open(sys.argv[1])).get('workspace') or {}; s=w.get('status'); s in ('warning','critical') and print('::warning::workspace footprint %s: %s bytes (%s distinct), %s of the snapshot budget' % (s, w.get('bytes'), w.get('distinct_bytes'), w.get('budget_used')))" "$OUT/summary.json"
             # The chain stalls when a budget is reached; warn while it cannot reach the
-            # frozen calendar's validation end at the measured per-cycle growth.
-            python3 -c "import json,sys; r=json.load(open(sys.argv[1])).get('runway') or {}; r.get('status') == 'short_of_validation_end' and print('::warning::storage runway %s: %s cycles (%s days at %s/day) before the %s budget, exhausted %s, validation ends %s' % (r.get('status'), r.get('cycles_left'), r.get('days_left'), r.get('cycles_per_day_assumed'), r.get('binding'), r.get('exhausted_on'), r.get('validation_end')))" "$OUT/summary.json"
+            # frozen calendar's validation end at the measured per-cycle growth. The chain
+            # projection (trailing 7 days of runs) is preferred over this run alone.
+            python3 -c "import json,sys; d=json.load(open(sys.argv[1])); c=d.get('chain_runway') or {}; r=c if c.get('status') not in (None,'unmeasured') else (d.get('runway') or {}); r.get('status') == 'short_of_validation_end' and print('::warning::storage runway %s: %s cycles (%s days at %s/day) before the %s budget, exhausted %s, validation ends %s' % (r.get('status'), r.get('cycles_left'), r.get('days_left'), r.get('cycles_per_day_assumed'), r.get('binding'), r.get('exhausted_on'), r.get('validation_end')))" "$OUT/summary.json"
           fi
 
       - name: Fail if collection failed
