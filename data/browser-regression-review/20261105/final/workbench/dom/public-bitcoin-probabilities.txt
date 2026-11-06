@@ -1,0 +1,27 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition INCOMPLETE · bitcoin
+
+HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+Acquisition failures
+KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)
+coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)
+
+Capture (UTC): 2026-11-05T22:06:10.836949+00:00 → 2026-11-05T22:06:10.942092+00:00. Universe complete: false. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Research orchestration · local_templates
+
+Provider: none. Status: completed.
+
+Research stages, evidence tools, budgets and usage
+Validation probabilities
+
+Showing 0 of 0 permitted prediction records (limit 100). Only validation probabilities used by the experiment are exposed.
+
+No eligible fitted probability records exist for this run. Current spot prices, forecasts and market quotes do not supply a probability model.
+Prediction identities and feature/model lineage
