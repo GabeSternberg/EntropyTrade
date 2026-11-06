@@ -1,5 +1,41 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): evidence readiness in forward-collection summaries
+
+Branch `claude/vibrant-bohr-23la5m`, **stacked on PR #9** (`claude/vibrant-bohr-1hw7xm`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5, #7, #8 and #9
+had no review comments requesting changes and no failing checks, and none were merged.
+This run dispatched forward-collection run `42156641720` on PR #7's branch to keep that chain
+alive. It succeeded: it restored `sha256:1390bff9…` (8 cycles) and kept the monitor and
+schedule, ending at 11 cycles. There were 0 errors and the server exited 0; the snapshot is
+`sha256:4a8125a5…`. The fee schedule PDF returned **HTTP 429** again (24,732-byte HTML,
+`is_pdf: false`), retained as an unreviewed receipt. That run predates this change, so its
+alert states are still listed as null.
+
+- **Defect fixed.** The operator summary read alert keys that do not exist (`status`,
+  `detected_at`), so every alert was listed with `null` state. This is why earlier runs showed
+  two `stale_collection` alerts with null fields. Alerts are now `open`/`acknowledged`/
+  `resolved`, derived from `opened_at`/`acknowledged_at`/`resolved_at`.
+- **Readiness.** `summary.json` and the job-log line now include read-only `readiness`:
+  per-monitor prospective-evaluation counts against the report's own 10-event/5-date minimums
+  (`events_remaining`, `dates_remaining`), and distinct verified/unverified settlement labels
+  across every label partition (revisions count once). HTTP 409 verification refusals are
+  reported as `verification_failed`, never repaired. The workflow file is unchanged.
+  See [forward operator](docs/forward-operator.md#evidence-readiness-in-each-run).
+- **Tests.** `backend/tests/unit/test_forward_operator.py`: 3 new cases (cross-partition and
+  revision de-duplication, verification refusals, alert lifecycle) and extended summary and
+  real-listener assertions.
+- **Results.** Repository Ruff lint/format and strict mypy (563 files) pass; **full pytest
+  1,357 passed in 793.09s** (zero failures/errors/skips).
+- **Not established.** Readiness has not yet run on the authentic chain. Runs restore only
+  snapshots from the same branch, so it first appears on real data when this change reaches
+  the branch carrying the chain (or `main`).
+
+**Next for the user:** review/merge #1 → #5 → #7 → #9 → this PR; that enables the 4-hourly
+cron on `main`. Download and import the fee schedule PDF (issue #6). **Next autonomous
+milestone:** keep the chain alive within the 7-day artifact retention; once readiness on the
+chain shows the prospective minimums met, promote a snapshot to a reviewed evidence directory.
+
 ## Current milestone (2026-11-06): operator manual import of the official fee schedule
 
 Branch `claude/vibrant-bohr-1hw7xm`, **stacked on PR #7** (`claude/vibrant-bohr-ypomud`).

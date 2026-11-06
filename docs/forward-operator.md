@@ -45,6 +45,26 @@ headlessly, so authentic forward receipts can accrue without a human-operated ma
    receipt, fee-capture report; 90-day retention). The job summary shows the actions, monitor/cycle state,
    schedules, retained inputs, label requests and alerts.
 
+### Evidence readiness in each run
+
+`summary.json` and the operator's one-line job-log output include a read-only `readiness`
+section, so chain progress is visible without downloading artifacts:
+
+- `prospective`: for each monitor, the existing prospective-evaluation report's status,
+  contract/pending/refused/matched counts, and matched independent events and dates against
+  the report's own minimums (10 events on 5 dates), with `events_remaining`/`dates_remaining`.
+- `settlement_labels`: distinct station/day labels across **every** label partition. An
+  event verified by several revisions counts once; an earlier refusal later verified counts
+  as verified. Events never verified are counted with their refusal reasons.
+
+If the website refuses to verify the evidence (HTTP 409), readiness reports
+`verification_failed` with the message. It is never retried into a pass or repaired. These
+are counts of retained evidence only, not model quality, calibration or returns.
+
+Alerts are summarized as `open`, `acknowledged` or `resolved` from their lifecycle clocks
+(`opened_at`, `acknowledged_at`, `resolved_at`); the log line lists unresolved alerts.
+Summaries written before this change listed every alert with `status: null`.
+
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 

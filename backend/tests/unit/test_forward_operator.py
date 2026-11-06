@@ -219,6 +219,8 @@ def test_summary_counts_only_this_runs_cycles() -> None:
             "/api/weather/partitions": {"total_inputs": 2, "partitions": [{}]},
             "/api/weather/labels": [{}, {}],
             "/api/alerts": {"alerts": [], "submission_enabled": False},
+            "/api/monitors/m1/evaluation": _evaluation(matched_events=0, matched_dates=0),
+            "/api/weather/label-partitions": [],
         }
     )
     summary = summarize(api, start)
@@ -231,6 +233,116 @@ def test_summary_counts_only_this_runs_cycles() -> None:
     assert summary["schedules"][0]["id"] == "s1"
     assert summary["schedules"][0]["follow_retained"] is True
     assert summary["submission_enabled"] is False
+    assert summary["alerts"] == []
+    prospective = summary["readiness"]["prospective"]
+    assert prospective[0]["events_remaining"] == 10
+    assert prospective[0]["dates_remaining"] == 5
+    assert summary["readiness"]["settlement_labels"]["verified_events"] == 0
+
+
+def _evaluation(*, matched_events: int, matched_dates: int) -> dict[str, Any]:
+    return {
+        "status": "insufficient",
+        "report_hash": "sha256:" + "0" * 64,
+        "policy": {"minimum_matched_events": 10, "minimum_matched_dates": 5},
+        "counts": {
+            "contracts": 24,
+            "pending": 20,
+            "refused": 4,
+            "matched": 0,
+            "independent_events": 4,
+            "independent_dates": 2,
+            "matched_events": matched_events,
+            "matched_dates": matched_dates,
+        },
+        "diagnostics": [],
+    }
+
+
+def _record(event: str, station: str, day: str, *, verified: bool) -> dict[str, Any]:
+    return {
+        "target": {"event_id": event, "station": station, "target_date": day},
+        "observation": {"high_f": 61} if verified else None,
+        "refusal": "" if verified else "preliminary report",
+    }
+
+
+def test_readiness_counts_distinct_labels_across_partitions_and_revisions() -> None:
+    """A revision re-verifying an event, or an earlier refusal later verified, counts once."""
+    first = [
+        {"result": {"records": [_record("e1", "KPHL", "2026-11-04", verified=True)]}},
+        {"result": {"records": [_record("e2", "KMDW", "2026-11-05", verified=False)]}},
+        {"result": None},  # queued request: no batch yet
+    ]
+    second = [
+        {
+            "result": {
+                "records": [
+                    _record("e1", "KPHL", "2026-11-04", verified=True),
+                    _record("e2", "KMDW", "2026-11-05", verified=True),
+                    _record("e3", "KMDW", "2026-11-06", verified=False),
+                ]
+            }
+        }
+    ]
+    api = FakeApi(
+        {
+            "/api/monitors/m1/evaluation": _evaluation(matched_events=12, matched_dates=3),
+            "/api/weather/label-partitions": [
+                {"partition_id": "00000000"},
+                {"partition_id": "00000001"},
+            ],
+            "/api/weather/label-partitions/00000000": first,
+            "/api/weather/label-partitions/00000001": second,
+        }
+    )
+    result = forward.readiness(api, ["m1"])
+    labels = result["settlement_labels"]
+    assert labels["partitions"] == 2
+    assert labels["verified_events"] == 2
+    assert labels["verified_dates"] == 2
+    assert labels["verified_stations"] == ["KMDW", "KPHL"]
+    assert labels["unverified_events"] == 1
+    assert labels["unverified_reasons"] == {"preliminary report": 1}
+    prospective = result["prospective"][0]
+    assert prospective["events_remaining"] == 0  # never negative
+    assert prospective["dates_remaining"] == 2
+    assert prospective["status"] == "insufficient"
+    assert api.posts == []  # readiness never writes
+
+
+def test_readiness_reports_verification_refusals_without_passing() -> None:
+    def refused() -> None:
+        raise ApiError(409, "Prospective evidence verification failed; inspect workspace")
+
+    def partitions_refused() -> None:
+        raise ApiError(409, "Label partition verification failed")
+
+    api = FakeApi(
+        {
+            "/api/monitors/m1/evaluation": refused,
+            "/api/weather/label-partitions": partitions_refused,
+        }
+    )
+    result = forward.readiness(api, ["m1"])
+    assert result["prospective"][0]["status"] == "verification_failed"
+    assert "409" in result["prospective"][0]["error"]
+    assert result["settlement_labels"]["status"] == "verification_failed"
+
+
+def test_alert_summary_derives_lifecycle_state_from_clocks() -> None:
+    base = {"id": "a", "kind": "stale_collection", "monitor_id": "m1", "opened_at": "t0"}
+    assert (
+        forward.alert_summary({**base, "acknowledged_at": None, "resolved_at": None})["status"]
+        == "open"
+    )
+    acknowledged = forward.alert_summary({**base, "acknowledged_at": "t1", "resolved_at": None})
+    assert acknowledged["status"] == "acknowledged"
+    assert acknowledged["opened_at"] == "t0"
+    assert (
+        forward.alert_summary({**base, "acknowledged_at": "t1", "resolved_at": "t2"})["status"]
+        == "resolved"
+    )
 
 
 class _Running:
@@ -291,6 +403,8 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     assert result["monitors"] == []
     assert result["submission_enabled"] is False
     assert [a["action"] for a in result["actions"]] == ["schedule_waiting"]
+    assert result["readiness"]["prospective"] == []
+    assert result["readiness"]["settlement_labels"]["verified_events"] == 0
     json.dumps(result)
     # The workspace lease is released: a second operation can start immediately.
     again = operate(

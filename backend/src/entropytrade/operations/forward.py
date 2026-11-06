@@ -259,11 +259,104 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
             "partitions": len(partitions.get("partitions", [])),
         },
         "label_requests": len(api.get("/api/weather/labels")),
-        "alerts": [
-            {k: a.get(k) for k in ("id", "kind", "status", "monitor_id", "detected_at")}
-            for a in alerts.get("alerts", [])
-        ],
+        "alerts": [alert_summary(a) for a in alerts.get("alerts", [])],
+        "readiness": readiness(api, [m["id"] for m in monitors]),
         "submission_enabled": bool(alerts.get("submission_enabled")),
+    }
+
+
+def alert_summary(alert: dict[str, Any]) -> dict[str, Any]:
+    """Alerts carry lifecycle clocks; derive the state rather than reading absent keys."""
+    status = (
+        "resolved"
+        if alert.get("resolved_at")
+        else "acknowledged"
+        if alert.get("acknowledged_at")
+        else "open"
+    )
+    return {
+        "status": status,
+        **{
+            k: alert.get(k)
+            for k in ("id", "kind", "monitor_id", "opened_at", "acknowledged_at", "resolved_at")
+        },
+    }
+
+
+def _prospective(api: Api, monitor_id: str) -> dict[str, Any]:
+    try:
+        report = api.get(f"/api/monitors/{monitor_id}/evaluation")
+    except ApiError as exc:
+        # A verification refusal is reported, never repaired or retried into a pass.
+        return {"monitor_id": monitor_id, "status": "verification_failed", "error": str(exc)}
+    counts = report.get("counts", {})
+    policy = report.get("policy", {})
+    need_events = int(policy.get("minimum_matched_events", 0))
+    need_dates = int(policy.get("minimum_matched_dates", 0))
+    matched_events = int(counts.get("matched_events", 0))
+    matched_dates = int(counts.get("matched_dates", 0))
+    return {
+        "monitor_id": monitor_id,
+        "status": report.get("status"),
+        "report_hash": report.get("report_hash"),
+        **{
+            k: counts.get(k)
+            for k in (
+                "contracts",
+                "pending",
+                "refused",
+                "matched",
+                "independent_events",
+                "independent_dates",
+            )
+        },
+        "matched_events": matched_events,
+        "matched_dates": matched_dates,
+        "minimum_matched_events": need_events,
+        "minimum_matched_dates": need_dates,
+        "events_remaining": max(0, need_events - matched_events),
+        "dates_remaining": max(0, need_dates - matched_dates),
+        "diagnostic_groups": [
+            {k: g.get(k) for k in ("data_kind", "status", "independent_events", "reason")}
+            for g in report.get("diagnostics", [])
+        ],
+    }
+
+
+def _labels(api: Api) -> dict[str, Any]:
+    """Distinct station/day labels across every retained partition (revisions count once)."""
+    verified: dict[str, dict[str, Any]] = {}
+    refused: dict[str, str] = {}
+    partitions = api.get("/api/weather/label-partitions")
+    for partition in partitions:
+        for request in api.get("/api/weather/label-partitions/" + partition["partition_id"]):
+            for record in (request.get("result") or {}).get("records", []):
+                target = record["target"]
+                if record.get("observation") is not None:
+                    verified[target["event_id"]] = target
+                else:
+                    refused[target["event_id"]] = str(record.get("refusal", ""))
+    never_verified = {e: r for e, r in refused.items() if e not in verified}
+    return {
+        "partitions": len(partitions),
+        "verified_events": len(verified),
+        "verified_dates": len({t["target_date"] for t in verified.values()}),
+        "verified_stations": sorted({t["station"] for t in verified.values()}),
+        "unverified_events": len(never_verified),
+        "unverified_reasons": dict(sorted(Counter(never_verified.values()).items())),
+    }
+
+
+def readiness(api: Api, monitor_ids: list[str]) -> dict[str, Any]:
+    """Progress toward the existing evidence thresholds; counts only, never a quality claim."""
+    try:
+        labels: dict[str, Any] = _labels(api)
+    except (ApiError, KeyError, TypeError) as exc:
+        labels = {"status": "verification_failed", "error": f"{type(exc).__name__}: {exc}"}
+    return {
+        "prospective": [_prospective(api, m) for m in monitor_ids],
+        "settlement_labels": labels,
+        "note": "Counts of retained authentic evidence; not model quality, returns or V1.",
     }
 
 
@@ -401,7 +494,8 @@ def main() -> None:
     )
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    brief = {k: result.get(k) for k in ("actions", "errors", "server_exit_code")}
+    brief = {k: result.get(k) for k in ("actions", "errors", "server_exit_code", "readiness")}
+    brief["open_alerts"] = [a for a in result.get("alerts", []) if a.get("status") != "resolved"]
     sys.stdout.write(json.dumps(brief) + "\n")
     if result["errors"] or result["server_exit_code"] != 0:
         sys.exit(1)
