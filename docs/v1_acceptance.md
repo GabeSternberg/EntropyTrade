@@ -1,3 +1,15 @@
+# Headless forward collection on GitHub-hosted runners — November 5, 2026
+
+**complete=false.** Branch `claude/vibrant-bohr-wr375g`. See [operator](forward-operator.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Public egress for authentic collection | `egress-probe.yml` run `42129099670` | **Pass on GitHub runners:** HTTP 200 from Kalshi series/markets, Weather Company climate, api.weather.gov and Open-Meteo. Cloud sessions are still refused (proxy 403). |
+| Headless operation through the existing website API | `operations/forward.py`; 15 unit cases and 1 real-listener case (CONTROLLED seeded inputs, mock source transport) | Pass. One active monitor is kept or created; one following schedule is created; pauses are never resumed; the run refuses if submissions are enabled; shutdown uses SIGINT. |
+| Chained restart/restore across runs | `forward-collection.yml` runs 1 and 2 (see STATUS) | Run 2 restored run 1's verified snapshot. Restore fails closed on a checksum or lock mismatch. |
+| Multi-day authentic operation | Scheduled runs after merge to `main` | **Not yet observed.** Verification windows are not multi-day operation. |
+| Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
+
 # Market-family screening — November 5, 2026
 
 **complete=false.** This milestone supports the two-family gate; it does not satisfy it. See

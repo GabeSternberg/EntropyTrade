@@ -1,0 +1,33 @@
+# Read-only egress probe: records whether GitHub-hosted runners can reach the public
+# sources that scheduled cloud sessions cannot (issue #3). Unauthenticated HEAD/GET only;
+# no secrets, no credentials, no order endpoints.
+name: egress-probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["claude/**"]
+    paths: [".github/workflows/egress-probe.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Probe public sources
+        run: |
+          ua="EntropyTrade read-only research (github.com/GabeSternberg/EntropyTrade)"
+          d=$(date -u -d yesterday +%Y%m%d)
+          for url in \
+            "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL" \
+            "https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=KXHIGHPHIL&limit=2" \
+            "https://weather.com/kalshi/api/climate/primary?date=$d" \
+            "https://api.weather.gov/points/39.8733,-75.2268" \
+            "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&daily=temperature_2m_max"; do
+            out=$(curl -sS -A "$ua" -o body.bin -w '%{http_code} %{size_download}' --max-time 20 "$url" 2>&1 || true)
+            echo "PROBE $url -> $out sha256=$(sha256sum body.bin 2>/dev/null | cut -c1-16)"
+            head -c 300 body.bin 2>/dev/null; echo
+          done
