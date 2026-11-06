@@ -26,6 +26,7 @@ on:
     paths:
       - ".github/workflows/forward-collection.yml"
       - "backend/src/entropytrade/operations/**"
+      - "backend/src/entropytrade/execution/fee_admin.py"
 
 permissions:
   contents: read
@@ -120,6 +121,16 @@ jobs:
             --workspace "$WORKSPACE" --seconds "$seconds" \
             --summary "$OUT/summary.json" --log "$OUT/server.log"
 
+      - name: Capture official fee documents (unreviewed, at most daily)
+        # Runs after the server has stopped and released the workspace lease. Captures are
+        # retained as immutable UNREVIEWED receipts inside the chained workspace; they never
+        # certify a fee. Certification stays a local operator review (docs/fee-evidence.md).
+        if: always() && hashFiles('data/cache/forward/jobs.sqlite') != ''
+        continue-on-error: true
+        run: |
+          uv run python -m entropytrade.execution.fee_admin \
+            --workspace "$WORKSPACE" --capture-due schedule rounding | tee "$OUT/fee-capture.json"
+
       - name: Snapshot workspace
         if: always() && hashFiles('data/cache/forward/jobs.sqlite') != ''
         run: |
@@ -157,6 +168,7 @@ jobs:
             data/cache/forward-out/server.log
             data/cache/forward-out/snapshot.json
             data/cache/forward-out/lineage.txt
+            data/cache/forward-out/fee-capture.json
           retention-days: 90
           if-no-files-found: warn
 
@@ -172,6 +184,7 @@ jobs:
             else
               echo '{"summary": "missing"}'
             fi
+            [ -f "$OUT/fee-capture.json" ] && cat "$OUT/fee-capture.json"
             [ -f "$OUT/snapshot.json" ] && cat "$OUT/snapshot.json"
             [ -f "$OUT/lineage.txt" ] && cat "$OUT/lineage.txt"
             echo '```'
