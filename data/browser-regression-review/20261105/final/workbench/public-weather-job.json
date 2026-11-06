@@ -1,0 +1,1328 @@
+{
+  "id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+  "request": {
+    "idea": "Do upward forecast revisions improve weather contract probabilities?",
+    "family": "weather",
+    "mode": "public",
+    "reasoning": "local",
+    "enable_provider": false
+  },
+  "status": "completed",
+  "created_at": "2026-11-05T22:05:50.097722+00:00",
+  "updated_at": "2026-11-05T22:06:00.442961+00:00",
+  "detail": "Review saved; public acquisition incomplete (9 failures); forward ingestion only",
+  "result": {
+    "schema": "workbench-review-v1",
+    "reasoning": "local_templates",
+    "reasoning_limit": "Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation.",
+    "research": {
+      "status": "completed",
+      "provider": null,
+      "instruction_version": "operational-research-v1",
+      "pydantic_ai_version": "2.53.0",
+      "request_hash": "sha256:e63bf58f5d8801e8f3951082ba02933160a5212d5eb80f7f8195aded338f27ab",
+      "started_at": "2026-11-05T22:05:57.646681+00:00",
+      "finished_at": "2026-11-05T22:05:57.685328+00:00",
+      "limits": {
+        "cost_limit_usd": null,
+        "input_tokens": 90000,
+        "max_output_tokens_per_request": 3500,
+        "output_tokens": 14000,
+        "requests": 16,
+        "timeout_seconds": 180,
+        "tool_calls": 24
+      },
+      "usage": {
+        "audio_seconds": 0,
+        "cache_audio_read_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost": null,
+        "details": {},
+        "input_audio_tokens": 0,
+        "input_tokens": 0,
+        "output_audio_tokens": 0,
+        "output_tokens": 0,
+        "requests": 0,
+        "tool_calls": 0
+      },
+      "responses": null,
+      "pricing_status": "not_observed",
+      "stages": [
+        {
+          "output": {
+            "evidence_ids": [
+              "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+              "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+              "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+            ],
+            "limitations": [
+              "No language model is used; arbitrary prose is not fully understood.",
+              "Two model comparisons are not causal tests or feature ablations.",
+              "Signal unavailable in this adapter: revision_f",
+              "No actual listed contracts are available in the captured evidence"
+            ],
+            "market_understanding": "Local templates select signals and literal feature comparisons.",
+            "mechanisms": [
+              "The requested signal revision_f may improve contract probabilities.",
+              "A forecast-error baseline may be more stable than regression for this signal."
+            ]
+          },
+          "prompt": "Inspect evidence using the tool, then explain markets, mechanisms, limitations and citations.\n\nUntrusted request and evidence:\n{\"research_run_id\": \"2130eff4-cd71-4d52-a66c-c27a4314bf23\", \"research_timestamp\": \"2026-11-05T22:05:57.646681+00:00\", \"retrieved_evidence\": [{\"evidence_id\": \"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}, {\"evidence_id\": \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"markets\"}, \"untrusted_evidence\": {\"items\": [], \"next_offset\": null, \"total\": 0}}, {\"evidence_id\": \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"features\"}, \"untrusted_evidence\": {\"features\": [{\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"forecast_high_f\", \"transformation\": \"Mean latest full-local-day hourly maximum proxy per model\", \"unit\": \"degF\", \"version\": \"1\"}, {\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"hours_to_close\", \"transformation\": \"Actual market close minus decision time\", \"unit\": \"hours\", \"version\": \"1\"}], \"prediction_interface\": {\"availability\": \"requires a real fitted artifact and decision-time inputs\", \"missing\": \"no prediction; never replace with a candle or a binary rule fire\", \"name\": \"model_yes_probability\", \"version\": \"r2-prediction-v1\"}, \"version\": \"public-forward-v1\"}}, {\"evidence_id\": \"sha256:1095a3198520445f3e1b8b28c407fec5a1d5e89d80ba994716527bb959c5eba2\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"models\"}, \"untrusted_evidence\": {\"data_kind\": \"real\", \"models\": {}, \"status\": \"not_supplied\"}}, {\"evidence_id\": \"sha256:11c79a9f5ad9913d21a2af9010becaa9b4506e8637ebe17ea8e956b6b93a6349\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"history\"}, \"untrusted_evidence\": {\"items\": [{\"candidates\": [{\"candidate_id\": \"c0\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h0\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Revisions may identify probability changes before market repricing.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Revisions may identify probability changes before market repricing.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-0\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c1\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h1\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"model_disagreement_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"model_disagreement_f\", \"op\": \"le\", \"threshold\": \"5\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"name\": \"model_disagreement_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Disagreement may flag unreliable probabilities for filtering.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational model_disagreement_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-1\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c2\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h2\", \"missing_capability\": \"experiment-only proposal; comparison orchestration requires R4\", \"model_family\": \"ridge\", \"required_features\": [\"station_bias_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": null}, {\"candidate_id\": \"negative-control\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"negative-control\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"An unattainable net edge is a control for execution rejection.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"An unattainable net edge is a control for execution rejection.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"1\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"negative-control\", \"uncertainty_allowance\": \"0\", \"version\": 1}}], \"decisions\": [{\"candidate_id\": \"c0\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c0\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:9c116b7e89036445f95fdd851cc1cc1fd6821e8ebd6fda1c2478a5a2cd5c443d\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c1\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c1\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:67d7d4d80a3069159d0497ef389bd0b962573fa798df0d12d80468b9cbbd259b\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c2\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c2\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": null, \"status\": \"UNSUPPORTED\"}, {\"candidate_id\": \"negative-control\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"negative-control\", \"concerns\": [\"The unit net-edge hurdle should produce no fills.\"], \"reason\": \"This is an explicit software negative control, not a profitability claim.\"}, \"spec_hash\": \"sha256:c765a69b67802c5d4f24d9accdf5f6ad9d8cc57adf19847a6bb91bbc77a807e5\", \"status\": \"READY_FOR_EXPERIMENT\"}], \"hypotheses\": [{\"hypothesis_id\": \"h0\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Revisions may identify probability changes before market repricing.\", \"variables\": [\"revision_f\"]}, {\"hypothesis_id\": \"h1\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Disagreement may flag unreliable probabilities for filtering.\", \"variables\": [\"model_disagreement_f\"]}, {\"hypothesis_id\": \"h2\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Previously resolved station errors may improve forecast calibration.\", \"variables\": [\"station_bias_f\"]}, {\"hypothesis_id\": \"negative-control\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"An unattainable net edge is a control for execution rejection.\", \"variables\": [\"revision_f\"]}], \"mode\": \"offline_mock\", \"run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\"}], \"next_offset\": 1, \"total\": 2}}], \"user_request\": \"Do upward forecast revisions improve weather contract probabilities?\"}",
+          "prompt_hash": "sha256:0a2fcb367959ec535ccb0895cfca38b01e085113a390eebf63faa15c7ee58c9a",
+          "returned_models": [],
+          "role": "research"
+        },
+        {
+          "output": {
+            "hypotheses": [
+              {
+                "direction": "Test probability accuracy; association and sign remain unverified",
+                "evidence_ids": [
+                  "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+                  "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+                  "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+                ],
+                "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+                "hypothesis_id": "template-h0",
+                "market_family": "UNAVAILABLE",
+                "mechanism": "The requested signal revision_f may improve contract probabilities.",
+                "necessary_evidence": [
+                  "Point-in-time source vintages and source-matched official outcomes",
+                  "Independent date blocks, historical sized books and effective fees"
+                ],
+                "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+                "variables": [
+                  "revision_f"
+                ],
+                "window": "Frozen decision-time inputs before each actual contract close"
+              },
+              {
+                "direction": "Test probability accuracy; association and sign remain unverified",
+                "evidence_ids": [
+                  "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+                  "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+                  "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+                ],
+                "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+                "hypothesis_id": "template-h1",
+                "market_family": "UNAVAILABLE",
+                "mechanism": "A forecast-error baseline may be more stable than regression for this signal.",
+                "necessary_evidence": [
+                  "Point-in-time source vintages and source-matched official outcomes",
+                  "Independent date blocks, historical sized books and effective fees"
+                ],
+                "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+                "variables": [
+                  "revision_f",
+                  "hours_to_close"
+                ],
+                "window": "Frozen decision-time inputs before each actual contract close"
+              }
+            ]
+          },
+          "prompt": "Generate 2-6 distinct falsifiable mechanisms responsive to the request, with required variables, tests and falsification criteria. Avoid threshold-only variants.\n\nUntrusted request and evidence:\n{\"research\": {\"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"limitations\": [\"No language model is used; arbitrary prose is not fully understood.\", \"Two model comparisons are not causal tests or feature ablations.\", \"Signal unavailable in this adapter: revision_f\", \"No actual listed contracts are available in the captured evidence\"], \"market_understanding\": \"Local templates select signals and literal feature comparisons.\", \"mechanisms\": [\"The requested signal revision_f may improve contract probabilities.\", \"A forecast-error baseline may be more stable than regression for this signal.\"]}, \"research_run_id\": \"2130eff4-cd71-4d52-a66c-c27a4314bf23\", \"research_timestamp\": \"2026-11-05T22:05:57.646681+00:00\", \"retrieved_evidence\": [{\"evidence_id\": \"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}, {\"evidence_id\": \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"markets\"}, \"untrusted_evidence\": {\"items\": [], \"next_offset\": null, \"total\": 0}}, {\"evidence_id\": \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"features\"}, \"untrusted_evidence\": {\"features\": [{\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"forecast_high_f\", \"transformation\": \"Mean latest full-local-day hourly maximum proxy per model\", \"unit\": \"degF\", \"version\": \"1\"}, {\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"hours_to_close\", \"transformation\": \"Actual market close minus decision time\", \"unit\": \"hours\", \"version\": \"1\"}], \"prediction_interface\": {\"availability\": \"requires a real fitted artifact and decision-time inputs\", \"missing\": \"no prediction; never replace with a candle or a binary rule fire\", \"name\": \"model_yes_probability\", \"version\": \"r2-prediction-v1\"}, \"version\": \"public-forward-v1\"}}, {\"evidence_id\": \"sha256:1095a3198520445f3e1b8b28c407fec5a1d5e89d80ba994716527bb959c5eba2\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"models\"}, \"untrusted_evidence\": {\"data_kind\": \"real\", \"models\": {}, \"status\": \"not_supplied\"}}, {\"evidence_id\": \"sha256:11c79a9f5ad9913d21a2af9010becaa9b4506e8637ebe17ea8e956b6b93a6349\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"history\"}, \"untrusted_evidence\": {\"items\": [{\"candidates\": [{\"candidate_id\": \"c0\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h0\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Revisions may identify probability changes before market repricing.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Revisions may identify probability changes before market repricing.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-0\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c1\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h1\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"model_disagreement_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"model_disagreement_f\", \"op\": \"le\", \"threshold\": \"5\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"name\": \"model_disagreement_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Disagreement may flag unreliable probabilities for filtering.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational model_disagreement_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-1\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c2\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h2\", \"missing_capability\": \"experiment-only proposal; comparison orchestration requires R4\", \"model_family\": \"ridge\", \"required_features\": [\"station_bias_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": null}, {\"candidate_id\": \"negative-control\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"negative-control\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"An unattainable net edge is a control for execution rejection.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"An unattainable net edge is a control for execution rejection.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"1\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"negative-control\", \"uncertainty_allowance\": \"0\", \"version\": 1}}], \"decisions\": [{\"candidate_id\": \"c0\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c0\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:9c116b7e89036445f95fdd851cc1cc1fd6821e8ebd6fda1c2478a5a2cd5c443d\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c1\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c1\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:67d7d4d80a3069159d0497ef389bd0b962573fa798df0d12d80468b9cbbd259b\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c2\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c2\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": null, \"status\": \"UNSUPPORTED\"}, {\"candidate_id\": \"negative-control\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"negative-control\", \"concerns\": [\"The unit net-edge hurdle should produce no fills.\"], \"reason\": \"This is an explicit software negative control, not a profitability claim.\"}, \"spec_hash\": \"sha256:c765a69b67802c5d4f24d9accdf5f6ad9d8cc57adf19847a6bb91bbc77a807e5\", \"status\": \"READY_FOR_EXPERIMENT\"}], \"hypotheses\": [{\"hypothesis_id\": \"h0\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Revisions may identify probability changes before market repricing.\", \"variables\": [\"revision_f\"]}, {\"hypothesis_id\": \"h1\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Disagreement may flag unreliable probabilities for filtering.\", \"variables\": [\"model_disagreement_f\"]}, {\"hypothesis_id\": \"h2\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Previously resolved station errors may improve forecast calibration.\", \"variables\": [\"station_bias_f\"]}, {\"hypothesis_id\": \"negative-control\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"An unattainable net edge is a control for execution rejection.\", \"variables\": [\"revision_f\"]}], \"mode\": \"offline_mock\", \"run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\"}], \"next_offset\": 1, \"total\": 2}}, {\"evidence_id\": \"sha256:a4ddddaf0984e3bfea19b8404c8c9e5bc04c386dfa1cff33cb005431ef90b9a0\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}], \"user_request\": \"Do upward forecast revisions improve weather contract probabilities?\"}",
+          "prompt_hash": "sha256:73ed4425f992619c8641b614fd589d65ee28149aa59e476dd66e4d9c97d1960a",
+          "returned_models": [],
+          "role": "hypothesis"
+        },
+        {
+          "output": {
+            "candidates": [
+              {
+                "candidate_id": "template-c0",
+                "evidence_ids": [
+                  "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+                  "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+                  "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+                ],
+                "hypothesis_id": "template-h0",
+                "missing_capability": "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+                "model_family": "forward_only",
+                "required_features": [
+                  "revision_f"
+                ],
+                "required_sources": [
+                  "kalshi"
+                ],
+                "spec": null
+              },
+              {
+                "candidate_id": "template-c1",
+                "evidence_ids": [
+                  "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+                  "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+                  "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+                ],
+                "hypothesis_id": "template-h1",
+                "missing_capability": "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+                "model_family": "forward_only",
+                "required_features": [
+                  "revision_f",
+                  "hours_to_close"
+                ],
+                "required_sources": [
+                  "kalshi"
+                ],
+                "spec": null
+              }
+            ]
+          },
+          "prompt": "Make one candidate per hypothesis. Use complete StrategySpecs only where faithful. Preserve unsupported research proposals with missing_capability. Use current feature names and actual universes. Never invent a model artifact.\n\nUntrusted request and evidence:\n{\"hypothesis\": {\"hypotheses\": [{\"direction\": \"Test probability accuracy; association and sign remain unverified\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"falsification\": \"Reject without validation improvement and fee-aware depth evidence.\", \"hypothesis_id\": \"template-h0\", \"market_family\": \"UNAVAILABLE\", \"mechanism\": \"The requested signal revision_f may improve contract probabilities.\", \"necessary_evidence\": [\"Point-in-time source vintages and source-matched official outcomes\", \"Independent date blocks, historical sized books and effective fees\"], \"test\": \"Compare event-weighted temporal validation Brier and log loss with baselines.\", \"variables\": [\"revision_f\"], \"window\": \"Frozen decision-time inputs before each actual contract close\"}, {\"direction\": \"Test probability accuracy; association and sign remain unverified\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"falsification\": \"Reject without validation improvement and fee-aware depth evidence.\", \"hypothesis_id\": \"template-h1\", \"market_family\": \"UNAVAILABLE\", \"mechanism\": \"A forecast-error baseline may be more stable than regression for this signal.\", \"necessary_evidence\": [\"Point-in-time source vintages and source-matched official outcomes\", \"Independent date blocks, historical sized books and effective fees\"], \"test\": \"Compare event-weighted temporal validation Brier and log loss with baselines.\", \"variables\": [\"revision_f\", \"hours_to_close\"], \"window\": \"Frozen decision-time inputs before each actual contract close\"}]}, \"research\": {\"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"limitations\": [\"No language model is used; arbitrary prose is not fully understood.\", \"Two model comparisons are not causal tests or feature ablations.\", \"Signal unavailable in this adapter: revision_f\", \"No actual listed contracts are available in the captured evidence\"], \"market_understanding\": \"Local templates select signals and literal feature comparisons.\", \"mechanisms\": [\"The requested signal revision_f may improve contract probabilities.\", \"A forecast-error baseline may be more stable than regression for this signal.\"]}, \"research_run_id\": \"2130eff4-cd71-4d52-a66c-c27a4314bf23\", \"research_timestamp\": \"2026-11-05T22:05:57.646681+00:00\", \"retrieved_evidence\": [{\"evidence_id\": \"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}, {\"evidence_id\": \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"markets\"}, \"untrusted_evidence\": {\"items\": [], \"next_offset\": null, \"total\": 0}}, {\"evidence_id\": \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"features\"}, \"untrusted_evidence\": {\"features\": [{\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"forecast_high_f\", \"transformation\": \"Mean latest full-local-day hourly maximum proxy per model\", \"unit\": \"degF\", \"version\": \"1\"}, {\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"hours_to_close\", \"transformation\": \"Actual market close minus decision time\", \"unit\": \"hours\", \"version\": \"1\"}], \"prediction_interface\": {\"availability\": \"requires a real fitted artifact and decision-time inputs\", \"missing\": \"no prediction; never replace with a candle or a binary rule fire\", \"name\": \"model_yes_probability\", \"version\": \"r2-prediction-v1\"}, \"version\": \"public-forward-v1\"}}, {\"evidence_id\": \"sha256:1095a3198520445f3e1b8b28c407fec5a1d5e89d80ba994716527bb959c5eba2\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"models\"}, \"untrusted_evidence\": {\"data_kind\": \"real\", \"models\": {}, \"status\": \"not_supplied\"}}, {\"evidence_id\": \"sha256:11c79a9f5ad9913d21a2af9010becaa9b4506e8637ebe17ea8e956b6b93a6349\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"history\"}, \"untrusted_evidence\": {\"items\": [{\"candidates\": [{\"candidate_id\": \"c0\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h0\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Revisions may identify probability changes before market repricing.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Revisions may identify probability changes before market repricing.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-0\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c1\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h1\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"model_disagreement_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"model_disagreement_f\", \"op\": \"le\", \"threshold\": \"5\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"name\": \"model_disagreement_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Disagreement may flag unreliable probabilities for filtering.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational model_disagreement_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-1\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c2\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h2\", \"missing_capability\": \"experiment-only proposal; comparison orchestration requires R4\", \"model_family\": \"ridge\", \"required_features\": [\"station_bias_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": null}, {\"candidate_id\": \"negative-control\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"negative-control\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"An unattainable net edge is a control for execution rejection.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"An unattainable net edge is a control for execution rejection.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"1\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"negative-control\", \"uncertainty_allowance\": \"0\", \"version\": 1}}], \"decisions\": [{\"candidate_id\": \"c0\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c0\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:9c116b7e89036445f95fdd851cc1cc1fd6821e8ebd6fda1c2478a5a2cd5c443d\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c1\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c1\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:67d7d4d80a3069159d0497ef389bd0b962573fa798df0d12d80468b9cbbd259b\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c2\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c2\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": null, \"status\": \"UNSUPPORTED\"}, {\"candidate_id\": \"negative-control\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"negative-control\", \"concerns\": [\"The unit net-edge hurdle should produce no fills.\"], \"reason\": \"This is an explicit software negative control, not a profitability claim.\"}, \"spec_hash\": \"sha256:c765a69b67802c5d4f24d9accdf5f6ad9d8cc57adf19847a6bb91bbc77a807e5\", \"status\": \"READY_FOR_EXPERIMENT\"}], \"hypotheses\": [{\"hypothesis_id\": \"h0\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Revisions may identify probability changes before market repricing.\", \"variables\": [\"revision_f\"]}, {\"hypothesis_id\": \"h1\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Disagreement may flag unreliable probabilities for filtering.\", \"variables\": [\"model_disagreement_f\"]}, {\"hypothesis_id\": \"h2\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Previously resolved station errors may improve forecast calibration.\", \"variables\": [\"station_bias_f\"]}, {\"hypothesis_id\": \"negative-control\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"An unattainable net edge is a control for execution rejection.\", \"variables\": [\"revision_f\"]}], \"mode\": \"offline_mock\", \"run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\"}], \"next_offset\": 1, \"total\": 2}}, {\"evidence_id\": \"sha256:a4ddddaf0984e3bfea19b8404c8c9e5bc04c386dfa1cff33cb005431ef90b9a0\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}], \"user_request\": \"Do upward forecast revisions improve weather contract probabilities?\"}",
+          "prompt_hash": "sha256:e510258da303c205d3ad6d7b2ab6c8336ffb5f593e04f752c2f9cb745f06c6f1",
+          "returned_models": [],
+          "role": "quant"
+        },
+        {
+          "output": {
+            "verdicts": [
+              {
+                "accept_for_experiment": false,
+                "candidate_id": "template-c0",
+                "concerns": [
+                  "No LLM critique or empirical edge follows from local formulation."
+                ],
+                "reason": "Local rule checks only; independent evidence and experiment gates apply."
+              },
+              {
+                "accept_for_experiment": false,
+                "candidate_id": "template-c1",
+                "concerns": [
+                  "No LLM critique or empirical edge follows from local formulation."
+                ],
+                "reason": "Local rule checks only; independent evidence and experiment gates apply."
+              }
+            ]
+          },
+          "prompt": "Evaluate every full candidate and hypothesis against all evidence. Check clocks, settlement sources, correlated outcomes, repeated searches, unsupported semantics and fills. Exactly one verdict per candidate, with reasons.\n\nUntrusted request and evidence:\n{\"hypothesis\": {\"hypotheses\": [{\"direction\": \"Test probability accuracy; association and sign remain unverified\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"falsification\": \"Reject without validation improvement and fee-aware depth evidence.\", \"hypothesis_id\": \"template-h0\", \"market_family\": \"UNAVAILABLE\", \"mechanism\": \"The requested signal revision_f may improve contract probabilities.\", \"necessary_evidence\": [\"Point-in-time source vintages and source-matched official outcomes\", \"Independent date blocks, historical sized books and effective fees\"], \"test\": \"Compare event-weighted temporal validation Brier and log loss with baselines.\", \"variables\": [\"revision_f\"], \"window\": \"Frozen decision-time inputs before each actual contract close\"}, {\"direction\": \"Test probability accuracy; association and sign remain unverified\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"falsification\": \"Reject without validation improvement and fee-aware depth evidence.\", \"hypothesis_id\": \"template-h1\", \"market_family\": \"UNAVAILABLE\", \"mechanism\": \"A forecast-error baseline may be more stable than regression for this signal.\", \"necessary_evidence\": [\"Point-in-time source vintages and source-matched official outcomes\", \"Independent date blocks, historical sized books and effective fees\"], \"test\": \"Compare event-weighted temporal validation Brier and log loss with baselines.\", \"variables\": [\"revision_f\", \"hours_to_close\"], \"window\": \"Frozen decision-time inputs before each actual contract close\"}]}, \"quant\": {\"candidates\": [{\"candidate_id\": \"template-c0\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"hypothesis_id\": \"template-h0\", \"missing_capability\": \"Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence\", \"model_family\": \"forward_only\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"kalshi\"], \"spec\": null}, {\"candidate_id\": \"template-c1\", \"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"hypothesis_id\": \"template-h1\", \"missing_capability\": \"Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence\", \"model_family\": \"forward_only\", \"required_features\": [\"revision_f\", \"hours_to_close\"], \"required_sources\": [\"kalshi\"], \"spec\": null}]}, \"research\": {\"evidence_ids\": [\"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\"], \"limitations\": [\"No language model is used; arbitrary prose is not fully understood.\", \"Two model comparisons are not causal tests or feature ablations.\", \"Signal unavailable in this adapter: revision_f\", \"No actual listed contracts are available in the captured evidence\"], \"market_understanding\": \"Local templates select signals and literal feature comparisons.\", \"mechanisms\": [\"The requested signal revision_f may improve contract probabilities.\", \"A forecast-error baseline may be more stable than regression for this signal.\"]}, \"research_run_id\": \"2130eff4-cd71-4d52-a66c-c27a4314bf23\", \"research_timestamp\": \"2026-11-05T22:05:57.646681+00:00\", \"retrieved_evidence\": [{\"evidence_id\": \"sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}, {\"evidence_id\": \"sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"markets\"}, \"untrusted_evidence\": {\"items\": [], \"next_offset\": null, \"total\": 0}}, {\"evidence_id\": \"sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"features\"}, \"untrusted_evidence\": {\"features\": [{\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"forecast_high_f\", \"transformation\": \"Mean latest full-local-day hourly maximum proxy per model\", \"unit\": \"degF\", \"version\": \"1\"}, {\"missing_behavior\": \"null; never impute unavailable evidence\", \"name\": \"hours_to_close\", \"transformation\": \"Actual market close minus decision time\", \"unit\": \"hours\", \"version\": \"1\"}], \"prediction_interface\": {\"availability\": \"requires a real fitted artifact and decision-time inputs\", \"missing\": \"no prediction; never replace with a candle or a binary rule fire\", \"name\": \"model_yes_probability\", \"version\": \"r2-prediction-v1\"}, \"version\": \"public-forward-v1\"}}, {\"evidence_id\": \"sha256:1095a3198520445f3e1b8b28c407fec5a1d5e89d80ba994716527bb959c5eba2\", \"query\": {\"limit\": 10, \"offset\": 0, \"ticker\": null, \"topic\": \"models\"}, \"untrusted_evidence\": {\"data_kind\": \"real\", \"models\": {}, \"status\": \"not_supplied\"}}, {\"evidence_id\": \"sha256:11c79a9f5ad9913d21a2af9010becaa9b4506e8637ebe17ea8e956b6b93a6349\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"history\"}, \"untrusted_evidence\": {\"items\": [{\"candidates\": [{\"candidate_id\": \"c0\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h0\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Revisions may identify probability changes before market repricing.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Revisions may identify probability changes before market repricing.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-0\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c1\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h1\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"model_disagreement_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"model_disagreement_f\", \"op\": \"le\", \"threshold\": \"5\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Disagreement may flag unreliable probabilities for filtering.\", \"name\": \"model_disagreement_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"Disagreement may flag unreliable probabilities for filtering.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"0.03\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational model_disagreement_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"offline-candidate-1\", \"uncertainty_allowance\": \"0\", \"version\": 1}}, {\"candidate_id\": \"c2\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"h2\", \"missing_capability\": \"experiment-only proposal; comparison orchestration requires R4\", \"model_family\": \"ridge\", \"required_features\": [\"station_bias_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": null}, {\"candidate_id\": \"negative-control\", \"evidence_ids\": [\"sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e\", \"sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c\", \"sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302\"], \"hypothesis_id\": \"negative-control\", \"missing_capability\": \"\", \"model_family\": \"ridge\", \"required_features\": [\"revision_f\"], \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"spec\": {\"assumptions\": [\"The ask is the fill price and the position is held to settlement.\"], \"calibration\": \"none\", \"citations\": [], \"created_at\": \"2026-10-02T16:00:00Z\", \"description\": \"An unattainable net edge is a control for execution rejection.\", \"entry_rules\": {\"all_of\": [{\"feature\": \"model_yes_probability\", \"op\": \"gt\", \"threshold\": \"0.55\"}, {\"feature\": \"revision_f\", \"op\": \"gt\", \"threshold\": \"0\"}], \"description\": \"Informational YES entry when modeled probability meets threshold\"}, \"entry_window\": {\"end\": null, \"start\": null, \"target_end\": null, \"target_start\": null}, \"evidence\": [], \"execution\": {\"max_spread\": null, \"post_only\": false, \"time_in_force\": \"fill_or_kill\"}, \"exit_mode\": \"hold_to_settlement\", \"exit_rules\": {\"all_of\": [{\"feature\": \"settlement\", \"op\": \"eq\", \"threshold\": \"1\"}], \"description\": \"hold to settlement\"}, \"features\": [{\"description\": \"Revisions may identify probability changes before market repricing.\", \"name\": \"revision_f\", \"version\": \"1\"}], \"generated_by\": {\"actor_id\": \"quant\", \"kind\": \"agent\"}, \"generation_run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\", \"hedging_rules\": \"\", \"hypothesis\": \"An unattainable net edge is a control for execution rejection.\", \"invalidation_conditions\": [\"The fixture probability is replaced by a live model.\"], \"market_universe\": {\"description\": \"Actual permitted series\", \"event_tickers\": [], \"market_tickers\": [], \"series_tickers\": [\"SYNTHCHI\"], \"venue\": \"kalshi\"}, \"max_entry_price\": null, \"maximum_holding_period_seconds\": null, \"min_displayed_quantity\": null, \"minimum_edge\": \"1\", \"model_kind\": \"domain_statistical\", \"model_ref\": null, \"name\": \"SYNTHCHI informational revision_f\", \"position_sizing\": {\"contracts\": \"1.00\", \"dollars\": null, \"kelly_fraction\": null, \"max_contracts\": \"1.00\", \"method\": \"fixed_contracts\"}, \"probability_feature\": null, \"required_sources\": [\"synthetic-kalshi\", \"synthetic-gfs\"], \"risk_overrides_allowed\": \"none\", \"side\": \"yes\", \"slippage_allowance\": \"0\", \"strategy_family\": \"informational\", \"strategy_id\": \"negative-control\", \"uncertainty_allowance\": \"0\", \"version\": 1}}], \"decisions\": [{\"candidate_id\": \"c0\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c0\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:9c116b7e89036445f95fdd851cc1cc1fd6821e8ebd6fda1c2478a5a2cd5c443d\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c1\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c1\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": \"sha256:67d7d4d80a3069159d0497ef389bd0b962573fa798df0d12d80468b9cbbd259b\", \"status\": \"READY_FOR_EXPERIMENT\"}, {\"candidate_id\": \"c2\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"c2\", \"concerns\": [\"Forecast clocks, scalar labels and independent-event counts are insufficient.\"], \"reason\": \"Plausible research proposal only; deterministic data and semantics checks must gate any experiment.\"}, \"spec_hash\": null, \"status\": \"UNSUPPORTED\"}, {\"candidate_id\": \"negative-control\", \"critic\": {\"accept_for_experiment\": true, \"candidate_id\": \"negative-control\", \"concerns\": [\"The unit net-edge hurdle should produce no fills.\"], \"reason\": \"This is an explicit software negative control, not a profitability claim.\"}, \"spec_hash\": \"sha256:c765a69b67802c5d4f24d9accdf5f6ad9d8cc57adf19847a6bb91bbc77a807e5\", \"status\": \"READY_FOR_EXPERIMENT\"}], \"hypotheses\": [{\"hypothesis_id\": \"h0\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Revisions may identify probability changes before market repricing.\", \"variables\": [\"revision_f\"]}, {\"hypothesis_id\": \"h1\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Disagreement may flag unreliable probabilities for filtering.\", \"variables\": [\"model_disagreement_f\"]}, {\"hypothesis_id\": \"h2\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"Previously resolved station errors may improve forecast calibration.\", \"variables\": [\"station_bias_f\"]}, {\"hypothesis_id\": \"negative-control\", \"market_family\": \"SYNTHCHI\", \"mechanism\": \"An unattainable net edge is a control for execution rejection.\", \"variables\": [\"revision_f\"]}], \"mode\": \"offline_mock\", \"run_id\": \"1bbd6bc5-fc5b-486a-9fbb-d801e02e5989\"}], \"next_offset\": 1, \"total\": 2}}, {\"evidence_id\": \"sha256:a4ddddaf0984e3bfea19b8404c8c9e5bc04c386dfa1cff33cb005431ef90b9a0\", \"query\": {\"limit\": 1, \"offset\": 0, \"ticker\": null, \"topic\": \"coverage\"}, \"untrusted_evidence\": {\"by_series\": {}, \"configured_source_kinds\": [], \"contracts\": 0, \"data_kind\": \"real\", \"date_blocks\": 0, \"dates\": [], \"eligible_events\": 0, \"feature_nonmissing_rows\": {}, \"feature_version\": \"sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6\", \"independent_events\": 0, \"label_semantics\": \"adapter-defined official outcome; values withheld\", \"rows\": 0, \"scalar_label_events\": 0, \"source_dataset\": \"sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849\"}}], \"user_request\": \"Do upward forecast revisions improve weather contract probabilities?\"}",
+          "prompt_hash": "sha256:5202f77a364ad04a6bf4b8884418d24a479c42d101350139509c2e2a4780652e",
+          "returned_models": [],
+          "role": "critic"
+        }
+      ],
+      "tool_calls": [
+        {
+          "evidence_id": "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+          "query": {
+            "limit": 10,
+            "offset": 0,
+            "ticker": null,
+            "topic": "coverage"
+          },
+          "untrusted_evidence": {
+            "by_series": {},
+            "configured_source_kinds": [],
+            "contracts": 0,
+            "data_kind": "real",
+            "date_blocks": 0,
+            "dates": [],
+            "eligible_events": 0,
+            "feature_nonmissing_rows": {},
+            "feature_version": "sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6",
+            "independent_events": 0,
+            "label_semantics": "adapter-defined official outcome; values withheld",
+            "rows": 0,
+            "scalar_label_events": 0,
+            "source_dataset": "sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849"
+          }
+        },
+        {
+          "evidence_id": "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "query": {
+            "limit": 10,
+            "offset": 0,
+            "ticker": null,
+            "topic": "markets"
+          },
+          "untrusted_evidence": {
+            "items": [],
+            "next_offset": null,
+            "total": 0
+          }
+        },
+        {
+          "evidence_id": "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87",
+          "query": {
+            "limit": 10,
+            "offset": 0,
+            "ticker": null,
+            "topic": "features"
+          },
+          "untrusted_evidence": {
+            "features": [
+              {
+                "missing_behavior": "null; never impute unavailable evidence",
+                "name": "forecast_high_f",
+                "transformation": "Mean latest full-local-day hourly maximum proxy per model",
+                "unit": "degF",
+                "version": "1"
+              },
+              {
+                "missing_behavior": "null; never impute unavailable evidence",
+                "name": "hours_to_close",
+                "transformation": "Actual market close minus decision time",
+                "unit": "hours",
+                "version": "1"
+              }
+            ],
+            "prediction_interface": {
+              "availability": "requires a real fitted artifact and decision-time inputs",
+              "missing": "no prediction; never replace with a candle or a binary rule fire",
+              "name": "model_yes_probability",
+              "version": "r2-prediction-v1"
+            },
+            "version": "public-forward-v1"
+          }
+        },
+        {
+          "evidence_id": "sha256:1095a3198520445f3e1b8b28c407fec5a1d5e89d80ba994716527bb959c5eba2",
+          "query": {
+            "limit": 10,
+            "offset": 0,
+            "ticker": null,
+            "topic": "models"
+          },
+          "untrusted_evidence": {
+            "data_kind": "real",
+            "models": {},
+            "status": "not_supplied"
+          }
+        },
+        {
+          "evidence_id": "sha256:11c79a9f5ad9913d21a2af9010becaa9b4506e8637ebe17ea8e956b6b93a6349",
+          "query": {
+            "limit": 1,
+            "offset": 0,
+            "ticker": null,
+            "topic": "history"
+          },
+          "untrusted_evidence": {
+            "items": [
+              {
+                "candidates": [
+                  {
+                    "candidate_id": "c0",
+                    "evidence_ids": [
+                      "sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e",
+                      "sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c",
+                      "sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302"
+                    ],
+                    "hypothesis_id": "h0",
+                    "missing_capability": "",
+                    "model_family": "ridge",
+                    "required_features": [
+                      "revision_f"
+                    ],
+                    "required_sources": [
+                      "synthetic-kalshi",
+                      "synthetic-gfs"
+                    ],
+                    "spec": {
+                      "assumptions": [
+                        "The ask is the fill price and the position is held to settlement."
+                      ],
+                      "calibration": "none",
+                      "citations": [],
+                      "created_at": "2026-10-02T16:00:00Z",
+                      "description": "Revisions may identify probability changes before market repricing.",
+                      "entry_rules": {
+                        "all_of": [
+                          {
+                            "feature": "model_yes_probability",
+                            "op": "gt",
+                            "threshold": "0.55"
+                          },
+                          {
+                            "feature": "revision_f",
+                            "op": "gt",
+                            "threshold": "0"
+                          }
+                        ],
+                        "description": "Informational YES entry when modeled probability meets threshold"
+                      },
+                      "entry_window": {
+                        "end": null,
+                        "start": null,
+                        "target_end": null,
+                        "target_start": null
+                      },
+                      "evidence": [],
+                      "execution": {
+                        "max_spread": null,
+                        "post_only": false,
+                        "time_in_force": "fill_or_kill"
+                      },
+                      "exit_mode": "hold_to_settlement",
+                      "exit_rules": {
+                        "all_of": [
+                          {
+                            "feature": "settlement",
+                            "op": "eq",
+                            "threshold": "1"
+                          }
+                        ],
+                        "description": "hold to settlement"
+                      },
+                      "features": [
+                        {
+                          "description": "Revisions may identify probability changes before market repricing.",
+                          "name": "revision_f",
+                          "version": "1"
+                        }
+                      ],
+                      "generated_by": {
+                        "actor_id": "quant",
+                        "kind": "agent"
+                      },
+                      "generation_run_id": "1bbd6bc5-fc5b-486a-9fbb-d801e02e5989",
+                      "hedging_rules": "",
+                      "hypothesis": "Revisions may identify probability changes before market repricing.",
+                      "invalidation_conditions": [
+                        "The fixture probability is replaced by a live model."
+                      ],
+                      "market_universe": {
+                        "description": "Actual permitted series",
+                        "event_tickers": [],
+                        "market_tickers": [],
+                        "series_tickers": [
+                          "SYNTHCHI"
+                        ],
+                        "venue": "kalshi"
+                      },
+                      "max_entry_price": null,
+                      "maximum_holding_period_seconds": null,
+                      "min_displayed_quantity": null,
+                      "minimum_edge": "0.03",
+                      "model_kind": "domain_statistical",
+                      "model_ref": null,
+                      "name": "SYNTHCHI informational revision_f",
+                      "position_sizing": {
+                        "contracts": "1.00",
+                        "dollars": null,
+                        "kelly_fraction": null,
+                        "max_contracts": "1.00",
+                        "method": "fixed_contracts"
+                      },
+                      "probability_feature": null,
+                      "required_sources": [
+                        "synthetic-kalshi",
+                        "synthetic-gfs"
+                      ],
+                      "risk_overrides_allowed": "none",
+                      "side": "yes",
+                      "slippage_allowance": "0",
+                      "strategy_family": "informational",
+                      "strategy_id": "offline-candidate-0",
+                      "uncertainty_allowance": "0",
+                      "version": 1
+                    }
+                  },
+                  {
+                    "candidate_id": "c1",
+                    "evidence_ids": [
+                      "sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e",
+                      "sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c",
+                      "sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302"
+                    ],
+                    "hypothesis_id": "h1",
+                    "missing_capability": "",
+                    "model_family": "ridge",
+                    "required_features": [
+                      "model_disagreement_f"
+                    ],
+                    "required_sources": [
+                      "synthetic-kalshi",
+                      "synthetic-gfs"
+                    ],
+                    "spec": {
+                      "assumptions": [
+                        "The ask is the fill price and the position is held to settlement."
+                      ],
+                      "calibration": "none",
+                      "citations": [],
+                      "created_at": "2026-10-02T16:00:00Z",
+                      "description": "Disagreement may flag unreliable probabilities for filtering.",
+                      "entry_rules": {
+                        "all_of": [
+                          {
+                            "feature": "model_yes_probability",
+                            "op": "gt",
+                            "threshold": "0.55"
+                          },
+                          {
+                            "feature": "model_disagreement_f",
+                            "op": "le",
+                            "threshold": "5"
+                          }
+                        ],
+                        "description": "Informational YES entry when modeled probability meets threshold"
+                      },
+                      "entry_window": {
+                        "end": null,
+                        "start": null,
+                        "target_end": null,
+                        "target_start": null
+                      },
+                      "evidence": [],
+                      "execution": {
+                        "max_spread": null,
+                        "post_only": false,
+                        "time_in_force": "fill_or_kill"
+                      },
+                      "exit_mode": "hold_to_settlement",
+                      "exit_rules": {
+                        "all_of": [
+                          {
+                            "feature": "settlement",
+                            "op": "eq",
+                            "threshold": "1"
+                          }
+                        ],
+                        "description": "hold to settlement"
+                      },
+                      "features": [
+                        {
+                          "description": "Disagreement may flag unreliable probabilities for filtering.",
+                          "name": "model_disagreement_f",
+                          "version": "1"
+                        }
+                      ],
+                      "generated_by": {
+                        "actor_id": "quant",
+                        "kind": "agent"
+                      },
+                      "generation_run_id": "1bbd6bc5-fc5b-486a-9fbb-d801e02e5989",
+                      "hedging_rules": "",
+                      "hypothesis": "Disagreement may flag unreliable probabilities for filtering.",
+                      "invalidation_conditions": [
+                        "The fixture probability is replaced by a live model."
+                      ],
+                      "market_universe": {
+                        "description": "Actual permitted series",
+                        "event_tickers": [],
+                        "market_tickers": [],
+                        "series_tickers": [
+                          "SYNTHCHI"
+                        ],
+                        "venue": "kalshi"
+                      },
+                      "max_entry_price": null,
+                      "maximum_holding_period_seconds": null,
+                      "min_displayed_quantity": null,
+                      "minimum_edge": "0.03",
+                      "model_kind": "domain_statistical",
+                      "model_ref": null,
+                      "name": "SYNTHCHI informational model_disagreement_f",
+                      "position_sizing": {
+                        "contracts": "1.00",
+                        "dollars": null,
+                        "kelly_fraction": null,
+                        "max_contracts": "1.00",
+                        "method": "fixed_contracts"
+                      },
+                      "probability_feature": null,
+                      "required_sources": [
+                        "synthetic-kalshi",
+                        "synthetic-gfs"
+                      ],
+                      "risk_overrides_allowed": "none",
+                      "side": "yes",
+                      "slippage_allowance": "0",
+                      "strategy_family": "informational",
+                      "strategy_id": "offline-candidate-1",
+                      "uncertainty_allowance": "0",
+                      "version": 1
+                    }
+                  },
+                  {
+                    "candidate_id": "c2",
+                    "evidence_ids": [
+                      "sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e",
+                      "sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c",
+                      "sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302"
+                    ],
+                    "hypothesis_id": "h2",
+                    "missing_capability": "experiment-only proposal; comparison orchestration requires R4",
+                    "model_family": "ridge",
+                    "required_features": [
+                      "station_bias_f"
+                    ],
+                    "required_sources": [
+                      "synthetic-kalshi",
+                      "synthetic-gfs"
+                    ],
+                    "spec": null
+                  },
+                  {
+                    "candidate_id": "negative-control",
+                    "evidence_ids": [
+                      "sha256:f9b7af40ecdb4f0e815d1f16a664fada75e2b64f37a295a8c40c92690cdbdd0e",
+                      "sha256:44cda870033475db93775d3b97ed9cd9310000cc55d80b812c1f8dd6b4cbdf7c",
+                      "sha256:c5580f9364291ebf8a915e2061b0bbf374347035852b216d56d2d4236f2b3302"
+                    ],
+                    "hypothesis_id": "negative-control",
+                    "missing_capability": "",
+                    "model_family": "ridge",
+                    "required_features": [
+                      "revision_f"
+                    ],
+                    "required_sources": [
+                      "synthetic-kalshi",
+                      "synthetic-gfs"
+                    ],
+                    "spec": {
+                      "assumptions": [
+                        "The ask is the fill price and the position is held to settlement."
+                      ],
+                      "calibration": "none",
+                      "citations": [],
+                      "created_at": "2026-10-02T16:00:00Z",
+                      "description": "An unattainable net edge is a control for execution rejection.",
+                      "entry_rules": {
+                        "all_of": [
+                          {
+                            "feature": "model_yes_probability",
+                            "op": "gt",
+                            "threshold": "0.55"
+                          },
+                          {
+                            "feature": "revision_f",
+                            "op": "gt",
+                            "threshold": "0"
+                          }
+                        ],
+                        "description": "Informational YES entry when modeled probability meets threshold"
+                      },
+                      "entry_window": {
+                        "end": null,
+                        "start": null,
+                        "target_end": null,
+                        "target_start": null
+                      },
+                      "evidence": [],
+                      "execution": {
+                        "max_spread": null,
+                        "post_only": false,
+                        "time_in_force": "fill_or_kill"
+                      },
+                      "exit_mode": "hold_to_settlement",
+                      "exit_rules": {
+                        "all_of": [
+                          {
+                            "feature": "settlement",
+                            "op": "eq",
+                            "threshold": "1"
+                          }
+                        ],
+                        "description": "hold to settlement"
+                      },
+                      "features": [
+                        {
+                          "description": "Revisions may identify probability changes before market repricing.",
+                          "name": "revision_f",
+                          "version": "1"
+                        }
+                      ],
+                      "generated_by": {
+                        "actor_id": "quant",
+                        "kind": "agent"
+                      },
+                      "generation_run_id": "1bbd6bc5-fc5b-486a-9fbb-d801e02e5989",
+                      "hedging_rules": "",
+                      "hypothesis": "An unattainable net edge is a control for execution rejection.",
+                      "invalidation_conditions": [
+                        "The fixture probability is replaced by a live model."
+                      ],
+                      "market_universe": {
+                        "description": "Actual permitted series",
+                        "event_tickers": [],
+                        "market_tickers": [],
+                        "series_tickers": [
+                          "SYNTHCHI"
+                        ],
+                        "venue": "kalshi"
+                      },
+                      "max_entry_price": null,
+                      "maximum_holding_period_seconds": null,
+                      "min_displayed_quantity": null,
+                      "minimum_edge": "1",
+                      "model_kind": "domain_statistical",
+                      "model_ref": null,
+                      "name": "SYNTHCHI informational revision_f",
+                      "position_sizing": {
+                        "contracts": "1.00",
+                        "dollars": null,
+                        "kelly_fraction": null,
+                        "max_contracts": "1.00",
+                        "method": "fixed_contracts"
+                      },
+                      "probability_feature": null,
+                      "required_sources": [
+                        "synthetic-kalshi",
+                        "synthetic-gfs"
+                      ],
+                      "risk_overrides_allowed": "none",
+                      "side": "yes",
+                      "slippage_allowance": "0",
+                      "strategy_family": "informational",
+                      "strategy_id": "negative-control",
+                      "uncertainty_allowance": "0",
+                      "version": 1
+                    }
+                  }
+                ],
+                "decisions": [
+                  {
+                    "candidate_id": "c0",
+                    "critic": {
+                      "accept_for_experiment": true,
+                      "candidate_id": "c0",
+                      "concerns": [
+                        "Forecast clocks, scalar labels and independent-event counts are insufficient."
+                      ],
+                      "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+                    },
+                    "spec_hash": "sha256:9c116b7e89036445f95fdd851cc1cc1fd6821e8ebd6fda1c2478a5a2cd5c443d",
+                    "status": "READY_FOR_EXPERIMENT"
+                  },
+                  {
+                    "candidate_id": "c1",
+                    "critic": {
+                      "accept_for_experiment": true,
+                      "candidate_id": "c1",
+                      "concerns": [
+                        "Forecast clocks, scalar labels and independent-event counts are insufficient."
+                      ],
+                      "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+                    },
+                    "spec_hash": "sha256:67d7d4d80a3069159d0497ef389bd0b962573fa798df0d12d80468b9cbbd259b",
+                    "status": "READY_FOR_EXPERIMENT"
+                  },
+                  {
+                    "candidate_id": "c2",
+                    "critic": {
+                      "accept_for_experiment": true,
+                      "candidate_id": "c2",
+                      "concerns": [
+                        "Forecast clocks, scalar labels and independent-event counts are insufficient."
+                      ],
+                      "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+                    },
+                    "spec_hash": null,
+                    "status": "UNSUPPORTED"
+                  },
+                  {
+                    "candidate_id": "negative-control",
+                    "critic": {
+                      "accept_for_experiment": true,
+                      "candidate_id": "negative-control",
+                      "concerns": [
+                        "The unit net-edge hurdle should produce no fills."
+                      ],
+                      "reason": "This is an explicit software negative control, not a profitability claim."
+                    },
+                    "spec_hash": "sha256:c765a69b67802c5d4f24d9accdf5f6ad9d8cc57adf19847a6bb91bbc77a807e5",
+                    "status": "READY_FOR_EXPERIMENT"
+                  }
+                ],
+                "hypotheses": [
+                  {
+                    "hypothesis_id": "h0",
+                    "market_family": "SYNTHCHI",
+                    "mechanism": "Revisions may identify probability changes before market repricing.",
+                    "variables": [
+                      "revision_f"
+                    ]
+                  },
+                  {
+                    "hypothesis_id": "h1",
+                    "market_family": "SYNTHCHI",
+                    "mechanism": "Disagreement may flag unreliable probabilities for filtering.",
+                    "variables": [
+                      "model_disagreement_f"
+                    ]
+                  },
+                  {
+                    "hypothesis_id": "h2",
+                    "market_family": "SYNTHCHI",
+                    "mechanism": "Previously resolved station errors may improve forecast calibration.",
+                    "variables": [
+                      "station_bias_f"
+                    ]
+                  },
+                  {
+                    "hypothesis_id": "negative-control",
+                    "market_family": "SYNTHCHI",
+                    "mechanism": "An unattainable net edge is a control for execution rejection.",
+                    "variables": [
+                      "revision_f"
+                    ]
+                  }
+                ],
+                "mode": "offline_mock",
+                "run_id": "1bbd6bc5-fc5b-486a-9fbb-d801e02e5989"
+              }
+            ],
+            "next_offset": 1,
+            "total": 2
+          }
+        },
+        {
+          "evidence_id": "sha256:a4ddddaf0984e3bfea19b8404c8c9e5bc04c386dfa1cff33cb005431ef90b9a0",
+          "query": {
+            "limit": 1,
+            "offset": 0,
+            "ticker": null,
+            "topic": "coverage"
+          },
+          "untrusted_evidence": {
+            "by_series": {},
+            "configured_source_kinds": [],
+            "contracts": 0,
+            "data_kind": "real",
+            "date_blocks": 0,
+            "dates": [],
+            "eligible_events": 0,
+            "feature_nonmissing_rows": {},
+            "feature_version": "sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6",
+            "independent_events": 0,
+            "label_semantics": "adapter-defined official outcome; values withheld",
+            "rows": 0,
+            "scalar_label_events": 0,
+            "source_dataset": "sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849"
+          }
+        }
+      ],
+      "failure": null
+    },
+    "status": "completed",
+    "formulation": {
+      "evidence_ids": [
+        "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+        "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+        "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+      ],
+      "limitations": [
+        "No language model is used; arbitrary prose is not fully understood.",
+        "Two model comparisons are not causal tests or feature ablations.",
+        "Signal unavailable in this adapter: revision_f",
+        "No actual listed contracts are available in the captured evidence"
+      ],
+      "market_understanding": "Local templates select signals and literal feature comparisons.",
+      "mechanisms": [
+        "The requested signal revision_f may improve contract probabilities.",
+        "A forecast-error baseline may be more stable than regression for this signal."
+      ]
+    },
+    "data_kind": "real",
+    "experiment_id": "sha256:cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5",
+    "research_run": "2130eff4-cd71-4d52-a66c-c27a4314bf23",
+    "coverage": {
+      "by_series": {},
+      "configured_source_kinds": [],
+      "contracts": 0,
+      "data_kind": "real",
+      "date_blocks": 0,
+      "dates": [],
+      "eligible_events": 0,
+      "feature_nonmissing_rows": {},
+      "feature_version": "sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6",
+      "independent_events": 0,
+      "label_semantics": "adapter-defined official outcome; values withheld",
+      "rows": 0,
+      "scalar_label_events": 0,
+      "source_dataset": "sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849"
+    },
+    "hypotheses": [
+      {
+        "direction": "Test probability accuracy; association and sign remain unverified",
+        "evidence_ids": [
+          "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+        "hypothesis_id": "template-h0",
+        "market_family": "UNAVAILABLE",
+        "mechanism": "The requested signal revision_f may improve contract probabilities.",
+        "necessary_evidence": [
+          "Point-in-time source vintages and source-matched official outcomes",
+          "Independent date blocks, historical sized books and effective fees"
+        ],
+        "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+        "variables": [
+          "revision_f"
+        ],
+        "window": "Frozen decision-time inputs before each actual contract close"
+      },
+      {
+        "direction": "Test probability accuracy; association and sign remain unverified",
+        "evidence_ids": [
+          "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "falsification": "Reject without validation improvement and fee-aware depth evidence.",
+        "hypothesis_id": "template-h1",
+        "market_family": "UNAVAILABLE",
+        "mechanism": "A forecast-error baseline may be more stable than regression for this signal.",
+        "necessary_evidence": [
+          "Point-in-time source vintages and source-matched official outcomes",
+          "Independent date blocks, historical sized books and effective fees"
+        ],
+        "test": "Compare event-weighted temporal validation Brier and log loss with baselines.",
+        "variables": [
+          "revision_f",
+          "hours_to_close"
+        ],
+        "window": "Frozen decision-time inputs before each actual contract close"
+      }
+    ],
+    "proposals": [
+      {
+        "candidate_id": "template-c0",
+        "evidence_ids": [
+          "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "hypothesis_id": "template-h0",
+        "missing_capability": "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+        "model_family": "forward_only",
+        "required_features": [
+          "revision_f"
+        ],
+        "required_sources": [
+          "kalshi"
+        ],
+        "spec": null
+      },
+      {
+        "candidate_id": "template-c1",
+        "evidence_ids": [
+          "sha256:0934fff02b96b70372c6b9cf56cabf88f78e4ac69d716d4cd4c17ad844788bfe",
+          "sha256:fa117ab909271a20c963e53ab76929f1f9c998fc25aa5fb3fa9ef75965acfd26",
+          "sha256:fc9cf51b8f58f86cad18668821e075163a8995296ad2687f8e95704a55c2db87"
+        ],
+        "hypothesis_id": "template-h1",
+        "missing_capability": "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+        "model_family": "forward_only",
+        "required_features": [
+          "revision_f",
+          "hours_to_close"
+        ],
+        "required_sources": [
+          "kalshi"
+        ],
+        "spec": null
+      }
+    ],
+    "decisions": [
+      {
+        "candidate_id": "template-c0",
+        "critic": {
+          "accept_for_experiment": false,
+          "candidate_id": "template-c0",
+          "concerns": [
+            "No LLM critique or empirical edge follows from local formulation."
+          ],
+          "reason": "Local rule checks only; independent evidence and experiment gates apply."
+        },
+        "hypothesis_signature": "sha256:6ccae56a92912e72a3d503123df94960658c1f4841273e0e8b6f4abe2808a55c",
+        "previous_search_count": 0,
+        "previously_searched": false,
+        "reasons": [
+          "hypothesis market family is absent from the permitted universe",
+          "unknown feature references: revision_f",
+          "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+          "required real fitted probability artifact is unavailable",
+          "model validation coverage is not permitted by the research cutoff",
+          "historical rules and settlement semantics are not certified",
+          "insufficient independent eligible events/source-matched scalar labels",
+          "no executable historical depth; candles/prints cannot establish fills"
+        ],
+        "scope": "research eligibility only; no trading approval or proven edge",
+        "spec_hash": null,
+        "status": "REJECTED",
+        "structurally_valid": false
+      },
+      {
+        "candidate_id": "template-c1",
+        "critic": {
+          "accept_for_experiment": false,
+          "candidate_id": "template-c1",
+          "concerns": [
+            "No LLM critique or empirical edge follows from local formulation."
+          ],
+          "reason": "Local rule checks only; independent evidence and experiment gates apply."
+        },
+        "hypothesis_signature": "sha256:1ffb49ac068ec2ed03c7a1bddc8da1dd23b6fc76a1d2015d7fd9fb8d247bf4e2",
+        "previous_search_count": 1,
+        "previously_searched": true,
+        "reasons": [
+          "hypothesis market family is absent from the permitted universe",
+          "unknown feature references: revision_f",
+          "Signal unavailable in this adapter: revision_f; No actual listed contracts are available in the captured evidence",
+          "no point-in-time observations for hours_to_close",
+          "required real fitted probability artifact is unavailable",
+          "model validation coverage is not permitted by the research cutoff",
+          "historical rules and settlement semantics are not certified",
+          "insufficient independent eligible events/source-matched scalar labels",
+          "no executable historical depth; candles/prints cannot establish fills"
+        ],
+        "scope": "research eligibility only; no trading approval or proven edge",
+        "spec_hash": null,
+        "status": "REJECTED",
+        "structurally_valid": false
+      }
+    ],
+    "candidates": [
+      {
+        "candidate_id": "template-c0",
+        "status": "UNSUPPORTED",
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "forecast_metrics": null,
+        "scenarios": [],
+        "rank": null,
+        "data_kind": "real",
+        "tested": false
+      },
+      {
+        "candidate_id": "template-c1",
+        "status": "UNSUPPORTED",
+        "reasons": [
+          "no executable StrategySpec was supplied"
+        ],
+        "forecast_metrics": null,
+        "scenarios": [],
+        "rank": null,
+        "data_kind": "real",
+        "tested": false
+      }
+    ],
+    "probabilities": [],
+    "probability_count": 0,
+    "probability_limit": 100,
+    "final_holdout_evaluated": false,
+    "lineage": {
+      "dataset": "sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849",
+      "feature_version": "sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6",
+      "research_hash": "sha256:a0ede65766dcf0368bf0f16693702189df3d9db04a4127bc7151096d83fc9587",
+      "normalized_data_hash": "sha256:a6778d8324bcd2ea57e98346c6a1aeaccc1a1bde3d3cdadd5c95620ec169c81c",
+      "code": {
+        "synthetic.py": "sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759",
+        "__init__.py": "sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54",
+        "workflow.py": "sha256:f9e70c13b3965d83e6baca1f799508ac3468ce2ce0a52d7d112b8b65c54e19c5",
+        "engine.py": "sha256:a7716f836561cc055ac5d4942452e15d77443afa25e4afc890e754493865410f",
+        "data.py": "sha256:190c935e4dce4e8949c400ca4ec2c24219000f18fb7c5efa151d2257272c363e",
+        "fee_replay.py": "sha256:4f2509201f474b7ac691bb1df7df180bbcaa175450bcd7a911bfabf9613c1baa",
+        "backtest/replay.py": "sha256:88dd3cbb524b103c0676e6f4377fe7abcc308a1a3bd076417b77225feef099b2",
+        "strategies/interpret.py": "sha256:65bd400b3e6faecb99dcb3d7c0c155db042fd148df3f8fe83da6fad18722dd36",
+        "execution/paper.py": "sha256:bcff522ce57bbbd449336049e73835e536a79d426c03ae8867e9fb2e88172ae1",
+        "execution/fees.py": "sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897",
+        "execution/fee_policy.py": "sha256:424ee1b3f06d0224a35b21db2556a3a38b1d60e124a9729c398547e1a3090c1c",
+        "execution/fee_evidence.py": "sha256:8e3334b6fae4763ede03770fce2d6f3063ea77e11f0347aba0f6ba6bd4daf943",
+        "risk/engine.py": "sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb",
+        "domain/strategy.py": "sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de"
+      },
+      "config": {
+        "fee_policy": null,
+        "fee_versions": [],
+        "latency_seconds": 1,
+        "max_book_age_seconds": 60,
+        "starting_cash": "1000",
+        "per_trade": "25",
+        "per_event": "100",
+        "total_deployed": "500",
+        "min_events": 20,
+        "min_trades": 10,
+        "bootstrap_samples": 500,
+        "seed": 17,
+        "scenarios": [
+          "optimistic",
+          "base",
+          "conservative"
+        ]
+      },
+      "resolved_models": {},
+      "requested_trial_count": 6
+    },
+    "artifacts": [
+      {
+        "path": "experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/checksums.json",
+        "sha256": "sha256:59585880d42d9322b0f68b89063e3cdf7af25be7eb0ec0e4d5119b5e4a934fce",
+        "bytes": 369
+      },
+      {
+        "path": "experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/replay-inputs.json",
+        "sha256": "sha256:28d2ded2cc13a11be6e126a3f5b3f8700e5c684e556f04a29e64a6fbf2ca13f9",
+        "bytes": 116508
+      },
+      {
+        "path": "experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/report.md",
+        "sha256": "sha256:917bf0de24a2eb7f3e35c6937eba6acda9334e084177c23e03bbb2f3d7ec7876",
+        "bytes": 519
+      },
+      {
+        "path": "experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/results.json",
+        "sha256": "sha256:005cea8b3121bddb7b416dd7bfe289a915953a2030190561ef9608d95073d440",
+        "bytes": 3308
+      },
+      {
+        "path": "experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/trades.parquet",
+        "sha256": "sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef",
+        "bytes": 365
+      },
+      {
+        "path": "fee-evidence.json",
+        "sha256": "sha256:90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484",
+        "bytes": 93
+      },
+      {
+        "path": "research/2130eff4-cd71-4d52-a66c-c27a4314bf23/checksums.json",
+        "sha256": "sha256:d1471e9fa4c2d1f9e336f434f7fae5c8d82cf81b21438992b265f9b7aae5052f",
+        "bytes": 175
+      },
+      {
+        "path": "research/2130eff4-cd71-4d52-a66c-c27a4314bf23/report.md",
+        "sha256": "sha256:9517c54c04470bc6871708dbd51d4a64a70c6bb4b7399f34f0281ab6f5619d3d",
+        "bytes": 2501
+      },
+      {
+        "path": "research/2130eff4-cd71-4d52-a66c-c27a4314bf23/run.json",
+        "sha256": "sha256:6c90dd7fb50407952e064fb61c2ca2123f77b6cf06734bd78cb21959c96f7693",
+        "bytes": 97687
+      }
+    ],
+    "warnings": [
+      "Each candidate/scenario counts as a trial. Intervals are descriptive after selection.",
+      "Snapshot fills model taker execution, not queues or observed fills.",
+      "Synthetic results verify software only; ranking is not deployment authorization."
+    ],
+    "report": "Public acquisition INCOMPLETE · weather\nHTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.\nCapture started (UTC): 2026-11-05T22:05:57.506715+00:00\nDecision / capture end (UTC): 2026-11-05T22:05:57.625022+00:00\nUniverse complete: False; history complete: False\nForward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.\nAcquisition failure summary:\nKXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)\nKXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)\nhttps://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)\nweather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)\nhttps://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)\nhttps://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)\nweather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)\nhttps://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)\nweather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)\nForward evidence only; no historical release clocks or outcomes inferred.\nNo historical sized books or certified fee schedule; no execution returns.\nFull-day hourly forecast maxima are proxies, not official settlement highs.\n\n# Research-to-experiment report\n\nData: real. Research run: 2130eff4-cd71-4d52-a66c-c27a4314bf23\nFinal holdout: not evaluated. No trading authorization.\n\ntemplate-c0: UNSUPPORTED\nno executable StrategySpec was supplied\ntemplate-c1: UNSUPPORTED\nno executable StrategySpec was supplied\n\nEach candidate/scenario counts as a trial. Intervals are descriptive after selection.\nSnapshot fills model taker execution, not queues or observed fills.\nSynthetic results verify software only; ranking is not deployment authorization.\n",
+    "public_evidence": {
+      "adapter": "public-forward-v1:weather",
+      "source_kinds": [],
+      "configured_sources": [
+        "kalshi",
+        "open-meteo",
+        "nws"
+      ],
+      "capture": {
+        "decision_time": "2026-11-05T22:05:57.625022+00:00",
+        "failures": [
+          {
+            "failed_at": "2026-11-05T22:05:57.596603+00:00",
+            "failure": "GatewayError",
+            "source": "KXHIGHPHIL"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.598096+00:00",
+            "failure": "GatewayError",
+            "source": "KXHIGHCHI"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.614435+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.615214+00:00",
+            "failure": "NoForecastVintage",
+            "source": "weather:open-meteo:CLIPHL"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.616513+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.weather.gov/points/39.87,-75.23"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.618293+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.618762+00:00",
+            "failure": "NoForecastVintage",
+            "source": "weather:open-meteo:CLIMDW"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.620066+00:00",
+            "failure": "ConnectError",
+            "source": "https://api.weather.gov/points/41.79,-87.75"
+          },
+          {
+            "failed_at": "2026-11-05T22:05:57.621940+00:00",
+            "failure": "IncompleteCapture",
+            "source": "weather"
+          }
+        ],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 0,
+        "observations": 0,
+        "receipts": [],
+        "started_at": "2026-11-05T22:05:57.506715+00:00",
+        "truncated_universe": true,
+        "universe_complete": false
+      },
+      "contracts": [],
+      "decision_time": "2026-11-05T22:05:57.625022+00:00",
+      "limitations": [
+        "Forward evidence only; no historical release clocks or outcomes inferred.",
+        "No historical sized books or certified fee schedule; no execution returns.",
+        "Full-day hourly forecast maxima are proxies, not official settlement highs."
+      ]
+    },
+    "public_manifest": {
+      "checksums": {
+        "capture.json": "sha256:728e571742b3c0b57aeb98e0cb6920b8ec682abce1d26ef159938d85e9df2eb4",
+        "markets.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "weather.sqlite": "sha256:4b58f57a30e8423eba32651910076f0a81660c9cc4927164bc60e8bb0d933a04",
+        "weather/manifest.json": "sha256:98d921503056ac75e168e19652748fb26bf63ef00d7f04fb6b0182b3db45d402",
+        "weather/observations.jsonl": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "dataset_version": "sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849",
+      "decision_time": "2026-11-05T22:05:57.625022+00:00",
+      "family": "weather",
+      "ingestion_code_hash": "sha256:3aa89015f7f3e6354d085a718f97e6e0fd0a58643cea023a08855f644007dd05",
+      "weather_config": {
+        "attempts": 3,
+        "interval_seconds": 900,
+        "locations": [
+          {
+            "forecast_file": null,
+            "latitude": "39.87",
+            "longitude": "-75.23",
+            "name": "Philadelphia",
+            "series": "KXHIGHPHIL",
+            "station": "CLIPHL",
+            "timezone": "America/New_York"
+          },
+          {
+            "forecast_file": null,
+            "latitude": "41.79",
+            "longitude": "-87.75",
+            "name": "Chicago",
+            "series": "KXHIGHCHI",
+            "station": "CLIMDW",
+            "timezone": "America/Chicago"
+          }
+        ],
+        "max_bytes": 5000000000,
+        "providers": [
+          "open-meteo",
+          "nws"
+        ]
+      }
+    },
+    "acquisition": {
+      "status": "incomplete",
+      "headline": "Public acquisition INCOMPLETE · weather",
+      "receipt_count": 0,
+      "successful_response_count": 0,
+      "listed_contracts": 0,
+      "observations": 0,
+      "failure_count": 9,
+      "counts": "HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.",
+      "started_at": "2026-11-05T22:05:57.506715+00:00",
+      "decision_time": "2026-11-05T22:05:57.625022+00:00",
+      "universe_complete": false,
+      "history_complete": false,
+      "failure_summaries": [
+        "KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)",
+        "KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)",
+        "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)",
+        "weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)",
+        "https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)",
+        "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)",
+        "weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)",
+        "https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)",
+        "weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)"
+      ],
+      "evaluation_limit": "Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.",
+      "limitations": [
+        "Forward evidence only; no historical release clocks or outcomes inferred.",
+        "No historical sized books or certified fee schedule; no execution returns.",
+        "Full-day hourly forecast maxima are proxies, not official settlement highs."
+      ]
+    }
+  },
+  "events": [
+    {
+      "sequence": 24,
+      "at": "2026-11-05T22:05:50.097722+00:00",
+      "stage": "queued",
+      "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+    },
+    {
+      "sequence": 25,
+      "at": "2026-11-05T22:05:50.144274+00:00",
+      "stage": "starting",
+      "detail": "Starting isolated research worker"
+    },
+    {
+      "sequence": 26,
+      "at": "2026-11-05T22:05:57.503190+00:00",
+      "stage": "fetching",
+      "detail": "Fetching bounded public contract rules and forward source receipts"
+    },
+    {
+      "sequence": 27,
+      "at": "2026-11-05T22:05:57.630535+00:00",
+      "stage": "data",
+      "detail": "Preparing versioned inputs and protected event boundaries"
+    },
+    {
+      "sequence": 28,
+      "at": "2026-11-05T22:05:57.641100+00:00",
+      "stage": "research",
+      "detail": "Formulating typed hypotheses, specifications and independent criticism"
+    },
+    {
+      "sequence": 29,
+      "at": "2026-11-05T22:05:57.651863+00:00",
+      "stage": "research_research",
+      "detail": "Bounded research: research"
+    },
+    {
+      "sequence": 30,
+      "at": "2026-11-05T22:05:57.657546+00:00",
+      "stage": "research_hypothesis",
+      "detail": "Bounded research: hypothesis"
+    },
+    {
+      "sequence": 31,
+      "at": "2026-11-05T22:05:57.663262+00:00",
+      "stage": "research_quant",
+      "detail": "Bounded research: quant"
+    },
+    {
+      "sequence": 32,
+      "at": "2026-11-05T22:05:57.680547+00:00",
+      "stage": "research_critic",
+      "detail": "Bounded research: critic"
+    },
+    {
+      "sequence": 33,
+      "at": "2026-11-05T22:05:57.691848+00:00",
+      "stage": "experiments",
+      "detail": "Running protected model, execution, fee and minimum-evidence gates"
+    },
+    {
+      "sequence": 34,
+      "at": "2026-11-05T22:06:00.437716+00:00",
+      "stage": "review",
+      "detail": "Saving protected research and experiment evidence"
+    },
+    {
+      "sequence": 35,
+      "at": "2026-11-05T22:06:00.442961+00:00",
+      "stage": "completed",
+      "detail": "Review saved; public acquisition incomplete (9 failures); forward ingestion only"
+    }
+  ]
+}

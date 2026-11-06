@@ -1,0 +1,581 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="25.205016">
+<testsuite name="weather-labels.spec.cjs" timestamp="2026-11-05T21:55:09.289Z" hostname="" tests="1" failures="1" skipped="0" time="24.114" errors="0">
+<testcase name="authentic weather labels: acquire, inspect provenance, freeze and restart" classname="weather-labels.spec.cjs" time="24.114">
+<failure message="weather-labels.spec.cjs:10:1 authentic weather labels: acquire, inspect provenance, freeze and restart" type="FAILURE">
+<![CDATA[  weather-labels.spec.cjs:10:1 › authentic weather labels: acquire, inspect provenance, freeze and restart 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#weather-readiness')
+    Timeout: 10000ms
+    - Expected substring  -   1
+    + Received string     + 262
+
+    - weather-company
+    + Retained weather dataset · insufficient datasha256:f56be97dde9831d22b0fb22bee22575b168c03f4269fc4babcc51a58f0f34eeb2 captures · 648 deduplicated observations · 4 events on 2 dates · 0 protected events.4 eligible forecast events · 0 source-matched scalar labels · 0 binary-label events (unprotected).PartitionEvents / datesTimely matched labelsRequiredShortageLabel cutoffcalibration0 / 0020202026-12-28T00:00:00+00:00fit4 / 2060602026-12-16T00:00:00+00:00validation0 / 0020202027-01-27T00:00:00+00:00fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00at least ten distinct event dates required for temporal evaluationNo source-matched integer settlement highs; binary results cannot substituteOriginal receipt clocks are preserved; importing a receipt does not backfill availability.Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.Source-matched integer settlement highs, independent dates and timely labels gate fitting.Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.Protected final holdout is excluded from research, fitting and evaluation.0 verified shadow cycles · 0 exact decision samples · 0 sized books · 0 stale books.Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.Later binary labels retain their original receipt clocks; scalar model gates still applyStale or missing depth refuses executable backtestingEach exact decision requires applicable certified fee evidence; current documents cannot backdate receiptsShadow replay lineage{
+    +   "closed_decisions": 0,
+    +   "decision_samples": 0,
+    +   "execution_blockers": [
+    +     "Later binary labels retain their original receipt clocks; scalar model gates still apply",
+    +     "Stale or missing depth refuses executable backtesting",
+    +     "Each exact decision requires applicable certified fee evidence; current documents cannot backdate receipts"
+    +   ],
+    +   "labelled_samples": 0,
+    +   "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+    +   "replay_inputs": "shadow-replay.json",
+    +   "sized_books": 0,
+    +   "stale_books": 0,
+    +   "verified_cycles": 0
+    + }Settlement label provenance and refusals[
+    +   {
+    +     "receipts": [
+    +       {
+    +         "bytes": 0,
+    +         "error": "ConnectError: public settlement source unavailable",
+    +         "headers": {},
+    +         "received_at": "2026-11-05T21:55:20.342266Z",
+    +         "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    +         "status": null,
+    +         "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-29"
+    +       },
+    +       {
+    +         "bytes": 0,
+    +         "error": "ConnectError: public settlement source unavailable",
+    +         "headers": {},
+    +         "received_at": "2026-11-05T21:55:20.350488Z",
+    +         "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    +         "status": null,
+    +         "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-30"
+    +       }
+    +     ],
+    +     "records": [
+    +       {
+    +         "observation": null,
+    +         "refusal": "ConnectError: public settlement source unavailable",
+    +         "target": {
+    +           "event_id": "KXHIGHCHI-26OCT29",
+    +           "refusal": "",
+    +           "rules_hashes": [
+    +             "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+    +             "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+    +             "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+    +             "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+    +             "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+    +             "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+    +           ],
+    +           "station": "CLIMDW",
+    +           "target_date": "2026-10-29",
+    +           "timezone": "America/Chicago"
+    +         }
+    +       },
+    +       {
+    +         "observation": null,
+    +         "refusal": "ConnectError: public settlement source unavailable",
+    +         "target": {
+    +           "event_id": "KXHIGHCHI-26OCT30",
+    +           "refusal": "",
+    +           "rules_hashes": [
+    +             "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+    +             "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+    +             "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+    +             "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+    +             "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+    +             "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+    +           ],
+    +           "station": "CLIMDW",
+    +           "target_date": "2026-10-30",
+    +           "timezone": "America/Chicago"
+    +         }
+    +       },
+    +       {
+    +         "observation": null,
+    +         "refusal": "ConnectError: public settlement source unavailable",
+    +         "target": {
+    +           "event_id": "KXHIGHPHIL-26OCT29",
+    +           "refusal": "",
+    +           "rules_hashes": [
+    +             "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+    +             "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+    +             "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+    +             "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+    +             "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+    +             "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+    +           ],
+    +           "station": "CLIPHL",
+    +           "target_date": "2026-10-29",
+    +           "timezone": "America/New_York"
+    +         }
+    +       },
+    +       {
+    +         "observation": null,
+    +         "refusal": "ConnectError: public settlement source unavailable",
+    +         "target": {
+    +           "event_id": "KXHIGHPHIL-26OCT30",
+    +           "refusal": "",
+    +           "rules_hashes": [
+    +             "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+    +             "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+    +             "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+    +             "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+    +             "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+    +             "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+    +           ],
+    +           "station": "CLIPHL",
+    +           "target_date": "2026-10-30",
+    +           "timezone": "America/New_York"
+    +         }
+    +       }
+    +     ],
+    +     "refused_events": 4,
+    +     "source_dataset": "sha256:7c766221338ef483286d7af644e8de6f4e221abf770385c2f181433d79f2d017",
+    +     "submission_enabled": false,
+    +     "verified_events": 0,
+    +     "version": "sha256:6dcfbdca3df94b02570f91212271a329d1ee8a042a8248fa96cb966a0b7df621"
+    +   }
+    + ]0 incomplete captures · 0 acquisition failures.Original capture clocks, receipts and acquisition failures[
+    +   {
+    +     "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+    +     "decision_time": "2026-10-29T16:35:37.734441+00:00",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "listed_contracts": 24,
+    +     "observations": 648,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    +         "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+    +         "raw_ref": "raw/0001.json",
+    +         "received_at": "2026-10-29T16:35:36.806500+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+    +         "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+    +         "raw_ref": "raw/0002.json",
+    +         "received_at": "2026-10-29T16:35:36.816369+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+    +         "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+    +         "raw_ref": "raw/0003.json",
+    +         "received_at": "2026-10-29T16:35:37.134925+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    +         "path": "https://api.weather.gov/points/39.87,-75.23",
+    +         "raw_ref": "raw/0004.json",
+    +         "received_at": "2026-10-29T16:35:37.269720+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    +         "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+    +         "raw_ref": "raw/0005.json",
+    +         "received_at": "2026-10-29T16:35:37.317004+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+    +         "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+    +         "raw_ref": "raw/0006.json",
+    +         "received_at": "2026-10-29T16:35:37.371831+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    +         "path": "https://api.weather.gov/points/41.79,-87.75",
+    +         "raw_ref": "raw/0007.json",
+    +         "received_at": "2026-10-29T16:35:37.498946+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    +         "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+    +         "raw_ref": "raw/0008.json",
+    +         "received_at": "2026-10-29T16:35:37.562541+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-29T16:35:36.717089+00:00",
+    +     "truncated_universe": false,
+    +     "universe_complete": true
+    +   },
+    +   {
+    +     "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+    +     "decision_time": "2026-10-29T16:35:47.288061+00:00",
+    +     "failures": [],
+    +     "family": "weather",
+    +     "history_complete": false,
+    +     "listed_contracts": 24,
+    +     "observations": 648,
+    +     "receipts": [
+    +       {
+    +         "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+    +         "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+    +         "raw_ref": "raw/0001.json",
+    +         "received_at": "2026-10-29T16:35:46.219716+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+    +         "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+    +         "raw_ref": "raw/0002.json",
+    +         "received_at": "2026-10-29T16:35:46.237865+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+    +         "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+    +         "raw_ref": "raw/0003.json",
+    +         "received_at": "2026-10-29T16:35:46.518839+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+    +         "path": "https://api.weather.gov/points/39.87,-75.23",
+    +         "raw_ref": "raw/0004.json",
+    +         "received_at": "2026-10-29T16:35:46.687087+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+    +         "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+    +         "raw_ref": "raw/0005.json",
+    +         "received_at": "2026-10-29T16:35:46.773775+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+    +         "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+    +         "raw_ref": "raw/0006.json",
+    +         "received_at": "2026-10-29T16:35:46.816918+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+    +         "path": "https://api.weather.gov/points/41.79,-87.75",
+    +         "raw_ref": "raw/0007.json",
+    +         "received_at": "2026-10-29T16:35:46.859886+00:00",
+    +         "status": 200
+    +       },
+    +       {
+    +         "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+    +         "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+    +         "raw_ref": "raw/0008.json",
+    +         "received_at": "2026-10-29T16:35:47.145870+00:00",
+    +         "status": 200
+    +       }
+    +     ],
+    +     "started_at": "2026-10-29T16:35:45.923454+00:00",
+    +     "truncated_universe": false,
+    +     "universe_complete": true
+    +   }
+    + ]
+
+    Call log:
+      - Expect "toContainText" with timeout 10000ms
+      - waiting for locator('#weather-readiness')
+        14 × locator resolved to <div id="weather-readiness">…</div>
+           - unexpected value "Retained weather dataset · insufficient datasha256:f56be97dde9831d22b0fb22bee22575b168c03f4269fc4babcc51a58f0f34eeb2 captures · 648 deduplicated observations · 4 events on 2 dates · 0 protected events.4 eligible forecast events · 0 source-matched scalar labels · 0 binary-label events (unprotected).PartitionEvents / datesTimely matched labelsRequiredShortageLabel cutoffcalibration0 / 0020202026-12-28T00:00:00+00:00fit4 / 2060602026-12-16T00:00:00+00:00validation0 / 0020202027-01-27T00:00:00+00:00fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00at least ten distinct event dates required for temporal evaluationNo source-matched integer settlement highs; binary results cannot substituteOriginal receipt clocks are preserved; importing a receipt does not backfill availability.Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.Source-matched integer settlement highs, independent dates and timely labels gate fitting.Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.Protected final holdout is excluded from research, fitting and evaluation.0 verified shadow cycles · 0 exact decision samples · 0 sized books · 0 stale books.Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.Later binary labels retain their original receipt clocks; scalar model gates still applyStale or missing depth refuses executable backtestingEach exact decision requires applicable certified fee evidence; current documents cannot backdate receiptsShadow replay lineage{
+      "closed_decisions": 0,
+      "decision_samples": 0,
+      "execution_blockers": [
+        "Later binary labels retain their original receipt clocks; scalar model gates still apply",
+        "Stale or missing depth refuses executable backtesting",
+        "Each exact decision requires applicable certified fee evidence; current documents cannot backdate receipts"
+      ],
+      "labelled_samples": 0,
+      "limitation": "Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.",
+      "replay_inputs": "shadow-replay.json",
+      "sized_books": 0,
+      "stale_books": 0,
+      "verified_cycles": 0
+    }Settlement label provenance and refusals[
+      {
+        "receipts": [
+          {
+            "bytes": 0,
+            "error": "ConnectError: public settlement source unavailable",
+            "headers": {},
+            "received_at": "2026-11-05T21:55:20.342266Z",
+            "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "status": null,
+            "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-29"
+          },
+          {
+            "bytes": 0,
+            "error": "ConnectError: public settlement source unavailable",
+            "headers": {},
+            "received_at": "2026-11-05T21:55:20.350488Z",
+            "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "status": null,
+            "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-30"
+          }
+        ],
+        "records": [
+          {
+            "observation": null,
+            "refusal": "ConnectError: public settlement source unavailable",
+            "target": {
+              "event_id": "KXHIGHCHI-26OCT29",
+              "refusal": "",
+              "rules_hashes": [
+                "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+                "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+                "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+                "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+                "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+                "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+              ],
+              "station": "CLIMDW",
+              "target_date": "2026-10-29",
+              "timezone": "America/Chicago"
+            }
+          },
+          {
+            "observation": null,
+            "refusal": "ConnectError: public settlement source unavailable",
+            "target": {
+              "event_id": "KXHIGHCHI-26OCT30",
+              "refusal": "",
+              "rules_hashes": [
+                "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+                "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+                "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+                "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+                "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+                "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+              ],
+              "station": "CLIMDW",
+              "target_date": "2026-10-30",
+              "timezone": "America/Chicago"
+            }
+          },
+          {
+            "observation": null,
+            "refusal": "ConnectError: public settlement source unavailable",
+            "target": {
+              "event_id": "KXHIGHPHIL-26OCT29",
+              "refusal": "",
+              "rules_hashes": [
+                "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+                "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+                "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+                "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+                "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+                "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+              ],
+              "station": "CLIPHL",
+              "target_date": "2026-10-29",
+              "timezone": "America/New_York"
+            }
+          },
+          {
+            "observation": null,
+            "refusal": "ConnectError: public settlement source unavailable",
+            "target": {
+              "event_id": "KXHIGHPHIL-26OCT30",
+              "refusal": "",
+              "rules_hashes": [
+                "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+                "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+                "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+                "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+                "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+                "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+              ],
+              "station": "CLIPHL",
+              "target_date": "2026-10-30",
+              "timezone": "America/New_York"
+            }
+          }
+        ],
+        "refused_events": 4,
+        "source_dataset": "sha256:7c766221338ef483286d7af644e8de6f4e221abf770385c2f181433d79f2d017",
+        "submission_enabled": false,
+        "verified_events": 0,
+        "version": "sha256:6dcfbdca3df94b02570f91212271a329d1ee8a042a8248fa96cb966a0b7df621"
+      }
+    ]0 incomplete captures · 0 acquisition failures.Original capture clocks, receipts and acquisition failures[
+      {
+        "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+        "decision_time": "2026-10-29T16:35:37.734441+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:36.806500+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:8737847d0eca57062ca84d99847a6a07644d97d51ebcc348764f3f039408ed54",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:36.816369+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:aff58b18cf27b8cdbfd67f9234ea1dcb5713e3c5097b7bebc0b875fa9199504c",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:37.134925+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:37.269720+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:37.317004+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:468ba3a9445d2a2c51e4d2a49342a6cc58e922d75db8f85aeb31a4cda8687142",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:37.371831+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:37.498946+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:37.562541+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:36.717089+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      },
+      {
+        "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+        "decision_time": "2026-10-29T16:35:47.288061+00:00",
+        "failures": [],
+        "family": "weather",
+        "history_complete": false,
+        "listed_contracts": 24,
+        "observations": 648,
+        "receipts": [
+          {
+            "hash": "sha256:bb0deae7b45c9a26f253d590d6a20d70dc91bf0324f13eb0c9e6ae23054daf8e",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHPHIL&status=open",
+            "raw_ref": "raw/0001.json",
+            "received_at": "2026-10-29T16:35:46.219716+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:2219fa07d16c4d463551c3e5f25c56a684415a82779307a4c066b47865194751",
+            "path": "/trade-api/v2/markets?limit=200&series_ticker=KXHIGHCHI&status=open",
+            "raw_ref": "raw/0002.json",
+            "received_at": "2026-10-29T16:35:46.237865+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b2a17a07a8ac3e78ac9114efc2f0638fcfaee2bef0763fa64efc0079ec027921",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0003.json",
+            "received_at": "2026-10-29T16:35:46.518839+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b5ea7d71ef80b4e52aef8edb9c348abe02bda24f0abdeb4cdb9d6e23e887524e",
+            "path": "https://api.weather.gov/points/39.87,-75.23",
+            "raw_ref": "raw/0004.json",
+            "received_at": "2026-10-29T16:35:46.687087+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b8894da227cd3f13988655cea6ce1847e97c128022e2821a6f0ea1a004df5355",
+            "path": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+            "raw_ref": "raw/0005.json",
+            "received_at": "2026-10-29T16:35:46.773775+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:97ab287d7fa3683bae14b087400cd755aaa3f95a9121c6d74b51d432c423cd20",
+            "path": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless",
+            "raw_ref": "raw/0006.json",
+            "received_at": "2026-10-29T16:35:46.816918+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:b042a0e41fcea00c04289ca4e3e2f27e1b4abb964ed933e7182fbe9dd2f88954",
+            "path": "https://api.weather.gov/points/41.79,-87.75",
+            "raw_ref": "raw/0007.json",
+            "received_at": "2026-10-29T16:35:46.859886+00:00",
+            "status": 200
+          },
+          {
+            "hash": "sha256:c1adad4f6da046ae414ac075acae74b8123f525e8b01b63096a43bf67725b47b",
+            "path": "https://api.weather.gov/gridpoints/LOT/72,69/forecast/hourly",
+            "raw_ref": "raw/0008.json",
+            "received_at": "2026-10-29T16:35:47.145870+00:00",
+            "status": 200
+          }
+        ],
+        "started_at": "2026-10-29T16:35:45.923454+00:00",
+        "truncated_universe": false,
+        "universe_complete": true
+      }
+    ]"
+
+
+      127 |     await expect(page.locator("#weather-readiness")).toContainText(`${labels.result.verified_events} source-matched scalar labels`);
+      128 |     await page.locator("#weather-readiness summary").filter({ hasText: "Settlement label provenance and refusals" }).click();
+    > 129 |     await expect(page.locator("#weather-readiness")).toContainText("weather-company");
+          |                                                      ^
+      130 |     selected = await page.locator("#weather-dataset").inputValue();
+      131 |     await screenshot("labelled-dataset");
+      132 |     // Explicit selection, then natural-language/local-template research through the normal worker.
+        at /home/user/EntropyTrade/frontend/browser/weather-labels.spec.cjs:129:54
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/final/weather-labels/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/browser-regression-review/20261105/final/weather-labels/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/final/weather-labels/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/final/weather-labels/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

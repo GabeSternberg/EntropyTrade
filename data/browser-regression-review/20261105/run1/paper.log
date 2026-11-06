@@ -1,0 +1,23 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay (5ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/paper/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/paper/playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay 
+  1 did not run
+  1 error was not a part of any test, see above for details

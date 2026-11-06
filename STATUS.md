@@ -7,9 +7,9 @@ remain recoverable on their original branches. R3 was integrated into main befor
 
 | Item | Branch / link | State |
 |---|---|---|
-| Read-only SQLite URI fix and prospective-evaluation gates | PR #1 `claude/vibrant-bohr-l2suow` | Open, awaiting review. Until it merges, `main` fails offline-recovery and listener tests with `unable to open database file`. |
-| Browser regression sweep, label-partition render fix, first CI workflow | PR #2 `claude/vibrant-bohr-b1kuuh`, stacked on #1 | Open, awaiting review. |
-| Market-family screening (this milestone) | PR #4 `claude/vibrant-bohr-0m71vf`, from `main` | Open, awaiting review. Merge after #1. |
+| Read-only SQLite URI fix and prospective-evaluation gates | PR #1 `claude/vibrant-bohr-l2suow` | Merged after fresh review, full local checks, and both final-head CI runs. |
+| Browser regression sweep, label-partition render fix, first CI workflow | PR #2 `claude/vibrant-bohr-b1kuuh` | Merged after retargeting to main, fresh review, and both final-head CI runs. |
+| Market-family screening (this milestone) | PR #4 `claude/vibrant-bohr-0m71vf`, from `main` | Reconciled with tested main; receipt-order, update-clock, and numeric-format review findings fixed. Final CI pending. |
 | No public egress in scheduled sessions | Issue #3 | Blocks authentic forward collection, fresh-acquisition browser specs and catalog fetches. |
 
 ## Current milestone (2026-11-06): runner catalog discovery and candidate screen
@@ -89,7 +89,7 @@ The one live fetch attempt failed with no egress (issue #3); no fetched catalog 
 See [docs/family-selection.md](docs/family-selection.md) and the
 [evidence](data/family-screening-review/20261105/README.md).
 
-**Checks.**
+**Original author checks (historical; retained evidence unchanged).**
 
 - Ruff lint and format pass on the repository.
 - Strict mypy passes on 558 files.
@@ -108,6 +108,69 @@ See [docs/family-selection.md](docs/family-selection.md) and the
 
 New-family implementation, credentials and real trading remain out of scope without
 approval.
+
+**Reconciliation, 2026-11-06.** The 57 original failures above are historical. PR #1's
+recovery fix and PR #2's frontend/CI changes are now on tested main and integrated here.
+Fresh screening regressions cover receipt permutations, invalid update clocks and mixed
+volume fields; all 31 focused cases, Ruff and strict mypy pass. Full CI must pass on the
+final reconciled commit before merge. [Reconciliation tracker](https://github.com/GabeSternberg/EntropyTrade/issues/25).
+
+## Current milestone: full browser regression sweep and CI (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-b1kuuh`, stacked on PR #1 (its SQLite URI
+fix is needed for offline restore); PR opened against main for review. **V1 remains incomplete.**
+
+**Browser sweep.** All 14 `frontend/browser` spec files ran against the current tree through
+real listeners and managed Chromium.
+- **Passing:** 19 tests across 12 spec files, plus 3 of 4 workbench workflows, all with zero
+  page errors.
+- **Failing for network only:** `weather-labels` and workbench workflow 3 need public egress,
+  which this runtime's proxy refuses. The app retained `ConnectError` receipts and refused
+  honestly.
+- **Shadow:** `shadow.spec.cjs` passes its lifecycle checks, but all of its public acquisition
+  failed, so it is not ingestion evidence.
+
+**Fixes.**
+- **App defect:** overlapping label-partition renders could show one partition's requests
+  while another was selected. Now only the newest render is applied. A DOM regression
+  reproduces the old behaviour.
+- **Harness defects:** a fixed or basename-derived archive path collided across runs, and
+  `data/recovery/` was not ignored. The outage screenshot now targets the HTTP 503 request.
+
+**CI.** New `.github/workflows/ci.yml` runs locked uv, Ruff, strict mypy, frontend DOM tests and
+the full pytest suite with no secrets. It passes on GitHub: **1,320 tests in 693.83s**.
+
+See [evidence](data/browser-regression-review/20261105/README.md).
+
+**Next recommended milestone:**
+1. Re-run `weather-labels` and workbench workflow 3 in a runtime with public egress.
+2. Continue authentic forward collection (needs elapsed real time).
+3. Prepare the user-approval comparison for a second market family.
+
+Credential-dependent provider verification, certified fees and real trading remain blocked on
+the user.
+
+## Previous milestone: prospective-evaluation acceptance completion (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
+against main for review. **V1 remains incomplete.**
+
+This runtime permits loopback sockets, so the gates left outstanding on October 31 were executed.
+The first real browser attempt exposed a genuine defect: offline snapshot/restore opened
+read-only SQLite `file:` URIs without `uri=True`, so recovery refused on SQLite builds without
+`SQLITE_USE_URI` (here uv-managed CPython 3.13.18 / SQLite 3.53.1). Fixed in five call sites with
+a static architecture guard. After the fix, both managed-Chromium prospective procedures pass
+(12 downloads identical across restart and offline restore, 0 page errors), and the complete
+suite passes **all 1,320 tests in 619.14s** with zero failures/errors/skips, including every
+listener case. Ruff/format, strict mypy (557 files), 24 frontend tests pass; all 73 original
+receipt/Bitcoin hashes are unchanged. Chromium build deviation (preinstalled 1243 at the pinned
+1194 path) is disclosed. See [evidence](data/prospective-evaluation-review/20261105/README.md).
+
+**Next recommended milestone:** with sockets available, rerun the other browser procedures in
+`frontend/browser/` against the current tree to confirm no regression from environment drift,
+then continue authentic forward collection (needs elapsed real time) and prepare the
+user-approval comparison for a second market family. Credential-dependent provider
+verification, certified fees and real trading remain blocked on the user.
 
 ## Previous milestone: prospective shadow-evaluation reports
 
