@@ -404,6 +404,27 @@ def test_alert_summary_derives_lifecycle_state_from_clocks() -> None:
     )
 
 
+def test_alert_summary_keeps_bounded_evidence_only_while_unresolved() -> None:
+    contracts = [{"ticker": f"T{i}", "basis": "close_time"} for i in range(25)]
+    alert: dict[str, Any] = {
+        "id": "a",
+        "kind": "unresolved_reconciliation",
+        "monitor_id": "m1",
+        "opened_at": "t0",
+        "acknowledged_at": None,
+        "resolved_at": None,
+        "evidence": {"contracts": contracts, "grace_seconds": 3600},
+    }
+    open_ = forward.alert_summary(alert)
+    assert open_["evidence"]["contracts_total"] == 25
+    assert [c["ticker"] for c in open_["evidence"]["contracts"]] == [f"T{i}" for i in range(20)]
+    assert open_["evidence"]["grace_seconds"] == 3600
+    assert alert["evidence"]["contracts"] == contracts  # the API record is not mutated
+    small = forward.alert_summary({**alert, "evidence": {"contracts": contracts[:2]}})
+    assert small["evidence"] == {"contracts": contracts[:2]}
+    assert "evidence" not in forward.alert_summary({**alert, "resolved_at": "t1"})
+
+
 class _Running:
     returncode = None
 

@@ -186,6 +186,55 @@ def test_unresolved_reconciliation_uses_close_grace_not_inferred_outcome(
     assert reopened.get(mid)["contracts"][0]["outcome"]["available_at"] == received  # type: ignore[index]
 
 
+def test_unresolved_reconciliation_waits_for_published_expected_settlement(
+    tmp_path: Path,
+    clock: SimulatedClock,
+) -> None:
+    """Weather markets close at local midnight but settle after the next-morning report."""
+    store = TrackingStore(Jobs(tmp_path))
+    mid = monitor(store)
+    close = clock.now()
+    expected = close + timedelta(hours=14)  # retained KXHIGHPHIL: close 05:00Z, expected 19:00Z
+    contracts = [
+        {
+            "ticker": "CONTROLLED-EXPECTED",
+            "market": {
+                "close_time": close.isoformat(),
+                "expected_expiration_time": expected.isoformat(),
+                "latest_expiration_time": (close + timedelta(days=7)).isoformat(),
+            },
+        },
+        {
+            # An expected time before close is not a settlement promise; close governs.
+            "ticker": "CONTROLLED-INCONSISTENT",
+            "market": {
+                "close_time": (close + timedelta(hours=10)).isoformat(),
+                "expected_expiration_time": close.isoformat(),
+            },
+        },
+    ]
+    complete(store, mid, clock, contracts=contracts)
+    store.control(mid, "pause")
+    clock.advance(timedelta(hours=2))
+    assert "unresolved_reconciliation" not in by_kind(store)  # the former close+1h false alarm
+    clock.advance(timedelta(hours=9))
+    alert = by_kind(store)["unresolved_reconciliation"]
+    (inconsistent,) = alert["evidence"]["contracts"]
+    assert inconsistent["ticker"] == "CONTROLLED-INCONSISTENT"
+    assert inconsistent["basis"] == "close_time"
+    clock.advance_to(expected + timedelta(seconds=3599))
+    assert len(by_kind(store)["unresolved_reconciliation"]["evidence"]["contracts"]) == 1
+    clock.advance(timedelta(seconds=1))
+    current = by_kind(store)["unresolved_reconciliation"]
+    assert current["id"] == alert["id"]
+    late = {c["ticker"]: c for c in current["evidence"]["contracts"]}["CONTROLLED-EXPECTED"]
+    assert late["basis"] == "expected_expiration_time"
+    assert late["expected_settlement_at"] == expected.isoformat()
+    assert late["close_time"] == close.isoformat()
+    assert current["evidence"]["grace_seconds"] == 3600
+    assert current["acknowledged_at"] is None
+
+
 def test_alert_api_security_scope_idempotency_and_export(
     tmp_path: Path, clock: SimulatedClock
 ) -> None:
