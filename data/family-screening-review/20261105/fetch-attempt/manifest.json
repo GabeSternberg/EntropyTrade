@@ -1,0 +1,17 @@
+{
+  "calls": [
+    {
+      "error": "ConnectError: [Errno -2] Name or service not known",
+      "received_at": null,
+      "url": "https://api.elections.kalshi.com/trade-api/v2/series/KXHIGHPHIL"
+    }
+  ],
+  "finished_at": "2026-11-05T22:29:18.389780+00:00",
+  "max_pages": 3,
+  "requests": 1,
+  "schema": "entropytrade.family-catalog-fetch/1",
+  "series": [
+    "KXHIGHPHIL"
+  ],
+  "started_at": "2026-11-05T22:29:18.247827+00:00"
+}

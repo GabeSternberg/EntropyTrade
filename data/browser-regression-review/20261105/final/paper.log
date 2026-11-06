@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 paper.spec.cjs:11:3 › durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay (30.3s)
+  ✓  2 paper.spec.cjs:11:3 › durable paper account: authentic refusal, downloads, restart and offline replay (31.9s)
+
+  2 passed (1.1m)

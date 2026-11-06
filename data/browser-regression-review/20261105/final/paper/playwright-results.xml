@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="63.444967000000005">
+<testsuite name="paper.spec.cjs" timestamp="2026-11-05T21:49:16.730Z" hostname="" tests="2" failures="0" skipped="0" time="62.199" errors="0">
+<testcase name="durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay" classname="paper.spec.cjs" time="30.345">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-da080--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="durable paper account: authentic refusal, downloads, restart and offline replay" classname="paper.spec.cjs" time="31.854">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/paper-durable-paper-accoun-3ac8e--restart-and-offline-replay/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

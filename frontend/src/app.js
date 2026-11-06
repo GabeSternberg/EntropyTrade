@@ -164,8 +164,19 @@ function renderWeatherHistory(content, snapshot) {
   if (r.capture_audit) section.append(node("p", `${r.incomplete_captures} incomplete captures · ${r.capture_failures} acquisition failures.`), detail("Original capture clocks, receipts and acquisition failures", r.capture_audit));
   content.append(section);
 }
+// Refresh clicks and partition changes can overlap; only the newest request may render, so
+// rows never describe a partition other than the one selected. aria-busy marks completion.
+let weatherLabelsSequence = 0;
 async function weatherLabels() {
+  const sequence = ++weatherLabelsSequence;
+  const content = $("weather-labels");
+  content.setAttribute("aria-busy", "true");
+  try { await renderWeatherLabels(sequence, content); }
+  finally { if (sequence === weatherLabelsSequence) content.setAttribute("aria-busy", "false"); }
+}
+async function renderWeatherLabels(sequence, content) {
   const partitions = await api("/api/weather/label-partitions");
+  if (sequence !== weatherLabelsSequence) return;
   const select = $("weather-label-partition");
   const previous = select.value;
   select.replaceChildren();
@@ -180,8 +191,10 @@ async function weatherLabels() {
   manifest.hidden = selected?.status !== "sealed";
   manifest.href = `/api/weather/label-partitions/${select.value}/manifest`;
   manifest.download = `label-partition-${select.value}.json`;
-  const rows = selected ? await api("/api/weather/label-partitions/" + select.value) : [];
-  const content = $("weather-labels"); content.replaceChildren();
+  const partition = select.value;
+  const rows = selected ? await api("/api/weather/label-partitions/" + partition) : [];
+  if (sequence !== weatherLabelsSequence) return;
+  content.replaceChildren(); content.dataset.partition = partition;
   for (const request of rows.slice().reverse()) {
     const section = panel("Label acquisition · " + request.status);
     section.append(node("p", request.detail), node("code", request.id));
