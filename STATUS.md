@@ -1,5 +1,56 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): each weather body retained once per capture
+
+Branch `claude/vibrant-bohr-xq6pdo`, **stacked on PR #18** (`claude/vibrant-bohr-3bmoqc`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#18 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Four-location confirmation (PR #18's next step).** Chain run `42213570196`
+  (`chain=head`, 46 cycles, server exit 0) reported `station_bindings.status: ok`: KXHIGHPHIL
+  CLIPHL, KXHIGHCHI CLIMDW, KXHIGHNY CLINYC and KXHIGHTDAL CLIDFW are all `matched`, 6/6
+  contracts each, with the rules naming exactly the configured station. That run still used the
+  pre-rounding coordinates, so its 2 cycles failed with NWS acquisition failures (monitor
+  `failures: 2`, still active). Run `42217215001` on `05bcea6` (rounded coordinates) was still
+  collecting at the end of this session; its results are not recorded here.
+- **Gap: storage runway.** Snapshots refuse a workspace over 2 GiB distinct or 4 GiB expanded
+  bytes. After run `42213570196`: 830,372,605 expanded and 206,858,327 distinct bytes, with
+  `runs/weather-datasets` 641.9 MB and `shadow` 165.4 MB. Each capture kept every forecast
+  body three times (`raw/`, `weather.sqlite`, `weather/raw/`), plus a second observation
+  file. Discovery datasets then copy every capture file again. With four locations and cron
+  every 4 hours, the runway estimate was about two weeks. That is an estimate from two-location
+  growth, not a measurement.
+- **Change.** `families/weather_capture.py` is the collector's capture
+  (shadow and research workers). Observations cite the capture's identical `raw/NNNN.json`
+  receipt: same bytes, same `raw_hash`, unchanged availability clocks. The forecast archive
+  is built in a temporary directory. `weather/receipts.json` keeps each receipt's URL, status,
+  clocks, body hash, `raw_ref` and the vintage or parse failure it produced. A body with no
+  identical retained response is still copied to `weather/raw/`. Older captures are unchanged
+  and verify through their own manifests.
+- **Frozen module.** The first attempt edited `families/public.py` and failed 16 authentic
+  replay tests ("shadow source version mismatch"). `forward_data` binds every capture's
+  `feature_version` to that file's hash, so any edit invalidates every retained shadow cycle,
+  including the live chain. It is restored byte-for-byte. A new test pins its hash and says why.
+- **Evidence.** Replaying the exact bytes of the retained authentic 2026-10-29 two-location
+  capture through the new code gives **2,346,335 → 939,526 bytes (−60%)**, 19 → 14 files, 648
+  observations. Values, revision IDs and raw hashes are identical; only the replay clocks and
+  `raw_ref` differ. Discovery datasets copy captures, so the expanded saving applies twice.
+  Tests: capture-layout and failure-ledger assertions in `test_public_families.py`, plus the
+  frozen-hash guard. Ruff lint/format pass; strict mypy passes (566 files).
+  **Full pytest: 1,404 passed in 614.49s**, with zero failures, errors or skips. The guard test
+  was added after that run; its file passes 22/22.
+- **Not yet on a real runner.** No chain run has used this commit yet. The push does not
+  trigger a trial: the paths filter covers only `operations/**` and the workflow.
+
+**Next autonomous milestone:** when `42217215001` completes, record its four-location
+`station_bindings`, cycle statuses and `workspace` numbers. Then dispatch this branch with
+`continue_from_run=42217215001` and compare per-cycle `bytes`/`distinct_bytes` growth with
+the previous run. Also check that the first new-layout cycles are discovered and frozen
+without errors: the `schedules[].detail` and `errors` fields. Then confirm the NYC/DAL label
+days and recheck 2026-11-05 PHL/CHI. Even with this change, workspace growth is monotonic.
+Durable cold storage for sealed evidence (for example release assets, since workflow
+artifacts expire) needs a user decision and is not started.
+
 ## Current milestone (2026-11-06): four forward locations with station-binding evidence
 
 Branch `claude/vibrant-bohr-3bmoqc`, **stacked on PR #17** (`claude/vibrant-bohr-f4e7df`).
