@@ -1,0 +1,1261 @@
+{
+  "started_at_utc": "2026-11-05T22:04:55.297Z",
+  "commit": "96ac0d2dc7bbc55f365f45bc731f5c7588f6b978",
+  "tree": "13baf1a16815d213d444bcf108d489236c6cb0e0",
+  "branch": "claude/vibrant-bohr-b1kuuh",
+  "origin": "http://127.0.0.1:18784",
+  "workspace": "data/cache/browser-regression-20261105-final/workbench",
+  "browser": {
+    "engine": "Playwright Chromium",
+    "version": "153.0.8010.12",
+    "playwright": "1.56.1",
+    "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+    "headless": true,
+    "fresh_context": true,
+    "computer_use": false,
+    "personal_chrome": false
+  },
+  "workflows": [
+    {
+      "number": 1,
+      "title": "recorded weather, typed specification and protected downloads",
+      "started_at_utc": "2026-11-05T22:05:03.984Z",
+      "outcome": "passed",
+      "finished_at_utc": "2026-11-05T22:05:16.966Z"
+    },
+    {
+      "number": 2,
+      "title": "synthetic modeling, gates, scenarios and validation probabilities",
+      "started_at_utc": "2026-11-05T22:05:16.967Z",
+      "outcome": "passed",
+      "finished_at_utc": "2026-11-05T22:05:49.940Z"
+    },
+    {
+      "number": 3,
+      "title": "fresh public weather and Bitcoin acquisition through all result tabs",
+      "started_at_utc": "2026-11-05T22:05:49.947Z",
+      "outcome": "failed",
+      "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m [\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     acquisition: {\n\u001b[32m+\u001b[39m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.',\n\u001b[32m+\u001b[39m       decision_time: '2026-11-05T22:05:57.625022+00:00',\n\u001b[32m+\u001b[39m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',\n\u001b[32m+\u001b[39m       failure_count: 9,\n\u001b[32m+\u001b[39m       failure_summaries: [\n\u001b[32m+\u001b[39m         'KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)',\n\u001b[32m+\u001b[39m         'KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)',\n\u001b[32m+\u001b[39m         'https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)',\n\u001b[32m+\u001b[39m         'weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)',\n\u001b[32m+\u001b[39m         'https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)',\n\u001b[32m+\u001b[39m         'https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)',\n\u001b[32m+\u001b[39m         'weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)',\n\u001b[32m+\u001b[39m         'https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)',\n\u001b[32m+\u001b[39m         'weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       headline: 'Public acquisition INCOMPLETE · weather',\n\u001b[32m+\u001b[39m       history_complete: false,\n\u001b[32m+\u001b[39m       limitations: [\n\u001b[32m+\u001b[39m         'Forward evidence only; no historical release clocks or outcomes inferred.',\n\u001b[32m+\u001b[39m         'No historical sized books or certified fee schedule; no execution returns.',\n\u001b[32m+\u001b[39m         'Full-day hourly forecast maxima are proxies, not official settlement highs.'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       listed_contracts: 0,\n\u001b[32m+\u001b[39m       observations: 0,\n\u001b[32m+\u001b[39m       receipt_count: 0,\n\u001b[32m+\u001b[39m       started_at: '2026-11-05T22:05:57.506715+00:00',\n\u001b[32m+\u001b[39m       status: 'incomplete',\n\u001b[32m+\u001b[39m       successful_response_count: 0,\n\u001b[32m+\u001b[39m       universe_complete: false\n\u001b[32m+\u001b[39m     },\n\u001b[32m+\u001b[39m     complete_capture: false,\n\u001b[32m+\u001b[39m     family: 'weather',\n\u001b[32m+\u001b[39m     job_id: '436a13d6-440b-44e0-ba18-f2c6594ce4d7',\n\u001b[32m+\u001b[39m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',\n\u001b[32m+\u001b[39m     successful_ingestion: false\n\u001b[32m+\u001b[39m   },\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     acquisition: {\n\u001b[32m+\u001b[39m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.',\n\u001b[32m+\u001b[39m       decision_time: '2026-11-05T22:06:10.942092+00:00',\n\u001b[32m+\u001b[39m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',\n\u001b[32m+\u001b[39m       failure_count: 2,\n\u001b[32m+\u001b[39m       failure_summaries: [\n\u001b[32m+\u001b[39m         'KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)',\n\u001b[32m+\u001b[39m         'coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       headline: 'Public acquisition INCOMPLETE · bitcoin',\n\u001b[32m+\u001b[39m       history_complete: false,\n\u001b[32m+\u001b[39m       limitations: [\n\u001b[32m+\u001b[39m         'Forward evidence only; no historical release clocks or outcomes inferred.',\n\u001b[32m+\u001b[39m         'No historical sized books or certified fee schedule; no execution returns.',\n\u001b[32m+\u001b[39m         'Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.',\n\u001b[32m+\u001b[39m         'Coinbase spot is a covariate, never a Kalshi settlement-source substitute.'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       listed_contracts: 0,\n\u001b[32m+\u001b[39m       observations: 0,\n\u001b[32m+\u001b[39m       receipt_count: 0,\n\u001b[32m+\u001b[39m       started_at: '2026-11-05T22:06:10.836949+00:00',\n\u001b[32m+\u001b[39m       status: 'incomplete',\n\u001b[32m+\u001b[39m       successful_response_count: 0,\n\u001b[32m+\u001b[39m       universe_complete: false\n\u001b[32m+\u001b[39m     },\n\u001b[32m+\u001b[39m     complete_capture: false,\n\u001b[32m+\u001b[39m     family: 'bitcoin',\n\u001b[32m+\u001b[39m     job_id: 'c1cbf3c1-4b51-4c18-accd-edf40d4b9a81',\n\u001b[32m+\u001b[39m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',\n\u001b[32m+\u001b[39m     successful_ingestion: false\n\u001b[32m+\u001b[39m   }\n\u001b[32m+\u001b[39m ]\n\u001b[31m-\u001b[39m []\n\n    at /home/user/EntropyTrade/frontend/browser/workbench.spec.cjs:355:14\n    at /home/user/EntropyTrade/frontend/browser/workbench.spec.cjs:215:13\n    at TestStepInfoImpl._runStepBody (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:476:14)\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/common/testType.js:244:20\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/common/testType.js:242:18\n    at TestTypeImpl._step (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/common/testType.js:239:12)\n    at workflow (/home/user/EntropyTrade/frontend/browser/workbench.spec.cjs:214:5)\n    at /home/user/EntropyTrade/frontend/browser/workbench.spec.cjs:347:5\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:310:9\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:305:11\n    at TimeoutManager.withRunnable (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/timeoutManager.js:67:14)\n    at TestInfoImpl._runWithTimeout (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:303:7)\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:308:7\n    at WorkerMain._runTest (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:283:5)\n    at WorkerMain.runTestGroup (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:198:11)\n    at process.<anonymous> (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/common/process.js:65:22)",
+      "finished_at_utc": "2026-11-05T22:06:18.409Z"
+    },
+    {
+      "number": 4,
+      "title": "active cancellation, slot reuse, interrupted restart and persistent downloads",
+      "started_at_utc": "2026-11-05T22:06:18.416Z",
+      "outcome": "passed",
+      "finished_at_utc": "2026-11-05T22:06:44.452Z"
+    }
+  ],
+  "runs": [
+    {
+      "label": "recorded-weather",
+      "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+      "idea": "revision_f >= 1.25 and hours_to_close < 8",
+      "started_at_utc": "2026-11-05T22:05:03.986Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [
+        {
+          "name": "Review",
+          "at_utc": "2026-11-05T22:05:15.649Z"
+        },
+        {
+          "name": "Probabilities",
+          "at_utc": "2026-11-05T22:05:16.139Z"
+        },
+        {
+          "name": "Evidence & lineage",
+          "at_utc": "2026-11-05T22:05:16.491Z"
+        }
+      ],
+      "status": "completed",
+      "finished_at_utc": "2026-11-05T22:05:15.445Z",
+      "events": [
+        {
+          "sequence": 1,
+          "at": "2026-11-05T22:05:04.132636+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 2,
+          "at": "2026-11-05T22:05:04.219211+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 3,
+          "at": "2026-11-05T22:05:11.099504+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 4,
+          "at": "2026-11-05T22:05:11.146173+00:00",
+          "stage": "research",
+          "detail": "Formulating typed hypotheses, specifications and independent criticism"
+        },
+        {
+          "sequence": 5,
+          "at": "2026-11-05T22:05:11.159266+00:00",
+          "stage": "research_research",
+          "detail": "Bounded research: research"
+        },
+        {
+          "sequence": 6,
+          "at": "2026-11-05T22:05:11.163261+00:00",
+          "stage": "research_hypothesis",
+          "detail": "Bounded research: hypothesis"
+        },
+        {
+          "sequence": 7,
+          "at": "2026-11-05T22:05:11.168052+00:00",
+          "stage": "research_quant",
+          "detail": "Bounded research: quant"
+        },
+        {
+          "sequence": 8,
+          "at": "2026-11-05T22:05:11.183182+00:00",
+          "stage": "research_critic",
+          "detail": "Bounded research: critic"
+        },
+        {
+          "sequence": 9,
+          "at": "2026-11-05T22:05:11.203096+00:00",
+          "stage": "experiments",
+          "detail": "Running protected model, execution, fee and minimum-evidence gates"
+        },
+        {
+          "sequence": 10,
+          "at": "2026-11-05T22:05:13.745915+00:00",
+          "stage": "review",
+          "detail": "Saving protected research and experiment evidence"
+        },
+        {
+          "sequence": 11,
+          "at": "2026-11-05T22:05:13.752452+00:00",
+          "stage": "completed",
+          "detail": "Review saved; inspect candidate gates and evidence limitations"
+        }
+      ],
+      "downloads": {
+        "json": {
+          "at_utc": "2026-11-05T22:05:16.891Z",
+          "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+          "file": "downloads/recorded-weather-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+          "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+          "bytes": 177469,
+          "sha256": "d5a7f910c0f4b463c261b12dd397771a3b432cc439d8437f0cc25e3ad70f2cf4",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+          "comparison": "parsed JSON equals retained review"
+        },
+        "txt": {
+          "at_utc": "2026-11-05T22:05:16.956Z",
+          "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+          "file": "downloads/recorded-weather-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+          "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+          "bytes": 569,
+          "sha256": "30c6214c84d484ca6eaaf683ff4c33bcb7a59104d33d6ce47256560ac2b030c7",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+          "comparison": "bytes equal retained review.report"
+        }
+      },
+      "artifact_hashes_verified": 14,
+      "restart_downloads_identical": true
+    },
+    {
+      "label": "synthetic-weather",
+      "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+      "idea": "Demonstrate temporal modeling and execution gates on explicitly synthetic weather data.",
+      "started_at_utc": "2026-11-05T22:05:16.969Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [
+        {
+          "name": "Review",
+          "at_utc": "2026-11-05T22:05:48.290Z"
+        },
+        {
+          "name": "Probabilities",
+          "at_utc": "2026-11-05T22:05:49.005Z"
+        },
+        {
+          "name": "Evidence & lineage",
+          "at_utc": "2026-11-05T22:05:49.483Z"
+        }
+      ],
+      "status": "completed",
+      "finished_at_utc": "2026-11-05T22:05:47.875Z",
+      "events": [
+        {
+          "sequence": 12,
+          "at": "2026-11-05T22:05:17.068182+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 13,
+          "at": "2026-11-05T22:05:17.141208+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 14,
+          "at": "2026-11-05T22:05:24.676537+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 15,
+          "at": "2026-11-05T22:05:24.678960+00:00",
+          "stage": "modeling",
+          "detail": "Fitting synthetic weather models; software demonstration only"
+        },
+        {
+          "sequence": 16,
+          "at": "2026-11-05T22:05:45.119150+00:00",
+          "stage": "research",
+          "detail": "Formulating typed hypotheses, specifications and independent criticism"
+        },
+        {
+          "sequence": 17,
+          "at": "2026-11-05T22:05:45.134130+00:00",
+          "stage": "research_research",
+          "detail": "Bounded research: research"
+        },
+        {
+          "sequence": 18,
+          "at": "2026-11-05T22:05:45.187201+00:00",
+          "stage": "research_hypothesis",
+          "detail": "Bounded research: hypothesis"
+        },
+        {
+          "sequence": 19,
+          "at": "2026-11-05T22:05:45.200225+00:00",
+          "stage": "research_quant",
+          "detail": "Bounded research: quant"
+        },
+        {
+          "sequence": 20,
+          "at": "2026-11-05T22:05:45.229109+00:00",
+          "stage": "research_critic",
+          "detail": "Bounded research: critic"
+        },
+        {
+          "sequence": 21,
+          "at": "2026-11-05T22:05:45.257223+00:00",
+          "stage": "experiments",
+          "detail": "Running protected model, execution, fee and minimum-evidence gates"
+        },
+        {
+          "sequence": 22,
+          "at": "2026-11-05T22:05:46.052812+00:00",
+          "stage": "review",
+          "detail": "Saving protected research and experiment evidence"
+        },
+        {
+          "sequence": 23,
+          "at": "2026-11-05T22:05:46.102264+00:00",
+          "stage": "completed",
+          "detail": "Review saved; inspect candidate gates and evidence limitations"
+        }
+      ],
+      "probability_clocks": {
+        "validation_only": true,
+        "fit_before_decision": true,
+        "calibration_before_decision_when_present": true,
+        "null_calibration_records": 100
+      },
+      "downloads": {
+        "json": {
+          "at_utc": "2026-11-05T22:05:49.868Z",
+          "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+          "file": "downloads/synthetic-weather-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+          "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+          "bytes": 672498,
+          "sha256": "d2917f0196dbfcd5027d99c64680e50d7229e01e2bba1aae185465518f151325",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+          "comparison": "parsed JSON equals retained review"
+        },
+        "txt": {
+          "at_utc": "2026-11-05T22:05:49.906Z",
+          "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+          "file": "downloads/synthetic-weather-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+          "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+          "bytes": 4825,
+          "sha256": "6b85b1bdcc6765b86d65dc9ca76f48a8b7a365a198d765efc065dad7fa4e8fa3",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+          "comparison": "bytes equal retained review.report"
+        }
+      },
+      "artifact_hashes_verified": 21,
+      "restart_downloads_identical": true
+    },
+    {
+      "label": "public-weather",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "idea": "Do upward forecast revisions improve weather contract probabilities?",
+      "started_at_utc": "2026-11-05T22:05:49.955Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [
+        {
+          "name": "Review",
+          "at_utc": "2026-11-05T22:06:01.543Z"
+        },
+        {
+          "name": "Probabilities",
+          "at_utc": "2026-11-05T22:06:02.111Z"
+        },
+        {
+          "name": "Evidence & lineage",
+          "at_utc": "2026-11-05T22:06:02.624Z"
+        }
+      ],
+      "status": "completed",
+      "finished_at_utc": "2026-11-05T22:06:01.402Z",
+      "events": [
+        {
+          "sequence": 24,
+          "at": "2026-11-05T22:05:50.097722+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 25,
+          "at": "2026-11-05T22:05:50.144274+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 26,
+          "at": "2026-11-05T22:05:57.503190+00:00",
+          "stage": "fetching",
+          "detail": "Fetching bounded public contract rules and forward source receipts"
+        },
+        {
+          "sequence": 27,
+          "at": "2026-11-05T22:05:57.630535+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 28,
+          "at": "2026-11-05T22:05:57.641100+00:00",
+          "stage": "research",
+          "detail": "Formulating typed hypotheses, specifications and independent criticism"
+        },
+        {
+          "sequence": 29,
+          "at": "2026-11-05T22:05:57.651863+00:00",
+          "stage": "research_research",
+          "detail": "Bounded research: research"
+        },
+        {
+          "sequence": 30,
+          "at": "2026-11-05T22:05:57.657546+00:00",
+          "stage": "research_hypothesis",
+          "detail": "Bounded research: hypothesis"
+        },
+        {
+          "sequence": 31,
+          "at": "2026-11-05T22:05:57.663262+00:00",
+          "stage": "research_quant",
+          "detail": "Bounded research: quant"
+        },
+        {
+          "sequence": 32,
+          "at": "2026-11-05T22:05:57.680547+00:00",
+          "stage": "research_critic",
+          "detail": "Bounded research: critic"
+        },
+        {
+          "sequence": 33,
+          "at": "2026-11-05T22:05:57.691848+00:00",
+          "stage": "experiments",
+          "detail": "Running protected model, execution, fee and minimum-evidence gates"
+        },
+        {
+          "sequence": 34,
+          "at": "2026-11-05T22:06:00.437716+00:00",
+          "stage": "review",
+          "detail": "Saving protected research and experiment evidence"
+        },
+        {
+          "sequence": 35,
+          "at": "2026-11-05T22:06:00.442961+00:00",
+          "stage": "completed",
+          "detail": "Review saved; public acquisition incomplete (9 failures); forward ingestion only"
+        }
+      ],
+      "acquisition": {
+        "status": "incomplete",
+        "headline": "Public acquisition INCOMPLETE · weather",
+        "receipt_count": 0,
+        "successful_response_count": 0,
+        "listed_contracts": 0,
+        "observations": 0,
+        "failure_count": 9,
+        "counts": "HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.",
+        "started_at": "2026-11-05T22:05:57.506715+00:00",
+        "decision_time": "2026-11-05T22:05:57.625022+00:00",
+        "universe_complete": false,
+        "history_complete": false,
+        "failure_summaries": [
+          "KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)",
+          "KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)",
+          "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)",
+          "weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)",
+          "https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)",
+          "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)",
+          "weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)",
+          "https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)",
+          "weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)"
+        ],
+        "evaluation_limit": "Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.",
+        "limitations": [
+          "Forward evidence only; no historical release clocks or outcomes inferred.",
+          "No historical sized books or certified fee schedule; no execution returns.",
+          "Full-day hourly forecast maxima are proxies, not official settlement highs."
+        ]
+      },
+      "successful_ingestion": false,
+      "complete_capture": false,
+      "downloads": {
+        "json": {
+          "at_utc": "2026-11-05T22:06:03.242Z",
+          "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+          "file": "downloads/public-weather-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+          "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+          "bytes": 106509,
+          "sha256": "a58d75f1d011703a134608cd12501f03858db30b3ed326c16908a6a5e5a7ed81",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+          "comparison": "parsed JSON equals retained review"
+        },
+        "txt": {
+          "at_utc": "2026-11-05T22:06:03.287Z",
+          "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+          "file": "downloads/public-weather-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+          "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+          "bytes": 2283,
+          "sha256": "afd6f6bcd6b007bc411b239c62439b59d7b4902abbb0b099076e287cda46b37b",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+          "comparison": "bytes equal retained review.report"
+        }
+      },
+      "artifact_hashes_verified": 9,
+      "restart_downloads_identical": true
+    },
+    {
+      "label": "public-bitcoin",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "idea": "Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities?",
+      "started_at_utc": "2026-11-05T22:06:03.314Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [
+        {
+          "name": "Review",
+          "at_utc": "2026-11-05T22:06:16.400Z"
+        },
+        {
+          "name": "Probabilities",
+          "at_utc": "2026-11-05T22:06:16.870Z"
+        },
+        {
+          "name": "Evidence & lineage",
+          "at_utc": "2026-11-05T22:06:17.341Z"
+        }
+      ],
+      "status": "completed",
+      "finished_at_utc": "2026-11-05T22:06:16.250Z",
+      "events": [
+        {
+          "sequence": 36,
+          "at": "2026-11-05T22:06:03.454446+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 37,
+          "at": "2026-11-05T22:06:03.622450+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 38,
+          "at": "2026-11-05T22:06:10.833668+00:00",
+          "stage": "fetching",
+          "detail": "Fetching bounded public contract rules and forward source receipts"
+        },
+        {
+          "sequence": 39,
+          "at": "2026-11-05T22:06:10.946920+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 40,
+          "at": "2026-11-05T22:06:10.955700+00:00",
+          "stage": "research",
+          "detail": "Formulating typed hypotheses, specifications and independent criticism"
+        },
+        {
+          "sequence": 41,
+          "at": "2026-11-05T22:06:10.965015+00:00",
+          "stage": "research_research",
+          "detail": "Bounded research: research"
+        },
+        {
+          "sequence": 42,
+          "at": "2026-11-05T22:06:10.969734+00:00",
+          "stage": "research_hypothesis",
+          "detail": "Bounded research: hypothesis"
+        },
+        {
+          "sequence": 43,
+          "at": "2026-11-05T22:06:10.974799+00:00",
+          "stage": "research_quant",
+          "detail": "Bounded research: quant"
+        },
+        {
+          "sequence": 44,
+          "at": "2026-11-05T22:06:10.992388+00:00",
+          "stage": "research_critic",
+          "detail": "Bounded research: critic"
+        },
+        {
+          "sequence": 45,
+          "at": "2026-11-05T22:06:11.002617+00:00",
+          "stage": "experiments",
+          "detail": "Running protected model, execution, fee and minimum-evidence gates"
+        },
+        {
+          "sequence": 46,
+          "at": "2026-11-05T22:06:13.894087+00:00",
+          "stage": "review",
+          "detail": "Saving protected research and experiment evidence"
+        },
+        {
+          "sequence": 47,
+          "at": "2026-11-05T22:06:13.898196+00:00",
+          "stage": "completed",
+          "detail": "Review saved; public acquisition incomplete (2 failures); forward ingestion only"
+        }
+      ],
+      "acquisition": {
+        "status": "incomplete",
+        "headline": "Public acquisition INCOMPLETE · bitcoin",
+        "receipt_count": 0,
+        "successful_response_count": 0,
+        "listed_contracts": 0,
+        "observations": 0,
+        "failure_count": 2,
+        "counts": "HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.",
+        "started_at": "2026-11-05T22:06:10.836949+00:00",
+        "decision_time": "2026-11-05T22:06:10.942092+00:00",
+        "universe_complete": false,
+        "history_complete": false,
+        "failure_summaries": [
+          "KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)",
+          "coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)"
+        ],
+        "evaluation_limit": "Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.",
+        "limitations": [
+          "Forward evidence only; no historical release clocks or outcomes inferred.",
+          "No historical sized books or certified fee schedule; no execution returns.",
+          "Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.",
+          "Coinbase spot is a covariate, never a Kalshi settlement-source substitute."
+        ]
+      },
+      "successful_ingestion": false,
+      "complete_capture": false,
+      "authority_mentions": 0,
+      "downloads": {
+        "json": {
+          "at_utc": "2026-11-05T22:06:17.994Z",
+          "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+          "file": "downloads/public-bitcoin-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+          "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+          "bytes": 60042,
+          "sha256": "5cbfa668de3f110c9bcf75148e53949e6e27ed97773702f9b97c2aa3986b07bd",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+          "comparison": "parsed JSON equals retained review"
+        },
+        "txt": {
+          "at_utc": "2026-11-05T22:06:18.053Z",
+          "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+          "file": "downloads/public-bitcoin-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+          "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+          "bytes": 1557,
+          "sha256": "cdf4834f9f45808b532a9dd98ebaf94763c56e6e28cbdda4b6bcc80e2a0617f0",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+          "comparison": "bytes equal retained review.report"
+        }
+      },
+      "artifact_hashes_verified": 9,
+      "restart_downloads_identical": true
+    },
+    {
+      "label": "cancelled-synthetic",
+      "job_id": "c25cc99e-c6a6-4808-b419-d231d518e744",
+      "idea": "Synthetic cancellation browser acceptance",
+      "started_at_utc": "2026-11-05T22:06:18.425Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [],
+      "status_before_cancel": "running",
+      "cancel_requested_at_utc": "2026-11-05T22:06:19.475Z",
+      "status": "cancelled",
+      "finished_at_utc": "2026-11-05T22:06:19.773Z"
+    },
+    {
+      "label": "recorded-after-cancel",
+      "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+      "idea": "Test revision_f >= 1.25 and hours_to_close < 8",
+      "started_at_utc": "2026-11-05T22:06:19.984Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [],
+      "status": "completed",
+      "finished_at_utc": "2026-11-05T22:06:31.411Z",
+      "events": [
+        {
+          "sequence": 51,
+          "at": "2026-11-05T22:06:20.114695+00:00",
+          "stage": "queued",
+          "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+        },
+        {
+          "sequence": 52,
+          "at": "2026-11-05T22:06:20.324839+00:00",
+          "stage": "starting",
+          "detail": "Starting isolated research worker"
+        },
+        {
+          "sequence": 53,
+          "at": "2026-11-05T22:06:27.446549+00:00",
+          "stage": "data",
+          "detail": "Preparing versioned inputs and protected event boundaries"
+        },
+        {
+          "sequence": 54,
+          "at": "2026-11-05T22:06:27.487197+00:00",
+          "stage": "research",
+          "detail": "Formulating typed hypotheses, specifications and independent criticism"
+        },
+        {
+          "sequence": 55,
+          "at": "2026-11-05T22:06:27.499490+00:00",
+          "stage": "research_research",
+          "detail": "Bounded research: research"
+        },
+        {
+          "sequence": 56,
+          "at": "2026-11-05T22:06:27.505243+00:00",
+          "stage": "research_hypothesis",
+          "detail": "Bounded research: hypothesis"
+        },
+        {
+          "sequence": 57,
+          "at": "2026-11-05T22:06:27.510207+00:00",
+          "stage": "research_quant",
+          "detail": "Bounded research: quant"
+        },
+        {
+          "sequence": 58,
+          "at": "2026-11-05T22:06:27.531494+00:00",
+          "stage": "research_critic",
+          "detail": "Bounded research: critic"
+        },
+        {
+          "sequence": 59,
+          "at": "2026-11-05T22:06:27.544221+00:00",
+          "stage": "experiments",
+          "detail": "Running protected model, execution, fee and minimum-evidence gates"
+        },
+        {
+          "sequence": 60,
+          "at": "2026-11-05T22:06:30.063647+00:00",
+          "stage": "review",
+          "detail": "Saving protected research and experiment evidence"
+        },
+        {
+          "sequence": 61,
+          "at": "2026-11-05T22:06:30.070951+00:00",
+          "stage": "completed",
+          "detail": "Review saved; inspect candidate gates and evidence limitations"
+        }
+      ],
+      "downloads": {
+        "json": {
+          "at_utc": "2026-11-05T22:06:31.542Z",
+          "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+          "file": "downloads/recorded-after-cancel-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+          "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+          "bytes": 189362,
+          "sha256": "4c490a7ee2eb01740bdb76d4914afaef6261d095cc4216531ed635e20fb974f4",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+          "comparison": "parsed JSON equals retained review"
+        },
+        "txt": {
+          "at_utc": "2026-11-05T22:06:31.584Z",
+          "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+          "file": "downloads/recorded-after-cancel-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+          "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+          "bytes": 569,
+          "sha256": "0c42bcb8ac317bb422d107c2be5f5433ad8fe6d823b983f80d8380cf26ed1e20",
+          "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+          "comparison": "bytes equal retained review.report"
+        }
+      },
+      "artifact_hashes_verified": 14,
+      "restart_downloads_identical": true
+    },
+    {
+      "label": "interrupted-synthetic",
+      "job_id": "58b3632f-1b1a-49f1-b47e-ef0551cae015",
+      "idea": "Synthetic restart interruption browser acceptance",
+      "started_at_utc": "2026-11-05T22:06:31.601Z",
+      "submission": "Playwright form selection, fill and submit on real loopback backend",
+      "inspected_tabs": [],
+      "status_before_shutdown": "running",
+      "status": "interrupted",
+      "finished_at_utc": "2026-11-05T22:06:41.381Z"
+    }
+  ],
+  "screenshots": [
+    {
+      "at_utc": "2026-11-05T22:05:03.983Z",
+      "file": "screenshots/initial-workbench.png",
+      "sha256": "aad08b715ba4d53ec7314b7b2df3f39089656cbc2200907da62cc2f7211cac3c"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:16.019Z",
+      "file": "screenshots/recorded-weather-review-specification.png",
+      "sha256": "b32b442a54403e920bd8933197db88a580513b16fa00db5572dca53ff01a0035"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:16.374Z",
+      "file": "screenshots/recorded-weather-probabilities.png",
+      "sha256": "60796de0164dd216ae6cd123e7a16464c0a60263b93fc0485222764af532283e"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:16.819Z",
+      "file": "screenshots/recorded-weather-lineage.png",
+      "sha256": "2542e3825c27311229826604a730a6f1fc8b5637f14356a613942d7d1a4808a7"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:48.776Z",
+      "file": "screenshots/synthetic-weather-review-gates-scenarios.png",
+      "sha256": "b241eec33b1be3e9d89e5d06db324f44ff8a516f42a1fc5b7abfaf5e1e07e669"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:49.295Z",
+      "file": "screenshots/synthetic-weather-probabilities.png",
+      "sha256": "b04a6d2edbc2b311ce41ea62c00db5b8bc5d5c7dcf34f0586847a39d9eaa6e69"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:49.772Z",
+      "file": "screenshots/synthetic-weather-lineage.png",
+      "sha256": "38d7ee832a2e49349bbe89046d38ac3f859b26e1609d25a4fdf8d91dc12e51c5"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:01.974Z",
+      "file": "screenshots/public-weather-review.png",
+      "sha256": "de60814a85b5aabfb0799817b881c7a7882a2c1a451969062621ad179db8f7b3"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:02.504Z",
+      "file": "screenshots/public-weather-probabilities.png",
+      "sha256": "4274bca67fa022c35487dc60e86061cdbb3a422bdf742d6e561b63de6405c7f1"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:03.148Z",
+      "file": "screenshots/public-weather-evidence.png",
+      "sha256": "f7d568050e074d421d2b04fe89f6d07bf43cabae6a03f5d1bd4f91278351593d"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:16.755Z",
+      "file": "screenshots/public-bitcoin-review.png",
+      "sha256": "f4329f08d0d1cf841e06567a96010676f79e9b5f494e82e962657e86cff08f48"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:17.222Z",
+      "file": "screenshots/public-bitcoin-probabilities.png",
+      "sha256": "b7315884b7910f6c7cc69ecd7b5a63df745f55da1a09acfabf34180b192cac23"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:17.899Z",
+      "file": "screenshots/public-bitcoin-evidence.png",
+      "sha256": "0605dd159a3e04c60fbcf049147d3ddeb68bdc92d672bb23dc39efe0088dc19e"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:18.397Z",
+      "file": "screenshots/workflow-3-failure.png",
+      "sha256": "0605dd159a3e04c60fbcf049147d3ddeb68bdc92d672bb23dc39efe0088dc19e"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:19.677Z",
+      "file": "screenshots/synthetic-active-before-cancel.png",
+      "sha256": "42e58f746f79a1c68fbd744321211eb8dad7a1ade1b55fc6c3bc01fd1be02792"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:19.976Z",
+      "file": "screenshots/synthetic-terminal-cancelled.png",
+      "sha256": "1dec0619f0a4a4790fd747f7c9c7495f4b9336ff92f08318c550124e523a1169"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:31.943Z",
+      "file": "screenshots/synthetic-active-before-shutdown.png",
+      "sha256": "50f5b542a605afa0dd495a4f46cf5215c9f95b3c89d416def5438b507e127e26"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:41.598Z",
+      "file": "screenshots/restart-interrupted-history.png",
+      "sha256": "ed67bf9e5cde1f0e4aeece65012f6da3417704e3376200cc2618868e0643adfc"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:42.155Z",
+      "file": "screenshots/recorded-weather-reopened-after-restart.png",
+      "sha256": "2784f040455e8908021de6e5090a101e2a9b109a594fe946ea344882a50d14f9"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:42.906Z",
+      "file": "screenshots/synthetic-weather-reopened-after-restart.png",
+      "sha256": "ca4edd6753741b3a407f91713592486b8e25fb99d7b16eb8a7ec0febc4b9a8e5"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.440Z",
+      "file": "screenshots/public-weather-reopened-after-restart.png",
+      "sha256": "d6b4e088649b694570b9baa28ed0a2044b7c85250bea70d1d8f8e2d4566d6565"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.940Z",
+      "file": "screenshots/public-bitcoin-reopened-after-restart.png",
+      "sha256": "503dcf72ddc98a1655213b222437101470e955153cc3f9e609c4eb655f1bef6c"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:44.426Z",
+      "file": "screenshots/recorded-after-cancel-reopened-after-restart.png",
+      "sha256": "6834fc5b297cae223f74f0d94e5512633895312b8108a0a6a1b3d94029633253"
+    }
+  ],
+  "downloads": [
+    {
+      "at_utc": "2026-11-05T22:05:16.891Z",
+      "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+      "file": "downloads/recorded-weather-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+      "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+      "bytes": 177469,
+      "sha256": "d5a7f910c0f4b463c261b12dd397771a3b432cc439d8437f0cc25e3ad70f2cf4",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:16.956Z",
+      "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+      "file": "downloads/recorded-weather-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+      "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+      "bytes": 569,
+      "sha256": "30c6214c84d484ca6eaaf683ff4c33bcb7a59104d33d6ce47256560ac2b030c7",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:49.868Z",
+      "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+      "file": "downloads/synthetic-weather-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+      "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+      "bytes": 672498,
+      "sha256": "d2917f0196dbfcd5027d99c64680e50d7229e01e2bba1aae185465518f151325",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:05:49.906Z",
+      "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+      "file": "downloads/synthetic-weather-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+      "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+      "bytes": 4825,
+      "sha256": "6b85b1bdcc6765b86d65dc9ca76f48a8b7a365a198d765efc065dad7fa4e8fa3",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:03.242Z",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "file": "downloads/public-weather-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+      "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+      "bytes": 106509,
+      "sha256": "a58d75f1d011703a134608cd12501f03858db30b3ed326c16908a6a5e5a7ed81",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:03.287Z",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "file": "downloads/public-weather-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+      "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+      "bytes": 2283,
+      "sha256": "afd6f6bcd6b007bc411b239c62439b59d7b4902abbb0b099076e287cda46b37b",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:17.994Z",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "file": "downloads/public-bitcoin-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+      "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+      "bytes": 60042,
+      "sha256": "5cbfa668de3f110c9bcf75148e53949e6e27ed97773702f9b97c2aa3986b07bd",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:18.053Z",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "file": "downloads/public-bitcoin-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+      "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+      "bytes": 1557,
+      "sha256": "cdf4834f9f45808b532a9dd98ebaf94763c56e6e28cbdda4b6bcc80e2a0617f0",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:31.542Z",
+      "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+      "file": "downloads/recorded-after-cancel-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+      "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+      "bytes": 189362,
+      "sha256": "4c490a7ee2eb01740bdb76d4914afaef6261d095cc4216531ed635e20fb974f4",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:31.584Z",
+      "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+      "file": "downloads/recorded-after-cancel-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+      "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+      "bytes": 569,
+      "sha256": "0c42bcb8ac317bb422d107c2be5f5433ad8fe6d823b983f80d8380cf26ed1e20",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:41.847Z",
+      "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+      "file": "downloads/recorded-weather-after-restart-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+      "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.json",
+      "bytes": 177469,
+      "sha256": "d5a7f910c0f4b463c261b12dd397771a3b432cc439d8437f0cc25e3ad70f2cf4",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:41.901Z",
+      "job_id": "5d1ac532-9f58-48d2-8406-50361fb1f833",
+      "file": "downloads/recorded-weather-after-restart-entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+      "suggested_filename": "entropytrade-5d1ac532-9f58-48d2-8406-50361fb1f833.txt",
+      "bytes": 569,
+      "sha256": "30c6214c84d484ca6eaaf683ff4c33bcb7a59104d33d6ce47256560ac2b030c7",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/5d1ac532-9f58-48d2-8406-50361fb1f833/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:42.508Z",
+      "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+      "file": "downloads/synthetic-weather-after-restart-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+      "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.json",
+      "bytes": 672498,
+      "sha256": "d2917f0196dbfcd5027d99c64680e50d7229e01e2bba1aae185465518f151325",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:42.579Z",
+      "job_id": "72528224-8446-4f1e-bd2c-5b057105b86d",
+      "file": "downloads/synthetic-weather-after-restart-entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+      "suggested_filename": "entropytrade-72528224-8446-4f1e-bd2c-5b057105b86d.txt",
+      "bytes": 4825,
+      "sha256": "6b85b1bdcc6765b86d65dc9ca76f48a8b7a365a198d765efc065dad7fa4e8fa3",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/72528224-8446-4f1e-bd2c-5b057105b86d/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.088Z",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "file": "downloads/public-weather-after-restart-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+      "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.json",
+      "bytes": 106509,
+      "sha256": "a58d75f1d011703a134608cd12501f03858db30b3ed326c16908a6a5e5a7ed81",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.155Z",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "file": "downloads/public-weather-after-restart-entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+      "suggested_filename": "entropytrade-436a13d6-440b-44e0-ba18-f2c6594ce4d7.txt",
+      "bytes": 2283,
+      "sha256": "afd6f6bcd6b007bc411b239c62439b59d7b4902abbb0b099076e287cda46b37b",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/436a13d6-440b-44e0-ba18-f2c6594ce4d7/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.605Z",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "file": "downloads/public-bitcoin-after-restart-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+      "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.json",
+      "bytes": 60042,
+      "sha256": "5cbfa668de3f110c9bcf75148e53949e6e27ed97773702f9b97c2aa3986b07bd",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:43.669Z",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "file": "downloads/public-bitcoin-after-restart-entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+      "suggested_filename": "entropytrade-c1cbf3c1-4b51-4c18-accd-edf40d4b9a81.txt",
+      "bytes": 1557,
+      "sha256": "cdf4834f9f45808b532a9dd98ebaf94763c56e6e28cbdda4b6bcc80e2a0617f0",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/c1cbf3c1-4b51-4c18-accd-edf40d4b9a81/review.json",
+      "comparison": "bytes equal retained review.report"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:44.124Z",
+      "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+      "file": "downloads/recorded-after-cancel-after-restart-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+      "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.json",
+      "bytes": 189362,
+      "sha256": "4c490a7ee2eb01740bdb76d4914afaef6261d095cc4216531ed635e20fb974f4",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+      "comparison": "parsed JSON equals retained review"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:44.194Z",
+      "job_id": "2439f293-92ee-4116-a1af-089e5c766dad",
+      "file": "downloads/recorded-after-cancel-after-restart-entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+      "suggested_filename": "entropytrade-2439f293-92ee-4116-a1af-089e5c766dad.txt",
+      "bytes": 569,
+      "sha256": "0c42bcb8ac317bb422d107c2be5f5433ad8fe6d823b983f80d8380cf26ed1e20",
+      "retained_review": "data/cache/browser-regression-20261105-final/workbench/runs/2439f293-92ee-4116-a1af-089e5c766dad/review.json",
+      "comparison": "bytes equal retained review.report"
+    }
+  ],
+  "lifecycle": [
+    {
+      "action": "start",
+      "at_utc": "2026-11-05T22:04:55.321Z",
+      "epoch": 1,
+      "pid": 20592,
+      "command": [
+        "/home/user/EntropyTrade/.venv/bin/python",
+        "-m",
+        "entropytrade.api.server",
+        "--port",
+        "18784",
+        "--workspace",
+        "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/workbench"
+      ],
+      "environment": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "PYTHONNOUSERSITE": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "LOKY_MAX_CPU_COUNT": "1",
+        "TZ": "UTC",
+        "TMPDIR": "/private/tmp"
+      },
+      "log": "server-1.log",
+      "fault_injection": null
+    },
+    {
+      "action": "ready",
+      "at_utc": "2026-11-05T22:04:56.762Z",
+      "epoch": 1,
+      "submission_enabled": false,
+      "provider_enabled": false
+    },
+    {
+      "action": "SIGINT",
+      "at_utc": "2026-11-05T22:06:31.952Z",
+      "epoch": 1,
+      "pid": 20592,
+      "reason": "documented shutdown during active synthetic run"
+    },
+    {
+      "action": "stopped",
+      "at_utc": "2026-11-05T22:06:32.869Z",
+      "epoch": 1,
+      "exit_code": 0,
+      "signal": null
+    },
+    {
+      "action": "start",
+      "at_utc": "2026-11-05T22:06:32.885Z",
+      "epoch": 2,
+      "pid": 20984,
+      "command": [
+        "/home/user/EntropyTrade/.venv/bin/python",
+        "-m",
+        "entropytrade.api.server",
+        "--port",
+        "18784",
+        "--workspace",
+        "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/workbench"
+      ],
+      "environment": {
+        "PATH": "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "PYTHONNOUSERSITE": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "LOKY_MAX_CPU_COUNT": "1",
+        "TZ": "UTC",
+        "TMPDIR": "/private/tmp"
+      },
+      "log": "server-2.log",
+      "fault_injection": null
+    },
+    {
+      "action": "ready",
+      "at_utc": "2026-11-05T22:06:34.221Z",
+      "epoch": 2,
+      "submission_enabled": false,
+      "provider_enabled": false
+    },
+    {
+      "action": "browser_restart_verified",
+      "at_utc": "2026-11-05T22:06:44.440Z",
+      "interrupted_job_id": "58b3632f-1b1a-49f1-b47e-ef0551cae015",
+      "cancelled_job_id": "c25cc99e-c6a6-4808-b419-d231d518e744",
+      "completed_job_ids": [
+        "5d1ac532-9f58-48d2-8406-50361fb1f833",
+        "72528224-8446-4f1e-bd2c-5b057105b86d",
+        "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+        "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+        "2439f293-92ee-4116-a1af-089e5c766dad"
+      ],
+      "all_downloads_identical": true
+    },
+    {
+      "action": "SIGINT",
+      "at_utc": "2026-11-05T22:06:44.462Z",
+      "epoch": 2,
+      "pid": 20984,
+      "reason": "acceptance harness cleanup"
+    },
+    {
+      "action": "stopped",
+      "at_utc": "2026-11-05T22:06:45.380Z",
+      "epoch": 2,
+      "exit_code": 0,
+      "signal": null
+    }
+  ],
+  "console_errors": [
+    {
+      "at_utc": "2026-11-05T22:04:56.850Z",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:32.840Z",
+      "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:44.790Z",
+      "text": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    }
+  ],
+  "page_errors": [],
+  "failed_requests": [
+    {
+      "at_utc": "2026-11-05T22:06:32.820Z",
+      "url": "http://127.0.0.1:18784/api/jobs/58b3632f-1b1a-49f1-b47e-ef0551cae015",
+      "error": "net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at_utc": "2026-11-05T22:06:44.780Z",
+      "url": "http://127.0.0.1:18784/api/alerts",
+      "error": "net::ERR_CONNECTION_REFUSED"
+    }
+  ],
+  "acceptance_gaps": [
+    {
+      "family": "weather",
+      "job_id": "436a13d6-440b-44e0-ba18-f2c6594ce4d7",
+      "successful_ingestion": false,
+      "complete_capture": false,
+      "acquisition": {
+        "status": "incomplete",
+        "headline": "Public acquisition INCOMPLETE · weather",
+        "receipt_count": 0,
+        "successful_response_count": 0,
+        "listed_contracts": 0,
+        "observations": 0,
+        "failure_count": 9,
+        "counts": "HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.",
+        "started_at": "2026-11-05T22:05:57.506715+00:00",
+        "decision_time": "2026-11-05T22:05:57.625022+00:00",
+        "universe_complete": false,
+        "history_complete": false,
+        "failure_summaries": [
+          "KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)",
+          "KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)",
+          "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)",
+          "weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)",
+          "https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)",
+          "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)",
+          "weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)",
+          "https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)",
+          "weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)"
+        ],
+        "evaluation_limit": "Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.",
+        "limitations": [
+          "Forward evidence only; no historical release clocks or outcomes inferred.",
+          "No historical sized books or certified fee schedule; no execution returns.",
+          "Full-day hourly forecast maxima are proxies, not official settlement highs."
+        ]
+      },
+      "reason": "Fresh public capture did not meet complete successful-ingestion acceptance"
+    },
+    {
+      "family": "bitcoin",
+      "job_id": "c1cbf3c1-4b51-4c18-accd-edf40d4b9a81",
+      "successful_ingestion": false,
+      "complete_capture": false,
+      "acquisition": {
+        "status": "incomplete",
+        "headline": "Public acquisition INCOMPLETE · bitcoin",
+        "receipt_count": 0,
+        "successful_response_count": 0,
+        "listed_contracts": 0,
+        "observations": 0,
+        "failure_count": 2,
+        "counts": "HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.",
+        "started_at": "2026-11-05T22:06:10.836949+00:00",
+        "decision_time": "2026-11-05T22:06:10.942092+00:00",
+        "universe_complete": false,
+        "history_complete": false,
+        "failure_summaries": [
+          "KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)",
+          "coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)"
+        ],
+        "evaluation_limit": "Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.",
+        "limitations": [
+          "Forward evidence only; no historical release clocks or outcomes inferred.",
+          "No historical sized books or certified fee schedule; no execution returns.",
+          "Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.",
+          "Coinbase spot is a covariate, never a Kalshi settlement-source substitute."
+        ]
+      },
+      "reason": "Fresh public capture did not meet complete successful-ingestion acceptance"
+    }
+  ],
+  "limitations": [
+    "Synthetic performance is software evidence only.",
+    "Public capture is forward evidence, never historical model evaluation.",
+    "This is not the supervisor's independent final clean-checkout sign-off or V1 completion."
+  ],
+  "finished_at_utc": "2026-11-05T22:06:45.389Z",
+  "outcome": "failed",
+  "failures": [
+    "3. fresh public weather and Bitcoin acquisition through all result tabs: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n\n\u001b[32m+\u001b[39m [\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     acquisition: {\n\u001b[32m+\u001b[39m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.',\n\u001b[32m+\u001b[39m       decision_time: '2026-11-05T22:05:57.625022+00:00',\n\u001b[32m+\u001b[39m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',\n\u001b[32m+\u001b[39m       failure_count: 9,\n\u001b[32m+\u001b[39m       failure_summaries: [\n\u001b[32m+\u001b[39m         'KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)',\n\u001b[32m+\u001b[39m         'KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)',\n\u001b[32m+\u001b[39m         'https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)',\n\u001b[32m+\u001b[39m         'weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)',\n\u001b[32m+\u001b[39m         'https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)',\n\u001b[32m+\u001b[39m         'https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)',\n\u001b[32m+\u001b[39m         'weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)',\n\u001b[32m+\u001b[39m         'https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)',\n\u001b[32m+\u001b[39m         'weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       headline: 'Public acquisition INCOMPLETE · weather',\n\u001b[32m+\u001b[39m       history_complete: false,\n\u001b[32m+\u001b[39m       limitations: [\n\u001b[32m+\u001b[39m         'Forward evidence only; no historical release clocks or outcomes inferred.',\n\u001b[32m+\u001b[39m         'No historical sized books or certified fee schedule; no execution returns.',\n\u001b[32m+\u001b[39m         'Full-day hourly forecast maxima are proxies, not official settlement highs.'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       listed_contracts: 0,\n\u001b[32m+\u001b[39m       observations: 0,\n\u001b[32m+\u001b[39m       receipt_count: 0,\n\u001b[32m+\u001b[39m       started_at: '2026-11-05T22:05:57.506715+00:00',\n\u001b[32m+\u001b[39m       status: 'incomplete',\n\u001b[32m+\u001b[39m       successful_response_count: 0,\n\u001b[32m+\u001b[39m       universe_complete: false\n\u001b[32m+\u001b[39m     },\n\u001b[32m+\u001b[39m     complete_capture: false,\n\u001b[32m+\u001b[39m     family: 'weather',\n\u001b[32m+\u001b[39m     job_id: '436a13d6-440b-44e0-ba18-f2c6594ce4d7',\n\u001b[32m+\u001b[39m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',\n\u001b[32m+\u001b[39m     successful_ingestion: false\n\u001b[32m+\u001b[39m   },\n\u001b[32m+\u001b[39m   {\n\u001b[32m+\u001b[39m     acquisition: {\n\u001b[32m+\u001b[39m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.',\n\u001b[32m+\u001b[39m       decision_time: '2026-11-05T22:06:10.942092+00:00',\n\u001b[32m+\u001b[39m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',\n\u001b[32m+\u001b[39m       failure_count: 2,\n\u001b[32m+\u001b[39m       failure_summaries: [\n\u001b[32m+\u001b[39m         'KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)',\n\u001b[32m+\u001b[39m         'coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       headline: 'Public acquisition INCOMPLETE · bitcoin',\n\u001b[32m+\u001b[39m       history_complete: false,\n\u001b[32m+\u001b[39m       limitations: [\n\u001b[32m+\u001b[39m         'Forward evidence only; no historical release clocks or outcomes inferred.',\n\u001b[32m+\u001b[39m         'No historical sized books or certified fee schedule; no execution returns.',\n\u001b[32m+\u001b[39m         'Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.',\n\u001b[32m+\u001b[39m         'Coinbase spot is a covariate, never a Kalshi settlement-source substitute.'\n\u001b[32m+\u001b[39m       ],\n\u001b[32m+\u001b[39m       listed_contracts: 0,\n\u001b[32m+\u001b[39m       observations: 0,\n\u001b[32m+\u001b[39m       receipt_count: 0,\n\u001b[32m+\u001b[39m       started_at: '2026-11-05T22:06:10.836949+00:00',\n\u001b[32m+\u001b[39m       status: 'incomplete',\n\u001b[32m+\u001b[39m       successful_response_count: 0,\n\u001b[32m+\u001b[39m       universe_complete: false\n\u001b[32m+\u001b[39m     },\n\u001b[32m+\u001b[39m     complete_capture: false,\n\u001b[32m+\u001b[39m     family: 'bitcoin',\n\u001b[32m+\u001b[39m     job_id: 'c1cbf3c1-4b51-4c18-accd-edf40d4b9a81',\n\u001b[32m+\u001b[39m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',\n\u001b[32m+\u001b[39m     successful_ingestion: false\n\u001b[32m+\u001b[39m   }\n\u001b[32m+\u001b[39m ]\n\u001b[31m-\u001b[39m []\n"
+  ]
+}

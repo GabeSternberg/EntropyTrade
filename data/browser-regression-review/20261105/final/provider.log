@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (1.4m)
+
+  1 passed (1.4m)

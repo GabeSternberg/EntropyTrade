@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle (4ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/recovery/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/recovery/playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    recovery.spec.cjs:10:1 › local operation and recovery: installed research, snapshot, restore and shadow lifecycle 
+  1 error was not a part of any test, see above for details

@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery (1.2m)
+  ✓  2 forward-validation.spec.cjs:267:1 › continuous forward validation: authentic shadow receipts and new label acquisition (57.2s)
+
+  2 passed (2.1m)

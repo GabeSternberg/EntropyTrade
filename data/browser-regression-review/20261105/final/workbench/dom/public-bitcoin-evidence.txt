@@ -1,0 +1,91 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition INCOMPLETE · bitcoin
+
+HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+Acquisition failures
+KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)
+coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)
+
+Capture (UTC): 2026-11-05T22:06:10.836949+00:00 → 2026-11-05T22:06:10.942092+00:00. Universe complete: false. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Research orchestration · local_templates
+
+Provider: none. Status: completed.
+
+Research stages, evidence tools, budgets and usage
+Reproducible identities
+experiment_id
+sha256:2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3
+research_run
+fbbb7935-bd2c-4713-ae5c-61661d09d532
+dataset
+sha256:94313d16f263ba5bb7c590aa925ea71b0d559224ad17cb0248b6e1ac34cdd301
+feature_version
+sha256:a430eec1dd9dc4aec0e5db1c779d84d22af10c7b33b623e3e4fce5add1978067
+research_hash
+sha256:f2e74d6c85aa82c75c446a108d33cf5540359aeedfb360ec5af387936515e740
+normalized_data_hash
+sha256:4dd4433455bb5800e8c1b1f5dae6c0f82f8a0dc86ea9e96d8e913ef76e29a4f5
+code
+{"synthetic.py":"sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759","__init__.py":"sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54","workflow.py":"sha256:f9e70c13b3965d83e6baca1f799508ac3468ce2ce0a52d7d112b8b65c54e19c5","engine.py":"sha256:a7716f836561cc055ac5d4942452e15d77443afa25e4afc890e754493865410f","data.py":"sha256:190c935e4dce4e8949c400ca4ec2c24219000f18fb7c5efa151d2257272c363e","fee_replay.py":"sha256:4f2509201f474b7ac691bb1df7df180bbcaa175450bcd7a911bfabf9613c1baa","backtest/replay.py":"sha256:88dd3cbb524b103c0676e6f4377fe7abcc308a1a3bd076417b77225feef099b2","strategies/interpret.py":"sha256:65bd400b3e6faecb99dcb3d7c0c155db042fd148df3f8fe83da6fad18722dd36","execution/paper.py":"sha256:bcff522ce57bbbd449336049e73835e536a79d426c03ae8867e9fb2e88172ae1","execution/fees.py":"sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897","execution/fee_policy.py":"sha256:424ee1b3f06d0224a35b21db2556a3a38b1d60e124a9729c398547e1a3090c1c","execution/fee_evidence.py":"sha256:8e3334b6fae4763ede03770fce2d6f3063ea77e11f0347aba0f6ba6bd4daf943","risk/engine.py":"sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb","domain/strategy.py":"sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de"}
+config
+{"fee_policy":null,"fee_versions":[],"latency_seconds":1,"max_book_age_seconds":60,"starting_cash":"1000","per_trade":"25","per_event":"100","total_deployed":"500","min_events":20,"min_trades":10,"bootstrap_samples":500,"seed":17,"scenarios":["optimistic","base","conservative"]}
+resolved_models
+{}
+requested_trial_count
+6
+
+6 candidate/scenario trials requested. Final holdout evaluated: false.
+
+Public source evidence
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Capture receipts, clocks and acquisition failures
+{
+  "decision_time": "2026-11-05T22:06:10.942092+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-11-05T22:06:10.935225+00:00",
+      "failure": "GatewayError",
+      "source": "KXBTC"
+    },
+    {
+      "failed_at": "2026-11-05T22:06:10.942009+00:00",
+      "failure": "ConnectError",
+      "source": "coinbase"
+    }
+  ],
+  "family": "bitcoin",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-11-05T22:06:10.836949+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}
+Bitcoin settlement sources remain unresolved and rules_known is false. Authority mentions preserve rule text; they do not verify settlement authority.
+Immutable public input manifest
+Saved artifact checksums
+
+Artifact paths are relative to this run's local workflow directory. Review downloads contain the protected result projection; the server does not expose arbitrary local files.
+
+Artifact	SHA-256	Bytes
+experiments/2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3/checksums.json	sha256:198e0f9eaadd5debfc0e1ee064b0f7fee71897636d683f5a7443c0897e62ce0d	369
+experiments/2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3/replay-inputs.json	sha256:036120d637994e04aa5de9796cd23346684b027777d3c379402c0461966db390	63767
+experiments/2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3/report.md	sha256:b829828edc312059c900e30040d4d22ff9956f3346827b21d75a10c34d286cf0	519
+experiments/2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3/results.json	sha256:203d1930cd6e3c5fbac2b2970ef6a6935f2770d095dd2a608525b733ab1e0034	3308
+experiments/2bc73dc44ee6eb237b9d9744b5bfecc1ae8a067d963928a2faf9d2f77f2da7c3/trades.parquet	sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef	365
+fee-evidence.json	sha256:90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484	93
+research/fbbb7935-bd2c-4713-ae5c-61661d09d532/checksums.json	sha256:22ed086061d344932ea143ceebf6d88c71437222bc4f3ee76de212f1b8cab394	175
+research/fbbb7935-bd2c-4713-ae5c-61661d09d532/report.md	sha256:4d0faaef9a6da4a12c3113661e06256ad11f6f92c142c7ffb31bfc90b05aa9db	2462
+research/fbbb7935-bd2c-4713-ae5c-61661d09d532/run.json	sha256:933a5d38bc00f54316b7ec0ef860d8171b622113ae0798147f7d30ab3e0fc2f1	53926
+Coverage and point-in-time boundaries

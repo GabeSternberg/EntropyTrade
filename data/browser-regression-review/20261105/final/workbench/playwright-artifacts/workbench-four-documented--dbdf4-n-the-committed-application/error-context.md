@@ -1,0 +1,276 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "EntropyTrade home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e4]: E
+      - text: EntropyTrade
+    - generic [ref=e5]: ● PRIVATE · LOCALHOST
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: THE RESEARCH DESK
+        - heading "From an idea to evidence." [level=1] [ref=e10]
+        - paragraph [ref=e11]: Formulate a hypothesis. Test what the data can support. Keep the full lineage.
+      - generic [ref=e12]: Research only · execution disabled
+    - generic [ref=e13]:
+      - complementary [ref=e14]:
+        - region "What would you like to test?" [ref=e15]:
+          - paragraph [ref=e16]: 01 / NEW EXPERIMENT
+          - heading "What would you like to test?" [level=2] [ref=e17]
+          - generic [ref=e18]:
+            - generic [ref=e19]: Research idea
+            - textbox "Research idea" [ref=e20]:
+              - /placeholder: Do upward forecast revisions improve weather contract probabilities?
+              - text: Do upward forecast revisions improve weather contract probabilities?
+            - generic [ref=e21]:
+              - button "Weather" [ref=e22] [cursor=pointer]
+              - button "Bitcoin" [ref=e23] [cursor=pointer]
+              - button "Software demo" [ref=e24] [cursor=pointer]
+            - generic [ref=e25]: Market family
+            - combobox "Market family" [ref=e26]:
+              - option "Weather · daily high temperature" [selected]
+              - option "Bitcoin · KXBTC contracts"
+            - generic [ref=e27]: Data source
+            - combobox "Data source" [ref=e28]:
+              - option "Legacy six-event weather sample" [selected]
+              - option "Retained weather dataset"
+              - option "Fetch public sources now"
+              - option "Retained Bitcoin history + official outcomes" [disabled]
+              - option "Synthetic weather demonstration"
+            - paragraph [ref=e29]: Six historical city/day events across three dates. Certified forecast vintages and scalar highs are absent; expect an insufficient-data result.
+            - generic [ref=e30]: Hypothesis formulation
+            - combobox "Hypothesis formulation" [ref=e31]:
+              - option "Local templates · no provider credentials" [selected]
+              - option "Provider research · server configuration required" [disabled]
+            - paragraph [ref=e32]: "Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f >= 1.25 and hours_to_close < 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only."
+            - button "Start research" [ref=e33] [cursor=pointer]:
+              - text: Start research
+              - generic [ref=e34]: ↗
+            - status
+        - region "Retained weather history" [ref=e35]:
+          - heading "Retained weather history" [level=2] [ref=e36]
+          - paragraph [ref=e37]: Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.
+          - generic [ref=e38]: History partition
+          - combobox "History partition" [ref=e39]:
+            - option "All retained inputs (up to 128)" [selected]
+            - option "Partition 1 · 1 inputs (0 shadow) · 2026-11-05T22:05:50.097722+00:00 → 2026-11-05T22:05:50.097722+00:00"
+          - generic [ref=e40]: Outcome partition
+          - combobox "Outcome partition" [ref=e41]:
+            - option "Same partition as history" [selected]
+            - option "Partition 1 · 1 inputs (0 shadow) · 2026-11-05T22:05:50.097722+00:00 → 2026-11-05T22:05:50.097722+00:00"
+          - paragraph [ref=e42]: 1 retained inputs across 1 bounded partitions. Each selection processes at most 128 captures and 128 outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.
+          - button "Refresh history partitions" [ref=e43] [cursor=pointer]
+          - button "Freeze retained weather dataset" [ref=e44] [cursor=pointer]
+          - generic [ref=e45]: Cohort history partitions
+          - listbox "Cohort history partitions" [ref=e46]:
+            - option "Partition 1 · 1 inputs · 2026-11-05T22:05:50.097722+00:00 → 2026-11-05T22:05:50.097722+00:00" [ref=e47]
+          - generic [ref=e48]: Cohort outcome partitions (optional)
+          - listbox "Cohort outcome partitions (optional)" [ref=e49]:
+            - option "Partition 1 · 1 inputs · 2026-11-05T22:05:50.097722+00:00 → 2026-11-05T22:05:50.097722+00:00" [ref=e50]
+          - paragraph [ref=e51]: Select up to eight partitions to research together. Leave outcomes empty to use the selected history. Batches retain original clocks and the shared frozen calendar; repeated captures do not increase independent event counts.
+          - button "Freeze research cohort" [ref=e52] [cursor=pointer]
+          - generic [ref=e53]: Weather dataset
+          - combobox "Weather dataset" [ref=e54]:
+            - option "No retained dataset yet" [selected]
+          - status
+          - heading "Forward settlement labels" [level=3] [ref=e55]
+          - paragraph [ref=e56]: Acquire official scalar highs for the selected dataset from The Weather Company. Preliminary, wrong-source and protected labels are refused. Availability starts at receipt; earlier fitting cutoffs stay frozen.
+          - button "Acquire settlement labels" [ref=e57] [cursor=pointer]
+          - button "Refresh label acquisition" [ref=e58] [cursor=pointer]
+          - status
+          - generic [ref=e59]: Label evidence partition
+          - combobox "Label evidence partition" [ref=e60]:
+            - option "00000000 · active · 0/128 requests" [selected]
+          - paragraph [ref=e61]: 1 label partitions · 0 retained requests. Each partition holds at most 128 requests; sealed receipts stay immutable. Select a partition to inspect all its requests.
+        - region "Recent runs" [ref=e62]:
+          - generic [ref=e63]:
+            - heading "Recent runs" [level=2] [ref=e64]
+            - button "Refresh" [ref=e65] [cursor=pointer]
+          - generic [ref=e66]:
+            - button "Synthetic restart interruption browser acceptance interrupted weather · synthetic 11/5/2026, 10:06:31 PM" [ref=e67] [cursor=pointer]:
+              - generic [ref=e68]: Synthetic restart interruption browser acceptance
+              - generic [ref=e69]:
+                - generic [ref=e70]: interrupted
+                - generic [ref=e71]: weather · synthetic
+              - text: 11/5/2026, 10:06:31 PM
+            - button "Test revision_f >= 1.25 and hours_to_close < 8 completed weather · recorded 11/5/2026, 10:06:20 PM" [ref=e72] [cursor=pointer]:
+              - generic [ref=e73]: Test revision_f >= 1.25 and hours_to_close < 8
+              - generic [ref=e74]:
+                - generic [ref=e75]: completed
+                - generic [ref=e76]: weather · recorded
+              - text: 11/5/2026, 10:06:20 PM
+            - button "Synthetic cancellation browser acceptance cancelled weather · synthetic 11/5/2026, 10:06:18 PM" [ref=e77] [cursor=pointer]:
+              - generic [ref=e78]: Synthetic cancellation browser acceptance
+              - generic [ref=e79]:
+                - generic [ref=e80]: cancelled
+                - generic [ref=e81]: weather · synthetic
+              - text: 11/5/2026, 10:06:18 PM
+            - button "Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities? completed bitcoin · public 11/5/2026, 10:06:03 PM" [ref=e82] [cursor=pointer]:
+              - generic [ref=e83]: Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities?
+              - generic [ref=e84]:
+                - generic [ref=e85]: completed
+                - generic [ref=e86]: bitcoin · public
+              - text: 11/5/2026, 10:06:03 PM
+            - button "Do upward forecast revisions improve weather contract probabilities? completed weather · public 11/5/2026, 10:05:50 PM" [ref=e87] [cursor=pointer]:
+              - generic [ref=e88]: Do upward forecast revisions improve weather contract probabilities?
+              - generic [ref=e89]:
+                - generic [ref=e90]: completed
+                - generic [ref=e91]: weather · public
+              - text: 11/5/2026, 10:05:50 PM
+            - button "Demonstrate temporal modeling and execution gates on explicitly synthetic weather data. completed weather · synthetic 11/5/2026, 10:05:17 PM" [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]: Demonstrate temporal modeling and execution gates on explicitly synthetic weather data.
+              - generic [ref=e94]:
+                - generic [ref=e95]: completed
+                - generic [ref=e96]: weather · synthetic
+              - text: 11/5/2026, 10:05:17 PM
+            - button "revision_f >= 1.25 and hours_to_close < 8 completed weather · recorded 11/5/2026, 10:05:04 PM" [ref=e97] [cursor=pointer]:
+              - generic [ref=e98]: revision_f >= 1.25 and hours_to_close < 8
+              - generic [ref=e99]:
+                - generic [ref=e100]: completed
+                - generic [ref=e101]: weather · recorded
+              - text: 11/5/2026, 10:05:04 PM
+      - region "Research results" [ref=e102]:
+        - status [ref=e103]:
+          - generic [ref=e104]: "Progress connection interrupted: Failed to fetch. Retrying…"
+        - generic [ref=e106]:
+          - generic [ref=e107]:
+            - paragraph [ref=e108]: 02 / RESEARCH RUN
+            - generic [ref=e109]:
+              - link "Text report" [active] [ref=e110] [cursor=pointer]:
+                - /url: /api/jobs/2439f293-92ee-4116-a1af-089e5c766dad/report
+              - link "Review JSON" [ref=e111] [cursor=pointer]:
+                - /url: /api/jobs/2439f293-92ee-4116-a1af-089e5c766dad/review
+              - link "Experiment fee evidence" [ref=e112] [cursor=pointer]:
+                - /url: /api/jobs/2439f293-92ee-4116-a1af-089e5c766dad/fee-evidence
+          - heading "Test revision_f >= 1.25 and hours_to_close < 8" [level=2] [ref=e113]
+          - generic [ref=e114]:
+            - generic [ref=e115]: completed
+            - generic [ref=e116]: REAL EVIDENCE
+            - generic [ref=e117]: weather · 11/5/2026, 10:06:20 PM
+          - paragraph [ref=e118]: Review saved; inspect candidate gates and evidence limitations
+        - group [ref=e120]:
+          - generic "Run progress · 11 recorded stages" [ref=e121] [cursor=pointer]
+        - region "Point-in-time fee evidence" [ref=e122]:
+          - heading "Point-in-time fee evidence" [level=2] [ref=e123]
+          - paragraph [ref=e124]: Server-reviewed documents only. Series metadata cannot certify fees. Receipt and review clocks prevent historical lookahead.
+          - generic [ref=e126]: Missing fee evidence. Costed shadow intentions and real backtests refuse without applicable reviewed documents.
+        - region "Continuous shadow tracking" [ref=e127]:
+          - heading "Continuous shadow tracking" [level=2] [ref=e128]
+          - paragraph [ref=e129]: Select a typed candidate from a completed real research run. Automatic public capture records decisions and subsequent official outcomes. Missing models, fees or depth block intentions. No submissions, fills or performance claims.
+          - generic [ref=e130]: Candidate to monitor
+          - combobox "Candidate to monitor" [ref=e131]:
+            - option "KXHIGHCHI signal test 1" [selected]
+            - option "KXHIGHCHI signal test 2"
+          - generic [ref=e132]: Poll interval
+          - combobox "Poll interval" [ref=e133]:
+            - option "5 minutes" [selected]
+            - option "1 minute"
+            - option "15 minutes"
+          - button "Start shadow monitor" [ref=e134] [cursor=pointer]
+          - status
+          - generic [ref=e135]:
+            - heading "Operator alerts" [level=3] [ref=e136]
+            - paragraph [ref=e137]: 0 open · 0 need acknowledgement. Acknowledging records review; recovery resolves the condition.
+          - paragraph [ref=e139]: No saved shadow monitors.
+        - region "Continuous forward validation" [ref=e140]:
+          - heading "Continuous forward validation" [level=2] [ref=e141]
+          - paragraph [ref=e142]: Opt in to read-only label collection while this server runs. Batches cover at most eight dates. Preliminary reports and outages retry with backoff; official reports are checked daily for revisions. New snapshots preserve original receipt clocks and frozen boundaries.
+          - generic [ref=e143]: Label retry interval
+          - combobox "Label retry interval" [ref=e144]:
+            - option "6 hours" [selected]
+            - option "1 hour"
+            - option "5 minutes"
+          - generic [ref=e145]: Dates per label batch
+          - combobox "Dates per label batch" [ref=e146]:
+            - option "8 dates" [selected]
+            - option "1 date"
+          - generic [ref=e147]:
+            - checkbox "Also enroll new retained public and shadow weather inputs and freeze updated snapshots" [ref=e148]
+            - text: Also enroll new retained public and shadow weather inputs and freeze updated snapshots
+          - generic [ref=e149]:
+            - checkbox "I enable continuous read-only forward validation, including recovery after restart." [ref=e150]
+            - text: I enable continuous read-only forward validation, including recovery after restart.
+          - button "Enable forward validation" [ref=e151] [cursor=pointer]
+          - button "Refresh forward validation" [ref=e152] [cursor=pointer]
+          - status
+          - paragraph [ref=e154]: No continuous validation enabled. Label collection is opt-in.
+        - navigation "Result sections" [ref=e155]:
+          - button "Review" [pressed] [ref=e156] [cursor=pointer]
+          - button "Probabilities" [ref=e157] [cursor=pointer]
+          - button "Evidence & lineage" [ref=e158] [cursor=pointer]
+        - generic [ref=e159]:
+          - generic [ref=e160]: REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+          - generic [ref=e161]:
+            - heading "Research orchestration · local_templates" [level=2] [ref=e162]
+            - paragraph [ref=e163]: "Provider: none. Status: completed."
+            - group [ref=e164]:
+              - generic "Research stages, evidence tools, budgets and usage" [ref=e165] [cursor=pointer]
+          - generic [ref=e166]:
+            - generic [ref=e167]:
+              - strong [ref=e168]: "6"
+              - text: Independent events
+            - generic [ref=e169]:
+              - strong [ref=e170]: "3"
+              - text: Date blocks
+            - generic [ref=e171]:
+              - strong [ref=e172]: "0"
+              - text: Eligible feature events
+            - generic [ref=e173]:
+              - strong [ref=e174]: "0"
+              - text: Source-matched labels
+          - generic [ref=e175]:
+            - heading "Formulation limits" [level=2] [ref=e176]
+            - list [ref=e177]:
+              - listitem [ref=e178]: No language model is used; arbitrary prose is not fully understood.
+              - listitem [ref=e179]: Two model comparisons are not causal tests or feature ablations.
+          - article [ref=e180]:
+            - generic [ref=e181]:
+              - heading "KXHIGHCHI signal test 1" [level=2] [ref=e182]
+              - generic [ref=e183]: INSUFFICIENT DATA
+            - paragraph [ref=e184]: The requested signal revision_f, hours_to_close may improve contract probabilities.
+            - paragraph [ref=e185]: Experiment decision
+            - list [ref=e186]:
+              - listitem [ref=e187]: required source provenance is unavailable at decision time
+            - paragraph [ref=e188]: Falsification
+            - paragraph [ref=e189]: Reject without validation improvement and fee-aware depth evidence.
+            - group [ref=e190]:
+              - generic "Typed hypothesis" [ref=e191] [cursor=pointer]
+            - paragraph [ref=e192]: No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+            - group [ref=e193]:
+              - generic "Frozen fee selection and refusals" [ref=e194] [cursor=pointer]
+            - group [ref=e195]:
+              - generic "Independent research gates and criticism" [ref=e196] [cursor=pointer]
+            - group [ref=e197]:
+              - generic "Strategy specification" [ref=e198] [cursor=pointer]
+          - article [ref=e199]:
+            - generic [ref=e200]:
+              - heading "KXHIGHCHI signal test 2" [level=2] [ref=e201]
+              - generic [ref=e202]: INSUFFICIENT DATA
+            - paragraph [ref=e203]: A forecast-error baseline may be more stable than regression for this signal.
+            - paragraph [ref=e204]: Experiment decision
+            - list [ref=e205]:
+              - listitem [ref=e206]: required source provenance is unavailable at decision time
+            - paragraph [ref=e207]: Falsification
+            - paragraph [ref=e208]: Reject without validation improvement and fee-aware depth evidence.
+            - group [ref=e209]:
+              - generic "Typed hypothesis" [ref=e210] [cursor=pointer]
+            - paragraph [ref=e211]: No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+            - group [ref=e212]:
+              - generic "Frozen fee selection and refusals" [ref=e213] [cursor=pointer]
+            - group [ref=e214]:
+              - generic "Independent research gates and criticism" [ref=e215] [cursor=pointer]
+            - group [ref=e216]:
+              - generic "Strategy specification" [ref=e217] [cursor=pointer]
+          - generic [ref=e218]:
+            - heading "Evaluation limits" [level=2] [ref=e219]
+            - list [ref=e220]:
+              - listitem [ref=e221]: Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+              - listitem [ref=e222]: Snapshot fills model taker execution, not queues or observed fills.
+              - listitem [ref=e223]: Synthetic results verify software only; ranking is not deployment authorization.
+    - generic [ref=e224]:
+      - text: EntropyTrade / private research workspace
+      - generic [ref=e225]: Protected holdout stays closed. No trading approval is implied.
+```
