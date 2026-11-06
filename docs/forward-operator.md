@@ -125,7 +125,10 @@ location is backed by retained authentic evidence, checked by
   retained receipt `data/weather-label-review/20261031/probe/primary-2026-10-29.json`.
   `weather/labels.py` `STATIONS` allowlists exactly those values.
 - **Forecast coordinates.** These are the coordinates returned by the retained
-  `api.weather.gov/stations/K…` receipt. Oklahoma City (CLIOKC) is **not** added: its
+  `api.weather.gov/stations/K…` receipt, **rounded to 4 decimals**. api.weather.gov
+  `/points` redirects (301) a point with more decimals. The bounded client does not follow
+  redirects, so every cycle then fails, and 5 consecutive failures pause the monitor (run
+  `42213570196`). A test enforces at most 4 decimals. Oklahoma City (CLIOKC) is **not** added: its
   retained coordinates are a city-centre geocode, not the station.
 
 The existing monitor's frozen strategy universe is unchanged. New series are captured and
@@ -146,8 +149,9 @@ The top-level `status` is `ok` only when every location is `matched`. A mismatch
 is never relabelled. The label gate already refuses it, and this section only makes that
 visible without downloading the workspace.
 
-Adding locations raises per-cycle storage. Watch `workspace.distinct_bytes` growth per
-cycle before adding more.
+Adding locations raises per-cycle storage. Going from 2 to 4 locations raised distinct growth
+from about 4.8 to about 6.0 MB per cycle and expanded growth to about 12.9 MB per cycle (run
+`42217215001`). Watch `workspace` growth per cycle before adding more.
 
 Runs on one branch are serialized by the concurrency group, so completion order is chain
 order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push

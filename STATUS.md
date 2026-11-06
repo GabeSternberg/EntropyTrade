@@ -36,7 +36,8 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   dates × 4 locations gave 400 events where the test expects 200. The fixture
   (`tests/integration/cohort_fixture.py`) is now pinned to its original two locations, and
   the assertions are unchanged. **Full pytest after the fix: 1,403 passed in 626.00s**, with
-  zero failures, errors or skips.
+  zero failures, errors or skips. On the final code, including the coordinate fix and its
+  test, Ruff/format and strict mypy (565 files) pass and **1,404 passed in 636.91s**.
 - **Real-runner evidence.**
   - Chain dispatch `42209909820` on this branch (`continue_from_run=42205430152`) ran on
     the old two-location code and succeeded with `chain=head`: 44 cycles, 0 errors, server
@@ -45,15 +46,63 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
     198,034,812 distinct. Distinct bytes grew 14.27 MB over 3 cycles (about 4.76 MB per
     cycle), and `budget_used` was 0.1911.
   - The 2026-11-05 retry is still scheduled for 13:27Z, after that run's window.
-  - The first four-location chain dispatch (`continue_from_run=42209909820`) was queued at
-    the end of this session. Its `station_bindings` and footprint are not yet recorded.
+  - **Defect found on the first four-location runs.** Push trial `42213565565` and chain
+    run `42213570196` (`continue_from_run=42209909820`, `chain=head`, 46 cycles) failed
+    every cycle with "12 shadow decisions; 2 acquisition failures". The cycles were 45 and 46
+    (the trial's cycle 45 never becomes part of the chain). The monitor reached
+    `failures: 2`, with backoff `next_at` 12:55:18Z, and a `stale_collection` alert opened at
+    12:19:04Z.
+  - **Cause, inferred from the inputs.** api.weather.gov `/points` redirects a point with
+    more than four decimals (301), and the bounded client does not follow redirects. The only
+    such values were `40.78858` (NYC) and `32.893456`/`-97.02648` (DAL), one location each,
+    which matches 2 failures. The failure records themselves are in the snapshot, which
+    sessions cannot download.
+  - **Fix.** Commit `05bcea6` rounds both to 4 decimals (`40.7886,-73.9661`,
+    `32.8935,-97.0265`), and a test enforces at most 4 decimals for every coordinate. Every
+    failed cycle increments `failures`, and 5 consecutive failures pause the monitor (the
+    operator never resumes). Leaving this unfixed would have paused the chain after about 3
+    more cycles.
+  - Run `42213570196` footprint: 830,372,605 expanded bytes and 206,858,327 distinct (+8.8 MB
+    over 2 failed cycles).
+  - Dispatch `42217170492` (1,500 s) was cancelled during setup, because the backed-off
+    12:55Z cycle fell outside its window. It uploaded nothing and is not a chain head.
+  - **Fix confirmed on a real runner.** Chain dispatch `42217215001` (commit `05bcea6`,
+    3,000 s, `continue_from_run=42213570196`) succeeded with `chain=head`. It ran cycles 47
+    and 48, both `completed` with "12 shadow decisions; 0 acquisition failures". The monitor
+    `failures` went back to 0, and the stale alert resolved at 12:55:27Z.
+  - **Authentic station bindings, `status: ok`.** The capture at 13:05:35Z had all four
+    locations `matched`: KXHIGHPHIL→CLIPHL, KXHIGHCHI→CLIMDW, **KXHIGHNY→CLINYC** and
+    **KXHIGHTDAL→CLIDFW**, each with 6 contracts, 6 naming the station and 6 accepted by the
+    label gate. The current live rules therefore confirm both new mappings.
+  - **Four-location storage.** The footprint was 856,230,326 expanded bytes and 218,830,577
+    distinct; `budget_used` was 0.1994, with 45 retained inputs. Distinct bytes grew about
+    6.0 MB per cycle (11.97 MB over 2 cycles), up from about 4.76 MB with two locations
+    (+25%). Expanded bytes grew about 12.9 MB per cycle.
+  - **Runway.** At about 18 cycles a day (cron: 6 runs × about 3 cycles), the expanded
+    4 GiB budget binds first, in about **15 days**; the distinct budget lasts about 18 days.
+  - Readiness is unchanged: 0 verified labels, and 2026-11-05 PHL/CHI is retried at
+    13:27:09Z. NYC and DAL labels start with 2026-11-06, the first day their contracts were
+    captured.
+  - The next continuation (3,000 s, `continue_from_run=42217215001`) was dispatched at the
+    end of this session. It includes the 13:27Z retry, and its result is not recorded here.
 
-**Next autonomous milestone:** confirm on the first 4-location chain run that
-`station_bindings.status` is `ok`: NYC and DAL must be `matched`, with the rules naming
-CLINYC and CLIDFW. Then confirm their first label days verify. Measure `distinct_bytes` growth
-per cycle against the 2-location baseline of about 4.4 MB. If runway falls under about
-2 weeks, the storage step is next: stop writing each cycle's raw weather responses twice and
-observations about 3 times, keeping provenance. Then recheck 2026-11-05 PHL/CHI labels.
+**Canonical chain head: run `42217215001` on `claude/vibrant-bohr-3bmoqc`**, or the
+continuation dispatched from it if that succeeded (expires about 2026-11-13). Dispatch this
+branch next with `continue_from_run`, or `main` after the stack merges. If a monitor's
+`next_at` is backed off past the window end, use `seconds: 3000` so a cycle actually runs.
+
+**Next autonomous milestone:** the storage step. Snapshot runway is now about 15 days
+(expanded budget). Each cycle writes `public/observations.jsonl` and
+`public/weather/observations.jsonl` with identical rows except for the `raw_ref` prefix, and
+it stores raw forecast bodies three times (`raw/`, `weather/raw/`, `weather.sqlite`). Removing
+the duplicates needs a design that keeps provenance and the frozen-dataset verification.
+Before that, check:
+- the newest chain run's `schedules[].backlog` for 2026-11-05 (PHL/CHI) and for the first
+  NYC/DAL days (2026-11-06, due 2026-11-07);
+- whether `readiness.settlement_labels.verified_stations` gains CLINYC/CLIDFW.
+
+Optional cleanup: add `station_bindings` to the workflow's job-summary key list. Pushing
+workflow files may be rejected; the field is already on the collect step's log line.
 
 ## Current milestone (2026-11-06): label-source diagnostics for unverified days
 
