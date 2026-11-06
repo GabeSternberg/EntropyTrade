@@ -131,9 +131,14 @@ location is backed by retained authentic evidence, checked by
   `42213570196`). A test enforces at most 4 decimals. Oklahoma City (CLIOKC) is **not** added: its
   retained coordinates are a city-centre geocode, not the station.
 
-The existing monitor's frozen strategy universe is unchanged. New series are captured and
-labelled, but they make no shadow decisions. More independent station/days per date is the
-point: the fitting gate needs 60/20/20 independent fit/calibration/validation events.
+The existing monitor's frozen strategy universe is unchanged, so new series make no shadow
+decisions. They are still labelled: when discovery freezes a shadow cycle's capture, a captured
+contract outside the monitor's universe takes the capture's own decision clock, exactly as a
+public capture does (protected events excluded). In-universe contracts keep the shadow's sample
+clocks. Before this rule (chain run `42217215001`), NYC/Dallas contracts were captured but never
+became rows, so the schedule only targeted CLIMDW/CLIPHL; already-frozen discovery datasets stay
+as they were. More independent station/days per date is the point: the fitting gate needs
+60/20/20 independent fit/calibration/validation events.
 
 Each `summary.json` (and the job-log line) carries `station_bindings`, computed read-only
 from the newest retained weather capture. For each configured location it reports:
