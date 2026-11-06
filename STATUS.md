@@ -36,7 +36,7 @@ screening) are unmerged and had no review feedback or failing checks at the star
 | egress-probe `42129099670` | success | HTTP 200 from all five public endpoints from a GitHub-hosted runner. |
 | forward-collection #1 `42130595001` | failure (operator) | New chain. Created research job + monitor `39c5fa16…`; first authentic cycle ran; schedule was created but the operator then raised `KeyError: 'id'` (schedule IDs are nested in `config`). The server still exited 0 and the verified snapshot (10.2 MB, 1 cycle) was uploaded. Fixed in `20848fa`. |
 | forward-collection #2 `42131184740` | success | Restored #1's snapshot (checksum + lock checks); `monitor_kept`, `schedule_kept`, no errors, server exit 0; snapshot 18.8 MB with 2 cycles. |
-| forward-collection #3 | see job log | First run that prints the full summary (cycle statuses, schedule counts, alerts) to the log. |
+| forward-collection #3 `42133403993` | success | Restored #2 (`previous_run_id=42131184740`). **2 cycles completed this window, each `24 shadow decisions; 0 acquisition failures`.** Monitor active, 0 consecutive failures, 4 cycles total, model binding `blocked` (no fitted real model), 0 fills, submissions disabled. 4 retained inputs in 1 partition. Schedule `24a2b11e…` active (follow retained) with 2 pending dates; label dates are not due until local days end, so 0 label requests yet. No alerts. Snapshot `sha256:c89ea3a9…` (4 cycles). |
 
 These verification windows show that the chain mechanics work and that authentic receipts
 accrue. They are not multi-day operation and not empirical evidence. Cycle-level success
