@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 bitcoin-history.spec.cjs:12:1 › Bitcoin retained history: honest empty result, downloads and restart (25.0s)
+  ✓  2 bitcoin-history.spec.cjs:12:1 › Bitcoin retained history: CONTROLLED populated result, downloads and restart (33.1s)
+
+  2 passed (59.4s)

@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 alerts.spec.cjs:10:1 › operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore (1.5m)
+
+  1 passed (1.5m)

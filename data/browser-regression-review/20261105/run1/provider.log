@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery (4ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/provider/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/provider/playwright-artifacts/provider-provider-backed-w-a84c4-s-cancellation-and-recovery/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    provider.spec.cjs:11:1 › provider-backed website: opt-in, typed candidates, failures, cancellation and recovery 
+  1 error was not a part of any test, see above for details

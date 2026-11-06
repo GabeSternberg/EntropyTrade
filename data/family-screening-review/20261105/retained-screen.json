@@ -1,0 +1,351 @@
+{
+  "inputs": [
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-000.json",
+      "series_metadata": null,
+      "sha256": "sha256:47cf0f1bbaafd8f3c498d67eb6fa7f19ec983645803f153500e76d87a314dccf"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-001.json",
+      "series_metadata": null,
+      "sha256": "sha256:3b6f01e4cd858818c31a74ff3580cf6335ab81bf718b8433272357834c91e275"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-002.json",
+      "series_metadata": null,
+      "sha256": "sha256:8c3e4747bd31d8c4c1dd1cc30e90068476c3588f10be448ce090257cd89b0137"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-003.json",
+      "series_metadata": null,
+      "sha256": "sha256:4e3615ece817386ced8c5f5bd583b675aff506dfc1c07b80647cce7617b01b3c"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-004.json",
+      "series_metadata": null,
+      "sha256": "sha256:dda6b61f138f48c9d72146af2bc58bf9df59e02179e3fa3a947b16c986e6f6dc"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-005.json",
+      "series_metadata": null,
+      "sha256": "sha256:f76c6f6e3891fea255a7f3183ca4767212b7115d3e755377028116ddbb052ff1"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-006.json",
+      "series_metadata": null,
+      "sha256": "sha256:bd378b9671e1c0594019eaacf02d194c74a163d5168555cd21db5ec203f6c544"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-007.json",
+      "series_metadata": null,
+      "sha256": "sha256:de21f96db3a937823f1f60e01b08bc77f683576f84c97816a30edebe1789b505"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-008.json",
+      "series_metadata": null,
+      "sha256": "sha256:51be3da0f708b8f223674216508c2684e8b98b3e7d82bc9e1aaa383268f3b5ed"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-009.json",
+      "series_metadata": null,
+      "sha256": "sha256:b02d6f13175e2d59e43aae679e241b53f3a845df5ba562851648f193f430ed68"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-010.json",
+      "series_metadata": null,
+      "sha256": "sha256:d4c0c8818be2b985a8a1b3b83952371aea46b74ec1a5d6bf55b0c338e59d5ea1"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-011.json",
+      "series_metadata": null,
+      "sha256": "sha256:3982c9ac73404e8cfd50d0761e094d92f3a2edfe5182527647b54b4e9147c482"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-012.json",
+      "series_metadata": null,
+      "sha256": "sha256:3fa368691ddc81e6630f6563d6d7b74755bd6d6500e8e08b2bc9b82d7846a0bc"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-013.json",
+      "series_metadata": null,
+      "sha256": "sha256:96d2c660916aa1774673359567fbcaff1ab7cc6a813f5286e575f2dd144cf462"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-014.json",
+      "series_metadata": null,
+      "sha256": "sha256:fdaba763043d0abbd10141b4566c5887b431f10d0e5d6872b95652acf5123554"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-015.json",
+      "series_metadata": null,
+      "sha256": "sha256:e12b29b8ba3f69f84eabbe6d0d5430274bcf8e756140d27cc529bbadaad4f18a"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-016.json",
+      "series_metadata": null,
+      "sha256": "sha256:9604be9ba2c71564fa0847233ac00c07bf81da7007db59731906694caefb2bd2"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/historical-017.json",
+      "series_metadata": null,
+      "sha256": "sha256:67ef71eeb93aadb559c52d31f0c65222c28bba30ee34f670baeffb23b099d203"
+    },
+    {
+      "markets": 120,
+      "path": "data/public/kalshi-public/historical-018.json",
+      "series_metadata": null,
+      "sha256": "sha256:c0376826eeff8a310e2c437110328ba781b85da6ad4ab68f7ec32717c40cf7ea"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/markets-000.json",
+      "series_metadata": null,
+      "sha256": "sha256:0f04a545fe81803502ceb37ba8cd7e7eb83f13151f73f1187f9c1e9947bef328"
+    },
+    {
+      "markets": 200,
+      "path": "data/public/kalshi-public/markets-001.json",
+      "series_metadata": null,
+      "sha256": "sha256:3c4483cc713ae5ca15f2125c941a2d43a337d9aff7af23c0ff885558678c0028"
+    },
+    {
+      "markets": 20,
+      "path": "data/public/kalshi-public/markets-002.json",
+      "series_metadata": null,
+      "sha256": "sha256:4d16d49d2dbcfdc812fefc374b01e4d8899c63122f99d5ff0984231af964c374"
+    },
+    {
+      "markets": 0,
+      "path": "data/public/kalshi-fees/KXHIGHPHIL.json",
+      "series_metadata": "KXHIGHPHIL",
+      "sha256": "sha256:f2c94c17bcb91b6032bb933701ee67ea53d527d137a4c1ad3d79bea871a96098"
+    },
+    {
+      "markets": 0,
+      "path": "data/public/kalshi-fees/KXNHL.json",
+      "series_metadata": "KXNHL",
+      "sha256": "sha256:85988e9905185831d8f7121adb37167a89e243657ce3b8a5d0254ebf7c385f84"
+    },
+    {
+      "markets": 0,
+      "path": "data/public/kalshi-fees/KXMVECROSSCATEGORY.json",
+      "series_metadata": "KXMVECROSSCATEGORY",
+      "sha256": "sha256:896821229942685424576e6e2e5b23254a0bfef6eb8091e55869a1bb834478ec"
+    },
+    {
+      "markets": 200,
+      "path": "data/bitcoin-history-review/20261028T232200Z/real-reviewed-history/history/captures/0000/raw/0001.json",
+      "series_metadata": null,
+      "sha256": "sha256:115c2894e220c4ac4070c38d2cb9053580cc66e839a5395aa0ad5ee318505ff8"
+    },
+    {
+      "markets": 118,
+      "path": "data/bitcoin-history-review/20261028T232200Z/real-reviewed-history/history/captures/0000/raw/0002.json",
+      "series_metadata": null,
+      "sha256": "sha256:02ae92f7b4fedc1a7e70f12d86fc22f4088f961701f820cff0fc3ea38cb34a51"
+    },
+    {
+      "markets": 200,
+      "path": "data/bitcoin-history-review/20261028T232200Z/real-reviewed-history/history/captures/0001/raw/0001.json",
+      "series_metadata": null,
+      "sha256": "sha256:419fae00c5d8d2f13be52ae2f477f6c4beaa020379583eba2d2801d21030171c"
+    },
+    {
+      "markets": 10,
+      "path": "data/bitcoin-history-review/20261028T232200Z/real-reviewed-history/history/captures/0001/raw/0002.json",
+      "series_metadata": null,
+      "sha256": "sha256:b1abf7f1292a6f4b3d8d3256f9bc86577dad0766f64afaf107ba0507e0b7aa7c"
+    }
+  ],
+  "limitations": [
+    "Catalog fields are as observed at receipt fetch time; they are not point-in-time availability evidence for any predictor or price.",
+    "Volume is lifetime traded contracts reported by the catalog; it is not executable depth at any decision time.",
+    "Rule examples are verbatim text; no settlement authority is inferred from them.",
+    "Meeting the label-history minimum does not establish predictive skill, effective fees, realistic validation or profitability.",
+    "This screen never selects a market family; selection requires user approval."
+  ],
+  "merged_tickers": 92,
+  "revised_tickers": 0,
+  "schema": "entropytrade.family-screen/1",
+  "series": [
+    {
+      "close_dates": 4,
+      "event_volume_median": "34667.9",
+      "events": 5,
+      "first_close_date": "2026-10-25",
+      "label_history_minimum": {
+        "met": false,
+        "required_dates": 20,
+        "required_events": 40,
+        "shortfalls": [
+          "0/40 finalized binary events",
+          "0/20 finalized close dates",
+          "finalized outcomes do not include both YES and NO"
+        ]
+      },
+      "labeled_dates": 0,
+      "labeled_events": 0,
+      "labeled_markets": {
+        "no": 0,
+        "yes": 0
+      },
+      "last_close_date": "2026-10-30",
+      "market_types": {
+        "binary": 478
+      },
+      "markets": 478,
+      "markets_per_event_median": 80,
+      "rule_examples": {
+        "earliest_close": "If the simple average of the sixty seconds of CF Benchmarks' Bitcoin Real-Time Index (BRTI) before 1 PM EDT is between 71200-71299.99 at 1 PM EDT on Oct 25, 2026, then the market resolves to Yes.",
+        "latest_close": "If the simple average of the sixty seconds of CF Benchmarks' Bitcoin Real-Time Index (BRTI) before 5 PM EDT is above 93499.99 at 5 PM EDT on Oct 30, 2026, then the market resolves to Yes."
+      },
+      "rule_templates": 3,
+      "series": "KXBTC",
+      "series_metadata": null,
+      "strike_types": {
+        "between": 468,
+        "greater": 5,
+        "less": 5
+      },
+      "total_volume": "184867.09",
+      "traded_market_fraction": "0.197",
+      "unlabeled_markets": 478
+    },
+    {
+      "close_dates": 683,
+      "event_volume_median": "42375",
+      "events": 683,
+      "first_close_date": "2024-11-21",
+      "label_history_minimum": {
+        "met": true,
+        "required_dates": 20,
+        "required_events": 40,
+        "shortfalls": []
+      },
+      "labeled_dates": 681,
+      "labeled_events": 681,
+      "labeled_markets": {
+        "no": 3405,
+        "yes": 681
+      },
+      "last_close_date": "2026-10-04",
+      "market_types": {
+        "binary": 4098
+      },
+      "markets": 4098,
+      "markets_per_event_median": 6,
+      "rule_examples": {
+        "earliest_close": "If the highest temperature recorded in Philadelphia, PA for November 20, 2024 as reported by the National Weather Service's Daily Climate Report, is between 57-58\u00b0, then the market resolves to Yes.",
+        "latest_close": "If the maximum temperature recorded at Philadelphia (CLIPHL) for Oct 3, 2026, is greater than 77\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes."
+      },
+      "rule_templates": 18,
+      "series": "KXHIGHPHIL",
+      "series_metadata": {
+        "category": "Climate and Weather",
+        "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/GLOBALTEMPERATURE.pdf",
+        "fee_multiplier": 1,
+        "fee_type": "quadratic",
+        "frequency": "daily",
+        "settlement_sources": [
+          {
+            "name": "The Weather Company",
+            "url": "https://weather.com/kalshi"
+          }
+        ],
+        "title": "Highest temperature in Philadelphia"
+      },
+      "strike_types": {
+        "None": 25,
+        "between": 2713,
+        "greater": 677,
+        "less": 683
+      },
+      "total_volume": "42112545.33",
+      "traded_market_fraction": "0.987",
+      "unlabeled_markets": 12
+    },
+    {
+      "label_history_minimum": {
+        "met": false,
+        "required_dates": 20,
+        "required_events": 40,
+        "shortfalls": [
+          "no market receipts"
+        ]
+      },
+      "markets": 0,
+      "series": "KXMVECROSSCATEGORY",
+      "series_metadata": {
+        "category": "Exotics",
+        "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/FOOTBALLSTATS.pdf",
+        "fee_multiplier": 1,
+        "fee_type": "quadratic_with_combo_maker_fees",
+        "frequency": "custom",
+        "settlement_sources": [
+          {
+            "name": "the league governing the game",
+            "url": "https://www.ncaa.com/sports/football/fbs"
+          },
+          {
+            "name": "the league governing the game",
+            "url": "https://www.nfl.com/"
+          }
+        ],
+        "title": "MVE Cross Category"
+      }
+    },
+    {
+      "label_history_minimum": {
+        "met": false,
+        "required_dates": 20,
+        "required_events": 40,
+        "shortfalls": [
+          "no market receipts"
+        ]
+      },
+      "markets": 0,
+      "series": "KXNHL",
+      "series_metadata": {
+        "category": "Sports",
+        "contract_url": "https://assets.kalshi.com/regulatory/product-certifications/TITLE.pdf",
+        "fee_multiplier": 1,
+        "fee_type": "quadratic_with_maker_fees",
+        "frequency": "annual",
+        "settlement_sources": [
+          {
+            "name": "ESPN",
+            "url": "https://www.espn.com/"
+          },
+          {
+            "name": "Fox Sports",
+            "url": "https://www.foxsports.com/"
+          },
+          {
+            "name": "AP",
+            "url": "https://apnews.com/"
+          }
+        ],
+        "title": "Stanley Cup"
+      }
+    }
+  ],
+  "unique_markets": 4576
+}
