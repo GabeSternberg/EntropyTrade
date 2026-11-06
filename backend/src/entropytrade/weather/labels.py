@@ -280,7 +280,13 @@ def source_states(receipt: LabelReceipt, stations: tuple[str, ...]) -> dict[str,
         k: _short(body.get(k))
         for k in ("date", "officialReports", "revisedReports", "preliminaryReports", "noReports")
     }
-    results = [r for r in body.get("results") or [] if isinstance(r, dict)]
+    entries = body.get("results")
+    if entries is None:
+        entries = []
+    if not isinstance(entries, list):
+        state["body"] = "results is not a list"
+        return state
+    results = [r for r in entries if isinstance(r, dict)]
     for station in stations:
         cli = STATIONS.get(station, ("",))[0]
         found = [
