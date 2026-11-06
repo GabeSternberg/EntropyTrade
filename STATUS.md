@@ -1,5 +1,22 @@
 # EntropyTrade — current status
 
+## PR backlog reconciliation — November 6, 2026
+
+This revision consolidates the existing A (#1 → #2), B (#4 → #8), and C (#5 through #24)
+chains. Fresh source and evidence reviews fixed receipt-order/clock/volume errors in the
+family screen, malformed portal diagnostics, and an exceeded-budget runway error. Original
+commits, empirical inputs, receipt clocks, settlement checks and protected holdouts are retained.
+
+[Issue #25](https://github.com/GabeSternberg/EntropyTrade/issues/25) records live merge state,
+exact checked commits, CI results, the collector pause and verified main-chain continuation.
+The milestone sections below are historical author records; their old merge instructions and
+chain-head recommendations do not describe the current reconciliation.
+
+**V1 remains incomplete.** The [remaining V1 backlog](docs/pr-reconciliation.md) separates
+code consolidation from authentic history/validation, certified fees, provider authorization,
+the user-approved second family, sustained operation, storage runway and final acceptance.
+Production submissions remain disabled. No new feature phase or real-money order is authorized.
+
 ## Current milestone (2026-11-06): dataset cost per discovered input
 
 Branch `claude/vibrant-bohr-f74103`, **stacked on PR #23** (`claude/vibrant-bohr-dndtp2`).
