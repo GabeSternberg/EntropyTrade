@@ -464,6 +464,8 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     assert [a["action"] for a in result["actions"]] == ["schedule_waiting"]
     assert result["readiness"]["prospective"] == []
     assert result["readiness"]["settlement_labels"]["verified_events"] == 0
+    assert result["workspace"]["status"] == "ok"
+    assert result["workspace"]["areas"]["jobs.sqlite"] > 0
     json.dumps(result)
     # The workspace lease is released: a second operation can start immediately.
     again = operate(
@@ -529,3 +531,38 @@ def test_label_backlog_reads_the_real_schedule_summary_shape() -> None:
     assert backlog["dates"][0]["stations"] == ["KNYC"]
     assert backlog["next_due_at"] == summary["work"][0]["next_at"]
     assert backlog["overdue_dates"] == ["2026-11-05"]
+
+
+def test_footprint_reports_snapshot_bytes_by_area_against_the_budget(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from entropytrade.api import recovery
+
+    workspace = tmp_path / "workspace"
+    for name, size in {
+        "jobs.sqlite": 10,
+        "jobs.sqlite-wal": 1000,  # runtime: excluded from snapshots and from the footprint
+        ".writer.lock": 1000,
+        "runs/weather-datasets/abc/snapshot.json": 30,
+        "runs/weather-datasets/def/receipts/0000/raw.json": 20,
+        "runs/job-1/public/markets.jsonl": 5,
+        "shadow/monitor/cycle/result.json": 35,
+    }.items():
+        path = workspace / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"x" * size)
+    monkeypatch.setattr(recovery, "MAX_BYTES", 1000)
+    report = forward.footprint(workspace)
+    assert report["areas"] == {
+        "jobs.sqlite": 10,
+        "runs": 5,
+        "runs/weather-datasets": 50,
+        "shadow": 35,
+    }
+    assert (report["bytes"], report["files"], report["snapshot_budget_bytes"]) == (100, 5, 1000)
+    assert (report["budget_used"], report["status"]) == (0.1, "ok")
+    monkeypatch.setattr(recovery, "MAX_BYTES", 180)
+    assert forward.footprint(workspace)["status"] == "warning"
+    monkeypatch.setattr(recovery, "MAX_BYTES", 120)
+    assert forward.footprint(workspace)["status"] == "critical"
+    assert forward.footprint(tmp_path / "missing")["bytes"] == 0

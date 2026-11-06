@@ -25,6 +25,14 @@ if TYPE_CHECKING:
     from entropytrade.weather.label_service import LabelService
 
 
+MAX_DISCOVERED = 65536
+# Content refusals of a discovery selection: nothing to enroll, never an integrity failure.
+EMPTY_DISCOVERY = (
+    "Retained receipts have no weather contracts open at a recorded decision",
+    "No verified weather target dates in retained receipts",
+)
+
+
 class ScheduleConfig(DomainModel):
     id: str
     dataset_id: str
@@ -78,6 +86,9 @@ class Schedule(DomainModel):
     updated_at: UtcDatetime
     next_discovery: UtcDatetime
     discovery_cursor: int = Field(default=0, ge=0)
+    # Retained-input catalog IDs already frozen by discovery. Each input is copied into at
+    # most one discovery dataset, so following stays linear in retained evidence.
+    discovered: tuple[str, ...] = Field(default=(), max_length=MAX_DISCOVERED)
     work: tuple[DateWork, ...] = Field(default=(), max_length=2048)
     sequence: int = Field(default=0, ge=0)
     inflight: str | None = None
@@ -98,6 +109,8 @@ class Schedule(DomainModel):
             raise ValueError("incomplete schedule request plan")
         if self.inflight:
             identifier(self.inflight)
+        if len(set(self.discovered)) != len(self.discovered):
+            raise ValueError("duplicate discovered schedule inputs")
         return self
 
 
@@ -182,7 +195,8 @@ class LabelScheduler:
     @staticmethod
     def summary(schedule: Schedule) -> dict[str, Any]:
         return {
-            **schedule.model_dump(mode="json"),
+            **schedule.model_dump(mode="json", exclude={"discovered"}),
+            "discovered_inputs": len(schedule.discovered),
             "counts": dict(Counter(w.status for w in schedule.work)),
             "submission_enabled": False,
             "limitation": "Receipt-time labels only; insufficient-data and frozen model gates "
@@ -271,9 +285,13 @@ class LabelScheduler:
             return self.summary(schedule)
 
     def discover(self, schedule: Schedule) -> Schedule:
-        """One bounded retained public/shadow partition per interval; never collect markets."""
+        """Freeze only retained public/shadow inputs not yet discovered; never collect markets.
+
+        Each catalog input enters at most one discovery dataset. Earlier datasets, their
+        receipt clocks and the workspace-wide frozen anchor/protection are never changed.
+        """
         from entropytrade.api.jobs import Jobs
-        from entropytrade.tracking.history import anchor, catalog, selected_inputs
+        from entropytrade.tracking.history import anchor, catalog, member_inputs
         from entropytrade.weather.history import build_snapshot
         from entropytrade.weather.label_service import batches
 
@@ -281,25 +299,50 @@ class LabelScheduler:
             return schedule  # A user freeze owns the shared snapshot writer; retry later.
         try:
             jobs = Jobs(self.service.workspace)
-            partitions = catalog(jobs)["partitions"]
-            if not partitions:
-                return schedule.revalidated(
-                    next_discovery=utc_now() + timedelta(seconds=schedule.config.interval_seconds)
-                )
-            partition = partitions[schedule.discovery_cursor % len(partitions)]["partition_id"]
-            captures, outcomes, protected = selected_inputs(jobs, partition, partition)
-            snapshot = build_snapshot(
-                jobs.root / "runs/weather-datasets",
-                captures,
-                outcome_roots=outcomes,
-                protected_events=protected,
-                frozen_anchor=anchor(jobs),
-                scalar_batches=batches(jobs.root),
-                selection={"partition_id": partition},
+            later = utc_now() + timedelta(seconds=schedule.config.interval_seconds)
+            seen = set(schedule.discovered)
+            partition = next(
+                (
+                    p
+                    for p in catalog(jobs)["partitions"]
+                    if any(m["id"] not in seen for m in p["members"])
+                ),
+                None,
             )
+            if partition is None:
+                return schedule.revalidated(next_discovery=later)
+            members = [m for m in partition["members"] if m["id"] not in seen]
+            discovered = (*schedule.discovered, *(m["id"] for m in members))
+            if len(discovered) > MAX_DISCOVERED:
+                raise ValueError("schedule discovery budget reached; create a reviewed schedule")
+            captures, outcomes, protected = member_inputs(jobs, members, members)
+            try:
+                snapshot = build_snapshot(
+                    jobs.root / "runs/weather-datasets",
+                    captures,
+                    outcome_roots=outcomes,
+                    protected_events=protected,
+                    frozen_anchor=anchor(jobs),
+                    scalar_batches=batches(jobs.root),
+                    selection={
+                        "partition_id": partition["partition_id"],
+                        "discovery": "incremental",
+                        "inputs": sorted(m["id"] for m in members),
+                    },
+                )
+            except ValueError as exc:
+                if not str(exc).startswith(EMPTY_DISCOVERY):
+                    raise
+                return schedule.revalidated(
+                    discovered=discovered,
+                    discovery_cursor=schedule.discovery_cursor + 1,
+                    next_discovery=later,
+                    detail=f"Discovered {len(members)} inputs with no label targets: {exc}",
+                )
             return self.enroll(schedule, snapshot["dataset_id"][7:]).revalidated(
+                discovered=discovered,
                 discovery_cursor=schedule.discovery_cursor + 1,
-                next_discovery=utc_now() + timedelta(seconds=schedule.config.interval_seconds),
+                next_discovery=later,
             )
         finally:
             self.service.snapshot_lock.release()

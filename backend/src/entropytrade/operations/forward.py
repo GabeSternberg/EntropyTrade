@@ -268,6 +268,54 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
     }
 
 
+FOOTPRINT_WARNING = 0.5
+FOOTPRINT_CRITICAL = 0.8
+
+
+def footprint(workspace: Path) -> dict[str, Any]:
+    """Bytes the next snapshot will carry, by area, against the snapshot size budget.
+
+    Read-only and metadata-only: file sizes, never contents. Runtime files the snapshot
+    excludes (locks, WAL/SHM, caches) are excluded here too.
+    """
+    from entropytrade.api.recovery import MAX_BYTES, RUNTIME
+
+    areas: Counter[str] = Counter()
+    files = 0
+    if workspace.is_dir():
+        for child in sorted(workspace.iterdir()):
+            if child.name in RUNTIME or child.is_symlink():
+                continue
+            if child.is_file():
+                areas[child.name] += child.stat().st_size
+                files += 1
+                continue
+            for path in child.rglob("*"):
+                if path.is_file() and not path.is_symlink():
+                    parts = path.relative_to(workspace).parts
+                    area = (
+                        "/".join(parts[:2])
+                        if parts[:2] == ("runs", "weather-datasets")
+                        else (parts[0])
+                    )
+                    areas[area] += path.stat().st_size
+                    files += 1
+    total = sum(areas.values())
+    used = total / MAX_BYTES
+    return {
+        "bytes": total,
+        "files": files,
+        "areas": dict(sorted(areas.items())),
+        "snapshot_budget_bytes": MAX_BYTES,
+        "budget_used": round(used, 4),
+        "status": "critical"
+        if used >= FOOTPRINT_CRITICAL
+        else "warning"
+        if used >= FOOTPRINT_WARNING
+        else "ok",
+    }
+
+
 def label_backlog(schedule: dict[str, Any], at: datetime) -> dict[str, Any]:
     """Per-date label work, so zero labels reads as 'not yet due' or 'overdue', never vague.
 
@@ -501,6 +549,10 @@ def operate(
             errors.append(f"{type(exc).__name__}: {exc}")
         finally:
             exit_code = stop(process)
+    try:
+        summary["workspace"] = footprint(workspace)
+    except OSError as exc:
+        errors.append(f"footprint {type(exc).__name__}: {exc}")
     return {
         "schema": SCHEMA,
         "started_at": started_at.isoformat(),
@@ -541,7 +593,10 @@ def main() -> None:
     )
     args.summary.parent.mkdir(parents=True, exist_ok=True)
     args.summary.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    brief = {k: result.get(k) for k in ("actions", "errors", "server_exit_code", "readiness")}
+    brief = {
+        k: result.get(k)
+        for k in ("actions", "errors", "server_exit_code", "readiness", "workspace")
+    }
     brief["open_alerts"] = [a for a in result.get("alerts", []) if a.get("status") != "resolved"]
     sys.stdout.write(json.dumps(brief) + "\n")
     if result["errors"] or result["server_exit_code"] != 0:

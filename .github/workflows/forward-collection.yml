@@ -254,7 +254,7 @@ jobs:
             echo "## Forward collection"
             echo '```json'
             if [ -f "$OUT/summary.json" ]; then
-              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
+              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
             else
               echo '{"summary": "missing"}'
             fi
@@ -263,6 +263,10 @@ jobs:
             [ -f "$OUT/lineage.txt" ] && cat "$OUT/lineage.txt"
             echo '```'
           } | tee -a "$GITHUB_STEP_SUMMARY"
+          # Surface snapshot-budget pressure before a snapshot can be refused (2 GB budget).
+          if [ -f "$OUT/summary.json" ]; then
+            python3 -c "import json,sys; w=json.load(open(sys.argv[1])).get('workspace') or {}; s=w.get('status'); s in ('warning','critical') and print('::warning::workspace footprint %s: %s bytes, %s of the snapshot budget' % (s, w.get('bytes'), w.get('budget_used')))" "$OUT/summary.json"
+          fi
 
       - name: Fail if collection failed
         if: steps.collect.outcome != 'success'

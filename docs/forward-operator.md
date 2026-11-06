@@ -81,6 +81,13 @@ Alerts are summarized as `open`, `acknowledged` or `resolved` from their lifecyc
 (`opened_at`, `acknowledged_at`, `resolved_at`); the log line lists unresolved alerts.
 Summaries written before this change listed every alert with `status: null`.
 
+`workspace` reports the bytes the next snapshot will carry, by area (`jobs.sqlite`, `runs`,
+`runs/weather-datasets`, `shadow`), against the 2 GB snapshot budget (`budget_used`). Its
+`status` is `ok`, `warning` (at least 50%) or `critical` (at least 80%). The job summary
+adds a `::warning::` annotation for the last two. It counts file sizes only and excludes
+the runtime files that snapshots skip. Snapshot archives are deflate-compressed; archives
+stored uncompressed by earlier runs still restore.
+
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 
@@ -188,8 +195,10 @@ the local copy to start collecting.
   new chain with `fresh: true`. The new chain does not inherit any evidence from the old one.
 - Repeated source failures pause the monitor through the existing five-failure rule. The
   next runs then report `operator_review_required` until someone reviews and resumes it.
-- Private repository artifact storage counts against the account quota. Watch archive sizes in
-  `snapshot.json` and lower the cron frequency if needed.
+- Private repository artifact storage counts against the account quota. Watch `workspace` in
+  each summary and archive sizes in the snapshot step, and lower the cron frequency if needed.
+  A workspace over the 2 GB budget cannot be snapshotted, so that run's receipts are not
+  carried forward and the chain stalls. Act on a `warning`. Retained raw receipts are never deleted to make room.
 
 ## What this does not establish
 

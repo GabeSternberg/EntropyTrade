@@ -389,3 +389,108 @@ def test_dangling_symlink_schedule_is_never_followed(
         service.scheduler.get(selected["config"]["id"])
     assert not destination.exists()
     assert service.catalog() == []
+
+
+def datasets(service: LabelService) -> set[Path]:
+    return set((service.workspace / "runs/weather-datasets").glob("[0-9a-f]" * 64))
+
+
+def test_follow_freezes_each_retained_input_into_at_most_one_discovery_dataset(
+    controlled: tuple[LabelService, dict[str, Any], SimulatedClock],
+) -> None:
+    """Regression: discovery re-froze the whole growing partition every interval.
+
+    Authentic chained snapshots grew from 243 MB to 331 MB in two cycles because every
+    discovery dataset copied every earlier retained cycle again.
+    """
+    from tests.integration.forward_validation_fixture import add_date
+
+    service, initial, _ = controlled
+    created = service.scheduler.create(config(initial, follow_retained=True))
+    schedule = current(service, created["config"]["id"])
+    first = service.scheduler.discover(schedule)
+    assert len(first.discovered) == 12
+    assert first.work == schedule.work  # all twelve dates were already enrolled
+    before = datasets(service)
+
+    # No new retained input: no new immutable dataset and nothing is copied again.
+    again = service.scheduler.discover(first)
+    assert datasets(service) == before
+    assert again.discovered == first.discovered
+    assert again.work == first.work
+    assert again.discovery_cursor == first.discovery_cursor
+
+    add_date(service.workspace, 12)
+    add_date(service.workspace, 13)
+    second = service.scheduler.discover(again)
+    new = datasets(service) - before
+    assert len(new) == 1
+    snapshot = load_snapshot(new.pop())
+    assert len(snapshot["identity"]["captures"]) == 2  # only the two new inputs
+    assert snapshot["identity"]["selection"]["discovery"] == "incremental"
+    assert snapshot["identity"]["selection"]["inputs"] == sorted(second.discovered[12:])
+    assert snapshot["identity"]["temporal_boundaries"] == initial["identity"]["temporal_boundaries"]
+    assert len(second.discovered) == 14
+    assert second.work[: len(first.work)] == first.work  # earlier plans never change
+    assert {w.day.isoformat() for w in second.work[len(first.work) :]} == {
+        "2026-10-13",
+        "2026-10-14",
+    }
+    # One new input per interval: total frozen copies grow linearly, not quadratically.
+    latest, seen = second, datasets(service)
+    for n in range(14, 17):
+        add_date(service.workspace, n)
+        latest = service.scheduler.discover(latest)
+    added = datasets(service) - seen
+    assert sorted(len(load_snapshot(p)["identity"]["captures"]) for p in added) == [1, 1, 1]
+    assert len(latest.discovered) == len(set(latest.discovered)) == 17
+    service.scheduler.save(latest)
+    service.scheduler.validate()
+
+
+def test_schedule_saved_before_incremental_discovery_still_verifies(
+    controlled: tuple[LabelService, dict[str, Any], SimulatedClock],
+) -> None:
+    from entropytrade.features.registry import scientific_hash
+
+    service, initial, _ = controlled
+    created = service.scheduler.create(config(initial, follow_retained=True))
+    path = service.scheduler.root / (created["config"]["id"] + ".json")
+    value = json.loads(path.read_bytes())
+    del value["schedule"]["discovered"]  # exact shape written by the previous release
+    value["digest"] = scientific_hash(value["schedule"])
+    path.write_text(json.dumps(value))
+    legacy = current(service, created["config"]["id"])
+    assert legacy.discovered == ()
+    assert len(service.scheduler.discover(legacy).discovered) == 12
+    summary = service.scheduler.catalog()[0]
+    assert summary["discovered_inputs"] == 0
+    assert "discovered" not in summary
+
+
+def test_discovery_without_targets_advances_but_integrity_failures_still_raise(
+    controlled: tuple[LabelService, dict[str, Any], SimulatedClock],
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from entropytrade.weather import history
+
+    service, initial, _ = controlled
+    created = service.scheduler.create(config(initial, follow_retained=True))
+    schedule = current(service, created["config"]["id"])
+
+    def empty(*_: object, **__: object) -> dict[str, Any]:
+        raise ValueError("No verified weather target dates in retained receipts")
+
+    monkeypatch.setattr(history, "build_snapshot", empty)
+    advanced = service.scheduler.discover(schedule)
+    assert len(advanced.discovered) == 12
+    assert advanced.work == schedule.work
+    assert advanced.status == "active"
+    assert "no label targets" in advanced.detail
+
+    def corrupt(*_: object, **__: object) -> dict[str, Any]:
+        raise ValueError("weather snapshot checksum mismatch")
+
+    monkeypatch.setattr(history, "build_snapshot", corrupt)
+    with pytest.raises(ValueError, match="checksum mismatch"):
+        service.scheduler.discover(schedule)

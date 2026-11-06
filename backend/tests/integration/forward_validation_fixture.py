@@ -34,63 +34,67 @@ def seed_dates(workspace: Path, count: int = 12) -> dict[str, Any]:
         raise ValueError("CONTROLLED setup requires fresh workspace")
     jobs = Jobs(workspace)
     TrackingStore(jobs)
-    config = weather().revalidated(locations=weather().locations[:1])
-    captures = []
-    for n in range(count):
-        day = date(2026, 10, 1) + timedelta(days=n)
-        at = datetime.combine(day, datetime.min.time(), UTC) + timedelta(hours=15)
-        payload = body(day, "KXHIGHPHIL", "Philadelphia")
-        payload["rules_primary"] = (
-            "If the maximum temperature in Philadelphia (CLIPHL) is greater than 70 degrees "
-            "Fahrenheit, according to The Weather Company at weather.com/kalshi, "
-            "the market resolves to Yes."
-        )
-        job = jobs.create({"idea": LABEL, "family": "weather", "mode": "public"})
-        root = workspace / "runs" / job / "public"
-        (root / "raw").mkdir(parents=True)
-        raw = root / "raw/controlled.json"
-        raw.write_text(json.dumps({"evidence": LABEL, "markets": [payload]}))
-        digest = file_hash(raw)
-        market = MarketEvidence(
-            market=market_from_body(payload, captured_at=at, series="KXHIGHPHIL"),
-            capture_basis="receipt",
-            raw_ref="raw/controlled.json",
-            raw_hash=digest,
-        )
-        (root / "markets.jsonl").write_text(market.model_dump_json() + "\n")
-        (root / "observations.jsonl").write_text("")
-        capture = {
-            "family": "weather",
-            "started_at": at.isoformat(),
-            "decision_time": at.isoformat(),
-            "failures": [],
-            "universe_complete": True,
-            "history_complete": False,
-            "receipts": [
-                {
-                    "received_at": at.isoformat(),
-                    "status": 200,
-                    "raw_ref": "raw/controlled.json",
-                    "hash": digest,
-                }
-            ],
-            "evidence": LABEL,
-        }
-        (root / "capture.json").write_text(json.dumps(capture))
-        manifest = {
-            "family": "weather",
-            "decision_time": at.isoformat(),
-            "evidence": LABEL,
-            "weather_config": config.model_dump(mode="json"),
-            "checksums": {
-                p.relative_to(root).as_posix(): file_hash(p) for p in root.rglob("*") if p.is_file()
-            },
-        }
-        manifest["dataset_version"] = scientific_hash(manifest)
-        (root / "manifest.json").write_text(json.dumps(manifest))
-        jobs.update(job, "controlled", LABEL, status="completed", result={"evidence": LABEL})
-        captures.append(root)
+    captures = [add_date(workspace, n) for n in range(count)]
     return build_snapshot(workspace / "runs/weather-datasets", captures)
+
+
+def add_date(workspace: Path, n: int) -> Path:
+    """Retain one CONTROLLED completed public capture for day n after 2026-10-01."""
+    jobs = Jobs(workspace)
+    config = weather().revalidated(locations=weather().locations[:1])
+    day = date(2026, 10, 1) + timedelta(days=n)
+    at = datetime.combine(day, datetime.min.time(), UTC) + timedelta(hours=15)
+    payload = body(day, "KXHIGHPHIL", "Philadelphia")
+    payload["rules_primary"] = (
+        "If the maximum temperature in Philadelphia (CLIPHL) is greater than 70 degrees "
+        "Fahrenheit, according to The Weather Company at weather.com/kalshi, "
+        "the market resolves to Yes."
+    )
+    job = jobs.create({"idea": LABEL, "family": "weather", "mode": "public"})
+    root = workspace / "runs" / job / "public"
+    (root / "raw").mkdir(parents=True)
+    raw = root / "raw/controlled.json"
+    raw.write_text(json.dumps({"evidence": LABEL, "markets": [payload]}))
+    digest = file_hash(raw)
+    market = MarketEvidence(
+        market=market_from_body(payload, captured_at=at, series="KXHIGHPHIL"),
+        capture_basis="receipt",
+        raw_ref="raw/controlled.json",
+        raw_hash=digest,
+    )
+    (root / "markets.jsonl").write_text(market.model_dump_json() + "\n")
+    (root / "observations.jsonl").write_text("")
+    capture = {
+        "family": "weather",
+        "started_at": at.isoformat(),
+        "decision_time": at.isoformat(),
+        "failures": [],
+        "universe_complete": True,
+        "history_complete": False,
+        "receipts": [
+            {
+                "received_at": at.isoformat(),
+                "status": 200,
+                "raw_ref": "raw/controlled.json",
+                "hash": digest,
+            }
+        ],
+        "evidence": LABEL,
+    }
+    (root / "capture.json").write_text(json.dumps(capture))
+    manifest = {
+        "family": "weather",
+        "decision_time": at.isoformat(),
+        "evidence": LABEL,
+        "weather_config": config.model_dump(mode="json"),
+        "checksums": {
+            p.relative_to(root).as_posix(): file_hash(p) for p in root.rglob("*") if p.is_file()
+        },
+    }
+    manifest["dataset_version"] = scientific_hash(manifest)
+    (root / "manifest.json").write_text(json.dumps(manifest))
+    jobs.update(job, "controlled", LABEL, status="completed", result={"evidence": LABEL})
+    return root
 
 
 def portal(day: str, phase: str = "official") -> dict[str, Any]:

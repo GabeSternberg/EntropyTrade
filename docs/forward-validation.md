@@ -24,6 +24,18 @@ separately if new market/forecast receipts should accrue. New shadow cycles on a
 partition are incorporated at its next scan; a pinned-only schedule handles its selected
 dataset without following later inputs. Neither mode rewrites an existing snapshot.
 
+Since 2026-11-06 discovery is **incremental**. The schedule durably records which catalog
+inputs it has already frozen (`discovered`, reported as `discovered_inputs`). Each scan
+freezes only inputs it has not seen, from the earliest partition that has any, so every
+input is copied into at most one discovery dataset. Its `selection` records
+`discovery: incremental` and the exact input IDs. A scan with no new inputs creates no
+dataset. Inputs with no label targets are marked discovered and the schedule stays active;
+integrity failures still block it. Before this change each scan re-froze the whole growing
+partition, re-copying every earlier shadow cycle. The authentic forward chain grew
+quadratically: 243 MB at 14 cycles and 331 MB at 16, against a 2 GB snapshot budget.
+Schedules saved before the change load unchanged, and their first scan freezes the
+partition once.
+
 The table shows pending, retry, verified and permanently refused dates, attempts, next checks,
 source errors, the active batch ID and controls. **Pause forward validation** cancels a queued
 or active request and retains earlier receipts. **Resume** reuses durable backlog state.

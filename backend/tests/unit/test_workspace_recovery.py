@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Any
-from zipfile import ZipFile, ZipInfo
+from zipfile import ZIP_BZIP2, ZIP_DEFLATED, ZIP_STORED, ZipFile, ZipInfo
 
 import pytest
 
@@ -389,6 +389,42 @@ def test_duplicate_archive_members_are_refused(repo: Path) -> None:
             bundle.writestr("manifest.json", "{}")
     with pytest.raises(ValueError, match="duplicate"):
         restore(repo, archive, repo / "data/cache/refused")
+
+
+def test_snapshots_are_deflated_and_stored_legacy_archives_still_restore(repo: Path) -> None:
+    store, *_ = populated(repo)
+    archive = repo / "snapshot.zip"
+    snapshot(repo, store.jobs.root, archive)
+    with ZipFile(archive) as bundle:
+        members = bundle.infolist()
+        manifest = json.loads(bundle.read("manifest.json"))
+        assert {m.compress_type for m in members} == {ZIP_DEFLATED}
+        assert sum(m.compress_size for m in members) < sum(m.file_size for m in members)
+        contents = {m.filename: bundle.read(m) for m in members}
+    expected = {f["path"]: f["sha256"] for f in manifest["files"]}
+
+    # Chained workspaces published before compression must remain restorable.
+    legacy = repo / "legacy.zip"
+    with ZipFile(legacy, "w", compression=ZIP_STORED) as bundle:
+        for name, body in contents.items():
+            bundle.writestr(name, body)
+    for name, source in (("deflated", archive), ("stored", legacy)):
+        restored = repo / "data/cache" / name
+        restore(repo, source, restored)
+        actual = {
+            p.relative_to(restored).as_posix(): file_hash(p)
+            for p in restored.rglob("*")
+            if p.is_file() and p.name not in {"jobs.sqlite", "registry.sqlite"}
+        }
+        assert actual == {k: v for k, v in expected.items() if not k.endswith(".sqlite")}
+
+    unsupported = repo / "bzip2.zip"
+    with ZipFile(unsupported, "w", compression=ZIP_BZIP2) as bundle:
+        for name, body in contents.items():
+            bundle.writestr(name, body)
+    with pytest.raises(ValueError, match="regular files"):
+        restore(repo, unsupported, repo / "data/cache/refused")
+    assert not (repo / "data/cache/refused").exists()
 
 
 def test_server_cannot_open_or_migrate_database_without_workspace_lease(
