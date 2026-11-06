@@ -31,8 +31,27 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   assertion in the real-server case. The schedule cases fail on the previous code. Ruff
   lint/format pass; strict mypy passes (564 files). **Full pytest: 1,387 passed in 704.50s**,
   with zero failures, errors or skips.
-- **Not yet observed on a real runner:** linear growth over several chained runs. See the
-  verification log below.
+- **Real-runner evidence.**
+  - Old-code chain dispatch `42177275885` succeeded with 21 cycles, 0 errors and server exit 0.
+    Its archive was 469,371,199 bytes (stored); +138 MB for 5 cycles.
+  - Continuation `42183351795` on this branch (`continue_from_run=42177275885`) succeeded.
+    - It **restored the legacy stored archive**, collected 3 cycles (24 total) with 0 errors
+      and server exit 0, and recorded `chain=head`.
+    - Its **deflated archive is 38,882,359 bytes** (artifact 34,830,315), versus 478,628,966
+      bytes of workspace.
+  - The first `workspace` footprint confirms the cause: `runs/weather-datasets` is
+    383,007,179 bytes (80%), while all 24 raw shadow cycles take 83,233,485 bytes (`shadow`),
+    plus 10.8 MB `jobs.sqlite`. Budget used is 0.2229 (`ok`).
+  - **Not yet exercised:** no discovery ran in that window (next at 08:28Z). The first
+    incremental scan will freeze all 23 inputs once (legacy schedule); later scans add only new
+    inputs. Confirm this on the next dispatches by comparing `runs/weather-datasets` growth.
+- **Readiness unchanged.** The prospective report is `insufficient` (model binding `blocked`).
+  Day 2026-11-05 is still refused as preliminary after 2 attempts; the next retry is 09:27Z.
+  A new `unresolved_reconciliation` alert opened at 07:00Z and remains open. It has not been
+  investigated yet.
+
+**Canonical chain head: run `42183351795` on `claude/vibrant-bohr-zx3moc`** (expires about
+2026-11-13). Dispatch this branch next, or `main` after merge, with `continue_from_run`.
 
 **Next autonomous milestone:** dispatch the chain on this branch and compare `workspace` areas
 across two or more runs to confirm linear growth on authentic data. Then confirm that
