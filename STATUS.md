@@ -130,7 +130,8 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   dates × 4 locations gave 400 events where the test expects 200. The fixture
   (`tests/integration/cohort_fixture.py`) is now pinned to its original two locations, and
   the assertions are unchanged. **Full pytest after the fix: 1,403 passed in 626.00s**, with
-  zero failures, errors or skips.
+  zero failures, errors or skips. On the final code, including the coordinate fix and its
+  test, Ruff/format and strict mypy (565 files) pass and **1,404 passed in 636.91s**.
 - **Real-runner evidence.**
   - Chain dispatch `42209909820` on this branch (`continue_from_run=42205430152`) ran on
     the old two-location code and succeeded with `chain=head`: 44 cycles, 0 errors, server
@@ -139,15 +140,63 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
     198,034,812 distinct. Distinct bytes grew 14.27 MB over 3 cycles (about 4.76 MB per
     cycle), and `budget_used` was 0.1911.
   - The 2026-11-05 retry is still scheduled for 13:27Z, after that run's window.
-  - The first four-location chain dispatch (`continue_from_run=42209909820`) was queued at
-    the end of this session. Its `station_bindings` and footprint are not yet recorded.
+  - **Defect found on the first four-location runs.** Push trial `42213565565` and chain
+    run `42213570196` (`continue_from_run=42209909820`, `chain=head`, 46 cycles) failed
+    every cycle with "12 shadow decisions; 2 acquisition failures". The cycles were 45 and 46
+    (the trial's cycle 45 never becomes part of the chain). The monitor reached
+    `failures: 2`, with backoff `next_at` 12:55:18Z, and a `stale_collection` alert opened at
+    12:19:04Z.
+  - **Cause, inferred from the inputs.** api.weather.gov `/points` redirects a point with
+    more than four decimals (301), and the bounded client does not follow redirects. The only
+    such values were `40.78858` (NYC) and `32.893456`/`-97.02648` (DAL), one location each,
+    which matches 2 failures. The failure records themselves are in the snapshot, which
+    sessions cannot download.
+  - **Fix.** Commit `05bcea6` rounds both to 4 decimals (`40.7886,-73.9661`,
+    `32.8935,-97.0265`), and a test enforces at most 4 decimals for every coordinate. Every
+    failed cycle increments `failures`, and 5 consecutive failures pause the monitor (the
+    operator never resumes). Leaving this unfixed would have paused the chain after about 3
+    more cycles.
+  - Run `42213570196` footprint: 830,372,605 expanded bytes and 206,858,327 distinct (+8.8 MB
+    over 2 failed cycles).
+  - Dispatch `42217170492` (1,500 s) was cancelled during setup, because the backed-off
+    12:55Z cycle fell outside its window. It uploaded nothing and is not a chain head.
+  - **Fix confirmed on a real runner.** Chain dispatch `42217215001` (commit `05bcea6`,
+    3,000 s, `continue_from_run=42213570196`) succeeded with `chain=head`. It ran cycles 47
+    and 48, both `completed` with "12 shadow decisions; 0 acquisition failures". The monitor
+    `failures` went back to 0, and the stale alert resolved at 12:55:27Z.
+  - **Authentic station bindings, `status: ok`.** The capture at 13:05:35Z had all four
+    locations `matched`: KXHIGHPHIL→CLIPHL, KXHIGHCHI→CLIMDW, **KXHIGHNY→CLINYC** and
+    **KXHIGHTDAL→CLIDFW**, each with 6 contracts, 6 naming the station and 6 accepted by the
+    label gate. The current live rules therefore confirm both new mappings.
+  - **Four-location storage.** The footprint was 856,230,326 expanded bytes and 218,830,577
+    distinct; `budget_used` was 0.1994, with 45 retained inputs. Distinct bytes grew about
+    6.0 MB per cycle (11.97 MB over 2 cycles), up from about 4.76 MB with two locations
+    (+25%). Expanded bytes grew about 12.9 MB per cycle.
+  - **Runway.** At about 18 cycles a day (cron: 6 runs × about 3 cycles), the expanded
+    4 GiB budget binds first, in about **15 days**; the distinct budget lasts about 18 days.
+  - Readiness is unchanged: 0 verified labels, and 2026-11-05 PHL/CHI is retried at
+    13:27:09Z. NYC and DAL labels start with 2026-11-06, the first day their contracts were
+    captured.
+  - The next continuation (3,000 s, `continue_from_run=42217215001`) was dispatched at the
+    end of this session. It includes the 13:27Z retry, and its result is not recorded here.
 
-**Next autonomous milestone:** confirm on the first 4-location chain run that
-`station_bindings.status` is `ok`: NYC and DAL must be `matched`, with the rules naming
-CLINYC and CLIDFW. Then confirm their first label days verify. Measure `distinct_bytes` growth
-per cycle against the 2-location baseline of about 4.4 MB. If runway falls under about
-2 weeks, the storage step is next: stop writing each cycle's raw weather responses twice and
-observations about 3 times, keeping provenance. Then recheck 2026-11-05 PHL/CHI labels.
+**Canonical chain head: run `42217215001` on `claude/vibrant-bohr-3bmoqc`**, or the
+continuation dispatched from it if that succeeded (expires about 2026-11-13). Dispatch this
+branch next with `continue_from_run`, or `main` after the stack merges. If a monitor's
+`next_at` is backed off past the window end, use `seconds: 3000` so a cycle actually runs.
+
+**Next autonomous milestone:** the storage step. Snapshot runway is now about 15 days
+(expanded budget). Each cycle writes `public/observations.jsonl` and
+`public/weather/observations.jsonl` with identical rows except for the `raw_ref` prefix, and
+it stores raw forecast bodies three times (`raw/`, `weather/raw/`, `weather.sqlite`). Removing
+the duplicates needs a design that keeps provenance and the frozen-dataset verification.
+Before that, check:
+- the newest chain run's `schedules[].backlog` for 2026-11-05 (PHL/CHI) and for the first
+  NYC/DAL days (2026-11-06, due 2026-11-07);
+- whether `readiness.settlement_labels.verified_stations` gains CLINYC/CLIDFW.
+
+Optional cleanup: add `station_bindings` to the workflow's job-summary key list. Pushing
+workflow files may be rejected; the field is already on the collect step's log line.
 
 ## Current milestone (2026-11-06): label-source diagnostics for unverified days
 
@@ -407,10 +456,20 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   - Both targets were refused with `source report is preliminary, missing or nonofficial`.
     The status is `retry`, with the next attempt at 07:27Z. Day 2026-11-06 is pending until
     2026-11-07T06:00Z. `overdue_dates` was empty.
+  - Follow-up chain dispatch `42177275885` (3000 s window) also succeeded. It continued
+    `42174401711` on the same branch, collected 5 cycles (21 total) with 0 errors and server
+    exit 0, and produced snapshot `sha256:2385f2be…` with `chain=head`.
+  - That run made label request 2 at the 07:27Z retry. Day 2026-11-05 was still
+    preliminary, so it now has `failures: 2`, with the next attempt at 09:27Z (backoff
+    doubling, capped at 24 h). `overdue_dates` was empty.
+  - The existing `unresolved_reconciliation` alert opened at 07:00Z, because official
+    results for the 2026-11-05 shadow contracts are not yet reconciled. It is left open for
+    review and not acknowledged by automation.
 - **Readiness.** The prospective report is still `insufficient`: 24 contracts, all refused,
   covering 4 events on 2 dates. Settlement labels: 0 verified, 2 unverified (preliminary).
 
-**Canonical chain head: the newest successful dispatch on this branch.** Labels are only
+**Canonical chain head: run `42177275885` on this branch** (the newest successful dispatch;
+snapshot expires 2026-11-13). Labels are only
 requested while a run is up, and runs happen only on dispatch until the workflow reaches
 `main` (cron every 4 h). The snapshot expires 7 days after its run.
 
@@ -509,20 +568,33 @@ had no reviews, review threads or change requests and no failing checks; none we
   It covers same-branch selection, expiry, completion order, incomplete runs, continuation,
   8 fail-closed cases and the API-error refusal, and asserts that no condition uses
   `hashFiles()`. 4 cases fail on the first commit's workflow (hashFiles) and 2 on the second's (ordering).
-- **Results.** Ruff lint/format pass; strict mypy passes (564 files); **full pytest 1,368 passed
-  in 610.83s** at `65d7bea` (zero failures/errors/skips). The re-run continuation result is
-  recorded below.
+- **Results.** Ruff lint/format pass; strict mypy passes (564 files). **Full pytest 1,376 passed
+  in 590.28s** at head `f4d4fc3` (zero failures/errors/skips); it was 1,368 at `65d7bea`.
+- **Canonical continuation succeeded:** run `42168444616` at `f4d4fc3`.
+  - It restored `42156641720` (`claude/vibrant-bohr-ypomud`, 11 cycles, `sha256:4a8125a5…`).
+  - It kept the monitor and schedule, ending at 14 cycles. There were 0 errors, the server
+    exited 0, and the snapshot is `sha256:0ff3a700…` (243 MB zip; 17.7 MB artifact).
+  - Readiness is unchanged: 24 refused, 0 matched, 4 events on 2 dates, 0 verified labels.
+  - The fee schedule was skipped after its recent 429.
+  - Its predecessor `42167131442` was cancelled by GitHub before it started: a newer pending
+    push run replaced it in the concurrency group. That pending-run replacement is now
+    documented. Push runs `42162670639` and `42167132149` hold a separate,
+    **non-canonical** fresh chain; ignore them.
+- **Observed gap (not investigated):** the schedule shows 2 pending dates but has made 0
+  label requests across every window, so settlement-label readiness cannot advance. Find out
+  whether it is waiting for official reports or is stuck.
 
 **Canonical chain:** from now on, upkeep dispatches go to this branch, or to `main` after
 merge via `continue_from_run`. **Do not dispatch `claude/vibrant-bohr-ypomud` again**, or the
 chains diverge from a shared history; their counts must never be added together.
 Run `42156641720`'s snapshot expires about 2026-11-13.
 
-**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → this PR. After merging, dispatch once on
-`main` with `continue_from_run=<newest run on this branch>`; the 4-hourly cron then continues
+**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → #11. After merging, dispatch once on
+`main` with `continue_from_run=42168444616` (or the newest successful run on this branch); the 4-hourly cron then continues
 it. Fee PDF import remains issue #6.
-**Next autonomous milestone:** keep the canonical chain alive. Once labels are requested and
-verified, check settlement-label readiness. Archive sizes (243 MB per snapshot) need
+**Next autonomous milestone:** diagnose why the following schedule makes no label requests
+(0 across all windows). Keep the canonical chain alive with plain dispatches on this branch,
+without `continue_from_run`, and never push while one is queued. Archive sizes (243 MB per snapshot) need
 attention: consider compressing the archive or measuring which files grow per cycle.
 
 ## Current milestone (2026-11-06): evidence readiness in forward-collection summaries
@@ -705,10 +777,32 @@ this PR so the cron runs on `main`. Watch the first few scheduled runs for
 days, promote a snapshot to a reviewed evidence directory and rerun model readiness.
 
 
-Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective shadow-evaluation reports
+## Current milestone: prospective-evaluation acceptance completion (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
+against main for review. **V1 remains incomplete.**
+
+This runtime permits loopback sockets, so the gates left outstanding on October 31 were executed.
+The first real browser attempt exposed a genuine defect: offline snapshot/restore opened
+read-only SQLite `file:` URIs without `uri=True`, so recovery refused on SQLite builds without
+`SQLITE_USE_URI` (here uv-managed CPython 3.13.18 / SQLite 3.53.1). Fixed in five call sites with
+a static architecture guard. After the fix, both managed-Chromium prospective procedures pass
+(12 downloads identical across restart and offline restore, 0 page errors), and the complete
+suite passes **all 1,320 tests in 619.14s** with zero failures/errors/skips, including every
+listener case. Ruff/format, strict mypy (557 files), 24 frontend tests pass; all 73 original
+receipt/Bitcoin hashes are unchanged. Chromium build deviation (preinstalled 1243 at the pinned
+1194 path) is disclosed. See [evidence](data/prospective-evaluation-review/20261105/README.md).
+
+**Next recommended milestone:** with sockets available, rerun the other browser procedures in
+`frontend/browser/` against the current tree to confirm no regression from environment drift,
+then continue authentic forward collection (needs elapsed real time) and prepare the
+user-approval comparison for a second market family. Credential-dependent provider
+verification, certified fees and real trading remain blocked on the user.
+
+## Previous milestone: prospective shadow-evaluation reports
 
 Implemented in place on designated `supervisor/20261031-081845` from `a83b9db`.
 All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**

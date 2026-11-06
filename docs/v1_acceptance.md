@@ -8,10 +8,23 @@
 | Headless operation through the existing website API | `operations/forward.py`; 15 unit cases and 1 real-listener case (CONTROLLED seeded inputs, mock source transport) | Pass. One active monitor is kept or created; one following schedule is created; pauses are never resumed; the run refuses if submissions are enabled; shutdown uses SIGINT. |
 | Chained restart/restore across runs | `forward-collection.yml` runs 1 and 2 (see STATUS) | Run 2 restored run 1's verified snapshot. Restore fails closed on a checksum or lock mismatch. |
 | Multi-day authentic operation | Scheduled runs after merge to `main` | **Not yet observed.** Verification windows are not multi-day operation. |
-| Chain survives a branch change | `continue_from_run`; run `42162688233` restored run `42156641720` from another branch | Restore passes. That run's own upload was lost to the `hashFiles()` timeout, now fixed; see STATUS for the re-run. |
+| Chain survives a branch change | `continue_from_run`; run `42162688233` restored run `42156641720` from another branch | Restore passes. That run's upload was lost to the `hashFiles()` timeout, now fixed. Re-run `42168444616` restored, collected (14 cycles, 0 errors) and uploaded `sha256:0ff3a700…`. |
 | Readiness on authentic chain | Run `42162688233` job log | Insufficient: 0 matched of 24 contracts (24 refused); 4 events on 2 dates; 0 verified labels. |
-| Independent station/days per date | `weather-forward.json` (4 locations), `test_forward_station_bindings.py`, `station_bindings` in each summary | **Config pass** (2026-11-06): NYC and Dallas are added from retained rules, portal and station-coordinate receipts. Runner confirmation that their rules name CLINYC/CLIDFW, and their first verified labels, are pending (see STATUS). |
+| Independent station/days per date | `weather-forward.json` (4 locations), `test_forward_station_bindings.py`, `station_bindings` in each summary | **Pass on a real runner** (run `42217215001`): all four locations `matched` (6/6 contracts each, live rules name CLINYC/CLIDFW), 0 acquisition failures after the 4-decimal NWS coordinate fix. First verified NYC/DAL labels are pending (from 2026-11-06). |
 | Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
+
+# Prospective-evaluation acceptance completion — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-l2suow` from main `55b2bea`. Closes the
+outstanding browser, listener and complete-suite gates of the October 31 milestone below.
+[Executed evidence](../data/prospective-evaluation-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Offline snapshot/restore portability | `api/recovery.py`, `api/recovery_proof.py`, `tests/architecture/test_sqlite_uri.py` | **Defect fixed.** Read-only `file:` URIs lacked `uri=True`; recovery refused on SQLite builds without `SQLITE_USE_URI`. Static guard fails on the pre-fix tree. |
+| Real website/browser acceptance | `prospective.spec.cjs`, receipts, screenshots, downloads, traces | **Pass:** both procedures (controlled synthetic; authentic insufficiency), 6 screenshots, 12 downloads identical across restart and offline restore, 0 page errors. First attempt (failed at snapshot) retained. Chromium 153 (preinstalled build 1243) used at the pinned path; exact build 1194 not claimed. |
+| Complete quality gate | Ruff/format, strict mypy (557 files), 24 frontend, full JUnit | **Pass:** all **1,320 pytest cases in 619.14s**, zero failures/errors/skips, incl. 11 listener cases and 14 shadow-history cases. 73 original receipt/Bitcoin hashes unchanged. |
+| Remaining V1 gates | Existing empirical/provider/fee/family gates | Unchanged: authentic history/validation, certified fees, authorized provider verification, approved second family, multi-day operation and independent review remain open. |
 
 # Prospective shadow-evaluation reports — October 31, 2026
 
