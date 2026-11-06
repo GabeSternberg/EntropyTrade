@@ -1,0 +1,25 @@
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="222.07021399999996">
+<testsuite name="shadow-history.spec.cjs" timestamp="2026-11-05T22:00:08.293Z" hostname="" tests="3" failures="0" skipped="0" time="220.234" errors="0">
+<testcase name="sustained shadow history: CONTROLLED 130 captures, partition research and restore" classname="shadow-history.spec.cjs" time="91.912">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/shadow-history-sustained-s-a4b3e-tition-research-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="sustained shadow history: authentic insufficiency, partition research and restore" classname="shadow-history.spec.cjs" time="60.494">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/shadow-history-sustained-s-386e7-tition-research-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="research cohort: CONTROLLED 130 captures, partition research and restore" classname="shadow-history.spec.cjs" time="67.828">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/shadow-history-research-co-e57fd-tition-research-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

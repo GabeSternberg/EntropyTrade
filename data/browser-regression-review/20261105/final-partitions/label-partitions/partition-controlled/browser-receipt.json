@@ -1,0 +1,376 @@
+{
+  "status": "passed",
+  "started_at": "2026-11-05T22:11:57.284Z",
+  "origin": "http://127.0.0.1:18707",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "browser": "153.0.8010.12",
+  "operations": [
+    {
+      "action": "start",
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions"
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 1,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "4f491484-850d-4781-bd7e-01784cd249ef",
+          "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2026-10-31T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:322aad870b327e15658ed8ac26508dcd4d63c07b5caf81760f9fef22c91daf38",
+            "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2026-11-01T12:00:00Z",
+            "attempts": 1,
+            "failures": 0,
+            "last_request": "e290fa53-1a0e-548d-81c3-35c11d9da1c2",
+            "last_batch": "sha256:904e79b30b54f319d166b9c0ed8c39e699c65cfc3097a87bf895b40dc4f35439",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 1,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 127,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "4f491484-850d-4781-bd7e-01784cd249ef",
+          "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-06T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:322aad870b327e15658ed8ac26508dcd4d63c07b5caf81760f9fef22c91daf38",
+            "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2027-03-07T12:00:00Z",
+            "attempts": 127,
+            "failures": 0,
+            "last_request": "492c7903-39e7-591e-89da-693d4c3c7f71",
+            "last_batch": "sha256:69e0ea60356444dc8681d2dc31930f6e27d7c35e25bc67a962afd866171bf90c",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 127,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 128,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "4f491484-850d-4781-bd7e-01784cd249ef",
+          "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-07T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:322aad870b327e15658ed8ac26508dcd4d63c07b5caf81760f9fef22c91daf38",
+            "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "retry",
+            "next_at": "2027-03-07T12:05:00Z",
+            "attempts": 128,
+            "failures": 1,
+            "last_request": "1e3886e9-b0a6-53cc-86dc-c9c2270505bd",
+            "last_batch": "sha256:0bc7fdb3764d1a415435c9492d55edd5ce7da084b54cff7f55399e30bd6cb9ff",
+            "detail": "source HTTP 503"
+          }
+        ],
+        "sequence": 128,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "retry": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "controlled-batch",
+      "sequence": 129,
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "4f491484-850d-4781-bd7e-01784cd249ef",
+          "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 1,
+          "follow_retained": false
+        },
+        "status": "active",
+        "created_at": "2026-10-31T12:00:00Z",
+        "updated_at": "2027-03-08T12:00:00Z",
+        "next_discovery": "2026-10-31T12:00:00Z",
+        "discovery_cursor": 0,
+        "work": [
+          {
+            "key": "sha256:322aad870b327e15658ed8ac26508dcd4d63c07b5caf81760f9fef22c91daf38",
+            "dataset_id": "2e3b839d04201e2909d8b9e2fadee2da633e70d8642f95612c7756c323d942a8",
+            "day": "2026-10-01",
+            "targets": [
+              {
+                "event_id": "KXHIGHPHIL-26OCT01",
+                "station": "CLIPHL",
+                "target_date": "2026-10-01",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:b5bf05dd9080d9406c7b317dee2cbf7516916dd2e5562efb7f3c0acf1390f41d"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "verified",
+            "next_at": "2027-03-09T12:00:00Z",
+            "attempts": 129,
+            "failures": 0,
+            "last_request": "8c5ae4fa-f729-533f-b13f-8fce6cf7d829",
+            "last_batch": "sha256:2d8324929b5c6997d9cd53862f9791ceb89b01a46bf1594cf00dbaa668a48d65",
+            "detail": "Official labels retained; revision check scheduled"
+          }
+        ],
+        "sequence": 129,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-10-31T12:00:00+00:00"
+          }
+        ],
+        "counts": {
+          "verified": 1
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "no-duplicate-network-requests",
+      "batches": 130,
+      "source_calls": 130,
+      "distinct_request_ids": 130
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions"
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    },
+    {
+      "action": "offline-restore",
+      "archive": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions.zip",
+      "sha256": "ed4510a862d2c837538bd3a4f0a84fcb579db7f7c06cceacc770b4997f504ec4",
+      "restored": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions-restored"
+    },
+    {
+      "action": "start",
+      "epoch": 3,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-partitions/label-partitions-partitions-restored"
+    },
+    {
+      "action": "stop",
+      "epoch": 3
+    }
+  ],
+  "downloads": [
+    {
+      "file": "paused-schedule.json",
+      "sha256": "a4b77b5aafbec18994025d11740e9d4aa3ae4c3cb1052146d275a434f44ff500"
+    },
+    {
+      "file": "sealed-partition.json",
+      "sha256": "e7f08830a3636024fe937d7e9a174e7246b1198a394754475340f477efd72bfc"
+    },
+    {
+      "file": "archived-labels.json",
+      "sha256": "d19a3f9818f3fc258fd3f4643d86cb4b0167eeabeb8e7f0b6db1dfe4082ee33f"
+    },
+    {
+      "file": "restart-schedule.json",
+      "sha256": "a4b77b5aafbec18994025d11740e9d4aa3ae4c3cb1052146d275a434f44ff500"
+    },
+    {
+      "file": "restart-seal.json",
+      "sha256": "e7f08830a3636024fe937d7e9a174e7246b1198a394754475340f477efd72bfc"
+    },
+    {
+      "file": "restart-labels.json",
+      "sha256": "d19a3f9818f3fc258fd3f4643d86cb4b0167eeabeb8e7f0b6db1dfe4082ee33f"
+    },
+    {
+      "file": "restore-schedule.json",
+      "sha256": "a4b77b5aafbec18994025d11740e9d4aa3ae4c3cb1052146d275a434f44ff500"
+    },
+    {
+      "file": "restore-seal.json",
+      "sha256": "e7f08830a3636024fe937d7e9a174e7246b1198a394754475340f477efd72bfc"
+    },
+    {
+      "file": "restore-labels.json",
+      "sha256": "d19a3f9818f3fc258fd3f4643d86cb4b0167eeabeb8e7f0b6db1dfe4082ee33f"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "batch-1.png",
+      "sha256": "4c02ecb0af5a7b7dda20e0593494b249e4ac6456b533ee9f7f1d916e8502490a"
+    },
+    {
+      "file": "batch-127.png",
+      "sha256": "40ca6d913e325c91736e1691ed8c721e18d2e3e4ac4fceb7ed4fa6157f92324e"
+    },
+    {
+      "file": "batch-128.png",
+      "sha256": "a917879f23e1cb5d7a97f50e718a8723504a1736c232a969c787cdce13cb8f75"
+    },
+    {
+      "file": "boundary-outage.png",
+      "sha256": "429fc1e6846b51353ced06008cb503edca166bb295bd7f7ab7ffefce4d445563"
+    },
+    {
+      "file": "batch-129.png",
+      "sha256": "9dadb0b9ac18186c1dc2286238c721c2c8281506256643570b2d52e98160fb51"
+    },
+    {
+      "file": "rolled-over.png",
+      "sha256": "6d0835511018f766ac09e105bee9a5d1497bd750e34ba187f92b8b636fb255bc"
+    },
+    {
+      "file": "cancelled-successor.png",
+      "sha256": "6d0835511018f766ac09e105bee9a5d1497bd750e34ba187f92b8b636fb255bc"
+    },
+    {
+      "file": "frozen-insufficient.png",
+      "sha256": "d5fc4ce5fd06a1f4b8ed2b13119a9f790d59912eb5762ca81d714da8446ec5ce"
+    },
+    {
+      "file": "restart-archived.png",
+      "sha256": "4b6d80bf323f3ab63e366ad9eaf067d5c9bedeee89d50932f69e0de09b959740"
+    },
+    {
+      "file": "restore-archived.png",
+      "sha256": "4b6d80bf323f3ab63e366ad9eaf067d5c9bedeee89d50932f69e0de09b959740"
+    }
+  ],
+  "page_errors": [],
+  "evidence_scope": "CONTROLLED source reports and accelerated scheduling clock. No elapsed authentic operation, empirical fitting or performance proof.",
+  "finished_at": "2026-11-05T22:14:17.696Z"
+}
