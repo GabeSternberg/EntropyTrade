@@ -1,5 +1,52 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): new forward locations reach label targets
+
+Branch `claude/vibrant-bohr-ab8h5b`, **stacked on PR #19** (`claude/vibrant-bohr-xq6pdo`).
+**V1 remains incomplete.** At the start of this run, open PRs #10–#19 had no reviews, review
+threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Chain run `42217215001`** (`claude/vibrant-bohr-3bmoqc`, rounded coordinates, `chain=head`,
+  previous `42213570196`): 48 cycles, 2 completed this run, 0 failures, 0 errors, server exit 0.
+  Workspace: 856,230,326 expanded bytes, **218,830,577 distinct**, `budget_used` 0.1994,
+  8,411 files. Label backlog: 2026-11-05 CLIMDW/CLIPHL `retry` after 3 attempts. The portal at
+  09:27Z on 11-06 still had **0 official, 42 preliminary and 10 no-report** stations, the same
+  next-morning lag seen on 10-30. The 2026-11-06 work is `pending` until 2026-11-07T06:00Z.
+- **Gap found.** Both backlog dates list only **CLIMDW/CLIPHL**, although NYC/Dallas have been
+  configured and captured since run `42213570196`. Root cause: `build_snapshot` took a shadow
+  capture's decision clocks only from the monitor's saved samples. The monitor's universe was
+  frozen to KXHIGHPHIL/KXHIGHCHI, so KXHIGHNY/KXHIGHTDAL contracts never became rows or label
+  targets. Earlier docs said the new series were "captured and labelled"; that was wrong.
+- **Change.** In `weather/history.py`, a captured contract **outside** the shadow monitor's
+  frozen universe now takes the capture's decision clock, as for a public capture, unless its
+  event is protected. In-universe contracts keep the shadow's sample clocks. In the retained
+  authentic cycles these are about 0.4 s after the capture clock, so existing shadow rows do
+  not change. Frozen datasets are immutable and still verify. Inputs already discovered are not
+  re-discovered, so only captures discovered after this code runs gain NYC/Dallas rows.
+- **Tests.** New `test_contracts_outside_the_frozen_shadow_universe_enter_at_their_capture_clock`
+  uses a CONTROLLED narrower universe (PHL only) over authentic retained cycle bytes. It checks:
+  - Chicago rows take the capture clock;
+  - Philadelphia keeps the exact shadow clocks;
+  - unrefused label targets cover {CLIPHL, CLIMDW};
+  - a protected event is excluded.
+
+  It fails without the change. The existing authentic bridge test still checks the exact sample
+  set. Ruff lint/format pass; strict mypy passes (566 files). **Full pytest from the repo root:
+  1,406 passed in 610.30s**, with zero failures, errors or skips. A first run from `backend/`
+  failed 27 tests and errored 66 on repo-relative paths only (`configs/research/weather.json`,
+  `tools/*.py`). That was my invocation error, not a regression.
+- **Chain fork, not repaired.** `42224274925` (this stack's PR #19 branch) and `42224477050`
+  (`3bmoqc`, no `continue_from_run`) were both dispatched around 13:17–13:18Z and both continue
+  `42217215001`, so the chain forked there. Both snapshots are valid authentic evidence. The
+  canonical line continues from the PR #19 branch run.
+
+**Next autonomous milestone:** dispatch this branch with `continue_from_run=<latest completed PR #19
+or later chain run>`. Confirm that the backlog gains CLINYC/CLIDFW work (`schedules[].backlog.dates[].stations`)
+and that `schedules[].detail` has no errors. Record PR #19's slim-capture per-cycle
+`distinct_bytes` growth against about 5 MB per cycle (4 locations, pre-slim). Then recheck
+2026-11-05 PHL/CHI officialness. Merging the stack to `main` is still needed to activate the
+4-hourly cron; until then, each session must dispatch within the 7-day artifact retention.
+
 ## Current milestone (2026-11-06): each weather body retained once per capture
 
 Branch `claude/vibrant-bohr-xq6pdo`, **stacked on PR #18** (`claude/vibrant-bohr-3bmoqc`).
