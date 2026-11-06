@@ -19,6 +19,7 @@ from entropytrade.data.dataset import make_rows
 from entropytrade.data.schema import DatasetConfig, MarketEvidence, Observation
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.enums import MarketResult, MarketStatus
+from entropytrade.domain.strategy import MarketUniverse, StrategySpec
 from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.experiments.data import (
     ContractSample,
@@ -276,6 +277,15 @@ def _observations(items: Sequence[Observation]) -> list[Observation]:
     return sorted(unique.values(), key=lambda o: o.model_dump_json())
 
 
+def _in_universe(universe: MarketUniverse, item: MarketEvidence) -> bool:
+    """Same membership rule the shadow worker applies to its samples."""
+    return (
+        item.market.ticker in universe.market_tickers
+        or item.market.event_ticker in universe.event_tickers
+        or item.market.series_ticker in universe.series_tickers
+    )
+
+
 def build_snapshot(
     output: Path,
     captures: Sequence[Path],
@@ -329,12 +339,16 @@ def _build_snapshot(
 
     shadow: dict[str, tuple[Path, dict[str, Any]]] = {}
     shadow_captures: dict[Path, ExperimentData] = {}
+    shadow_universes: dict[Path, MarketUniverse] = {}
     for capture_root in captures:
         if (capture_root.parent / "decision-inputs.json").is_file():
             inputs = verified_inputs(capture_root.parent)
             saved = ExperimentData.model_validate(inputs["data"])
             protected_events |= saved.protected_events
             shadow_captures[capture_root] = saved
+            shadow_universes[capture_root] = StrategySpec.model_validate(
+                inputs["spec"]
+            ).market_universe
             shadow[file_hash(capture_root.parent / "result.json")] = (capture_root.parent, inputs)
     unique: dict[str, Path] = {}
     for root in captures:
@@ -370,7 +384,18 @@ def _build_snapshot(
         for line in (root / "markets.jsonl").read_text().splitlines():
             item = MarketEvidence.model_validate_json(line)
             markets.append(item.revalidated(raw_ref=prefix + "/" + item.raw_ref))
-            if root not in shadow_captures and item.market.open_time <= at < item.market.close_time:
+            if not item.market.open_time <= at < item.market.close_time:
+                continue
+            universe = shadow_universes.get(root)
+            if universe is None:
+                decisions.setdefault(item.market.ticker, set()).add(at)
+            elif not _in_universe(universe, item) and item.market.event_ticker not in (
+                protected_events | shadow_captures[root].protected_events
+            ):
+                # The capture listed it but the monitor's frozen universe never decided on it
+                # (e.g. a newly configured location). Its capture clock is its decision clock,
+                # exactly as for a public capture; in-universe contracts keep the shadow's
+                # own sample clocks, and protected events stay out.
                 decisions.setdefault(item.market.ticker, set()).add(at)
         observed.extend(
             Observation.model_validate_json(line).revalidated(

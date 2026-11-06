@@ -320,3 +320,59 @@ def test_controlled_experiment_refusals_remain_explicit(fault: str) -> None:
         "forward_predictions": "no permitted validation predictions",
     }
     assert any(expected[fault] in reason for reason in result["reasons"])
+
+
+def test_contracts_outside_the_frozen_shadow_universe_enter_at_their_capture_clock(
+    tmp_path: Path,
+) -> None:
+    # CONTROLLED narrower universe over authentic retained bytes. The forward chain's monitor
+    # froze a two-series universe before New York and Dallas were configured; their captured
+    # contracts must still become label targets, at the capture's own decision clock, while
+    # in-universe contracts keep the shadow's sample clocks and protected events stay out.
+    from entropytrade.families.public import forward_data
+
+    original = sorted(SOURCE.glob("*/*/public"))[0].parent
+    root = tmp_path / "controlled-universe"
+    shutil.copytree(original, root)
+    inputs = json.loads((root / "decision-inputs.json").read_text())
+    inputs["spec"]["market_universe"]["series_tickers"] = ["KXHIGHPHIL"]
+    inputs["data"]["samples"] = [
+        s for s in inputs["data"]["samples"] if s["ticker"].startswith("KXHIGHPHIL-")
+    ]
+    (root / "decision-inputs.json").write_text(json.dumps(inputs))
+    rehash_cycle(root)
+    assert verified_inputs(root)
+    captured = forward_data(root / "public")
+    clock = datetime.fromisoformat(
+        json.loads((root / "public/manifest.json").read_text())["decision_time"]
+    )
+    shadow = {(s["ticker"], s["decision_time"]) for s in inputs["data"]["samples"]}
+    outside = sorted({s.ticker for s in captured.samples if s.ticker.startswith("KXHIGHCHI-")})
+    assert outside
+    assert shadow
+    protected = next(s.event_id for s in captured.samples if s.ticker == outside[0])
+
+    frozen = build_snapshot(tmp_path / "datasets", [root / "public"])
+    dataset = tmp_path / "datasets" / frozen["dataset_id"].removeprefix("sha256:")
+    samples = weather_data(dataset / frozen["features"]).samples
+    chicago = {(s.ticker, s.decision_time) for s in samples if s.ticker.startswith("KXHIGHCHI-")}
+    assert chicago == {(t, clock) for t in outside}
+    philadelphia = {
+        (s.ticker, s.decision_time) for s in samples if s.ticker.startswith("KXHIGHPHIL-")
+    }
+    assert {(t, at.isoformat().replace("+00:00", "Z")) for t, at in philadelphia} == shadow
+    assert all(s.outcome is None for s in samples)
+    assert load_snapshot(dataset) == frozen
+    # The schedule's label targets now include the out-of-universe station.
+    from entropytrade.weather.labels import targets
+
+    stations = {t.station for t in targets(dataset) if not t.refusal}
+    assert stations == {"CLIPHL", "CLIMDW"}
+
+    excluded = build_snapshot(
+        tmp_path / "excluded", [root / "public"], protected_events=frozenset({protected})
+    )
+    dataset = tmp_path / "excluded" / excluded["dataset_id"].removeprefix("sha256:")
+    assert all(
+        s.event_id != protected for s in weather_data(dataset / excluded["features"]).samples
+    )
