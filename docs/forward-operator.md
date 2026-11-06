@@ -69,6 +69,16 @@ Each entry in `schedules` also carries a `backlog`, so zero settlement labels ca
 - `overdue_dates`: days already due at summary time while no label request was in flight.
   The label worker ticks every 0.2 s while the server runs, so a non-empty list at the end of
   a window means the schedule did not advance and needs review. It is reported, never repaired.
+- `source` (on `retry`/`refused` days with a retained batch, newest 8 days): what the latest
+  retained portal receipt said. It has the batch version (re-checked against the server's
+  copy), receipt clock, HTTP status, portal-wide `officialReports`/`preliminaryReports`/
+  `noReports` counts, and per-station record count, `status`, `isOfficial`, `reportDate`,
+  `issueTime` and `integer_high_present`. The single refusal "preliminary, missing or
+  nonofficial" covers several of these states; portal-wide `officialReports: 0` means
+  the source has not published yet (it was still preliminary for all 45 stations at
+  09:08Z the next morning in the retained 2026-10-30 receipt). One station preliminary while
+  others are official points at that station. The unverified high is never echoed, and the
+  parser and its refusal text are unchanged, because frozen dataset audits replay that text.
 
 Labels are only requested while a run's server is up. Until the cron runs on `main`, a day
 that becomes due between dispatched runs waits for the next run.

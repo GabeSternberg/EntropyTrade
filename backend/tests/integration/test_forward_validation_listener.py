@@ -12,10 +12,24 @@ import pytest
 
 from entropytrade.api.recovery import restore, snapshot
 from entropytrade.domain.time import SimulatedClock
+from entropytrade.operations.forward import label_sources
 from entropytrade.weather.label_service import LabelService
 from tests.integration.forward_validation_fixture import NOW, portal, seed_dates
 from tests.integration.test_workbench_listener import listening
 from tests.integration.weather_history_retained import REPO
+
+
+class ClientApi:
+    def __init__(self, client: httpx.Client) -> None:
+        self.client = client
+
+    def get(self, path: str) -> Any:
+        response = self.client.get(path)
+        response.raise_for_status()
+        return response.json()
+
+    def post(self, path: str, body: dict[str, Any]) -> Any:
+        raise AssertionError("diagnostics never write")
 
 
 def await_dates(client: httpx.Client, schedule_id: str, status: str) -> dict[str, Any]:
@@ -79,6 +93,15 @@ def test_continuous_controlled_listener_transitions_restart_and_offline_replay(
             preliminary = await_dates(client, schedule_id, "retry")
             assert len(calls) == 12
             assert all(w["attempts"] == 1 for w in preliminary["work"])
+            # The operator summary reads each retry's retained receipt through the real API.
+            sources = label_sources(ClientApi(client), preliminary)
+            assert len(sources) == 8  # bounded to the newest SOURCE_DATES unverified dates
+            for work in preliminary["work"]:
+                if work["day"] not in sources:
+                    continue
+                source = sources[work["day"]]
+                assert source["batch"] == work["last_batch"]
+                assert {s["status"] for s in source["stations"].values()} == {"preliminary"}
             assert (
                 client.post(
                     f"/api/weather/schedules/{schedule_id}/pause", json={}, headers=headers
