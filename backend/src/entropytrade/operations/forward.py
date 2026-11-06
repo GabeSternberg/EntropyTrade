@@ -360,6 +360,9 @@ def label_backlog(schedule: dict[str, Any], at: datetime) -> dict[str, Any]:
     }
 
 
+ALERT_CONTRACTS = 20
+
+
 def alert_summary(alert: dict[str, Any]) -> dict[str, Any]:
     """Alerts carry lifecycle clocks; derive the state rather than reading absent keys."""
     status = (
@@ -369,13 +372,25 @@ def alert_summary(alert: dict[str, Any]) -> dict[str, Any]:
         if alert.get("acknowledged_at")
         else "open"
     )
-    return {
+    summary = {
         "status": status,
         **{
             k: alert.get(k)
             for k in ("id", "kind", "monitor_id", "opened_at", "acknowledged_at", "resolved_at")
         },
     }
+    evidence = alert.get("evidence")
+    if status != "resolved" and isinstance(evidence, dict):
+        # An unresolved incident is only diagnosable from its evidence; bound contract lists.
+        contracts = evidence.get("contracts")
+        if isinstance(contracts, list) and len(contracts) > ALERT_CONTRACTS:
+            evidence = {
+                **evidence,
+                "contracts": contracts[:ALERT_CONTRACTS],
+                "contracts_total": len(contracts),
+            }
+        summary["evidence"] = evidence
+    return summary
 
 
 def _prospective(api: Api, monitor_id: str) -> dict[str, Any]:

@@ -79,6 +79,9 @@ are counts of retained evidence only, not model quality, calibration or returns.
 
 Alerts are summarized as `open`, `acknowledged` or `resolved` from their lifecycle clocks
 (`opened_at`, `acknowledged_at`, `resolved_at`); the log line lists unresolved alerts.
+Unresolved alerts also carry their `evidence` (for reconciliation, each contract's
+`close_time`, `expected_settlement_at`, `basis` and `last_attempt`); contract lists over 20
+are truncated with `contracts_total`. Resolved alerts omit evidence.
 Summaries written before this change listed every alert with `status: null`.
 
 `workspace` reports the bytes the next snapshot will carry, by area (`jobs.sqlite`, `runs`,

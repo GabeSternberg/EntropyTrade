@@ -23,6 +23,30 @@ SCHEMA = """
 KINDS = {"stale_collection", "repeated_failures", "unresolved_reconciliation"}
 
 
+RECONCILIATION_GRACE_SECONDS = 3600
+RECONCILIATION_RULE = (
+    "grace after the exchange's expected expiration captured with the contract, "
+    "or after close_time when none was published"
+)
+
+
+def settlement_expected(market: dict[str, Any]) -> tuple[datetime, str]:
+    """When the exchange itself said settlement was expected, from the frozen contract record.
+
+    Daily-high weather markets close at local midnight but settle after the next-morning
+    official climate report (retained KXHIGHPHIL records: close 05:00Z, expected 19:00Z).
+    Measuring the grace from close alone opened a false incident for every such contract.
+    Only the expected (not latest) expiration is used, so a late settlement still alerts.
+    """
+    close = ensure_utc(datetime.fromisoformat(market["close_time"]))
+    expected = market.get("expected_expiration_time")
+    if expected:
+        when = ensure_utc(datetime.fromisoformat(expected))
+        if when > close:
+            return when, "expected_expiration_time"
+    return close, "close_time"
+
+
 def healthy(cycle: sqlite3.Row) -> bool:
     return bool(
         cycle["status"] == "completed" and cycle["complete"] and cycle["failure_count"] == 0
@@ -68,11 +92,14 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
             (mid,),
         ):
             market = json.loads(contract["market"])["market"]
-            if moment >= datetime.fromisoformat(market["close_time"]) + timedelta(hours=1):
+            expected_at, basis = settlement_expected(market)
+            if moment >= expected_at + timedelta(seconds=RECONCILIATION_GRACE_SECONDS):
                 pending.append(
                     {
                         "ticker": contract["ticker"],
                         "close_time": market["close_time"],
+                        "expected_settlement_at": expected_at.isoformat(),
+                        "basis": basis,
                         "last_attempt": contract["last_attempt"],
                     }
                 )
@@ -89,7 +116,11 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
             "repeated_failures": (len(failed) >= 3, {"cycle_ids": failed, "threshold": 3}),
             "unresolved_reconciliation": (
                 bool(pending),
-                {"contracts": pending, "grace_seconds": 3600},
+                {
+                    "contracts": pending,
+                    "grace_seconds": RECONCILIATION_GRACE_SECONDS,
+                    "rule": RECONCILIATION_RULE,
+                },
             ),
         }
         for kind, (active, evidence) in conditions.items():
