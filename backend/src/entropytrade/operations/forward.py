@@ -241,11 +241,14 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
                 "submission_enabled": detail.get("submission_enabled"),
             }
         )
+    at = now()
     schedules = [
         {
             "id": schedule_id(s),
             "follow_retained": s["config"].get("follow_retained"),
             **{k: s.get(k) for k in ("status", "detail", "updated_at", "next_discovery", "counts")},
+            "inflight": s.get("inflight"),
+            "backlog": label_backlog(s, at),
         }
         for s in api.get("/api/weather/schedules")
     ]
@@ -262,6 +265,50 @@ def summarize(api: Api, started_at: datetime) -> dict[str, Any]:
         "alerts": [alert_summary(a) for a in alerts.get("alerts", [])],
         "readiness": readiness(api, [m["id"] for m in monitors]),
         "submission_enabled": bool(alerts.get("submission_enabled")),
+    }
+
+
+def label_backlog(schedule: dict[str, Any], at: datetime) -> dict[str, Any]:
+    """Per-date label work, so zero labels reads as 'not yet due' or 'overdue', never vague.
+
+    A pending/retry date becomes due at the end of its local day (then on backoff). Work that
+    is due at summary time while no request is in flight means the schedule did not advance
+    while the server was running; it is reported, never repaired here.
+    """
+    dates = []
+    for work in schedule.get("work") or []:
+        targets = work.get("targets") or []
+        dates.append(
+            {
+                "day": work.get("day"),
+                "status": work.get("status"),
+                "next_at": work.get("next_at"),
+                "attempts": work.get("attempts"),
+                "failures": work.get("failures"),
+                "targets": len(targets),
+                "stations": sorted({str(t.get("station")) for t in targets}),
+                "detail": work.get("detail"),
+            }
+        )
+    dates.sort(key=lambda d: (str(d["day"]), str(d["next_at"])))
+    waiting = []
+    for d in dates:
+        if d["status"] in {"pending", "retry"}:
+            try:
+                when = datetime.fromisoformat(str(d["next_at"]))
+            except ValueError:
+                when = None
+            if when is None or when.tzinfo is None:
+                d["next_at_invalid"] = True  # Reported; the schedule service owns validation.
+                continue
+            waiting.append((when, d))
+    due = [d for when, d in waiting if when <= at]
+    first = min(waiting, key=lambda item: item[0], default=None)
+    return {
+        "dates": dates,
+        "next_due_at": None if first is None else first[1]["next_at"],
+        "overdue_dates": [] if schedule.get("inflight") else [d["day"] for d in due],
+        "summarized_at": at.isoformat(),
     }
 
 
