@@ -15,7 +15,10 @@ existing model/backtest gates; labels alone do not establish sufficient history 
 The adapter reads only the public [Weather Company daily climate endpoint](https://weather.com/kalshi/api/climate/primary?date=2026-10-29),
 identified in the official [settlement portal](https://weather.com/kalshi)'s public client.
 The initial verified mappings are CLIPHL → PHL/KPHL/America/New_York and
-CLIMDW → MDW/KMDW/America/Chicago. Other stations or authorities produce explicit refusals.
+CLIMDW → MDW/KMDW/America/Chicago. CLINYC → NYC/KNYC/America/New_York and
+CLIDFW → DFW/KDFW/America/Chicago were added on 2026-11-06 from the retained portal receipt
+and retained contract rules (see [forward locations](forward-operator.md#forward-locations-and-station-bindings)).
+Other stations or authorities produce explicit refusals.
 NWS CLI, hourly maxima and official binary outcomes cannot substitute for Weather Company
 scalar highs. No credentials, exchange submissions or arbitrary URLs are accepted.
 

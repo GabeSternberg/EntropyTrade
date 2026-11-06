@@ -32,6 +32,10 @@ MAX_DATES = 8
 STATIONS = {
     "CLIPHL": ("PHL", "KPHL", "America/New_York"),
     "CLIMDW": ("MDW", "KMDW", "America/Chicago"),
+    # Confirmed in the retained authentic portal receipts (cliId/icao/timezone) and in the
+    # retained KXHIGHNY/KXHIGHTDAL rules ("New York City (CLINYC)", "Dallas (CLIDFW)").
+    "CLINYC": ("NYC", "KNYC", "America/New_York"),
+    "CLIDFW": ("DFW", "KDFW", "America/Chicago"),
 }
 
 

@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import signal
 import subprocess
 import sys
@@ -329,6 +330,86 @@ def footprint(workspace: Path) -> dict[str, Any]:
     }
 
 
+BINDING_STATION = re.compile(r"\((CLI[A-Z]{3})\)")
+
+
+def station_bindings(workspace: Path) -> dict[str, Any]:
+    """Whether each configured location's captured contract rules name its station.
+
+    Read-only. Uses the newest retained shadow capture (by its manifest ``decision_time``):
+    its frozen ``weather_config`` and its ``markets.jsonl``. For each location it counts the
+    captured contracts, the station codes the rules name (``... at Dallas (CLIDFW) ...``), the
+    contracts the existing label gate (``compatible_rules``) accepts for that station, and
+    whether the label source supports the station/timezone. ``matched`` needs every captured
+    contract to pass that gate. A ``mismatch`` (rules name another station) or ``unnamed``
+    location receives no labels, because the label gate refuses it; this only reports it.
+    """
+    from entropytrade.weather.labels import STATIONS, compatible_rules
+
+    newest: tuple[str, Path] | None = None
+    for manifest_path in sorted(workspace.glob("shadow/*/*/public/manifest.json")):
+        try:
+            manifest = json.loads(manifest_path.read_text())
+        except (OSError, ValueError):
+            continue
+        if manifest.get("family") != "weather" or not isinstance(
+            manifest.get("decision_time"), str
+        ):
+            continue
+        if newest is None or manifest["decision_time"] > newest[0]:
+            newest = (manifest["decision_time"], manifest_path.parent)
+    if newest is None:
+        return {"status": "no_capture", "locations": []}
+    decision, root = newest
+    manifest = json.loads((root / "manifest.json").read_text())
+    by_series: dict[str, list[dict[str, Any]]] = {}
+    for line in (root / "markets.jsonl").read_text().splitlines():
+        market = json.loads(line)["market"]
+        by_series.setdefault(str(market.get("series_ticker")), []).append(market)
+    locations = []
+    for location in manifest["weather_config"]["locations"]:
+        station = location["station"]
+        markets = by_series.get(location["series"], [])
+        named: Counter[str] = Counter()
+        compatible = 0
+        for market in markets:
+            rules = market["rules"]
+            text = f"{rules.get('rules_primary', '')}\n{rules.get('rules_secondary', '')}"
+            named.update(set(BINDING_STATION.findall(text)))
+            day = rules.get("settlement_target_date")
+            if isinstance(day, str) and compatible_rules(rules, market["ticker"], station, day):
+                compatible += 1
+        supported = STATIONS.get(station, ("", "", ""))[2] == location["timezone"]
+        if not markets:
+            status = "no_contracts"
+        elif set(named) - {station}:
+            status = "mismatch"
+        elif not named:
+            status = "unnamed"
+        elif compatible == len(markets) and supported:
+            status = "matched"
+        else:
+            status = "partial"
+        locations.append(
+            {
+                "series": location["series"],
+                "station": station,
+                "timezone": location["timezone"],
+                "contracts": len(markets),
+                "named_stations": dict(sorted(named.items())),
+                "label_compatible": compatible,
+                "label_source_supported": supported,
+                "status": status,
+            }
+        )
+    return {
+        "capture_decision_time": decision,
+        "capture": root.relative_to(workspace).as_posix(),
+        "status": "ok" if all(x["status"] == "matched" for x in locations) else "review",
+        "locations": locations,
+    }
+
+
 SOURCE_DATES = 8
 
 
@@ -623,6 +704,13 @@ def operate(
         summary["workspace"] = footprint(workspace)
     except OSError as exc:
         errors.append(f"footprint {type(exc).__name__}: {exc}")
+    try:
+        summary["station_bindings"] = station_bindings(workspace)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        summary["station_bindings"] = {
+            "status": "unreadable",
+            "error": f"{type(exc).__name__}: {exc}",
+        }
     return {
         "schema": SCHEMA,
         "started_at": started_at.isoformat(),
@@ -665,7 +753,14 @@ def main() -> None:
     args.summary.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     brief = {
         k: result.get(k)
-        for k in ("actions", "errors", "server_exit_code", "readiness", "workspace")
+        for k in (
+            "actions",
+            "errors",
+            "server_exit_code",
+            "readiness",
+            "workspace",
+            "station_bindings",
+        )
     }
     brief["open_alerts"] = [a for a in result.get("alerts", []) if a.get("status") != "resolved"]
     sys.stdout.write(json.dumps(brief) + "\n")

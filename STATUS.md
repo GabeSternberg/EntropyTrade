@@ -1,5 +1,109 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): four forward locations with station-binding evidence
+
+Branch `claude/vibrant-bohr-3bmoqc`, **stacked on PR #17** (`claude/vibrant-bohr-f4e7df`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#17 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Gap.** The V1 matched-forecast gate is blocked by the monitor's `model_binding`, which
+  needs a fitted authentic model. The fitting gate needs **60/20/20 independent
+  fit/calibration/validation events** (`ml/experiment.py`). With two stations, that is
+  about 50 days of collection. The bottleneck is station/days per date, not code.
+- **Change.** `configs/data/weather-forward.json` adds New York City (`KXHIGHNY`, CLINYC,
+  America/New_York) and Dallas (`KXHIGHTDAL`, CLIDFW, America/Chicago), and
+  `weather/labels.py` `STATIONS` allowlists exactly those two. Retained authentic evidence
+  backs each value:
+  - the catalog listing (PR #8) has the series;
+  - the retained rules name the stations (`data/public/{newyork,dallas}/manifest.json`);
+  - the retained 2026-10-29 portal receipt has the `cliId`/ICAO/timezone;
+  - the coordinates are the retained `api.weather.gov/stations/K…` values.
+
+  Oklahoma City is not added, because its retained coordinates are a city-centre geocode.
+  The monitor's frozen universe is unchanged: new series are captured and labelled but make
+  no shadow decisions.
+- **Station bindings.** `operations/forward.py` `station_bindings()` adds a read-only
+  `station_bindings` section to `summary.json` and the job-log line. It reads the newest
+  retained capture. For each location it reports the contracts, the CLI stations the rules
+  name, the contracts the existing label gate accepts, and a status:
+  `matched`/`mismatch`/`unnamed`/`partial`/`no_contracts`. On the retained authentic
+  2026-10-29 workspace, both PHL and CHI are `matched` (12/12 contracts each).
+- **Tests.** `test_forward_station_bindings.py` has 5 cases. They check the config against
+  the retained portal, rules and coordinate receipts, check authentic capture bindings, cover
+  every status, and select the newest capture. Ruff lint/format pass; strict mypy passes
+  (565 files). The first full run had **2 failures, 1,401 passed**. Both
+  failures were CONTROLLED cohort tests whose fixture read the operational config, so 100
+  dates × 4 locations gave 400 events where the test expects 200. The fixture
+  (`tests/integration/cohort_fixture.py`) is now pinned to its original two locations, and
+  the assertions are unchanged. **Full pytest after the fix: 1,403 passed in 626.00s**, with
+  zero failures, errors or skips. On the final code, including the coordinate fix and its
+  test, Ruff/format and strict mypy (565 files) pass and **1,404 passed in 636.91s**.
+- **Real-runner evidence.**
+  - Chain dispatch `42209909820` on this branch (`continue_from_run=42205430152`) ran on
+    the old two-location code and succeeded with `chain=head`: 44 cycles, 0 errors, server
+    exit 0.
+  - Its footprint is the **two-location baseline**: 820,649,024 expanded bytes and
+    198,034,812 distinct. Distinct bytes grew 14.27 MB over 3 cycles (about 4.76 MB per
+    cycle), and `budget_used` was 0.1911.
+  - The 2026-11-05 retry is still scheduled for 13:27Z, after that run's window.
+  - **Defect found on the first four-location runs.** Push trial `42213565565` and chain
+    run `42213570196` (`continue_from_run=42209909820`, `chain=head`, 46 cycles) failed
+    every cycle with "12 shadow decisions; 2 acquisition failures". The cycles were 45 and 46
+    (the trial's cycle 45 never becomes part of the chain). The monitor reached
+    `failures: 2`, with backoff `next_at` 12:55:18Z, and a `stale_collection` alert opened at
+    12:19:04Z.
+  - **Cause, inferred from the inputs.** api.weather.gov `/points` redirects a point with
+    more than four decimals (301), and the bounded client does not follow redirects. The only
+    such values were `40.78858` (NYC) and `32.893456`/`-97.02648` (DAL), one location each,
+    which matches 2 failures. The failure records themselves are in the snapshot, which
+    sessions cannot download.
+  - **Fix.** Commit `05bcea6` rounds both to 4 decimals (`40.7886,-73.9661`,
+    `32.8935,-97.0265`), and a test enforces at most 4 decimals for every coordinate. Every
+    failed cycle increments `failures`, and 5 consecutive failures pause the monitor (the
+    operator never resumes). Leaving this unfixed would have paused the chain after about 3
+    more cycles.
+  - Run `42213570196` footprint: 830,372,605 expanded bytes and 206,858,327 distinct (+8.8 MB
+    over 2 failed cycles).
+  - Dispatch `42217170492` (1,500 s) was cancelled during setup, because the backed-off
+    12:55Z cycle fell outside its window. It uploaded nothing and is not a chain head.
+  - **Fix confirmed on a real runner.** Chain dispatch `42217215001` (commit `05bcea6`,
+    3,000 s, `continue_from_run=42213570196`) succeeded with `chain=head`. It ran cycles 47
+    and 48, both `completed` with "12 shadow decisions; 0 acquisition failures". The monitor
+    `failures` went back to 0, and the stale alert resolved at 12:55:27Z.
+  - **Authentic station bindings, `status: ok`.** The capture at 13:05:35Z had all four
+    locations `matched`: KXHIGHPHIL→CLIPHL, KXHIGHCHI→CLIMDW, **KXHIGHNY→CLINYC** and
+    **KXHIGHTDAL→CLIDFW**, each with 6 contracts, 6 naming the station and 6 accepted by the
+    label gate. The current live rules therefore confirm both new mappings.
+  - **Four-location storage.** The footprint was 856,230,326 expanded bytes and 218,830,577
+    distinct; `budget_used` was 0.1994, with 45 retained inputs. Distinct bytes grew about
+    6.0 MB per cycle (11.97 MB over 2 cycles), up from about 4.76 MB with two locations
+    (+25%). Expanded bytes grew about 12.9 MB per cycle.
+  - **Runway.** At about 18 cycles a day (cron: 6 runs × about 3 cycles), the expanded
+    4 GiB budget binds first, in about **15 days**; the distinct budget lasts about 18 days.
+  - Readiness is unchanged: 0 verified labels, and 2026-11-05 PHL/CHI is retried at
+    13:27:09Z. NYC and DAL labels start with 2026-11-06, the first day their contracts were
+    captured.
+  - The next continuation (3,000 s, `continue_from_run=42217215001`) was dispatched at the
+    end of this session. It includes the 13:27Z retry, and its result is not recorded here.
+
+**Canonical chain head: run `42217215001` on `claude/vibrant-bohr-3bmoqc`**, or the
+continuation dispatched from it if that succeeded (expires about 2026-11-13). Dispatch this
+branch next with `continue_from_run`, or `main` after the stack merges. If a monitor's
+`next_at` is backed off past the window end, use `seconds: 3000` so a cycle actually runs.
+
+**Next autonomous milestone:** the storage step. Snapshot runway is now about 15 days
+(expanded budget). Each cycle writes `public/observations.jsonl` and
+`public/weather/observations.jsonl` with identical rows except for the `raw_ref` prefix, and
+it stores raw forecast bodies three times (`raw/`, `weather/raw/`, `weather.sqlite`). Removing
+the duplicates needs a design that keeps provenance and the frozen-dataset verification.
+Before that, check:
+- the newest chain run's `schedules[].backlog` for 2026-11-05 (PHL/CHI) and for the first
+  NYC/DAL days (2026-11-06, due 2026-11-07);
+- whether `readiness.settlement_labels.verified_stations` gains CLINYC/CLIDFW.
+
+Optional cleanup: add `station_bindings` to the workflow's job-summary key list. Pushing
+workflow files may be rejected; the field is already on the collect step's log line.
+
 ## Current milestone (2026-11-06): label-source diagnostics for unverified days
 
 Branch `claude/vibrant-bohr-f4e7df` (PR #17), **stacked on PR #16** (`claude/vibrant-bohr-gcmz6m`).
