@@ -1,0 +1,19 @@
+{
+  "captures": [
+    {
+      "dataset_version": "sha256:e3dc18d0250d92e2a67fa8c99b84532618ff922c8b28d654f5ac738781f55ca4",
+      "decision_time": "2026-10-29T16:35:47.288061+00:00",
+      "job_id": "ced7f49a-9d7d-4cf8-8f0b-81cab320f853",
+      "manifest_sha256": "sha256:8c4e6dfc5fbcf1254e5554727b3091d81ccad98950cda3284b4454d079e77abe",
+      "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/72a1a908-3c9a-469a-923b-35fa46a0e072/public"
+    },
+    {
+      "dataset_version": "sha256:4e81291d9b71953419036b4db75bd21c237afc36cc218a0e92c5cbe1fb4fd464",
+      "decision_time": "2026-10-29T16:35:37.734441+00:00",
+      "job_id": "af7ce939-1f2b-4aa1-8c1a-ca47718e6463",
+      "manifest_sha256": "sha256:c6f88589174c2cb185b91557a18c96cf4bb709aceda03a2d2f6b2cfefcf268ca",
+      "source": "data/shadow-review/20261029-model-integration/completion/real-cycles/f35a45b2-4759-427e-9c4f-e2b4f79809e5/97f75b0a-0401-445b-9ee5-4c782bc79d65/public"
+    }
+  ],
+  "evidence": "Authentic retained weather receipt replay; no new acquisition or empirical performance"
+}

@@ -1,0 +1,51 @@
+{
+  "started_at": "2026-11-05T22:03:54.786Z",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:18777",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history",
+  "status": "passed",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "empty-before-entropytrade-b2ab15f8-d5fa-4fef-a067-475aa1768f04.json",
+      "sha256": "52eb2e71818ef11125c6b3a41015be17a7e20421c902444030bd3bcb1d328ba8"
+    },
+    {
+      "file": "empty-before-entropytrade-b2ab15f8-d5fa-4fef-a067-475aa1768f04.txt",
+      "sha256": "56b160c883a80c53b10643389c7ed0421bf02e34856938360a849d70c14b199e"
+    },
+    {
+      "file": "empty-after-entropytrade-b2ab15f8-d5fa-4fef-a067-475aa1768f04.json",
+      "sha256": "52eb2e71818ef11125c6b3a41015be17a7e20421c902444030bd3bcb1d328ba8"
+    },
+    {
+      "file": "empty-after-entropytrade-b2ab15f8-d5fa-4fef-a067-475aa1768f04.txt",
+      "sha256": "56b160c883a80c53b10643389c7ed0421bf02e34856938360a849d70c14b199e"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "empty-history-review.png",
+      "sha256": "116e1490eecedc51355bc6c044d5ebb2a816af2761f73f2045147bc856bc3b94"
+    },
+    {
+      "file": "empty-history-probabilities.png",
+      "sha256": "d942d352e275926ba6ca32309b4dc1d16cfb5e6933721c51ddb67fd3bd479edf"
+    },
+    {
+      "file": "empty-history-evidence.png",
+      "sha256": "b9450d5095cd8369c4bffab2e44f98614640bff2bc787fc58fa8da5335088ecd"
+    },
+    {
+      "file": "empty-history-reopened.png",
+      "sha256": "fa3f97c7570ac13c7ea2e6570470c754387e9ca5b10f974c735db751f0f51884"
+    }
+  ],
+  "evidence_kind": "empty workspace insufficiency",
+  "limitations": [
+    "Empty real workspace, no historical performance or successful network ingestion claimed.",
+    "Controlled synthetic model checks are separate pytest evidence."
+  ],
+  "finished_at": "2026-11-05T22:04:19.326Z"
+}

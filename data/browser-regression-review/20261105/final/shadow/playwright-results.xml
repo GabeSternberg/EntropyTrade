@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="36.728423">
+<testsuite name="shadow.spec.cjs" timestamp="2026-11-05T22:06:48.337Z" hostname="" tests="1" failures="0" skipped="0" time="35.504" errors="0">
+<testcase name="continuous shadow: research, capture, pause, restart, resume and durable evidence" classname="shadow.spec.cjs" time="35.504">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
