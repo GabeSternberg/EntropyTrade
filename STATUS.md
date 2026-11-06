@@ -1,5 +1,52 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): unattended official fee-document capture
+
+Branch `claude/vibrant-bohr-ypomud`, **stacked on PR #5** (`claude/vibrant-bohr-wr375g`).
+**V1 remains incomplete.** Open PRs #1, #2, #4 and #5 had no review comments or failing
+checks at the start of this run; none were merged, so this run avoided duplicating them.
+
+- **Why.** "Certified fees" is an open V1 gate. The official fee schedule PDF could not be
+  fetched from cloud sessions (HTTP 429 in October; proxy refusal now), so no authentic bytes
+  existed for an operator to review. GitHub runners have the public egress (issue #3).
+- **What.** `fee_admin --capture-due schedule rounding` captures each official document only
+  when the retained copy is stale (success > 24 h, failure > 3 h), stores every attempt as an
+  immutable **unreviewed** authentic receipt and prints per-document JSON (status, bytes,
+  SHA-256, `is_pdf`). Network errors store nothing and do not fail. `forward-collection.yml`
+  runs it after the server stops, so the bytes travel in the chained workspace snapshot and
+  the result appears in the job log. Nothing is certified; `select_fee` still refuses.
+- **Tests.** `backend/tests/unit/test_fee_capture_due.py` (5 cases): cadence, immutable
+  re-capture, failure throttling, transport errors, per-document tracking and refusal of
+  uncertified captures. Full-suite and runner results are recorded below.
+- **Chain upkeep.** Dispatched forward-collection run `42136454980` on PR #5's branch
+  (success): restored `42133403993`; `monitor_kept`/`schedule_kept`; 3 cycles this window
+  (7 total), each `24 shadow decisions; 0 acquisition failures`; 7 retained inputs; schedule
+  active with 2 pending dates and 0 label requests (the 2026-11-05 local days had not yet
+  ended in US time zones); no alerts or errors; snapshot `sha256:6e69a006…`. This chain
+  predates the fee-capture step, so it holds no fee receipts.
+
+Results:
+- Local: Ruff lint/format and strict mypy (562 files) pass; **full pytest 1,341 passed in
+  645.79s** (zero failures/errors/skips).
+- Runner verification `42136976908` (success, new chain on this branch): monitor created,
+  2 cycles each `24 shadow decisions; 0 acquisition failures`, schedule created (follow
+  retained, 2 pending dates), 0 errors, server exit 0, snapshot `sha256:ed298521…`.
+- **Fee capture (real result):** the schedule PDF URL returned **HTTP 429** with a 24,732-byte
+  `text/html` body (`is_pdf: false`, `sha256:0ea1dac4…`) even from the GitHub runner. The
+  rounding page returned HTTP 200 HTML (131,209 bytes, `sha256:010b5152…`). Both were
+  retained as unreviewed receipts. **No authentic fee schedule PDF has been obtained**, so the
+  certified-fee gate stays blocked; the capture will retry at most every 3 h while failing. It
+  does not change the User-Agent or otherwise try to evade the rate limit. A human may need
+  to download the PDF in a browser and import it for review (an import path does not exist
+  yet; see issue #6).
+
+**Next for the user:** review/merge #1 → #5 → this PR so the 4-hourly cron runs on `main`.
+Once a run reports `is_pdf: true` for the schedule, restore that snapshot locally and perform
+the operator fee review described in [fee evidence](docs/fee-evidence.md) (human attestation;
+the agent must not certify fees). **Next autonomous milestone:** keep the chains alive and,
+after several days, promote a snapshot to a reviewed evidence directory and rerun model
+readiness.
+
 ## Current milestone (2026-11-05): headless authentic forward collection on GitHub runners
 
 Branch `claude/vibrant-bohr-wr375g`. **V1 remains incomplete.** Addresses blocker #3.

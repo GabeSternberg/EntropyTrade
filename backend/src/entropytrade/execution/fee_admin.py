@@ -8,6 +8,7 @@ import argparse
 import asyncio
 import base64
 import json
+from datetime import datetime, timedelta
 from hashlib import sha256
 from pathlib import Path
 from typing import Any
@@ -31,10 +32,21 @@ DOCUMENTS = {
 }
 
 
-async def capture(document: str) -> FeeVersion:
+# Unattended capture cadence. A successful official copy is refetched at most daily; a failed
+# attempt (e.g. HTTP 429/403) may be retried sooner. Every stored attempt is a new immutable
+# receipt, so these bounds keep repeated scheduled runs from flooding the workspace.
+SUCCESS_INTERVAL = timedelta(hours=24)
+FAILURE_INTERVAL = timedelta(hours=3)
+
+
+async def capture(
+    document: str, *, transport: httpx.AsyncBaseTransport | None = None
+) -> FeeVersion:
     url = DOCUMENTS[document]
     async with (
-        httpx.AsyncClient(timeout=20, trust_env=False, follow_redirects=False) as client,
+        httpx.AsyncClient(
+            timeout=20, trust_env=False, follow_redirects=False, transport=transport
+        ) as client,
         client.stream("GET", url) as response,
     ):
         raw = bytearray()
@@ -51,6 +63,84 @@ async def capture(document: str) -> FeeVersion:
             sha256="sha256:" + sha256(raw).hexdigest(),
         )
     return FeeVersion(evidence_kind="authentic", sources=(receipt,))
+
+
+def _attempts(store: FeeEvidenceStore, url: str) -> list[FeeReceipt]:
+    """Retained unreviewed authentic receipts for one official URL, oldest first."""
+    return sorted(
+        (
+            source
+            for version in store.snapshot()
+            if version.evidence_kind == "authentic" and version.policy is None
+            for source in version.sources
+            if source.url == url
+        ),
+        key=lambda source: source.received_at,
+    )
+
+
+def _receipt_report(receipt: FeeReceipt) -> dict[str, Any]:
+    body = receipt.body()
+    return {
+        "received_at": receipt.received_at.isoformat(),
+        "status": receipt.status,
+        "media_type": receipt.media_type,
+        "bytes": len(body),
+        "sha256": receipt.sha256,
+        # A 200 can still be an interstitial page; only real PDF bytes can support review.
+        "is_pdf": body.startswith(b"%PDF-"),
+    }
+
+
+def capture_due(
+    store: FeeEvidenceStore,
+    document: str,
+    *,
+    now: datetime,
+    transport: httpx.AsyncBaseTransport | None = None,
+    success_interval: timedelta = SUCCESS_INTERVAL,
+    failure_interval: timedelta = FAILURE_INTERVAL,
+) -> dict[str, Any]:
+    """Capture one official document when the retained copy is stale; never certify it.
+
+    The result is an unreviewed authentic version (or nothing). Transport errors store
+    nothing because no bytes were received; they are reported, not raised, so unattended
+    collection continues. Review remains the separate local operator attestation.
+    """
+    url = DOCUMENTS[document]
+    attempts = _attempts(store, url)
+    ok = [a for a in attempts if a.status == 200]
+    report: dict[str, Any] = {
+        "document": document,
+        "url": url,
+        "retained_attempts": len(attempts),
+        "retained_successes": len(ok),
+        "latest_success": _receipt_report(ok[-1]) if ok else None,
+    }
+    if ok and now - ok[-1].received_at < success_interval:
+        return report | {"action": "skipped_recent_success"}
+    if (
+        attempts
+        and attempts[-1].status != 200
+        and now - attempts[-1].received_at < (failure_interval)
+    ):
+        return report | {
+            "action": "skipped_recent_failure",
+            "latest": _receipt_report(attempts[-1]),
+        }
+    try:
+        version = asyncio.run(capture(document, transport=transport))
+    except (httpx.HTTPError, ValueError) as exc:
+        return report | {"action": "error", "error": f"{type(exc).__name__}: {exc}"[:500]}
+    store.put(version)
+    receipt = version.sources[0]
+    return report | {
+        "action": "captured",
+        "version": version.version,
+        "latest": _receipt_report(receipt),
+        "certified": False,
+        "refusal": version.refusal,
+    }
 
 
 def review(store: FeeEvidenceStore, request: dict[str, Any]) -> FeeVersion:
@@ -106,6 +196,12 @@ def main() -> None:
     action.add_argument("--capture", choices=tuple(DOCUMENTS))
     action.add_argument("--review", type=Path)
     action.add_argument("--list", action="store_true")
+    action.add_argument(
+        "--capture-due",
+        nargs="+",
+        choices=tuple(DOCUMENTS),
+        help="unattended: capture each document only when its retained copy is stale",
+    )
     args = parser.parse_args()
     repo = Path(__file__).resolve().parents[4]
     root = workspace_path(repo, args.workspace)
@@ -113,6 +209,9 @@ def main() -> None:
         store = FeeEvidenceStore(root)
         if args.list:
             result: object = [v.summary() for v in store.snapshot()]
+        elif args.capture_due:
+            now = utc_now()
+            result = [capture_due(store, document, now=now) for document in args.capture_due]
         else:
             version = (
                 asyncio.run(capture(args.capture))

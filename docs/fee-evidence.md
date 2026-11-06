@@ -37,6 +37,15 @@ credential access:
   --workspace "$PWD/data/cache/workbench" --list
 ```
 
+For unattended operation, `--capture-due schedule rounding` captures each document only
+when no successful copy was retained in the last 24 hours (or no failed attempt in the last
+3 hours), reports per-document status/bytes/SHA-256/`is_pdf` as JSON, and never raises on a
+network error (nothing is stored when no bytes arrive). The
+[forward-collection workflow](forward-operator.md) runs it on GitHub-hosted runners, which
+have the public egress cloud sessions lack, so official bytes accumulate in the chained
+workspace for a later operator review. On 2026-11-06 (run `42136976908`) the schedule PDF
+URL returned HTTP 429 with an HTML body from the runner as well, so no authentic PDF exists yet.
+
 A capture is always **unreviewed**, including HTTP 200. HTTP failure bytes are evidence of
 failure, never a fee certificate. The current authentic official PDF attempt returned HTTP
 429; the [receipt and original bytes](../data/fee-evidence-review/20261030/README.md) are retained.
