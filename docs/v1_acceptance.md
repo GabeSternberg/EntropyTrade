@@ -10,7 +10,7 @@
 | Multi-day authentic operation | Scheduled runs after merge to `main` | **Not yet observed.** Verification windows are not multi-day operation. |
 | Chain survives a branch change | `continue_from_run`; run `42162688233` restored run `42156641720` from another branch | Restore passes. That run's own upload was lost to the `hashFiles()` timeout, now fixed; see STATUS for the re-run. |
 | Readiness on authentic chain | Run `42162688233` job log | Insufficient: 0 matched of 24 contracts (24 refused); 4 events on 2 dates; 0 verified labels. |
-| Independent station/days per date | `weather-forward.json` (4 locations), `test_forward_station_bindings.py`, `station_bindings` in each summary | **Config pass** (2026-11-06): NYC and Dallas are added from retained rules, portal and station-coordinate receipts. Runner confirmation that their rules name CLINYC/CLIDFW, and their first verified labels, are pending (see STATUS). |
+| Independent station/days per date | `weather-forward.json` (4 locations), `test_forward_station_bindings.py`, `station_bindings` in each summary | **Config pass** (2026-11-06): NYC and Dallas are added from retained rules, portal and station-coordinate receipts. Runner run `42213570196` confirmed the rules name CLINYC/CLIDFW (`station_bindings: ok`). Run `42217215001` showed their contracts never reached label targets (shadow-universe discovery gap, fixed on `claude/vibrant-bohr-ab8h5b`); first NYC/Dallas label work and verified labels are pending (see STATUS). |
 | Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
 
 # Prospective shadow-evaluation reports — October 31, 2026
