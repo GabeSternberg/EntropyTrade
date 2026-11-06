@@ -149,6 +149,14 @@ What the table shows:
 - **KXNHL and KXMVECROSSCATEGORY.** Only series metadata (fee types) is retained, so their
   markets cannot be screened without a catalog fetch.
 
+## Runner screen (2026-11-06)
+
+The `family-catalog` workflow listed 3,646 series and screened six candidates confirmed
+from that listing. Four had finalized daily history in the fetched window: KXAAAGASD
+(70 events), KXSOFRD (64), KXTNOTED (40, ending 2026-07-01) and KXTXERCOTPEAKD (38). KXTSA
+and KXEURUSDD had no markets. Coverage is truncated by the page cap. See the
+[evidence and caveats](../data/family-screening-review/20261106/README.md).
+
 ## Decision procedure (needs user approval)
 
 1. In an environment where `api.elections.kalshi.com` is reachable, fetch three to six
