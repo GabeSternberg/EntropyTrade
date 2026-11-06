@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="142.703405">
+<testsuite name="label-partitions.spec.cjs" timestamp="2026-11-05T22:11:56.334Z" hostname="" tests="1" failures="0" skipped="0" time="141.12" errors="0">
+<testcase name="bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore" classname="label-partitions.spec.cjs" time="141.12">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

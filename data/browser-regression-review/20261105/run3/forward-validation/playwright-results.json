@@ -1,0 +1,240 @@
+{
+  "config": {
+    "configFile": "/home/user/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/user/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/user/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs",
+          "prospective.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "forward-validation.spec.cjs",
+      "file": "forward-validation.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "continuous forward validation: controlled twelve-date transitions and recovery",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 251,
+                  "error": {
+                    "message": "Error: ENOENT: no such file or directory, open '/home/user/EntropyTrade/data/cache/browser-regression-20261105-run3/forward-validation-forward-controlled-phase.json.pending'",
+                    "stack": "Error: ENOENT: no such file or directory, open '/home/user/EntropyTrade/data/cache/browser-regression-20261105-run3/forward-validation-forward-controlled-phase.json.pending'\n    at phase (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:40:8)\n    at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:117:23)\n    at /home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:266:117",
+                    "location": {
+                      "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                      "column": 8,
+                      "line": 40
+                    },
+                    "snippet": "  38 |   function phase(value, seconds = 0) {\n  39 |     phaseEpoch += seconds;\n> 40 |     fs.writeFileSync(phaseFile + \".pending\", JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + phaseEpoch * 1000).toISOString() }));\n     |        ^\n  41 |     fs.renameSync(phaseFile + \".pending\", phaseFile);\n  42 |     receipt.operations.push({ action: \"CONTROLLED-source\", phase: value, seconds: phaseEpoch }); save();\n  43 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                        "column": 8,
+                        "line": 40
+                      },
+                      "message": "Error: ENOENT: no such file or directory, open '/home/user/EntropyTrade/data/cache/browser-regression-20261105-run3/forward-validation-forward-controlled-phase.json.pending'\n\n  38 |   function phase(value, seconds = 0) {\n  39 |     phaseEpoch += seconds;\n> 40 |     fs.writeFileSync(phaseFile + \".pending\", JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + phaseEpoch * 1000).toISOString() }));\n     |        ^\n  41 |     fs.renameSync(phaseFile + \".pending\", phaseFile);\n  42 |     receipt.operations.push({ action: \"CONTROLLED-source\", phase: value, seconds: phaseEpoch }); save();\n  43 |   }\n    at phase (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:40:8)\n    at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:117:23)\n    at /home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:266:117"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-05T21:44:13.587Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                    "column": 8,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "55d13a4622f26ef19e43-85338156d27ae2aebc48",
+          "file": "forward-validation.spec.cjs",
+          "line": 266,
+          "column": 1
+        },
+        {
+          "title": "continuous forward validation: authentic shadow receipts and new label acquisition",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 31721,
+                  "error": {
+                    "message": "AssertionError: Recovery refused: snapshot requires a new archive outside the workspace\n\n\n1 !== 0\n",
+                    "stack": "AssertionError: Recovery refused: snapshot requires a new archive outside the workspace\n\n\n1 !== 0\n\n    at command (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:47:12)\n    at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:245:5)",
+                    "location": {
+                      "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                      "column": 12,
+                      "line": 47
+                    },
+                    "snippet": "  45 |     const result = spawnSync(python, args, { cwd: repo, env, encoding: \"utf8\", timeout: 120_000 });\n  46 |     fs.writeFileSync(path.join(evidence, name + \".log\"), result.stdout + result.stderr);\n> 47 |     assert.equal(result.status, 0, result.stdout + result.stderr);\n     |            ^\n  48 |   }\n  49 |   let server, epoch = 0;\n  50 |   async function start() {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                        "column": 12,
+                        "line": 47
+                      },
+                      "message": "AssertionError: Recovery refused: snapshot requires a new archive outside the workspace\n\n\n1 !== 0\n\n\n  45 |     const result = spawnSync(python, args, { cwd: repo, env, encoding: \"utf8\", timeout: 120_000 });\n  46 |     fs.writeFileSync(path.join(evidence, name + \".log\"), result.stdout + result.stderr);\n> 47 |     assert.equal(result.status, 0, result.stdout + result.stderr);\n     |            ^\n  48 |   }\n  49 |   let server, epoch = 0;\n  50 |   async function start() {\n    at command (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:47:12)\n    at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:245:5)"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-05T21:44:14.779Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/user/EntropyTrade/data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs",
+                    "column": 12,
+                    "line": 47
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "55d13a4622f26ef19e43-79386090ed8302a8918a",
+          "file": "forward-validation.spec.cjs",
+          "line": 267,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-05T21:44:12.915Z",
+    "duration": 34091.925,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
