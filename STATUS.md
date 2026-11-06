@@ -1,5 +1,41 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): content-addressed workspace snapshots (schema v2)
+
+Branch `claude/vibrant-bohr-gcmz6m`, **stacked on PR #15** (`claude/vibrant-bohr-iisaao`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#15 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **PR #15 confirmed on a real runner.** Run `42187733156` (PR #15's code) resolved the false
+  `unresolved_reconciliation` alert at 08:50:45Z under the expected-settlement rule.
+- **Defect: snapshot runway of about nine days.** Run `42187733156` (30 cycles) reported
+  652,673,017 workspace bytes: `runs/weather-datasets` 532,385,048 (up from 383 MB at 24
+  cycles, after the first incremental discovery froze all legacy inputs once), `shadow`
+  105,084,585 and `jobs.sqlite` 13,635,584. Datasets copy shadow receipts byte for byte
+  (`weather/history.py` `shutil.copyfile`), and each cycle also stores some raw responses
+  twice. Growth was about 150 MB/day against a 2 GiB budget counted in logical bytes.
+- **Fix.** Snapshot schema `entropytrade-workspace-v2` stores one `blobs/<sha256>` member per
+  distinct content. The manifest still lists every path, and restore writes each path as an
+  independent file (no hard links) verified against its checksum. Budgets: 2 GiB distinct
+  content and 4 GiB expanded files. v1 archives, including the current chain head, still
+  restore within their original 2 GiB bound. Records, datasets, clocks and verification
+  semantics are unchanged. The forward `workspace` footprint now reports `distinct_bytes`,
+  both budgets and `budget_used` as the larger ratio (it now hashes contents).
+- **Evidence (local, authentic retained receipts).** `seed_retained` plus one frozen dataset:
+  9,572,441 expanded bytes, 3,835,965 distinct (40%), deflated v2 archive 169,153 bytes.
+- **Tests.** 4 new recovery tests (dedup with independent restored files, v1 restore and its
+  original bound, separate distinct/expanded budgets, invalid digests ×3), an updated tamper
+  helper and footprint test, and a dedup assertion in the authentic-receipt listener test.
+  Ruff lint/format pass; strict mypy passes (564 files). **Full pytest: 1,395 passed in
+  656.90s**, with zero failures, errors or skips.
+- **Real-runner evidence.** RUNNER_PLACEHOLDER
+
+**Next autonomous milestone:** confirm on the next chain runs that `distinct_bytes` stays well
+under `bytes` and that v2 archives restore. Then confirm 2026-11-05 verifies once the official
+climate report is published. The V1 gate for matched forecasts remains the monitor's
+`blocked` model binding (no fitted authentic forward model); that is data-limited and needs
+multi-day collection, which this change keeps alive.
+
 ## Current milestone (2026-11-06): linear snapshot growth; workspace footprint reporting
 
 Branch `claude/vibrant-bohr-zx3moc`, **stacked on PR #13** (`claude/vibrant-bohr-4jtqro`).
