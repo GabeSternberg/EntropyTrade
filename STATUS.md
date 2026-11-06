@@ -1,6 +1,50 @@
 # EntropyTrade — current status
 
-## Current milestone (2026-11-06): unattended official fee-document capture
+## Current milestone (2026-11-06): operator manual import of the official fee schedule
+
+Branch `claude/vibrant-bohr-1hw7xm`, **stacked on PR #7** (`claude/vibrant-bohr-ypomud`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5, #7 and #8 had
+no review comments and no failing checks, and none were merged, so this run did not
+duplicate them. It dispatched forward-collection run `42150045698` on PR #7's branch to
+keep that chain alive.
+
+- **Why.** The certified-fee V1 gate needs the official schedule PDF, which returns HTTP 429
+  to every automated client, including GitHub runners (issue #6). Option 1 of that issue,
+  a human browser download plus import, had no code path.
+- **What.** `fee_admin --import-schedule /abs/file.pdf --downloaded-at <tz ISO> --note ...`
+  retains the exact PDF bytes as an **unreviewed** authentic receipt for the official URL.
+  It carries explicit `manual_import` provenance. Availability is the local import clock;
+  the attested download time is informational and cannot be later than the import. It is
+  never selected or certified; `--review` stays the human attestation. Manual imports do not
+  affect the `--capture-due` cadence. The website labels such sources
+  `OPERATOR MANUAL IMPORT (no system-observed HTTP)`. Automated receipts serialize exactly as
+  before, so all retained fee-version hashes are unchanged. See
+  [fee evidence](docs/fee-evidence.md#operator-manual-import-of-the-official-schedule-issue-6).
+- **Tests.** `backend/tests/unit/test_fee_manual_import.py` has 13 cases: provenance and
+  import clock, hash stability of the retained 2026-10-30 version, non-PDF/symlink/relative/
+  oversized/naive-time/late-download refusals, provenance on non-schedule sources refused,
+  capture cadence unaffected, and review-clock availability of a reviewed import.
+- **Results.** Ruff lint/format and strict mypy (563 files) pass; 24 frontend unit tests pass;
+  **full pytest 1,354 passed in 692.40s** (zero failures/errors/skips). A real-Chromium
+  check against the actual server shows the provenance and a byte-identical source download
+  with 0 page errors. All bytes are CONTROLLED test bytes; see
+  [evidence](data/fee-evidence-review/20261106-manual-import/README.md).
+- **Not established.** No authentic schedule has been imported or certified.
+- **Chain upkeep.** Forward-collection run `42150045698` (success) restored `42143557484`.
+  - Monitor and schedule were kept, with 3 cycles this window and 8 in total, each `24 shadow decisions; 0 acquisition failures`.
+  - 8 retained inputs; the schedule is active with 2 pending dates and 0 label requests.
+  - 0 errors and server exit 0; snapshot `sha256:1390bff9…`.
+  - Two `stale_collection` alerts were listed (status/detected_at null). They reflect gaps between discontinuous dispatched windows and were not investigated further.
+  - Fee capture skipped both documents: the schedule's 429 was under 3 h old and the rounding page was fetched under 24 h ago.
+  - Collection stays bounded to manual dispatches until #5/#7 merge, which enables the 4-hourly cron on `main`.
+
+**Next for the user:** download the schedule PDF in a browser, import it with the command
+above, then perform the `--review` attestation (the agent must not certify fees). Review/merge
+#1 → #5 → #7 → this PR. **Next autonomous milestone:** keep the forward-collection chain
+alive; after several days, promote a snapshot to a reviewed evidence directory and rerun
+model readiness.
+
+## Previous milestone (2026-11-06): unattended official fee-document capture
 
 Branch `claude/vibrant-bohr-ypomud`, **stacked on PR #5** (`claude/vibrant-bohr-wr375g`).
 **V1 remains incomplete.** Open PRs #1, #2, #4 and #5 had no review comments or failing

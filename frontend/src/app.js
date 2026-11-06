@@ -436,7 +436,10 @@ async function feeEvidence() {
       const download = node("a", "Fee version JSON"); download.href = `/api/fees/${version.version.slice(7)}`; download.download = `fee-${version.version.slice(7)}.json`; section.append(download);
       version.sources.forEach((source, index) => {
         const link = node("a", `Original fee source ${index + 1}`); link.href = `${download.href}/sources/${index}`; link.download = `fee-source-${index}.bin`;
-        section.append(node("p", `${source.url} · HTTP ${source.status} · Received ${source.received_at} · ${source.sha256}`, "small"), link);
+        const origin = source.manual_import
+          ? `OPERATOR MANUAL IMPORT (no system-observed HTTP) · Imported ${source.received_at} · Operator-attested download ${source.manual_import.operator_downloaded_at} · ${source.manual_import.note}`
+          : `HTTP ${source.status} · Received ${source.received_at}`;
+        section.append(node("p", `${source.url} · ${origin} · ${source.sha256}`, "small"), link);
       });
       section.append(detail("Fee coefficients, scope, review and citations", version)); content.append(section);
     }

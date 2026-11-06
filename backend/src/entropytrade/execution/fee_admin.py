@@ -19,15 +19,17 @@ from entropytrade.api.workspace import workspace_lease, workspace_path
 from entropytrade.domain.time import utc_now
 from entropytrade.execution.fee_evidence import (
     MAX_SOURCE_BYTES,
+    OFFICIAL_SCHEDULE_URL,
     FeeEvidenceStore,
     FeeReceipt,
     FeeVersion,
+    ManualImport,
 )
 from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.features.registry import scientific_hash
 
 DOCUMENTS = {
-    "schedule": "https://kalshi.com/docs/kalshi-fee-schedule.pdf",
+    "schedule": OFFICIAL_SCHEDULE_URL,
     "rounding": "https://docs.kalshi.com/getting_started/fee_rounding",
 }
 
@@ -65,15 +67,61 @@ async def capture(
     return FeeVersion(evidence_kind="authentic", sources=(receipt,))
 
 
+MANUAL_IMPORT_REFUSAL = (
+    "Unreviewed operator manual import of the official schedule; no certified schedule"
+)
+
+
+def import_schedule(
+    path: Path, *, downloaded_at: datetime, original_filename: str, note: str
+) -> FeeVersion:
+    """Retain operator-downloaded official schedule PDF bytes as an unreviewed receipt.
+
+    The import clock (now) is the availability clock; ``downloaded_at`` is the operator's
+    attestation and cannot be later than the import. Only PDF bytes are accepted. The
+    result is never certified: certification remains the separate ``--review`` attestation.
+    """
+    if not path.is_absolute():
+        raise ValueError("manual import requires an absolute file path")
+    if path.is_symlink() or not path.is_file():
+        raise ValueError("manual import requires a regular, non-symlink file")
+    if path.stat().st_size > MAX_SOURCE_BYTES:
+        raise ValueError("fee source exceeds byte budget")
+    raw = path.read_bytes()
+    if len(raw) > MAX_SOURCE_BYTES:
+        raise ValueError("fee source exceeds byte budget")
+    if not raw.startswith(b"%PDF-"):
+        raise ValueError("manual import accepts only PDF bytes")
+    receipt = FeeReceipt(
+        url=OFFICIAL_SCHEDULE_URL,
+        received_at=utc_now(),
+        # The operator attests a completed official download; the system observed no HTTP.
+        status=200,
+        media_type="application/pdf",
+        body_base64=base64.b64encode(raw).decode(),
+        sha256="sha256:" + sha256(raw).hexdigest(),
+        manual_import=ManualImport(
+            operator_downloaded_at=downloaded_at,
+            original_filename=original_filename,
+            note=note,
+        ),
+    )
+    return FeeVersion(evidence_kind="authentic", sources=(receipt,), refusal=MANUAL_IMPORT_REFUSAL)
+
+
 def _attempts(store: FeeEvidenceStore, url: str) -> list[FeeReceipt]:
-    """Retained unreviewed authentic receipts for one official URL, oldest first."""
+    """Retained unreviewed automated receipts for one official URL, oldest first.
+
+    Manual imports are excluded: they never satisfy or delay the automated cadence, so
+    unattended capture keeps seeking independent system-observed official bytes.
+    """
     return sorted(
         (
             source
             for version in store.snapshot()
             if version.evidence_kind == "authentic" and version.policy is None
             for source in version.sources
-            if source.url == url
+            if source.url == url and source.manual_import is None
         ),
         key=lambda source: source.received_at,
     )
@@ -197,12 +245,31 @@ def main() -> None:
     action.add_argument("--review", type=Path)
     action.add_argument("--list", action="store_true")
     action.add_argument(
+        "--import-schedule",
+        type=Path,
+        metavar="ABSOLUTE_PDF",
+        help="retain operator-downloaded official schedule PDF bytes (unreviewed)",
+    )
+    action.add_argument(
         "--capture-due",
         nargs="+",
         choices=tuple(DOCUMENTS),
         help="unattended: capture each document only when its retained copy is stale",
     )
+    parser.add_argument(
+        "--downloaded-at",
+        type=datetime.fromisoformat,
+        help="with --import-schedule: operator-attested UTC download time (informational)",
+    )
+    parser.add_argument(
+        "--note",
+        help="with --import-schedule: how and from where the operator downloaded the file",
+    )
     args = parser.parse_args()
+    if args.import_schedule is not None and (not args.downloaded_at or not args.note):
+        parser.error("--import-schedule requires --downloaded-at and --note")
+    if args.import_schedule is None and (args.downloaded_at or args.note):
+        parser.error("--downloaded-at and --note apply only to --import-schedule")
     repo = Path(__file__).resolve().parents[4]
     root = workspace_path(repo, args.workspace)
     with workspace_lease(root):
@@ -212,6 +279,15 @@ def main() -> None:
         elif args.capture_due:
             now = utc_now()
             result = [capture_due(store, document, now=now) for document in args.capture_due]
+        elif args.import_schedule is not None:
+            version = import_schedule(
+                args.import_schedule,
+                downloaded_at=args.downloaded_at,
+                original_filename=args.import_schedule.name,
+                note=args.note,
+            )
+            store.put(version)
+            result = version.summary()
         else:
             version = (
                 asyncio.run(capture(args.capture))
