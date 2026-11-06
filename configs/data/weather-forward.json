@@ -2,8 +2,8 @@
   "locations": [
     {"name":"Philadelphia","series":"KXHIGHPHIL","station":"CLIPHL","timezone":"America/New_York","latitude":"39.87","longitude":"-75.23"},
     {"name":"Chicago","series":"KXHIGHCHI","station":"CLIMDW","timezone":"America/Chicago","latitude":"41.79","longitude":"-87.75"},
-    {"name":"New York City","series":"KXHIGHNY","station":"CLINYC","timezone":"America/New_York","latitude":"40.78858","longitude":"-73.9661"},
-    {"name":"Dallas","series":"KXHIGHTDAL","station":"CLIDFW","timezone":"America/Chicago","latitude":"32.893456","longitude":"-97.02648"}
+    {"name":"New York City","series":"KXHIGHNY","station":"CLINYC","timezone":"America/New_York","latitude":"40.7886","longitude":"-73.9661"},
+    {"name":"Dallas","series":"KXHIGHTDAL","station":"CLIDFW","timezone":"America/Chicago","latitude":"32.8935","longitude":"-97.0265"}
   ],
   "providers":["open-meteo","nws"],
   "interval_seconds":900,"attempts":3,"max_bytes":5000000000

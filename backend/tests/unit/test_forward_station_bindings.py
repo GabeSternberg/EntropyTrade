@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
@@ -58,10 +59,23 @@ def test_new_forward_locations_use_retained_rule_and_station_coordinate_receipts
         assert manifest["coordinate_source"] == "https://api.weather.gov/stations/K" + (
             location.station.removeprefix("CLI")
         )
+        # The station coordinates, rounded to the 4 decimals api.weather.gov /points accepts.
         assert (location.latitude, location.longitude) == (
-            str(manifest["returned_latitude"]),
-            str(manifest["returned_longitude"]),
+            f"{Decimal(str(manifest['returned_latitude'])):.4f}",
+            f"{Decimal(str(manifest['returned_longitude'])):.4f}",
         )
+
+
+def test_forward_coordinates_have_at_most_four_decimals_for_nws_points() -> None:
+    # api.weather.gov/points redirects (301) a point with more decimals; the bounded client
+    # does not follow redirects, so every cycle would record an acquisition failure.
+    # Run 42213565565 failed its only cycle that way with 40.78858/32.893456.
+    for location in config().locations:
+        for value in (location.latitude, location.longitude):
+            assert value is not None
+            exponent = Decimal(value).as_tuple().exponent
+            assert isinstance(exponent, int)
+            assert -4 <= exponent <= 0, value
 
 
 def test_station_bindings_on_retained_authentic_capture() -> None:
