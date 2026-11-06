@@ -153,6 +153,35 @@ completed exactly one cycle and finished in about 11 minutes. A manual dispatch 
 Removing the duplicate capture copy inside datasets, or moving sealed evidence to durable
 storage, is still needed. That decision is tracked in issue #21 and has not been started.
 
+#### Chain projection and runner disk
+
+`chain_runway` is the same projection averaged over a **trailing 7 days of chained runs**,
+so a run without discovery no longer overstates the runway on its own:
+
+- Each run records two ledger rows: the footprint before the server starts and after it
+  stops, with the monitors' total cycle count. The workflow uploads
+  `runway-ledger.jsonl` next to the snapshot (in `forward-workspace`), and the next run passes
+  it back with `--ledger-in`. It is operational metadata. It is never restored into the
+  workspace and is not evidence.
+- Growth runs from the oldest row in the window to this run's end, divided by the monitor
+  cycles between them. The output adds `since`, `rows_in_window`, `runs_in_window`,
+  `cycles_in_window` and `growth_in_window`.
+- The ledger restarts when it does not continue this workspace: monitor cycles or clocks go
+  backwards, as after a fork from an older snapshot or a fresh chain. A malformed ledger is
+  discarded. In both cases `ledger_reset` gives the reason. Rows older than 30 days are
+  retired, with at most 256 rows kept. A run that measured nothing carries the previous rows
+  forward unchanged.
+- The job-summary warning uses `chain_runway` when it is measured, and otherwise falls back
+  to `runway`.
+- The ledger starts with the first run of this version. Earlier runs' growth is in STATUS and
+  issue #21; it is not backfilled.
+
+`disk` reports `total_bytes` and `free_bytes` of the runner filesystem that holds the
+workspace, measured after the server stops. A snapshot copies the whole workspace into a
+staging payload before compressing it. A restored workspace therefore needs about its
+expanded bytes free again at snapshot time, plus the archive. This measures whether a larger
+restore budget (option 3 in #21) would fit. It does not change any budget.
+
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 

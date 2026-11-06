@@ -541,6 +541,11 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     # No monitor, so no cycles: growth cannot be attributed and nothing is projected.
     assert result["runway"]["status"] == "unmeasured"
     assert result["runway"]["cycles_this_run"] == 0
+    # Start and end rows join the chain ledger; with no cycles nothing is projected.
+    assert [r["monitor_cycles"] for r in result["runway_ledger"]] == [0, 0]
+    assert result["chain_runway"]["status"] == "unmeasured"
+    assert result["chain_runway"]["ledger_reset"] is None
+    assert result["disk"]["free_bytes"] > 0
     json.dumps(result)
     # The workspace lease is released: a second operation can start immediately.
     again = operate(
@@ -726,3 +731,167 @@ def test_frozen_calendar_reads_the_shared_dataset_partition(tmp_path: Path) -> N
     (root / ("a" * 64)).mkdir()
     (root / ("a" * 64) / "snapshot.json").write_text("{not json")
     assert forward.frozen_calendar(tmp_path) == ["2026-12-16", "2026-12-28", "2027-01-27"]
+
+
+def _row(at: str, cycles: int, bytes_: int, distinct: int, files: int, run: str) -> dict[str, Any]:
+    return {
+        "at": at,
+        "run_id": run,
+        "monitor_cycles": cycles,
+        "bytes": bytes_,
+        "distinct_bytes": distinct,
+        "files": files,
+    }
+
+
+def test_chain_runway_averages_uneven_runs_over_the_trailing_window(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from entropytrade.api import recovery
+
+    monkeypatch.setattr(recovery, "MAX_FILES", 1000)
+    at = datetime(2026, 11, 6, 16, tzinfo=UTC)
+    ledger = [
+        # Outside the 7-day window: never used for the projection.
+        _row("2026-10-28T00:00:00+00:00", 0, 100, 50, 10, "old"),
+        # Run A wrote a discovery dataset: 2 cycles, 100 expanded bytes.
+        _row("2026-11-06T10:00:00+00:00", 10, 1000, 500, 100, "a"),
+        _row("2026-11-06T11:00:00+00:00", 12, 1100, 540, 110, "a"),
+        # Run B wrote none: 2 cycles, only 20 expanded bytes. Alone it overstates runway.
+        _row("2026-11-06T14:00:00+00:00", 12, 1110, 542, 111, "b"),
+        _row("2026-11-06T15:00:00+00:00", 14, 1130, 550, 114, "b"),
+    ]
+    end = _footprint(1130, 550, 114)
+    report = forward.chain_runway(
+        ledger, end, at=at, boundaries=["2026-12-16", "2026-12-28", "2027-01-27"]
+    )
+    assert report["basis"] == "chain"
+    assert report["since"] == "2026-11-06T10:00:00+00:00"
+    assert (report["rows_in_window"], report["runs_in_window"]) == (4, 2)
+    assert report["cycles_in_window"] == 4
+    expanded = report["budgets"]["expanded_bytes"]
+    assert expanded == {
+        "growth_in_window": 130,
+        "per_cycle": 32.5,
+        "remaining": 2870,
+        "cycles_left": 88,  # 2870 // 32.5
+    }
+    assert (report["binding"], report["cycles_left"]) == ("expanded_bytes", 88)
+    assert report["status"] == "short_of_validation_end"
+    # The single run B alone measures 10 bytes/cycle and projects far more runway.
+    alone = forward.runway(ledger[3], end, 2, at=at, boundaries=None)
+    assert alone["budgets"]["expanded_bytes"]["cycles_left"] == 287
+    assert forward.chain_runway([], end, at=at, boundaries=None)["status"] == "unmeasured"
+    single = forward.chain_runway(ledger[-1:], end, at=at, boundaries=None)
+    assert single["status"] == "unmeasured"
+
+
+def test_ledger_extends_only_a_continuing_chain_and_retires_old_rows(tmp_path: Path) -> None:
+    at = datetime(2026, 11, 6, 16, tzinfo=UTC)
+    previous = [
+        _row("2026-10-01T00:00:00+00:00", 0, 10, 10, 1, "ancient"),
+        _row("2026-11-06T10:00:00+00:00", 10, 1000, 500, 100, "a"),
+    ]
+    new = [
+        _row("2026-11-06T14:00:00+00:00", 10, 1010, 505, 101, "b"),
+        _row("2026-11-06T15:00:00+00:00", 11, 1020, 510, 102, "b"),
+    ]
+    chained, reset = forward.extend_ledger(previous, new, at=at)
+    assert reset is None
+    assert [r["run_id"] for r in chained] == ["a", "b", "b"]  # 30-day retirement
+    # A fork restored from an older snapshot has fewer cycles: old rows are dropped.
+    fork = [_row("2026-11-06T14:00:00+00:00", 5, 900, 450, 90, "fork")]
+    chained, reset = forward.extend_ledger(previous, fork, at=at)
+    assert chained == fork
+    assert reset is not None
+    assert "restarted" in reset
+    # Clocks that run backwards also restart the ledger.
+    late = [_row("2026-11-06T09:00:00+00:00", 12, 1100, 540, 110, "c")]
+    assert forward.extend_ledger(previous, late, at=at)[0] == late
+    # Reading: absent is empty; any malformed row discards the whole file with a reason.
+    assert forward.read_ledger(None) == ([], None)
+    assert forward.read_ledger(tmp_path / "missing.jsonl") == ([], None)
+    good = tmp_path / "ledger.jsonl"
+    good.write_text("".join(json.dumps(r) + "\n" for r in previous))
+    assert forward.read_ledger(good) == (previous, None)
+    for bad in (
+        "{not json",
+        json.dumps({**previous[1], "bytes": -1}),
+        json.dumps({**previous[1], "bytes": True}),
+        json.dumps({**previous[1], "at": "2026-11-06T10:00:00"}),
+        json.dumps({k: v for k, v in previous[1].items() if k != "files"}),
+    ):
+        path = tmp_path / "bad.jsonl"
+        path.write_text(json.dumps(previous[0]) + "\n" + bad + "\n")
+        rows, reason = forward.read_ledger(path)
+        assert rows == []
+        assert reason is not None
+        assert reason.startswith("previous ledger unreadable")
+
+
+def test_disk_headroom_reports_the_workspace_filesystem(tmp_path: Path) -> None:
+    report = forward.disk_headroom(tmp_path / "not" / "yet" / "created")
+    assert report["total_bytes"] > 0
+    assert 0 <= report["free_bytes"] <= report["total_bytes"]
+
+
+def test_main_writes_the_chained_ledger_and_carries_it_through_unmeasured_runs(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    previous = [_row("2026-11-06T10:00:00+00:00", 10, 1000, 500, 100, "a")]
+    ledger_in = tmp_path / "in.jsonl"
+    ledger_in.write_text("".join(json.dumps(r) + "\n" for r in previous))
+    seen: dict[str, Any] = {}
+
+    def fake_operate(*_args: Any, **kwargs: Any) -> dict[str, Any]:
+        seen.update(kwargs)
+        chained = [*kwargs["ledger"], _row("2026-11-06T15:00:00+00:00", 11, 1010, 505, 101, "b")]
+        return {
+            "errors": [],
+            "server_exit_code": 0,
+            "runway_ledger": chained,
+            "chain_runway": {"status": "measured", "ledger_reset": None},
+        }
+
+    def run(*extra: str) -> None:
+        monkeypatch.setattr(forward, "operate", fake_operate)
+        monkeypatch.setattr("sys.argv", ["forward", "--workspace", str(tmp_path), *extra])
+        forward.main()
+
+    out = tmp_path / "out.jsonl"
+    summary = tmp_path / "summary.json"
+    run(
+        "--summary", str(summary), "--ledger-in", str(ledger_in), "--ledger-out", str(out),
+        "--run-id", "b",
+    )  # fmt: skip
+    assert seen["run_id"] == "b"
+    assert seen["ledger"] == previous
+    rows = [json.loads(line) for line in out.read_text().splitlines()]
+    assert [r["run_id"] for r in rows] == ["a", "b"]
+    assert "runway_ledger" not in json.loads(summary.read_text())  # kept out of the summary
+
+    # A run that measured nothing (e.g. the API failed) carries the previous rows unchanged.
+    def unmeasured(*_args: Any, **_kwargs: Any) -> dict[str, Any]:
+        return {"errors": [], "server_exit_code": 0}
+
+    monkeypatch.setattr(forward, "operate", unmeasured)
+    carried = tmp_path / "carried.jsonl"
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "forward", "--workspace", str(tmp_path), "--summary", str(tmp_path / "s2.json"),
+            "--ledger-in", str(out), "--ledger-out", str(carried),
+        ],
+    )  # fmt: skip
+    forward.main()
+    assert carried.read_text() == out.read_text()
+
+    # An unreadable previous ledger is reported, never silently trusted.
+    ledger_in.write_text("{broken\n")
+    run(
+        "--summary", str(tmp_path / "s3.json"), "--ledger-in", str(ledger_in),
+        "--ledger-out", str(tmp_path / "o3.jsonl"),
+    )  # fmt: skip
+    assert seen["ledger"] == []
+    reset = json.loads((tmp_path / "s3.json").read_text())["chain_runway"]["ledger_reset"]
+    assert reset.startswith("previous ledger unreadable")

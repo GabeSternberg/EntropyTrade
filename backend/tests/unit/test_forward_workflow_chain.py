@@ -415,3 +415,57 @@ def test_push_trials_cannot_displace_chain_runs_or_become_heads() -> None:
     assert 'echo "event=$GITHUB_EVENT_NAME"' in lineage
     assert "chain=trial" in lineage
     assert "chain=head" in lineage
+
+
+@pytest.mark.parametrize("previous", [True, False])
+def test_runway_ledger_travels_with_the_chain(tmp_path: Path, previous: bool) -> None:
+    """The collect step passes the previous ledger (when restored) and writes a new one."""
+    step = _step("Collect (bounded window)")
+    script = (
+        str(step["run"])
+        .replace("${{ inputs.seconds }}", "")
+        .replace("${{ github.event_name }}", "schedule")
+    )
+    assert "${{" not in script
+    out = tmp_path / "out"
+    out.mkdir()
+    if previous:
+        (out / "previous-runway-ledger.jsonl").write_text("{}\n", encoding="utf-8")
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    argv_log = tmp_path / "argv.json"
+    stub = bin_dir / "uv"
+    stub.write_text(
+        f"#!{sys.executable}\nimport json, sys\n"
+        f"open({str(argv_log)!r}, 'w').write(json.dumps(sys.argv[1:]))\n",
+        encoding="utf-8",
+    )
+    stub.chmod(0o755)
+    bash = shutil.which("bash")
+    assert bash is not None
+    result = subprocess.run(  # noqa: S603 - the script is this repository's workflow step
+        [bash, "--noprofile", "--norc", "-eo", "pipefail", "-c", script],
+        env={
+            "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
+            "WORKSPACE": "ws",
+            "OUT": str(out),
+            "GITHUB_RUN_ID": "123",
+        },
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    argv = json.loads(argv_log.read_text(encoding="utf-8"))
+    assert argv[argv.index("--seconds") + 1] == "540"  # one cycle per scheduled window
+    assert argv[argv.index("--ledger-out") + 1] == f"{out}/runway-ledger.jsonl"
+    assert argv[argv.index("--run-id") + 1] == "123"
+    if previous:
+        assert argv[argv.index("--ledger-in") + 1] == f"{out}/previous-runway-ledger.jsonl"
+    else:
+        assert "--ledger-in" not in argv
+    upload = _step("Upload workspace snapshot")
+    assert "data/cache/forward-out/runway-ledger.jsonl" in str(upload["with"]["path"])
+    restore = str(_step("Restore previous workspace (fails closed)")["run"])
+    assert 'runway-ledger.jsonl "$OUT/previous-runway-ledger.jsonl"' in restore
