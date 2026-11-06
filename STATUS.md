@@ -1,5 +1,35 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): unattended official fee-document capture
+
+Branch `claude/vibrant-bohr-ypomud`, **stacked on PR #5** (`claude/vibrant-bohr-wr375g`).
+**V1 remains incomplete.** Open PRs #1, #2, #4 and #5 had no review comments or failing
+checks at the start of this run; none were merged, so this run avoided duplicating them.
+
+- **Why.** "Certified fees" is an open V1 gate. The official fee schedule PDF could not be
+  fetched from cloud sessions (HTTP 429 in October; proxy refusal now), so no authentic bytes
+  existed for an operator to review. GitHub runners have the public egress (issue #3).
+- **What.** `fee_admin --capture-due schedule rounding` captures each official document only
+  when the retained copy is stale (success > 24 h, failure > 3 h), stores every attempt as an
+  immutable **unreviewed** authentic receipt and prints per-document JSON (status, bytes,
+  SHA-256, `is_pdf`). Network errors store nothing and do not fail. `forward-collection.yml`
+  runs it after the server stops, so the bytes travel in the chained workspace snapshot and
+  the result appears in the job log. Nothing is certified; `select_fee` still refuses.
+- **Tests.** `backend/tests/unit/test_fee_capture_due.py` (5 cases): cadence, immutable
+  re-capture, failure throttling, transport errors, per-document tracking and refusal of
+  uncertified captures. Full-suite and runner results are recorded below.
+- **Chain upkeep.** Dispatched forward-collection run `42136454980` on PR #5's branch to
+  continue that chain (labels for 2026-11-05 are now due).
+
+Results: local Ruff lint/format and strict mypy (562 files) pass; full pytest and runner verification run `42136976908` are in progress at this commit and will be recorded in a follow-up commit.
+
+**Next for the user:** review/merge #1 → #5 → this PR so the 4-hourly cron runs on `main`.
+Once a run reports `is_pdf: true` for the schedule, restore that snapshot locally and perform
+the operator fee review described in [fee evidence](docs/fee-evidence.md) (human attestation;
+the agent must not certify fees). **Next autonomous milestone:** keep the chains alive and,
+after several days, promote a snapshot to a reviewed evidence directory and rerun model
+readiness.
+
 ## Current milestone (2026-11-05): headless authentic forward collection on GitHub runners
 
 Branch `claude/vibrant-bohr-wr375g`. **V1 remains incomplete.** Addresses blocker #3.
