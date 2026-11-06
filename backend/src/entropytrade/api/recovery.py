@@ -12,7 +12,7 @@ from contextlib import contextmanager
 from pathlib import Path, PurePosixPath
 from tempfile import TemporaryDirectory
 from typing import Any
-from zipfile import BadZipFile, ZipFile, ZipInfo
+from zipfile import ZIP_DEFLATED, ZIP_STORED, BadZipFile, ZipFile, ZipInfo
 
 from entropytrade.api.jobs import identifier, timestamp, validate_request
 from entropytrade.api.workspace import workspace_lease, workspace_path
@@ -384,7 +384,9 @@ def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[
         encoded_manifest = json.dumps(manifest, sort_keys=True)
         if len(encoded_manifest.encode()) > MAX_MANIFEST_BYTES:
             raise ValueError("workspace exceeds snapshot manifest budget")
-        with ZipFile(temporary, "w") as bundle:
+        # Deflate: retained JSON evidence compresses ~10x, which keeps chained uploads and
+        # restores fast. Restore bounds every member by its declared size and checksum.
+        with ZipFile(temporary, "w", compression=ZIP_DEFLATED, compresslevel=6) as bundle:
             bundle.writestr("manifest.json", encoded_manifest)
             for item in files:
                 bundle.write(payload / item["path"], "files/" + item["path"])
@@ -416,6 +418,7 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
                 member.is_dir()
                 or stat.S_IFMT(mode) not in {0, stat.S_IFREG}
                 or member.flag_bits & 1
+                or member.compress_type not in {ZIP_STORED, ZIP_DEFLATED}
             ):
                 raise ValueError("snapshot members must be unencrypted regular files")
         if (

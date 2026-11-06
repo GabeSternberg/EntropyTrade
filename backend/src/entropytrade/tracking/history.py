@@ -103,8 +103,6 @@ def anchor(jobs: "Jobs") -> date:
 def selected_inputs(
     jobs: "Jobs", partition_id: str | None, outcome_partition_id: str | None
 ) -> tuple[list[Path], list[Path], frozenset[str]]:
-    from entropytrade.api.recovery import check_artifacts
-
     partitions = catalog(jobs)["partitions"]
     if partition_id is None and len(partitions) > 1:
         raise ValueError("history exceeds 128 inputs; select a browser history partition")
@@ -120,7 +118,21 @@ def selected_inputs(
     )
     if labels is None:
         raise ValueError("outcome partition changed or is unknown; refresh the catalog")
-    captures = [input_root(jobs, e) / "public" for e in chosen["members"]]
+    return member_inputs(jobs, chosen["members"], labels["members"])
+
+
+def member_inputs(
+    jobs: "Jobs", members: list[dict[str, Any]], label_members: list[dict[str, Any]]
+) -> tuple[list[Path], list[Path], frozenset[str]]:
+    """Verified capture/outcome roots and workspace-wide protection for catalog members.
+
+    Members must come from `catalog`; callers may pass any bounded subset of one partition.
+    """
+    from entropytrade.api.recovery import check_artifacts
+
+    if len(members) > PARTITION_SIZE or len(label_members) > PARTITION_SIZE:
+        raise ValueError("history selection exceeds one bounded partition")
+    captures = [input_root(jobs, e) / "public" for e in members]
     protected: set[str] = set()
     # Protection belongs to the workspace, independent of the selected receipt page.
     with jobs.connect() as db:
@@ -138,9 +150,7 @@ def selected_inputs(
                 ) != binding.get("binding_hash"):
                     raise ValueError("history model protection hash mismatch")
                 protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
-        selected = {
-            e["id"]: e for e in chosen["members"] + labels["members"] if e["kind"] == "shadow"
-        }
+        selected = {e["id"]: e for e in members + label_members if e["kind"] == "shadow"}
         for entry in selected.values():
             row = db.execute(
                 "SELECT result, digest FROM shadow_cycles WHERE id=?", (entry["id"],)
@@ -162,7 +172,7 @@ def selected_inputs(
                     json.loads((root / "decision-inputs.json").read_text())["data"]
                 ).protected_events
             )
-    outcomes = [input_root(jobs, entry) for entry in labels["members"] if entry["kind"] == "shadow"]
+    outcomes = [input_root(jobs, entry) for entry in label_members if entry["kind"] == "shadow"]
     return captures, outcomes, frozenset(protected)
 
 
