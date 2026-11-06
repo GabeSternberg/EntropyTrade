@@ -1,0 +1,53 @@
+<testsuites id="" name="" tests="2" failures="1" skipped="1" errors="0" time="41.48015399999999">
+<testsuite name="prospective.spec.cjs" timestamp="2026-11-05T20:25:22.237Z" hostname="" tests="2" failures="1" skipped="1" time="40.085" errors="0">
+<testcase name="prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" classname="prospective.spec.cjs" time="40.085">
+<failure message="prospective.spec.cjs:11:3 prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" type="FAILURE">
+<![CDATA[  prospective.spec.cjs:11:3 › prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore 
+
+    AssertionError: Recovery refused: unable to open database file
+
+
+    1 !== 0
+
+
+      30 |     function command(args) {
+      31 |       const result = spawnSync(python, args, { cwd: repo, env, encoding: "utf8", timeout: 120_000 });
+    > 32 |       assert.equal(result.status, 0, result.stdout + result.stderr); return result.stdout;
+         |              ^
+      33 |     }
+      34 |     async function start() {
+      35 |       assert(!await fetch(origin + "/api/catalog").catch(() => null), "Port occupied");
+        at command (/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:32:14)
+        at /home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:85:7
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/test-failed-1.png]]
+
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/error-context.md]]
+
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore" classname="prospective.spec.cjs" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

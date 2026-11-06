@@ -10,6 +10,19 @@
 | Multi-day authentic operation | Scheduled runs after merge to `main` | **Not yet observed.** Verification windows are not multi-day operation. |
 | Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
 
+# Prospective-evaluation acceptance completion — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-l2suow` from main `55b2bea`. Closes the
+outstanding browser, listener and complete-suite gates of the October 31 milestone below.
+[Executed evidence](../data/prospective-evaluation-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Offline snapshot/restore portability | `api/recovery.py`, `api/recovery_proof.py`, `tests/architecture/test_sqlite_uri.py` | **Defect fixed.** Read-only `file:` URIs lacked `uri=True`; recovery refused on SQLite builds without `SQLITE_USE_URI`. Static guard fails on the pre-fix tree. |
+| Real website/browser acceptance | `prospective.spec.cjs`, receipts, screenshots, downloads, traces | **Pass:** both procedures (controlled synthetic; authentic insufficiency), 6 screenshots, 12 downloads identical across restart and offline restore, 0 page errors. First attempt (failed at snapshot) retained. Chromium 153 (preinstalled build 1243) used at the pinned path; exact build 1194 not claimed. |
+| Complete quality gate | Ruff/format, strict mypy (557 files), 24 frontend, full JUnit | **Pass:** all **1,320 pytest cases in 619.14s**, zero failures/errors/skips, incl. 11 listener cases and 14 shadow-history cases. 73 original receipt/Bitcoin hashes unchanged. |
+| Remaining V1 gates | Existing empirical/provider/fee/family gates | Unchanged: authentic history/validation, certified fees, authorized provider verification, approved second family, multi-day operation and independent review remain open. |
+
 # Prospective shadow-evaluation reports — October 31, 2026
 
 **complete=false.** Implemented on designated `supervisor/20261031-081845` from `a83b9db`;
