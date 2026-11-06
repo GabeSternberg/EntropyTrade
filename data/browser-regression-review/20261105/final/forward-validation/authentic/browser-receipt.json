@@ -1,0 +1,409 @@
+{
+  "status": "passed",
+  "kind": "authentic",
+  "started_at": "2026-11-05T21:56:46.067Z",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "browser": "153.0.8010.12",
+  "origin": "http://127.0.0.1:18749",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic",
+  "operations": [
+    {
+      "action": "start",
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic"
+    },
+    {
+      "action": "initial-source-results",
+      "schedule": {
+        "schema_version": "weather-label-schedule-v1",
+        "config": {
+          "id": "caa2fede-2ae7-4645-820d-32f77833e13d",
+          "dataset_id": "587e924f65f4bdd6f8984c2d199a06b64cec96e70a63f02a1a50d02245eb9cd3",
+          "enabled": true,
+          "interval_seconds": 300,
+          "batch_dates": 8,
+          "follow_retained": true
+        },
+        "status": "active",
+        "created_at": "2026-11-05T21:57:03.619910Z",
+        "updated_at": "2026-11-05T21:57:05.201864Z",
+        "next_discovery": "2026-11-05T22:02:04.721869Z",
+        "discovery_cursor": 1,
+        "work": [
+          {
+            "key": "sha256:dd43247ba1ae90b14ec6976702f7c0d7de11f5daba5b67c9f0ccd8a8107200d1",
+            "dataset_id": "587e924f65f4bdd6f8984c2d199a06b64cec96e70a63f02a1a50d02245eb9cd3",
+            "day": "2026-10-29",
+            "targets": [
+              {
+                "event_id": "KXHIGHCHI-26OCT29",
+                "station": "CLIMDW",
+                "target_date": "2026-10-29",
+                "timezone": "America/Chicago",
+                "rules_hashes": [
+                  "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+                  "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+                  "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+                  "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+                  "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+                  "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+                ],
+                "refusal": ""
+              },
+              {
+                "event_id": "KXHIGHPHIL-26OCT29",
+                "station": "CLIPHL",
+                "target_date": "2026-10-29",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+                  "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+                  "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+                  "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+                  "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+                  "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "retry",
+            "next_at": "2026-11-05T22:02:05.201864Z",
+            "attempts": 1,
+            "failures": 1,
+            "last_request": "8958089d-08e0-545f-8a64-aa0d6617e7ac",
+            "last_batch": "sha256:973828db3d0fc32271075a20be8b250045d34adab662786cb65b710d5c2540ab",
+            "detail": "ConnectError: public settlement source unavailable"
+          },
+          {
+            "key": "sha256:3da272abf691a617e8d5285ecd1502e11aff5742024b2ce997d63552079a8d35",
+            "dataset_id": "587e924f65f4bdd6f8984c2d199a06b64cec96e70a63f02a1a50d02245eb9cd3",
+            "day": "2026-10-30",
+            "targets": [
+              {
+                "event_id": "KXHIGHCHI-26OCT30",
+                "station": "CLIMDW",
+                "target_date": "2026-10-30",
+                "timezone": "America/Chicago",
+                "rules_hashes": [
+                  "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+                  "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+                  "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+                  "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+                  "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+                  "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+                ],
+                "refusal": ""
+              },
+              {
+                "event_id": "KXHIGHPHIL-26OCT30",
+                "station": "CLIPHL",
+                "target_date": "2026-10-30",
+                "timezone": "America/New_York",
+                "rules_hashes": [
+                  "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+                  "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+                  "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+                  "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+                  "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+                  "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+                ],
+                "refusal": ""
+              }
+            ],
+            "status": "retry",
+            "next_at": "2026-11-05T22:02:05.201864Z",
+            "attempts": 1,
+            "failures": 1,
+            "last_request": "8958089d-08e0-545f-8a64-aa0d6617e7ac",
+            "last_batch": "sha256:973828db3d0fc32271075a20be8b250045d34adab662786cb65b710d5c2540ab",
+            "detail": "ConnectError: public settlement source unavailable"
+          }
+        ],
+        "sequence": 1,
+        "inflight": null,
+        "inflight_keys": [],
+        "detail": "Batch reconciled; original receipt clocks retained",
+        "controls": [
+          {
+            "action": "opt_in",
+            "at": "2026-11-05T21:57:03.619910+00:00"
+          }
+        ],
+        "counts": {
+          "retry": 2
+        },
+        "submission_enabled": false,
+        "limitation": "Receipt-time labels only; insufficient-data and frozen model gates remain enforced."
+      }
+    },
+    {
+      "action": "authentic-new-acquisition",
+      "acquisitions": [
+        {
+          "batch_version": "sha256:973828db3d0fc32271075a20be8b250045d34adab662786cb65b710d5c2540ab",
+          "created_at": "2026-11-05T21:57:04.882348+00:00",
+          "detail": "Acquisition finished; inspect verified labels and explicit source refusals",
+          "finished_at": "2026-11-05T21:57:04.996451+00:00",
+          "id": "8958089d-08e0-545f-8a64-aa0d6617e7ac",
+          "receipts": [
+            {
+              "body_base64": "",
+              "error": "ConnectError: public settlement source unavailable",
+              "headers": {},
+              "received_at": "2026-11-05T21:57:04.988201Z",
+              "status": null,
+              "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-29"
+            },
+            {
+              "body_base64": "",
+              "error": "ConnectError: public settlement source unavailable",
+              "headers": {},
+              "received_at": "2026-11-05T21:57:04.991765Z",
+              "status": null,
+              "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-30"
+            }
+          ],
+          "selection": {
+            "dataset_id": "587e924f65f4bdd6f8984c2d199a06b64cec96e70a63f02a1a50d02245eb9cd3",
+            "protected_events": [],
+            "targets": [
+              {
+                "event_id": "KXHIGHCHI-26OCT29",
+                "refusal": "",
+                "rules_hashes": [
+                  "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+                  "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+                  "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+                  "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+                  "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+                  "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+                ],
+                "station": "CLIMDW",
+                "target_date": "2026-10-29",
+                "timezone": "America/Chicago"
+              },
+              {
+                "event_id": "KXHIGHPHIL-26OCT29",
+                "refusal": "",
+                "rules_hashes": [
+                  "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+                  "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+                  "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+                  "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+                  "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+                  "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+                ],
+                "station": "CLIPHL",
+                "target_date": "2026-10-29",
+                "timezone": "America/New_York"
+              },
+              {
+                "event_id": "KXHIGHCHI-26OCT30",
+                "refusal": "",
+                "rules_hashes": [
+                  "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+                  "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+                  "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+                  "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+                  "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+                  "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+                ],
+                "station": "CLIMDW",
+                "target_date": "2026-10-30",
+                "timezone": "America/Chicago"
+              },
+              {
+                "event_id": "KXHIGHPHIL-26OCT30",
+                "refusal": "",
+                "rules_hashes": [
+                  "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+                  "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+                  "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+                  "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+                  "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+                  "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+                ],
+                "station": "CLIPHL",
+                "target_date": "2026-10-30",
+                "timezone": "America/New_York"
+              }
+            ]
+          },
+          "selection_hash": "sha256:0e9d8ad89f81c9d41c610186ae21b1569f96956cbe6e672a17990d739a4825ff",
+          "status": "completed",
+          "result": {
+            "version": "sha256:973828db3d0fc32271075a20be8b250045d34adab662786cb65b710d5c2540ab",
+            "source_dataset": "sha256:587e924f65f4bdd6f8984c2d199a06b64cec96e70a63f02a1a50d02245eb9cd3",
+            "verified_events": 0,
+            "refused_events": 4,
+            "records": [
+              {
+                "target": {
+                  "event_id": "KXHIGHCHI-26OCT29",
+                  "station": "CLIMDW",
+                  "target_date": "2026-10-29",
+                  "timezone": "America/Chicago",
+                  "rules_hashes": [
+                    "sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7",
+                    "sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6",
+                    "sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764",
+                    "sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900",
+                    "sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b",
+                    "sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906"
+                  ],
+                  "refusal": ""
+                },
+                "observation": null,
+                "refusal": "ConnectError: public settlement source unavailable"
+              },
+              {
+                "target": {
+                  "event_id": "KXHIGHPHIL-26OCT29",
+                  "station": "CLIPHL",
+                  "target_date": "2026-10-29",
+                  "timezone": "America/New_York",
+                  "rules_hashes": [
+                    "sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4",
+                    "sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb",
+                    "sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3",
+                    "sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6",
+                    "sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33",
+                    "sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6"
+                  ],
+                  "refusal": ""
+                },
+                "observation": null,
+                "refusal": "ConnectError: public settlement source unavailable"
+              },
+              {
+                "target": {
+                  "event_id": "KXHIGHCHI-26OCT30",
+                  "station": "CLIMDW",
+                  "target_date": "2026-10-30",
+                  "timezone": "America/Chicago",
+                  "rules_hashes": [
+                    "sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0",
+                    "sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3",
+                    "sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9",
+                    "sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9",
+                    "sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852",
+                    "sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e"
+                  ],
+                  "refusal": ""
+                },
+                "observation": null,
+                "refusal": "ConnectError: public settlement source unavailable"
+              },
+              {
+                "target": {
+                  "event_id": "KXHIGHPHIL-26OCT30",
+                  "station": "CLIPHL",
+                  "target_date": "2026-10-30",
+                  "timezone": "America/New_York",
+                  "rules_hashes": [
+                    "sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561",
+                    "sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6",
+                    "sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72",
+                    "sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f",
+                    "sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3",
+                    "sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262"
+                  ],
+                  "refusal": ""
+                },
+                "observation": null,
+                "refusal": "ConnectError: public settlement source unavailable"
+              }
+            ],
+            "receipts": [
+              {
+                "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-29",
+                "received_at": "2026-11-05T21:57:04.988201Z",
+                "status": null,
+                "headers": {},
+                "error": "ConnectError: public settlement source unavailable",
+                "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "bytes": 0
+              },
+              {
+                "url": "https://weather.com/kalshi/api/climate/primary?date=2026-10-30",
+                "received_at": "2026-11-05T21:57:04.991765Z",
+                "status": null,
+                "headers": {},
+                "error": "ConnectError: public settlement source unavailable",
+                "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "bytes": 0
+              }
+            ],
+            "submission_enabled": false
+          }
+        }
+      ]
+    },
+    {
+      "action": "stop",
+      "epoch": 1
+    },
+    {
+      "action": "start",
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic"
+    },
+    {
+      "action": "stop",
+      "epoch": 2
+    },
+    {
+      "action": "offline-restore",
+      "archive": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic.zip",
+      "sha256": "2b5f39a591a8bad98ee271bd8c7ef14ea85df7ad1afb9b73e23999d7fa5cec04",
+      "restored": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic-restored"
+    },
+    {
+      "action": "start",
+      "epoch": 3,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/forward-validation-forward-authentic-restored"
+    },
+    {
+      "action": "stop",
+      "epoch": 3
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "authentic-source-progress.png",
+      "sha256": "1e70b1791d00c95a9f122c7e8b3d77436526d56ad800042e0b612e9cff279c1f"
+    },
+    {
+      "file": "frozen-insufficient-data.png",
+      "sha256": "e207cfe1ad83a88dd65716055ca2ecec5ba40fdddb58d2c543f468798c83c1cb"
+    },
+    {
+      "file": "restart-paused.png",
+      "sha256": "756b16442729c7594025c0ce95b95cd2d3a68bde4e7a03f6984d0342bc0170d7"
+    },
+    {
+      "file": "offline-restored.png",
+      "sha256": "756b16442729c7594025c0ce95b95cd2d3a68bde4e7a03f6984d0342bc0170d7"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "paused-state.json",
+      "sha256": "ceb259b2de071d546c66de4c27a0925435a591a0e3628ab9ea5a486e83f839d5"
+    },
+    {
+      "file": "restart-state.json",
+      "sha256": "ceb259b2de071d546c66de4c27a0925435a591a0e3628ab9ea5a486e83f839d5"
+    },
+    {
+      "file": "restored-state.json",
+      "sha256": "ceb259b2de071d546c66de4c27a0925435a591a0e3628ab9ea5a486e83f839d5"
+    }
+  ],
+  "page_errors": [],
+  "evidence_scope": "Authentic original whole shadow receipt replay plus new authentic read-only label acquisition. No clock override.",
+  "limitations": [
+    "V1 incomplete. Sparse history, missing empirical models and uncertified fees still refuse trading; submissions disabled."
+  ],
+  "finished_at": "2026-11-05T21:57:43.258Z"
+}

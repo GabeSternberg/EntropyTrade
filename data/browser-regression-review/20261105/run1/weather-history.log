@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart (6ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/weather-history/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/weather-history/playwright-artifacts/weather-history-authentic--7831b-earch-downloads-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    weather-history.spec.cjs:10:1 › authentic retained weather: freeze, select, research, downloads and restart 
+  1 error was not a part of any test, see above for details

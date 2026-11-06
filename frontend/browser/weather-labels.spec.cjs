@@ -75,7 +75,7 @@ test("authentic weather labels: acquire, inspect provenance, freeze and restart"
   try {
     // The importer confines metadata to the installed repository. Locked runs keep
     // browser evidence beside that repository, so retain a copy after import succeeds.
-    const imported = path.join(repo, "data/cache", `${path.basename(workspace)}-authentic-inputs.json`);
+    const imported = workspace + "-authentic-inputs.json";
     const seeded = spawnSync(python, ["-m", "tests.integration.weather_history_retained", workspace, imported], { cwd: repo, env, encoding: "utf8", timeout: 30_000 });
     assert.equal(seeded.status, 0, seeded.stdout + seeded.stderr);
     fs.copyFileSync(imported, path.join(evidence, "authentic-inputs.json"), fs.constants.COPYFILE_EXCL);

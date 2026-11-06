@@ -241,7 +241,7 @@ async function procedure(page, browser, controlled) {
     }
     await shot("restart-paused");
     await stop();
-    const archive = path.join(repo, "data/cache", path.basename(workspace) + ".zip");
+    const archive = workspace + ".zip";
     command(["-m", "entropytrade.api.recovery", "snapshot", "--workspace", workspace, "--archive", archive], "snapshot");
     const restored = workspace + "-restored";
     command(["-m", "entropytrade.api.recovery", "restore", "--workspace", restored, "--archive", archive], "restore");

@@ -468,7 +468,154 @@ days, promote a snapshot to a reviewed evidence directory and rerun model readin
 Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective-evaluation acceptance completion (2026-11-05)
+## Open work (read first)
+
+| Item | Branch / link | State |
+|---|---|---|
+| Read-only SQLite URI fix and prospective-evaluation gates | PR #1 `claude/vibrant-bohr-l2suow` | Merged after fresh review, full local checks, and both final-head CI runs. |
+| Browser regression sweep, label-partition render fix, first CI workflow | PR #2 `claude/vibrant-bohr-b1kuuh` | Merged after retargeting to main, fresh review, and both final-head CI runs. |
+| Market-family screening (this milestone) | PR #4 `claude/vibrant-bohr-0m71vf`, from `main` | Reconciled with tested main; receipt-order, update-clock, and numeric-format review findings fixed. Final CI pending. |
+| No public egress in scheduled sessions | Issue #3 | Blocks authentic forward collection, fresh-acquisition browser specs and catalog fetches. |
+
+## Current milestone (2026-11-06): runner catalog discovery and candidate screen
+
+Branch `claude/vibrant-bohr-etkgi2`, **stacked on PR #4** (`claude/vibrant-bohr-0m71vf`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7 had no
+review comments and no failing checks, so this run did not duplicate them. It also
+dispatched forward-collection run `42143557484` on PR #7's branch to keep that chain going.
+
+- **What.** `entropytrade family-discover` retains unauthenticated `GET /series?category=`
+  receipts with a hashed manifest and lists every series alphabetically. It never ranks or
+  selects. The `family-catalog` workflow runs discovery, then optional per-ticker
+  `family-screen --fetch-series`, on GitHub-hosted runners, which have the egress that cloud
+  sessions lack (issue #3). Its file was committed through the contents API.
+- **Tests.** Full pytest: 1,300 passed and 57 failed (628.45s). The failures are the same 57 #1-dependent tests PR #4 recorded on this base. `backend/tests/unit/test_family_discovery.py` has 14 cases:
+  - receipt retention, including non-200 responses;
+  - deterministic listing;
+  - tamper, path-escape and conflicting-ticker refusals;
+  - malformed bodies;
+  - byte-budget and transport errors with no retry;
+  - category validation before any request;
+  - path allow-list;
+  - offline CLI.
+- **Real results.**
+  - Discovery listed 3,646 series. Entertainment, Politics and Sports exceeded the 2 MB
+    response budget and are recorded as unusable.
+  - Screening six candidates confirmed from the listing gave these finalized daily labels:
+    KXAAAGASD 70 events, KXSOFRD 64, KXTNOTED 40 (history ends 2026-07-01) and
+    KXTXERCOTPEAKD 38.
+  - KXTSA and KXEURUSDD had no markets.
+  - Coverage is truncated by the 3-page cap.
+  - See [evidence](data/family-screening-review/20261106/README.md).
+- **Not established.** Point-in-time predictors, effective fees, depth and skill are not
+  established for any candidate.
+
+**Next for the user:**
+1. Review and merge #1 → #2 → #4 → this PR, and #5 → #7.
+2. Record a written second-family choice (see `docs/family-selection.md`).
+
+**Next autonomous milestone:** keep the forward-collection chain alive. Once a family is
+approved, design its point-in-time predictor capture. Without approval, a deeper screen
+(`max_pages` or additional candidates) is the only family work allowed.
+
+## Current milestone: market-family screening (2026-11-05)
+
+**V1 remains incomplete.** The new `entropytrade family-screen` command compares Kalshi
+series using retained public catalog receipts. It is meant to support the user's
+second-family decision, and it never selects a family.
+
+Per series, it reports:
+
+- coverage;
+- finalized YES/NO labels;
+- event and date counts;
+- contract structure;
+- traded share and volume;
+- rule wording (verbatim earliest and latest text);
+- fee and source metadata;
+- the existing fitting minimum of 40 labeled events on 20 dates with both outcomes.
+
+The JSON is deterministic and hashes every input. Malformed, contradictory or tampered
+receipts are refused.
+
+The optional `--fetch-series` mode sends unauthenticated GETs to Kalshi's catalog paths
+only, through the existing `BoundedTransport`. It keeps every response, including failures,
+with a hashed manifest.
+
+**Retained-receipt result.** 29 receipts were screened, covering 4,576 markets:
+
+- KXHIGHPHIL meets the label minimum: 681 events on 681 dates, 2024-11-21 to 2026-10-04.
+  Its rule wording changed from the NWS Daily Climate Report to The Weather Company, so
+  older labels do not share current settlement semantics.
+- The retained KXBTC captures contain no finalized results.
+- KXNHL and KXMVECROSSCATEGORY have series metadata only.
+
+The one live fetch attempt failed with no egress (issue #3); no fetched catalog is claimed.
+See [docs/family-selection.md](docs/family-selection.md) and the
+[evidence](data/family-screening-review/20261105/README.md).
+
+**Original author checks (historical; retained evidence unchanged).**
+
+- Ruff lint and format pass on the repository.
+- Strict mypy passes on 558 files.
+- All 25 screening tests pass.
+- Full suite on this branch: 1,285 passed and 57 failed in 554.06s on this branch. All 57 failures come from the
+  pre-existing `main` read-only SQLite URI defect (56 log `unable to open database file`).
+  With only PR #1's two-file fix applied to `main`, all 57 pass in 239.63s. This is not a
+  clean full-suite pass; it becomes one once PR #1 merges.
+
+**Next.**
+
+1. Review and merge PRs #1, #2 and this PR, in that order.
+2. In an environment with egress, fetch three to six candidate series from non-temperature
+   categories, screen them, and record the user's written family choice.
+3. Resume authentic forward collection once egress exists.
+
+New-family implementation, credentials and real trading remain out of scope without
+approval.
+
+**Reconciliation, 2026-11-06.** The 57 original failures above are historical. PR #1's
+recovery fix and PR #2's frontend/CI changes are now on tested main and integrated here.
+Fresh screening regressions cover receipt permutations, invalid update clocks and mixed
+volume fields; all 31 focused cases, Ruff and strict mypy pass. Full CI must pass on the
+final reconciled commit before merge. [Reconciliation tracker](https://github.com/GabeSternberg/EntropyTrade/issues/25).
+
+## Current milestone: full browser regression sweep and CI (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-b1kuuh`, stacked on PR #1 (its SQLite URI
+fix is needed for offline restore); PR opened against main for review. **V1 remains incomplete.**
+
+**Browser sweep.** All 14 `frontend/browser` spec files ran against the current tree through
+real listeners and managed Chromium.
+- **Passing:** 19 tests across 12 spec files, plus 3 of 4 workbench workflows, all with zero
+  page errors.
+- **Failing for network only:** `weather-labels` and workbench workflow 3 need public egress,
+  which this runtime's proxy refuses. The app retained `ConnectError` receipts and refused
+  honestly.
+- **Shadow:** `shadow.spec.cjs` passes its lifecycle checks, but all of its public acquisition
+  failed, so it is not ingestion evidence.
+
+**Fixes.**
+- **App defect:** overlapping label-partition renders could show one partition's requests
+  while another was selected. Now only the newest render is applied. A DOM regression
+  reproduces the old behaviour.
+- **Harness defects:** a fixed or basename-derived archive path collided across runs, and
+  `data/recovery/` was not ignored. The outage screenshot now targets the HTTP 503 request.
+
+**CI.** New `.github/workflows/ci.yml` runs locked uv, Ruff, strict mypy, frontend DOM tests and
+the full pytest suite with no secrets. It passes on GitHub: **1,320 tests in 693.83s**.
+
+See [evidence](data/browser-regression-review/20261105/README.md).
+
+**Next recommended milestone:**
+1. Re-run `weather-labels` and workbench workflow 3 in a runtime with public egress.
+2. Continue authentic forward collection (needs elapsed real time).
+3. Prepare the user-approval comparison for a second market family.
+
+Credential-dependent provider verification, certified fees and real trading remain blocked on
+the user.
+
+## Previous milestone: prospective-evaluation acceptance completion (2026-11-05)
 
 Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
 against main for review. **V1 remains incomplete.**
