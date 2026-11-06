@@ -1,0 +1,67 @@
+{
+  "started_at": "2026-11-05T22:04:19.977Z",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "origin": "http://127.0.0.1:18777",
+  "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history-controlled",
+  "status": "passed",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "controlled-before-entropytrade-81c3983a-b3f0-4cc8-922c-576462d48414.json",
+      "sha256": "b13552b170bd027e993930cddb7214a7675dc2d2a9f96ad8761803acb4d9f089"
+    },
+    {
+      "file": "controlled-before-entropytrade-81c3983a-b3f0-4cc8-922c-576462d48414.txt",
+      "sha256": "e4b301c8c749b936bfa35d650ef42611e684dd4b7b224ef74ab4806d4deddbf3"
+    },
+    {
+      "file": "controlled-after-entropytrade-81c3983a-b3f0-4cc8-922c-576462d48414.json",
+      "sha256": "b13552b170bd027e993930cddb7214a7675dc2d2a9f96ad8761803acb4d9f089"
+    },
+    {
+      "file": "controlled-after-entropytrade-81c3983a-b3f0-4cc8-922c-576462d48414.txt",
+      "sha256": "e4b301c8c749b936bfa35d650ef42611e684dd4b7b224ef74ab4806d4deddbf3"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "controlled-history-review.png",
+      "sha256": "d9e038890e8634df4c06fca99f5a35b639e9c4bff57b1c65c57120822535cb83"
+    },
+    {
+      "file": "controlled-history-probabilities.png",
+      "sha256": "956445e1c1d0a068910dde5323c966968269ce7f83c25ad1bf404e8433502797"
+    },
+    {
+      "file": "controlled-history-evidence.png",
+      "sha256": "7ffae1ffd07f2f6ddb41f648511a2781dee41900e7feed154bc4c5e907859bf0"
+    },
+    {
+      "file": "controlled-history-reopened.png",
+      "sha256": "f146aed4eb1a56db4127dde8ab219ee15272306d43d33a14969db1674a3c2146"
+    }
+  ],
+  "evidence_kind": "CONTROLLED SOFTWARE EVIDENCE",
+  "limitations": [
+    "CONTROLLED market/source/outcome setup; actual listener and unmodified subprocess worker. No empirical evidence. Adapter data_kind=real denotes the receipt-processing path only.",
+    "Controlled synthetic model checks are separate pytest evidence."
+  ],
+  "fixture": {
+    "evidence": "CONTROLLED SOFTWARE EVIDENCE; no real ingestion or empirical performance",
+    "partition": {
+      "anchor": "2026-07-01",
+      "fit_before": "2026-08-30",
+      "holdout_start": "2026-09-29"
+    },
+    "received_at": "2026-10-01T12:00:00+00:00",
+    "captures": [
+      "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history-controlled/runs/63781cfa-3190-4b6c-83e0-db65edaaf39c/public",
+      "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history-controlled/runs/57e8e862-f606-4407-b175-ca0c7cf2604d/public",
+      "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history-controlled/runs/7ea17b87-76c4-439b-bf21-bc4aa0605df0/public"
+    ],
+    "previous": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/bitcoin-history-controlled/runs/044d0fb9-0b88-4c4c-a92f-66bcb97ab396/history",
+    "protected_event": "KXBTC-26SEP2917"
+  },
+  "finished_at": "2026-11-05T22:04:52.606Z"
+}

@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 shadow.spec.cjs:10:1 › continuous shadow: research, capture, pause, restart, resume and durable evidence (3ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) shadow.spec.cjs:10:1 › continuous shadow: research, capture, pause, restart, resume and durable evidence 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/shadow/playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/shadow/playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    shadow.spec.cjs:10:1 › continuous shadow: research, capture, pause, restart, resume and durable evidence 
+  1 error was not a part of any test, see above for details

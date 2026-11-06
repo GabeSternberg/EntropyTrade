@@ -1,0 +1,246 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "EntropyTrade home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e4]: E
+      - text: EntropyTrade
+    - generic [ref=e5]: ● PRIVATE · LOCALHOST
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: THE RESEARCH DESK
+        - heading "From an idea to evidence." [level=1] [ref=e10]
+        - paragraph [ref=e11]: Formulate a hypothesis. Test what the data can support. Keep the full lineage.
+      - generic [ref=e12]: Research only · execution disabled
+    - generic [ref=e13]:
+      - complementary [ref=e14]:
+        - region "What would you like to test?" [ref=e15]:
+          - paragraph [ref=e16]: 01 / NEW EXPERIMENT
+          - heading "What would you like to test?" [level=2] [ref=e17]
+          - generic [ref=e18]:
+            - generic [ref=e19]: Research idea
+            - textbox "Research idea" [ref=e20]:
+              - /placeholder: Do upward forecast revisions improve weather contract probabilities?
+              - text: Do upward forecast revisions improve weather contract probabilities?
+            - generic [ref=e21]:
+              - button "Weather" [ref=e22] [cursor=pointer]
+              - button "Bitcoin" [ref=e23] [cursor=pointer]
+              - button "Software demo" [ref=e24] [cursor=pointer]
+            - generic [ref=e25]: Market family
+            - combobox "Market family" [ref=e26]:
+              - option "Weather · daily high temperature" [selected]
+              - option "Bitcoin · KXBTC contracts"
+            - generic [ref=e27]: Data source
+            - combobox "Data source" [ref=e28]:
+              - option "Legacy six-event weather sample"
+              - option "Retained weather dataset" [selected]
+              - option "Fetch public sources now"
+              - option "Retained Bitcoin history + official outcomes" [disabled]
+              - option "Synthetic weather demonstration"
+            - paragraph [ref=e29]: Use the selected immutable dataset of retained weather receipts. Review readiness and exact evidence shortages below. Models fit only through existing evidence gates; holdout dates remain frozen.
+            - generic [ref=e30]: Hypothesis formulation
+            - combobox "Hypothesis formulation" [ref=e31]:
+              - option "Local templates · no provider credentials" [selected]
+              - option "Provider research · server configuration required" [disabled]
+            - paragraph [ref=e32]: "Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f >= 1.25 and hours_to_close < 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only."
+            - button "Start research" [ref=e33] [cursor=pointer]:
+              - text: Start research
+              - generic [ref=e34]: ↗
+            - status
+        - region "Retained weather history" [ref=e35]:
+          - heading "Retained weather history" [level=2] [ref=e36]
+          - paragraph [ref=e37]: Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.
+          - generic [ref=e38]: History partition
+          - combobox "History partition" [ref=e39]:
+            - option "All retained inputs (up to 128)" [selected]
+            - option "Partition 1 · 2 inputs (0 shadow) · 2026-11-05T21:55:11.282253+00:00 → 2026-11-05T21:55:11.331302+00:00"
+          - generic [ref=e40]: Outcome partition
+          - combobox "Outcome partition" [ref=e41]:
+            - option "Same partition as history" [selected]
+            - option "Partition 1 · 2 inputs (0 shadow) · 2026-11-05T21:55:11.282253+00:00 → 2026-11-05T21:55:11.331302+00:00"
+          - paragraph [ref=e42]: 2 retained inputs across 1 bounded partitions. Each selection processes at most 128 captures and 128 outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.
+          - button "Refresh history partitions" [ref=e43] [cursor=pointer]
+          - button "Freeze retained weather dataset" [ref=e44] [cursor=pointer]
+          - generic [ref=e45]: Cohort history partitions
+          - listbox "Cohort history partitions" [ref=e46]:
+            - option "Partition 1 · 2 inputs · 2026-11-05T21:55:11.282253+00:00 → 2026-11-05T21:55:11.331302+00:00" [ref=e47]
+          - generic [ref=e48]: Cohort outcome partitions (optional)
+          - listbox "Cohort outcome partitions (optional)" [ref=e49]:
+            - option "Partition 1 · 2 inputs · 2026-11-05T21:55:11.282253+00:00 → 2026-11-05T21:55:11.331302+00:00" [ref=e50]
+          - paragraph [ref=e51]: Select up to eight partitions to research together. Leave outcomes empty to use the selected history. Batches retain original clocks and the shared frozen calendar; repeated captures do not increase independent event counts.
+          - button "Freeze research cohort" [ref=e52] [cursor=pointer]
+          - generic [ref=e53]: Weather dataset
+          - combobox "Weather dataset" [ref=e54]:
+            - option "7c766221338e · 4 events · insufficient_data"
+            - option "f56be97dde98 · 4 events · insufficient_data" [selected]
+          - status [ref=e55]: Immutable dataset selected. Review its shortages, then start research.
+          - generic [ref=e57]:
+            - heading "Retained weather dataset · insufficient data" [level=2] [ref=e58]
+            - code [ref=e59]: sha256:f56be97dde9831d22b0fb22bee22575b168c03f4269fc4babcc51a58f0f34eeb
+            - paragraph [ref=e60]: 2 captures · 648 deduplicated observations · 4 events on 2 dates · 0 protected events.
+            - paragraph [ref=e61]: 4 eligible forecast events · 0 source-matched scalar labels · 0 binary-label events (unprotected).
+            - table [ref=e63]:
+              - rowgroup [ref=e64]:
+                - row "Partition Events / dates Timely matched labels Required Shortage Label cutoff" [ref=e65]:
+                  - cell "Partition" [ref=e66]
+                  - cell "Events / dates" [ref=e67]
+                  - cell "Timely matched labels" [ref=e68]
+                  - cell "Required" [ref=e69]
+                  - cell "Shortage" [ref=e70]
+                  - cell "Label cutoff" [ref=e71]
+              - rowgroup [ref=e72]:
+                - row "calibration 0 / 0 0 20 20 2026-12-28T00:00:00+00:00" [ref=e73]:
+                  - cell "calibration" [ref=e74]
+                  - cell "0 / 0" [ref=e75]
+                  - cell "0" [ref=e76]
+                  - cell "20" [ref=e77]
+                  - cell "20" [ref=e78]
+                  - cell "2026-12-28T00:00:00+00:00" [ref=e79]
+                - row "fit 4 / 2 0 60 60 2026-12-16T00:00:00+00:00" [ref=e80]:
+                  - cell "fit" [ref=e81]
+                  - cell "4 / 2" [ref=e82]
+                  - cell "0" [ref=e83]
+                  - cell "60" [ref=e84]
+                  - cell "60" [ref=e85]
+                  - cell "2026-12-16T00:00:00+00:00" [ref=e86]
+                - row "validation 0 / 0 0 20 20 2027-01-27T00:00:00+00:00" [ref=e87]:
+                  - cell "validation" [ref=e88]
+                  - cell "0 / 0" [ref=e89]
+                  - cell "0" [ref=e90]
+                  - cell "20" [ref=e91]
+                  - cell "20" [ref=e92]
+                  - cell "2027-01-27T00:00:00+00:00" [ref=e93]
+            - list [ref=e94]:
+              - listitem [ref=e95]: "fit: 0/60 independent source-matched events available before 2026-12-16T00:00:00+00:00"
+              - listitem [ref=e96]: "calibration: 0/20 independent source-matched events available before 2026-12-28T00:00:00+00:00"
+              - listitem [ref=e97]: "validation: 0/20 independent source-matched events available before 2027-01-27T00:00:00+00:00"
+              - listitem [ref=e98]: at least ten distinct event dates required for temporal evaluation
+              - listitem [ref=e99]: No source-matched integer settlement highs; binary results cannot substitute
+            - list [ref=e100]:
+              - listitem [ref=e101]: Original receipt clocks are preserved; importing a receipt does not backfill availability.
+              - listitem [ref=e102]: Hourly forecast maxima are proxies. Official binary outcomes do not supply scalar highs.
+              - listitem [ref=e103]: Source-matched integer settlement highs, independent dates and timely labels gate fitting.
+              - listitem [ref=e104]: Verified cycle-specific sized depth is retained; stale/missing books and uncertified fees refuse execution.
+              - listitem [ref=e105]: Protected final holdout is excluded from research, fitting and evaluation.
+            - paragraph [ref=e106]: 0 verified shadow cycles · 0 exact decision samples · 0 sized books · 0 stale books.
+            - generic [ref=e107]: Forward predictions retain their partition; never promoted to validation. Replay certifies software consistency, not profitability.
+            - list [ref=e108]:
+              - listitem [ref=e109]: Later binary labels retain their original receipt clocks; scalar model gates still apply
+              - listitem [ref=e110]: Stale or missing depth refuses executable backtesting
+              - listitem [ref=e111]: Each exact decision requires applicable certified fee evidence; current documents cannot backdate receipts
+            - group [ref=e112]:
+              - generic "Shadow replay lineage" [ref=e113] [cursor=pointer]
+            - group [ref=e114]:
+              - generic "Settlement label provenance and refusals" [active] [ref=e115] [cursor=pointer]
+              - generic [ref=e116]: "[ { \"receipts\": [ { \"bytes\": 0, \"error\": \"ConnectError: public settlement source unavailable\", \"headers\": {}, \"received_at\": \"2026-11-05T21:55:20.342266Z\", \"sha256\": \"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"status\": null, \"url\": \"https://weather.com/kalshi/api/climate/primary?date=2026-10-29\" }, { \"bytes\": 0, \"error\": \"ConnectError: public settlement source unavailable\", \"headers\": {}, \"received_at\": \"2026-11-05T21:55:20.350488Z\", \"sha256\": \"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"status\": null, \"url\": \"https://weather.com/kalshi/api/climate/primary?date=2026-10-30\" } ], \"records\": [ { \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\", \"target\": { \"event_id\": \"KXHIGHCHI-26OCT29\", \"refusal\": \"\", \"rules_hashes\": [ \"sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7\", \"sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6\", \"sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764\", \"sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900\", \"sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b\", \"sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906\" ], \"station\": \"CLIMDW\", \"target_date\": \"2026-10-29\", \"timezone\": \"America/Chicago\" } }, { \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\", \"target\": { \"event_id\": \"KXHIGHCHI-26OCT30\", \"refusal\": \"\", \"rules_hashes\": [ \"sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0\", \"sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3\", \"sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9\", \"sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9\", \"sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852\", \"sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e\" ], \"station\": \"CLIMDW\", \"target_date\": \"2026-10-30\", \"timezone\": \"America/Chicago\" } }, { \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\", \"target\": { \"event_id\": \"KXHIGHPHIL-26OCT29\", \"refusal\": \"\", \"rules_hashes\": [ \"sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4\", \"sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb\", \"sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3\", \"sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6\", \"sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33\", \"sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6\" ], \"station\": \"CLIPHL\", \"target_date\": \"2026-10-29\", \"timezone\": \"America/New_York\" } }, { \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\", \"target\": { \"event_id\": \"KXHIGHPHIL-26OCT30\", \"refusal\": \"\", \"rules_hashes\": [ \"sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561\", \"sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6\", \"sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72\", \"sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f\", \"sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3\", \"sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262\" ], \"station\": \"CLIPHL\", \"target_date\": \"2026-10-30\", \"timezone\": \"America/New_York\" } } ], \"refused_events\": 4, \"source_dataset\": \"sha256:7c766221338ef483286d7af644e8de6f4e221abf770385c2f181433d79f2d017\", \"submission_enabled\": false, \"verified_events\": 0, \"version\": \"sha256:6dcfbdca3df94b02570f91212271a329d1ee8a042a8248fa96cb966a0b7df621\" } ]"
+            - paragraph [ref=e117]: 0 incomplete captures · 0 acquisition failures.
+            - group [ref=e118]:
+              - generic "Original capture clocks, receipts and acquisition failures" [ref=e119] [cursor=pointer]
+          - heading "Forward settlement labels" [level=3] [ref=e120]
+          - paragraph [ref=e121]: Acquire official scalar highs for the selected dataset from The Weather Company. Preliminary, wrong-source and protected labels are refused. Availability starts at receipt; earlier fitting cutoffs stay frozen.
+          - button "Acquire settlement labels" [ref=e122] [cursor=pointer]
+          - button "Refresh label acquisition" [ref=e123] [cursor=pointer]
+          - status [ref=e124]: Acquisition queued. Refresh to inspect receipts and refusals, then freeze a new dataset to include verified labels.
+          - generic [ref=e125]: Label evidence partition
+          - combobox "Label evidence partition" [ref=e126]:
+            - option "00000000 · active · 1/128 requests" [selected]
+          - paragraph [ref=e127]: 1 label partitions · 1 retained requests. Each partition holds at most 128 requests; sealed receipts stay immutable. Select a partition to inspect all its requests.
+          - generic [ref=e129]:
+            - heading "Label acquisition · completed" [level=2] [ref=e130]
+            - paragraph [ref=e131]: Acquisition finished; inspect verified labels and explicit source refusals
+            - code [ref=e132]: 8ac2d0b7-6812-4bb7-87c8-44b40a85c9b1
+            - paragraph [ref=e133]: 0 verified scalar labels · 4 refused events. Receipt availability is never backdated.
+            - group [ref=e134]:
+              - generic "Source receipts, rule bindings and label clocks" [ref=e135] [cursor=pointer]
+              - generic [ref=e136]: "{ \"version\": \"sha256:6dcfbdca3df94b02570f91212271a329d1ee8a042a8248fa96cb966a0b7df621\", \"source_dataset\": \"sha256:7c766221338ef483286d7af644e8de6f4e221abf770385c2f181433d79f2d017\", \"verified_events\": 0, \"refused_events\": 4, \"records\": [ { \"target\": { \"event_id\": \"KXHIGHCHI-26OCT29\", \"station\": \"CLIMDW\", \"target_date\": \"2026-10-29\", \"timezone\": \"America/Chicago\", \"rules_hashes\": [ \"sha256:02e33579d9ff0b5f593bc12e7c81149d28c87c8b337df1de6ab0181a0ad8b7a7\", \"sha256:caf8b8a2f2dbaa744f89192b627a837f672491e5e6dd8c63641c49ebfd5c13d6\", \"sha256:de138f842bce773c9460c721f3492b54b61d9acfbb8b60e6bb349cfa178ba764\", \"sha256:e83434045461ec6d30f38dd9a24c492c3b0d82939def3577b3781f8139802900\", \"sha256:f026718b20326feb3b267fd987b0cb7b7ea99bad9b5f277c4fde3a823c03cf6b\", \"sha256:f49596d573dc8fc62f5804bd2e3468a9bee8f645f83b7dd02c5037110e229906\" ], \"refusal\": \"\" }, \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\" }, { \"target\": { \"event_id\": \"KXHIGHCHI-26OCT30\", \"station\": \"CLIMDW\", \"target_date\": \"2026-10-30\", \"timezone\": \"America/Chicago\", \"rules_hashes\": [ \"sha256:3d482e54b4500948f2cef31d49aee332fb3024059bcb44faf676057b8d5c80d0\", \"sha256:3f8eede5034ee96dfe883a840feaa8724570f11645e4e97b6aaa0f1ec3815bc3\", \"sha256:4799d3da0d76b7173fce1284172f47ed5196137bac6ca16b3969e8859a8420a9\", \"sha256:493778004df2379bd8fe163636ed135d6553cc9ee7255976b164b8ca9d89c9e9\", \"sha256:7957423eeb37c9866868444eb8df7acdd098bbae5e790f4c89fb6da3b53fe852\", \"sha256:7bc072f2479291a76959269a3c4877a58c73131db33f807a795ebc14205a991e\" ], \"refusal\": \"\" }, \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\" }, { \"target\": { \"event_id\": \"KXHIGHPHIL-26OCT29\", \"station\": \"CLIPHL\", \"target_date\": \"2026-10-29\", \"timezone\": \"America/New_York\", \"rules_hashes\": [ \"sha256:3fc7ebfdab5443e69296886058c186e231fb509e50d684444b134acd90e493b4\", \"sha256:4161924fafc7bc6dc6d6cd2c970a7e46e42671db60e8ee9f71bd7abde8b791cb\", \"sha256:56fcbd2f588fb47776f7b6fc5471aa8c42d5ee6d6b78592541cafb33acf2b7d3\", \"sha256:78d0d521cb60581f88b0436c4171400a2d3fefc5aad515f65375545a68798ea6\", \"sha256:a0c5b76105d2ee7a5f1d78ba64aa17cec74bc55056da592e261b8f118f878b33\", \"sha256:b143336d63a46f8e1e2335882cc1b1f7f6a2ed9e9da01d1dba167549d6ce78f6\" ], \"refusal\": \"\" }, \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\" }, { \"target\": { \"event_id\": \"KXHIGHPHIL-26OCT30\", \"station\": \"CLIPHL\", \"target_date\": \"2026-10-30\", \"timezone\": \"America/New_York\", \"rules_hashes\": [ \"sha256:299ad59b4b34937b9fcdcf9a1ff187e79686fc61cf2be25671010fc1a4791561\", \"sha256:9ce33046f7266c01a9fdc81e1225da9fedf8734fd879dd11a9552c62add626b6\", \"sha256:a5ef7738a64b4c481a5224280782c48b482307b7b2f5b488de155ddeda257a72\", \"sha256:bf071c2e29827567bae32b23f14b87942b37a367555cb0e55e78bab04d52a89f\", \"sha256:e0359844976a1c8cf9579fc30a830096834d3b19b4d55218d9f044c676456ca3\", \"sha256:e49cd8f94e7bef621abbfb5badf178bee6d2a273cc96242e9cdaea2d50de6262\" ], \"refusal\": \"\" }, \"observation\": null, \"refusal\": \"ConnectError: public settlement source unavailable\" } ], \"receipts\": [ { \"url\": \"https://weather.com/kalshi/api/climate/primary?date=2026-10-29\", \"received_at\": \"2026-11-05T21:55:20.342266Z\", \"status\": null, \"headers\": {}, \"error\": \"ConnectError: public settlement source unavailable\", \"sha256\": \"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"bytes\": 0 }, { \"url\": \"https://weather.com/kalshi/api/climate/primary?date=2026-10-30\", \"received_at\": \"2026-11-05T21:55:20.350488Z\", \"status\": null, \"headers\": {}, \"error\": \"ConnectError: public settlement source unavailable\", \"sha256\": \"sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\", \"bytes\": 0 } ], \"submission_enabled\": false }"
+            - link "Download label evidence" [ref=e137] [cursor=pointer]:
+              - /url: /api/weather/labels/6dcfbdca3df94b02570f91212271a329d1ee8a042a8248fa96cb966a0b7df621
+        - region "Recent runs" [ref=e138]:
+          - generic [ref=e139]:
+            - heading "Recent runs" [level=2] [ref=e140]
+            - button "Refresh" [ref=e141] [cursor=pointer]
+          - generic [ref=e142]:
+            - button "Authentic retained weather receipt replay; no new acquisition or empirical performance completed weather · public 11/5/2026, 9:55:11 PM" [ref=e143] [cursor=pointer]:
+              - generic [ref=e144]: Authentic retained weather receipt replay; no new acquisition or empirical performance
+              - generic [ref=e145]:
+                - generic [ref=e146]: completed
+                - generic [ref=e147]: weather · public
+              - text: 11/5/2026, 9:55:11 PM
+            - button "Authentic retained weather receipt replay; no new acquisition or empirical performance completed weather · public 11/5/2026, 9:55:11 PM" [ref=e148] [cursor=pointer]:
+              - generic [ref=e149]: Authentic retained weather receipt replay; no new acquisition or empirical performance
+              - generic [ref=e150]:
+                - generic [ref=e151]: completed
+                - generic [ref=e152]: weather · public
+              - text: 11/5/2026, 9:55:11 PM
+      - region "Research results" [ref=e153]:
+        - status [ref=e154]:
+          - generic [ref=e155]: "Progress connection interrupted: Failed to fetch. Retrying…"
+        - region "Point-in-time fee evidence" [ref=e156]:
+          - heading "Point-in-time fee evidence" [level=2] [ref=e157]
+          - paragraph [ref=e158]: Server-reviewed documents only. Series metadata cannot certify fees. Receipt and review clocks prevent historical lookahead.
+          - generic [ref=e160]: Missing fee evidence. Costed shadow intentions and real backtests refuse without applicable reviewed documents.
+        - region "Continuous shadow tracking" [ref=e161]:
+          - heading "Continuous shadow tracking" [level=2] [ref=e162]
+          - paragraph [ref=e163]: Select a typed candidate from a completed real research run. Automatic public capture records decisions and subsequent official outcomes. Missing models, fees or depth block intentions. No submissions, fills or performance claims.
+          - generic [ref=e164]: Candidate to monitor
+          - combobox "Candidate to monitor" [disabled] [ref=e165]:
+            - option "Select a completed real run first" [selected]
+          - generic [ref=e166]: Poll interval
+          - combobox "Poll interval" [ref=e167]:
+            - option "5 minutes" [selected]
+            - option "1 minute"
+            - option "15 minutes"
+          - button "Start shadow monitor" [disabled] [ref=e168]
+          - status
+          - generic [ref=e169]:
+            - heading "Operator alerts" [level=3] [ref=e170]
+            - paragraph [ref=e171]: 0 open · 0 need acknowledgement. Acknowledging records review; recovery resolves the condition.
+          - paragraph [ref=e173]: No saved shadow monitors.
+        - region "Continuous forward validation" [ref=e174]:
+          - heading "Continuous forward validation" [level=2] [ref=e175]
+          - paragraph [ref=e176]: Opt in to read-only label collection while this server runs. Batches cover at most eight dates. Preliminary reports and outages retry with backoff; official reports are checked daily for revisions. New snapshots preserve original receipt clocks and frozen boundaries.
+          - generic [ref=e177]: Label retry interval
+          - combobox "Label retry interval" [ref=e178]:
+            - option "6 hours" [selected]
+            - option "1 hour"
+            - option "5 minutes"
+          - generic [ref=e179]: Dates per label batch
+          - combobox "Dates per label batch" [ref=e180]:
+            - option "8 dates" [selected]
+            - option "1 date"
+          - generic [ref=e181]:
+            - checkbox "Also enroll new retained public and shadow weather inputs and freeze updated snapshots" [ref=e182]
+            - text: Also enroll new retained public and shadow weather inputs and freeze updated snapshots
+          - generic [ref=e183]:
+            - checkbox "I enable continuous read-only forward validation, including recovery after restart." [ref=e184]
+            - text: I enable continuous read-only forward validation, including recovery after restart.
+          - button "Enable forward validation" [ref=e185] [cursor=pointer]
+          - button "Refresh forward validation" [ref=e186] [cursor=pointer]
+          - status
+          - paragraph [ref=e188]: No continuous validation enabled. Label collection is opt-in.
+        - generic [ref=e190]:
+          - generic [ref=e191]: ↗
+          - paragraph [ref=e192]: A REJECTION IS A RESULT
+          - heading "Put your next idea to the test." [level=2] [ref=e193]
+          - paragraph [ref=e194]: Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.
+          - generic [ref=e195]:
+            - generic [ref=e196]:
+              - strong [ref=e197]: "01"
+              - heading "Source & formulate" [level=3] [ref=e198]
+              - paragraph [ref=e199]: Actual contract rules, bounded source receipts, typed hypotheses.
+            - generic [ref=e200]:
+              - strong [ref=e201]: "02"
+              - heading "Model & evaluate" [level=3] [ref=e202]
+              - paragraph [ref=e203]: Temporal training gates, realistic simulated execution, explicit refusals.
+            - generic [ref=e204]:
+              - strong [ref=e205]: "03"
+              - heading "Inspect & trace" [level=3] [ref=e206]
+              - paragraph [ref=e207]: Candidate decisions, validation probabilities, immutable input identities.
+          - paragraph [ref=e208]: Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.
+    - generic [ref=e209]:
+      - text: EntropyTrade / private research workspace
+      - generic [ref=e210]: Protected holdout stays closed. No trading approval is implied.
+```

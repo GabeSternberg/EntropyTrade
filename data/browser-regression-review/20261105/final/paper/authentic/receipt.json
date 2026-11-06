@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": true,
+  "operations": [
+    {
+      "start": 1
+    },
+    {
+      "start": 2
+    }
+  ],
+  "downloads": [
+    {
+      "file": "account.json",
+      "sha256": "842bbdd9365c18923e049656aa86306523dfafa119068c0a8eb14d7ba2066b30"
+    },
+    {
+      "file": "shadow.json",
+      "sha256": "0a8fe5eee86bdc6155aeff4fc025a9e8cecef996202f5b851cf257b06beb3e02"
+    },
+    {
+      "file": "restarted-account.json",
+      "sha256": "842bbdd9365c18923e049656aa86306523dfafa119068c0a8eb14d7ba2066b30"
+    },
+    {
+      "file": "restarted-shadow.json",
+      "sha256": "0a8fe5eee86bdc6155aeff4fc025a9e8cecef996202f5b851cf257b06beb3e02"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "paper-account.png"
+    },
+    {
+      "file": "restarted.png"
+    }
+  ],
+  "page_errors": [],
+  "limitation": "Original authentic receipts; missing models/fees, zero fills; no new acquisition",
+  "submission_enabled": false,
+  "offline": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 1,
+    "state_hash": "sha256:1c61c0407d33850e7c193fceff786dc206b7745334eb68df2015c9b3986e95b3",
+    "submission_enabled": false,
+    "verified": true
+  }
+}
