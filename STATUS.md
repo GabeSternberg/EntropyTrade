@@ -6,7 +6,11 @@ Branch `claude/vibrant-bohr-23la5m`, **stacked on PR #9** (`claude/vibrant-bohr-
 **V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5, #7, #8 and #9
 had no review comments requesting changes and no failing checks, and none were merged.
 This run dispatched forward-collection run `42156641720` on PR #7's branch to keep that chain
-alive (result recorded in the PR once complete).
+alive. It succeeded: it restored `sha256:1390bff9…` (8 cycles) and kept the monitor and
+schedule, ending at 11 cycles. There were 0 errors and the server exited 0; the snapshot is
+`sha256:4a8125a5…`. The fee schedule PDF returned **HTTP 429** again (24,732-byte HTML,
+`is_pdf: false`), retained as an unreviewed receipt. That run predates this change, so its
+alert states are still listed as null.
 
 - **Defect fixed.** The operator summary read alert keys that do not exist (`status`,
   `detected_at`), so every alert was listed with `null` state. This is why earlier runs showed
