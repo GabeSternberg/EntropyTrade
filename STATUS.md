@@ -40,8 +40,23 @@ threads or failing checks; none were merged. Issues #3 and #6 remain open.
   `42217215001`, so the chain forked there. Both snapshots are valid authentic evidence. The
   canonical line continues from the PR #19 branch run.
 
-**Next autonomous milestone:** dispatch this branch with `continue_from_run=<latest completed PR #19
-or later chain run>`. Confirm that the backlog gains CLINYC/CLIDFW work (`schedules[].backlog.dates[].stations`)
+- **Chain run `42224274925`** (PR #19 slim captures, `chain=head`, previous `42217215001`): 53
+  cycles, 5 completed this run, 0 failures, 0 errors, server exit 0. **2026-11-05 CLIMDW/CLIPHL
+  are now `verified`**: "Official labels retained", on attempt 4 at 13:27Z, with a revision
+  check on 2026-11-07. These are the first official forward labels in this chain; the portal
+  needed more than 28 hours after local midnight. Workspace: 902,205,069 expanded bytes,
+  **237,114,816 distinct**, `budget_used` 0.2101.
+  - Slim capture, 4 locations: distinct bytes grew **18.28 MB over 5 cycles, about 3.66 MB per
+    cycle**. Expanded bytes grew about 9.2 MB per cycle.
+  - Previous code, 4 locations (run `42217215001`): about 6.0 MB distinct and 12.9 MB expanded
+    per cycle.
+  - At about 3.7 MB per cycle and 6 cron runs × about 5 cycles per day, the remaining 1.9 GB
+    distinct budget lasts **about 17 days**. This is extrapolated, not measured.
+- **Continuation queued.** This branch was dispatched with `continue_from_run=42224274925` and
+  `seconds=3000` at about 14:10Z. Its results are not recorded here.
+
+**Next autonomous milestone:** read the result of this branch's dispatch, which continues from
+`42224274925`, or dispatch again from the latest completed chain run. Confirm that the backlog gains CLINYC/CLIDFW work (`schedules[].backlog.dates[].stations`)
 and that `schedules[].detail` has no errors. Record PR #19's slim-capture per-cycle
 `distinct_bytes` growth against about 5 MB per cycle (4 locations, pre-slim). Then recheck
 2026-11-05 PHL/CHI officialness. Merging the stack to `main` is still needed to activate the
