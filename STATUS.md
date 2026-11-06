@@ -24,7 +24,7 @@ dispatched forward-collection run `42143557484` on PR #7's branch to keep that c
   selects. The `family-catalog` workflow runs discovery, then optional per-ticker
   `family-screen --fetch-series`, on GitHub-hosted runners, which have the egress that cloud
   sessions lack (issue #3). Its file was committed through the contents API.
-- **Tests.** `backend/tests/unit/test_family_discovery.py` has 14 cases:
+- **Tests.** Full pytest: 1,300 passed and 57 failed (628.45s). The failures are the same 57 #1-dependent tests PR #4 recorded on this base. `backend/tests/unit/test_family_discovery.py` has 14 cases:
   - receipt retention, including non-200 responses;
   - deterministic listing;
   - tamper, path-escape and conflicting-ticker refusals;

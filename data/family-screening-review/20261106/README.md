@@ -85,3 +85,13 @@ workflow glob was too broad. That failure is retained and the glob is fixed.
 Per [family selection](../../../docs/family-selection.md), the user should review these rows
 and record a written choice before any family-specific implementation begins. The agent
 will not select a family.
+
+## Local quality checks (this cloud session)
+
+- Ruff lint and format pass on the repository, and strict mypy passes on 560 files.
+- The 14 discovery and 25 screening tests pass.
+- **Full pytest: 1,300 passed and 57 failed in 628.45s** (`full-pytest.log.gz`).
+  `failed-tests.txt` is identical (`comm -3` is empty) to the 57 failures PR #4 recorded on
+  this base, all from the pre-existing read-only SQLite URI defect that PR #1 fixes. None are
+  in discovery or screening. This is not a clean full-suite pass; it becomes one once #1
+  merges.
