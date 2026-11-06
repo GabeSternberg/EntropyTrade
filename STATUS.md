@@ -1,5 +1,71 @@
 # EntropyTrade — current status
 
+## PR backlog reconciliation — November 6, 2026
+
+This revision consolidates the existing A (#1 → #2), B (#4 → #8), and C (#5 through #24)
+chains. Fresh source and evidence reviews fixed receipt-order/clock/volume errors in the
+family screen, malformed portal diagnostics, and an exceeded-budget runway error. Original
+commits, empirical inputs, receipt clocks, settlement checks and protected holdouts are retained.
+
+[Issue #25](https://github.com/GabeSternberg/EntropyTrade/issues/25) records live merge state,
+exact checked commits, CI results, the collector pause and verified main-chain continuation.
+The milestone sections below are historical author records; their old merge instructions and
+chain-head recommendations do not describe the current reconciliation.
+
+**V1 remains incomplete.** The [remaining V1 backlog](docs/pr-reconciliation.md) separates
+code consolidation from authentic history/validation, certified fees, provider authorization,
+the user-approved second family, sustained operation, storage runway and final acceptance.
+Production submissions remain disabled. No new feature phase or real-money order is authorized.
+
+## Current milestone (2026-11-06): dataset cost per discovered input
+
+Branch `claude/vibrant-bohr-f74103`, **stacked on PR #23** (`claude/vibrant-bohr-dndtp2`).
+**V1 remains incomplete.** At the start of this run, open PRs #8–#23 had no reviews, review
+threads or failing checks, and none were merged. Issues #3, #6 and #21 remain open. #21 has no
+user answer yet. It was 16:23Z, so the 2026-11-06 labels (due 2026-11-07T06:00Z) were not yet
+checkable and no chain run was dispatched.
+
+- **Question from #23.** Why did one discovery grow `runs/weather-datasets` by 23.1 MB, when a
+  replay predicts about 2× its inputs?
+- **Finding (from the printed job summaries; artifact storage is blocked by the session
+  egress policy, see #3).**
+  - Discovery runs on the schedule's 3,600 s clock, not once per window.
+  - Run `42239530977` stopped at 15:14 with `next_discovery` 15:28, so it froze nothing.
+  - Run `42243733103` discovered at 15:32, freezing the roughly four or five cycles retained
+    since the 14:28 discovery.
+  - With 3.55 MB of `shadow` growth per cycle, that is 4.6–5.8 MB of dataset per input, or
+    1.3–1.6× the input. So 23 MB was several cycles at once, not an unusually costly dataset.
+    This is an **inference from clocks**, not a measurement.
+  - The workspace holds 739 MB of datasets against 217 MB of shadow cycles. That ratio is
+    higher than the current per-input cost, which suggests that datasets frozen before
+    incremental discovery (#14) overlap. They are immutable and are kept.
+- **Change (`operations/forward.py`, workflow, docs).** Each summary now has `datasets`:
+  - every dataset published during the run, with its selection's `inputs` and their
+    retained `input_bytes`;
+  - bytes split by part: `receipts`/`shadow` capture copies, `labels`, `scalar_labels`,
+    `shadow_replay`, `rows`, `features`, `manifest`, `other`;
+  - `bytes_per_input`, `ratio_to_inputs`, and unfinished `.building-*` staging leftovers.
+  - It is read-only. The ratio is null unless every input resolves to exactly one directory.
+    The job summary now prints it.
+- **Evidence.**
+  - The real builder on the two retained authentic cycles gives `ratio_to_inputs` between
+    1.8 and 2.2 (measured 10,500,645 bytes for 5,271,679 input bytes). The capture copies are
+    over 90% of the dataset.
+  - Local checks: Ruff lint and format pass; strict mypy passes (566 files). 3 new tests, and
+    the real-server operate test is extended. **Full pytest: 1,418 passed in 676.47s**, with zero failures, errors or skips.
+  - No chain run was dispatched this session. The first chain run on this branch will
+    measure `datasets` on real cycles.
+
+**Next autonomous milestone:** after 2026-11-07T06:00Z, dispatch **this branch**
+(`continue_from_run` = `42243733103`, `seconds=540`). This branch becomes the chain head;
+do not dispatch `dndtp2` or earlier branches afterwards, or the chain forks. Check:
+- whether the 2026-11-06 labels verify for all four stations;
+- `datasets.ratio_to_inputs` and `bytes_per_input` on real slim cycles;
+- that `chain_runway.runs_in_window` grows.
+
+Feed the measured per-input cost into #21. The storage fix and merging the stack still need
+the user.
+
 ## Current milestone (2026-11-06): chained storage runway and runner disk headroom
 
 Branch `claude/vibrant-bohr-dndtp2` (PR #23), **stacked on PR #22** (`claude/vibrant-bohr-jux3wd`).

@@ -182,6 +182,40 @@ staging payload before compressing it. A restored workspace therefore needs abou
 expanded bytes free again at snapshot time, plus the archive. This measures whether a larger
 restore budget (option 3 in #21) would fit. It does not change any budget.
 
+#### Dataset cost per discovered input
+
+`datasets` attributes this run's dataset growth to the inputs it froze. It compares the
+published dataset directories before the server starts and after it stops. For each new
+dataset it reports:
+- the `inputs` its selection names, and their current retained `input_bytes`;
+- its `bytes` and `files`, split by `parts`: `receipts` and `shadow` (the two capture copies),
+  `labels`, `scalar_labels`, `shadow_replay`, `rows`, `features`, `manifest` and `other`;
+- `bytes_per_input` and `ratio_to_inputs`.
+
+Run totals add `bytes_per_input` and `ratio_to_inputs` across datasets. `staging_leftovers`
+and `staging_bytes` count unfinished `.building-*` directories, which the footprint also
+counts. The ratio is `null` unless every named input resolves to exactly one retained
+directory. It is read-only and is not evidence.
+
+**Why a discovery run grows by tens of MB.** Discovery runs on the schedule's own clock
+(`--schedule-interval`, 3,600 s), not once per window. Most windows are 540 s, so a discovery
+usually freezes the cycles that earlier windows retained since the last discovery. Sometimes
+it freezes none. Example (from the printed job summaries):
+- Run `42239530977` stopped at 15:14 with `next_discovery` 15:28, so it froze nothing.
+- Run `42243733103` discovered at 15:32. Its dataset grew `runs/weather-datasets` by 23.1 MB.
+- Per-cycle `shadow` growth was 3.55 MB, and roughly four or five cycles were waiting. That
+  is 4.6–5.8 MB of dataset per input, or 1.3–1.6 times the cycle's bytes. This is an
+  inference from clocks, not a measurement.
+- Replaying the two retained authentic cycles measures **2.0 times** (`ratio_to_inputs`
+  2.0; the `receipts` and `shadow` copies are over 90% of the dataset). Those cycles predate
+  slim captures, so the current ratio may differ. The next run's `datasets` settles it.
+
+So 23 MB was several cycles frozen at once, not an unusually costly dataset. `datasets` now
+measures this directly in every run. The workspace also holds about 739 MB of datasets
+against 217 MB of shadow cycles. That ratio is higher than the current per-input cost, which
+suggests that datasets frozen before incremental discovery (PR #14) overlap. Those datasets
+are immutable evidence and are not removed.
+
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 

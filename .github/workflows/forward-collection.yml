@@ -268,7 +268,7 @@ jobs:
             echo "## Forward collection"
             echo '```json'
             if [ -f "$OUT/summary.json" ]; then
-              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','runway','chain_runway','disk','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
+              python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps({k: d.get(k) for k in ('started_at','finished_at','actions','errors','server_exit_code','monitors','schedules','retained_inputs','label_requests','alerts','workspace','runway','chain_runway','datasets','disk','submission_enabled')}, indent=2, sort_keys=True))" "$OUT/summary.json"
             else
               echo '{"summary": "missing"}'
             fi

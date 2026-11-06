@@ -546,6 +546,9 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     assert result["chain_runway"]["status"] == "unmeasured"
     assert result["chain_runway"]["ledger_reset"] is None
     assert result["disk"]["free_bytes"] > 0
+    assert result["datasets"]["status"] == "measured"
+    assert result["datasets"]["datasets_this_run"] == 0
+    assert result["datasets"]["bytes_per_input"] is None
     json.dumps(result)
     # The workspace lease is released: a second operation can start immediately.
     again = operate(
@@ -849,6 +852,149 @@ def test_disk_headroom_reports_the_workspace_filesystem(tmp_path: Path) -> None:
     report = forward.disk_headroom(tmp_path / "not" / "yet" / "created")
     assert report["total_bytes"] > 0
     assert 0 <= report["free_bytes"] <= report["total_bytes"]
+
+
+def _write(path: Path, size: int) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(b"x" * size)
+
+
+def _dataset(root: Path, name: str, inputs: list[str] | None, parts: dict[str, int]) -> None:
+    directory = root / "runs" / "weather-datasets" / name
+    for relative, size in parts.items():
+        _write(directory / relative, size)
+    selection = None if inputs is None else {"discovery": "incremental", "inputs": inputs}
+    (directory / "snapshot.json").write_text(
+        json.dumps({"capture_count": len(inputs or []), "identity": {"selection": selection}})
+    )
+
+
+def test_dataset_costs_attribute_new_datasets_to_their_discovered_inputs(
+    tmp_path: Path,
+) -> None:
+    ws = tmp_path
+    for cycle, size in (("c-1", 1_000), ("c-2", 3_000), ("c-3", 5_000)):
+        _write(ws / "shadow" / "m-1" / cycle / "public" / "markets.jsonl", size)
+    _write(ws / "runs" / "job-1" / "public" / "markets.jsonl", 500)
+    old, new, other = "a" * 64, "b" * 64, "c" * 64
+    _dataset(ws, old, ["c-1"], {"receipts/0000/markets.jsonl": 1_000})
+    before = forward.dataset_ids(ws)
+    assert before == {old}
+    # One discovery froze two earlier cycles and a public job at once; a second dataset has
+    # no selection (e.g. a user freeze), so it counts as bytes but not per-input cost.
+    _dataset(
+        ws,
+        new,
+        ["c-2", "c-3", "job-1"],
+        {
+            "receipts/0000/markets.jsonl": 3_000,
+            "shadow/sha256:x/public/markets.jsonl": 3_000,
+            "shadow-replay.json": 700,
+            "dataset/rows.parquet": 200,
+            "features/f/x.parquet": 100,
+            "labels/0000/summary.json": 50,
+            "scalar-labels/raw/r.json": 25,
+            "unexpected.bin": 5,
+        },
+    )
+    _dataset(ws, other, None, {"dataset/rows.parquet": 10})
+    _write(ws / "runs" / "weather-datasets" / (".building-" + "d" * 64) / "x", 400)
+    _write(ws / "runs" / "weather-datasets" / "not-a-dataset" / "x", 9)
+
+    report = forward.dataset_costs(ws, before)
+
+    assert report["status"] == "measured"
+    assert [w["dataset_id"] for w in report["written"]] == [new, other]
+    first = report["written"][0]
+    manifest = len((ws / "runs/weather-datasets" / new / "snapshot.json").read_bytes())
+    assert first["parts"] == {
+        "features": 100,
+        "labels": 50,
+        "manifest": manifest,
+        "other": 5,
+        "receipts": 3_000,
+        "rows": 200,
+        "scalar_labels": 25,
+        "shadow": 3_000,
+        "shadow_replay": 700,
+    }
+    assert first["inputs"] == 3
+    assert first["discovery"] == "incremental"
+    assert first["input_bytes"] == 8_500
+    assert first["bytes"] == sum(first["parts"].values())
+    assert first["bytes_per_input"] == round(first["bytes"] / 3, 1)
+    assert first["ratio_to_inputs"] == round(first["bytes"] / 8_500, 3)
+    assert report["written"][1]["inputs"] is None
+    assert report["datasets_this_run"] == 2
+    assert report["inputs_this_run"] == 3
+    assert report["bytes_this_run"] == first["bytes"] + report["written"][1]["bytes"]
+    assert report["bytes_per_input"] == first["bytes_per_input"]
+    assert report["ratio_to_inputs"] == first["ratio_to_inputs"]
+    assert report["staging_leftovers"] == 1
+    assert report["staging_bytes"] == 400
+    assert forward.dataset_costs(ws, None)["status"] == "unmeasured"
+    # Nothing new: measured, with no attribution.
+    again = forward.dataset_costs(ws, forward.dataset_ids(ws))
+    assert again["datasets_this_run"] == 0
+    assert again["bytes_per_input"] is None
+    assert again["ratio_to_inputs"] is None
+
+
+def test_dataset_costs_refuse_unresolvable_or_unsafe_inputs(tmp_path: Path) -> None:
+    ws = tmp_path
+    _write(ws / "shadow" / "m-1" / "dup" / "x", 10)
+    _write(ws / "shadow" / "m-2" / "dup" / "x", 10)
+    name = "e" * 64
+    _dataset(ws, name, ["../escape", "missing", "dup"], {"receipts/0000/x": 30})
+    (written,) = forward.dataset_costs(ws, set())["written"]
+    # Bytes per input still divide by the named inputs; the ratio needs every input found.
+    assert written["inputs"] == 3
+    assert written["input_bytes"] is None
+    assert written["ratio_to_inputs"] is None
+    assert forward._input_bytes(ws, "../escape") is None
+    assert forward._input_bytes(ws, "missing") is None
+    assert forward._input_bytes(ws, "dup") is None
+
+
+def test_dataset_costs_measure_a_real_discovery_of_authentic_cycles(tmp_path: Path) -> None:
+    """The real builder on the two retained authentic cycles (no network, original bytes)."""
+    from entropytrade.api.jobs import Jobs
+    from entropytrade.tracking.history import anchor, catalog, member_inputs
+    from entropytrade.weather.history import build_snapshot
+    from entropytrade.weather.label_service import batches
+    from tests.integration.shadow_history_fixture import seed_authentic
+
+    ws = tmp_path / "workspace"
+    seed_authentic(ws)
+    jobs = Jobs(ws)
+    before = forward.dataset_ids(ws)
+    members = catalog(jobs)["partitions"][0]["members"]
+    captures, outcomes, protected = member_inputs(jobs, members, members)
+    build_snapshot(
+        ws / "runs/weather-datasets",
+        captures,
+        outcome_roots=outcomes,
+        protected_events=protected,
+        frozen_anchor=anchor(jobs),
+        scalar_batches=batches(ws),
+        selection={
+            "partition_id": "test",
+            "discovery": "incremental",
+            "inputs": sorted(m["id"] for m in members),
+        },
+    )
+    report = forward.dataset_costs(ws, before)
+    (written,) = report["written"]
+    assert written["inputs"] == 2
+    assert written["input_bytes"] == sum(
+        p.stat().st_size for p in (ws / "shadow").rglob("*") if p.is_file()
+    )
+    # Each discovered cycle's public capture is stored twice (receipts/ and shadow/), so the
+    # dataset is about twice its inputs; the capture copies dominate.
+    assert 1.8 < written["ratio_to_inputs"] < 2.2
+    copies = written["parts"]["receipts"] + written["parts"]["shadow"]
+    assert copies > 0.9 * written["bytes"]
+    assert report["staging_leftovers"] == 0
 
 
 def test_main_writes_the_chained_ledger_and_carries_it_through_unmeasured_runs(
