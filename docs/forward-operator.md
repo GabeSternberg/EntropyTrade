@@ -15,7 +15,8 @@ headlessly, so authentic forward receipts can accrue without a human-operated ma
    existing verified `entropytrade.api.recovery restore`. If a previous snapshot exists but
    cannot be downloaded, verified or restored (for example after a `uv.lock` change), the run
    **fails**. It never silently starts a new chain. The first run on a branch, or a manual
-   dispatch with `fresh: true`, starts a new empty workspace.
+   dispatch with `fresh: true`, starts a new empty workspace. A manual dispatch may instead
+   name `continue_from_run` (see [continuing a chain on another branch](#continuing-a-chain-on-another-branch)).
 2. Runs `python -m entropytrade.operations.forward` for a bounded window (default 1,500 s;
    900 s for verification pushes). The operator starts `entropytrade.api.server` on
    127.0.0.1 and uses only the browser's HTTP API:
@@ -89,7 +90,27 @@ retained receipt. The run is still marked failed.
 Scheduled runs only start after the workflow is on the default branch. Before that, a push
 to a `claude/**` branch that changes the workflow file runs one verification window on that
 branch's own chain. To run manually after merging, use **Actions → forward-collection → Run
-workflow** (`seconds`, optional `fresh`).
+workflow** (`seconds`, optional `fresh` or `continue_from_run`).
+
+### Continuing a chain on another branch
+
+Snapshots are found per branch, so a merge to `main` (or a new branch) would otherwise start an
+empty chain and leave the accumulated receipts to expire after 7 days. Dispatch once with
+`continue_from_run=<run ID>` to restore that run's snapshot instead. The step **fails closed**
+unless the ID is numeric, the run is a completed `forward-collection.yml` run of this
+repository, it has an unexpired `forward-workspace` artifact, and `fresh` is false. It never
+falls back to the branch's own snapshot or a fresh chain. An error listing artifacts now
+also fails the run, instead of silently selecting an older snapshot. Restore still requires
+the same `uv.lock`/`pyproject.toml`.
+
+`lineage.txt` now records `branch` and `previous_branch`, and the snapshot artifact carries the
+source run's `previous-lineage.txt`, so the cross-branch hop stays traceable. Later runs on the
+new branch continue from its own newest snapshot as usual.
+
+Continuing copies evidence; it does not merge chains. After continuing, **stop dispatching the
+source branch**, or the two chains diverge from a shared history and their counts must never be
+added together. `backend/tests/unit/test_forward_workflow_chain.py` runs the actual step script
+against a stubbed `gh`.
 
 Inspect a chain locally (offline, after `uv sync --locked`):
 
