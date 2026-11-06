@@ -33,9 +33,16 @@ headlessly, so authentic forward receipts can accrue without a human-operated ma
 3. Stops the server with its normal SIGINT shutdown so unfinished cycles/requests are
    recorded as interrupted with their partial receipts, then snapshots the stopped workspace
    with `entropytrade.api.recovery snapshot`.
-4. Uploads `forward-workspace` (archive, checksum, lineage: commit, run, previous run and lock
+4. After the server stops, runs `entropytrade.execution.fee_admin --capture-due schedule
+   rounding` against the same workspace. It fetches the official Kalshi fee schedule PDF and
+   fee-rounding page only when the retained copy is stale (successful copy older than 24 h;
+   failed attempt older than 3 h) and stores each attempt as an immutable **unreviewed**
+   authentic receipt, so it travels with the chained snapshot. Nothing is certified; see
+   [fee evidence](fee-evidence.md). The result (`fee-capture.json`: status, bytes, SHA-256,
+   whether the bytes are a real PDF) is printed in the job log.
+5. Uploads `forward-workspace` (archive, checksum, lineage: commit, run, previous run and lock
    hashes; 7-day retention) and `forward-summary` (`summary.json`, server log, snapshot
-   receipt; 90-day retention). The job summary shows the actions, monitor/cycle state,
+   receipt, fee-capture report; 90-day retention). The job summary shows the actions, monitor/cycle state,
    schedules, retained inputs, label requests and alerts.
 
 A snapshot is uploaded even when collection fails, so the next run continues from every
