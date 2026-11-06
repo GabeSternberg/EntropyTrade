@@ -110,6 +110,45 @@ bounded by their original 2 GiB expanded budget.
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 
+### Forward locations and station bindings
+
+`configs/data/weather-forward.json` selects the daily-high series captured each cycle. Since
+2026-11-06 it has four: Philadelphia (`KXHIGHPHIL`, CLIPHL), Chicago Midway (`KXHIGHCHI`,
+CLIMDW), New York City (`KXHIGHNY`, CLINYC) and Dallas (`KXHIGHTDAL`, CLIDFW). Each added
+location is backed by retained authentic evidence, checked by
+`test_forward_station_bindings.py`:
+
+- **Series and station.** The series is in the retained Kalshi catalog listing (PR #8). The
+  station is named in retained contract rules ("New York City (CLINYC)", "Dallas (CLIDFW)",
+  `data/public/{newyork,dallas}/manifest.json`).
+- **Label source.** The settlement portal lists the station's `cliId`/ICAO/timezone in the
+  retained receipt `data/weather-label-review/20261031/probe/primary-2026-10-29.json`.
+  `weather/labels.py` `STATIONS` allowlists exactly those values.
+- **Forecast coordinates.** These are the coordinates returned by the retained
+  `api.weather.gov/stations/K…` receipt. Oklahoma City (CLIOKC) is **not** added: its
+  retained coordinates are a city-centre geocode, not the station.
+
+The existing monitor's frozen strategy universe is unchanged. New series are captured and
+labelled, but they make no shadow decisions. More independent station/days per date is the
+point: the fitting gate needs 60/20/20 independent fit/calibration/validation events.
+
+Each `summary.json` (and the job-log line) carries `station_bindings`, computed read-only
+from the newest retained weather capture. For each configured location it reports:
+
+- `contracts`: the captured contracts;
+- `named_stations`: the CLI station codes the rules name;
+- `label_compatible`: the contracts the existing label gate (`compatible_rules`) accepts;
+- `label_source_supported`: whether the label source supports the station/timezone;
+- `status`: one of `matched`, `mismatch` (rules name another station), `unnamed`, `partial`
+  or `no_contracts`.
+
+The top-level `status` is `ok` only when every location is `matched`. A mismatched mapping
+is never relabelled. The label gate already refuses it, and this section only makes that
+visible without downloading the workspace.
+
+Adding locations raises per-cycle storage. Watch `workspace.distinct_bytes` growth per
+cycle before adding more.
+
 Runs on one branch are serialized by the concurrency group, so completion order is chain
 order. Creation order is not: on 2026-11-06, dispatch `42167131442` was created before push
 `42167132149`, but the push ran first. Creation order would have made the push run's
