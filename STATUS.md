@@ -1,5 +1,45 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): linear snapshot growth; workspace footprint reporting
+
+Branch `claude/vibrant-bohr-zx3moc`, **stacked on PR #13** (`claude/vibrant-bohr-4jtqro`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#13 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Defect: the chained snapshot grew quadratically.** Measured on real runners, the
+  `workspace.zip` was 10.2 MB at 1 cycle, 18.8 MB at 2, 243 MB at 14 and 330,871,923 bytes at
+  16 (run `42174401711`). That is about 44 MB per cycle and rising, against the 2 GB
+  `MAX_BYTES` snapshot budget. At cron cadence (6 runs × 3 cycles per day), the budget would
+  be exhausted in about 2–3 days. A workspace over budget cannot be snapshotted, so the chain
+  would stall exactly when multi-day operation starts.
+- **Cause.** The label schedule's hourly `discover` froze a new immutable weather dataset over
+  the whole retained-input partition (up to 128 inputs). `_build_snapshot` copies every
+  shadow cycle's full artifacts (about 2.6–6 MB each) into each dataset, so every discovery
+  re-copied all earlier cycles.
+- **Fix.** Discovery is incremental. The schedule durably records the catalog inputs it has
+  frozen (`discovered`; the API reports `discovered_inputs`). Each scan freezes only unseen
+  inputs from the earliest partition that has any, so each input is copied into at most one
+  discovery dataset. A scan with no new inputs creates nothing. Inputs with no label targets
+  advance without blocking the schedule; integrity failures still raise and block. Frozen
+  anchor, protection and earlier datasets/plans are unchanged. Schedules saved before the
+  change load and verify unchanged, and their first scan freezes the partition once.
+- **Also.** Snapshots are deflate-compressed; stored legacy archives still restore and other
+  compression methods are refused. Each forward summary now has `workspace` (bytes by area vs.
+  the budget, `ok`/`warning`/`critical`), and the job summary warns at 50%/80%. See
+  [forward operator](docs/forward-operator.md) and [forward validation](docs/forward-validation.md).
+- **Tests.** There are 6 new cases: 3 schedule, 1 recovery, 1 footprint and a footprint
+  assertion in the real-server case. The schedule cases fail on the previous code. Ruff
+  lint/format pass; strict mypy passes (564 files). **Full pytest: 1,387 passed in 704.50s**,
+  with zero failures, errors or skips.
+- **Not yet observed on a real runner:** linear growth over several chained runs. See the
+  verification log below.
+
+**Next autonomous milestone:** dispatch the chain on this branch and compare `workspace` areas
+across two or more runs to confirm linear growth on authentic data. Then confirm that
+2026-11-05 verifies once the official climate report is published. Remaining linear costs:
+each shadow cycle stores its data about 3 times (result, decision and paper inputs), and
+`LabelService.selection` re-verifies every dataset on each enrollment.
+
 ## Current milestone (2026-11-06): per-date label backlog; first authentic label request
 
 Branch `claude/vibrant-bohr-4jtqro`, **stacked on PR #12** (`claude/vibrant-bohr-8ctoc4`).
