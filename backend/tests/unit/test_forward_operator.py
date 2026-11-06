@@ -713,6 +713,22 @@ def test_runway_refuses_to_project_without_measured_growth() -> None:
     assert (over["binding"], over["cycles_left"], over["days_left"]) == ("expanded_bytes", 0, 0.0)
 
 
+@pytest.mark.parametrize("start_bytes", [4010, 4020])
+def test_runway_cannot_ignore_an_exceeded_budget_with_flat_or_negative_growth(
+    start_bytes: int,
+) -> None:
+    report = forward.runway(
+        _footprint(start_bytes, 500, 100),
+        _footprint(4010, 510, 101),
+        1,
+        at=datetime(2026, 11, 6, tzinfo=UTC),
+        boundaries=["2026-12-16", "2026-12-28", "2027-01-27"],
+    )
+    assert report["binding"] == "expanded_bytes"
+    assert report["cycles_left"] == 0
+    assert report["status"] == "short_of_validation_end"
+
+
 def test_frozen_calendar_reads_the_shared_dataset_partition(tmp_path: Path) -> None:
     root = tmp_path / "runs" / "weather-datasets"
     assert forward.frozen_calendar(tmp_path) is None

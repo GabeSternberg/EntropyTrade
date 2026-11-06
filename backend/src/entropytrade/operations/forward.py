@@ -392,7 +392,12 @@ def runway(
             "growth_this_run": growth,
             "per_cycle": round(per_cycle, 1),
             "remaining": left,
-            "cycles_left": None if per_cycle <= 0 else max(0, int(left // per_cycle)),
+            # An existing violation still prevents snapshots when growth is flat or negative.
+            "cycles_left": 0
+            if left < 0
+            else None
+            if per_cycle <= 0
+            else max(0, int(left // per_cycle)),
         }
     finite = {k: v["cycles_left"] for k, v in limits.items() if v["cycles_left"] is not None}
     result["budgets"] = limits
