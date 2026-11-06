@@ -85,11 +85,17 @@ are truncated with `contracts_total`. Resolved alerts omit evidence.
 Summaries written before this change listed every alert with `status: null`.
 
 `workspace` reports the bytes the next snapshot will carry, by area (`jobs.sqlite`, `runs`,
-`runs/weather-datasets`, `shadow`), against the 2 GB snapshot budget (`budget_used`). Its
-`status` is `ok`, `warning` (at least 50%) or `critical` (at least 80%). The job summary
-adds a `::warning::` annotation for the last two. It counts file sizes only and excludes
-the runtime files that snapshots skip. Snapshot archives are deflate-compressed; archives
-stored uncompressed by earlier runs still restore.
+`runs/weather-datasets`, `shadow`). Snapshots (schema `entropytrade-workspace-v2`) store
+each distinct file content once, because immutable weather datasets copy shadow receipts
+byte for byte; a restore still writes every path as its own checksum-verified file (no
+hard links). Two budgets apply: `distinct_bytes` against the 2 GiB archive budget
+(`snapshot_budget_bytes`) and expanded `bytes` against the 4 GiB restore budget
+(`expanded_budget_bytes`). `budget_used` is the larger ratio. Its `status` is `ok`,
+`warning` (at least 50%) or `critical` (at least 80%), and the job summary adds a
+`::warning::` annotation for the last two. The footprint hashes file contents and excludes
+the runtime files that snapshots skip. Archives are deflate-compressed. Per-path
+`entropytrade-workspace-v1` archives (stored or deflated) from earlier runs still restore,
+bounded by their original 2 GiB expanded budget.
 
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
@@ -193,7 +199,7 @@ the local copy to start collecting.
   next runs then report `operator_review_required` until someone reviews and resumes it.
 - Private repository artifact storage counts against the account quota. Watch `workspace` in
   each summary and archive sizes in the snapshot step, and lower the cron frequency if needed.
-  A workspace over the 2 GB budget cannot be snapshotted, so that run's receipts are not
+  A workspace over either snapshot budget cannot be snapshotted, so that run's receipts are not
   carried forward and the chain stalls. Act on a `warning`. Retained raw receipts are never deleted to make room.
 
 ## What this does not establish

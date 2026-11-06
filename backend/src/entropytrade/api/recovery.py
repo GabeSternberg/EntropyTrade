@@ -21,10 +21,16 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
 
-SCHEMA = "entropytrade-workspace-v1"
+# v2 stores each distinct file content once (content-addressed members); every path is still
+# restored as its own independent, checksum-verified file. v1 archives remain restorable.
+SCHEMA = "entropytrade-workspace-v2"
+LEGACY_SCHEMA = "entropytrade-workspace-v1"
 MAX_FILES = 100_000
 MAX_FILE_BYTES = 256 * 1024 * 1024
+# Distinct content bytes an archive may carry (what is compressed, uploaded and decompressed).
 MAX_BYTES = 2 * 1024 * 1024 * 1024
+# Bytes a restore may write to disk once every path is expanded (v1: equal to MAX_BYTES).
+MAX_EXPANDED_BYTES = 4 * 1024 * 1024 * 1024
 MAX_MANIFEST_BYTES = 16 * 1024 * 1024
 TABLES = {
     "jobs": "id request status created_at updated_at detail result",
@@ -315,10 +321,26 @@ def validate_database(root: Path) -> dict[str, int]:
         db.close()
 
 
+def blob_member(digest: Any) -> str:
+    """Archive member holding one distinct content; refuses anything but a sha256 digest."""
+    hexdigest = digest.removeprefix("sha256:") if isinstance(digest, str) else ""
+    if (
+        not isinstance(digest, str)
+        or not digest.startswith("sha256:")
+        or len(hexdigest) != 64
+        or any(c not in "0123456789abcdef" for c in hexdigest)
+    ):
+        raise ValueError("snapshot file has an invalid content digest")
+    return "blobs/" + hexdigest
+
+
 def inventory(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
+    """All regular files with checksums, bounded by expanded and distinct-content budgets."""
     files: list[dict[str, Any]] = []
     directories: list[str] = []
     total = 0
+    distinct: dict[str, int] = {}
+    distinct_total = 0
     for path in sorted(root.rglob("*")):
         name = path.relative_to(root).as_posix()
         if path.is_symlink() or not (path.is_dir() or stat.S_ISREG(path.stat().st_mode)):
@@ -330,9 +352,15 @@ def inventory(root: Path) -> tuple[list[dict[str, Any]], list[str]]:
             continue
         size = path.stat().st_size
         total += size
-        if len(files) >= MAX_FILES or size > MAX_FILE_BYTES or total > MAX_BYTES:
+        if len(files) >= MAX_FILES or size > MAX_FILE_BYTES or total > MAX_EXPANDED_BYTES:
             raise ValueError("workspace exceeds snapshot size budget")
-        files.append({"path": name, "bytes": size, "sha256": file_hash(path)})
+        digest = file_hash(path)
+        if digest not in distinct:
+            distinct[digest] = size
+            distinct_total += size
+            if distinct_total > MAX_BYTES:
+                raise ValueError("workspace exceeds snapshot size budget")
+        files.append({"path": name, "bytes": size, "sha256": digest})
     return files, directories
 
 
@@ -385,11 +413,16 @@ def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[
         if len(encoded_manifest.encode()) > MAX_MANIFEST_BYTES:
             raise ValueError("workspace exceeds snapshot manifest budget")
         # Deflate: retained JSON evidence compresses ~10x, which keeps chained uploads and
-        # restores fast. Restore bounds every member by its declared size and checksum.
+        # restores fast. Immutable datasets copy shadow receipts byte for byte, so each
+        # distinct content is stored once. Restore bounds every member by its declared size
+        # and checksum and writes every path as its own file.
+        blobs: dict[str, str] = {}
+        for item in files:
+            blobs.setdefault(item["sha256"], item["path"])
         with ZipFile(temporary, "w", compression=ZIP_DEFLATED, compresslevel=6) as bundle:
             bundle.writestr("manifest.json", encoded_manifest)
-            for item in files:
-                bundle.write(payload / item["path"], "files/" + item["path"])
+            for digest, path in sorted(blobs.items()):
+                bundle.write(payload / path, blob_member(digest))
         temporary.chmod(0o600)
         os.link(temporary, archive)  # publish without replacing any existing evidence
         yield {
@@ -427,8 +460,9 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
         ):
             raise ValueError("missing/oversized snapshot manifest")
         manifest = json.loads(bundle.read("manifest.json"))
+        legacy = manifest["schema"] == LEGACY_SCHEMA
         if (
-            manifest["schema"] != SCHEMA
+            manifest["schema"] not in {SCHEMA, LEGACY_SCHEMA}
             or manifest["application"] != application(repo)
             or manifest["submission_enabled"] is not False
         ):
@@ -440,24 +474,35 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
                 len(parts) < 2 or parts[0] not in {"runs", "shadow"}
             ):
                 raise ValueError("unexpected snapshot workspace entry")
-        expected = {"files/" + relative(f["path"]) for f in files}
+
+        def member_name(item: dict[str, Any]) -> str:
+            return "files/" + item["path"] if legacy else blob_member(item["sha256"])
+
+        paths = {relative(f["path"]) for f in files}
+        expected = {member_name(f) for f in files}
         if (
             len(files) > MAX_FILES
-            or len(expected) != len(files)
+            or len(paths) != len(files)
             or set(names) != expected | {"manifest.json"}
         ):
             raise ValueError("incomplete snapshot member inventory")
         total = 0
+        distinct = 0
+        seen: set[str] = set()
         for item in files:
-            info: ZipInfo = bundle.getinfo("files/" + item["path"])
+            info: ZipInfo = bundle.getinfo(member_name(item))
             size = item["bytes"]
             total += info.file_size
+            if info.filename not in seen:
+                seen.add(info.filename)
+                distinct += info.file_size
             if (
                 type(size) is not int
                 or size < 0
                 or size != info.file_size
                 or size > MAX_FILE_BYTES
-                or total > MAX_BYTES
+                or distinct > MAX_BYTES
+                or total > (MAX_BYTES if legacy else MAX_EXPANDED_BYTES)
             ):
                 raise ValueError("snapshot exceeds size budget or has invalid sizes")
         directories = manifest["directories"]
@@ -471,7 +516,7 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
             path = stage / item["path"]
             path.parent.mkdir(parents=True, exist_ok=True)
             digest = hashlib.sha256()
-            with bundle.open("files/" + item["path"]) as source, path.open("xb") as target:
+            with bundle.open(member_name(item)) as source, path.open("xb") as target:
                 for chunk in iter(lambda: source.read(1024 * 1024), b""):
                     target.write(chunk)
                     digest.update(chunk)

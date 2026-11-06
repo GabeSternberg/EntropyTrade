@@ -560,30 +560,37 @@ def test_footprint_reports_snapshot_bytes_by_area_against_the_budget(
     from entropytrade.api import recovery
 
     workspace = tmp_path / "workspace"
-    for name, size in {
-        "jobs.sqlite": 10,
-        "jobs.sqlite-wal": 1000,  # runtime: excluded from snapshots and from the footprint
-        ".writer.lock": 1000,
-        "runs/weather-datasets/abc/snapshot.json": 30,
-        "runs/weather-datasets/def/receipts/0000/raw.json": 20,
-        "runs/job-1/public/markets.jsonl": 5,
-        "shadow/monitor/cycle/result.json": 35,
+    for name, (size, fill) in {
+        "jobs.sqlite": (10, b"j"),
+        "jobs.sqlite-wal": (1000, b"w"),  # runtime: excluded from snapshots and the footprint
+        ".writer.lock": (1000, b"l"),
+        "runs/weather-datasets/abc/snapshot.json": (30, b"a"),
+        # An immutable dataset copy of the shadow receipt below: stored once in a snapshot.
+        "runs/weather-datasets/def/shadow/digest/result.json": (35, b"r"),
+        "runs/job-1/public/markets.jsonl": (5, b"m"),
+        "shadow/monitor/cycle/result.json": (35, b"r"),
     }.items():
         path = workspace / name
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(b"x" * size)
+        path.write_bytes(fill * size)
     monkeypatch.setattr(recovery, "MAX_BYTES", 1000)
+    monkeypatch.setattr(recovery, "MAX_EXPANDED_BYTES", 2000)
     report = forward.footprint(workspace)
     assert report["areas"] == {
         "jobs.sqlite": 10,
         "runs": 5,
-        "runs/weather-datasets": 50,
+        "runs/weather-datasets": 65,
         "shadow": 35,
     }
-    assert (report["bytes"], report["files"], report["snapshot_budget_bytes"]) == (100, 5, 1000)
-    assert (report["budget_used"], report["status"]) == (0.1, "ok")
-    monkeypatch.setattr(recovery, "MAX_BYTES", 180)
+    assert (report["bytes"], report["distinct_bytes"], report["files"]) == (115, 80, 5)
+    assert (report["snapshot_budget_bytes"], report["expanded_budget_bytes"]) == (1000, 2000)
+    assert (report["budget_used"], report["status"]) == (0.08, "ok")
+    # Distinct bytes bind the archive budget; expanded bytes bind what a restore writes.
+    monkeypatch.setattr(recovery, "MAX_BYTES", 150)
     assert forward.footprint(workspace)["status"] == "warning"
-    monkeypatch.setattr(recovery, "MAX_BYTES", 120)
+    monkeypatch.setattr(recovery, "MAX_BYTES", 95)
+    assert forward.footprint(workspace)["status"] == "critical"
+    monkeypatch.setattr(recovery, "MAX_BYTES", 1000)
+    monkeypatch.setattr(recovery, "MAX_EXPANDED_BYTES", 140)
     assert forward.footprint(workspace)["status"] == "critical"
     assert forward.footprint(tmp_path / "missing")["bytes"] == 0

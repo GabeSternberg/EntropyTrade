@@ -265,7 +265,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
           # Surface snapshot-budget pressure before a snapshot can be refused (2 GB budget).
           if [ -f "$OUT/summary.json" ]; then
-            python3 -c "import json,sys; w=json.load(open(sys.argv[1])).get('workspace') or {}; s=w.get('status'); s in ('warning','critical') and print('::warning::workspace footprint %s: %s bytes, %s of the snapshot budget' % (s, w.get('bytes'), w.get('budget_used')))" "$OUT/summary.json"
+            python3 -c "import json,sys; w=json.load(open(sys.argv[1])).get('workspace') or {}; s=w.get('status'); s in ('warning','critical') and print('::warning::workspace footprint %s: %s bytes (%s distinct), %s of the snapshot budget' % (s, w.get('bytes'), w.get('distinct_bytes'), w.get('budget_used')))" "$OUT/summary.json"
           fi
 
       - name: Fail if collection failed

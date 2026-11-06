@@ -13,7 +13,7 @@ from zipfile import ZIP_BZIP2, ZIP_DEFLATED, ZIP_STORED, ZipFile, ZipInfo
 import pytest
 
 from entropytrade.api.jobs import Jobs
-from entropytrade.api.recovery import restore, snapshot
+from entropytrade.api.recovery import LEGACY_SCHEMA, SCHEMA, blob_member, restore, snapshot
 from entropytrade.api.workspace import workspace_lease
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.strategy import StrategySpec
@@ -228,15 +228,16 @@ def rewrite(archive: Path, output: Path, change: str, *, model_binding: str = "{
     manifest: dict[str, Any] = json.loads(contents["manifest.json"])
     receipt = next(f for f in manifest["files"] if f["path"].endswith("receipt.json"))
     if change == "checksum":
-        contents["files/" + receipt["path"]] = b"x" * receipt["bytes"]
+        contents[blob_member(receipt["sha256"])] = b"x" * receipt["bytes"]
     elif change == "missing":
-        del contents["files/" + receipt["path"]]
+        del contents[blob_member(receipt["sha256"])]
     elif change == "missing-indexed":
-        del contents["files/" + receipt["path"]]
+        del contents[blob_member(receipt["sha256"])]
         manifest["files"].remove(receipt)
     elif change in {"binding", "spec", "cycle", "orphan", "sequence", "schema"}:
+        db_entry = next(f for f in manifest["files"] if f["path"] == "jobs.sqlite")
         db_file = output.with_suffix(".sqlite")
-        db_file.write_bytes(contents["files/jobs.sqlite"])
+        db_file.write_bytes(contents.pop(blob_member(db_entry["sha256"])))
         with sqlite3.connect(db_file) as db:
             if change == "binding":
                 db.execute("UPDATE monitors SET model_binding=?", (model_binding,))
@@ -251,9 +252,8 @@ def rewrite(archive: Path, output: Path, change: str, *, model_binding: str = "{
             elif change == "schema":
                 db.execute("DROP TABLE shadow_contracts")
         db.close()
-        contents["files/jobs.sqlite"] = db_file.read_bytes()
-        db_entry = next(f for f in manifest["files"] if f["path"] == "jobs.sqlite")
         db_entry.update(bytes=db_file.stat().st_size, sha256=file_hash(db_file))
+        contents[blob_member(db_entry["sha256"])] = db_file.read_bytes()
     elif change == "path":
         contents["files/../../escape"] = b"never extracted"
     elif change == "symlink":
@@ -263,7 +263,8 @@ def rewrite(archive: Path, output: Path, change: str, *, model_binding: str = "{
     elif change == "size":
         receipt["bytes"] = 2**40
     elif change == "not-database":
-        contents["files/jobs.sqlite"] = b"not sqlite"
+        db_entry = next(f for f in manifest["files"] if f["path"] == "jobs.sqlite")
+        contents[blob_member(db_entry["sha256"])] = b"not sqlite"
     else:
         raise AssertionError(change)
     contents["manifest.json"] = json.dumps(manifest).encode()
@@ -498,9 +499,11 @@ def test_lineage_registry_is_restored_and_missing_research_lineage_is_refused(re
     restored_db.close()
     # Updating the outer manifest cannot conceal absent registry evidence.
     with ZipFile(archive) as bundle:
-        contents = {n: bundle.read(n) for n in bundle.namelist() if n != "files/registry.sqlite"}
+        contents = {n: bundle.read(n) for n in bundle.namelist()}
     manifest = json.loads(contents["manifest.json"])
-    manifest["files"] = [f for f in manifest["files"] if f["path"] != "registry.sqlite"]
+    registry = next(f for f in manifest["files"] if f["path"] == "registry.sqlite")
+    del contents[blob_member(registry["sha256"])]
+    manifest["files"].remove(registry)
     contents["manifest.json"] = json.dumps(manifest).encode()
     corrupt = repo / "missing-registry.zip"
     with ZipFile(corrupt, "w") as bundle:
@@ -563,3 +566,129 @@ def test_snapshot_refuses_directory_and_manifest_budgets_before_publish(
     with pytest.raises(ValueError, match="manifest budget"):
         snapshot(repo, store.jobs.root, repo / "manifest-budget.zip")
     assert not (repo / "manifest-budget.zip").exists()
+
+
+def duplicated(repo: Path) -> TrackingStore:
+    """CONTROLLED workspace whose immutable dataset copies a shadow receipt byte for byte."""
+    store, paused, _active, _unfinished = populated(repo)
+    cycle = next((store.jobs.root / "shadow" / paused).iterdir())
+    dataset = store.jobs.root / "runs/controlled-copy/shadow/digest"
+    dataset.mkdir(parents=True)
+    for name in ("receipt.json", "result.json"):
+        (dataset / name).write_bytes((cycle / name).read_bytes())
+    # Equal content at unrelated paths is also stored once; empty files are distinct paths.
+    (store.jobs.root / "runs/controlled-copy/empty-1.json").write_bytes(b"")
+    (store.jobs.root / "runs/controlled-copy/empty-2.json").write_bytes(b"")
+    return store
+
+
+def test_snapshot_stores_each_distinct_content_once_and_restores_independent_files(
+    repo: Path,
+) -> None:
+    store = duplicated(repo)
+    archive = repo / "snapshot.zip"
+    snapshot(repo, store.jobs.root, archive)
+    with ZipFile(archive) as bundle:
+        names = bundle.namelist()
+        manifest = json.loads(bundle.read("manifest.json"))
+    files = manifest["files"]
+    digests = {f["sha256"] for f in files}
+    assert manifest["schema"] == SCHEMA
+    assert len(digests) < len(files)  # the dataset copies really are duplicates
+    assert sorted(names) == sorted(["manifest.json", *map(blob_member, digests)])
+
+    destination = repo / "data/cache/restored"
+    restore(repo, archive, destination)
+    for item in files:
+        assert file_hash(destination / item["path"]) == item["sha256"]
+    copy = destination / "runs/controlled-copy/shadow/digest/receipt.json"
+    original = next(destination.glob("shadow/*/*/receipt.json"))
+    assert copy.read_bytes() == original.read_bytes()
+    # Every path is its own file: no hard links, so a later write cannot alter another record.
+    assert copy.stat().st_nlink == original.stat().st_nlink == 1
+    assert copy.stat().st_ino != original.stat().st_ino
+    copy.write_text("CONTROLLED overwrite")
+    assert file_hash(original) == next(
+        f["sha256"]
+        for f in files
+        if f["path"].endswith(original.relative_to(destination).as_posix())
+    )
+    assert (destination / "runs/controlled-copy/empty-2.json").read_bytes() == b""
+
+
+def test_legacy_per_path_archives_still_restore_within_their_original_budget(
+    repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = duplicated(repo)
+    archive = repo / "snapshot.zip"
+    snapshot(repo, store.jobs.root, archive)
+    with ZipFile(archive) as bundle:
+        contents = {n: bundle.read(n) for n in bundle.namelist()}
+    manifest = json.loads(contents.pop("manifest.json"))
+    manifest["schema"] = LEGACY_SCHEMA
+    legacy = repo / "legacy.zip"
+    with ZipFile(legacy, "w", compression=ZIP_STORED) as bundle:
+        bundle.writestr("manifest.json", json.dumps(manifest))
+        for item in manifest["files"]:
+            bundle.writestr("files/" + item["path"], contents[blob_member(item["sha256"])])
+    restore(repo, legacy, repo / "data/cache/legacy")
+    for item in manifest["files"]:
+        assert file_hash(repo / "data/cache/legacy" / item["path"]) == item["sha256"]
+
+    # A v1 archive was always bounded by expanded bytes; that bound is unchanged for it,
+    # while a v2 archive of the same workspace is bounded by distinct bytes.
+    expanded = sum(f["bytes"] for f in manifest["files"])
+    distinct = sum({f["sha256"]: f["bytes"] for f in manifest["files"]}.values())
+    assert distinct < expanded
+    monkeypatch.setattr("entropytrade.api.recovery.MAX_BYTES", distinct)
+    with pytest.raises(ValueError, match="size budget"):
+        restore(repo, legacy, repo / "data/cache/legacy-over")
+    assert not (repo / "data/cache/legacy-over").exists()
+    restore(repo, archive, repo / "data/cache/v2-within")
+
+
+def test_snapshot_budgets_count_distinct_and_expanded_bytes_separately(
+    repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    store = duplicated(repo)
+    archive = repo / "baseline.zip"
+    snapshot(repo, store.jobs.root, archive)
+    with ZipFile(archive) as bundle:
+        files = json.loads(bundle.read("manifest.json"))["files"]
+    expanded = sum(f["bytes"] for f in files)
+    distinct = sum({f["sha256"]: f["bytes"] for f in files}.values())
+    monkeypatch.setattr("entropytrade.api.recovery.MAX_BYTES", distinct)
+    snapshot(repo, store.jobs.root, repo / "distinct-exact.zip")
+    monkeypatch.setattr("entropytrade.api.recovery.MAX_BYTES", distinct - 1)
+    with pytest.raises(ValueError, match="size budget"):
+        snapshot(repo, store.jobs.root, repo / "distinct-over.zip")
+    assert not (repo / "distinct-over.zip").exists()
+    with pytest.raises(ValueError, match="size budget"):
+        restore(repo, archive, repo / "data/cache/distinct-over")
+    monkeypatch.setattr("entropytrade.api.recovery.MAX_BYTES", distinct)
+    monkeypatch.setattr("entropytrade.api.recovery.MAX_EXPANDED_BYTES", expanded - 1)
+    with pytest.raises(ValueError, match="size budget"):
+        snapshot(repo, store.jobs.root, repo / "expanded-over.zip")
+    assert not (repo / "expanded-over.zip").exists()
+    with pytest.raises(ValueError, match="size budget"):
+        restore(repo, archive, repo / "data/cache/expanded-over")
+    assert not list((repo / "data/cache").glob("*-over"))
+
+
+@pytest.mark.parametrize("digest", ["sha256:../../escape", "md5:" + "0" * 64, "sha256:" + "G" * 64])
+def test_archive_members_must_be_named_by_a_valid_content_digest(repo: Path, digest: str) -> None:
+    store = duplicated(repo)
+    archive = repo / "snapshot.zip"
+    snapshot(repo, store.jobs.root, archive)
+    with ZipFile(archive) as bundle:
+        contents = {n: bundle.read(n) for n in bundle.namelist()}
+    manifest = json.loads(contents["manifest.json"])
+    manifest["files"][0]["sha256"] = digest
+    contents["manifest.json"] = json.dumps(manifest).encode()
+    corrupt = repo / "corrupt.zip"
+    with ZipFile(corrupt, "w") as bundle:
+        for name, body in contents.items():
+            bundle.writestr(name, body)
+    with pytest.raises(ValueError, match="digest"):
+        restore(repo, corrupt, repo / "data/cache/refused")
+    assert not (repo / "data/cache/refused").exists()
