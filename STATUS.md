@@ -18,8 +18,12 @@ checks at the start of this run; none were merged, so this run avoided duplicati
 - **Tests.** `backend/tests/unit/test_fee_capture_due.py` (5 cases): cadence, immutable
   re-capture, failure throttling, transport errors, per-document tracking and refusal of
   uncertified captures. Full-suite and runner results are recorded below.
-- **Chain upkeep.** Dispatched forward-collection run `42136454980` on PR #5's branch to
-  continue that chain (labels for 2026-11-05 are now due).
+- **Chain upkeep.** Dispatched forward-collection run `42136454980` on PR #5's branch
+  (success): restored `42133403993`; `monitor_kept`/`schedule_kept`; 3 cycles this window
+  (7 total), each `24 shadow decisions; 0 acquisition failures`; 7 retained inputs; schedule
+  active with 2 pending dates and 0 label requests (the 2026-11-05 local days had not yet
+  ended in US time zones); no alerts or errors; snapshot `sha256:6e69a006…`. This chain
+  predates the fee-capture step, so it holds no fee receipts.
 
 Results:
 - Local: Ruff lint/format and strict mypy (562 files) pass; **full pytest 1,341 passed in
