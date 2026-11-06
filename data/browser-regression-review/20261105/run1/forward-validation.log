@@ -1,0 +1,23 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery (7ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery 
+  1 did not run
+  1 error was not a part of any test, see above for details

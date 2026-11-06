@@ -1,0 +1,69 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery (251ms)
+  ✘  2 forward-validation.spec.cjs:267:1 › continuous forward validation: authentic shadow receipts and new label acquisition (31.7s)
+
+
+  1) forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery 
+
+    Error: ENOENT: no such file or directory, open '/home/user/EntropyTrade/data/cache/browser-regression-20261105-run3/forward-validation-forward-controlled-phase.json.pending'
+
+      38 |   function phase(value, seconds = 0) {
+      39 |     phaseEpoch += seconds;
+    > 40 |     fs.writeFileSync(phaseFile + ".pending", JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + phaseEpoch * 1000).toISOString() }));
+         |        ^
+      41 |     fs.renameSync(phaseFile + ".pending", phaseFile);
+      42 |     receipt.operations.push({ action: "CONTROLLED-source", phase: value, seconds: phaseEpoch }); save();
+      43 |   }
+        at phase (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:40:8)
+        at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:117:23)
+        at /home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:266:117
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-2f325-te-transitions-and-recovery/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) forward-validation.spec.cjs:267:1 › continuous forward validation: authentic shadow receipts and new label acquisition 
+
+    AssertionError: Recovery refused: snapshot requires a new archive outside the workspace
+
+
+    1 !== 0
+
+
+      45 |     const result = spawnSync(python, args, { cwd: repo, env, encoding: "utf8", timeout: 120_000 });
+      46 |     fs.writeFileSync(path.join(evidence, name + ".log"), result.stdout + result.stderr);
+    > 47 |     assert.equal(result.status, 0, result.stdout + result.stderr);
+         |            ^
+      48 |   }
+      49 |   let server, epoch = 0;
+      50 |   async function start() {
+        at command (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:47:12)
+        at procedure (/home/user/EntropyTrade/frontend/browser/forward-validation.spec.cjs:245:5)
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run3/forward-validation/playwright-artifacts/forward-validation-continu-8e36a-s-and-new-label-acquisition/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    forward-validation.spec.cjs:266:1 › continuous forward validation: controlled twelve-date transitions and recovery 
+    forward-validation.spec.cjs:267:1 › continuous forward validation: authentic shadow receipts and new label acquisition 

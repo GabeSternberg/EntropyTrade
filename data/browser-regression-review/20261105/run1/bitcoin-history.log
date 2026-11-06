@@ -1,0 +1,23 @@
+
+Running 2 tests using 1 worker
+
+  ✘  1 bitcoin-history.spec.cjs:12:1 › Bitcoin retained history: honest empty result, downloads and restart (3ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) bitcoin-history.spec.cjs:12:1 › Bitcoin retained history: honest empty result, downloads and restart 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/bitcoin-history/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/bitcoin-history/playwright-artifacts/bitcoin-history-Bitcoin-re-c2e98-esult-downloads-and-restart/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    bitcoin-history.spec.cjs:12:1 › Bitcoin retained history: honest empty result, downloads and restart 
+  1 did not run
+  1 error was not a part of any test, see above for details

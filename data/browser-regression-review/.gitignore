@@ -1,0 +1,11 @@
+# Heavy browser artifacts stay local; hashes are kept in each run MANIFEST.sha256.
+*.zip
+*.png
+*.parquet
+*.joblib
+*.sqlite
+**/runs/
+# Remaining per-run outputs (large downloads, intermediate receipts) stay local;
+# every file is hashed in 20261105/MANIFEST.sha256. Already-tracked files remain tracked.
+/20261105/run*/
+/20261105/final*/

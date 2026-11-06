@@ -12,6 +12,30 @@
 | Readiness on authentic chain | Run `42162688233` job log | Insufficient: 0 matched of 24 contracts (24 refused); 4 events on 2 dates; 0 verified labels. |
 | Empirical sufficiency, fees, providers, second family | Unchanged | Open. |
 
+# Market-family screening — November 5, 2026
+
+**complete=false.** This milestone supports the two-family gate; it does not satisfy it. See
+[family-selection.md](family-selection.md).
+
+| Requirement | Evidence | Result / remaining gate |
+|---|---|---|
+| Reproducible comparison of candidate families | `families/screening.py`, `test_family_screening.py`, `data/family-screening-review/20261105/` | Deterministic, hashed per-series report over 29 retained receipts; a rerun is byte-identical. |
+| Fail-closed receipt handling | Tests for malformed, contradictory, tampered and existing-output cases | Ambiguous evidence is refused; no outcome or authority is inferred. |
+| Read-only bounded catalog acquisition | Fetch tests with a mock transport; one real attempt | Software behaviour is tested. The real attempt was blocked (no egress, issue #3), so no fetched catalog exists. |
+| Two empirically validated families | — | **Open.** Candidate catalogs still need fetching, the user still needs to approve a family in writing, and that family still needs point-in-time sources, labels and validation. |
+
+# Browser regression sweep and CI — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-b1kuuh` stacked on PR #1.
+[Executed evidence](../data/browser-regression-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| All website procedures on the current tree | 14 `frontend/browser/*.spec.cjs`, receipts, Playwright JSON, `MANIFEST.sha256` | **Pass:** 19 tests in 12 spec files, plus 3/4 workbench workflows, 0 page errors. **Open:** `weather-labels` and workbench workflow 3 need public egress; they fail honestly with `ConnectError` here. |
+| Label-partition UI consistency | `frontend/src/app.js`, new DOM regression | **Defect fixed:** an out-of-order overlapping render could show another partition's requests. |
+| Repeatable acceptance runs | 7 specs derive archive/import paths from unique workspaces | **Harness fixed:** run-to-run archive collisions; unignored `data/recovery/`. |
+| Continuous integration | `.github/workflows/ci.yml`, GitHub run 42116073148 | **Pass:** Ruff, strict mypy, 25 frontend tests, **1,320 pytest in 693.83s** on a clean runner with no secrets. Browser/public acceptance stays separate. |
+
 # Prospective-evaluation acceptance completion — November 5, 2026
 
 **complete=false (V1).** Branch `claude/vibrant-bohr-l2suow` from main `55b2bea`. Closes the
