@@ -538,6 +538,9 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     assert result["readiness"]["settlement_labels"]["verified_events"] == 0
     assert result["workspace"]["status"] == "ok"
     assert result["workspace"]["areas"]["jobs.sqlite"] > 0
+    # No monitor, so no cycles: growth cannot be attributed and nothing is projected.
+    assert result["runway"]["status"] == "unmeasured"
+    assert result["runway"]["cycles_this_run"] == 0
     json.dumps(result)
     # The workspace lease is released: a second operation can start immediately.
     again = operate(
@@ -645,3 +648,81 @@ def test_footprint_reports_snapshot_bytes_by_area_against_the_budget(
     monkeypatch.setattr(recovery, "MAX_EXPANDED_BYTES", 140)
     assert forward.footprint(workspace)["status"] == "critical"
     assert forward.footprint(tmp_path / "missing")["bytes"] == 0
+
+
+def _footprint(bytes_: int, distinct: int, files: int) -> dict[str, Any]:
+    return {
+        "bytes": bytes_,
+        "distinct_bytes": distinct,
+        "files": files,
+        "snapshot_budget_bytes": 2000,
+        "expanded_budget_bytes": 4000,
+    }
+
+
+def test_runway_projects_the_binding_budget_from_measured_growth(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from entropytrade.api import recovery
+
+    monkeypatch.setattr(recovery, "MAX_FILES", 1000)
+    at = datetime(2026, 11, 6, 15, tzinfo=UTC)
+    # Expanded bytes grow 2.5x faster than distinct bytes (datasets copy receipts).
+    start, end = _footprint(1000, 500, 100), _footprint(1100, 540, 110)
+    report = forward.runway(
+        start, end, 4, at=at, boundaries=["2026-12-16", "2026-12-28", "2027-01-27"]
+    )
+    budgets = report["budgets"]
+    assert budgets["expanded_bytes"] == {
+        "growth_this_run": 100,
+        "per_cycle": 25.0,
+        "remaining": 2900,
+        "cycles_left": 116,
+    }
+    assert budgets["distinct_bytes"]["cycles_left"] == 146  # 1460 // 10
+    assert budgets["files"]["cycles_left"] == 356  # 890 // 2.5
+    assert (report["binding"], report["cycles_left"]) == ("expanded_bytes", 116)
+    # 116 cycles at the stated 6/day assumption: 19.3 days, before the validation end.
+    assert (report["days_left"], report["exhausted_on"]) == (19.3, "2026-11-25")
+    assert report["validation_end"] == "2027-01-27"
+    assert report["status"] == "short_of_validation_end"
+    longer = forward.runway(
+        start,
+        end,
+        4,
+        at=at,
+        boundaries=["2026-12-16", "2026-12-28", "2027-01-27"],
+        cycles_per_day=1.0,
+    )
+    assert (longer["exhausted_on"], longer["status"]) == ("2027-03-02", "covers_validation_end")
+    assert forward.runway(start, end, 4, at=at, boundaries=None)["status"] == "measured"
+
+
+def test_runway_refuses_to_project_without_measured_growth() -> None:
+    at = datetime(2026, 11, 6, tzinfo=UTC)
+    same = _footprint(1000, 500, 100)
+    assert forward.runway(None, same, 3, at=at, boundaries=None)["status"] == "unmeasured"
+    assert forward.runway(same, same, 0, at=at, boundaries=None)["status"] == "unmeasured"
+    flat = forward.runway(same, same, 2, at=at, boundaries=None)
+    assert flat["status"] == "unmeasured"
+    assert flat["budgets"]["expanded_bytes"]["cycles_left"] is None
+    # Already over a budget: zero cycles left, never negative.
+    over = forward.runway(
+        _footprint(3990, 500, 100), _footprint(4010, 510, 101), 1, at=at, boundaries=None
+    )
+    assert (over["binding"], over["cycles_left"], over["days_left"]) == ("expanded_bytes", 0, 0.0)
+
+
+def test_frozen_calendar_reads_the_shared_dataset_partition(tmp_path: Path) -> None:
+    root = tmp_path / "runs" / "weather-datasets"
+    assert forward.frozen_calendar(tmp_path) is None
+    (root / ("b" * 64)).mkdir(parents=True)
+    (root / ("b" * 64) / "snapshot.json").write_text(
+        json.dumps(
+            {"identity": {"temporal_boundaries": ["2026-12-16", "2026-12-28", "2027-01-27"]}}
+        )
+    )
+    (root / ".building-x").mkdir()  # never read: not a published dataset
+    (root / ("a" * 64)).mkdir()
+    (root / ("a" * 64) / "snapshot.json").write_text("{not json")
+    assert forward.frozen_calendar(tmp_path) == ["2026-12-16", "2026-12-28", "2027-01-27"]

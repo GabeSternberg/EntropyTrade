@@ -107,6 +107,43 @@ the runtime files that snapshots skip. Archives are deflate-compressed. Per-path
 `entropytrade-workspace-v1` archives (stored or deflated) from earlier runs still restore,
 bounded by their original 2 GiB expanded budget.
 
+### Storage runway
+
+`runway` turns the footprint into a measured projection. The operator records the footprint
+before starting the server and again after it stops, and divides the growth by the monitor
+cycles completed in the window. The growth includes the discovery datasets and label receipts
+the same window wrote. For each budget (`expanded_bytes`, `distinct_bytes`, `files`) it
+reports `growth_this_run`, `per_cycle`, `remaining` and `cycles_left`. The smallest is the
+`binding` budget.
+
+- `days_left` and `exhausted_on` are **extrapolated** at `cycles_per_day_assumed`
+  (`--cycles-per-day`, default 6: the 4-hourly cron at one cycle per scheduled window).
+- `validation_end` is the third frozen calendar boundary, read from a published weather
+  dataset manifest. The fit/calibration/validation partitions cannot be complete before it.
+- `status` is `covers_validation_end`, `short_of_validation_end` (the job summary adds a
+  `::warning::`), `measured` (no frozen calendar yet) or `unmeasured` (no start footprint,
+  no completed cycles or no growth). A run with no cycles never projects.
+
+Why it matters: a workspace over any budget cannot be snapshotted, so the chain stalls, and
+receipts are never deleted to make room. Expanded bytes grow about 2.5 times faster than
+distinct bytes, because each discovery dataset stores a shadow cycle's capture twice (as
+`receipts/NNNN/` and inside `shadow/<digest>/public/`) on top of the original. Replaying the
+two retained authentic cycles in `data/shadow-review/20261029-model-integration` gives
+dataset bytes of about 2.0 times their input cycle bytes (5,302,528 for 2,635,728). On
+2026-11-06 the chain's per-cycle growth was about 9.2 MB expanded and 3.7 MB distinct (run
+`42224274925`, after slim captures). Read the chain's actual `validation_end` from its
+summary; this document does not assume the chain's anchor date.
+
+**Scheduled windows are 540 s** (before 2026-11-06: 1,500 s). The monitor polls when the
+server starts and every 600 s, so a scheduled window now takes one cycle instead of three.
+The gates do not count the extra polls: prospective evaluation keeps the earliest pre-close
+observation per event, and fitting takes one timely example per event. At three cycles per
+window (18 per day), the 4 GiB restore budget would be reached in about three weeks. At one
+cycle per window, it would last about two months. Both figures are extrapolations, and
+neither reaches the validation end on its own. A manual dispatch still defaults to 1,500 s.
+Removing the duplicate capture copy inside datasets, or moving sealed evidence to durable
+storage, is still needed. That decision is tracked separately and has not been started.
+
 A snapshot is uploaded even when collection fails, so the next run continues from every
 retained receipt. The run is still marked failed.
 
@@ -222,8 +259,8 @@ runs only when the snapshot step has written the archive, checksum and lineage
 - Receipt, decision and label clocks are the real receipt times on the runner. Nothing is
   backdated: a restored workspace keeps its original bytes, and normal startup does not
   manufacture missed polls between runs.
-- Gaps between windows are real gaps. With the default 4-hour cron and 25-minute window, a
-  monitor captures about three cycles per window. This is intermittent, not continuous,
+- Gaps between windows are real gaps. With the default 4-hour cron and 540-second window, a
+  monitor captures one cycle per window (three per 1,500-second manual dispatch). This is intermittent, not continuous,
   operation, and summaries must be read that way.
 
 ## Operating it
