@@ -81,7 +81,7 @@ for (const authentic of [false, true]) {
       assert.deepEqual(await download("Forecast evaluation JSON", "restarted-evaluation.json"), json);
       assert.deepEqual(await download("Forecast observations CSV", "restarted-observations.csv"), csv);
       await stop();
-      const archive = path.join(repo, "data/cache", path.basename(original) + ".zip");
+      const archive = original + ".zip";
       command(["-m", "entropytrade.api.recovery", "snapshot", "--workspace", workspace, "--archive", archive]);
       workspace = original + "-restored";
       command(["-m", "entropytrade.api.recovery", "restore", "--workspace", workspace, "--archive", archive]);

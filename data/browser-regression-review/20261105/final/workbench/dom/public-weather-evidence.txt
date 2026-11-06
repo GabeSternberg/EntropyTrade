@@ -1,0 +1,130 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition INCOMPLETE · weather
+
+HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+Acquisition failures
+KXHIGHPHIL: GatewayError (failed at 2026-11-05T22:05:57.596603+00:00)
+KXHIGHCHI: GatewayError (failed at 2026-11-05T22:05:57.598096+00:00)
+https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.614435+00:00)
+weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T22:05:57.615214+00:00)
+https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T22:05:57.616513+00:00)
+https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T22:05:57.618293+00:00)
+weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T22:05:57.618762+00:00)
+https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T22:05:57.620066+00:00)
+weather: IncompleteCapture (failed at 2026-11-05T22:05:57.621940+00:00)
+
+Capture (UTC): 2026-11-05T22:05:57.506715+00:00 → 2026-11-05T22:05:57.625022+00:00. Universe complete: false. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Full-day hourly forecast maxima are proxies, not official settlement highs.
+Research orchestration · local_templates
+
+Provider: none. Status: completed.
+
+Research stages, evidence tools, budgets and usage
+Reproducible identities
+experiment_id
+sha256:cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5
+research_run
+2130eff4-cd71-4d52-a66c-c27a4314bf23
+dataset
+sha256:e2cd85a72bd5a6705718d8e4138d746d8c236be6573717c9856b8effd984a849
+feature_version
+sha256:35e735050cecd6677b2c758a111120146b12d36e61587226fbab648149c1daa6
+research_hash
+sha256:a0ede65766dcf0368bf0f16693702189df3d9db04a4127bc7151096d83fc9587
+normalized_data_hash
+sha256:a6778d8324bcd2ea57e98346c6a1aeaccc1a1bde3d3cdadd5c95620ec169c81c
+code
+{"synthetic.py":"sha256:599b6ab616b85a1ef99f1ca4f6d39965dce58e09adc58b0d0b8cd4d4f8ae5759","__init__.py":"sha256:a2710cfeb19c3f47e317aba7175de14cff30210ff344b830dea62f801c04eb54","workflow.py":"sha256:f9e70c13b3965d83e6baca1f799508ac3468ce2ce0a52d7d112b8b65c54e19c5","engine.py":"sha256:a7716f836561cc055ac5d4942452e15d77443afa25e4afc890e754493865410f","data.py":"sha256:190c935e4dce4e8949c400ca4ec2c24219000f18fb7c5efa151d2257272c363e","fee_replay.py":"sha256:4f2509201f474b7ac691bb1df7df180bbcaa175450bcd7a911bfabf9613c1baa","backtest/replay.py":"sha256:88dd3cbb524b103c0676e6f4377fe7abcc308a1a3bd076417b77225feef099b2","strategies/interpret.py":"sha256:65bd400b3e6faecb99dcb3d7c0c155db042fd148df3f8fe83da6fad18722dd36","execution/paper.py":"sha256:bcff522ce57bbbd449336049e73835e536a79d426c03ae8867e9fb2e88172ae1","execution/fees.py":"sha256:3c9f5986a8b2e53bc9e05d0384dc543f58c295a4df874bdaff92babb010d0897","execution/fee_policy.py":"sha256:424ee1b3f06d0224a35b21db2556a3a38b1d60e124a9729c398547e1a3090c1c","execution/fee_evidence.py":"sha256:8e3334b6fae4763ede03770fce2d6f3063ea77e11f0347aba0f6ba6bd4daf943","risk/engine.py":"sha256:0135d51f62a5063f24349340d95cffcf99ab12b745c3885fce3eb1f685f38feb","domain/strategy.py":"sha256:457e8496bead2dfc6a93158fe9fde80c6e0731cbea7b11bb423f19188528a7de"}
+config
+{"fee_policy":null,"fee_versions":[],"latency_seconds":1,"max_book_age_seconds":60,"starting_cash":"1000","per_trade":"25","per_event":"100","total_deployed":"500","min_events":20,"min_trades":10,"bootstrap_samples":500,"seed":17,"scenarios":["optimistic","base","conservative"]}
+resolved_models
+{}
+requested_trial_count
+6
+
+6 candidate/scenario trials requested. Final holdout evaluated: false.
+
+Public source evidence
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Full-day hourly forecast maxima are proxies, not official settlement highs.
+Capture receipts, clocks and acquisition failures
+{
+  "decision_time": "2026-11-05T22:05:57.625022+00:00",
+  "failures": [
+    {
+      "failed_at": "2026-11-05T22:05:57.596603+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHPHIL"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.598096+00:00",
+      "failure": "GatewayError",
+      "source": "KXHIGHCHI"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.614435+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.615214+00:00",
+      "failure": "NoForecastVintage",
+      "source": "weather:open-meteo:CLIPHL"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.616513+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.weather.gov/points/39.87,-75.23"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.618293+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.618762+00:00",
+      "failure": "NoForecastVintage",
+      "source": "weather:open-meteo:CLIMDW"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.620066+00:00",
+      "failure": "ConnectError",
+      "source": "https://api.weather.gov/points/41.79,-87.75"
+    },
+    {
+      "failed_at": "2026-11-05T22:05:57.621940+00:00",
+      "failure": "IncompleteCapture",
+      "source": "weather"
+    }
+  ],
+  "family": "weather",
+  "history_complete": false,
+  "listed_contracts": 0,
+  "observations": 0,
+  "receipts": [],
+  "started_at": "2026-11-05T22:05:57.506715+00:00",
+  "truncated_universe": true,
+  "universe_complete": false
+}
+Immutable public input manifest
+Saved artifact checksums
+
+Artifact paths are relative to this run's local workflow directory. Review downloads contain the protected result projection; the server does not expose arbitrary local files.
+
+Artifact	SHA-256	Bytes
+experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/checksums.json	sha256:59585880d42d9322b0f68b89063e3cdf7af25be7eb0ec0e4d5119b5e4a934fce	369
+experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/replay-inputs.json	sha256:28d2ded2cc13a11be6e126a3f5b3f8700e5c684e556f04a29e64a6fbf2ca13f9	116508
+experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/report.md	sha256:917bf0de24a2eb7f3e35c6937eba6acda9334e084177c23e03bbb2f3d7ec7876	519
+experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/results.json	sha256:005cea8b3121bddb7b416dd7bfe289a915953a2030190561ef9608d95073d440	3308
+experiments/cea1c2f85d7ea2f1063929f1356bc9403c2d80eb2d240fbf54ced7a0208ef4d5/trades.parquet	sha256:ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef	365
+fee-evidence.json	sha256:90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484	93
+research/2130eff4-cd71-4d52-a66c-c27a4314bf23/checksums.json	sha256:d1471e9fa4c2d1f9e336f434f7fae5c8d82cf81b21438992b265f9b7aae5052f	175
+research/2130eff4-cd71-4d52-a66c-c27a4314bf23/report.md	sha256:9517c54c04470bc6871708dbd51d4a64a70c6bb4b7399f34f0281ab6f5619d3d	2501
+research/2130eff4-cd71-4d52-a66c-c27a4314bf23/run.json	sha256:6c90dd7fb50407952e064fb61c2ca2123f77b6cf06734bd78cb21959c96f7693	97687
+Coverage and point-in-time boundaries

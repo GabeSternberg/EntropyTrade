@@ -1,0 +1,177 @@
+{
+  "config": {
+    "configFile": "/home/user/EntropyTrade/frontend/browser/playwright.config.cjs",
+    "rootDir": "/home/user/EntropyTrade/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/home/user/EntropyTrade/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs",
+          "prospective.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "prospective.spec.cjs",
+      "file": "prospective.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 31703,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-05T20:27:24.382Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5e33f7978b991c5d2004-2c569c3cf0f0a582532d",
+          "file": "prospective.spec.cjs",
+          "line": 11,
+          "column": 3
+        },
+        {
+          "title": "prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 34803,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-05T20:27:56.466Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/home/user/EntropyTrade/data/prospective-evaluation-review/20261105/browser/playwright-artifacts/prospective-prospective-fo-c2f60-restart-and-offline-restore/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5e33f7978b991c5d2004-63ffeb64799c642feba5",
+          "file": "prospective.spec.cjs",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-05T20:27:23.646Z",
+    "duration": 68000.619,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

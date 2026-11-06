@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="121.135331">
+<testsuite name="prospective.spec.cjs" timestamp="2026-11-05T22:07:26.140Z" hostname="" tests="2" failures="0" skipped="0" time="119.685" errors="0">
+<testcase name="prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore" classname="prospective.spec.cjs" time="58.078">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-4668a-restart-and-offline-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore" classname="prospective.spec.cjs" time="61.607">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/prospective-prospective-fo-c2f60-restart-and-offline-restore/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

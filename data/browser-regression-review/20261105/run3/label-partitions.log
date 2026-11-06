@@ -1,0 +1,34 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore (267ms)
+
+
+  1) label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+
+    Error: ENOENT: no such file or directory, open '/home/user/EntropyTrade/data/cache/browser-regression-20261105-run3/label-partitions-partitions-phase.json.pending'
+
+      34 |   function phase(value, advance = false) {
+      35 |     if (advance) days++;
+    > 36 |     fs.writeFileSync(phaseFile + ".pending", JSON.stringify({ phase: value, now: new Date(Date.UTC(2026, 9, 31, 12) + days * 86400000).toISOString() }));
+         |        ^
+      37 |     fs.renameSync(phaseFile + ".pending", phaseFile);
+      38 |   }
+      39 |   function command(args, name) {
+        at phase (/home/user/EntropyTrade/frontend/browser/label-partitions.spec.cjs:36:8)
+        at /home/user/EntropyTrade/frontend/browser/label-partitions.spec.cjs:133:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run3/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run3/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 

@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "operations": [
+    {
+      "start": 1,
+      "root": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/alerts-alerts"
+    },
+    {
+      "start": 2,
+      "root": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/alerts-alerts"
+    },
+    {
+      "start": 3,
+      "root": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/alerts-alerts"
+    },
+    {
+      "start": 4,
+      "root": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/alerts-alerts"
+    },
+    {
+      "start": 5,
+      "root": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final/alerts-alerts-restored"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "acknowledged.json",
+      "sha256": "dd29656672544f4f5b2b9c2bb9df295052274d9c24a36d6b1fd7f469da4a8dbe"
+    },
+    {
+      "file": "restarted.json",
+      "sha256": "dd29656672544f4f5b2b9c2bb9df295052274d9c24a36d6b1fd7f469da4a8dbe"
+    },
+    {
+      "file": "recovered.json",
+      "sha256": "5245a9b930d5f6a2afa9ab083e237f9f5f6087db61fa1a85800c5ea9b2a19353"
+    },
+    {
+      "file": "recurring.json",
+      "sha256": "878088a2d8b86f99d731fb2764fb4c2a060ccdaad5a116eec8810416fdd0dd9c"
+    },
+    {
+      "file": "final.json",
+      "sha256": "878088a2d8b86f99d731fb2764fb4c2a060ccdaad5a116eec8810416fdd0dd9c"
+    },
+    {
+      "file": "restored.json",
+      "sha256": "878088a2d8b86f99d731fb2764fb4c2a060ccdaad5a116eec8810416fdd0dd9c"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "needs-review.png"
+    },
+    {
+      "file": "acknowledged.png"
+    },
+    {
+      "file": "recovered.png"
+    },
+    {
+      "file": "recurring.png"
+    }
+  ],
+  "page_errors": [],
+  "submission_enabled": false,
+  "limitation": "CONTROLLED health/failure/outcome signals; no authentic acquisition or empirical returns"
+}

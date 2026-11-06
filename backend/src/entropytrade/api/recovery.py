@@ -56,7 +56,7 @@ def validate_registry(root: Path, reviews: list[dict[str, Any]]) -> None:
         if reviews:
             raise ValueError("research workspace is missing its lineage registry")
         return
-    db = sqlite3.connect(path.as_uri() + "?mode=ro")
+    db = sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)
     try:
         db.execute("PRAGMA trusted_schema=OFF")
         tables = {
@@ -92,7 +92,7 @@ def validate_registry(root: Path, reviews: list[dict[str, Any]]) -> None:
 
 
 def backup_database(source: Path, target: Path) -> None:
-    original = sqlite3.connect(source.as_uri() + "?mode=ro")
+    original = sqlite3.connect(source.as_uri() + "?mode=ro", uri=True)
     copied = sqlite3.connect(target)
     try:
         original.backup(copied)
@@ -153,7 +153,7 @@ def check_artifacts(root: Path, artifacts: list[dict[str, Any]]) -> None:
 
 def validate_database(root: Path) -> dict[str, int]:
     """Read-only schema, references and content validation; no migration or clock changes."""
-    db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro")
+    db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro", uri=True)
     db.row_factory = sqlite3.Row
     try:
         db.execute("PRAGMA trusted_schema=OFF")

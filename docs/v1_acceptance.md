@@ -10,6 +10,31 @@
 | Read-only bounded catalog acquisition | Fetch tests with a mock transport; one real attempt | Software behaviour is tested. The real attempt was blocked (no egress, issue #3), so no fetched catalog exists. |
 | Two empirically validated families | — | **Open.** Candidate catalogs still need fetching, the user still needs to approve a family in writing, and that family still needs point-in-time sources, labels and validation. |
 
+# Browser regression sweep and CI — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-b1kuuh` stacked on PR #1.
+[Executed evidence](../data/browser-regression-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| All website procedures on the current tree | 14 `frontend/browser/*.spec.cjs`, receipts, Playwright JSON, `MANIFEST.sha256` | **Pass:** 19 tests in 12 spec files, plus 3/4 workbench workflows, 0 page errors. **Open:** `weather-labels` and workbench workflow 3 need public egress; they fail honestly with `ConnectError` here. |
+| Label-partition UI consistency | `frontend/src/app.js`, new DOM regression | **Defect fixed:** an out-of-order overlapping render could show another partition's requests. |
+| Repeatable acceptance runs | 7 specs derive archive/import paths from unique workspaces | **Harness fixed:** run-to-run archive collisions; unignored `data/recovery/`. |
+| Continuous integration | `.github/workflows/ci.yml`, GitHub run 42116073148 | **Pass:** Ruff, strict mypy, 25 frontend tests, **1,320 pytest in 693.83s** on a clean runner with no secrets. Browser/public acceptance stays separate. |
+
+# Prospective-evaluation acceptance completion — November 5, 2026
+
+**complete=false (V1).** Branch `claude/vibrant-bohr-l2suow` from main `55b2bea`. Closes the
+outstanding browser, listener and complete-suite gates of the October 31 milestone below.
+[Executed evidence](../data/prospective-evaluation-review/20261105/README.md).
+
+| Requirement | Concrete evidence | Result / remaining gate |
+|---|---|---|
+| Offline snapshot/restore portability | `api/recovery.py`, `api/recovery_proof.py`, `tests/architecture/test_sqlite_uri.py` | **Defect fixed.** Read-only `file:` URIs lacked `uri=True`; recovery refused on SQLite builds without `SQLITE_USE_URI`. Static guard fails on the pre-fix tree. |
+| Real website/browser acceptance | `prospective.spec.cjs`, receipts, screenshots, downloads, traces | **Pass:** both procedures (controlled synthetic; authentic insufficiency), 6 screenshots, 12 downloads identical across restart and offline restore, 0 page errors. First attempt (failed at snapshot) retained. Chromium 153 (preinstalled build 1243) used at the pinned path; exact build 1194 not claimed. |
+| Complete quality gate | Ruff/format, strict mypy (557 files), 24 frontend, full JUnit | **Pass:** all **1,320 pytest cases in 619.14s**, zero failures/errors/skips, incl. 11 listener cases and 14 shadow-history cases. 73 original receipt/Bitcoin hashes unchanged. |
+| Remaining V1 gates | Existing empirical/provider/fee/family gates | Unchanged: authentic history/validation, certified fees, authorized provider verification, approved second family, multi-day operation and independent review remain open. |
+
 # Prospective shadow-evaluation reports — October 31, 2026
 
 **complete=false.** Implemented on designated `supervisor/20261031-081845` from `a83b9db`;

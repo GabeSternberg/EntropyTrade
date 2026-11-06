@@ -23,6 +23,11 @@ functionality. Prefer authentic forward receipts; never fabricate historical ava
 Do not select another major family without user approval after comparing accessible history,
 settlement semantics, modeling feasibility, execution costs and realistic validation.
 
+Update 2026-11-05: the prospective milestone's outstanding browser, listener and complete-suite
+gates now pass (1,320 tests; both Chromium procedures) after fixing a read-only SQLite URI
+portability defect in offline recovery. See
+[evidence](../data/prospective-evaluation-review/20261105/README.md). V1 remains incomplete.
+
 The current milestone delivers reproducible prospective shadow-evaluation reports through the
 private website, using verified persisted forecasts and subsequent official binary receipts.
 Pending/refused/matched observations, independent event/date counts, protected exclusions,

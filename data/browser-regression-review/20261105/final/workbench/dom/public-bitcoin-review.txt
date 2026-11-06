@@ -1,0 +1,75 @@
+REAL EVIDENCE. Local templates select signal words or parse complete AND-only feature comparisons; no LLM reasoning or arbitrary prose interpretation. Final holdout is excluded.
+Public acquisition INCOMPLETE · bitcoin
+
+HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.
+
+Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.
+Acquisition failures
+KXBTC: GatewayError (failed at 2026-11-05T22:06:10.935225+00:00)
+coinbase: ConnectError (failed at 2026-11-05T22:06:10.942009+00:00)
+
+Capture (UTC): 2026-11-05T22:06:10.836949+00:00 → 2026-11-05T22:06:10.942092+00:00. Universe complete: false. History complete: false.
+
+Forward evidence only; no historical release clocks or outcomes inferred.
+No historical sized books or certified fee schedule; no execution returns.
+Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.
+Coinbase spot is a covariate, never a Kalshi settlement-source substitute.
+Research orchestration · local_templates
+
+Provider: none. Status: completed.
+
+Research stages, evidence tools, budgets and usage
+0
+Independent events
+0
+Date blocks
+0
+Eligible feature events
+0
+Source-matched labels
+Formulation limits
+No language model is used; arbitrary prose is not fully understood.
+Two model comparisons are not causal tests or feature ablations.
+No actual listed contracts are available in the captured evidence
+template-c0
+UNSUPPORTED
+
+The requested signal spot_minus_floor_usd may improve contract probabilities.
+
+EXPERIMENT DECISION
+
+no executable StrategySpec was supplied
+
+FALSIFICATION
+
+Reject without validation improvement and fee-aware depth evidence.
+
+Typed hypothesis
+
+No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+
+Independent research gates and criticism
+Unsupported proposal
+template-c1
+UNSUPPORTED
+
+A forecast-error baseline may be more stable than regression for this signal.
+
+EXPERIMENT DECISION
+
+no executable StrategySpec was supplied
+
+FALSIFICATION
+
+Reject without validation improvement and fee-aware depth evidence.
+
+Typed hypothesis
+
+No eligible forecast validation metrics. Missing history is not replaced with estimated performance.
+
+Independent research gates and criticism
+Unsupported proposal
+Evaluation limits
+Each candidate/scenario counts as a trial. Intervals are descriptive after selection.
+Snapshot fills model taker execution, not queues or observed fills.
+Synthetic results verify software only; ranking is not deployment authorization.
