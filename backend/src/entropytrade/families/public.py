@@ -1,8 +1,11 @@
 """Forward weather and Bitcoin evidence. Spot is a covariate, never a settlement label."""
 
 import asyncio
+import hashlib
 import json
 import re
+import shutil
+import tempfile
 from collections.abc import Callable
 from datetime import datetime, timedelta
 from decimal import Decimal, InvalidOperation
@@ -377,6 +380,68 @@ class ForwardPredictions:
         )
 
 
+WEATHER_LEDGER = "entropytrade-weather-receipts-v1"
+
+
+def retain_weather(
+    archive: ForecastArchive,
+    scratch: Path,
+    root: Path,
+    receipts: list[dict[str, Any]],
+) -> tuple[list[Observation], dict[str, Any]]:
+    """Export forecast observations that cite the capture's own exact raw response bytes.
+
+    Every weather response is already retained byte-for-byte under ``raw/`` by the transport
+    callback, so each observation's ``raw_ref`` points there (same bytes, same hash). Only a
+    body with no identical retained response is copied to ``weather/raw/``. The receipt ledger
+    keeps each receipt's URL, clocks, body hash and the vintage or failure it produced; the
+    archive database itself is not retained. Availability clocks are unchanged.
+    """
+    archive.export(scratch)
+    by_hash: dict[str, list[dict[str, Any]]] = {}
+    for receipt in receipts:
+        by_hash.setdefault(str(receipt["hash"]), []).append(receipt)
+
+    def retained(sha256: str, url: str | None) -> str | None:
+        matches = by_hash.get(sha256, [])
+        exact = [r for r in matches if r["path"] == url]
+        chosen = (exact or matches)[:1]
+        return str(chosen[0]["raw_ref"]) if chosen else None
+
+    rows = archive.receipt_ledger()
+    urls = {row["receipt_id"]: row["url"] for row in rows}
+    weather_dir = root / "weather"
+    weather_dir.mkdir()
+    observations = []
+    for line in (scratch / "observations.jsonl").read_text().splitlines():
+        item = Observation.model_validate_json(line)
+        receipt_id = item.raw_ref.removeprefix("raw/").removesuffix(".json")
+        reference = retained(str(item.raw_hash), urls.get(receipt_id))
+        if reference is None:
+            copy = weather_dir / item.raw_ref
+            copy.parent.mkdir(exist_ok=True)
+            if not copy.exists():
+                shutil.copyfile(scratch / item.raw_ref, copy)
+            reference = "weather/" + item.raw_ref
+            by_hash.setdefault(str(item.raw_hash), []).append(
+                {"hash": item.raw_hash, "path": urls.get(receipt_id), "raw_ref": reference}
+            )
+        if file_hash(root / reference) != item.raw_hash:
+            raise ValueError("weather observation lacks its exact retained response")
+        observations.append(item.revalidated(raw_ref=reference))
+    ledger = []
+    for row in rows:
+        body = str(row.pop("body")).encode("utf-8")
+        sha256 = "sha256:" + hashlib.sha256(body).hexdigest()
+        ledger.append({**row, "sha256": sha256, "raw_ref": retained(sha256, row["url"])})
+    summary = json.loads((scratch / "manifest.json").read_text())
+    (weather_dir / "manifest.json").write_text(json.dumps(summary, sort_keys=True, indent=2))
+    (weather_dir / "receipts.json").write_text(
+        json.dumps({"schema": WEATHER_LEDGER, "receipts": ledger}, sort_keys=True, indent=2)
+    )
+    return observations, summary
+
+
 async def capture_public(
     root: Path,
     *,
@@ -517,35 +582,33 @@ async def capture_public(
                             "NoForecastVintage",
                         )
 
-                archive = ForecastArchive(root / "weather.sqlite")
-                try:
+                # The forecast archive is a parsing intermediate: it lives outside the
+                # capture, and only its exact-body references and receipt ledger are kept.
+                with tempfile.TemporaryDirectory(prefix="entropytrade-weather-") as scratch:
+                    archive = ForecastArchive(Path(scratch) / "weather.sqlite")
                     try:
-                        await poll_weather(
-                            config=weather.revalidated(attempts=1),
-                            archive=archive,
-                            stop=asyncio.Event(),
-                            once=True,
-                            transport=BoundedTransport(
-                                source_transport,
-                                on_response=weather_response,
-                                on_error=weather_error,
-                            ),
-                            emit=weather_progress,
+                        try:
+                            await poll_weather(
+                                config=weather.revalidated(attempts=1),
+                                archive=archive,
+                                stop=asyncio.Event(),
+                                once=True,
+                                transport=BoundedTransport(
+                                    source_transport,
+                                    on_response=weather_response,
+                                    on_error=weather_error,
+                                ),
+                                emit=weather_progress,
+                            )
+                        except (httpx.HTTPError, ValueError) as exc:
+                            failed("weather", type(exc).__name__)
+                        observations, summary = retain_weather(
+                            archive, Path(scratch) / "export", root, receipts
                         )
-                    except (httpx.HTTPError, ValueError) as exc:
-                        failed("weather", type(exc).__name__)
-                    archive.export(root / "weather")
-                    summary = json.loads((root / "weather/manifest.json").read_text())
-                    if summary["failures"] or not summary["vintages"]:
-                        failed("weather", "IncompleteCapture")
-                    observations = [
-                        Observation.model_validate_json(line).revalidated(
-                            raw_ref="weather/" + Observation.model_validate_json(line).raw_ref
-                        )
-                        for line in (root / "weather/observations.jsonl").read_text().splitlines()
-                    ]
-                finally:
-                    archive.close()
+                        if summary["failures"] or not summary["vintages"]:
+                            failed("weather", "IncompleteCapture")
+                    finally:
+                        archive.close()
     except TimeoutError:
         failed("acquisition", "TimeBudgetExceeded")
     finally:

@@ -351,7 +351,25 @@ def test_weather_reuses_complete_local_day_and_exported_forecast_receipts(
     assert data.samples[0].book is None
     assert data.provenance["contracts"][0]["settlement_sources"][0]["name"] == "The Weather Company"
     assert forward_data(root) == data
-    assert list((root / "weather/raw").glob("*.json"))
+    # Observations cite the capture's own exact response bytes; no duplicate body copies or
+    # archive database are retained, and the receipt ledger keeps each receipt's provenance.
+    assert not (root / "weather.sqlite").exists()
+    assert not (root / "weather/raw").exists()
+    assert not (root / "weather/observations.jsonl").exists()
+    capture = json.loads((root / "capture.json").read_text())
+    retained = {r["raw_ref"]: r for r in capture["receipts"]}
+    ledger = json.loads((root / "weather/receipts.json").read_text())
+    assert ledger["schema"] == "entropytrade-weather-receipts-v1"
+    (receipt,) = ledger["receipts"]
+    assert receipt["vintage_id"]
+    assert receipt["failure"] is None
+    assert retained[receipt["raw_ref"]]["hash"] == receipt["sha256"]
+    assert retained[receipt["raw_ref"]]["path"] == receipt["url"]
+    observations = [
+        json.loads(line) for line in (root / "observations.jsonl").read_text().splitlines()
+    ]
+    assert {o["raw_ref"] for o in observations} == {receipt["raw_ref"]}
+    assert {o["raw_hash"] for o in observations} == {receipt["sha256"]}
 
 
 @pytest.mark.parametrize("failure", ["connect", "http"])
@@ -423,4 +441,14 @@ def test_partial_weather_capture_exposes_clocked_failures_and_actual_response_re
         assert (root / nws[0]["raw_ref"]).read_bytes() == b"Controlled NWS failure response"
     else:
         assert not nws  # No response exists for a failed connection.
+    # Every archived forecast receipt resolves to its exact retained response bytes.
+    ledger = json.loads((root / "weather/receipts.json").read_text())["receipts"]
+    assert ledger
+    for row in ledger:
+        assert row["raw_ref"] in {r["raw_ref"] for r in receipts}
+        assert row["sha256"] == next(r["hash"] for r in receipts if r["raw_ref"] == row["raw_ref"])
+        assert row["vintage_id"] is None or row["failure"] is None
+    if failure == "http":
+        (nws_row,) = [row for row in ledger if row["status"] == 503]
+        assert nws_row["raw_ref"] == nws[0]["raw_ref"]
     assert forward_data(root) == data

@@ -162,6 +162,35 @@ class ForecastArchive(Recorder):
             self._db.rollback()
         return observations, summary
 
+    def receipt_ledger(self) -> list[dict[str, Any]]:
+        """Every HTTP receipt with its exact body and what it produced (vintage or failure).
+
+        This is all the archive holds beyond the parsed vintages, which are reproducible
+        from the bodies; it lets a capture retain provenance without keeping the database.
+        """
+        rows = self._db.execute(
+            "SELECT h.receipt_id, h.path, h.status, h.body_hash, h.received_at, h.ingested_at, "
+            "b.body, s.vintage_id, f.reason FROM http_receipts h "
+            "JOIN bodies b USING(body_hash) "
+            "LEFT JOIN forecast_sightings s USING(receipt_id) "
+            "LEFT JOIN forecast_failures f USING(receipt_id) "
+            "ORDER BY h.received_at, h.receipt_id"
+        ).fetchall()
+        return [
+            {
+                "receipt_id": row[0],
+                "url": row[1],
+                "status": row[2],
+                "body_hash": row[3],
+                "received_at": row[4],
+                "ingested_at": row[5],
+                "body": row[6],
+                "vintage_id": row[7],
+                "failure": row[8],
+            }
+            for row in rows
+        ]
+
     def export(self, destination: Path) -> None:
         observations, summary = self.snapshot()
         destination.mkdir(parents=True, exist_ok=False)
