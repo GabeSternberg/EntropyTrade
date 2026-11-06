@@ -1,0 +1,43 @@
+{
+  "status": "failed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": false,
+  "starts": [
+    {
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105-controlled"
+    },
+    {
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105-controlled"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "evaluation.json",
+      "sha256": "d020cbb8db9f4786cb337101da503354663f7af1c7046a3429a34a0060231991"
+    },
+    {
+      "file": "observations.csv",
+      "sha256": "0779dc901700ffe7865b46dbd10466fe7d4dbd7892285a2cfcb8a55a568275fc"
+    },
+    {
+      "file": "restarted-evaluation.json",
+      "sha256": "d020cbb8db9f4786cb337101da503354663f7af1c7046a3429a34a0060231991"
+    },
+    {
+      "file": "restarted-observations.csv",
+      "sha256": "0779dc901700ffe7865b46dbd10466fe7d4dbd7892285a2cfcb8a55a568275fc"
+    }
+  ],
+  "screenshots": [
+    "evaluation.png",
+    "restarted.png"
+  ],
+  "page_errors": [],
+  "submission_enabled": false,
+  "limitation": "CONTROLLED SYNTHETIC diagnostics; never empirical validation or returns",
+  "offline_replay_identical": true,
+  "failure": "AssertionError [ERR_ASSERTION]: Recovery refused: unable to open database file\n\n\n1 !== 0\n\n    at command (/home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:32:14)\n    at /home/user/EntropyTrade/frontend/browser/prospective.spec.cjs:85:7\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:310:9\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:305:11\n    at TimeoutManager.withRunnable (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/timeoutManager.js:67:14)\n    at TestInfoImpl._runWithTimeout (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:303:7)\n    at /home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:308:7\n    at WorkerMain._runTest (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:283:5)\n    at WorkerMain.runTestGroup (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:198:11)\n    at process.<anonymous> (/home/user/EntropyTrade/frontend/browser/node_modules/playwright/lib/common/process.js:65:22)"
+}
