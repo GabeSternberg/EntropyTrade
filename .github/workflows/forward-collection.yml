@@ -37,8 +37,12 @@ permissions:
   contents: read
   actions: read
 
+# Push runs are verification TRIALS: they get their own concurrency group, so a pending push
+# can never displace a queued chain dispatch (GitHub keeps only one pending run per group;
+# push 42167132149 cancelled continuation dispatch 42167131442 that way). Trials upload
+# their snapshot as forward-trial-workspace and never become a chain head.
 concurrency:
-  group: forward-collection-${{ github.ref }}
+  group: forward-collection-${{ github.event_name == 'push' && 'trial-' || '' }}${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -109,8 +113,11 @@ jobs:
             # completion order is chain order; creation order is not (a queued dispatch can
             # be created before a push run that executes first). Failed runs still upload
             # their verified snapshot, so receipts are never skipped.
+            # Push runs are trials, never chain heads, even when an older workflow version
+            # uploaded them as forward-workspace (run 42162670639 started a fresh chain that
+            # later pushes on its branch would otherwise have continued).
             runs=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/forward-collection.yml/runs?branch=$GITHUB_REF_NAME&status=completed&per_page=50" \
-              --jq "[.workflow_runs[] | select(.id != $GITHUB_RUN_ID and .status == \"completed\")] | sort_by(.updated_at) | reverse | .[].id")
+              --jq "[.workflow_runs[] | select(.id != $GITHUB_RUN_ID and .status == \"completed\" and .event != \"push\")] | sort_by(.updated_at) | reverse | .[].id")
             for id in $runs; do
               if has_snapshot "$id"; then found=$id; break; fi
             done
@@ -199,6 +206,8 @@ jobs:
             echo "commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "branch=$GITHUB_REF_NAME"
+            echo "event=$GITHUB_EVENT_NAME"
+            if [ "$GITHUB_EVENT_NAME" = "push" ]; then echo "chain=trial"; else echo "chain=head"; fi
             echo "previous_run_id=$(cat "$OUT/previous-run-id")"
             echo "previous_branch=$(cat "$OUT/previous-branch")"
             echo "uv_lock=sha256:$(sha256sum uv.lock | cut -d' ' -f1)"
@@ -209,16 +218,18 @@ jobs:
           echo "archive=true" >> "$GITHUB_OUTPUT"
 
       - name: Upload workspace snapshot
+        # Only non-push runs extend the chain. A trial keeps its snapshot under a separate
+        # name for inspection; chain lookup only ever selects forward-workspace.
         if: always() && steps.snapshot.outputs.archive == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: forward-workspace
+          name: ${{ github.event_name == 'push' && 'forward-trial-workspace' || 'forward-workspace' }}
           path: |
             data/cache/forward-out/workspace.zip
             data/cache/forward-out/workspace.sha256
             data/cache/forward-out/lineage.txt
             data/cache/forward-out/previous-lineage.txt
-          retention-days: 7
+          retention-days: ${{ github.event_name == 'push' && 3 || 7 }}
           if-no-files-found: error
 
       - name: Upload run summary

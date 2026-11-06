@@ -62,12 +62,17 @@ def _runs(path: str) -> str:
     return f"repos/{REPOSITORY}/actions/runs/{path}"
 
 
-def _branch_runs(*runs: tuple[int, str, str]) -> dict[str, Any]:
-    """API listing in creation order (newest first): (id, status, updated_at)."""
+def _branch_runs(*runs: tuple[int, str, str] | tuple[int, str, str, str]) -> dict[str, Any]:
+    """API listing in creation order (newest first): (id, status, updated_at[, event])."""
     return {
         "workflow_runs": [
-            {"id": run_id, "status": status, "updated_at": updated}
-            for run_id, status, updated in runs
+            {
+                "id": run[0],
+                "status": run[1],
+                "updated_at": run[2],
+                "event": run[3] if len(run) > 3 else "workflow_dispatch",
+            }
+            for run in runs
         ]
     }
 
@@ -182,22 +187,55 @@ def test_expired_snapshot_is_not_selected(tmp_path: Path) -> None:
 
 
 def test_completion_order_not_creation_order_defines_the_chain(tmp_path: Path) -> None:
-    # Observed on 2026-11-06: dispatch 42167131442 was created before push 42167132149, but
-    # the push run executed first. The dispatch finished last, so its snapshot is newest.
+    # Two chain runs on one branch: the one created first can finish last.
     answers = {
         BRANCH_RUNS: _branch_runs(
-            (42167132149, "completed", "2026-11-06T05:50:00Z"),
-            (42167131442, "completed", "2026-11-06T06:20:00Z"),
-            (42162670639, "completed", "2026-11-06T04:44:00Z"),
+            (812, "completed", "2026-11-06T05:50:00Z", "schedule"),
+            (811, "completed", "2026-11-06T06:20:00Z"),
+            (810, "completed", "2026-11-06T04:44:00Z"),
+        ),
+        _runs("812/artifacts"): SNAPSHOT,
+        _runs("811/artifacts"): SNAPSHOT,
+        _runs("810/artifacts"): SNAPSHOT,
+    }
+    result, outputs, calls = _run(tmp_path, answers)
+    assert result.returncode == 0, result.stderr
+    assert outputs["run_id"] == "811"
+    assert calls[1] == _runs("811/artifacts")
+
+
+def test_push_runs_are_never_chain_heads(tmp_path: Path) -> None:
+    # Observed on 2026-11-06: push 42162670639 was the first run on its branch and started a
+    # fresh chain; later push 42167132149 completed after it. Older workflow versions
+    # uploaded both as forward-workspace. Neither may be continued as the chain.
+    answers = {
+        BRANCH_RUNS: _branch_runs(
+            (42167132149, "completed", "2026-11-06T05:50:00Z", "push"),
+            (42167131442, "completed", "2026-11-06T05:15:47Z"),
+            (42162670639, "completed", "2026-11-06T04:44:00Z", "push"),
+            (802, "completed", "2026-11-06T04:00:00Z"),
         ),
         _runs("42167132149/artifacts"): SNAPSHOT,
-        _runs("42167131442/artifacts"): SNAPSHOT,
+        _runs("42167131442/artifacts"): NO_SNAPSHOT,  # cancelled while pending
+        _runs("42162670639/artifacts"): SNAPSHOT,
+        _runs("802/artifacts"): SNAPSHOT,
+    }
+    result, outputs, calls = _run(tmp_path, answers)
+    assert result.returncode == 0, result.stderr
+    assert outputs["run_id"] == "802"
+    assert _runs("42167132149/artifacts") not in calls
+    assert _runs("42162670639/artifacts") not in calls
+
+
+def test_branch_with_only_push_runs_starts_new_chain(tmp_path: Path) -> None:
+    answers = {
+        BRANCH_RUNS: _branch_runs((42162670639, "completed", "2026-11-06T04:44:00Z", "push")),
         _runs("42162670639/artifacts"): SNAPSHOT,
     }
     result, outputs, calls = _run(tmp_path, answers)
     assert result.returncode == 0, result.stderr
-    assert outputs["run_id"] == "42167131442"
-    assert calls[1] == _runs("42167131442/artifacts")
+    assert outputs == {"run_id": "", "source_branch": "main"}
+    assert _runs("42162670639/artifacts") not in calls
 
 
 def test_incomplete_runs_are_never_selected(tmp_path: Path) -> None:
@@ -354,3 +392,26 @@ def test_workspace_check_step(tmp_path: Path, present: bool) -> None:
     )
     assert result.returncode == 0, result.stderr
     assert output.read_text(encoding="utf-8") == f"exists={'true' if present else 'false'}\n"
+
+
+def test_push_trials_cannot_displace_chain_runs_or_become_heads() -> None:
+    # GitHub keeps one pending run per concurrency group; a pending push replaced queued
+    # continuation dispatch 42167131442. Push runs therefore use their own group.
+    workflow = yaml.safe_load(WORKFLOW.read_text(encoding="utf-8"))
+    group = str(workflow["concurrency"]["group"])
+    assert group == (
+        "forward-collection-${{ github.event_name == 'push' && 'trial-' || '' }}${{ github.ref }}"
+    )
+    assert workflow["concurrency"]["cancel-in-progress"] is False
+    upload = _step("Upload workspace snapshot")["with"]
+    assert upload["name"] == (
+        "${{ github.event_name == 'push' && 'forward-trial-workspace' || 'forward-workspace' }}"
+    )
+    # The lookup only ever continues the chain artifact name.
+    script = _step_script()
+    assert 'select(.name == "forward-workspace"' in script
+    assert "forward-trial-workspace" not in script
+    lineage = str(_step("Snapshot workspace")["run"])
+    assert 'echo "event=$GITHUB_EVENT_NAME"' in lineage
+    assert "chain=trial" in lineage
+    assert "chain=head" in lineage
