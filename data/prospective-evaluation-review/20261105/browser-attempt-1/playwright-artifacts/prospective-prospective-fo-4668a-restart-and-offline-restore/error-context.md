@@ -1,0 +1,802 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link "EntropyTrade home" [ref=e3] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e4]: E
+      - text: EntropyTrade
+    - generic [ref=e5]: ● PRIVATE · LOCALHOST
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - paragraph [ref=e9]: THE RESEARCH DESK
+        - heading "From an idea to evidence." [level=1] [ref=e10]
+        - paragraph [ref=e11]: Formulate a hypothesis. Test what the data can support. Keep the full lineage.
+      - generic [ref=e12]: Research only · execution disabled
+    - generic [ref=e13]:
+      - complementary [ref=e14]:
+        - region "What would you like to test?" [ref=e15]:
+          - paragraph [ref=e16]: 01 / NEW EXPERIMENT
+          - heading "What would you like to test?" [level=2] [ref=e17]
+          - generic [ref=e18]:
+            - generic [ref=e19]: Research idea
+            - textbox "Research idea" [ref=e20]:
+              - /placeholder: Do upward forecast revisions improve weather contract probabilities?
+              - text: Do upward forecast revisions improve weather contract probabilities?
+            - generic [ref=e21]:
+              - button "Weather" [ref=e22] [cursor=pointer]
+              - button "Bitcoin" [ref=e23] [cursor=pointer]
+              - button "Software demo" [ref=e24] [cursor=pointer]
+            - generic [ref=e25]: Market family
+            - combobox "Market family" [ref=e26]:
+              - option "Weather · daily high temperature" [selected]
+              - option "Bitcoin · KXBTC contracts"
+            - generic [ref=e27]: Data source
+            - combobox "Data source" [ref=e28]:
+              - option "Legacy six-event weather sample" [selected]
+              - option "Retained weather dataset"
+              - option "Fetch public sources now"
+              - option "Retained Bitcoin history + official outcomes" [disabled]
+              - option "Synthetic weather demonstration"
+            - paragraph [ref=e29]: Six historical city/day events across three dates. Certified forecast vintages and scalar highs are absent; expect an insufficient-data result.
+            - generic [ref=e30]: Hypothesis formulation
+            - combobox "Hypothesis formulation" [ref=e31]:
+              - option "Local templates · no provider credentials" [selected]
+              - option "Provider research · server configuration required" [disabled]
+            - paragraph [ref=e32]: "Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f >= 1.25 and hours_to_close < 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only."
+            - button "Start research" [ref=e33] [cursor=pointer]:
+              - text: Start research
+              - generic [ref=e34]: ↗
+            - status
+        - region "Retained weather history" [ref=e35]:
+          - heading "Retained weather history" [level=2] [ref=e36]
+          - paragraph [ref=e37]: Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.
+          - generic [ref=e38]: History partition
+          - combobox "History partition" [ref=e39]:
+            - option "All retained inputs (up to 128)" [selected]
+            - option "Partition 1 · 3 inputs (3 shadow) · 2026-11-05T20:25:32.584708+00:00 → 2026-11-05T20:25:32.617205+00:00"
+          - generic [ref=e40]: Outcome partition
+          - combobox "Outcome partition" [ref=e41]:
+            - option "Same partition as history" [selected]
+            - option "Partition 1 · 3 inputs (3 shadow) · 2026-11-05T20:25:32.584708+00:00 → 2026-11-05T20:25:32.617205+00:00"
+          - paragraph [ref=e42]: 3 retained inputs across 1 bounded partitions. Each selection processes at most 128 captures and 128 outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.
+          - button "Refresh history partitions" [ref=e43] [cursor=pointer]
+          - button "Freeze retained weather dataset" [ref=e44] [cursor=pointer]
+          - generic [ref=e45]: Cohort history partitions
+          - listbox "Cohort history partitions" [ref=e46]:
+            - option "Partition 1 · 3 inputs · 2026-11-05T20:25:32.584708+00:00 → 2026-11-05T20:25:32.617205+00:00" [ref=e47]
+          - generic [ref=e48]: Cohort outcome partitions (optional)
+          - listbox "Cohort outcome partitions (optional)" [ref=e49]:
+            - option "Partition 1 · 3 inputs · 2026-11-05T20:25:32.584708+00:00 → 2026-11-05T20:25:32.617205+00:00" [ref=e50]
+          - paragraph [ref=e51]: Select up to eight partitions to research together. Leave outcomes empty to use the selected history. Batches retain original clocks and the shared frozen calendar; repeated captures do not increase independent event counts.
+          - button "Freeze research cohort" [ref=e52] [cursor=pointer]
+          - generic [ref=e53]: Weather dataset
+          - combobox "Weather dataset" [ref=e54]:
+            - option "No retained dataset yet" [selected]
+          - status
+          - heading "Forward settlement labels" [level=3] [ref=e55]
+          - paragraph [ref=e56]: Acquire official scalar highs for the selected dataset from The Weather Company. Preliminary, wrong-source and protected labels are refused. Availability starts at receipt; earlier fitting cutoffs stay frozen.
+          - button "Acquire settlement labels" [ref=e57] [cursor=pointer]
+          - button "Refresh label acquisition" [ref=e58] [cursor=pointer]
+          - status
+          - generic [ref=e59]: Label evidence partition
+          - combobox "Label evidence partition" [ref=e60]:
+            - option "00000000 · active · 0/128 requests" [selected]
+          - paragraph [ref=e61]: 1 label partitions · 0 retained requests. Each partition holds at most 128 requests; sealed receipts stay immutable. Select a partition to inspect all its requests.
+        - region "Recent runs" [ref=e62]:
+          - generic [ref=e63]:
+            - heading "Recent runs" [level=2] [ref=e64]
+            - button "Refresh" [ref=e65] [cursor=pointer]
+          - button "CONTROLLED monitor setup completed weather · recorded 11/5/2026, 8:25:32 PM" [ref=e67] [cursor=pointer]:
+            - generic [ref=e68]: CONTROLLED monitor setup
+            - generic [ref=e69]:
+              - generic [ref=e70]: completed
+              - generic [ref=e71]: weather · recorded
+            - text: 11/5/2026, 8:25:32 PM
+      - region "Research results" [ref=e72]:
+        - status [ref=e73]:
+          - generic [ref=e74]: "Progress connection interrupted: Failed to fetch. Retrying…"
+        - region "Point-in-time fee evidence" [ref=e75]:
+          - heading "Point-in-time fee evidence" [level=2] [ref=e76]
+          - paragraph [ref=e77]: Server-reviewed documents only. Series metadata cannot certify fees. Receipt and review clocks prevent historical lookahead.
+          - generic [ref=e79]: Missing fee evidence. Costed shadow intentions and real backtests refuse without applicable reviewed documents.
+        - region "Continuous shadow tracking" [ref=e80]:
+          - heading "Continuous shadow tracking" [level=2] [ref=e81]
+          - paragraph [ref=e82]: Select a typed candidate from a completed real research run. Automatic public capture records decisions and subsequent official outcomes. Missing models, fees or depth block intentions. No submissions, fills or performance claims.
+          - generic [ref=e83]: Candidate to monitor
+          - combobox "Candidate to monitor" [disabled] [ref=e84]:
+            - option "Select a completed real run first" [selected]
+          - generic [ref=e85]: Poll interval
+          - combobox "Poll interval" [ref=e86]:
+            - option "5 minutes" [selected]
+            - option "1 minute"
+            - option "15 minutes"
+          - button "Start shadow monitor" [disabled] [ref=e87]
+          - status
+          - generic [ref=e88]:
+            - heading "Operator alerts" [level=3] [ref=e89]
+            - paragraph [ref=e90]: 1 open · 1 need acknowledgement. Acknowledging records review; recovery resolves the condition.
+            - generic [ref=e91]:
+              - heading "Unresolved reconciliation · Needs acknowledgement" [level=4] [ref=e92]
+              - paragraph [ref=e93]: 075ff62b · detected 2026-11-05T20:25:32.589417+00:00
+              - button "Inspect monitor" [ref=e94] [cursor=pointer]
+              - button "Acknowledge alert" [ref=e95] [cursor=pointer]
+              - group [ref=e96]:
+                - generic "Alert evidence and lifecycle" [ref=e97] [cursor=pointer]
+          - button "weather / c0 · paused · 075ff62b" [ref=e99] [cursor=pointer]
+          - generic [ref=e100]:
+            - heading "Shadow monitor · paused" [level=3] [ref=e101]
+            - paragraph [ref=e102]: 075ff62b-4b40-410b-b88a-d44ee66331d9
+            - generic [ref=e103]: SHADOW / SIMULATED PAPER ONLY · submission disabled · no observed fills or profitability claim. Monitoring does not approve a strategy.
+            - paragraph [ref=e104]: "3 durable cycles; showing latest 3. Poll every 60s. Next eligible poll: 2026-11-05T20:25:32.626242+00:00. Consecutive failures: 0."
+            - generic [ref=e105]:
+              - button "Resume monitor" [ref=e106] [cursor=pointer]
+              - link "Shadow evidence JSON" [ref=e107] [cursor=pointer]:
+                - /url: /api/monitors/075ff62b-4b40-410b-b88a-d44ee66331d9/export
+            - group [ref=e108]:
+              - generic "Frozen strategy and research identity" [ref=e109] [cursor=pointer]
+            - group [ref=e110]:
+              - generic "Frozen model binding" [ref=e111] [cursor=pointer]
+            - group [ref=e112]:
+              - generic "Lifecycle and recovery events" [ref=e113] [cursor=pointer]
+            - group [ref=e114]:
+              - generic "Durable operator alerts" [ref=e115] [cursor=pointer]
+            - group [ref=e116]:
+              - generic "Tracked contracts and subsequent official outcomes" [ref=e117] [cursor=pointer]
+            - generic [ref=e118]:
+              - heading "Prospective forecast evaluation" [level=3] [ref=e119]
+              - generic [ref=e120]: Monitoring diagnostics only · separate from historical validation and simulated paper accounting · no profitability claim.
+              - paragraph [ref=e121]: "Status: diagnostics_available · evidence cutoff: 2026-11-09T15:00:00+00:00."
+              - generic [ref=e122]:
+                - link "Forecast evaluation JSON" [ref=e123] [cursor=pointer]:
+                  - /url: /api/monitors/075ff62b-4b40-410b-b88a-d44ee66331d9/evaluation
+                - link "Forecast observations CSV" [active] [ref=e124] [cursor=pointer]:
+                  - /url: /api/monitors/075ff62b-4b40-410b-b88a-d44ee66331d9/evaluation.csv
+              - table [ref=e126]:
+                - rowgroup [ref=e127]:
+                  - row "Pending Refused Matched Independent events Target dates Matched events / dates Poll observations" [ref=e128]:
+                    - cell "Pending" [ref=e129]
+                    - cell "Refused" [ref=e130]
+                    - cell "Matched" [ref=e131]
+                    - cell "Independent events" [ref=e132]
+                    - cell "Target dates" [ref=e133]
+                    - cell "Matched events / dates" [ref=e134]
+                    - cell "Poll observations" [ref=e135]
+                - rowgroup [ref=e136]:
+                  - row "1 1 11 12 12 10 / 10 39" [ref=e137]:
+                    - cell "1" [ref=e138]
+                    - cell "1" [ref=e139]
+                    - cell "11" [ref=e140]
+                    - cell "12" [ref=e141]
+                    - cell "12" [ref=e142]
+                    - cell "10 / 10" [ref=e143]
+                    - cell "39" [ref=e144]
+              - generic [ref=e145]: CONTROLLED SYNTHETIC · software demonstration only; never empirical performance
+              - paragraph [ref=e146]: sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa · none · 10 matched events / 10 dates.
+              - table [ref=e148]:
+                - rowgroup [ref=e149]:
+                  - row "Event-weighted Brier score Event-weighted log loss" [ref=e150]:
+                    - cell "Event-weighted Brier score" [ref=e151]
+                    - cell "Event-weighted log loss" [ref=e152]
+                - rowgroup [ref=e153]:
+                  - row "0.0875 0.342612686885" [ref=e154]:
+                    - cell "0.0875" [ref=e155]
+                    - cell "0.342612686885" [ref=e156]
+              - group [ref=e157]:
+                - generic "Forecast reliability bins" [ref=e158] [cursor=pointer]
+              - table [ref=e160]:
+                - rowgroup [ref=e161]:
+                  - row "Contract Event / date Status P(YES) Official result Available at Revisions Reason" [ref=e162]:
+                    - cell "Contract" [ref=e163]
+                    - cell "Event / date" [ref=e164]
+                    - cell "Status" [ref=e165]
+                    - cell "P(YES)" [ref=e166]
+                    - cell "Official result" [ref=e167]
+                    - cell "Available at" [ref=e168]
+                    - cell "Revisions" [ref=e169]
+                    - cell "Reason" [ref=e170]
+                - rowgroup [ref=e171]:
+                  - row "KXHIGHPHIL-26OCT25-T89 KXHIGHPHIL-26OCT25 / 2026-10-25 matched 0.75 no 2026-11-09T15:00:00+00:00 1 —" [ref=e172]:
+                    - cell "KXHIGHPHIL-26OCT25-T89" [ref=e173]
+                    - cell "KXHIGHPHIL-26OCT25 / 2026-10-25" [ref=e174]
+                    - cell "matched" [ref=e175]
+                    - cell "0.75" [ref=e176]
+                    - cell "no" [ref=e177]
+                    - cell "2026-11-09T15:00:00+00:00" [ref=e178]
+                    - cell "1" [ref=e179]
+                    - cell "—" [ref=e180]
+                  - row "KXHIGHPHIL-26OCT25-T90 KXHIGHPHIL-26OCT25 / 2026-10-25 matched 0.75 yes 2026-10-25T17:00:00+00:00 0 —" [ref=e181]:
+                    - cell "KXHIGHPHIL-26OCT25-T90" [ref=e182]
+                    - cell "KXHIGHPHIL-26OCT25 / 2026-10-25" [ref=e183]
+                    - cell "matched" [ref=e184]
+                    - cell "0.75" [ref=e185]
+                    - cell "yes" [ref=e186]
+                    - cell "2026-10-25T17:00:00+00:00" [ref=e187]
+                    - cell "0" [ref=e188]
+                    - cell "—" [ref=e189]
+                  - row "KXHIGHPHIL-26OCT26-T89 KXHIGHPHIL-26OCT26 / 2026-10-26 matched 0.75 yes 2026-10-26T17:00:00+00:00 0 —" [ref=e190]:
+                    - cell "KXHIGHPHIL-26OCT26-T89" [ref=e191]
+                    - cell "KXHIGHPHIL-26OCT26 / 2026-10-26" [ref=e192]
+                    - cell "matched" [ref=e193]
+                    - cell "0.75" [ref=e194]
+                    - cell "yes" [ref=e195]
+                    - cell "2026-10-26T17:00:00+00:00" [ref=e196]
+                    - cell "0" [ref=e197]
+                    - cell "—" [ref=e198]
+                  - row "KXHIGHPHIL-26OCT27-T89 KXHIGHPHIL-26OCT27 / 2026-10-27 matched 0.75 yes 2026-10-27T17:00:00+00:00 0 —" [ref=e199]:
+                    - cell "KXHIGHPHIL-26OCT27-T89" [ref=e200]
+                    - cell "KXHIGHPHIL-26OCT27 / 2026-10-27" [ref=e201]
+                    - cell "matched" [ref=e202]
+                    - cell "0.75" [ref=e203]
+                    - cell "yes" [ref=e204]
+                    - cell "2026-10-27T17:00:00+00:00" [ref=e205]
+                    - cell "0" [ref=e206]
+                    - cell "—" [ref=e207]
+                  - row "KXHIGHPHIL-26OCT28-T89 KXHIGHPHIL-26OCT28 / 2026-10-28 matched 0.75 yes 2026-10-28T17:00:00+00:00 0 —" [ref=e208]:
+                    - cell "KXHIGHPHIL-26OCT28-T89" [ref=e209]
+                    - cell "KXHIGHPHIL-26OCT28 / 2026-10-28" [ref=e210]
+                    - cell "matched" [ref=e211]
+                    - cell "0.75" [ref=e212]
+                    - cell "yes" [ref=e213]
+                    - cell "2026-10-28T17:00:00+00:00" [ref=e214]
+                    - cell "0" [ref=e215]
+                    - cell "—" [ref=e216]
+                  - row "KXHIGHPHIL-26OCT29-T89 KXHIGHPHIL-26OCT29 / 2026-10-29 matched 0.75 yes 2026-10-29T17:00:00+00:00 0 —" [ref=e217]:
+                    - cell "KXHIGHPHIL-26OCT29-T89" [ref=e218]
+                    - cell "KXHIGHPHIL-26OCT29 / 2026-10-29" [ref=e219]
+                    - cell "matched" [ref=e220]
+                    - cell "0.75" [ref=e221]
+                    - cell "yes" [ref=e222]
+                    - cell "2026-10-29T17:00:00+00:00" [ref=e223]
+                    - cell "0" [ref=e224]
+                    - cell "—" [ref=e225]
+                  - row "KXHIGHPHIL-26OCT30-T89 KXHIGHPHIL-26OCT30 / 2026-10-30 matched 0.75 yes 2026-10-30T17:00:00+00:00 0 —" [ref=e226]:
+                    - cell "KXHIGHPHIL-26OCT30-T89" [ref=e227]
+                    - cell "KXHIGHPHIL-26OCT30 / 2026-10-30" [ref=e228]
+                    - cell "matched" [ref=e229]
+                    - cell "0.75" [ref=e230]
+                    - cell "yes" [ref=e231]
+                    - cell "2026-10-30T17:00:00+00:00" [ref=e232]
+                    - cell "0" [ref=e233]
+                    - cell "—" [ref=e234]
+                  - row "KXHIGHPHIL-26OCT31-T89 KXHIGHPHIL-26OCT31 / 2026-10-31 matched 0.75 yes 2026-10-31T17:00:00+00:00 0 —" [ref=e235]:
+                    - cell "KXHIGHPHIL-26OCT31-T89" [ref=e236]
+                    - cell "KXHIGHPHIL-26OCT31 / 2026-10-31" [ref=e237]
+                    - cell "matched" [ref=e238]
+                    - cell "0.75" [ref=e239]
+                    - cell "yes" [ref=e240]
+                    - cell "2026-10-31T17:00:00+00:00" [ref=e241]
+                    - cell "0" [ref=e242]
+                    - cell "—" [ref=e243]
+                  - row "KXHIGHPHIL-26NOV01-T89 KXHIGHPHIL-26NOV01 / 2026-11-01 matched 0.75 yes 2026-11-01T17:00:00+00:00 0 —" [ref=e244]:
+                    - cell "KXHIGHPHIL-26NOV01-T89" [ref=e245]
+                    - cell "KXHIGHPHIL-26NOV01 / 2026-11-01" [ref=e246]
+                    - cell "matched" [ref=e247]
+                    - cell "0.75" [ref=e248]
+                    - cell "yes" [ref=e249]
+                    - cell "2026-11-01T17:00:00+00:00" [ref=e250]
+                    - cell "0" [ref=e251]
+                    - cell "—" [ref=e252]
+                  - row "KXHIGHPHIL-26NOV02-T89 KXHIGHPHIL-26NOV02 / 2026-11-02 matched 0.75 yes 2026-11-02T17:00:00+00:00 0 —" [ref=e253]:
+                    - cell "KXHIGHPHIL-26NOV02-T89" [ref=e254]
+                    - cell "KXHIGHPHIL-26NOV02 / 2026-11-02" [ref=e255]
+                    - cell "matched" [ref=e256]
+                    - cell "0.75" [ref=e257]
+                    - cell "yes" [ref=e258]
+                    - cell "2026-11-02T17:00:00+00:00" [ref=e259]
+                    - cell "0" [ref=e260]
+                    - cell "—" [ref=e261]
+                  - row "KXHIGHPHIL-26NOV03-T89 KXHIGHPHIL-26NOV03 / 2026-11-03 matched 0.75 yes 2026-11-03T17:00:00+00:00 0 —" [ref=e262]:
+                    - cell "KXHIGHPHIL-26NOV03-T89" [ref=e263]
+                    - cell "KXHIGHPHIL-26NOV03 / 2026-11-03" [ref=e264]
+                    - cell "matched" [ref=e265]
+                    - cell "0.75" [ref=e266]
+                    - cell "yes" [ref=e267]
+                    - cell "2026-11-03T17:00:00+00:00" [ref=e268]
+                    - cell "0" [ref=e269]
+                    - cell "—" [ref=e270]
+                  - row "KXHIGHPHIL-26NOV04-T89 KXHIGHPHIL-26NOV04 / 2026-11-04 pending 0.75 — — 0 —" [ref=e271]:
+                    - cell "KXHIGHPHIL-26NOV04-T89" [ref=e272]
+                    - cell "KXHIGHPHIL-26NOV04 / 2026-11-04" [ref=e273]
+                    - cell "pending" [ref=e274]
+                    - cell "0.75" [ref=e275]
+                    - cell "—" [ref=e276]
+                    - cell "—" [ref=e277]
+                    - cell "0" [ref=e278]
+                    - cell "—" [ref=e279]
+                  - row "KXHIGHPHIL-26NOV05-T89 KXHIGHPHIL-26NOV05 / 2026-11-05 refused — yes 2026-11-05T17:00:00+00:00 0 missing_or_ambiguous_prediction" [ref=e280]:
+                    - cell "KXHIGHPHIL-26NOV05-T89" [ref=e281]
+                    - cell "KXHIGHPHIL-26NOV05 / 2026-11-05" [ref=e282]
+                    - cell "refused" [ref=e283]
+                    - cell "—" [ref=e284]
+                    - cell "yes" [ref=e285]
+                    - cell "2026-11-05T17:00:00+00:00" [ref=e286]
+                    - cell "0" [ref=e287]
+                    - cell "missing_or_ambiguous_prediction" [ref=e288]
+              - group [ref=e289]:
+                - generic "Forecast, source and outcome lineage" [ref=e290] [cursor=pointer]
+                - generic [ref=e291]: "[ { \"ticker\": \"KXHIGHPHIL-26OCT25-T89\", \"event_id\": \"KXHIGHPHIL-26OCT25\", \"target_date\": \"2026-10-25\", \"decision_time\": \"2026-10-25T15:00:00+00:00\", \"close_time\": \"2026-10-25T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-25T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT25\", \"ticker\": \"KXHIGHPHIL-26OCT25-T89\", \"decision_time\": \"2026-10-25T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:6fcb6d90861d4b10bbbc9008751c064906c6f78c5b4ff5e64d8fd3f4da539ede\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89\", \"raw_ref\": \"outcomes/0000.json\", \"received_at\": \"2026-11-09T15:00:00+00:00\", \"sha256\": \"sha256:387ca31a7484c203e6a5b4d8fc3a850f81ce4aeec843398126df06302436f357\", \"status\": 200 }, \"available_at\": \"2026-11-09T15:00:00+00:00\", \"reason\": null, \"result\": \"no\", \"settled_at\": \"2026-10-25T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89\", \"raw_ref\": \"outcomes/0000.json\", \"received_at\": \"2026-10-25T17:00:00+00:00\", \"sha256\": \"sha256:5eb63430df70d930ff1645bca97c4c4ab82626aeb1ef82142340b3decfe3afb2\", \"status\": 200 }, \"available_at\": \"2026-10-25T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-25T16:01:00+00:00\" }, { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T89\", \"raw_ref\": \"outcomes/0000.json\", \"received_at\": \"2026-11-09T15:00:00+00:00\", \"sha256\": \"sha256:387ca31a7484c203e6a5b4d8fc3a850f81ce4aeec843398126df06302436f357\", \"status\": 200 }, \"available_at\": \"2026-11-09T15:00:00+00:00\", \"reason\": null, \"result\": \"no\", \"settled_at\": \"2026-10-25T16:01:00+00:00\" } ], \"outcome_revisions\": 1 }, { \"ticker\": \"KXHIGHPHIL-26OCT25-T90\", \"event_id\": \"KXHIGHPHIL-26OCT25\", \"target_date\": \"2026-10-25\", \"decision_time\": \"2026-10-25T15:00:00+00:00\", \"close_time\": \"2026-10-25T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-25T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT25\", \"ticker\": \"KXHIGHPHIL-26OCT25-T90\", \"decision_time\": \"2026-10-25T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:fd807fc51d64751b884bafd47969d2064af75c9306563507c14740c16da718ba\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T90\", \"raw_ref\": \"outcomes/0010.json\", \"received_at\": \"2026-10-25T17:00:00+00:00\", \"sha256\": \"sha256:7e54d7b6de959e806819620ec90b11ba0434cf4e54049e8a251497aa8002bbd7\", \"status\": 200 }, \"available_at\": \"2026-10-25T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-25T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT25-T90\", \"raw_ref\": \"outcomes/0010.json\", \"received_at\": \"2026-10-25T17:00:00+00:00\", \"sha256\": \"sha256:7e54d7b6de959e806819620ec90b11ba0434cf4e54049e8a251497aa8002bbd7\", \"status\": 200 }, \"available_at\": \"2026-10-25T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-25T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT26-T89\", \"event_id\": \"KXHIGHPHIL-26OCT26\", \"target_date\": \"2026-10-26\", \"decision_time\": \"2026-10-26T15:00:00+00:00\", \"close_time\": \"2026-10-26T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-26T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT26\", \"ticker\": \"KXHIGHPHIL-26OCT26-T89\", \"decision_time\": \"2026-10-26T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:cc3205bd246070b70975a6051a2ff2aa6da2ed0fa281380103e8ebccda46b1ef\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT26-T89\", \"raw_ref\": \"outcomes/0001.json\", \"received_at\": \"2026-10-26T17:00:00+00:00\", \"sha256\": \"sha256:f63536d9f2c5afaa44999454c053d8f0e3b7f6722883b055a98271461f56dadf\", \"status\": 200 }, \"available_at\": \"2026-10-26T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-26T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT26-T89\", \"raw_ref\": \"outcomes/0001.json\", \"received_at\": \"2026-10-26T17:00:00+00:00\", \"sha256\": \"sha256:f63536d9f2c5afaa44999454c053d8f0e3b7f6722883b055a98271461f56dadf\", \"status\": 200 }, \"available_at\": \"2026-10-26T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-26T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT27-T89\", \"event_id\": \"KXHIGHPHIL-26OCT27\", \"target_date\": \"2026-10-27\", \"decision_time\": \"2026-10-27T15:00:00+00:00\", \"close_time\": \"2026-10-27T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-27T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT27\", \"ticker\": \"KXHIGHPHIL-26OCT27-T89\", \"decision_time\": \"2026-10-27T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:c5cd82313a2b2e232c4846223ec20d10018b52d2b57eca4a2a4fab041f33ded3\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT27-T89\", \"raw_ref\": \"outcomes/0002.json\", \"received_at\": \"2026-10-27T17:00:00+00:00\", \"sha256\": \"sha256:03faed5f73c311d659d5a8d9ec31f213b2a826338e4773372b1200cda199dd27\", \"status\": 200 }, \"available_at\": \"2026-10-27T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-27T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT27-T89\", \"raw_ref\": \"outcomes/0002.json\", \"received_at\": \"2026-10-27T17:00:00+00:00\", \"sha256\": \"sha256:03faed5f73c311d659d5a8d9ec31f213b2a826338e4773372b1200cda199dd27\", \"status\": 200 }, \"available_at\": \"2026-10-27T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-27T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT28-T89\", \"event_id\": \"KXHIGHPHIL-26OCT28\", \"target_date\": \"2026-10-28\", \"decision_time\": \"2026-10-28T15:00:00+00:00\", \"close_time\": \"2026-10-28T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-28T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT28\", \"ticker\": \"KXHIGHPHIL-26OCT28-T89\", \"decision_time\": \"2026-10-28T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:3611fe29de546d945b12eecbefa8d590dfed27c6d79941fb60891f298b0b7927\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT28-T89\", \"raw_ref\": \"outcomes/0003.json\", \"received_at\": \"2026-10-28T17:00:00+00:00\", \"sha256\": \"sha256:aa13edcadc8c7dc8ffb385e919a4a47eba824e86edc26ca2c913d19c5325b3e0\", \"status\": 200 }, \"available_at\": \"2026-10-28T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-28T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT28-T89\", \"raw_ref\": \"outcomes/0003.json\", \"received_at\": \"2026-10-28T17:00:00+00:00\", \"sha256\": \"sha256:aa13edcadc8c7dc8ffb385e919a4a47eba824e86edc26ca2c913d19c5325b3e0\", \"status\": 200 }, \"available_at\": \"2026-10-28T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-28T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT29-T89\", \"event_id\": \"KXHIGHPHIL-26OCT29\", \"target_date\": \"2026-10-29\", \"decision_time\": \"2026-10-29T15:00:00+00:00\", \"close_time\": \"2026-10-29T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-29T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT29\", \"ticker\": \"KXHIGHPHIL-26OCT29-T89\", \"decision_time\": \"2026-10-29T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:e37b0e98bdd9e83ee277bd319508c3440654a262677e66a1688e159a7490c76f\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT29-T89\", \"raw_ref\": \"outcomes/0004.json\", \"received_at\": \"2026-10-29T17:00:00+00:00\", \"sha256\": \"sha256:e363e3a43387817ad17aced72948848a85801c903e7458a25d5911a63983e704\", \"status\": 200 }, \"available_at\": \"2026-10-29T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-29T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT29-T89\", \"raw_ref\": \"outcomes/0004.json\", \"received_at\": \"2026-10-29T17:00:00+00:00\", \"sha256\": \"sha256:e363e3a43387817ad17aced72948848a85801c903e7458a25d5911a63983e704\", \"status\": 200 }, \"available_at\": \"2026-10-29T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-29T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT30-T89\", \"event_id\": \"KXHIGHPHIL-26OCT30\", \"target_date\": \"2026-10-30\", \"decision_time\": \"2026-10-30T15:00:00+00:00\", \"close_time\": \"2026-10-30T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-30T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT30\", \"ticker\": \"KXHIGHPHIL-26OCT30-T89\", \"decision_time\": \"2026-10-30T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:294a4180ed29dc6cc91cb33a09df392f05052e33bdbfed5d59423b5a12fc366a\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT30-T89\", \"raw_ref\": \"outcomes/0005.json\", \"received_at\": \"2026-10-30T17:00:00+00:00\", \"sha256\": \"sha256:c2fd2ad2bb3047aa17533be075898298bcc9d872245e4dc81af167b3e4a0b9c1\", \"status\": 200 }, \"available_at\": \"2026-10-30T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-30T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT30-T89\", \"raw_ref\": \"outcomes/0005.json\", \"received_at\": \"2026-10-30T17:00:00+00:00\", \"sha256\": \"sha256:c2fd2ad2bb3047aa17533be075898298bcc9d872245e4dc81af167b3e4a0b9c1\", \"status\": 200 }, \"available_at\": \"2026-10-30T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-30T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26OCT31-T89\", \"event_id\": \"KXHIGHPHIL-26OCT31\", \"target_date\": \"2026-10-31\", \"decision_time\": \"2026-10-31T15:00:00+00:00\", \"close_time\": \"2026-10-31T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-10-31T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26OCT31\", \"ticker\": \"KXHIGHPHIL-26OCT31-T89\", \"decision_time\": \"2026-10-31T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:b84fdf29962e6fc967a630d625e2f818e33516d3dd3e127b7eda39739df04e13\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT31-T89\", \"raw_ref\": \"outcomes/0006.json\", \"received_at\": \"2026-10-31T17:00:00+00:00\", \"sha256\": \"sha256:1e753af7ebce4af9292b2f64eb513427678957aee4f1d1900b303655f7b2abf6\", \"status\": 200 }, \"available_at\": \"2026-10-31T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-31T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26OCT31-T89\", \"raw_ref\": \"outcomes/0006.json\", \"received_at\": \"2026-10-31T17:00:00+00:00\", \"sha256\": \"sha256:1e753af7ebce4af9292b2f64eb513427678957aee4f1d1900b303655f7b2abf6\", \"status\": 200 }, \"available_at\": \"2026-10-31T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-10-31T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26NOV01-T89\", \"event_id\": \"KXHIGHPHIL-26NOV01\", \"target_date\": \"2026-11-01\", \"decision_time\": \"2026-11-01T15:00:00+00:00\", \"close_time\": \"2026-11-01T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-11-01T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26NOV01\", \"ticker\": \"KXHIGHPHIL-26NOV01-T89\", \"decision_time\": \"2026-11-01T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:23d9e0ee529afb0a95c409c09604ccde4744774a0f1caeaaf87056e9adf9e85c\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV01-T89\", \"raw_ref\": \"outcomes/0007.json\", \"received_at\": \"2026-11-01T17:00:00+00:00\", \"sha256\": \"sha256:a3637f422e5ffb3c87916fcf9c68e859a604445045eff45e5d07c97f4720d8c5\", \"status\": 200 }, \"available_at\": \"2026-11-01T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-01T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV01-T89\", \"raw_ref\": \"outcomes/0007.json\", \"received_at\": \"2026-11-01T17:00:00+00:00\", \"sha256\": \"sha256:a3637f422e5ffb3c87916fcf9c68e859a604445045eff45e5d07c97f4720d8c5\", \"status\": 200 }, \"available_at\": \"2026-11-01T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-01T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26NOV02-T89\", \"event_id\": \"KXHIGHPHIL-26NOV02\", \"target_date\": \"2026-11-02\", \"decision_time\": \"2026-11-02T15:00:00+00:00\", \"close_time\": \"2026-11-02T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-11-02T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26NOV02\", \"ticker\": \"KXHIGHPHIL-26NOV02-T89\", \"decision_time\": \"2026-11-02T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:7c606c46eef74c221b24b874886bc8e4f5e12eb4e42ffe7d9666b41ba6ccd2ad\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV02-T89\", \"raw_ref\": \"outcomes/0008.json\", \"received_at\": \"2026-11-02T17:00:00+00:00\", \"sha256\": \"sha256:129c8e9f1f567d60ceeafacf2b9346ae340c0279fb9e147909344f3fe0fd6886\", \"status\": 200 }, \"available_at\": \"2026-11-02T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-02T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV02-T89\", \"raw_ref\": \"outcomes/0008.json\", \"received_at\": \"2026-11-02T17:00:00+00:00\", \"sha256\": \"sha256:129c8e9f1f567d60ceeafacf2b9346ae340c0279fb9e147909344f3fe0fd6886\", \"status\": 200 }, \"available_at\": \"2026-11-02T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-02T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26NOV03-T89\", \"event_id\": \"KXHIGHPHIL-26NOV03\", \"target_date\": \"2026-11-03\", \"decision_time\": \"2026-11-03T15:00:00+00:00\", \"close_time\": \"2026-11-03T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-11-03T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26NOV03\", \"ticker\": \"KXHIGHPHIL-26NOV03-T89\", \"decision_time\": \"2026-11-03T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:91f0dd59457f74c222912405935be8a555336ec61a47ee778dee88c97eeebcb0\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"matched\", \"reason\": null, \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV03-T89\", \"raw_ref\": \"outcomes/0009.json\", \"received_at\": \"2026-11-03T17:00:00+00:00\", \"sha256\": \"sha256:471060b936bf4fbefe0c8db5929cc0b54a685199802410b3d0027f0c7fb1be69\", \"status\": 200 }, \"available_at\": \"2026-11-03T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-03T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV03-T89\", \"raw_ref\": \"outcomes/0009.json\", \"received_at\": \"2026-11-03T17:00:00+00:00\", \"sha256\": \"sha256:471060b936bf4fbefe0c8db5929cc0b54a685199802410b3d0027f0c7fb1be69\", \"status\": 200 }, \"available_at\": \"2026-11-03T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-03T16:01:00+00:00\" } ], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26NOV04-T89\", \"event_id\": \"KXHIGHPHIL-26NOV04\", \"target_date\": \"2026-11-04\", \"decision_time\": \"2026-11-04T15:00:00+00:00\", \"close_time\": \"2026-11-04T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-11-04T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": { \"event_id\": \"KXHIGHPHIL-26NOV04\", \"ticker\": \"KXHIGHPHIL-26NOV04-T89\", \"decision_time\": \"2026-11-04T15:00:00Z\", \"family\": \"provided-frequency\", \"model_hash\": \"sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"fitted_before\": \"2026-10-24T15:00:00Z\", \"calibrated_before\": null, \"calibration\": \"none\", \"probability_yes\": \"0.75\", \"partition\": \"forward\", \"prediction_id\": \"sha256:9ea3df09a6fd187046e8ce3eb8051861d0410cc0f50eba7d1601c18a7c0630f6\" }, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"sized_book\", \"certified_fees\" ] }, \"status\": \"pending\", \"reason\": null, \"outcome\": null, \"outcome_history\": [], \"outcome_revisions\": 0 }, { \"ticker\": \"KXHIGHPHIL-26NOV05-T89\", \"event_id\": \"KXHIGHPHIL-26NOV05\", \"target_date\": \"2026-11-05\", \"decision_time\": \"2026-11-05T15:00:00+00:00\", \"close_time\": \"2026-11-05T16:00:00+00:00\", \"data_kind\": \"synthetic\", \"dataset_version\": \"sha256:9d086f0e42e423c432c770efbf175301fe996f2c8b04cd17fdd27dc7a880f398\", \"feature_version\": \"sha256:107ea388f416a1e48a24d07fa6e7f77ea08c73283ed9062d2371a2a9f51822c1\", \"feature_hash\": \"sha256:7dbef7c8aa555d4a7604d4ff6be4fcba4c47059377795f67bba2218b289dbc41\", \"source_versions\": { \"mention_count\": \"1\" }, \"sources\": [ \"fixture-transcript\" ], \"features_available_at\": \"2026-11-05T15:00:00+00:00\", \"cycle_id\": \"550dbe36-ae12-4582-89d5-35fee1754910\", \"cycle_digest\": \"sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293\", \"poll_observations\": 3, \"prediction\": null, \"model_refusals\": {}, \"shadow_decision\": { \"status\": \"blocked\", \"reasons\": [ \"point_in_time_prediction\", \"sized_book\", \"certified_fees\" ] }, \"status\": \"refused\", \"reason\": \"missing_or_ambiguous_prediction\", \"outcome\": { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV05-T89\", \"raw_ref\": \"outcomes/0011.json\", \"received_at\": \"2026-11-05T17:00:00+00:00\", \"sha256\": \"sha256:0417cca3b05973baf8004ff248eaea39aeeb24e4b8a8e62f2eab453887fab50e\", \"status\": 200 }, \"available_at\": \"2026-11-05T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-05T16:01:00+00:00\" }, \"outcome_history\": [ { \"receipt\": { \"path\": \"/trade-api/v2/markets/KXHIGHPHIL-26NOV05-T89\", \"raw_ref\": \"outcomes/0011.json\", \"received_at\": \"2026-11-05T17:00:00+00:00\", \"sha256\": \"sha256:0417cca3b05973baf8004ff248eaea39aeeb24e4b8a8e62f2eab453887fab50e\", \"status\": 200 }, \"available_at\": \"2026-11-05T17:00:00+00:00\", \"reason\": null, \"result\": \"yes\", \"settled_at\": \"2026-11-05T16:01:00+00:00\" } ], \"outcome_revisions\": 0 } ]"
+              - group [ref=e292]:
+                - generic "Excluded, failed and interrupted evidence" [ref=e293] [cursor=pointer]
+              - list [ref=e294]:
+                - listitem [ref=e295]: Prospective monitoring only; never historical validation, simulated trading accounting or evidence of profitability. No fitting, promotion or orders.
+                - listitem [ref=e296]: One earliest retained pre-close observation per contract; later polls cannot replace a missing/refused forecast or increase independent counts. Strikes share event weight.
+                - listitem [ref=e297]: Latest verified official binary receipt at the cutoff is used. Revisions are visible; original predictions, receipts, first accounting settlements and holdouts stay unchanged.
+                - listitem [ref=e298]: Diagnostics require ten matched events on five target dates per model/data group. These are descriptive diagnostics, without confidence or significance claims.
+                - listitem [ref=e299]: Offline verification establishes retained lineage and computation, not external source truth. Synthetic examples establish software behavior only.
+              - code [ref=e300]: sha256:7a24edcbad4dcea40a5b899d2bfa690c0b77aecfd81cf3085c7e285071a9bc45
+            - generic [ref=e301]:
+              - heading "Simulated paper account" [level=3] [ref=e302]
+              - link "Paper account JSON" [ref=e303] [cursor=pointer]:
+                - /url: /api/monitors/075ff62b-4b40-410b-b88a-d44ee66331d9/paper
+              - paragraph [ref=e304]: No committed paper cycle; no retroactive fills
+            - generic [ref=e305]:
+              - heading "Cycle 3 · completed" [level=3] [ref=e306]
+              - paragraph [ref=e307]: CONTROLLED SYNTHETIC prospective report; no empirical evidence
+              - paragraph [ref=e308]: "Decisions: 13; quotes: 0; official outcomes: 0."
+              - table [ref=e310]:
+                - rowgroup [ref=e311]:
+                  - row "Fee series Fee status Version / refusal" [ref=e312]:
+                    - cell "Fee series" [ref=e313]
+                    - cell "Fee status" [ref=e314]
+                    - cell "Version / refusal" [ref=e315]
+                - rowgroup [ref=e316]:
+                  - row "— legacy Uncertified legacy evidence" [ref=e317]:
+                    - cell "—" [ref=e318]
+                    - cell "legacy" [ref=e319]
+                    - cell "Uncertified legacy evidence" [ref=e320]
+                  - row "— legacy Uncertified legacy evidence" [ref=e321]:
+                    - cell "—" [ref=e322]
+                    - cell "legacy" [ref=e323]
+                    - cell "Uncertified legacy evidence" [ref=e324]
+                  - row "— legacy Uncertified legacy evidence" [ref=e325]:
+                    - cell "—" [ref=e326]
+                    - cell "legacy" [ref=e327]
+                    - cell "Uncertified legacy evidence" [ref=e328]
+                  - row "— legacy Uncertified legacy evidence" [ref=e329]:
+                    - cell "—" [ref=e330]
+                    - cell "legacy" [ref=e331]
+                    - cell "Uncertified legacy evidence" [ref=e332]
+                  - row "— legacy Uncertified legacy evidence" [ref=e333]:
+                    - cell "—" [ref=e334]
+                    - cell "legacy" [ref=e335]
+                    - cell "Uncertified legacy evidence" [ref=e336]
+                  - row "— legacy Uncertified legacy evidence" [ref=e337]:
+                    - cell "—" [ref=e338]
+                    - cell "legacy" [ref=e339]
+                    - cell "Uncertified legacy evidence" [ref=e340]
+                  - row "— legacy Uncertified legacy evidence" [ref=e341]:
+                    - cell "—" [ref=e342]
+                    - cell "legacy" [ref=e343]
+                    - cell "Uncertified legacy evidence" [ref=e344]
+                  - row "— legacy Uncertified legacy evidence" [ref=e345]:
+                    - cell "—" [ref=e346]
+                    - cell "legacy" [ref=e347]
+                    - cell "Uncertified legacy evidence" [ref=e348]
+                  - row "— legacy Uncertified legacy evidence" [ref=e349]:
+                    - cell "—" [ref=e350]
+                    - cell "legacy" [ref=e351]
+                    - cell "Uncertified legacy evidence" [ref=e352]
+                  - row "— legacy Uncertified legacy evidence" [ref=e353]:
+                    - cell "—" [ref=e354]
+                    - cell "legacy" [ref=e355]
+                    - cell "Uncertified legacy evidence" [ref=e356]
+                  - row "— legacy Uncertified legacy evidence" [ref=e357]:
+                    - cell "—" [ref=e358]
+                    - cell "legacy" [ref=e359]
+                    - cell "Uncertified legacy evidence" [ref=e360]
+                  - row "— legacy Uncertified legacy evidence" [ref=e361]:
+                    - cell "—" [ref=e362]
+                    - cell "legacy" [ref=e363]
+                    - cell "Uncertified legacy evidence" [ref=e364]
+                  - row "— legacy Uncertified legacy evidence" [ref=e365]:
+                    - cell "—" [ref=e366]
+                    - cell "legacy" [ref=e367]
+                    - cell "Uncertified legacy evidence" [ref=e368]
+              - group [ref=e369]:
+                - generic "Frozen fee provenance and refusals" [ref=e370] [cursor=pointer]
+              - table [ref=e372]:
+                - rowgroup [ref=e373]:
+                  - row "Contract Status P(YES) Reasons" [ref=e374]:
+                    - cell "Contract" [ref=e375]
+                    - cell "Status" [ref=e376]
+                    - cell "P(YES)" [ref=e377]
+                    - cell "Reasons" [ref=e378]
+                - rowgroup [ref=e379]:
+                  - row "KXHIGHPHIL-26OCT25-T89 blocked 0.75 sized_book, certified_fees" [ref=e380]:
+                    - cell "KXHIGHPHIL-26OCT25-T89" [ref=e381]
+                    - cell "blocked" [ref=e382]
+                    - cell "0.75" [ref=e383]
+                    - cell "sized_book, certified_fees" [ref=e384]
+                  - row "KXHIGHPHIL-26OCT25-T90 blocked 0.75 sized_book, certified_fees" [ref=e385]:
+                    - cell "KXHIGHPHIL-26OCT25-T90" [ref=e386]
+                    - cell "blocked" [ref=e387]
+                    - cell "0.75" [ref=e388]
+                    - cell "sized_book, certified_fees" [ref=e389]
+                  - row "KXHIGHPHIL-26OCT26-T89 blocked 0.75 sized_book, certified_fees" [ref=e390]:
+                    - cell "KXHIGHPHIL-26OCT26-T89" [ref=e391]
+                    - cell "blocked" [ref=e392]
+                    - cell "0.75" [ref=e393]
+                    - cell "sized_book, certified_fees" [ref=e394]
+                  - row "KXHIGHPHIL-26OCT27-T89 blocked 0.75 sized_book, certified_fees" [ref=e395]:
+                    - cell "KXHIGHPHIL-26OCT27-T89" [ref=e396]
+                    - cell "blocked" [ref=e397]
+                    - cell "0.75" [ref=e398]
+                    - cell "sized_book, certified_fees" [ref=e399]
+                  - row "KXHIGHPHIL-26OCT28-T89 blocked 0.75 sized_book, certified_fees" [ref=e400]:
+                    - cell "KXHIGHPHIL-26OCT28-T89" [ref=e401]
+                    - cell "blocked" [ref=e402]
+                    - cell "0.75" [ref=e403]
+                    - cell "sized_book, certified_fees" [ref=e404]
+                  - row "KXHIGHPHIL-26OCT29-T89 blocked 0.75 sized_book, certified_fees" [ref=e405]:
+                    - cell "KXHIGHPHIL-26OCT29-T89" [ref=e406]
+                    - cell "blocked" [ref=e407]
+                    - cell "0.75" [ref=e408]
+                    - cell "sized_book, certified_fees" [ref=e409]
+                  - row "KXHIGHPHIL-26OCT30-T89 blocked 0.75 sized_book, certified_fees" [ref=e410]:
+                    - cell "KXHIGHPHIL-26OCT30-T89" [ref=e411]
+                    - cell "blocked" [ref=e412]
+                    - cell "0.75" [ref=e413]
+                    - cell "sized_book, certified_fees" [ref=e414]
+                  - row "KXHIGHPHIL-26OCT31-T89 blocked 0.75 sized_book, certified_fees" [ref=e415]:
+                    - cell "KXHIGHPHIL-26OCT31-T89" [ref=e416]
+                    - cell "blocked" [ref=e417]
+                    - cell "0.75" [ref=e418]
+                    - cell "sized_book, certified_fees" [ref=e419]
+                  - row "KXHIGHPHIL-26NOV01-T89 blocked 0.75 sized_book, certified_fees" [ref=e420]:
+                    - cell "KXHIGHPHIL-26NOV01-T89" [ref=e421]
+                    - cell "blocked" [ref=e422]
+                    - cell "0.75" [ref=e423]
+                    - cell "sized_book, certified_fees" [ref=e424]
+                  - row "KXHIGHPHIL-26NOV02-T89 blocked 0.75 sized_book, certified_fees" [ref=e425]:
+                    - cell "KXHIGHPHIL-26NOV02-T89" [ref=e426]
+                    - cell "blocked" [ref=e427]
+                    - cell "0.75" [ref=e428]
+                    - cell "sized_book, certified_fees" [ref=e429]
+                  - row "KXHIGHPHIL-26NOV03-T89 blocked 0.75 sized_book, certified_fees" [ref=e430]:
+                    - cell "KXHIGHPHIL-26NOV03-T89" [ref=e431]
+                    - cell "blocked" [ref=e432]
+                    - cell "0.75" [ref=e433]
+                    - cell "sized_book, certified_fees" [ref=e434]
+                  - row "KXHIGHPHIL-26NOV04-T89 blocked 0.75 sized_book, certified_fees" [ref=e435]:
+                    - cell "KXHIGHPHIL-26NOV04-T89" [ref=e436]
+                    - cell "blocked" [ref=e437]
+                    - cell "0.75" [ref=e438]
+                    - cell "sized_book, certified_fees" [ref=e439]
+                  - row "KXHIGHPHIL-26NOV05-T89 blocked — point_in_time_prediction, sized_book, certified_fees" [ref=e440]:
+                    - cell "KXHIGHPHIL-26NOV05-T89" [ref=e441]
+                    - cell "blocked" [ref=e442]
+                    - cell "—" [ref=e443]
+                    - cell "point_in_time_prediction, sized_book, certified_fees" [ref=e444]
+              - group [ref=e445]:
+                - generic "Source receipts, predictions, intended orders, risk checks and artifacts" [ref=e446] [cursor=pointer]
+              - code [ref=e447]: sha256:13e7b5e08e3c54cf81a303e41aeddbc1087066c3486686411c1d73d3f53255d2
+            - generic [ref=e448]:
+              - heading "Cycle 2 · completed" [level=3] [ref=e449]
+              - paragraph [ref=e450]: CONTROLLED SYNTHETIC prospective report; no empirical evidence
+              - paragraph [ref=e451]: "Decisions: 13; quotes: 0; official outcomes: 0."
+              - table [ref=e453]:
+                - rowgroup [ref=e454]:
+                  - row "Fee series Fee status Version / refusal" [ref=e455]:
+                    - cell "Fee series" [ref=e456]
+                    - cell "Fee status" [ref=e457]
+                    - cell "Version / refusal" [ref=e458]
+                - rowgroup [ref=e459]:
+                  - row "— legacy Uncertified legacy evidence" [ref=e460]:
+                    - cell "—" [ref=e461]
+                    - cell "legacy" [ref=e462]
+                    - cell "Uncertified legacy evidence" [ref=e463]
+                  - row "— legacy Uncertified legacy evidence" [ref=e464]:
+                    - cell "—" [ref=e465]
+                    - cell "legacy" [ref=e466]
+                    - cell "Uncertified legacy evidence" [ref=e467]
+                  - row "— legacy Uncertified legacy evidence" [ref=e468]:
+                    - cell "—" [ref=e469]
+                    - cell "legacy" [ref=e470]
+                    - cell "Uncertified legacy evidence" [ref=e471]
+                  - row "— legacy Uncertified legacy evidence" [ref=e472]:
+                    - cell "—" [ref=e473]
+                    - cell "legacy" [ref=e474]
+                    - cell "Uncertified legacy evidence" [ref=e475]
+                  - row "— legacy Uncertified legacy evidence" [ref=e476]:
+                    - cell "—" [ref=e477]
+                    - cell "legacy" [ref=e478]
+                    - cell "Uncertified legacy evidence" [ref=e479]
+                  - row "— legacy Uncertified legacy evidence" [ref=e480]:
+                    - cell "—" [ref=e481]
+                    - cell "legacy" [ref=e482]
+                    - cell "Uncertified legacy evidence" [ref=e483]
+                  - row "— legacy Uncertified legacy evidence" [ref=e484]:
+                    - cell "—" [ref=e485]
+                    - cell "legacy" [ref=e486]
+                    - cell "Uncertified legacy evidence" [ref=e487]
+                  - row "— legacy Uncertified legacy evidence" [ref=e488]:
+                    - cell "—" [ref=e489]
+                    - cell "legacy" [ref=e490]
+                    - cell "Uncertified legacy evidence" [ref=e491]
+                  - row "— legacy Uncertified legacy evidence" [ref=e492]:
+                    - cell "—" [ref=e493]
+                    - cell "legacy" [ref=e494]
+                    - cell "Uncertified legacy evidence" [ref=e495]
+                  - row "— legacy Uncertified legacy evidence" [ref=e496]:
+                    - cell "—" [ref=e497]
+                    - cell "legacy" [ref=e498]
+                    - cell "Uncertified legacy evidence" [ref=e499]
+                  - row "— legacy Uncertified legacy evidence" [ref=e500]:
+                    - cell "—" [ref=e501]
+                    - cell "legacy" [ref=e502]
+                    - cell "Uncertified legacy evidence" [ref=e503]
+                  - row "— legacy Uncertified legacy evidence" [ref=e504]:
+                    - cell "—" [ref=e505]
+                    - cell "legacy" [ref=e506]
+                    - cell "Uncertified legacy evidence" [ref=e507]
+                  - row "— legacy Uncertified legacy evidence" [ref=e508]:
+                    - cell "—" [ref=e509]
+                    - cell "legacy" [ref=e510]
+                    - cell "Uncertified legacy evidence" [ref=e511]
+              - group [ref=e512]:
+                - generic "Frozen fee provenance and refusals" [ref=e513] [cursor=pointer]
+              - table [ref=e515]:
+                - rowgroup [ref=e516]:
+                  - row "Contract Status P(YES) Reasons" [ref=e517]:
+                    - cell "Contract" [ref=e518]
+                    - cell "Status" [ref=e519]
+                    - cell "P(YES)" [ref=e520]
+                    - cell "Reasons" [ref=e521]
+                - rowgroup [ref=e522]:
+                  - row "KXHIGHPHIL-26OCT25-T89 blocked 0.75 sized_book, certified_fees" [ref=e523]:
+                    - cell "KXHIGHPHIL-26OCT25-T89" [ref=e524]
+                    - cell "blocked" [ref=e525]
+                    - cell "0.75" [ref=e526]
+                    - cell "sized_book, certified_fees" [ref=e527]
+                  - row "KXHIGHPHIL-26OCT25-T90 blocked 0.75 sized_book, certified_fees" [ref=e528]:
+                    - cell "KXHIGHPHIL-26OCT25-T90" [ref=e529]
+                    - cell "blocked" [ref=e530]
+                    - cell "0.75" [ref=e531]
+                    - cell "sized_book, certified_fees" [ref=e532]
+                  - row "KXHIGHPHIL-26OCT26-T89 blocked 0.75 sized_book, certified_fees" [ref=e533]:
+                    - cell "KXHIGHPHIL-26OCT26-T89" [ref=e534]
+                    - cell "blocked" [ref=e535]
+                    - cell "0.75" [ref=e536]
+                    - cell "sized_book, certified_fees" [ref=e537]
+                  - row "KXHIGHPHIL-26OCT27-T89 blocked 0.75 sized_book, certified_fees" [ref=e538]:
+                    - cell "KXHIGHPHIL-26OCT27-T89" [ref=e539]
+                    - cell "blocked" [ref=e540]
+                    - cell "0.75" [ref=e541]
+                    - cell "sized_book, certified_fees" [ref=e542]
+                  - row "KXHIGHPHIL-26OCT28-T89 blocked 0.75 sized_book, certified_fees" [ref=e543]:
+                    - cell "KXHIGHPHIL-26OCT28-T89" [ref=e544]
+                    - cell "blocked" [ref=e545]
+                    - cell "0.75" [ref=e546]
+                    - cell "sized_book, certified_fees" [ref=e547]
+                  - row "KXHIGHPHIL-26OCT29-T89 blocked 0.75 sized_book, certified_fees" [ref=e548]:
+                    - cell "KXHIGHPHIL-26OCT29-T89" [ref=e549]
+                    - cell "blocked" [ref=e550]
+                    - cell "0.75" [ref=e551]
+                    - cell "sized_book, certified_fees" [ref=e552]
+                  - row "KXHIGHPHIL-26OCT30-T89 blocked 0.75 sized_book, certified_fees" [ref=e553]:
+                    - cell "KXHIGHPHIL-26OCT30-T89" [ref=e554]
+                    - cell "blocked" [ref=e555]
+                    - cell "0.75" [ref=e556]
+                    - cell "sized_book, certified_fees" [ref=e557]
+                  - row "KXHIGHPHIL-26OCT31-T89 blocked 0.75 sized_book, certified_fees" [ref=e558]:
+                    - cell "KXHIGHPHIL-26OCT31-T89" [ref=e559]
+                    - cell "blocked" [ref=e560]
+                    - cell "0.75" [ref=e561]
+                    - cell "sized_book, certified_fees" [ref=e562]
+                  - row "KXHIGHPHIL-26NOV01-T89 blocked 0.75 sized_book, certified_fees" [ref=e563]:
+                    - cell "KXHIGHPHIL-26NOV01-T89" [ref=e564]
+                    - cell "blocked" [ref=e565]
+                    - cell "0.75" [ref=e566]
+                    - cell "sized_book, certified_fees" [ref=e567]
+                  - row "KXHIGHPHIL-26NOV02-T89 blocked 0.75 sized_book, certified_fees" [ref=e568]:
+                    - cell "KXHIGHPHIL-26NOV02-T89" [ref=e569]
+                    - cell "blocked" [ref=e570]
+                    - cell "0.75" [ref=e571]
+                    - cell "sized_book, certified_fees" [ref=e572]
+                  - row "KXHIGHPHIL-26NOV03-T89 blocked 0.75 sized_book, certified_fees" [ref=e573]:
+                    - cell "KXHIGHPHIL-26NOV03-T89" [ref=e574]
+                    - cell "blocked" [ref=e575]
+                    - cell "0.75" [ref=e576]
+                    - cell "sized_book, certified_fees" [ref=e577]
+                  - row "KXHIGHPHIL-26NOV04-T89 blocked 0.75 sized_book, certified_fees" [ref=e578]:
+                    - cell "KXHIGHPHIL-26NOV04-T89" [ref=e579]
+                    - cell "blocked" [ref=e580]
+                    - cell "0.75" [ref=e581]
+                    - cell "sized_book, certified_fees" [ref=e582]
+                  - row "KXHIGHPHIL-26NOV05-T89 blocked — point_in_time_prediction, sized_book, certified_fees" [ref=e583]:
+                    - cell "KXHIGHPHIL-26NOV05-T89" [ref=e584]
+                    - cell "blocked" [ref=e585]
+                    - cell "—" [ref=e586]
+                    - cell "point_in_time_prediction, sized_book, certified_fees" [ref=e587]
+              - group [ref=e588]:
+                - generic "Source receipts, predictions, intended orders, risk checks and artifacts" [ref=e589] [cursor=pointer]
+              - code [ref=e590]: sha256:53ba03dc5daa17dc6571ed4f48e9ab691ffafdce01dcff8e64b079bebd32ec13
+            - generic [ref=e591]:
+              - heading "Cycle 1 · completed" [level=3] [ref=e592]
+              - paragraph [ref=e593]: CONTROLLED SYNTHETIC prospective report; no empirical evidence
+              - paragraph [ref=e594]: "Decisions: 13; quotes: 0; official outcomes: 0."
+              - table [ref=e596]:
+                - rowgroup [ref=e597]:
+                  - row "Fee series Fee status Version / refusal" [ref=e598]:
+                    - cell "Fee series" [ref=e599]
+                    - cell "Fee status" [ref=e600]
+                    - cell "Version / refusal" [ref=e601]
+                - rowgroup [ref=e602]:
+                  - row "— legacy Uncertified legacy evidence" [ref=e603]:
+                    - cell "—" [ref=e604]
+                    - cell "legacy" [ref=e605]
+                    - cell "Uncertified legacy evidence" [ref=e606]
+                  - row "— legacy Uncertified legacy evidence" [ref=e607]:
+                    - cell "—" [ref=e608]
+                    - cell "legacy" [ref=e609]
+                    - cell "Uncertified legacy evidence" [ref=e610]
+                  - row "— legacy Uncertified legacy evidence" [ref=e611]:
+                    - cell "—" [ref=e612]
+                    - cell "legacy" [ref=e613]
+                    - cell "Uncertified legacy evidence" [ref=e614]
+                  - row "— legacy Uncertified legacy evidence" [ref=e615]:
+                    - cell "—" [ref=e616]
+                    - cell "legacy" [ref=e617]
+                    - cell "Uncertified legacy evidence" [ref=e618]
+                  - row "— legacy Uncertified legacy evidence" [ref=e619]:
+                    - cell "—" [ref=e620]
+                    - cell "legacy" [ref=e621]
+                    - cell "Uncertified legacy evidence" [ref=e622]
+                  - row "— legacy Uncertified legacy evidence" [ref=e623]:
+                    - cell "—" [ref=e624]
+                    - cell "legacy" [ref=e625]
+                    - cell "Uncertified legacy evidence" [ref=e626]
+                  - row "— legacy Uncertified legacy evidence" [ref=e627]:
+                    - cell "—" [ref=e628]
+                    - cell "legacy" [ref=e629]
+                    - cell "Uncertified legacy evidence" [ref=e630]
+                  - row "— legacy Uncertified legacy evidence" [ref=e631]:
+                    - cell "—" [ref=e632]
+                    - cell "legacy" [ref=e633]
+                    - cell "Uncertified legacy evidence" [ref=e634]
+                  - row "— legacy Uncertified legacy evidence" [ref=e635]:
+                    - cell "—" [ref=e636]
+                    - cell "legacy" [ref=e637]
+                    - cell "Uncertified legacy evidence" [ref=e638]
+                  - row "— legacy Uncertified legacy evidence" [ref=e639]:
+                    - cell "—" [ref=e640]
+                    - cell "legacy" [ref=e641]
+                    - cell "Uncertified legacy evidence" [ref=e642]
+                  - row "— legacy Uncertified legacy evidence" [ref=e643]:
+                    - cell "—" [ref=e644]
+                    - cell "legacy" [ref=e645]
+                    - cell "Uncertified legacy evidence" [ref=e646]
+                  - row "— legacy Uncertified legacy evidence" [ref=e647]:
+                    - cell "—" [ref=e648]
+                    - cell "legacy" [ref=e649]
+                    - cell "Uncertified legacy evidence" [ref=e650]
+                  - row "— legacy Uncertified legacy evidence" [ref=e651]:
+                    - cell "—" [ref=e652]
+                    - cell "legacy" [ref=e653]
+                    - cell "Uncertified legacy evidence" [ref=e654]
+              - group [ref=e655]:
+                - generic "Frozen fee provenance and refusals" [ref=e656] [cursor=pointer]
+              - table [ref=e658]:
+                - rowgroup [ref=e659]:
+                  - row "Contract Status P(YES) Reasons" [ref=e660]:
+                    - cell "Contract" [ref=e661]
+                    - cell "Status" [ref=e662]
+                    - cell "P(YES)" [ref=e663]
+                    - cell "Reasons" [ref=e664]
+                - rowgroup [ref=e665]:
+                  - row "KXHIGHPHIL-26OCT25-T89 blocked 0.75 sized_book, certified_fees" [ref=e666]:
+                    - cell "KXHIGHPHIL-26OCT25-T89" [ref=e667]
+                    - cell "blocked" [ref=e668]
+                    - cell "0.75" [ref=e669]
+                    - cell "sized_book, certified_fees" [ref=e670]
+                  - row "KXHIGHPHIL-26OCT25-T90 blocked 0.75 sized_book, certified_fees" [ref=e671]:
+                    - cell "KXHIGHPHIL-26OCT25-T90" [ref=e672]
+                    - cell "blocked" [ref=e673]
+                    - cell "0.75" [ref=e674]
+                    - cell "sized_book, certified_fees" [ref=e675]
+                  - row "KXHIGHPHIL-26OCT26-T89 blocked 0.75 sized_book, certified_fees" [ref=e676]:
+                    - cell "KXHIGHPHIL-26OCT26-T89" [ref=e677]
+                    - cell "blocked" [ref=e678]
+                    - cell "0.75" [ref=e679]
+                    - cell "sized_book, certified_fees" [ref=e680]
+                  - row "KXHIGHPHIL-26OCT27-T89 blocked 0.75 sized_book, certified_fees" [ref=e681]:
+                    - cell "KXHIGHPHIL-26OCT27-T89" [ref=e682]
+                    - cell "blocked" [ref=e683]
+                    - cell "0.75" [ref=e684]
+                    - cell "sized_book, certified_fees" [ref=e685]
+                  - row "KXHIGHPHIL-26OCT28-T89 blocked 0.75 sized_book, certified_fees" [ref=e686]:
+                    - cell "KXHIGHPHIL-26OCT28-T89" [ref=e687]
+                    - cell "blocked" [ref=e688]
+                    - cell "0.75" [ref=e689]
+                    - cell "sized_book, certified_fees" [ref=e690]
+                  - row "KXHIGHPHIL-26OCT29-T89 blocked 0.75 sized_book, certified_fees" [ref=e691]:
+                    - cell "KXHIGHPHIL-26OCT29-T89" [ref=e692]
+                    - cell "blocked" [ref=e693]
+                    - cell "0.75" [ref=e694]
+                    - cell "sized_book, certified_fees" [ref=e695]
+                  - row "KXHIGHPHIL-26OCT30-T89 blocked 0.75 sized_book, certified_fees" [ref=e696]:
+                    - cell "KXHIGHPHIL-26OCT30-T89" [ref=e697]
+                    - cell "blocked" [ref=e698]
+                    - cell "0.75" [ref=e699]
+                    - cell "sized_book, certified_fees" [ref=e700]
+                  - row "KXHIGHPHIL-26OCT31-T89 blocked 0.75 sized_book, certified_fees" [ref=e701]:
+                    - cell "KXHIGHPHIL-26OCT31-T89" [ref=e702]
+                    - cell "blocked" [ref=e703]
+                    - cell "0.75" [ref=e704]
+                    - cell "sized_book, certified_fees" [ref=e705]
+                  - row "KXHIGHPHIL-26NOV01-T89 blocked 0.75 sized_book, certified_fees" [ref=e706]:
+                    - cell "KXHIGHPHIL-26NOV01-T89" [ref=e707]
+                    - cell "blocked" [ref=e708]
+                    - cell "0.75" [ref=e709]
+                    - cell "sized_book, certified_fees" [ref=e710]
+                  - row "KXHIGHPHIL-26NOV02-T89 blocked 0.75 sized_book, certified_fees" [ref=e711]:
+                    - cell "KXHIGHPHIL-26NOV02-T89" [ref=e712]
+                    - cell "blocked" [ref=e713]
+                    - cell "0.75" [ref=e714]
+                    - cell "sized_book, certified_fees" [ref=e715]
+                  - row "KXHIGHPHIL-26NOV03-T89 blocked 0.75 sized_book, certified_fees" [ref=e716]:
+                    - cell "KXHIGHPHIL-26NOV03-T89" [ref=e717]
+                    - cell "blocked" [ref=e718]
+                    - cell "0.75" [ref=e719]
+                    - cell "sized_book, certified_fees" [ref=e720]
+                  - row "KXHIGHPHIL-26NOV04-T89 blocked 0.75 sized_book, certified_fees" [ref=e721]:
+                    - cell "KXHIGHPHIL-26NOV04-T89" [ref=e722]
+                    - cell "blocked" [ref=e723]
+                    - cell "0.75" [ref=e724]
+                    - cell "sized_book, certified_fees" [ref=e725]
+                  - row "KXHIGHPHIL-26NOV05-T89 blocked — point_in_time_prediction, sized_book, certified_fees" [ref=e726]:
+                    - cell "KXHIGHPHIL-26NOV05-T89" [ref=e727]
+                    - cell "blocked" [ref=e728]
+                    - cell "—" [ref=e729]
+                    - cell "point_in_time_prediction, sized_book, certified_fees" [ref=e730]
+              - group [ref=e731]:
+                - generic "Source receipts, predictions, intended orders, risk checks and artifacts" [ref=e732] [cursor=pointer]
+              - code [ref=e733]: sha256:5e60a1a8f990098f1c31051e136d6066f3c954898a78dca1322faed3d4180293
+        - region "Continuous forward validation" [ref=e734]:
+          - heading "Continuous forward validation" [level=2] [ref=e735]
+          - paragraph [ref=e736]: Opt in to read-only label collection while this server runs. Batches cover at most eight dates. Preliminary reports and outages retry with backoff; official reports are checked daily for revisions. New snapshots preserve original receipt clocks and frozen boundaries.
+          - generic [ref=e737]: Label retry interval
+          - combobox "Label retry interval" [ref=e738]:
+            - option "6 hours" [selected]
+            - option "1 hour"
+            - option "5 minutes"
+          - generic [ref=e739]: Dates per label batch
+          - combobox "Dates per label batch" [ref=e740]:
+            - option "8 dates" [selected]
+            - option "1 date"
+          - generic [ref=e741]:
+            - checkbox "Also enroll new retained public and shadow weather inputs and freeze updated snapshots" [ref=e742]
+            - text: Also enroll new retained public and shadow weather inputs and freeze updated snapshots
+          - generic [ref=e743]:
+            - checkbox "I enable continuous read-only forward validation, including recovery after restart." [ref=e744]
+            - text: I enable continuous read-only forward validation, including recovery after restart.
+          - button "Enable forward validation" [ref=e745] [cursor=pointer]
+          - button "Refresh forward validation" [ref=e746] [cursor=pointer]
+          - status
+          - paragraph [ref=e748]: No continuous validation enabled. Label collection is opt-in.
+        - generic [ref=e750]:
+          - generic [ref=e751]: ↗
+          - paragraph [ref=e752]: A REJECTION IS A RESULT
+          - heading "Put your next idea to the test." [level=2] [ref=e753]
+          - paragraph [ref=e754]: Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.
+          - generic [ref=e755]:
+            - generic [ref=e756]:
+              - strong [ref=e757]: "01"
+              - heading "Source & formulate" [level=3] [ref=e758]
+              - paragraph [ref=e759]: Actual contract rules, bounded source receipts, typed hypotheses.
+            - generic [ref=e760]:
+              - strong [ref=e761]: "02"
+              - heading "Model & evaluate" [level=3] [ref=e762]
+              - paragraph [ref=e763]: Temporal training gates, realistic simulated execution, explicit refusals.
+            - generic [ref=e764]:
+              - strong [ref=e765]: "03"
+              - heading "Inspect & trace" [level=3] [ref=e766]
+              - paragraph [ref=e767]: Candidate decisions, validation probabilities, immutable input identities.
+          - paragraph [ref=e768]: Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.
+    - generic [ref=e769]:
+      - text: EntropyTrade / private research workspace
+      - generic [ref=e770]: Protected holdout stays closed. No trading approval is implied.
+```
