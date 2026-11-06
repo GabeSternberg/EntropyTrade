@@ -100,10 +100,32 @@ this PR so the cron runs on `main`. Watch the first few scheduled runs for
 days, promote a snapshot to a reviewed evidence directory and rerun model readiness.
 
 
-Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective shadow-evaluation reports
+## Current milestone: prospective-evaluation acceptance completion (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
+against main for review. **V1 remains incomplete.**
+
+This runtime permits loopback sockets, so the gates left outstanding on October 31 were executed.
+The first real browser attempt exposed a genuine defect: offline snapshot/restore opened
+read-only SQLite `file:` URIs without `uri=True`, so recovery refused on SQLite builds without
+`SQLITE_USE_URI` (here uv-managed CPython 3.13.18 / SQLite 3.53.1). Fixed in five call sites with
+a static architecture guard. After the fix, both managed-Chromium prospective procedures pass
+(12 downloads identical across restart and offline restore, 0 page errors), and the complete
+suite passes **all 1,320 tests in 619.14s** with zero failures/errors/skips, including every
+listener case. Ruff/format, strict mypy (557 files), 24 frontend tests pass; all 73 original
+receipt/Bitcoin hashes are unchanged. Chromium build deviation (preinstalled 1243 at the pinned
+1194 path) is disclosed. See [evidence](data/prospective-evaluation-review/20261105/README.md).
+
+**Next recommended milestone:** with sockets available, rerun the other browser procedures in
+`frontend/browser/` against the current tree to confirm no regression from environment drift,
+then continue authentic forward collection (needs elapsed real time) and prepare the
+user-approval comparison for a second market family. Credential-dependent provider
+verification, certified fees and real trading remain blocked on the user.
+
+## Previous milestone: prospective shadow-evaluation reports
 
 Implemented in place on designated `supervisor/20261031-081845` from `a83b9db`.
 All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**

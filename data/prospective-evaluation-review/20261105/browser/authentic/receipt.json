@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": true,
+  "starts": [
+    {
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-authentic"
+    },
+    {
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-authentic"
+    },
+    {
+      "epoch": 3,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-authentic-restored"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "evaluation.json",
+      "sha256": "7b664bf45d799707c28be15c353ecfa13b90d569ec155b9697b1a788177b6862"
+    },
+    {
+      "file": "observations.csv",
+      "sha256": "4e74795f920b7ffd792be726ef3dbd020e95323de8290c77db11d523b8eb9a8b"
+    },
+    {
+      "file": "restarted-evaluation.json",
+      "sha256": "7b664bf45d799707c28be15c353ecfa13b90d569ec155b9697b1a788177b6862"
+    },
+    {
+      "file": "restarted-observations.csv",
+      "sha256": "4e74795f920b7ffd792be726ef3dbd020e95323de8290c77db11d523b8eb9a8b"
+    },
+    {
+      "file": "restored-evaluation.json",
+      "sha256": "7b664bf45d799707c28be15c353ecfa13b90d569ec155b9697b1a788177b6862"
+    },
+    {
+      "file": "restored-observations.csv",
+      "sha256": "4e74795f920b7ffd792be726ef3dbd020e95323de8290c77db11d523b8eb9a8b"
+    }
+  ],
+  "screenshots": [
+    "evaluation.png",
+    "restarted.png",
+    "offline-restored.png"
+  ],
+  "page_errors": [],
+  "submission_enabled": false,
+  "limitation": "Unchanged authentic receipts; no usable forecast or empirical metrics",
+  "offline_replay_identical": true,
+  "archive": {
+    "file": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-authentic.zip",
+    "sha256": "14fa9886d49bc52f08cd1fa970de6587e6f108e5af632f02fd5caa36a2f227b9"
+  }
+}
