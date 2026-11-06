@@ -1,5 +1,57 @@
 # EntropyTrade — current status
 
+## Current milestone (2026-11-06): per-date label backlog; first authentic label request
+
+Branch `claude/vibrant-bohr-4jtqro`, **stacked on PR #12** (`claude/vibrant-bohr-8ctoc4`).
+**V1 remains incomplete.** At the start of this run, open PRs #1, #2, #4, #5 and #7–#12 had no
+reviews, review threads or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Diagnosis.** PR #12 attributed 0 settlement labels to "no label requests" and proposed
+  enabling the label schedule. The schedule was already enabled and active (created about
+  2026-11-06T00:29Z). Its two dates were simply **not yet due**: a day becomes due at the end
+  of its latest local day, and the summary only printed `counts: {pending: 2}`. No schedule
+  code change was needed.
+- **Change.** Each `schedules[]` entry in `summary.json` now carries `backlog`. This lists
+  per-date `day`, `status`, `next_at`, `attempts`, `failures`, target count, stations and
+  detail, plus `next_due_at` and `overdue_dates`. `overdue_dates` lists days that were due
+  with no request in flight at summary time, and it is reported but never repaired. See
+  [forward operator](docs/forward-operator.md#evidence-readiness-in-each-run).
+- **Tests.** There are 3 new unit cases, including one against the real
+  `LabelScheduler.summary` shape. Unparseable or naive clocks are reported, not raised.
+  Ruff lint/format pass; strict mypy passes (564 files). **Full pytest: 1,382 passed in
+  689.20s**, with zero failures, errors or skips.
+- **Real-runner evidence.**
+  - Trial `42174398161` (push) succeeded and uploaded only `forward-trial-workspace`.
+  - Chain dispatch `42174401711` (`continue_from_run=42168490905`) succeeded. It restored
+    the 13-cycle chain, collected 3 cycles (16 total) with 0 errors and server exit 0, and
+    produced snapshot `sha256:0d492023…` with `chain=head`.
+  - It issued the **first authentic label request** of the chain. Day 2026-11-05 (stations
+    `CLIMDW`, `CLIPHL`, 2 targets) was due at 06:00Z and was requested at 06:27Z.
+  - Both targets were refused with `source report is preliminary, missing or nonofficial`.
+    The status is `retry`, with the next attempt at 07:27Z. Day 2026-11-06 is pending until
+    2026-11-07T06:00Z. `overdue_dates` was empty.
+  - Follow-up chain dispatch `42177275885` (3000 s window) also succeeded. It continued
+    `42174401711` on the same branch, collected 5 cycles (21 total) with 0 errors and server
+    exit 0, and produced snapshot `sha256:2385f2be…` with `chain=head`.
+  - That run made label request 2 at the 07:27Z retry. Day 2026-11-05 was still
+    preliminary, so it now has `failures: 2`, with the next attempt at 09:27Z (backoff
+    doubling, capped at 24 h). `overdue_dates` was empty.
+  - The existing `unresolved_reconciliation` alert opened at 07:00Z, because official
+    results for the 2026-11-05 shadow contracts are not yet reconciled. It is left open for
+    review and not acknowledged by automation.
+- **Readiness.** The prospective report is still `insufficient`: 24 contracts, all refused,
+  covering 4 events on 2 dates. Settlement labels: 0 verified, 2 unverified (preliminary).
+
+**Canonical chain head: run `42177275885` on this branch** (the newest successful dispatch;
+snapshot expires 2026-11-13). Labels are only
+requested while a run is up, and runs happen only on dispatch until the workflow reaches
+`main` (cron every 4 h). The snapshot expires 7 days after its run.
+
+**Next autonomous milestone:** keep the chain alive, and confirm that 2026-11-05 verifies once
+the official (non-preliminary) climate report is published. The prospective report refuses
+all 24 contracts because the monitor's model binding is `blocked` (no fitted forward model).
+That remains the gate for matched forecasts, independent of labels.
+
 ## Current milestone (2026-11-06): push runs are trials; restore the authentic chain
 
 Branch `claude/vibrant-bohr-8ctoc4`, **stacked on PR #11** (`claude/vibrant-bohr-g16hbp`).

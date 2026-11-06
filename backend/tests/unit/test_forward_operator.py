@@ -15,6 +15,7 @@ from entropytrade.operations.forward import (
     ApiError,
     ensure_monitor,
     ensure_schedule,
+    label_backlog,
     operate,
     summarize,
     wait_ready,
@@ -232,12 +233,70 @@ def test_summary_counts_only_this_runs_cycles() -> None:
     assert summary["label_requests"] == 2
     assert summary["schedules"][0]["id"] == "s1"
     assert summary["schedules"][0]["follow_retained"] is True
+    assert summary["schedules"][0]["backlog"]["dates"] == []
+    assert summary["schedules"][0]["backlog"]["next_due_at"] is None
     assert summary["submission_enabled"] is False
     assert summary["alerts"] == []
     prospective = summary["readiness"]["prospective"]
     assert prospective[0]["events_remaining"] == 10
     assert prospective[0]["dates_remaining"] == 5
     assert summary["readiness"]["settlement_labels"]["verified_events"] == 0
+
+
+def _work(day: str, status: str, next_at: str, *stations: str) -> dict[str, Any]:
+    return {
+        "day": day,
+        "status": status,
+        "next_at": next_at,
+        "attempts": 0,
+        "failures": 0,
+        "detail": "Waiting for source receipt",
+        "targets": [{"station": s, "event_id": f"{s}-{day}"} for s in stations],
+    }
+
+
+def test_label_backlog_distinguishes_not_yet_due_from_overdue() -> None:
+    at = datetime(2026, 11, 6, 6, 0, tzinfo=UTC)
+    schedule = {
+        "inflight": None,
+        "work": [
+            _work("2026-11-06", "pending", "2026-11-07T08:00:00Z", "KLAX", "KNYC"),
+            _work("2026-11-05", "pending", "2026-11-06T08:00:00Z", "KLAX"),
+            _work("2026-11-04", "retry", "2026-11-06T05:00:00Z", "KNYC"),
+            _work("2026-11-03", "verified", "2026-11-07T00:00:00Z", "KNYC"),
+            _work("2026-11-02", "refused", "2026-11-01T00:00:00Z", "KNYC"),
+        ],
+    }
+    backlog = label_backlog(schedule, at)
+    assert [d["day"] for d in backlog["dates"]] == [
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-06",
+    ]
+    assert backlog["dates"][-1]["targets"] == 2
+    assert backlog["dates"][-1]["stations"] == ["KLAX", "KNYC"]
+    # Verified revision checks and refused dates are neither due nor the next label.
+    assert backlog["next_due_at"] == "2026-11-06T05:00:00Z"
+    assert backlog["overdue_dates"] == ["2026-11-04"]
+    # An in-flight request is the schedule advancing, not a stuck backlog.
+    assert label_backlog({**schedule, "inflight": "r1"}, at)["overdue_dates"] == []
+
+
+def test_label_backlog_reports_unparseable_clocks_without_raising() -> None:
+    at = datetime(2026, 11, 6, 6, 0, tzinfo=UTC)
+    schedule = {
+        "work": [
+            _work("2026-11-05", "pending", "not-a-time", "KNYC"),
+            _work("2026-11-04", "pending", "2026-11-05T05:00:00", "KNYC"),
+        ]
+    }
+    backlog = label_backlog(schedule, at)
+    assert backlog["next_due_at"] is None
+    assert backlog["overdue_dates"] == []
+    assert all(d["next_at_invalid"] for d in backlog["dates"])
+    assert label_backlog({}, at)["dates"] == []
 
 
 def _evaluation(*, matched_events: int, matched_dates: int) -> dict[str, Any]:
@@ -420,3 +479,53 @@ def test_operate_starts_and_cleanly_stops_real_server(cache_workspace: Path) -> 
     )
     assert again["errors"] == []
     assert again["server_exit_code"] == 0
+
+
+def test_label_backlog_reads_the_real_schedule_summary_shape() -> None:
+    from datetime import date
+
+    from entropytrade.features.registry import scientific_hash
+    from entropytrade.weather.label_schedule import (
+        DateWork,
+        LabelScheduler,
+        Schedule,
+        ScheduleConfig,
+    )
+    from entropytrade.weather.labels import LabelTarget
+
+    dataset = "a" * 64
+    day = date(2026, 11, 5)
+    targets = (
+        LabelTarget(
+            event_id="KXHIGHNY-26NOV05",
+            station="KNYC",
+            target_date=day,
+            timezone="America/New_York",
+            rules_hashes=("sha256:" + "b" * 64,),
+        ),
+    )
+    work = DateWork(
+        key=scientific_hash(
+            [dataset, day.isoformat(), [t.model_dump(mode="json") for t in targets]]
+        ),
+        dataset_id=dataset,
+        day=day,
+        targets=targets,
+        next_at=datetime(2026, 11, 6, 5, tzinfo=UTC),
+    )
+    created = datetime(2026, 11, 6, 0, tzinfo=UTC)
+    schedule = Schedule(
+        config=ScheduleConfig(
+            id="7ca8e62f-4485-40b7-98aa-446157c1606d", dataset_id=dataset, enabled=True
+        ),
+        created_at=created,
+        updated_at=created,
+        next_discovery=created,
+        work=(work,),
+    )
+    summary = json.loads(json.dumps(LabelScheduler.summary(schedule)))
+    backlog = label_backlog(summary, datetime(2026, 11, 6, 6, tzinfo=UTC))
+    assert backlog["dates"][0]["day"] == "2026-11-05"
+    assert backlog["dates"][0]["stations"] == ["KNYC"]
+    assert backlog["next_due_at"] == summary["work"][0]["next_at"]
+    assert backlog["overdue_dates"] == ["2026-11-05"]
