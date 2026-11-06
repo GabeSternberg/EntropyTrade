@@ -56,6 +56,61 @@ climate report is published. The V1 gate for matched forecasts remains the monit
 `blocked` model binding (no fitted authentic forward model); that is data-limited and needs
 multi-day collection, which this change keeps alive.
 
+## Current milestone (2026-11-06): reconciliation alert follows expected settlement
+
+Branch `claude/vibrant-bohr-iisaao` (PR #15), **stacked on PR #14** (`claude/vibrant-bohr-zx3moc`).
+**V1 remains incomplete.** At the start of this run, open PRs #4, #5 and #7–#14 had no reviews,
+comments or failing checks; none were merged. Issues #3 and #6 remain open.
+
+- **Defect: a daily false reconciliation incident.** PR #14 left an `unresolved_reconciliation`
+  alert open from 07:00:01Z. That is exactly one hour after 06:00Z, which is Chicago local
+  midnight, when the 2026-11-05 `CLIMDW` contracts closed. Retained authentic `KXHIGHPHIL`
+  records show `close_time` 05:00Z but `expected_expiration_time` 19:00Z: daily-high markets
+  settle after the next-morning climate report. The close + 1h deadline therefore opened a
+  false incident every day for every weather contract.
+- **Fix** (`tracking/alerts.py`).
+  - The deadline is now the `expected_expiration_time` frozen with the contract, plus 1h. It
+    falls back to `close_time` when no expected time was published or the expected time is
+    not after close.
+  - `latest_expiration_time` is not used, so late settlement still alerts.
+  - Evidence records `expected_settlement_at` and `basis` per contract.
+  - Outcomes are still committed only by the receipt-validated worker; nothing is inferred.
+- **Diagnosability.** Forward summaries now carry bounded `evidence` for unresolved alerts
+  (contract lists over 20 are truncated, with `contracts_total` giving the full count). See
+  [operator alerts](docs/operator-alerts.md) and [forward operator](docs/forward-operator.md).
+- **Tests.** There are 2 new cases; the alert case fails on the previous code. Ruff lint/format
+  pass; strict mypy passes (564 files). **Full pytest: 1,389 passed in 620.44s**, with zero
+  failures, errors or skips.
+- **Real-runner evidence.** Three chained dispatches, all with 0 errors and server exit 0:
+  - `42187278683` ran on PR #14 code and continued from `42183351795`. It ended at 27 cycles.
+    The first incremental scan froze the legacy partition once: `runs/weather-datasets` went
+    from 383.0 to 532.4 MB.
+  - `42187733156` was the first run on this commit. The false alert **resolved at
+    08:50:45Z** under the new rule, and no reconciliation alert reopened. It ended at 30
+    cycles; datasets were unchanged because no discovery fell in that window.
+  - `42190762987` ended at 32 cycles. The 09:28Z incremental discovery added only
+    38.5 MB (`runs/weather-datasets` 532.4 → 570.9 MB). The PR #14 measurement implies about
+    150+ MB per whole-partition re-freeze, so **linear discovery growth is now confirmed on
+    authentic data**. The workspace is 699 MB, 0.3257 of the budget (`ok`).
+- **Label state.** Day 2026-11-05 was refused as preliminary on its 3rd attempt at 09:27Z.
+  The next retry is at 13:27Z, with backoff now 4h. Day 2026-11-06 becomes due at 2026-11-07
+  06:00Z. Readiness is unchanged: the prospective report is insufficient and model binding is
+  `blocked`.
+- **Limitation.** This session's egress proxy refuses the artifact blob host, so workspace
+  archives cannot be inspected locally. Diagnosis relied on job logs and retained records.
+
+**Canonical chain head: run `42190762987` on `claude/vibrant-bohr-iisaao`** (expires about
+2026-11-13). Dispatch this branch next, or `main` after the stack merges, with `continue_from_run`.
+
+**Next autonomous milestone:**
+1. Confirm that 2026-11-05 verifies once the official report is published. If it is still
+   preliminary after about 24h, investigate whether the source or station mapping is wrong.
+2. Confirm that the 2026-11-05 contracts reconcile after their expected settlement time,
+   with no false alert in between.
+3. Reduce the remaining linear storage costs. Each shadow cycle grows the `shadow` area by
+   about 3.6 MB and stores its data about 3 times; `LabelService.selection` re-verifies every
+   dataset on each enrollment.
+
 ## Current milestone (2026-11-06): linear snapshot growth; workspace footprint reporting
 
 Branch `claude/vibrant-bohr-zx3moc`, **stacked on PR #13** (`claude/vibrant-bohr-4jtqro`).
