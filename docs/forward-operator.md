@@ -158,6 +158,13 @@ the same `uv.lock`/`pyproject.toml`.
 source run's `previous-lineage.txt`, so the cross-branch hop stays traceable. Later runs on the
 new branch continue from its own newest snapshot as usual.
 
+**Do not push to the branch, or let a scheduled run start, while a continuation dispatch is
+queued.** A GitHub concurrency group keeps at most one *pending* run, and a newer pending run
+cancels the older one. That happened on 2026-11-06: push run `42167372741` cancelled queued
+dispatch `42167131442` before it started. A cancelled continuation leaves the chain unchanged,
+but it must be dispatched again. On `main`, dispatch soon after a scheduled run finishes, not
+just before `:23` past a 4-hour mark.
+
 Continuing copies evidence; it does not merge chains. After continuing, **stop dispatching the
 source branch**, or the two chains diverge from a shared history and their counts must never be
 added together. `backend/tests/unit/test_forward_workflow_chain.py` runs the actual step script

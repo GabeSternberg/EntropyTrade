@@ -71,7 +71,10 @@ PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers" \
   -c frontend/browser/playwright.config.cjs prospective.spec.cjs --max-failures=1
 ```
 
-Current browser/listener execution is blocked by environment permission. See
-[executed evidence](../data/prospective-evaluation-review/20261031/README.md) for exact failures,
-offline checks and the outstanding human step. Browser discovery, DOM tests and offline exports
-do not count as browser interaction/download acceptance.
+Both procedures, the real-listener test and the complete pytest suite (1,320 tests) passed on
+2026-11-05 in a socket-permitted runtime after a recovery portability fix (`uri=True` for
+read-only SQLite URIs). See [current evidence](../data/prospective-evaluation-review/20261105/README.md),
+including the disclosed Chromium build deviation (preinstalled build 1243 exposed at the pinned
+1194 path because the pinned download was blocked). The [October 31 evidence](../data/prospective-evaluation-review/20261031/README.md)
+retains the earlier denied attempts. Browser discovery, DOM tests and offline exports do not
+count as browser interaction/download acceptance.

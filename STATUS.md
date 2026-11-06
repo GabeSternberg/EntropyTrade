@@ -89,10 +89,20 @@ reviews, review threads or failing checks; none were merged. Issues #3 and #6 re
   - Both targets were refused with `source report is preliminary, missing or nonofficial`.
     The status is `retry`, with the next attempt at 07:27Z. Day 2026-11-06 is pending until
     2026-11-07T06:00Z. `overdue_dates` was empty.
+  - Follow-up chain dispatch `42177275885` (3000 s window) also succeeded. It continued
+    `42174401711` on the same branch, collected 5 cycles (21 total) with 0 errors and server
+    exit 0, and produced snapshot `sha256:2385f2be…` with `chain=head`.
+  - That run made label request 2 at the 07:27Z retry. Day 2026-11-05 was still
+    preliminary, so it now has `failures: 2`, with the next attempt at 09:27Z (backoff
+    doubling, capped at 24 h). `overdue_dates` was empty.
+  - The existing `unresolved_reconciliation` alert opened at 07:00Z, because official
+    results for the 2026-11-05 shadow contracts are not yet reconciled. It is left open for
+    review and not acknowledged by automation.
 - **Readiness.** The prospective report is still `insufficient`: 24 contracts, all refused,
   covering 4 events on 2 dates. Settlement labels: 0 verified, 2 unverified (preliminary).
 
-**Canonical chain head: the newest successful dispatch on this branch.** Labels are only
+**Canonical chain head: run `42177275885` on this branch** (the newest successful dispatch;
+snapshot expires 2026-11-13). Labels are only
 requested while a run is up, and runs happen only on dispatch until the workflow reaches
 `main` (cron every 4 h). The snapshot expires 7 days after its run.
 
@@ -191,20 +201,33 @@ had no reviews, review threads or change requests and no failing checks; none we
   It covers same-branch selection, expiry, completion order, incomplete runs, continuation,
   8 fail-closed cases and the API-error refusal, and asserts that no condition uses
   `hashFiles()`. 4 cases fail on the first commit's workflow (hashFiles) and 2 on the second's (ordering).
-- **Results.** Ruff lint/format pass; strict mypy passes (564 files); **full pytest 1,368 passed
-  in 610.83s** at `65d7bea` (zero failures/errors/skips). The re-run continuation result is
-  recorded below.
+- **Results.** Ruff lint/format pass; strict mypy passes (564 files). **Full pytest 1,376 passed
+  in 590.28s** at head `f4d4fc3` (zero failures/errors/skips); it was 1,368 at `65d7bea`.
+- **Canonical continuation succeeded:** run `42168444616` at `f4d4fc3`.
+  - It restored `42156641720` (`claude/vibrant-bohr-ypomud`, 11 cycles, `sha256:4a8125a5…`).
+  - It kept the monitor and schedule, ending at 14 cycles. There were 0 errors, the server
+    exited 0, and the snapshot is `sha256:0ff3a700…` (243 MB zip; 17.7 MB artifact).
+  - Readiness is unchanged: 24 refused, 0 matched, 4 events on 2 dates, 0 verified labels.
+  - The fee schedule was skipped after its recent 429.
+  - Its predecessor `42167131442` was cancelled by GitHub before it started: a newer pending
+    push run replaced it in the concurrency group. That pending-run replacement is now
+    documented. Push runs `42162670639` and `42167132149` hold a separate,
+    **non-canonical** fresh chain; ignore them.
+- **Observed gap (not investigated):** the schedule shows 2 pending dates but has made 0
+  label requests across every window, so settlement-label readiness cannot advance. Find out
+  whether it is waiting for official reports or is stuck.
 
 **Canonical chain:** from now on, upkeep dispatches go to this branch, or to `main` after
 merge via `continue_from_run`. **Do not dispatch `claude/vibrant-bohr-ypomud` again**, or the
 chains diverge from a shared history; their counts must never be added together.
 Run `42156641720`'s snapshot expires about 2026-11-13.
 
-**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → this PR. After merging, dispatch once on
-`main` with `continue_from_run=<newest run on this branch>`; the 4-hourly cron then continues
+**Next for the user:** review/merge #1 → #5 → #7 → #9 → #10 → #11. After merging, dispatch once on
+`main` with `continue_from_run=42168444616` (or the newest successful run on this branch); the 4-hourly cron then continues
 it. Fee PDF import remains issue #6.
-**Next autonomous milestone:** keep the canonical chain alive. Once labels are requested and
-verified, check settlement-label readiness. Archive sizes (243 MB per snapshot) need
+**Next autonomous milestone:** diagnose why the following schedule makes no label requests
+(0 across all windows). Keep the canonical chain alive with plain dispatches on this branch,
+without `continue_from_run`, and never push while one is queued. Archive sizes (243 MB per snapshot) need
 attention: consider compressing the archive or measuring which files grow per cycle.
 
 ## Current milestone (2026-11-06): evidence readiness in forward-collection summaries
@@ -387,10 +410,32 @@ this PR so the cron runs on `main`. Watch the first few scheduled runs for
 days, promote a snapshot to a reviewed evidence directory and rerun model readiness.
 
 
-Updated 2026-10-31. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
+Updated 2026-11-05. R0 `c7ad278`, R1 `e2c1448`, R2 `b9cbaa8` and R3 `624d442`
 remain recoverable on their original branches. R3 was integrated into main before R4.
 
-## Current milestone: prospective shadow-evaluation reports
+## Current milestone: prospective-evaluation acceptance completion (2026-11-05)
+
+Scheduled autonomous session on `claude/vibrant-bohr-l2suow` from main `55b2bea`; PR opened
+against main for review. **V1 remains incomplete.**
+
+This runtime permits loopback sockets, so the gates left outstanding on October 31 were executed.
+The first real browser attempt exposed a genuine defect: offline snapshot/restore opened
+read-only SQLite `file:` URIs without `uri=True`, so recovery refused on SQLite builds without
+`SQLITE_USE_URI` (here uv-managed CPython 3.13.18 / SQLite 3.53.1). Fixed in five call sites with
+a static architecture guard. After the fix, both managed-Chromium prospective procedures pass
+(12 downloads identical across restart and offline restore, 0 page errors), and the complete
+suite passes **all 1,320 tests in 619.14s** with zero failures/errors/skips, including every
+listener case. Ruff/format, strict mypy (557 files), 24 frontend tests pass; all 73 original
+receipt/Bitcoin hashes are unchanged. Chromium build deviation (preinstalled 1243 at the pinned
+1194 path) is disclosed. See [evidence](data/prospective-evaluation-review/20261105/README.md).
+
+**Next recommended milestone:** with sockets available, rerun the other browser procedures in
+`frontend/browser/` against the current tree to confirm no regression from environment drift,
+then continue authentic forward collection (needs elapsed real time) and prepare the
+user-approval comparison for a second market family. Credential-dependent provider
+verification, certified fees and real trading remain blocked on the user.
+
+## Previous milestone: prospective shadow-evaluation reports
 
 Implemented in place on designated `supervisor/20261031-081845` from `a83b9db`.
 All Git operations and independent review remain with the supervisor. **V1 remains incomplete.**
