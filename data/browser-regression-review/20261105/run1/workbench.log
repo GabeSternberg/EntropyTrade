@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application (6ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application ────
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application ─────
+  1 error was not a part of any test, see above for details

@@ -1,0 +1,122 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application (1.8m)
+
+
+  1) workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application ────
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoEqual[2m([22m[32mexpected[39m[2m) // deep equality[22m
+
+    [32m- Expected  -  1[39m
+    [31m+ Received  + 79[39m
+
+    [32m- Array [][39m
+    [31m+ Array [[39m
+    [31m+   "3. fresh public weather and Bitcoin acquisition through all result tabs: Expected values to be strictly deep-equal:[39m
+    [31m+ [32m+ actual[39m[31m [31m- expected[39m[31m[39m
+    [31m+[39m
+    [31m+ [32m+[39m[31m [[39m
+    [31m+ [32m+[39m[31m   {[39m
+    [31m+ [32m+[39m[31m     acquisition: {[39m
+    [31m+ [32m+[39m[31m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 9.',[39m
+    [31m+ [32m+[39m[31m       decision_time: '2026-11-05T21:42:13.972427+00:00',[39m
+    [31m+ [32m+[39m[31m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',[39m
+    [31m+ [32m+[39m[31m       failure_count: 9,[39m
+    [31m+ [32m+[39m[31m       failure_summaries: [[39m
+    [31m+ [32m+[39m[31m         'KXHIGHPHIL: GatewayError (failed at 2026-11-05T21:42:13.937780+00:00)',[39m
+    [31m+ [32m+[39m[31m         'KXHIGHCHI: GatewayError (failed at 2026-11-05T21:42:13.939370+00:00)',[39m
+    [31m+ [32m+[39m[31m         'https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T21:42:13.959680+00:00)',[39m
+    [31m+ [32m+[39m[31m         'weather:open-meteo:CLIPHL: NoForecastVintage (failed at 2026-11-05T21:42:13.960574+00:00)',[39m
+    [31m+ [32m+[39m[31m         'https://api.weather.gov/points/39.87,-75.23: ConnectError (failed at 2026-11-05T21:42:13.961973+00:00)',[39m
+    [31m+ [32m+[39m[31m         'https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless: ConnectError (failed at 2026-11-05T21:42:13.964605+00:00)',[39m
+    [31m+ [32m+[39m[31m         'weather:open-meteo:CLIMDW: NoForecastVintage (failed at 2026-11-05T21:42:13.965402+00:00)',[39m
+    [31m+ [32m+[39m[31m         'https://api.weather.gov/points/41.79,-87.75: ConnectError (failed at 2026-11-05T21:42:13.966968+00:00)',[39m
+    [31m+ [32m+[39m[31m         'weather: IncompleteCapture (failed at 2026-11-05T21:42:13.969142+00:00)'[39m
+    [31m+ [32m+[39m[31m       ],[39m
+    [31m+ [32m+[39m[31m       headline: 'Public acquisition INCOMPLETE · weather',[39m
+    [31m+ [32m+[39m[31m       history_complete: false,[39m
+    [31m+ [32m+[39m[31m       limitations: [[39m
+    [31m+ [32m+[39m[31m         'Forward evidence only; no historical release clocks or outcomes inferred.',[39m
+    [31m+ [32m+[39m[31m         'No historical sized books or certified fee schedule; no execution returns.',[39m
+    [31m+ [32m+[39m[31m         'Full-day hourly forecast maxima are proxies, not official settlement highs.'[39m
+    [31m+ [32m+[39m[31m       ],[39m
+    [31m+ [32m+[39m[31m       listed_contracts: 0,[39m
+    [31m+ [32m+[39m[31m       observations: 0,[39m
+    [31m+ [32m+[39m[31m       receipt_count: 0,[39m
+    [31m+ [32m+[39m[31m       started_at: '2026-11-05T21:42:13.834940+00:00',[39m
+    [31m+ [32m+[39m[31m       status: 'incomplete',[39m
+    [31m+ [32m+[39m[31m       successful_response_count: 0,[39m
+    [31m+ [32m+[39m[31m       universe_complete: false[39m
+    [31m+ [32m+[39m[31m     },[39m
+    [31m+ [32m+[39m[31m     complete_capture: false,[39m
+    [31m+ [32m+[39m[31m     family: 'weather',[39m
+    [31m+ [32m+[39m[31m     job_id: '4df15039-58aa-4300-9bc8-cf5d3de1d99d',[39m
+    [31m+ [32m+[39m[31m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',[39m
+    [31m+ [32m+[39m[31m     successful_ingestion: false[39m
+    [31m+ [32m+[39m[31m   },[39m
+    [31m+ [32m+[39m[31m   {[39m
+    [31m+ [32m+[39m[31m     acquisition: {[39m
+    [31m+ [32m+[39m[31m       counts: 'HTTP receipts: 0 (0 successful); listed contracts: 0; observations: 0; acquisition failures: 2.',[39m
+    [31m+ [32m+[39m[31m       decision_time: '2026-11-05T21:42:27.762128+00:00',[39m
+    [31m+ [32m+[39m[31m       evaluation_limit: 'Forward ingestion only. No historical evaluation, fitted probabilities or empirical returns. Review completion does not mean acquisition succeeded.',[39m
+    [31m+ [32m+[39m[31m       failure_count: 2,[39m
+    [31m+ [32m+[39m[31m       failure_summaries: [[39m
+    [31m+ [32m+[39m[31m         'KXBTC: GatewayError (failed at 2026-11-05T21:42:27.755468+00:00)',[39m
+    [31m+ [32m+[39m[31m         'coinbase: ConnectError (failed at 2026-11-05T21:42:27.762043+00:00)'[39m
+    [31m+ [32m+[39m[31m       ],[39m
+    [31m+ [32m+[39m[31m       headline: 'Public acquisition INCOMPLETE · bitcoin',[39m
+    [31m+ [32m+[39m[31m       history_complete: false,[39m
+    [31m+ [32m+[39m[31m       limitations: [[39m
+    [31m+ [32m+[39m[31m         'Forward evidence only; no historical release clocks or outcomes inferred.',[39m
+    [31m+ [32m+[39m[31m         'No historical sized books or certified fee schedule; no execution returns.',[39m
+    [31m+ [32m+[39m[31m         'Bitcoin resolution semantics are unverified; rules_known is false and settlement sources remain unresolved. Authority mentions are lexical provenance only, including negated or ambiguous mentions.',[39m
+    [31m+ [32m+[39m[31m         'Coinbase spot is a covariate, never a Kalshi settlement-source substitute.'[39m
+    [31m+ [32m+[39m[31m       ],[39m
+    [31m+ [32m+[39m[31m       listed_contracts: 0,[39m
+    [31m+ [32m+[39m[31m       observations: 0,[39m
+    [31m+ [32m+[39m[31m       receipt_count: 0,[39m
+    [31m+ [32m+[39m[31m       started_at: '2026-11-05T21:42:27.644767+00:00',[39m
+    [31m+ [32m+[39m[31m       status: 'incomplete',[39m
+    [31m+ [32m+[39m[31m       successful_response_count: 0,[39m
+    [31m+ [32m+[39m[31m       universe_complete: false[39m
+    [31m+ [32m+[39m[31m     },[39m
+    [31m+ [32m+[39m[31m     complete_capture: false,[39m
+    [31m+ [32m+[39m[31m     family: 'bitcoin',[39m
+    [31m+ [32m+[39m[31m     job_id: '974a5ca0-4006-4b6e-a538-0528d98d504e',[39m
+    [31m+ [32m+[39m[31m     reason: 'Fresh public capture did not meet complete successful-ingestion acceptance',[39m
+    [31m+ [32m+[39m[31m     successful_ingestion: false[39m
+    [31m+ [32m+[39m[31m   }[39m
+    [31m+ [32m+[39m[31m ][39m
+    [31m+ [31m-[39m[31m [][39m
+    [31m+ ",[39m
+    [31m+ ][39m
+
+      418 |   }
+      419 |   expect(receipt.page_errors).toEqual([]);
+    > 420 |   expect(failures).toEqual([]);
+          |                    ^
+      421 | });
+      422 |
+        at /home/user/EntropyTrade/frontend/browser/workbench.spec.cjs:420:20
+
+    attachment #1: browser-receipt (application/json) ──────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run2/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-0b679496af2ba65b10a2bb2851fb88e0dfb470e6.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run2/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../../data/browser-regression-review/20261105/run2/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run2/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run2/workbench/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    workbench.spec.cjs:22:1 › four documented workbench workflows on the committed application ─────

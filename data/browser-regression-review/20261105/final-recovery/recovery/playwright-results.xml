@@ -1,0 +1,11 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="87.91513499999999">
+<testsuite name="recovery.spec.cjs" timestamp="2026-11-05T22:09:52.402Z" hostname="" tests="1" failures="0" skipped="0" time="86.334" errors="0">
+<testcase name="local operation and recovery: installed research, snapshot, restore and shadow lifecycle" classname="recovery.spec.cjs" time="86.334">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/recovery-local-operation-a-46034-estore-and-shadow-lifecycle/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>
