@@ -129,6 +129,10 @@ def _parser() -> argparse.ArgumentParser:
     discover.add_argument("--fetch-dir", type=Path, help="NEW directory for fetched receipts")
     discover.add_argument("--discovered", type=Path, action="append", default=[])
     discover.add_argument("--output", type=Path, help="write the JSON listing (must not exist)")
+    gates = commands.add_parser(
+        "v1-gates", help="read-only report of human-attested V1 acceptance gates"
+    )
+    gates.add_argument("--root", type=Path, default=Path("data/acceptance"))
     return parser
 
 
@@ -527,6 +531,12 @@ def main() -> None:
                 indent=2,
             )
         )
+    elif args.command == "v1-gates":
+        from entropytrade.operations.v1_gates import v1_gate_report
+
+        report = v1_gate_report(args.root)
+        print(json.dumps(report, sort_keys=True, indent=2))
+        raise SystemExit(0 if report["v1_complete"] else 1)
     elif args.command == "inspect":
         table = pq.read_table(
             args.dataset / "rows.parquet", filters=[("target_date", "=", args.day)]
