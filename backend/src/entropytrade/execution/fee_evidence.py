@@ -15,7 +15,7 @@ from typing import Any, Literal
 from urllib.parse import urlsplit
 from uuid import uuid4
 
-from pydantic import Field, model_validator
+from pydantic import Field, SerializerFunctionWrapHandler, model_serializer, model_validator
 
 from entropytrade.domain.base import DomainModel
 from entropytrade.domain.ids import ContentHash
@@ -24,6 +24,7 @@ from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.features.registry import scientific_hash
 
 MAX_SOURCE_BYTES = 8 * 1024 * 1024
+OFFICIAL_SCHEDULE_URL = "https://kalshi.com/docs/kalshi-fee-schedule.pdf"
 OFFICIAL_HOSTS = frozenset(
     {
         "kalshi.com",
@@ -35,6 +36,20 @@ OFFICIAL_HOSTS = frozenset(
 )
 
 
+class ManualImport(DomainModel):
+    """Operator attestation for official bytes downloaded by a human, not by this system.
+
+    Automated clients receive HTTP 429 for the official schedule (issue #6). An operator may
+    download it in a browser and import the exact bytes. The system never observed that
+    download: ``operator_downloaded_at`` is informational only. Availability is the local
+    import clock (the receipt's ``received_at``), so an import can never backdate evidence.
+    """
+
+    operator_downloaded_at: UtcDatetime
+    original_filename: str = Field(min_length=1, max_length=255)
+    note: str = Field(min_length=1, max_length=2000)
+
+
 class FeeReceipt(DomainModel):
     url: str
     received_at: UtcDatetime
@@ -42,6 +57,16 @@ class FeeReceipt(DomainModel):
     media_type: str
     body_base64: str = Field(max_length=12 * 1024 * 1024)
     sha256: ContentHash
+    # Absent for automated captures. Omitted from serialization when absent so every
+    # previously retained receipt and fee version keeps its exact content hash.
+    manual_import: ManualImport | None = None
+
+    @model_serializer(mode="wrap")
+    def _omit_absent_import(self, handler: SerializerFunctionWrapHandler) -> Any:
+        data = handler(self)
+        if self.manual_import is None and isinstance(data, dict):
+            data.pop("manual_import", None)
+        return data
 
     def body(self) -> bytes:
         try:
@@ -56,8 +81,20 @@ class FeeReceipt(DomainModel):
     def checksum(self) -> "FeeReceipt":
         from hashlib import sha256
 
-        if "sha256:" + sha256(self.body()).hexdigest() != self.sha256:
+        body = self.body()
+        if "sha256:" + sha256(body).hexdigest() != self.sha256:
             raise ValueError("fee source checksum mismatch")
+        if self.manual_import is not None and (
+            self.url != OFFICIAL_SCHEDULE_URL
+            or self.status != 200
+            or self.media_type != "application/pdf"
+            or not body.startswith(b"%PDF-")
+            or self.manual_import.operator_downloaded_at > self.received_at
+        ):
+            raise ValueError(
+                "manual imports are limited to official schedule PDF bytes "
+                "downloaded before their import clock"
+            )
         return self
 
 
@@ -140,8 +177,7 @@ class FeeVersion(DomainModel):
             if not any("/series/" not in urlsplit(s.url).path for s in self.sources):
                 raise ValueError("series metadata alone cannot certify a fee schedule")
             if self.evidence_kind == "authentic" and not any(
-                s.url == "https://kalshi.com/docs/kalshi-fee-schedule.pdf"
-                and s.body().startswith(b"%PDF-")
+                s.url == OFFICIAL_SCHEDULE_URL and s.body().startswith(b"%PDF-")
                 for s in self.sources
             ):
                 raise ValueError("fee certification requires the retained official schedule PDF")

@@ -46,6 +46,38 @@ have the public egress cloud sessions lack, so official bytes accumulate in the 
 workspace for a later operator review. On 2026-11-06 (run `42136976908`) the schedule PDF
 URL returned HTTP 429 with an HTML body from the runner as well, so no authentic PDF exists yet.
 
+### Operator manual import of the official schedule (issue #6)
+
+Automated clients, including GitHub-hosted runners, receive HTTP 429 for the official
+schedule PDF. An operator may download it in an ordinary browser from
+`https://kalshi.com/docs/kalshi-fee-schedule.pdf` and import the exact bytes (stop the
+server first; the same workspace lease applies):
+
+```bash
+.venv/bin/python -m entropytrade.execution.fee_admin \
+  --workspace "$PWD/data/cache/workbench" \
+  --import-schedule /absolute/path/kalshi-fee-schedule.pdf \
+  --downloaded-at 2026-11-06T14:30:00+00:00 \
+  --note "Downloaded in Firefox from the official kalshi.com URL"
+```
+
+- Only a regular, non-symlink file of at most 8 MiB starting with `%PDF-` is accepted.
+- The receipt carries explicit `manual_import` provenance (operator-attested download
+  time, original filename and note). The system did not observe that download: its
+  `status: 200` records the operator's attested successful download, and the website shows
+  **OPERATOR MANUAL IMPORT (no system-observed HTTP)** instead of an HTTP status.
+- `received_at`, and therefore availability, is the **local import clock**. The attested
+  download time is informational and must not be later than the import; a timezone is required.
+  An import can never make a fee known earlier than the moment it entered the workspace.
+- The imported version is unreviewed and never selected. Certification remains the separate
+  `--review` attestation, whose review clock again bounds availability.
+- Manual imports do not count toward the unattended `--capture-due` cadence, so automated
+  capture keeps seeking independent system-observed official bytes.
+- Automated receipts serialize exactly as before; every previously retained fee version keeps
+  its content hash (regression: `test_previously_retained_versions_keep_their_exact_hashes`).
+
+The agent cannot perform the browser download or the review; both remain human actions.
+
 A capture is always **unreviewed**, including HTTP 200. HTTP failure bytes are evidence of
 failure, never a fee certificate. The current authentic official PDF attempt returned HTTP
 429; the [receipt and original bytes](../data/fee-evidence-review/20261030/README.md) are retained.
