@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": false,
+  "starts": [
+    {
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-controlled"
+    },
+    {
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-controlled"
+    },
+    {
+      "epoch": 3,
+      "workspace": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-controlled-restored"
+    }
+  ],
+  "downloads": [
+    {
+      "file": "evaluation.json",
+      "sha256": "99e0a640d1be303d6fbee02e82e7ceb5bb81b7807af6a0a9a5712a62c0835f08"
+    },
+    {
+      "file": "observations.csv",
+      "sha256": "376b77ccf6e332b08d35ff878ce067cd8da3ee5e20abafadd8b4337d793bf9a6"
+    },
+    {
+      "file": "restarted-evaluation.json",
+      "sha256": "99e0a640d1be303d6fbee02e82e7ceb5bb81b7807af6a0a9a5712a62c0835f08"
+    },
+    {
+      "file": "restarted-observations.csv",
+      "sha256": "376b77ccf6e332b08d35ff878ce067cd8da3ee5e20abafadd8b4337d793bf9a6"
+    },
+    {
+      "file": "restored-evaluation.json",
+      "sha256": "99e0a640d1be303d6fbee02e82e7ceb5bb81b7807af6a0a9a5712a62c0835f08"
+    },
+    {
+      "file": "restored-observations.csv",
+      "sha256": "376b77ccf6e332b08d35ff878ce067cd8da3ee5e20abafadd8b4337d793bf9a6"
+    }
+  ],
+  "screenshots": [
+    "evaluation.png",
+    "restarted.png",
+    "offline-restored.png"
+  ],
+  "page_errors": [],
+  "submission_enabled": false,
+  "limitation": "CONTROLLED SYNTHETIC diagnostics; never empirical validation or returns",
+  "offline_replay_identical": true,
+  "archive": {
+    "file": "/home/user/EntropyTrade/data/cache/prospective-browser-20261105b-controlled.zip",
+    "sha256": "40f5e6edacf3e8042b3d8889cd7bf198e5338cebe6447e6a53d4ffcc3aeb594b"
+  }
+}
