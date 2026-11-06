@@ -87,9 +87,21 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
     }
     throw new Error("Schedule did not reach expected state: " + JSON.stringify(value));
   }
+  // Wait for the newest label render to finish so assertions and screenshots never observe
+  // the previous partition's rows or a node that is about to be replaced.
+  async function settled(partition) {
+    const labels = page.locator("#weather-labels");
+    await expect(labels).toHaveAttribute("aria-busy", "false");
+    if (partition) await expect(labels).toHaveAttribute("data-partition", partition);
+  }
   async function refresh() {
     await page.getByRole("button", { name: "Refresh label acquisition", exact: true }).click();
     await expect(page.locator("#weather-label-partition-info")).toContainText("retained requests");
+    await settled();
+  }
+  async function selectPartition(partition) {
+    await page.locator("#weather-label-partition").selectOption(partition);
+    await settled(partition);
   }
   let stateBytes, sealBytes, labelBytes, partitionRows, originalFiles;
   function hashes() {
@@ -109,7 +121,7 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download(name + "-schedule.json", "Download forward validation state"), stateBytes);
     assert.deepEqual(await (await fetch(origin + "/api/weather/label-partitions")).json(), partitionRows);
-    await page.locator("#weather-label-partition").selectOption("00000000");
+    await selectPartition("00000000");
     await expect(page.locator("#weather-label-partition-download")).toBeVisible();
     assert.deepEqual(await download(name + "-seal.json", "Download sealed label partition manifest"), sealBytes);
     assert.deepEqual(await download(name + "-labels.json", "Download label evidence"), labelBytes);
@@ -138,15 +150,15 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
       }
       if (n === 128) {
         assert.equal(schedule.counts.retry, 1);
-        await page.locator("#weather-label-partition").selectOption("00000000");
+        await selectPartition("00000000");
         await expect(page.locator("#weather-labels")).toContainText("HTTP 503");
-        await shot("boundary-outage", "#weather-labels > section:first-child");
+        await shot("boundary-outage", "#weather-labels > section:has-text(\"HTTP 503\") >> nth=0");
       }
     }
     let rows = await (await fetch(origin + "/api/weather/label-partitions")).json();
     assert.deepEqual(rows.map(p => p.requests), [128, 1]);
     assert.deepEqual(rows.map(p => p.status), ["sealed", "active"]);
-    await refresh(); await page.locator("#weather-label-partition").selectOption("00000001");
+    await refresh(); await selectPartition("00000001");
     await expect(page.locator("#weather-labels")).toContainText("1 verified scalar labels");
     await shot("rolled-over", "#weather-labels > section:first-child");
     // Running request in the successor partition; browser pause must interrupt with no receipt.
@@ -182,14 +194,14 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
     await shot("frozen-insufficient", "#weather-readiness");
     stateBytes = await download("paused-schedule.json", "Download forward validation state");
     partitionRows = rows;
-    await page.locator("#weather-label-partition").selectOption("00000000");
+    await selectPartition("00000000");
     await expect(page.locator("#weather-label-partition-download")).toBeVisible();
     sealBytes = await download("sealed-partition.json", "Download sealed label partition manifest");
     labelBytes = await download("archived-labels.json", "Download label evidence");
     await stop(); originalFiles = hashes();
     fs.writeFileSync(path.join(evidence, "original-label-files.json"), JSON.stringify(originalFiles, null, 2));
     await start(); await verifyReopened("restart"); await stop();
-    const archive = path.join(repo, "data/cache", path.basename(workspace) + ".zip");
+    const archive = workspace + ".zip";
     command(["-m", "entropytrade.api.recovery", "snapshot", "--workspace", workspace, "--archive", archive], "snapshot");
     const restored = workspace + "-restored";
     command(["-m", "entropytrade.api.recovery", "restore", "--workspace", restored, "--archive", archive], "restore");

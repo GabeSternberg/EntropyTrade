@@ -1,0 +1,35 @@
+{
+  "id": "58b3632f-1b1a-49f1-b47e-ef0551cae015",
+  "request": {
+    "idea": "Synthetic restart interruption browser acceptance",
+    "family": "weather",
+    "mode": "synthetic",
+    "reasoning": "local",
+    "enable_provider": false
+  },
+  "status": "interrupted",
+  "created_at": "2026-11-05T22:06:31.694297+00:00",
+  "updated_at": "2026-11-05T22:06:31.969149+00:00",
+  "detail": "Worker stopped with the server",
+  "result": null,
+  "events": [
+    {
+      "sequence": 62,
+      "at": "2026-11-05T22:06:31.694297+00:00",
+      "stage": "queued",
+      "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+    },
+    {
+      "sequence": 63,
+      "at": "2026-11-05T22:06:31.705678+00:00",
+      "stage": "starting",
+      "detail": "Starting isolated research worker"
+    },
+    {
+      "sequence": 64,
+      "at": "2026-11-05T22:06:31.969149+00:00",
+      "stage": "interrupted",
+      "detail": "Worker stopped with the server"
+    }
+  ]
+}

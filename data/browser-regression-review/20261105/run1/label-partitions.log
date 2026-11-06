@@ -1,0 +1,22 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore (4ms)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+
+    Error: browserType.launch: Failed to launch chromium because executable doesn't exist at /opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+    attachment #1: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../data/browser-regression-review/20261105/run1/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../data/browser-regression-review/20261105/run1/label-partitions/playwright-artifacts/label-partitions-bounded-l-cf2d7-llation-restart-and-restore/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    label-partitions.spec.cjs:12:1 › bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore 
+  1 error was not a part of any test, see above for details

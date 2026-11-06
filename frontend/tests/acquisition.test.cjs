@@ -20,7 +20,7 @@ class Element {
   append(...children) { this.children.push(...children); }
   replaceChildren(...children) { this.children = children; }
   addEventListener() {}
-  setAttribute() {}
+  setAttribute(name, value) { (this.attributes ||= {})[name] = String(value); }
 }
 
 function application(alerts = []) {
@@ -44,6 +44,38 @@ function application(alerts = []) {
     "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts; globalThis.showProspective = prospectiveEvaluation;", context);
   return { context, content: document.getElementById("result-content"), alerts: document.getElementById("shadow-alerts") };
 }
+test("label partitions: an older overlapping refresh cannot overwrite the selected partition", async () => {
+  const { context } = application();
+  await new Promise((resolve) => setTimeout(resolve, 10)); // let initialize() settle
+  const select = context.document.getElementById("weather-label-partition");
+  const content = context.document.getElementById("weather-labels");
+  const partitions = [
+    { partition_id: "00000000", status: "sealed", requests: 128, request_limit: 128 },
+    { partition_id: "00000001", status: "active", requests: 1, request_limit: 128 },
+  ];
+  const pending = new Map();
+  context.fetch = (url) => {
+    const respond = (value) => ({ ok: true, json: async () => value });
+    if (url === "/api/weather/label-partitions") return Promise.resolve(respond(partitions));
+    return new Promise((resolve) => pending.set(url, () => resolve(respond([
+      { id: "request-" + url.slice(-1), status: "completed", detail: "rows for " + url.slice(-8) },
+    ]))));
+  };
+  const tick = () => new Promise((resolve) => setTimeout(resolve, 0));
+  select.value = "00000001";
+  const older = context.weatherLabels(); await tick();       // refresh click, rows still pending
+  assert.equal(content.attributes["aria-busy"], "true");
+  select.value = "00000000";
+  const newer = context.weatherLabels(); await tick();       // later partition change
+  pending.get("/api/weather/label-partitions/00000000")(); await newer;
+  assert.equal(content.attributes["aria-busy"], "false");
+  pending.get("/api/weather/label-partitions/00000001")(); await older;
+  assert.equal(content.dataset.partition, "00000000");
+  assert.equal(select.value, "00000000");
+  assert.match(text(content), /rows for 00000000/);
+  assert.doesNotMatch(text(content), /rows for 00000001/);
+  assert.equal(content.attributes["aria-busy"], "false");
+});
 function text(element) { return [element.textContent, ...element.children.map(text)].join("\n"); }
 function descendants(element) { return [element, ...element.children.flatMap(descendants)]; }
 
