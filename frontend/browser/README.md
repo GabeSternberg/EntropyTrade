@@ -1,5 +1,17 @@
 # Real workbench browser acceptance
 
+**Full regression sweep (Nov 5, 2026).** All 14 spec files ran against the current tree.
+The [sweep evidence](../../data/browser-regression-review/20261105/README.md) has the
+per-spec results and runner. When running them:
+
+- **Browser path.** If the environment sets `PLAYWRIGHT_BROWSERS_PATH`, unset it. Otherwise
+  the isolated `.browsers/` default is skipped and the launch fails.
+- **Fresh paths.** Give every run new workspace and evidence paths. Snapshot archives and
+  import copies are now derived from the workspace path, so repeated runs no longer collide.
+- **Public network.** `weather-labels.spec.cjs` and workbench workflow 3 need egress to the
+  public weather and Kalshi hosts. Without it they fail honestly, with retained
+  `ConnectError` receipts.
+
 For prospective forecast reports select `prospective.spec.cjs` using fresh absolute evidence
 and workspace paths. Its two procedures inspect explicitly synthetic diagnostics and authentic
 insufficiency through real localhost pages, download JSON/CSV, restart and restore offline with

@@ -1,0 +1,205 @@
+{
+  "status": "passed",
+  "started_at": "2026-11-05T22:09:53.358Z",
+  "origin": "http://127.0.0.1:18707",
+  "repo": "/home/user/EntropyTrade",
+  "python": "/home/user/EntropyTrade/.venv/bin/python",
+  "browser": "153.0.8010.12",
+  "executable": "/home/user/EntropyTrade/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "original": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery",
+  "restored": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery-restored",
+  "page_errors": [],
+  "downloads": [
+    {
+      "file": "synthetic-review.json",
+      "sha256": "1ed846d58ed38fc1c32125264baa84caa53f63b11cde9c3ed049be4e7b57456f"
+    },
+    {
+      "file": "synthetic-report.txt",
+      "sha256": "f54617d0f92d9217437051f5ed95b3fc612ccf648a11c6025ef3e9f344aeb0c7"
+    },
+    {
+      "file": "recorded-review.json",
+      "sha256": "21d23aa8708557c3eaf2513f63b4965b3fe0714262cd06847a8e53f3fcd193cd"
+    },
+    {
+      "file": "paused-original.json",
+      "sha256": "3418c4e03e8a30ece6aafd0bfdfefc4cae2f7179da7342d8037ef1b0822b24b3"
+    },
+    {
+      "file": "active-before-stop.json",
+      "sha256": "be94f5e70c4b9670bf6e07cb1d08535e9c919594dffe943619ee85d4f42a4ad6"
+    },
+    {
+      "file": "paused-restored.json",
+      "sha256": "3418c4e03e8a30ece6aafd0bfdfefc4cae2f7179da7342d8037ef1b0822b24b3"
+    },
+    {
+      "file": "active-recovered.json",
+      "sha256": "021e96eaef251fb4fd4fd8684cff79222d41da57d2591b533447e5d57d0da94a"
+    },
+    {
+      "file": "synthetic-restored.json",
+      "sha256": "1ed846d58ed38fc1c32125264baa84caa53f63b11cde9c3ed049be4e7b57456f"
+    },
+    {
+      "file": "synthetic-restored.txt",
+      "sha256": "f54617d0f92d9217437051f5ed95b3fc612ccf648a11c6025ef3e9f344aeb0c7"
+    },
+    {
+      "file": "recorded-restored.json",
+      "sha256": "21d23aa8708557c3eaf2513f63b4965b3fe0714262cd06847a8e53f3fcd193cd"
+    },
+    {
+      "file": "paused-second-restart.json",
+      "sha256": "3418c4e03e8a30ece6aafd0bfdfefc4cae2f7179da7342d8037ef1b0822b24b3"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "synthetic-lineage.png",
+      "sha256": "c95b8bf3fe59d7e9b7d0fa8bf3c5fbd528d8f81fdb100ce6ee64812a64baeb14"
+    },
+    {
+      "file": "recorded-insufficient.png",
+      "sha256": "97a1c2cab29ac0bce27c80842674ac94892e0ab599f628db10d951646ad937ca"
+    },
+    {
+      "file": "paused-original.png",
+      "sha256": "6a4cddb53a9e7a006c0e111be9c7199eec9d319e12c0de583ae10ffd1ac0df92"
+    },
+    {
+      "file": "paused-restored.png",
+      "sha256": "be812043b87488cac609c13407d06944c50c6809affcfabf444262ef50c18c4e"
+    },
+    {
+      "file": "active-recovered.png",
+      "sha256": "a4f6079f6be00733ee4f1822e5e74755f6eafae25002246858f4236028f9ec34"
+    }
+  ],
+  "operations": [
+    {
+      "action": "start",
+      "epoch": 1,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery",
+      "at": "2026-11-05T22:09:54.710Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 1,
+      "at": "2026-11-05T22:10:51.463Z"
+    },
+    {
+      "action": "snapshot",
+      "result": {
+        "archive": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery.zip",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 2,
+        "sha256": "sha256:1c79e134a1870d632d0ec3bd933957cd102af8ba776f53e7817103161143c2ee",
+        "submission_enabled": false
+      },
+      "at": "2026-11-05T22:10:59.893Z"
+    },
+    {
+      "action": "restore",
+      "result": {
+        "archive_sha256": "sha256:1c79e134a1870d632d0ec3bd933957cd102af8ba776f53e7817103161143c2ee",
+        "cycles": 2,
+        "jobs": 2,
+        "monitors": 2,
+        "submission_enabled": false,
+        "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery-restored"
+      },
+      "at": "2026-11-05T22:11:08.036Z"
+    },
+    {
+      "action": "start",
+      "epoch": 2,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery-restored",
+      "at": "2026-11-05T22:11:09.270Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 2,
+      "at": "2026-11-05T22:11:16.901Z"
+    },
+    {
+      "action": "start",
+      "epoch": 3,
+      "workspace": "/home/user/EntropyTrade/data/cache/browser-regression-20261105-final-recovery/recovery-restored",
+      "at": "2026-11-05T22:11:18.230Z"
+    },
+    {
+      "action": "stop",
+      "epoch": 3,
+      "at": "2026-11-05T22:11:19.002Z"
+    }
+  ],
+  "limitations": [
+    "Synthetic models/backtests prove software behavior only.",
+    "Authentic shadow sources may be insufficient; no fitted real model or certified fees are supplied.",
+    "Frozen fitted-model/reservation recovery is covered by separate CONTROLLED Python checks.",
+    "This does not pass empirical, provider, second-family or V1 release gates."
+  ],
+  "authentic_acquisition": {
+    "decision_time": "2026-11-05T22:10:48.727225+00:00",
+    "failures": [
+      {
+        "failed_at": "2026-11-05T22:10:48.684528+00:00",
+        "failure": "GatewayError",
+        "source": "KXHIGHPHIL"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.688413+00:00",
+        "failure": "GatewayError",
+        "source": "KXHIGHCHI"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.713386+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.open-meteo.com/v1/forecast?latitude=39.87&longitude=-75.23&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.714618+00:00",
+        "failure": "NoForecastVintage",
+        "source": "weather:open-meteo:CLIPHL"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.716569+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.weather.gov/points/39.87,-75.23"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.720120+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.open-meteo.com/v1/forecast?latitude=41.79&longitude=-87.75&hourly=temperature_2m&temperature_unit=fahrenheit&timezone=UTC&forecast_days=7&models=gfs_seamless"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.721190+00:00",
+        "failure": "NoForecastVintage",
+        "source": "weather:open-meteo:CLIMDW"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.722673+00:00",
+        "failure": "ConnectError",
+        "source": "https://api.weather.gov/points/41.79,-87.75"
+      },
+      {
+        "failed_at": "2026-11-05T22:10:48.724816+00:00",
+        "failure": "IncompleteCapture",
+        "source": "weather"
+      }
+    ],
+    "family": "weather",
+    "history_complete": false,
+    "listed_contracts": 0,
+    "observations": 0,
+    "receipts": [],
+    "started_at": "2026-11-05T22:10:48.532131+00:00",
+    "truncated_universe": true,
+    "universe_complete": false
+  },
+  "active_cycle_at_stop": "interrupted",
+  "finished_at": "2026-11-05T22:11:19.003Z"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "c25cc99e-c6a6-4808-b419-d231d518e744",
+  "request": {
+    "idea": "Synthetic cancellation browser acceptance",
+    "family": "weather",
+    "mode": "synthetic",
+    "reasoning": "local",
+    "enable_provider": false
+  },
+  "status": "cancelled",
+  "created_at": "2026-11-05T22:06:18.580948+00:00",
+  "updated_at": "2026-11-05T22:06:19.729571+00:00",
+  "detail": "Cancelled by user",
+  "result": null,
+  "events": [
+    {
+      "sequence": 48,
+      "at": "2026-11-05T22:06:18.580948+00:00",
+      "stage": "queued",
+      "detail": "Request saved; local templates or explicit synthetic mock reasoning"
+    },
+    {
+      "sequence": 49,
+      "at": "2026-11-05T22:06:18.607231+00:00",
+      "stage": "starting",
+      "detail": "Starting isolated research worker"
+    },
+    {
+      "sequence": 50,
+      "at": "2026-11-05T22:06:19.729571+00:00",
+      "stage": "cancelled",
+      "detail": "Cancelled by user"
+    }
+  ]
+}
