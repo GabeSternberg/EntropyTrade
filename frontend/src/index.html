@@ -63,6 +63,11 @@
         <div id="connection" role="status"></div>
         <div id="run-header"></div>
         <div id="progress" aria-live="polite"></div>
+        <section class="panel" aria-labelledby="gates-title">
+          <h2 id="gates-title">V1 acceptance gates</h2>
+          <p class="hint">Read-only. A gate is attested only by a human-written file with matching evidence hashes under data/acceptance. This page never attests, certifies fees or enables trading.</p>
+          <div id="v1-gates" aria-live="polite"></div>
+        </section>
         <section class="panel" aria-labelledby="fee-title">
           <h2 id="fee-title">Point-in-time fee evidence</h2>
           <p class="hint">Server-reviewed documents only. Series metadata cannot certify fees. Receipt and review clocks prevent historical lookahead.</p>

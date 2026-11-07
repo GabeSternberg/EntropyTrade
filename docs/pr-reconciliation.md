@@ -73,3 +73,9 @@ the attester and clock and lists evidence files whose SHA-256 values match; othe
 or `invalid` (fail closed). The command exits non-zero until every gate is attested. It never
 creates attestations, certifies fees, selects a family or authorizes credentials. Synthetic
 tests cover only the checker; no gate is attested today.
+
+The same report is shown read-only on the website ("V1 acceptance gates" panel, route
+`GET /api/v1-gates`, reading `data/acceptance/` under the repository). It adds
+`submission_enabled: false`, exposes no write route, and renders statuses as text. Opening it
+cannot attest a gate. Controlled tests cover the route (host check, attested/invalid/open
+states, no POST) and the panel (text-only rendering, error state).

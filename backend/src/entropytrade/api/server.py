@@ -252,6 +252,16 @@ class Handler(BaseHTTPRequestHandler):
                         f"({type(exc).__name__})"
                     },
                 )
+        elif path == "/api/v1-gates":
+            from entropytrade.operations.v1_gates import v1_gate_report
+
+            self.document(
+                200,
+                {
+                    **v1_gate_report(self.server.repo / "data" / "acceptance"),
+                    "submission_enabled": False,
+                },
+            )
         elif path == "/api/jobs":
             self.document(200, self.server.jobs.history())
         elif path == "/api/monitors":

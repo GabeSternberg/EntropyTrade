@@ -17,6 +17,18 @@ code consolidation from authentic history/validation, certified fees, provider a
 the user-approved second family, sustained operation, storage runway and final acceptance.
 Production submissions remain disabled. No new feature phase or real-money order is authorized.
 
+## Current milestone (2026-11-07): V1 gates on the website
+
+Branch `claude/exciting-mayer-p1g1qd` from main `a685cb5`. **V1 remains incomplete.** No open
+PRs at the start; issues #3, #6, #21 open. Collector workflow active (latest verified run
+42288775503). Main CI run 42314810002 (merge of #26) failed in 2 s with no job steps, which
+looks like a runner startup failure; the same tree's PR run 42313082061 passed. Logs were not
+retrievable from this session, so this is unconfirmed.
+
+- Added read-only `GET /api/v1-gates` and a "V1 acceptance gates" panel so the eight open
+  gates are visible beside the evidence. Controlled tests only; no gate state changed.
+- Nothing here attests a gate, certifies fees, selects a family or enables submissions.
+
 ## Current milestone (2026-11-06): dataset cost per discovered input
 
 Branch `claude/vibrant-bohr-f74103`, **stacked on PR #23** (`claude/vibrant-bohr-dndtp2`).
