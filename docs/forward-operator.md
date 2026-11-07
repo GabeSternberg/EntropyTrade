@@ -387,6 +387,37 @@ Restore requires the same `uv.lock` and `pyproject.toml` as the commit in `linea
 **Pause the restored monitor/schedule in the website before inspecting** if you do not want
 the local copy to start collecting.
 
+### Durable local chain (no GitHub Actions dependency)
+
+Actions artifacts expire after seven days and Actions can stall (issue #28), so
+`entropytrade.operations.local_chain` keeps the same chain as permanent, hash-linked links in a
+directory inside the repository (default suggestion `data/cache/chain`, git-ignored):
+
+```bash
+# 1. Download the newest forward-workspace artifact (run 42288775503 at time of writing).
+uv run python -m entropytrade.operations.local_chain import-actions \
+  --chain data/cache/chain --artifact-dir /path/to/artifact --source-run 42288775503
+# 2. Collect (public egress required): restore head -> bounded window -> snapshot -> new link.
+uv run python -m entropytrade.operations.local_chain run --chain data/cache/chain --seconds 540
+# 3. Audit every checksum, previous-hash link and the HEAD pointer.
+uv run python -m entropytrade.operations.local_chain verify --chain data/cache/chain
+```
+
+- `import-actions` verifies the artifact checksum and a full restore, then copies it unchanged
+  as link 1 and records the source run in `lineage.txt`. It only seeds an empty chain.
+- `run` fails closed on any tampered link, a held lock or an empty chain (use `--fresh` only to
+  start a new chain deliberately; it is refused when links exist). A failed collection still
+  publishes its verified snapshot, like the workflow. Links are never rewritten or deleted;
+  the work directory is removed after each run.
+- Collection is the existing `entropytrade.operations.forward` plus unreviewed fee capture:
+  public unauthenticated GETs, no credentials, submissions disabled.
+- **Do not run the local chain and dispatch the Actions workflow from the same snapshot**:
+  the two chains would fork and their counts must never be added. Pick one head and stop the
+  other. Run it from cron/systemd every 4 hours, or on a self-hosted runner.
+- This is operator tooling; it does not satisfy the sustained-operation, history or storage
+  gates by itself. Its collection step was not exercised against live sources in this session
+  (no egress, issue #3); tests use a controlled collector with real snapshot/restore.
+
 ### Retention and failure handling
 
 - Workspace artifacts expire after 7 days. Only the newest snapshot is needed to continue,
