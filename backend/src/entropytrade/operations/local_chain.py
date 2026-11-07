@@ -536,7 +536,7 @@ def _keep_failed(chain: Path, run_id: str, stage: Path, work: Path) -> None:
 
 
 def _terminate(signum: int, _frame: FrameType | None) -> None:
-    # Raising lets subprocess.run kill the collector child and every cleanup run.
+    # Raising runs every cleanup; _run_child asks the collector to stop with SIGINT first.
     raise SystemExit(128 + signum)
 
 

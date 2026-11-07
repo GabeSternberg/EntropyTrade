@@ -423,8 +423,11 @@ uv run python -m entropytrade.operations.local_chain verify --chain data/cache/c
   `.failed-<run_id>-<pid>/{workspace,out}` for inspection instead of being deleted. Any
   `.stage-*`/`.work-*` directory left by a killed run (SIGKILL, power loss) blocks later
   runs until the operator inspects and removes it.
-- SIGTERM (for example `systemctl stop`) asks the collector to stop normally (Ctrl-C), so it
-  shuts down its server before the driver exits; the child is killed only after 300 s.
+- SIGTERM sent to the driver alone (`kill <pid>`) asks the collector to stop normally
+  (Ctrl-C), so it shuts down its server before the driver exits; the child is killed only
+  after 300 s. Under systemd use `KillMode=mixed` and `TimeoutStopSec=330` or more: the
+  default `control-group` mode signals the collector and server directly with SIGTERM, which
+  they do not handle, so the run stops abruptly (its work is still kept under `.failed-*`).
 - Every link restores only with the same `uv.lock` and `pyproject.toml` (see above), so a
   dependency change stops the chain until it is deliberately handled.
 - Files are fsynced before a link is renamed into place. If a run stops between publishing a
