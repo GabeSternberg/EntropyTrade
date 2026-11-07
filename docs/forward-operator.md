@@ -387,6 +387,61 @@ Restore requires the same `uv.lock` and `pyproject.toml` as the commit in `linea
 **Pause the restored monitor/schedule in the website before inspecting** if you do not want
 the local copy to start collecting.
 
+### Durable local chain (no GitHub Actions dependency)
+
+Actions artifacts expire after seven days and Actions can stall (issue #28), so
+`entropytrade.operations.local_chain` keeps the same chain as permanent, hash-linked links in a
+directory inside the repository (default suggestion `data/cache/chain`, git-ignored):
+
+```bash
+# 1. Download the newest forward-workspace artifact (run 42288775503 at time of writing).
+uv run python -m entropytrade.operations.local_chain import-actions \
+  --chain data/cache/chain --artifact-dir /path/to/artifact --source-run 42288775503
+# 2. Collect (public egress required): restore head -> bounded window -> snapshot -> new link.
+uv run python -m entropytrade.operations.local_chain run --chain data/cache/chain --seconds 540
+# 3. Audit every checksum, previous-hash link and the HEAD pointer.
+uv run python -m entropytrade.operations.local_chain verify --chain data/cache/chain
+```
+
+- `import-actions` only seeds an empty chain, and only from a `forward-workspace` **chain head**.
+  The artifact's `lineage.txt` must exist, say `chain=head` and not `event=push`, and its
+  `run_id` must equal `--source-run` (never import `forward-trial-workspace`). It verifies the
+  checksum and a full restore, then keeps the archive, `lineage.txt` (as `source-lineage.txt`),
+  `previous-lineage.txt` and the runway ledger byte-for-byte as link 1.
+- Every link has a `manifest.json` hashing each of its files. Each new link's `lineage.txt`
+  records the previous link's archive and manifest hashes, the previous run ID, the git
+  `commit`, whether the working tree was dirty (`worktree_dirty`), and the `uv.lock` and
+  `pyproject.toml` hashes, taken before collection starts (`unknown` when git is unavailable).
+  `HEAD` pins the newest link's archive and manifest hashes. `verify` fails on any changed,
+  added or missing file in any link, and on a missing chain. It takes a shared lock, so it
+  is refused while a `run` is in progress.
+- `run` fails closed on any tampered link, a held lock, a chain outside `data/cache`, a clock
+  that is not later than an earlier link, or an empty chain (use `--fresh` only to start a new
+  chain deliberately; it is refused when links exist). A failed collection still publishes its
+  verified snapshot, like the workflow. Links are never rewritten or deleted. If anything
+  fails before a link is published, the work copy and the run outputs are kept as
+  `.failed-<run_id>-<pid>/{workspace,out}` for inspection instead of being deleted. Any
+  `.stage-*`/`.work-*` directory left by a killed run (SIGKILL, power loss) blocks later
+  runs until the operator inspects and removes it.
+- SIGTERM sent to the driver alone (`kill <pid>`) asks the collector to stop normally
+  (Ctrl-C), so it shuts down its server before the driver exits; the child is killed only
+  after 300 s. Under systemd use `KillMode=mixed` and `TimeoutStopSec=330` or more: the
+  default `control-group` mode signals the collector and server directly with SIGTERM, which
+  they do not handle, so the run stops abruptly (its work is still kept under `.failed-*`).
+- Every link restores only with the same `uv.lock` and `pyproject.toml` (see above), so a
+  dependency change stops the chain until it is deliberately handled.
+- Files are fsynced before a link is renamed into place. If a run stops between publishing a
+  link and updating `HEAD`, `verify` reports the stale `HEAD`; the next `run` verifies every
+  link and advances `HEAD` by exactly that one link before continuing.
+- Collection is the existing `entropytrade.operations.forward` plus unreviewed fee capture:
+  public unauthenticated GETs, no credentials, submissions disabled.
+- **Do not run the local chain and dispatch the Actions workflow from the same snapshot**:
+  the two chains would fork and their counts must never be added. Pick one head and stop the
+  other. Run it from cron/systemd every 4 hours, or on a self-hosted runner.
+- This is operator tooling; it does not satisfy the sustained-operation, history or storage
+  gates by itself. Its collection step was not exercised against live sources in this session
+  (no egress, issue #3); tests use a controlled collector with real snapshot/restore.
+
 ### Retention and failure handling
 
 - Workspace artifacts expire after 7 days. Only the newest snapshot is needed to continue,
