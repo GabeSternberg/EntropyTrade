@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 FIXED = datetime(2026, 11, 8, 12, 0, tzinfo=UTC)
+LATER = datetime(2026, 11, 8, 16, 0, tzinfo=UTC)
 
 
 @pytest.fixture
@@ -28,7 +29,9 @@ def repo(tmp_path: Path) -> Path:
     return tmp_path
 
 
-def seed_actions_artifact(repo: Path, name: str = "artifact") -> Path:
+def seed_actions_artifact(
+    repo: Path, name: str = "artifact", run_id: str = "1", extra: str = "event=schedule\n"
+) -> Path:
     source = Jobs(repo / "data/cache/seed-source")
     store = TrackingStore(source)
     monitor(store)
@@ -36,7 +39,9 @@ def seed_actions_artifact(repo: Path, name: str = "artifact") -> Path:
     out.mkdir()
     snapshot(repo, source.root, out / "workspace.zip")
     (out / "workspace.sha256").write_text(lc.sha256_file(out / "workspace.zip") + "\n")
-    (out / "lineage.txt").write_text("run_id=42288775503\nchain=head\n")
+    (out / "lineage.txt").write_text(
+        f"commit=abc\nrun_id={run_id}\nbranch=main\nchain=head\n{extra}"
+    )
     return out
 
 
@@ -58,12 +63,17 @@ def collector(calls: list[tuple[Path, int, Path | None]], exit_code: int = 0) ->
 
 
 def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
-    artifact = seed_actions_artifact(repo)
+    artifact = seed_actions_artifact(repo, run_id="42288775503")
+    (artifact / "previous-lineage.txt").write_text("run_id=42288000000\n")
     chain = repo / "data/cache/chain"
     imported = lc.import_actions(repo, chain, artifact, "42288775503")
     assert imported["seq"] == 1
     lineage = lc.read_lineage(chain / "links/000001/lineage.txt")
     assert lineage["imported_from_run"] == "42288775503"
+    assert lineage["imported_from_branch"] == "main"
+    # The artifact's own lineage files are retained byte-for-byte.
+    for source, kept in (("lineage.txt", "source-lineage.txt"), ("previous-lineage.txt",) * 2):
+        assert (chain / "links/000001" / kept).read_bytes() == (artifact / source).read_bytes()
     assert (chain / "links/000001/workspace.zip").read_bytes() == (
         artifact / "workspace.zip"
     ).read_bytes()
@@ -75,6 +85,14 @@ def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
     second = lc.read_lineage(chain / "links/000002/lineage.txt")
     assert second["previous_sha256"] == imported["sha256"]
     assert second["run_id"] == "local-20261108T120000Z"
+    assert second["previous_run_id"] == "42288775503"
+    assert second["previous_manifest_sha256"] == lc.sha256_file(
+        chain / "links/000001/manifest.json"
+    )
+    assert "commit" in second
+    assert second["worktree_dirty"] in {"true", "false"}
+    assert second["pyproject"].startswith("sha256:")
+    assert (chain / "links/000002/snapshot.json").is_file()
     assert lc.verify(chain) == {
         "schema": lc.SCHEMA,
         "links": 2,
@@ -87,7 +105,7 @@ def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
     restore(repo, chain / "links/000002/workspace.zip", check)
     assert monitors_in(check) == 2
     # The next run passes the previous link's ledger to the collector.
-    lc.run(repo, chain, 540, collector=collector(calls), clock=lambda: FIXED)
+    lc.run(repo, chain, 540, collector=collector(calls), clock=lambda: LATER)
     assert calls[1][2] == chain / "links/000002/runway-ledger.jsonl"
 
 
@@ -147,7 +165,10 @@ def test_broken_hash_link_and_stale_head_are_detected(repo: Path) -> None:
     (chain / "HEAD").write_text(head)
     lineage = chain / "links/000002/lineage.txt"
     lineage.write_text(lineage.read_text().replace("previous_sha256=", "previous_sha256=x"))
-    with pytest.raises(lc.ChainError, match="previous_sha256"):
+    with pytest.raises(lc.ChainError, match=r"lineage.txt checksum mismatch"):
+        lc.verify(chain)
+    lc._write_manifest(chain / "links/000002")  # a consistent rewrite still breaks the chain
+    with pytest.raises(lc.ChainError, match="previous hashes do not match"):
         lc.verify(chain)
 
 
@@ -178,6 +199,9 @@ def test_collector_crash_leaves_chain_unchanged(repo: Path) -> None:
     assert (chain / "HEAD").read_text() == before
     assert not list(chain.glob(".work-*"))
     assert not list(chain.glob(".stage-*"))
+    # The work copy (possibly holding new evidence) is kept for inspection, never deleted.
+    (kept,) = chain.glob(".failed-*")
+    assert monitors_in(kept) == 1
     assert lc.verify(chain)["links"] == 1
 
 
@@ -192,3 +216,73 @@ def test_fresh_starts_a_new_chain_only_when_requested(repo: Path) -> None:
     result = lc.run(repo, chain, 540, fresh=True, collector=seed)
     assert result["seq"] == 1
     assert lc.read_lineage(chain / "links/000001/lineage.txt")["previous_sha256"] == ""
+
+
+def test_import_refuses_trial_mismatched_or_unlabelled_artifacts(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    trial = seed_actions_artifact(repo, "trial", extra="event=push\n")
+    with pytest.raises(lc.ChainError, match="chain head"):
+        lc.import_actions(repo, chain, trial, "1")
+    head = seed_actions_artifact(repo, "head", run_id="42288775503")
+    with pytest.raises(lc.ChainError, match="!= --source-run"):
+        lc.import_actions(repo, chain, head, "1")
+    with pytest.raises(lc.ChainError, match="--source-branch"):
+        lc.import_actions(repo, chain, head, "42288775503", source_branch="claude/x")
+    (head / "lineage.txt").unlink()
+    with pytest.raises(lc.ChainError, match=r"missing lineage.txt"):
+        lc.import_actions(repo, chain, head, "42288775503")
+    assert not (chain / "links").exists()
+
+
+def test_tampering_with_any_link_file_is_detected(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    lc.run(repo, chain, 540, collector=collector([], exit_code=1))
+    lineage = chain / "links/000002/lineage.txt"
+    original = lineage.read_text()
+    lineage.write_text(original.replace("collector_exit_code=1", "collector_exit_code=0"))
+    with pytest.raises(lc.ChainError, match=r"lineage.txt checksum mismatch"):
+        lc.verify(chain)
+    lineage.write_text(original)
+    (chain / "links/000002/runway-ledger.jsonl").write_text("{}\n")
+    with pytest.raises(lc.ChainError, match=r"runway-ledger.jsonl checksum mismatch"):
+        lc.run(repo, chain, 540, collector=collector([]))
+    (chain / "links/000002/runway-ledger.jsonl").unlink()
+    with pytest.raises(lc.ChainError, match="differ from the manifest"):
+        lc.verify(chain)
+
+
+def test_interrupted_head_update_is_rolled_forward_by_the_next_run(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    lagging = (chain / "HEAD").read_text()
+    second = lc.run(repo, chain, 540, collector=collector([]), clock=lambda: FIXED)
+    (chain / "HEAD").write_text(lagging)  # crash between the link rename and HEAD
+    with pytest.raises(lc.ChainError, match="HEAD"):
+        lc.verify(chain)
+    third = lc.run(repo, chain, 540, collector=collector([]), clock=lambda: LATER)
+    assert third["seq"] == 3
+    assert (
+        lc.read_lineage(chain / "links/000003/lineage.txt")["previous_sha256"] == (second["sha256"])
+    )
+    assert lc.verify(chain)["links"] == 3
+
+
+def test_chain_outside_data_cache_is_refused_before_collection(repo: Path) -> None:
+    calls: list[tuple[Path, int, Path | None]] = []
+    with pytest.raises(lc.ChainError, match="chain directory refused"):
+        lc.run(repo, repo / "elsewhere", 540, fresh=True, collector=collector(calls))
+    assert calls == []
+    with pytest.raises(lc.ChainError, match="seconds"):
+        lc.run(repo, repo / "data/cache/chain", 30, fresh=True, collector=collector(calls))
+
+
+def test_clock_regression_and_duplicate_run_id_are_refused(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    lc.run(repo, chain, 540, collector=collector([]), clock=lambda: LATER)
+    with pytest.raises(lc.ChainError, match="already exists"):
+        lc.run(repo, chain, 540, collector=collector([]), clock=lambda: LATER)
+    with pytest.raises(lc.ChainError, match="not later"):
+        lc.run(repo, chain, 540, collector=collector([]), clock=lambda: FIXED)
+    assert lc.verify(chain)["links"] == 2

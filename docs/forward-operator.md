@@ -403,12 +403,25 @@ uv run python -m entropytrade.operations.local_chain run --chain data/cache/chai
 uv run python -m entropytrade.operations.local_chain verify --chain data/cache/chain
 ```
 
-- `import-actions` verifies the artifact checksum and a full restore, then copies it unchanged
-  as link 1 and records the source run in `lineage.txt`. It only seeds an empty chain.
-- `run` fails closed on any tampered link, a held lock or an empty chain (use `--fresh` only to
-  start a new chain deliberately; it is refused when links exist). A failed collection still
-  publishes its verified snapshot, like the workflow. Links are never rewritten or deleted;
-  the work directory is removed after each run.
+- `import-actions` only seeds an empty chain, and only from a `forward-workspace` **chain head**.
+  The artifact's `lineage.txt` must exist, say `chain=head` and not `event=push`, and its
+  `run_id` must equal `--source-run` (never import `forward-trial-workspace`). It verifies the
+  checksum and a full restore, then keeps the archive, `lineage.txt` (as `source-lineage.txt`),
+  `previous-lineage.txt` and the runway ledger byte-for-byte as link 1.
+- Every link has a `manifest.json` hashing each of its files. Each new link's `lineage.txt`
+  records the previous link's archive and manifest hashes, the previous run ID, the git
+  `commit`, whether the working tree was dirty (`worktree_dirty`), and the `uv.lock` and
+  `pyproject.toml` hashes. `verify` fails on any changed, added or missing file in any link.
+- `run` fails closed on any tampered link, a held lock, a chain outside `data/cache`, a clock
+  that is not later than an earlier link, or an empty chain (use `--fresh` only to start a new
+  chain deliberately; it is refused when links exist). A failed collection still publishes its
+  verified snapshot, like the workflow. Links are never rewritten or deleted. If anything
+  fails after the workspace exists, the work directory is kept as `.failed-<run_id>-<pid>`
+  for inspection instead of being deleted. A stale `.stage-*`/`.work-*` directory from a
+  killed run blocks later runs until the operator inspects and removes it.
+- Files are fsynced before a link is renamed into place. If a run stops between publishing a
+  link and updating `HEAD`, `verify` reports the stale `HEAD`; the next `run` verifies every
+  link and advances `HEAD` by exactly that one link before continuing.
 - Collection is the existing `entropytrade.operations.forward` plus unreviewed fee capture:
   public unauthenticated GETs, no credentials, submissions disabled.
 - **Do not run the local chain and dispatch the Actions workflow from the same snapshot**:

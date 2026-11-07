@@ -17,7 +17,7 @@ code consolidation from authentic history/validation, certified fees, provider a
 the user-approved second family, sustained operation, storage runway and final acceptance.
 Production submissions remain disabled. No new feature phase or real-money order is authorized.
 
-## Current milestone (2026-11-08): durable local chain driver
+## Current milestone (2026-11-07): durable local chain driver
 
 Branch `claude/exciting-mayer-16gxu4` from main `d82ae5d`. **V1 remains incomplete.** No open
 PRs; issues #3, #6, #21, #28 open. Actions has not started a job since 2026-11-07 (billing, #28);
@@ -26,9 +26,11 @@ expires about 2026-11-13.
 
 - Added `entropytrade.operations.local_chain` (`import-actions`, `run`, `verify`): a permanent,
   hash-linked snapshot chain outside Actions. Imports the canonical artifact unchanged after
-  checksum and restore verification; fails closed on tampering, gaps, stale HEAD, concurrent
-  runs; never rewrites links. See docs/forward-operator.md.
-- Evidence: 9 controlled unit cases with real snapshot/restore; Ruff, strict mypy clean. The
+  checksum, chain-head lineage and restore verification; per-link file manifests and
+  previous-hash links; records commit/dirty-tree provenance; fails closed on tampering, gaps,
+  stale HEAD, concurrent runs and clock regression; never rewrites links or discards
+  collected work. See docs/forward-operator.md.
+- Evidence: 14 controlled unit cases with real snapshot/restore; Ruff, strict mypy clean. The
   live collection subprocess was not run (no egress). Nothing attests a gate or touches the
   canonical chain.
 
