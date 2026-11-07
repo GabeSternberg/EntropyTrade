@@ -41,7 +41,7 @@ function application(alerts = []) {
       ["/api/jobs", "/api/monitors", "/api/weather/datasets"].includes(url) ? [] : { csrf_token: "test" } }),
   });
   vm.runInContext(fs.readFileSync(path.join(__dirname, "../src/app.js"), "utf8") +
-    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts; globalThis.showProspective = prospectiveEvaluation;", context);
+    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts; globalThis.showProspective = prospectiveEvaluation; globalThis.showGates = v1Gates;", context);
   return { context, content: document.getElementById("result-content"), alerts: document.getElementById("shadow-alerts") };
 }
 test("label partitions: an older overlapping refresh cannot overwrite the selected partition", async () => {
@@ -252,3 +252,25 @@ for (const tab of ["review", "probabilities", "lineage"]) {
     }
   });
 }
+
+test("V1 gates panel shows open and invalid gates as text and never claims completion", async () => {
+  const { context } = application();
+  await new Promise((resolve) => setTimeout(resolve, 10));
+  const panel = context.document.getElementById("v1-gates");
+  const report = { v1_complete: false, open: ["a", "b"], submission_enabled: false, gates: [
+    { gate_id: "a", title: "Certified effective fees", reference: "issue #6", status: "open", detail: "no attestation file" },
+    { gate_id: "b", title: "<img src=x onerror=bad()>", reference: "", status: "invalid", detail: "evidence hash mismatch: ev.txt" },
+    { gate_id: "c", title: "Done gate", reference: "", status: "attested", detail: "attested by operator at 2026-11-07T00:00:00Z" },
+  ] };
+  context.fetch = async () => ({ ok: true, json: async () => report });
+  await context.showGates();
+  assert.match(text(panel), /V1 incomplete: 2 of 3 gates are not attested/);
+  assert.match(text(panel), /Certified effective fees · open/);
+  assert.match(text(panel), /issue #6 · no attestation file/);
+  assert.match(text(panel), /<img src=x onerror=bad\(\)> · invalid/);
+  assert.equal(descendants(panel).filter(e => e.tag === "img").length, 0);
+  context.fetch = async () => ({ ok: false, status: 500, json: async () => ({ error: "boom" }) });
+  await context.showGates();
+  assert.match(text(panel), /V1 gate report unavailable/);
+  assert.doesNotMatch(text(panel), /attested\./);
+});

@@ -424,6 +424,16 @@ $("research-form").addEventListener("submit", async (event) => {
   } catch (error) { $("form-message").textContent = error.message; }
   finally { $("submit").disabled = false; }
 });
+async function v1Gates() {
+  const content = $("v1-gates");
+  try {
+    const report = await api("/api/v1-gates");
+    content.replaceChildren(node("p", report.v1_complete ? "Every gate is attested." : `V1 incomplete: ${report.open.length} of ${report.gates.length} gates are not attested.`, "hint"));
+    report.gates.forEach((gate) => content.append(append(node("section", null, `v1-gate v1-gate-${gate.status}`),
+      node("h4", `${gate.title} · ${gate.status}`),
+      node("p", `${gate.reference ? `${gate.reference} · ` : ""}${gate.detail}`, "small"))));
+  } catch (error) { content.replaceChildren(notice(`V1 gate report unavailable: ${error.message}`, true)); }
+}
 async function feeEvidence() {
   const content = $("fee-evidence");
   try {
@@ -606,7 +616,7 @@ $("shadow-start").addEventListener("click", async () => {
 });
 async function initialize() {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await weatherSchedules(); await feeEvidence(); $("submit").disabled = false; }
+  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await weatherSchedules(); await feeEvidence(); await v1Gates(); $("submit").disabled = false; }
   catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
 }
 setInterval(async () => {
