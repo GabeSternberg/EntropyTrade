@@ -6,10 +6,11 @@ on any machine with public egress (a laptop, server or self-hosted runner) and k
 verified snapshot as a permanent, hash-linked link in a local directory:
 
     <chain>/links/000001/{workspace.zip,workspace.sha256,lineage.txt,manifest.json,...}
-    <chain>/HEAD            # "<seq> sha256:<archive hash>", replaced atomically
+    <chain>/HEAD            # "<seq> sha256:<archive> sha256:<manifest>", replaced atomically
 
 Every file of a link is hashed in its ``manifest.json``; each link's lineage records the
-previous link's archive and manifest hashes, so no file of any link can change unnoticed.
+previous link's archive and manifest hashes and HEAD pins the newest link's, so no file of
+any link can change unnoticed.
 
 ``import-actions`` adopts the newest Actions ``forward-workspace`` artifact (checksum,
 head-lineage and restore verified) as link 1 without altering its bytes, so the canonical
@@ -132,68 +133,89 @@ def _check_link(link: Path) -> tuple[str, str]:
     return actual, sha256_file(link / MANIFEST)
 
 
-def _verify_links(links: list[Path]) -> tuple[str, list[dict[str, str]]]:
+def _verify_links(links: list[Path]) -> tuple[str, str, list[dict[str, str]]]:
+    """Verify every link and the hash links; return the newest (archive, manifest) hashes."""
     previous = previous_manifest = ""
     lineages = []
     for index, link in enumerate(links, start=1):
         digest, manifest = _check_link(link)
         lineage = read_lineage(link / "lineage.txt")
-        if index > 1 and (
-            lineage.get("previous_sha256") != previous
-            or lineage.get("previous_manifest_sha256") != previous_manifest
-            or lineage.get("seq") != str(index)
+        if lineage.get("seq") != str(index) or (
+            index > 1
+            and (
+                lineage.get("previous_sha256") != previous
+                or lineage.get("previous_manifest_sha256") != previous_manifest
+            )
         ):
             raise ChainError(f"{link.name}: previous hashes do not match link {index - 1}")
         previous, previous_manifest = digest, manifest
         lineages.append(lineage)
-    return previous, lineages
+    return previous, previous_manifest, lineages
+
+
+def _head_line(seq: int, digest: str, manifest: str) -> str:
+    return f"{seq} {digest} {manifest}"
+
+
+def _read_head(chain: Path) -> str | None:
+    head = chain / "HEAD"
+    return head.read_text(encoding="utf-8").strip() if head.is_file() else None
+
+
+def _verified_state(
+    chain: Path, *, roll_forward: bool = False
+) -> tuple[list[Path], str, str, list[dict[str, str]]]:
+    """Verify all links and HEAD once. Optionally finish an interrupted publish.
+
+    ``roll_forward`` advances HEAD by exactly one link when a run stopped between renaming
+    the newest link into place and updating HEAD; it never rewrites or removes a link.
+    """
+    links = _links(chain)
+    digest, manifest, lineages = _verify_links(links)
+    current = _read_head(chain)
+    if not links:
+        if current is not None:
+            raise ChainError("HEAD exists but there are no links")
+        return links, "", "", lineages
+    expected = _head_line(len(links), digest, manifest)
+    if current != expected:
+        lagging: str | None = None
+        if len(links) > 1:
+            older, older_manifest = _check_link(links[-2])
+            lagging = _head_line(len(links) - 1, older, older_manifest)
+        if not roll_forward or current != lagging:
+            raise ChainError("HEAD does not point at the newest verified link")
+        _write_head(chain, expected)
+    return links, digest, manifest, lineages
 
 
 def verify(chain: Path) -> dict[str, Any]:
     """Check every link's files, the previous-hash links and the HEAD pointer."""
-    links = _links(chain)
-    previous, _ = _verify_links(links)
-    head = chain / "HEAD"
-    if links:
-        if not head.is_file() or head.read_text(encoding="utf-8").strip() != (
-            f"{len(links)} {previous}"
-        ):
-            raise ChainError("HEAD does not point at the newest verified link")
-    elif head.exists():
-        raise ChainError("HEAD exists but there are no links")
-    return {"schema": SCHEMA, "links": len(links), "head_sha256": previous or None}
+    if not (chain / "links").is_dir() and not (chain / "HEAD").exists():
+        raise ChainError("no chain at this path")
+    links, digest, _, _ = _verified_state(chain)
+    return {"schema": SCHEMA, "links": len(links), "head_sha256": digest or None}
 
 
-def _write_head(chain: Path, seq: int, digest: str) -> None:
+def _write_head(chain: Path, line: str) -> None:
     temporary = chain / ".HEAD.tmp"
-    temporary.write_text(f"{seq} {digest}\n", encoding="utf-8")
+    temporary.write_text(line + "\n", encoding="utf-8")
     _fsync(temporary)
     temporary.replace(chain / "HEAD")
     _fsync(chain)
 
 
-def _roll_head_forward(chain: Path, links: list[Path]) -> bool:
-    """Finish a publish interrupted between the link rename and the HEAD update.
-
-    Only advances HEAD by exactly one link, and only after every link (including the new
-    one) verified. Never rewrites or removes a link.
-    """
-    head = chain / "HEAD"
-    if len(links) < 1:
-        return False
-    newest, _ = _verify_links(links)
-    expected_previous = ""
-    if len(links) > 1:
-        expected_previous = _check_link(links[-2])[0]
-    current = head.read_text(encoding="utf-8").strip() if head.is_file() else ""
-    lagging = f"{len(links) - 1} {expected_previous}" if len(links) > 1 else ""
-    if current == f"{len(links)} {newest}" or current != lagging:
-        return False
-    _write_head(chain, len(links), newest)
-    return True
+def _refuse_stale(chain: Path) -> None:
+    stale = sorted(p.name for p in chain.glob(".stage-*")) + sorted(
+        p.name for p in chain.glob(".work-*")
+    )
+    if stale:
+        raise ChainError(f"stale staging/work directories {stale}; inspect and remove them")
 
 
 def _lock(chain: Path, *, shared: bool = False) -> Any:
+    if shared and not chain.is_dir():
+        raise ChainError("no chain at this path")
     chain.mkdir(parents=True, exist_ok=True)
     handle = (chain / ".lock").open("a")
     try:
@@ -216,7 +238,7 @@ def _publish(chain: Path, stage: Path, seq: int, digest: str) -> Path:
     _fsync(stage)
     stage.rename(target)
     _fsync(target.parent)
-    _write_head(chain, seq, digest)
+    _write_head(chain, _head_line(seq, digest, sha256_file(target / MANIFEST)))
     return target
 
 
@@ -254,9 +276,8 @@ def import_actions(
         digest = sha256_file(artifact_dir / "workspace.zip")
         if expected != digest:
             raise ChainError(f"artifact checksum mismatch ({expected} != {digest})")
+        _refuse_stale(chain)
         stage = chain / f".stage-{os.getpid()}"
-        if stage.exists():
-            raise ChainError("stale staging directory; remove it after inspection")
         stage.mkdir()
         try:
             shutil.copy2(artifact_dir / "workspace.zip", stage / "workspace.zip")
@@ -295,6 +316,26 @@ def import_actions(
         handle.close()
 
 
+def _run_child(cmd: list[str], repo: Path, **kwargs: Any) -> subprocess.CompletedProcess[str]:
+    """Run a child; on any interruption ask it to stop normally (Ctrl-C) before killing it.
+
+    The forward collector stops its own server only on a normal shutdown, so it must never
+    be SIGKILLed first (that would orphan the server, its port and its workspace lease).
+    """
+    with subprocess.Popen(cmd, cwd=repo, text=True, **kwargs) as process:  # noqa: S603
+        try:
+            stdout, stderr = process.communicate()
+        except BaseException:
+            process.send_signal(signal.SIGINT)
+            try:
+                process.wait(timeout=300)
+            except subprocess.TimeoutExpired:
+                process.kill()
+                process.wait()
+            raise
+    return subprocess.CompletedProcess(cmd, process.returncode, stdout, stderr)
+
+
 def subprocess_collector(repo: Path) -> Callable[..., int]:
     """Run the existing bounded collector and fee capture as separate processes."""
 
@@ -320,9 +361,9 @@ def subprocess_collector(repo: Path) -> Callable[..., int]:
         ]
         if ledger_in is not None:
             cmd += ["--ledger-in", str(ledger_in)]
-        code = subprocess.run(cmd, cwd=repo, check=False).returncode  # noqa: S603
+        code = _run_child(cmd, repo).returncode
         if (workspace / "jobs.sqlite").is_file():
-            fees = subprocess.run(  # noqa: S603
+            fees = _run_child(
                 [
                     sys.executable,
                     "-m",
@@ -333,10 +374,9 @@ def subprocess_collector(repo: Path) -> Callable[..., int]:
                     "schedule",
                     "rounding",
                 ],
-                cwd=repo,
-                check=False,
-                capture_output=True,
-                text=True,
+                repo,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
             )
             (out / "fee-capture.json").write_text(fees.stdout, encoding="utf-8")
             (out / "fee-capture.log").write_text(
@@ -350,7 +390,7 @@ def subprocess_collector(repo: Path) -> Callable[..., int]:
 def code_provenance(repo: Path) -> list[str]:
     """Which code collected: git commit, whether the tree was dirty, lock/project hashes."""
 
-    def git(*args: str) -> str:
+    def git(*args: str) -> str | None:
         try:
             done = subprocess.run(  # noqa: S603
                 ["git", *args],  # noqa: S607
@@ -360,12 +400,13 @@ def code_provenance(repo: Path) -> list[str]:
                 text=True,
             )
         except (OSError, subprocess.CalledProcessError):
-            return ""
+            return None
         return done.stdout.strip()
 
     commit = git("rev-parse", "HEAD")
-    dirty = git("status", "--porcelain", "--untracked-files=no") if commit else ""
-    lines = [f"commit={commit}", f"worktree_dirty={'true' if dirty else 'false'}"]
+    status = git("status", "--porcelain") if commit else None
+    dirty = "unknown" if status is None else ("true" if status else "false")
+    lines = [f"commit={commit or 'unknown'}", f"worktree_dirty={dirty}"]
     for key, name in (("uv_lock", "uv.lock"), ("pyproject", "pyproject.toml")):
         path = repo / name
         lines.append(f"{key}={sha256_file(path) if path.is_file() else ''}")
@@ -389,40 +430,42 @@ def run(
     collector = collector or subprocess_collector(repo)
     handle = _lock(chain)
     try:
-        links = _links(chain)
         lineages: list[dict[str, str]] = []
+        links = _links(chain)
+        previous_sha = previous_manifest = ""
         if links:
             if fresh:
                 raise ChainError("--fresh is refused on a chain that already has links")
-            _roll_head_forward(chain, links)
-            verify(chain)  # fail closed on any tampering before extending
-            _, lineages = _verify_links(links)
+            # Fail closed on any tampering before extending (finishes an interrupted HEAD).
+            links, previous_sha, previous_manifest, lineages = _verified_state(
+                chain, roll_forward=True
+            )
         elif not fresh:
             raise ChainError(
                 "empty chain: import-actions a verified snapshot, or pass --fresh to start "
                 "a new chain deliberately"
             )
+        _refuse_stale(chain)
         started = clock()
         run_id = "local-" + started.strftime("%Y%m%dT%H%M%SZ")
         if any(item.get("run_id") == run_id for item in lineages):
             raise ChainError(f"run_id {run_id} already exists in the chain")
         for item in lineages:
-            earlier = item.get("started_at")
-            if earlier and datetime.fromisoformat(earlier) >= started:
-                raise ChainError("clock is not later than an earlier link's started_at")
+            for key in ("started_at", "finished_at", "imported_at"):
+                earlier = item.get(key)
+                if earlier and datetime.fromisoformat(earlier) >= started:
+                    raise ChainError(f"clock is not later than an earlier link's {key}")
+        provenance = code_provenance(repo)  # the code that is about to collect
         seq = len(links) + 1
         stage = chain / f".stage-{os.getpid()}"
         work = chain / f".work-{os.getpid()}"
-        if stage.exists() or work.exists():
-            raise ChainError("stale staging/work directory; inspect and remove it")
         stage.mkdir()
         published = False
         try:
-            previous_sha = previous_manifest = previous_run = ""
+            previous_run = ""
             ledger_in: Path | None = None
             if links:
                 head = links[-1]
-                previous_sha, previous_manifest = _check_link(head)
                 previous_run = lineages[-1].get("run_id", "")
                 restore(repo, head / "workspace.zip", work)
                 if (head / "runway-ledger.jsonl").is_file():
@@ -442,26 +485,22 @@ def run(
                 "event=local",
                 "chain=head",
                 f"started_at={started.isoformat()}",
-                f"finished_at={datetime.now(UTC).isoformat()}",
+                f"finished_at={max(clock(), started).isoformat()}",
                 f"previous_seq={seq - 1}",
                 f"previous_run_id={previous_run}",
                 f"previous_sha256={previous_sha}",
                 f"previous_manifest_sha256={previous_manifest}",
                 f"collector_exit_code={code}",
-                *code_provenance(repo),
+                *provenance,
             ]
             (stage / "lineage.txt").write_text("\n".join(lineage) + "\n", encoding="utf-8")
             _publish(chain, stage, seq, digest)
             published = True
-        except BaseException:
-            shutil.rmtree(stage, ignore_errors=True)
-            raise
         finally:
-            if published or not (work / "jobs.sqlite").is_file():
-                shutil.rmtree(work, ignore_errors=True)
+            if published:
+                shutil.rmtree(work, ignore_errors=True)  # its evidence is in the new link
             else:
-                # Collected evidence is never discarded: keep it for operator inspection.
-                work.rename(chain / f".failed-{run_id}-{os.getpid()}")
+                _keep_failed(chain, run_id, stage, work)
         return {
             "schema": SCHEMA,
             "action": "run",
@@ -472,6 +511,28 @@ def run(
         }
     finally:
         handle.close()
+
+
+def _keep_failed(chain: Path, run_id: str, stage: Path, work: Path) -> None:
+    """Never discard collected work: keep the workspace and run outputs for inspection.
+
+    Errors here are reported on stderr and never replace the error that stopped the run.
+    """
+    has_work = (work / "jobs.sqlite").is_file()
+    if not has_work:
+        shutil.rmtree(work, ignore_errors=True)  # no workspace was ever collected into it
+    if not has_work and not (stage.is_dir() and any(stage.iterdir())):
+        shutil.rmtree(stage, ignore_errors=True)
+        return
+    failed = chain / f".failed-{run_id}-{os.getpid()}"
+    try:
+        failed.mkdir()
+        if stage.is_dir():
+            stage.rename(failed / "out")
+        if has_work:
+            work.rename(failed / "workspace")
+    except OSError as exc:
+        sys.stderr.write(f"Local chain: could not keep failed run in {failed}: {exc}\n")
 
 
 def _terminate(signum: int, _frame: FrameType | None) -> None:
@@ -498,6 +559,7 @@ def main() -> None:
     chain = args.chain if args.chain.is_absolute() else repo / args.chain
     try:
         if args.action == "verify":
+            chain = _check_chain_path(repo, chain)
             handle = _lock(chain, shared=True)
             try:
                 result = verify(chain)

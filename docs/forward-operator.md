@@ -411,14 +411,22 @@ uv run python -m entropytrade.operations.local_chain verify --chain data/cache/c
 - Every link has a `manifest.json` hashing each of its files. Each new link's `lineage.txt`
   records the previous link's archive and manifest hashes, the previous run ID, the git
   `commit`, whether the working tree was dirty (`worktree_dirty`), and the `uv.lock` and
-  `pyproject.toml` hashes. `verify` fails on any changed, added or missing file in any link.
+  `pyproject.toml` hashes, taken before collection starts (`unknown` when git is unavailable).
+  `HEAD` pins the newest link's archive and manifest hashes. `verify` fails on any changed,
+  added or missing file in any link, and on a missing chain. It takes a shared lock, so it
+  is refused while a `run` is in progress.
 - `run` fails closed on any tampered link, a held lock, a chain outside `data/cache`, a clock
   that is not later than an earlier link, or an empty chain (use `--fresh` only to start a new
   chain deliberately; it is refused when links exist). A failed collection still publishes its
   verified snapshot, like the workflow. Links are never rewritten or deleted. If anything
-  fails after the workspace exists, the work directory is kept as `.failed-<run_id>-<pid>`
-  for inspection instead of being deleted. A stale `.stage-*`/`.work-*` directory from a
-  killed run blocks later runs until the operator inspects and removes it.
+  fails before a link is published, the work copy and the run outputs are kept as
+  `.failed-<run_id>-<pid>/{workspace,out}` for inspection instead of being deleted. Any
+  `.stage-*`/`.work-*` directory left by a killed run (SIGKILL, power loss) blocks later
+  runs until the operator inspects and removes it.
+- SIGTERM (for example `systemctl stop`) asks the collector to stop normally (Ctrl-C), so it
+  shuts down its server before the driver exits; the child is killed only after 300 s.
+- Every link restores only with the same `uv.lock` and `pyproject.toml` (see above), so a
+  dependency change stops the chain until it is deliberately handled.
 - Files are fsynced before a link is renamed into place. If a run stops between publishing a
   link and updating `HEAD`, `verify` reports the stale `HEAD`; the next `run` verifies every
   link and advances `HEAD` by exactly that one link before continuing.

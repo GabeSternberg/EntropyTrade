@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import shutil
+import signal
+import subprocess
+import sys
+import time
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 import pytest
 
@@ -45,6 +49,13 @@ def seed_actions_artifact(
     return out
 
 
+IMPORTED = datetime(2026, 11, 1, 12, 0, tzinfo=UTC)
+
+
+def imp(repo: Path, chain: Path, artifact: Path, run: str, **kwargs: Any) -> dict[str, Any]:
+    return lc.import_actions(repo, chain, artifact, run, clock=lambda: IMPORTED, **kwargs)
+
+
 def monitors_in(workspace: Path) -> int:
     return int(validate_database(workspace)["monitors"])
 
@@ -66,7 +77,7 @@ def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
     artifact = seed_actions_artifact(repo, run_id="42288775503")
     (artifact / "previous-lineage.txt").write_text("run_id=42288000000\n")
     chain = repo / "data/cache/chain"
-    imported = lc.import_actions(repo, chain, artifact, "42288775503")
+    imported = imp(repo, chain, artifact, "42288775503")
     assert imported["seq"] == 1
     lineage = lc.read_lineage(chain / "links/000001/lineage.txt")
     assert lineage["imported_from_run"] == "42288775503"
@@ -89,8 +100,9 @@ def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
     assert second["previous_manifest_sha256"] == lc.sha256_file(
         chain / "links/000001/manifest.json"
     )
-    assert "commit" in second
-    assert second["worktree_dirty"] in {"true", "false"}
+    # The controlled repository is not a git checkout, so provenance says so explicitly.
+    assert second["commit"] == "unknown"
+    assert second["worktree_dirty"] == "unknown"
     assert second["pyproject"].startswith("sha256:")
     assert (chain / "links/000002/snapshot.json").is_file()
     assert lc.verify(chain) == {
@@ -111,7 +123,7 @@ def test_import_then_run_extends_and_links_the_chain(repo: Path) -> None:
 
 def test_failed_collection_still_publishes_a_verified_link(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     result = lc.run(repo, chain, 540, collector=collector([], exit_code=1))
     assert result["collector_exit_code"] == 1
     assert lc.verify(chain)["links"] == 2
@@ -122,28 +134,28 @@ def test_import_fails_closed_on_checksum_mismatch_and_nonempty_chain(repo: Path)
     chain = repo / "data/cache/chain"
     (artifact / "workspace.sha256").write_text("sha256:" + "0" * 64 + "\n")
     with pytest.raises(lc.ChainError, match="checksum mismatch"):
-        lc.import_actions(repo, chain, artifact, "1")
+        imp(repo, chain, artifact, "1")
     assert not (chain / "links").exists()
     (artifact / "workspace.sha256").write_text(lc.sha256_file(artifact / "workspace.zip"))
-    lc.import_actions(repo, chain, artifact, "1")
+    imp(repo, chain, artifact, "1")
     with pytest.raises(lc.ChainError, match="only seeds an empty chain"):
-        lc.import_actions(repo, chain, artifact, "1")
+        imp(repo, chain, artifact, "1")
     with pytest.raises(lc.ChainError, match="numeric"):
-        lc.import_actions(repo, repo / "data/cache/other", artifact, "abc")
+        imp(repo, repo / "data/cache/other", artifact, "abc")
 
 
 def test_run_refuses_empty_chain_without_fresh_and_fresh_on_populated(repo: Path) -> None:
     chain = repo / "data/cache/chain"
     with pytest.raises(lc.ChainError, match="empty chain"):
         lc.run(repo, chain, 540, collector=collector([]))
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     with pytest.raises(lc.ChainError, match="--fresh is refused"):
         lc.run(repo, chain, 540, fresh=True, collector=collector([]))
 
 
 def test_tampered_link_is_detected_and_blocks_extension(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     lc.run(repo, chain, 540, collector=collector([]))
     zip_path = chain / "links/000001/workspace.zip"
     zip_path.write_bytes(zip_path.read_bytes() + b"x")
@@ -156,7 +168,7 @@ def test_tampered_link_is_detected_and_blocks_extension(repo: Path) -> None:
 
 def test_broken_hash_link_and_stale_head_are_detected(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     lc.run(repo, chain, 540, collector=collector([]))
     head = (chain / "HEAD").read_text()
     (chain / "HEAD").write_text("1 sha256:" + "0" * 64 + "\n")
@@ -174,7 +186,7 @@ def test_broken_hash_link_and_stale_head_are_detected(repo: Path) -> None:
 
 def test_gap_in_sequence_and_concurrent_lock_are_refused(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     held = lc._lock(chain)
     try:
         with pytest.raises(lc.ChainError, match="lock"):
@@ -188,7 +200,7 @@ def test_gap_in_sequence_and_concurrent_lock_are_refused(repo: Path) -> None:
 
 def test_collector_crash_leaves_chain_unchanged(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     before = (chain / "HEAD").read_text()
 
     def boom(*_: object) -> int:
@@ -201,7 +213,7 @@ def test_collector_crash_leaves_chain_unchanged(repo: Path) -> None:
     assert not list(chain.glob(".stage-*"))
     # The work copy (possibly holding new evidence) is kept for inspection, never deleted.
     (kept,) = chain.glob(".failed-*")
-    assert monitors_in(kept) == 1
+    assert monitors_in(kept / "workspace") == 1
     assert lc.verify(chain)["links"] == 1
 
 
@@ -222,21 +234,21 @@ def test_import_refuses_trial_mismatched_or_unlabelled_artifacts(repo: Path) -> 
     chain = repo / "data/cache/chain"
     trial = seed_actions_artifact(repo, "trial", extra="event=push\n")
     with pytest.raises(lc.ChainError, match="chain head"):
-        lc.import_actions(repo, chain, trial, "1")
+        imp(repo, chain, trial, "1")
     head = seed_actions_artifact(repo, "head", run_id="42288775503")
     with pytest.raises(lc.ChainError, match="!= --source-run"):
-        lc.import_actions(repo, chain, head, "1")
+        imp(repo, chain, head, "1")
     with pytest.raises(lc.ChainError, match="--source-branch"):
-        lc.import_actions(repo, chain, head, "42288775503", source_branch="claude/x")
+        imp(repo, chain, head, "42288775503", source_branch="claude/x")
     (head / "lineage.txt").unlink()
     with pytest.raises(lc.ChainError, match=r"missing lineage.txt"):
-        lc.import_actions(repo, chain, head, "42288775503")
+        imp(repo, chain, head, "42288775503")
     assert not (chain / "links").exists()
 
 
 def test_tampering_with_any_link_file_is_detected(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     lc.run(repo, chain, 540, collector=collector([], exit_code=1))
     lineage = chain / "links/000002/lineage.txt"
     original = lineage.read_text()
@@ -254,7 +266,7 @@ def test_tampering_with_any_link_file_is_detected(repo: Path) -> None:
 
 def test_interrupted_head_update_is_rolled_forward_by_the_next_run(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     lagging = (chain / "HEAD").read_text()
     second = lc.run(repo, chain, 540, collector=collector([]), clock=lambda: FIXED)
     (chain / "HEAD").write_text(lagging)  # crash between the link rename and HEAD
@@ -279,10 +291,99 @@ def test_chain_outside_data_cache_is_refused_before_collection(repo: Path) -> No
 
 def test_clock_regression_and_duplicate_run_id_are_refused(repo: Path) -> None:
     chain = repo / "data/cache/chain"
-    lc.import_actions(repo, chain, seed_actions_artifact(repo), "1")
+    imp(repo, chain, seed_actions_artifact(repo), "1")
     lc.run(repo, chain, 540, collector=collector([]), clock=lambda: LATER)
     with pytest.raises(lc.ChainError, match="already exists"):
         lc.run(repo, chain, 540, collector=collector([]), clock=lambda: LATER)
     with pytest.raises(lc.ChainError, match="not later"):
         lc.run(repo, chain, 540, collector=collector([]), clock=lambda: FIXED)
     assert lc.verify(chain)["links"] == 2
+
+
+def test_stale_work_from_a_killed_run_blocks_until_inspected(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    imp(repo, chain, seed_actions_artifact(repo), "1")
+    (chain / ".work-999999").mkdir()
+    calls: list[tuple[Path, int, Path | None]] = []
+    with pytest.raises(lc.ChainError, match="stale"):
+        lc.run(repo, chain, 540, collector=collector(calls))
+    assert calls == []
+
+
+def test_consistent_rewrite_of_the_newest_link_is_detected_by_head(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    imp(repo, chain, seed_actions_artifact(repo), "1")
+    lc.run(repo, chain, 540, collector=collector([], exit_code=1))
+    link = chain / "links/000002"
+    lineage = link / "lineage.txt"
+    lineage.write_text(
+        lineage.read_text().replace("collector_exit_code=1", "collector_exit_code=0")
+    )
+    lc._write_manifest(link)
+    with pytest.raises(lc.ChainError, match="HEAD"):
+        lc.verify(chain)
+    with pytest.raises(lc.ChainError, match="HEAD"):
+        lc.run(repo, chain, 540, collector=collector([]))
+
+
+def test_run_clock_must_follow_the_import_clock(repo: Path) -> None:
+    chain = repo / "data/cache/chain"
+    imp(repo, chain, seed_actions_artifact(repo), "1")
+    before = datetime(2020, 1, 1, tzinfo=UTC)
+    with pytest.raises(lc.ChainError, match="imported_at"):
+        lc.run(repo, chain, 540, collector=collector([]), clock=lambda: before)
+
+
+def test_verify_refuses_a_missing_chain(repo: Path) -> None:
+    with pytest.raises(lc.ChainError, match="no chain"):
+        lc.verify(repo / "data/cache/typo")
+
+
+def test_failure_after_collection_keeps_workspace_and_outputs(
+    repo: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    chain = repo / "data/cache/chain"
+    imp(repo, chain, seed_actions_artifact(repo), "1")
+
+    def refuse(*_: object) -> None:
+        raise ValueError("snapshot budget exceeded")
+
+    monkeypatch.setattr(lc, "snapshot", refuse)
+    with pytest.raises(ValueError, match="budget"):
+        lc.run(repo, chain, 540, collector=collector([]))
+    (kept,) = chain.glob(".failed-*")
+    assert monitors_in(kept / "workspace") == 2
+    assert (kept / "out/runway-ledger.jsonl").is_file()
+    assert (kept / "out/summary.json").is_file()
+    assert not list(chain.glob(".stage-*")) + list(chain.glob(".work-*"))
+    assert lc.verify(chain)["links"] == 1
+
+
+CHILD = """
+import pathlib, sys, time
+try:
+    pathlib.Path(sys.argv[2]).write_text("ready")
+    time.sleep(60)
+except KeyboardInterrupt:
+    pathlib.Path(sys.argv[1]).write_text("stopped normally")
+"""
+
+PARENT = """
+import pathlib, signal, sys
+from entropytrade.operations import local_chain as lc
+signal.signal(signal.SIGTERM, lc._terminate)
+lc._run_child([sys.executable, "-c", *sys.argv[1:]], pathlib.Path.cwd())
+"""
+
+
+def test_sigterm_asks_the_collector_to_stop_normally(tmp_path: Path) -> None:
+    marker, ready = tmp_path / "marker", tmp_path / "ready"
+    parent = subprocess.Popen(  # noqa: S603
+        [sys.executable, "-c", PARENT, CHILD, str(marker), str(ready)]
+    )
+    deadline = time.monotonic() + 30
+    while not ready.exists() and time.monotonic() < deadline:
+        time.sleep(0.05)
+    parent.send_signal(signal.SIGTERM)
+    assert parent.wait(timeout=60) == 128 + signal.SIGTERM
+    assert marker.read_text() == "stopped normally"

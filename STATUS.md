@@ -30,7 +30,7 @@ expires about 2026-11-13.
   previous-hash links; records commit/dirty-tree provenance; fails closed on tampering, gaps,
   stale HEAD, concurrent runs and clock regression; never rewrites links or discards
   collected work. See docs/forward-operator.md.
-- Evidence: 14 controlled unit cases with real snapshot/restore; Ruff, strict mypy clean. The
+- Evidence: 20 controlled unit cases with real snapshot/restore; Ruff, strict mypy clean. The
   live collection subprocess was not run (no egress). Nothing attests a gate or touches the
   canonical chain.
 
