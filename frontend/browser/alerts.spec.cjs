@@ -53,7 +53,7 @@ test("operator alerts: acknowledgement, listener restart, recovery, recurrence a
     if (server.exitCode === null && server.signalCode === null) { server.kill("SIGKILL"); throw new Error("Listener shutdown timeout"); }
   }
   async function open() {
-    await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
+    await page.goto("about:blank"); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
     await page.locator("#shadow-history button").filter({ hasText: mid.slice(0, 8) }).click();
   }
   async function download(file) {

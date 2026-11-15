@@ -83,7 +83,7 @@ test("local operation and recovery: installed research, snapshot, restore and sh
   save();
   try {
     await start();
-    await page.goto(origin + "/#/workbench");
+    await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await page.getByLabel("Data source", { exact: true }).selectOption("synthetic");
     await page.getByLabel("Research idea", { exact: true }).fill("CONTROLLED synthetic software demonstration");
     await page.getByRole("button", { name: "Start research" }).click();

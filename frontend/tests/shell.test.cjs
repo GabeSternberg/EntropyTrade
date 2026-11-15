@@ -79,7 +79,10 @@ test("demo data is deterministic across loads and internally consistent", () => 
   const byCategory = p.by_category.reduce((sum, c) => sum + c.exposure, 0);
   assert.ok(Math.abs(byCategory - deployed) < 0.05);
   for (const x of p.positions) assert.ok(x.cost <= 250, "per-event cap respected");
+  const tools = load({ stored: "demo" }).ET.demoTools;
   for (const st of a.strategies.filter((s) => s.metrics)) {
     assert.ok(Math.abs(st.metrics.sharpe) < 3, `${st.name} has a plausible Sharpe ratio`);
+    // The 1× fees / 0¢ slippage cell is the reported backtest return.
+    assert.equal(tools.feeGrid(st).values[2][0], st.metrics.total_return);
   }
 });

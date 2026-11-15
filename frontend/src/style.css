@@ -307,9 +307,11 @@ th.num .th-btn { flex-direction: row-reverse; }
 .data-table tbody tr:hover td { background: var(--hover); }
 .data-table.dense td { padding-top: 8px; padding-bottom: 8px; }
 body.density-compact { --row-pad: 6px; }
-.cell-market { display: flex; flex-direction: column; gap: 2px; min-width: 200px; max-width: 420px; }
+.cell-market { display: flex; flex-direction: column; gap: 2px; min-width: 200px; max-width: 360px; }
 .cell-title { color: var(--text); font-weight: 520; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: flex; align-items: center; gap: 7px; }
 .cell-sub { color: var(--faint); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cat-chip { font-family: var(--font); font-size: 11px; font-weight: 600; margin-right: 8px; }
+.cat-chip::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 2px; background: currentColor; margin-right: 5px; vertical-align: 1px; }
 .stack-cell { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 1px; }
 .prob { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 64px; }
 .prob .meter { width: 64px; height: 4px; }
@@ -468,7 +470,10 @@ a.mini-main:hover .mini-title { color: var(--accent); }
 .cat-dot { grid-row: span 2; width: 10px; height: 26px; border-radius: 3px; background: currentColor; }
 .cat-name { font-weight: 600; color: var(--text); font-size: 13.5px; }
 .cat-meta { color: var(--muted); font-size: 11.5px; }
-.explorer { display: grid; grid-template-columns: 264px minmax(0, 1fr); gap: 18px; align-items: start; }
+.explorer { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 18px; align-items: start; }
+.explorer .cell-market { min-width: 190px; max-width: 250px; }
+.explorer .cell-title { white-space: normal; line-height: 1.35; }
+.explorer .data-table td, .explorer .data-table th { padding-left: 10px; padding-right: 10px; }
 .filters { position: sticky; top: 72px; padding: 16px; gap: 16px; display: flex; flex-direction: column; }
 .filter-head { display: flex; justify-content: space-between; align-items: center; }
 .field { display: flex; flex-direction: column; gap: 8px; }

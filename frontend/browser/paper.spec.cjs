@@ -55,7 +55,7 @@ for (const authentic of [false, true]) {
       const setup = spawnSync(python, ["-m", "tests.integration.paper_fixture", workspace, path.join(evidence, "setup.json"), ...(authentic ? ["--authentic"] : [])], { cwd: repo, env, encoding: "utf8", timeout: 120_000 });
       assert.equal(setup.status, 0, setup.stdout + setup.stderr);
       const seeded = JSON.parse(fs.readFileSync(path.join(evidence, "setup.json")));
-      await start(); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
+      await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
       await page.locator("#shadow-history button").filter({ hasText: seeded.monitor_id.slice(0, 8) }).click();
       await expect(page.locator("#paper-account")).toContainText("Simulated paper account");
       await expect(page.locator("#paper-account")).toContainText(authentic ? "eligibility can remain blocked" : "CONTROLLED SYNTHETIC");

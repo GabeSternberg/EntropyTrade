@@ -22,7 +22,7 @@
     const active = d.strategies.filter((s) => ["paper", "shadow"].includes(s.status)).length;
     const winRate = p.by_strategy.reduce((a, s) => a + s.win_rate * s.trades, 0) / p.by_strategy.reduce((a, s) => a + s.trades, 0);
     root.append(h("div", { class: "kpi-strip" },
-      kpi({ label: "Paper equity", value: fmt.usd(p.equity), deltaValue: p.equity / p.starting_balance - 1, sub: `from ${fmt.usd(p.starting_balance, 0)}`, iconName: "paper", spark: p.curve.filter((_, i) => i % 12 === 0).map((x) => x.y) }),
+      kpi({ label: "Paper equity", value: fmt.usd(p.equity), deltaValue: p.equity / p.starting_balance - 1, sub: `from ${fmt.usd(p.starting_balance, 0)}`, iconName: "paper" }),
       kpi({ label: "Today's P&L", value: fmt.signedUsd(p.today_pnl), kind: p.today_pnl >= 0 ? "pos" : "neg", sub: "simulated fills", iconName: "activity" }),
       kpi({ label: "Realized P&L", value: fmt.signedUsd(p.realized_pnl), kind: "pos", sub: `${fmt.usd(p.fees_paid)} fees`, iconName: "target" }),
       kpi({ label: "Win rate", value: fmt.pct(winRate), sub: `${p.by_strategy.reduce((a, s) => a + s.trades, 0)} settled trades`, iconName: "check" }),
@@ -44,7 +44,7 @@
         const ratio = l.used / l.limit;
         return h("div", { class: "limit-row" }, h("div", { class: "limit-head" }, h("span", l.name), h("span", { class: "mono" }, `${l.unit === "usd" ? fmt.usd(l.used, 0) : l.unit === "pct" ? `${l.used}%` : l.used} / ${l.unit === "usd" ? fmt.usd(l.limit, 0) : l.unit === "pct" ? `${l.limit}%` : l.limit}`)), meter(l.used, l.limit, ratio > 0.8 ? "neg" : ratio > 0.6 ? "warn" : ""));
       })));
-    root.append(grid("g-2-1", card({ title: "Paper equity", subtitle: "Demo account · 30 days", actions: rangeSel, source: "demo" }, chartHost), riskCard));
+    root.append(grid("g-2-1", card({ title: "Paper equity", subtitle: "Demo account · hourly marks", actions: rangeSel, source: "demo" }, chartHost), riskCard));
 
     const opps = d.markets.filter((m) => m.status === "open" && m.edge !== null).sort((a, b) => Math.abs(b.edge) - Math.abs(a.edge)).slice(0, 6);
     const oppTable = dataTable({
@@ -191,14 +191,12 @@
       h("label", { class: "check toggle" }, modelBox, h("span", "Only markets with a model estimate")));
 
     const columns = [
-      { key: "title", label: "Market", render: (m) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, m.title), h("span", { class: "cell-sub mono" }, m.ticker)) },
-      { key: "category", label: "Category", render: (m) => pill(m.category, `cat cat-${m.category.toLowerCase()}`) },
-      { key: "spark", label: "48h", sortable: false, render: (m) => sparkline(m.spark, { width: 96, height: 26 }) },
+      { key: "title", label: "Market", render: (m) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, m.title), h("span", { class: "cell-sub" }, h("span", { class: `cat-chip cat-${m.category.toLowerCase()}` }, m.category), h("span", { class: "mono" }, m.ticker))) },
+      { key: "spark", label: "48h", sortable: false, render: (m) => sparkline(m.spark, { width: 76, height: 26 }) },
       { key: "mid", label: "Implied", align: "num", sort: (m) => m.status === "open" ? (m.yes_bid + m.yes_ask) / 2 : m.last, render: (m) => m.status === "open" ? h("div", { class: "prob" }, h("strong", fmt.pct((m.yes_bid + m.yes_ask) / 2, 0)), meter((m.yes_bid + m.yes_ask) / 2, 1, "accent")) : statusPill(m.result === "yes" ? "Settled YES" : "Settled NO") },
       { key: "bidask", label: "Bid / Ask", align: "num", sort: (m) => m.spread ?? 99, render: (m) => m.status === "open" ? h("div", { class: "stack-cell" }, h("span", { class: "mono" }, `${fmt.cents(m.yes_bid)} / ${fmt.cents(m.yes_ask)}`), h("span", { class: "cell-sub" }, `${fmt.cents(m.spread)} spread`)) : "—" },
       { key: "change_24h", label: "24h", align: "num", render: (m) => h("span", { class: `num-${ET.tone(m.change_24h)}` }, `${m.change_24h > 0 ? "+" : ""}${Math.round(m.change_24h * 100)}¢`) },
-      { key: "volume_24h", label: "Volume", align: "num", render: (m) => fmt.compact(m.volume_24h) },
-      { key: "liquidity", label: "Depth", align: "num", render: (m) => fmt.compactUsd(m.liquidity) },
+      { key: "volume_24h", label: "Vol / Depth", align: "num", render: (m) => h("div", { class: "stack-cell" }, h("span", fmt.compact(m.volume_24h)), h("span", { class: "cell-sub" }, m.status === "open" ? fmt.compactUsd(m.liquidity) : "—")) },
       { key: "edge", label: "Model edge", align: "num", sort: (m) => m.edge ?? -9, render: (m) => (m.edge === null ? h("span", { class: "muted" }, "—") : h("span", { class: `num-${ET.tone(m.edge)}` }, fmt.pct(m.edge, 1, true))) },
       { key: "close", label: "Closes", align: "num", render: (m) => h("span", { class: "muted" }, m.status === "open" ? `in ${fmt.duration((m.close - d.now) / 1000)}` : fmt.date(m.close)) },
     ];
