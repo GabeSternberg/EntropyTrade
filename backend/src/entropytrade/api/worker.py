@@ -194,21 +194,12 @@ def _course_trace(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _redact_course_value(value: Any, key: str) -> Any:
-    if isinstance(value, str):
-        return value.replace(key, "[redacted]")
-    if isinstance(value, dict):
-        return {
-            name.replace(key, "[redacted]"): _redact_course_value(item, key)
-            for name, item in value.items()
-        }
-    if isinstance(value, list):
-        return [_redact_course_value(item, key) for item in value]
-    return value
-
-
 def _execute_course(jobs: Jobs, repo: Path, job_id: str) -> None:
-    from entropytrade.agents.course_demo import DEMO_PROVIDER, run_philadelphia_research
+    from entropytrade.agents.course_demo import (
+        DEMO_PROVIDER,
+        redact_course_value,
+        run_philadelphia_research,
+    )
     from entropytrade.agents.provider import ResearchCredentialError, research_key
 
     try:
@@ -217,14 +208,14 @@ def _execute_course(jobs: Jobs, repo: Path, job_id: str) -> None:
         jobs.update(
             job_id,
             "failed",
-            "Set GEMINI_API_KEY on the server and restart EntropyTrade.",
+            "Enter a Gemini API key or set GEMINI_API_KEY on the server.",
             status="failed",
         )
         return
     snapshot: dict[str, Any] = {"stages": [], "data_mode": "live_public"}
 
     def progress(stage: str, message: str) -> None:
-        if not jobs.update(job_id, stage, message, result=_redact_course_value(snapshot, key)):
+        if not jobs.update(job_id, stage, message, result=redact_course_value(snapshot, key)):
             raise InterruptedError("course run is no longer active")
 
     def sources_ready(sources: dict[str, Any]) -> None:
@@ -254,7 +245,7 @@ def _execute_course(jobs: Jobs, repo: Path, job_id: str) -> None:
         if status == "completed"
         else "Research failed. Inspect the failed stage and available trace events.",
         status=status,
-        result=_redact_course_value(_course_trace(trace), key),
+        result=_course_trace(trace),
     )
 
 

@@ -8,7 +8,7 @@
 
 ### Website
 
-Load `GEMINI_API_KEY` in the shell that starts the server, then run `uv run --locked entropytrade-web`. Open [CIS 1990 Research Demo](http://127.0.0.1:43128/#/cis1990) in Real Mode and click **Run Philadelphia Weather Research**. The latest course run can be reopened after a reload. The page shows public source receipts, validated stage outputs, candidate and Critic decisions, and a downloadable trace. A missing server credential disables the run button.
+Run `uv run --locked entropytrade-web` and open [CIS 1990 Research Demo](http://127.0.0.1:43128/#/cis1990) in Real Mode. Enter your **Gemini API key** and click **Run Philadelphia Weather Research**. The field is masked by default, has a **Show key** toggle, and clears when the server accepts the run. The entered key applies to that run. Leave the field blank if `GEMINI_API_KEY` is already set in the server's environment. The latest course run can be reopened after a reload, including its source receipts, decisions, and downloadable trace.
 
 ### CLI
 
@@ -32,6 +32,7 @@ For a source-only smoke test, run `uv run --locked entropytrade cis1990-demo --c
 | Controlled evaluation evidence | [controlled-dev-results-2026-11-15.json](evidence/controlled-dev-results-2026-11-15.json). Responses were scripted. |
 | Repository checks | Ruff lint and format and strict mypy passed. Full pytest with loopback access and one OpenMP/BLAS thread passed 1,506 tests. The final targeted suite passed 74 tests, including the partial-day forecast case added after full-suite collection. |
 | Website verification | Full pytest passed 1,510 tests. The 36 focused Python checks and 31 frontend unit checks passed. Real Chromium at port 43128 passed the controlled four-stage workflow, provider failure, missing-key and Demo Mode scenarios, and the existing shell regression. Authenticated Gemini verification requires a server-side key. |
+| Browser key entry | Chromium verified masking, the Show/Hide toggle, and clearing the field after queuing a controlled run. The focused Python tests verified server-key fallback and credential redaction from the registry and traces. |
 | Progress update notes | [checkin-progress-draft.md](checkin-progress-draft.md) |
 | Video recording instructions | [checkin-video-guide.md](checkin-video-guide.md) |
 

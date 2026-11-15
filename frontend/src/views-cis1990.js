@@ -142,20 +142,47 @@
     }
 
     const start = button("Run Philadelphia Weather Research", { variant: "primary", disabled: true }, "play");
+    const keyInput = h("input", {
+      id: "course-api-key", class: "input", type: "password", autocomplete: "off",
+      autocapitalize: "off", spellcheck: "false", maxlength: 512, "aria-describedby": "course-key-help",
+    });
+    const toggle = button("Show key", { variant: "ghost", "aria-controls": keyInput.id });
+    function setKeyVisible(visible) {
+      keyInput.type = visible ? "text" : "password";
+      toggle.textContent = visible ? "Hide key" : "Show key";
+    }
+    toggle.addEventListener("click", () => setKeyVisible(keyInput.type === "password"));
+    const keyHelp = h("p", { id: "course-key-help", class: "muted" }, "Applies to one run. The field clears when the run is queued.");
+    const credential = h("div", { class: "course-key" },
+      h("label", { class: "field-label", for: keyInput.id }, "Gemini API key"),
+      h("div", { class: "course-key-row" }, keyInput, toggle), keyHelp);
     const message = h("div", { role: "status", "aria-live": "polite" }, "Checking server configuration…");
     const content = h("div", { class: "stack" }, stageCards(null));
     const issue = h("div");
     header.append(h("div", { class: "page-actions" }, start));
-    root.append(message, issue, content);
+    root.append(credential, message, issue, content);
     const config = await ET.api(endpoint, { fresh: true });
     if (!ctx.isCurrent()) return;
+    if (config.configured) {
+      keyHelp.textContent += " Leave blank to use the server’s configured key.";
+    }
 
     let displayed;
-    async function post(path) {
+    let active = false;
+    let submitting = false;
+    function updateStart() {
+      start.disabled = active || submitting || (!config.configured && !keyInput.value.trim());
+    }
+    keyInput.addEventListener("input", updateStart);
+    keyInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") start.click();
+    });
+
+    async function post(path, body = {}) {
       const response = await fetch(path, {
         method: "POST", credentials: "same-origin",
         headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": config.csrf_token },
-        body: "{}",
+        body: JSON.stringify(body),
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Course request failed");
@@ -163,8 +190,8 @@
     }
     function render(job) {
       const result = job?.result;
-      const active = job && !terminal.has(job.status);
-      start.disabled = !config.configured || !!active;
+      active = !!job && !terminal.has(job.status);
+      updateStart();
       const cancel = active ? button("Cancel run", { variant: "ghost sm", onclick: async () => {
         if (!ctx.isCurrent()) return;
         try { await post(endpoint + "/" + job.id + "/cancel"); }
@@ -174,9 +201,6 @@
         h("span", { class: "muted" }, "Runtime · Gemini / " + config.model_name),
         ...(job ? [statusPill(job.status), h("span", job.detail)] : []),
         ...(cancel ? [cancel] : []));
-      if (!config.configured) {
-        issue.replaceChildren(callout("Set GEMINI_API_KEY on the server and restart EntropyTrade to run research.", "warn"));
-      }
       displayed = job?.updated_at;
       const failure = result?.failure;
       const controlled = result?.data_mode === "controlled_http";
@@ -211,19 +235,30 @@
     render(config.latest);
     if (config.latest && !terminal.has(config.latest.status)) void watch(config.latest.id);
     start.addEventListener("click", async () => {
-      if (!ctx.isCurrent() || ET.mode() !== "real") return;
-      start.disabled = true;
+      if (!ctx.isCurrent() || ET.mode() !== "real" || start.disabled) return;
+      setKeyVisible(false);
+      submitting = true;
+      keyInput.disabled = true;
+      toggle.disabled = true;
+      updateStart();
       issue.replaceChildren();
       message.textContent = "Queuing Philadelphia weather research…";
       content.replaceChildren(stageCards(null));
       try {
-        const result = await post(endpoint);
+        const result = await post(endpoint, { api_key: keyInput.value.trim() });
+        keyInput.value = "";
+        active = true;
         displayed = null;
-        await watch(result.id);
+        void watch(result.id);
       } catch (error) {
         if (!ctx.isCurrent()) return;
-        issue.replaceChildren(ET.errorState(error.message, ET.route));
+        issue.replaceChildren(callout(error.message, "error"));
         message.textContent = "Could not start the run.";
+      } finally {
+        submitting = false;
+        keyInput.disabled = false;
+        toggle.disabled = false;
+        updateStart();
       }
     });
   };

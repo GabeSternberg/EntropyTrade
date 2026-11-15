@@ -139,12 +139,13 @@ class Jobs:
             from entropytrade.weather.history import load_snapshot
 
             load_snapshot(self.root / "runs/weather-datasets" / clean["dataset_id"])
-        return self._enqueue(clean)
+        job_id, _ = self._enqueue(clean)
+        return job_id
 
-    def create_course(self) -> str:
+    def create_course(self) -> tuple[str, bool]:
         return self._enqueue(dict(_COURSE_REQUEST))
 
-    def _enqueue(self, clean: dict[str, Any]) -> str:
+    def _enqueue(self, clean: dict[str, Any]) -> tuple[str, bool]:
         job_id, now = str(uuid4()), timestamp()
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -156,7 +157,7 @@ class Jobs:
                     (COURSE_MODE,),
                 ).fetchone()
                 if active:
-                    return str(active["id"])
+                    return str(active["id"]), False
             count = db.execute(
                 "SELECT count(*) FROM jobs WHERE status IN ('queued', 'running')"
             ).fetchone()[0]
@@ -176,7 +177,7 @@ class Jobs:
                     else "Request saved; local templates or explicit synthetic mock reasoning",
                 ),
             )
-        return job_id
+        return job_id, True
 
     def get(self, job_id: str) -> dict[str, Any] | None:
         with self.connect() as db:
