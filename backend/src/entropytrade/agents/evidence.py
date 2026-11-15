@@ -37,7 +37,9 @@ class EvidenceConfig(DomainModel):
 
 
 class EvidenceQuery(DomainModel):
-    topic: Literal["coverage", "markets", "features", "models", "history"]
+    topic: Literal[
+        "coverage", "markets", "features", "models", "history", "current_markets", "weather"
+    ]
     offset: int = Field(default=0, ge=0, le=100_000)
     limit: int = Field(default=10, ge=1, le=20)
     ticker: str | None = Field(default=None, max_length=100)
@@ -63,7 +65,11 @@ class ResearchEvidence:
     """Built by trusted orchestration, never by an agent. No general file/SQL/network tool."""
 
     def __init__(
-        self, config: EvidenceConfig, *, history: list[dict[str, Any]] | None = None
+        self,
+        config: EvidenceConfig,
+        *,
+        history: list[dict[str, Any]] | None = None,
+        current_sources: dict[str, Any] | None = None,
     ) -> None:
         started = time.monotonic()
         self.config = config
@@ -284,6 +290,8 @@ class ResearchEvidence:
             }
         self.history = history or []
         self.calls: list[dict[str, Any]] = []
+        self.tool_activity: list[dict[str, Any]] = []
+        self.current_sources = current_sources or {}
         if time.monotonic() - started > config.load_timeout_seconds:
             raise TimeoutError("research evidence load exceeded deadline")
 
@@ -375,7 +383,33 @@ class ResearchEvidence:
         instance.models = {"status": "not_supplied", "models": {}, "data_kind": data.data_kind}
         instance.history = history or []
         instance.calls = []
+        instance.tool_activity = []
+        instance.current_sources = {}
         return instance
+
+    def inspect_for_role(self, query: EvidenceQuery, *, role: str) -> dict[str, Any]:
+        from entropytrade.domain.time import utc_now
+
+        started = time.monotonic()
+        event: dict[str, Any] = {
+            "tool": "inspect_evidence",
+            "role": role,
+            "topic": query.topic,
+            "started_at": utc_now().isoformat(),
+        }
+        try:
+            result = self.inspect(query)
+        except ValueError as exc:
+            event.update(status="failed", error=type(exc).__name__)
+            raise
+        else:
+            event.update(status="returned", evidence_id=result["evidence_id"])
+            return result
+        finally:
+            event.update(
+                finished_at=utc_now().isoformat(), latency_ms=(time.monotonic() - started) * 1000
+            )
+            self.tool_activity.append(event)
 
     def inspect(self, query: EvidenceQuery) -> dict[str, Any]:
         if len(self.calls) >= 32:
@@ -394,6 +428,8 @@ class ResearchEvidence:
             }
         elif query.topic == "models":
             value = self.models
+        elif query.topic in {"current_markets", "weather"}:
+            value = self.current_sources.get(query.topic, {"status": "not_configured"})
         else:
             items = self.history if query.topic == "history" else self.markets
             if query.ticker:

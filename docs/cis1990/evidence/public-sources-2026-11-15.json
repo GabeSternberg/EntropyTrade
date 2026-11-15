@@ -1,0 +1,204 @@
+{
+  "mode": "live_public_sources_only",
+  "current_markets": {
+    "source": "Kalshi public market listings and contract rules",
+    "status": "available",
+    "requests": [
+      {
+        "url": "https://api.elections.kalshi.com/trade-api/v2/markets?series_ticker=KXHIGHPHIL&status=open&limit=24",
+        "method": "GET",
+        "started_at": "2026-11-15T05:43:38.463392+00:00",
+        "http_status": 200,
+        "received_at": "2026-11-15T05:43:38.598852+00:00",
+        "response_sha256": "acd3a36680042c8979dfbc72847b797d829e60847196ac08bb12f9b328c3817d",
+        "status": "returned",
+        "finished_at": "2026-11-15T05:43:38.599963+00:00",
+        "latency_ms": 136.57729187980294
+      }
+    ],
+    "items": [
+      {
+        "ticker": "KXHIGHPHIL-26NOV15-T56",
+        "event_ticker": "KXHIGHPHIL-26NOV15",
+        "target_date": "2026-11-15",
+        "close_time": "2026-11-16T06:00:00+00:00",
+        "strike": {
+          "strike_type": "greater",
+          "floor": "56",
+          "cap": null
+        },
+        "rules": {
+          "rules_primary": "If the maximum temperature recorded at Philadelphia (CLIPHL) for Nov 15, 2026, is greater than 56\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.",
+          "rules_secondary": "Not all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "early_close_condition": "The Last Trading Time will be 11:59 PM local time on November 15, 2026 regardless of any data releases or events occurring. Expiration will occur on the sooner of the first 7:00 or 8:00\nAM ET following the release of the data for November 15, 2026, or one week after November 15, 2026.",
+          "settlement_sources": [
+            {
+              "name": "The Weather Company",
+              "url": "https://weather.com/kalshi"
+            }
+          ],
+          "settlement_basis": "contract_text",
+          "settlement_target_date": "2026-11-15",
+          "captured_at": "2026-11-15T05:43:38.598852Z",
+          "rules_hash": "sha256:20b74a99818df196594f97a83ad3762972cca4001dbebe7b043d02a2ff59c1c6"
+        }
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV15-T49",
+        "event_ticker": "KXHIGHPHIL-26NOV15",
+        "target_date": "2026-11-15",
+        "close_time": "2026-11-16T06:00:00+00:00",
+        "strike": {
+          "strike_type": "less",
+          "floor": null,
+          "cap": "49"
+        },
+        "rules": {
+          "rules_primary": "If the maximum temperature recorded at Philadelphia (CLIPHL) for Nov 15, 2026, is less than 49\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.",
+          "rules_secondary": "Not all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "early_close_condition": "The Last Trading Time will be 11:59 PM local time on November 15, 2026 regardless of any data releases or events occurring. Expiration will occur on the sooner of the first 7:00 or 8:00\nAM ET following the release of the data for November 15, 2026, or one week after November 15, 2026.",
+          "settlement_sources": [
+            {
+              "name": "The Weather Company",
+              "url": "https://weather.com/kalshi"
+            }
+          ],
+          "settlement_basis": "contract_text",
+          "settlement_target_date": "2026-11-15",
+          "captured_at": "2026-11-15T05:43:38.598852Z",
+          "rules_hash": "sha256:599f48bd41476ede0851dabe3e49b7bdec0efd892271dce1e2d809440b5bd3ab"
+        }
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV15-B55.5",
+        "event_ticker": "KXHIGHPHIL-26NOV15",
+        "target_date": "2026-11-15",
+        "close_time": "2026-11-16T06:00:00+00:00",
+        "strike": {
+          "strike_type": "between",
+          "floor": "55",
+          "cap": "56"
+        },
+        "rules": {
+          "rules_primary": "If the maximum temperature recorded at Philadelphia (CLIPHL) for Nov 15, 2026, is between 55-56\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.",
+          "rules_secondary": "Not all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "early_close_condition": "The Last Trading Time will be 11:59 PM local time on November 15, 2026 regardless of any data releases or events occurring. Expiration will occur on the sooner of the first 7:00 or 8:00\nAM ET following the release of the data for November 15, 2026, or one week after November 15, 2026.",
+          "settlement_sources": [
+            {
+              "name": "The Weather Company",
+              "url": "https://weather.com/kalshi"
+            }
+          ],
+          "settlement_basis": "contract_text",
+          "settlement_target_date": "2026-11-15",
+          "captured_at": "2026-11-15T05:43:38.598852Z",
+          "rules_hash": "sha256:559c0cca20f3d29a3536a34415b408dbc28a78a0ebf57ff077c2a1fea5072218"
+        }
+      },
+      {
+        "ticker": "KXHIGHPHIL-26NOV15-B53.5",
+        "event_ticker": "KXHIGHPHIL-26NOV15",
+        "target_date": "2026-11-15",
+        "close_time": "2026-11-16T06:00:00+00:00",
+        "strike": {
+          "strike_type": "between",
+          "floor": "53",
+          "cap": "54"
+        },
+        "rules": {
+          "rules_primary": "If the maximum temperature recorded at Philadelphia (CLIPHL) for Nov 15, 2026, is between 53-54\u00b0 fahrenheit according to The Weather Company, then the market resolves to Yes.",
+          "rules_secondary": "Not all weather data is the same. While checking a source like AccuWeather or Google Weather may help guide your decision, the official and final value used to determine this market is the maximum/minimum temperature as reported by the Weather Company.\n\nReading weather data\nPreliminary Weather Company data may be subject to rounding and conversion differences from the final reported value.\nUse caution when interpreting preliminary Weather Company readings.\n\nIf it is determined in the sole discretion of the Exchange that there is a material error in the initial non-preliminary publication, Expiration may be held until the publication of a non-materially-erroneous data revision or until the Expiration Date, whichever comes first. If no data is available at the end of this period, all markets will resolve to the last fair price determined by Kalshi. Please note, a status of \"Final\" on weather.com/kalshi is provided for convenience only, and does not guarantee data to be error-free and thus exempt from the above.",
+          "early_close_condition": "The Last Trading Time will be 11:59 PM local time on November 15, 2026 regardless of any data releases or events occurring. Expiration will occur on the sooner of the first 7:00 or 8:00\nAM ET following the release of the data for November 15, 2026, or one week after November 15, 2026.",
+          "settlement_sources": [
+            {
+              "name": "The Weather Company",
+              "url": "https://weather.com/kalshi"
+            }
+          ],
+          "settlement_basis": "contract_text",
+          "settlement_target_date": "2026-11-15",
+          "captured_at": "2026-11-15T05:43:38.598852Z",
+          "rules_hash": "sha256:c352da96b3b13496bff914a58d00decd74ebd5559413b29d8322a4e8b73f9ed3"
+        }
+      }
+    ],
+    "skipped_rows": 6,
+    "sampled_page_rows": 12,
+    "truncated": true
+  },
+  "weather": {
+    "source": "NWS hourly forecast",
+    "status": "available",
+    "scope": "Philadelphia local-calendar-day hourly maxima are forecast proxies",
+    "requests": [
+      {
+        "url": "https://api.weather.gov/points/39.87,-75.23",
+        "method": "GET",
+        "started_at": "2026-11-15T05:43:38.470453+00:00",
+        "http_status": 200,
+        "received_at": "2026-11-15T05:43:38.912776+00:00",
+        "response_sha256": "992633a6a65b80f816c4994fce9134a959243e929dd05cbc26e72d9a64363aff",
+        "status": "returned",
+        "finished_at": "2026-11-15T05:43:38.912836+00:00",
+        "latency_ms": 442.3838332295418
+      },
+      {
+        "url": "https://api.weather.gov/gridpoints/PHI/48,75/forecast/hourly",
+        "method": "GET",
+        "started_at": "2026-11-15T05:43:38.912841+00:00",
+        "http_status": 200,
+        "received_at": "2026-11-15T05:43:38.945483+00:00",
+        "response_sha256": "8b506d4a6057053b370eeef4ba2d937a31a6fb1f1bcd698f5121a43783782986",
+        "status": "returned",
+        "finished_at": "2026-11-15T05:43:38.947524+00:00",
+        "latency_ms": 34.68566574156284
+      }
+    ],
+    "items": [
+      {
+        "target_date": "2026-11-15",
+        "hours_returned": 24,
+        "hours_expected": 24,
+        "first_valid_at": "2026-11-15T05:00:00+00:00",
+        "last_valid_at": "2026-11-16T04:00:00+00:00",
+        "max_in_returned_hours_f": "52",
+        "projected_hourly_max_f": "52"
+      },
+      {
+        "target_date": "2026-11-16",
+        "hours_returned": 24,
+        "hours_expected": 24,
+        "first_valid_at": "2026-11-16T05:00:00+00:00",
+        "last_valid_at": "2026-11-17T04:00:00+00:00",
+        "max_in_returned_hours_f": "56",
+        "projected_hourly_max_f": "56"
+      },
+      {
+        "target_date": "2026-11-17",
+        "hours_returned": 24,
+        "hours_expected": 24,
+        "first_valid_at": "2026-11-17T05:00:00+00:00",
+        "last_valid_at": "2026-11-18T04:00:00+00:00",
+        "max_in_returned_hours_f": "59",
+        "projected_hourly_max_f": "59"
+      },
+      {
+        "target_date": "2026-11-18",
+        "hours_returned": 24,
+        "hours_expected": 24,
+        "first_valid_at": "2026-11-18T05:00:00+00:00",
+        "last_valid_at": "2026-11-19T04:00:00+00:00",
+        "max_in_returned_hours_f": "62",
+        "projected_hourly_max_f": "62"
+      }
+    ],
+    "published_at": "2026-11-15T00:34:50+00:00",
+    "product_generated_at": "2026-11-15T05:32:30+00:00",
+    "market_dates_with_forecast": [
+      "2026-11-15"
+    ],
+    "market_dates_with_full_forecast": [
+      "2026-11-15"
+    ]
+  }
+}
