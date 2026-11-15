@@ -282,6 +282,7 @@ def test_only_opted_in_worker_inherits_dedicated_key(
     for name in (
         "OPENAI_API_KEY",
         "ANTHROPIC_API_KEY",
+        "GEMINI_API_KEY",
         "KALSHI_API_KEY_ID",
         "AWS_SECRET_ACCESS_KEY",
     ):
@@ -308,6 +309,7 @@ def test_only_opted_in_worker_inherits_dedicated_key(
         for name in (
             "OPENAI_API_KEY",
             "ANTHROPIC_API_KEY",
+            "GEMINI_API_KEY",
             "OPENAI_BASE_URL",
             "KALSHI_API_KEY_ID",
             "AWS_SECRET_ACCESS_KEY",

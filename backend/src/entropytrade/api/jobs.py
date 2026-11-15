@@ -12,6 +12,12 @@ from typing import Any
 from uuid import UUID, uuid4
 
 TERMINAL = frozenset({"completed", "failed", "cancelled", "interrupted"})
+COURSE_MODE = "cis1990"
+_COURSE_REQUEST = {
+    "idea": "Philadelphia weather research",
+    "family": "weather",
+    "mode": COURSE_MODE,
+}
 # The queue and HTTP threads use separate connections, but native SQLite connection
 # teardown also shares process-wide mutexes. Keep open/use/close together across Jobs
 # instances; independent worker processes retain SQLite's normal transaction locking.
@@ -43,6 +49,8 @@ def provider_config(value: object) -> dict[str, str]:
 
 
 def validate_request(value: object, *, stored: bool = False) -> dict[str, Any]:
+    if stored and value == _COURSE_REQUEST:
+        return dict(_COURSE_REQUEST)
     base = {"idea", "family", "mode"}
     optional = {"reasoning", "enable_provider", "dataset_id"} | (
         {"research_provider"} if stored else set()
@@ -131,9 +139,24 @@ class Jobs:
             from entropytrade.weather.history import load_snapshot
 
             load_snapshot(self.root / "runs/weather-datasets" / clean["dataset_id"])
+        return self._enqueue(clean)
+
+    def create_course(self) -> str:
+        return self._enqueue(dict(_COURSE_REQUEST))
+
+    def _enqueue(self, clean: dict[str, Any]) -> str:
         job_id, now = str(uuid4()), timestamp()
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            course = clean["mode"] == COURSE_MODE
+            if course:
+                active = db.execute(
+                    "SELECT id FROM jobs WHERE status IN ('queued', 'running') "
+                    "AND json_extract(request, '$.mode') = ? LIMIT 1",
+                    (COURSE_MODE,),
+                ).fetchone()
+                if active:
+                    return str(active["id"])
             count = db.execute(
                 "SELECT count(*) FROM jobs WHERE status IN ('queued', 'running')"
             ).fetchone()[0]
@@ -149,7 +172,7 @@ class Jobs:
                     job_id,
                     now,
                     "Request saved; provider research explicitly authorized with fixed budgets"
-                    if clean.get("reasoning") == "provider"
+                    if course or clean.get("reasoning") == "provider"
                     else "Request saved; local templates or explicit synthetic mock reasoning",
                 ),
             )
@@ -179,9 +202,19 @@ class Jobs:
                 {**dict(r), "request": json.loads(r["request"])}
                 for r in db.execute(
                     "SELECT id, request, status, created_at, updated_at, detail FROM jobs "
-                    "ORDER BY created_at DESC LIMIT 50"
+                    "WHERE json_extract(request, '$.mode') != ? ORDER BY created_at DESC LIMIT 50",
+                    (COURSE_MODE,),
                 )
             ]
+
+    def latest_course(self) -> dict[str, Any] | None:
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT id FROM jobs WHERE json_extract(request, '$.mode') = ? "
+                "ORDER BY created_at DESC LIMIT 1",
+                (COURSE_MODE,),
+            ).fetchone()
+        return self.get(row["id"]) if row else None
 
     def queued(self) -> str | None:
         with self.connect() as db:
@@ -248,7 +281,8 @@ class Jobs:
                 return False
             now = timestamp()
             db.execute(
-                "UPDATE jobs SET status=?, detail=?, updated_at=?, result=? WHERE id=?",
+                "UPDATE jobs SET status=?, detail=?, updated_at=?, result=COALESCE(?, result) "
+                "WHERE id=?",
                 (
                     status,
                     detail,

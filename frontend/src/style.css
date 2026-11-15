@@ -685,3 +685,17 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* CIS 1990 research */
+[data-view="cis1990"] [aria-live] { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; }
+[data-view="cis1990"] [aria-live] > span { min-width: 0; overflow-wrap: anywhere; }
+[data-view="cis1990"] :is([role="status"], .course-detail, .course-result, .course-list) { overflow-wrap: anywhere; }
+[data-view="cis1990"] .course-stages { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; }
+[data-view="cis1990"] h2 { font-size: 17px; }
+[data-view="cis1990"] .course-detail summary { cursor: pointer; color: var(--text-2); }
+[data-view="cis1990"] .course-detail pre { margin: 7px 0 0; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: auto; max-height: 260px; white-space: pre-wrap; }
+[data-view="cis1990"] .course-result { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+[data-view="cis1990"] .course-result + .course-result { border-top: 1px solid var(--border); padding-top: 12px; }
+[data-view="cis1990"] .course-result .kv { width: 100%; }
+[data-view="cis1990"] .course-list { margin: 0; padding-left: 18px; }
+[data-view="cis1990"] .course-receipts { font-size: 11.5px; color: var(--muted); }

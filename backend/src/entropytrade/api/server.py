@@ -2,14 +2,15 @@
 
 import argparse
 import json
+import os
 import secrets
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from entropytrade.api.jobs import Jobs, identifier, provider_config
-from entropytrade.api.runner import Runner
+from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, provider_config
+from entropytrade.api.runner import COURSE_KEY_VARIABLE, Runner
 from entropytrade.api.workspace import acquire_workspace
 from entropytrade.api.workspace import workspace_path as workspace_path
 from entropytrade.tracking.runner import ShadowRunner
@@ -28,6 +29,7 @@ ASSETS = {
     "/views-markets.js": ("views-markets.js", "text/javascript; charset=utf-8"),
     "/views-lab.js": ("views-lab.js", "text/javascript; charset=utf-8"),
     "/views-ops.js": ("views-ops.js", "text/javascript; charset=utf-8"),
+    "/views-cis1990.js": ("views-cis1990.js", "text/javascript; charset=utf-8"),
     "/favicon.svg": ("favicon.svg", "image/svg+xml"),
 }
 
@@ -111,9 +113,9 @@ class Handler(BaseHTTPRequestHandler):
     def document(self, status: int, value: object) -> None:
         self.send(status, json.dumps(value, allow_nan=False).encode())
 
-    def job_route(self) -> tuple[str, str] | None:
+    def job_route(self, collection: str = "jobs") -> tuple[str, str] | None:
         parts = urlsplit(self.path).path.strip("/").split("/")
-        if len(parts) not in {3, 4} or parts[:2] != ["api", "jobs"]:
+        if len(parts) not in {3, 4} or parts[:2] != ["api", collection]:
             return None
         try:
             job_id = identifier(parts[2])
@@ -152,6 +154,29 @@ class Handler(BaseHTTPRequestHandler):
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
             )
+        elif path == "/api/cis1990":
+            from entropytrade.agents.course_demo import DEMO_MODEL
+
+            self.document(
+                200,
+                {
+                    "csrf_token": self.server.token,
+                    "configured": bool(os.environ.get(COURSE_KEY_VARIABLE, "").strip()),
+                    "model_name": DEMO_MODEL,
+                    "latest": self.server.jobs.latest_course(),
+                },
+            )
+        elif path.startswith("/api/cis1990/"):
+            route = self.job_route(COURSE_MODE)
+            job = self.server.jobs.get(route[0]) if route else None
+            if job is None or job["request"]["mode"] != COURSE_MODE or route is None:
+                self.document(404, {"error": "course run not found"})
+            elif route[1] == "":
+                self.document(200, job)
+            elif route[1] == "trace" and (job["result"] or {}).get("run_id") == route[0]:
+                self.document(200, job["result"])
+            else:
+                self.document(404, {"error": "course trace not available"})
         elif path == "/api/fees" or path.startswith("/api/fees/"):
             from entropytrade.execution.fee_evidence import FeeEvidenceStore
 
@@ -326,6 +351,7 @@ class Handler(BaseHTTPRequestHandler):
             if (
                 job is None
                 or route is None
+                or job["request"]["mode"] == COURSE_MODE
                 or route[1] not in {"", "report", "review", "shadow-inputs", "fee-evidence"}
             ):
                 self.document(404, {"error": "not found"})
@@ -383,6 +409,16 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
+            if self.path == "/api/cis1990":
+                if value != {}:
+                    raise ValueError("the course run takes no browser-supplied inputs")
+                if not os.environ.get(COURSE_KEY_VARIABLE, "").strip():
+                    self.document(
+                        503, {"error": "Set GEMINI_API_KEY on the server and restart EntropyTrade."}
+                    )
+                    return
+                self.document(202, {"id": self.server.jobs.create_course()})
+                return
             if self.path == "/api/weather/schedules":
                 self.document(202, self.server.labels.scheduler.create(value))
                 return
@@ -480,10 +516,13 @@ class Handler(BaseHTTPRequestHandler):
                 self.server.tracking.control(*monitor_route)
                 self.document(200, {"id": monitor_route[0]})
                 return
-            route = self.job_route()
+            course_route = self.job_route(COURSE_MODE)
+            route = course_route or self.job_route()
             if route and route[1] == "cancel" and value == {}:
                 job = self.server.jobs.get(route[0])
-                if job is not None:
+                if job is not None and (job["request"]["mode"] == COURSE_MODE) == bool(
+                    course_route
+                ):
                     changed = self.server.jobs.update(
                         route[0], "cancelled", "Cancelled by user", status="cancelled"
                     )

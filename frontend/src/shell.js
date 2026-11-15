@@ -69,7 +69,10 @@
       { key: "analytics", label: "Backtesting", icon: "analytics" },
       { key: "paper", label: "Paper Trading", icon: "paper" },
     ] },
-    { group: "Research", items: [{ key: "workbench", label: "Research Workbench", icon: "workbench" }] },
+    { group: "Research", items: [
+      { key: "workbench", label: "Research Workbench", icon: "workbench" },
+      { key: "cis1990", label: "CIS 1990 Research Demo", icon: "beaker" },
+    ] },
     { group: "System", items: [
       { key: "ops", label: "Data & Operations", icon: "ops" },
       { key: "settings", label: "Settings", icon: "settings" },

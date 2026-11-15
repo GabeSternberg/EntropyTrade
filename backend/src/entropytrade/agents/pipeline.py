@@ -321,6 +321,7 @@ async def run_research(
     run_id: str | None = None,
     timeout_seconds: float = 180,
     progress: Callable[[str, str], None] | None = None,
+    stage_complete: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     import json
     from dataclasses import asdict
@@ -585,6 +586,8 @@ async def run_research(
                             "output": payload,
                         }
                     )
+                    if stage_complete:
+                        stage_complete(result["stages"][-1])
                 note, hypotheses, candidates, critique = (context[r[0]] for r in roles)
                 result["note"] = note
                 result["hypotheses"] = hypotheses["hypotheses"]

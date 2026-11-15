@@ -7,9 +7,10 @@ import threading
 import time
 from pathlib import Path
 
-from entropytrade.api.jobs import Jobs, validate_request
+from entropytrade.api.jobs import COURSE_MODE, Jobs, validate_request
 
 RESEARCH_KEY_VARIABLE = "ENTROPYTRADE_RESEARCH_API_KEY"
+COURSE_KEY_VARIABLE = "GEMINI_API_KEY"
 
 
 def worker_environment(repo: Path, workspace: Path) -> dict[str, str]:
@@ -79,7 +80,10 @@ class Runner:
         # Missing research credentials are handled durably by the research pipeline.
         if request.get("reasoning") == "provider" and RESEARCH_KEY_VARIABLE in os.environ:
             environment[RESEARCH_KEY_VARIABLE] = os.environ[RESEARCH_KEY_VARIABLE]
-        if request.get("reasoning") == "provider":
+        course = request["mode"] == COURSE_MODE
+        if course and COURSE_KEY_VARIABLE in os.environ:
+            environment[COURSE_KEY_VARIABLE] = os.environ[COURSE_KEY_VARIABLE]
+        if course or request.get("reasoning") == "provider":
             for name in (
                 "HTTP_PROXY",
                 "HTTPS_PROXY",
