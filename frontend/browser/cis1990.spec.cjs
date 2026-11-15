@@ -107,8 +107,23 @@ test("CIS 1990 accepts a masked browser key and shows a controlled four-stage ru
     await page.reload();
     await expect(page.locator("#course-stage-critic [data-status]")).toHaveText("completed");
     await expect(key).toHaveValue("");
+    const labels = page.locator(".course-result dt").filter({ hasText: /^(Test|Falsification|Reason)$/ });
+    expect(await labels.count()).toBeGreaterThanOrEqual(3);
+    for (const label of await labels.all()) {
+      await expect(label).toHaveCSS("white-space", "nowrap");
+      await expect(label.locator("+ dd")).toHaveCSS("display", "inline");
+      await expect(label.locator("+ dd")).toHaveCSS("text-align", "left");
+    }
     await page.screenshot({ path: path.join(evidence, "cis1990-controlled.png"), fullPage: true });
+    await page.setViewportSize({ width: 2560, height: 900 });
+    expect(await page.locator('[data-view="cis1990"]').evaluate(view => view.clientWidth)).toBeGreaterThan(1560);
     await page.setViewportSize({ width: 375, height: 812 });
+    for (const label of await labels.all()) {
+      const [term, description] = await label.evaluate(element =>
+        [element, element.nextElementSibling].map(node => node.getBoundingClientRect().toJSON()));
+      expect(description.x).toBeCloseTo(term.x);
+      expect(description.width).toBeCloseTo(term.width);
+    }
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375);
     assert.deepEqual(errors, []);
   });
