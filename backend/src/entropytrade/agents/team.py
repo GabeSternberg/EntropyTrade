@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from pydantic_ai import Agent, RunContext
+from pydantic_ai import Agent, PromptedOutput, RunContext
 from pydantic_ai.models.test import TestModel
 
 from entropytrade.agents.deps import ResearchDeps
@@ -75,7 +75,7 @@ Keep all proposals falsifiable and retain missing-data conclusions. No trading a
 
 
 def operational_agent[T: DomainModel](
-    output_type: type[T], *, role: str
+    output_type: type[T], *, role: str, prompted_output: bool = False
 ) -> Agent[ResearchEvidence, T]:
     """The same typed PydanticAI boundary as the demo, with bounded real evidence tools."""
     from pydantic_ai import RunContext
@@ -84,7 +84,7 @@ def operational_agent[T: DomainModel](
 
     agent: Agent[ResearchEvidence, T] = Agent(
         deps_type=ResearchEvidence,
-        output_type=output_type,
+        output_type=PromptedOutput(output_type) if prompted_output else output_type,
         name=role,
         instructions=RESEARCH_INSTRUCTIONS,
         retries=1,

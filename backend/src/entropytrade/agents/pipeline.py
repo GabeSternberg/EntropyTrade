@@ -344,7 +344,11 @@ async def run_research(
         ResearchCritique,
     )
     from entropytrade.agents.pricing import PricedResearchModel, ResearchPricingError
-    from entropytrade.agents.provider import ResearchCredentialError, research_model
+    from entropytrade.agents.provider import (
+        ResearchCredentialError,
+        gemini_bad_request_reason,
+        research_model,
+    )
     from entropytrade.agents.team import (
         RESEARCH_INSTRUCTIONS_VERSION,
         operational_agent,
@@ -433,10 +437,16 @@ async def run_research(
         return cached
     usage = RunUsage()
     priced_model: PricedResearchModel | None = None
+    gemini = not offline and provider is not None and provider.provider == "gemini"
+    bootstrap_limits = {"history": 1}
+    if gemini and evidence.current_sources:
+        # Current contracts already provide rules. Limit the repeated historical sample
+        # so later stages can fit within the same token budget.
+        bootstrap_limits["markets"] = 3
     try:
         initial = [
             evidence.inspect_for_role(
-                EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10), role="bootstrap"
+                EvidenceQuery(topic=topic, limit=bootstrap_limits.get(topic, 10)), role="bootstrap"
             )
             for topic in ("coverage", "markets", "features", "models", "history")
         ]
@@ -511,7 +521,11 @@ async def run_research(
                     stage_timer = time.monotonic()
                     if progress is not None:
                         progress(f"research_{role}", f"Bounded research: {role}")
-                    agent = operational_agent(schema, role=role)
+                    # Gemini can reject the nested StrategySpec as a tool declaration.
+                    # Prompt for JSON and retain PydanticAI's local CandidateBatch validation.
+                    agent = operational_agent(
+                        schema, role=role, prompted_output=gemini and role == "quant"
+                    )
                     if role == "research" and evidence.current_sources:
                         instruction += (
                             " Call inspect_evidence for both current_markets and weather before "
@@ -635,6 +649,8 @@ async def run_research(
         }
         if isinstance(exc, ModelHTTPError):
             result["failure"]["http_status"] = exc.status_code
+            if gemini and exc.status_code == 400:
+                result["failure"]["reason"] = gemini_bad_request_reason(exc.body)
         result["report"] = (
             "Research failed ("
             + type(exc).__name__
