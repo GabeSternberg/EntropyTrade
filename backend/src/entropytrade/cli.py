@@ -6,6 +6,7 @@ import fcntl
 import json
 import os
 import signal
+import sys
 from pathlib import Path
 
 import pyarrow.parquet as pq  # type: ignore[import-untyped]
@@ -92,6 +93,11 @@ def _parser() -> argparse.ArgumentParser:
     research.add_argument("--offline", action="store_true")
     research.add_argument("--registry", type=Path, required=True)
     research.add_argument("--output", type=Path, required=True)
+    course = commands.add_parser("cis1990-demo", help="Gemini research on Philadelphia daily highs")
+    course.add_argument("--output", type=Path, help="trace directory (default data/cache/cis1990)")
+    course.add_argument(
+        "--check-sources", action="store_true", help="verify the two public sources without Gemini"
+    )
     integrated = commands.add_parser(
         "research-and-test", help="prompt to deterministic protected strategy experiments"
     )
@@ -208,7 +214,8 @@ async def _collect(args: argparse.Namespace, store: Recorder) -> None:
 
 
 def main() -> None:
-    args = _parser().parse_args()
+    parser = _parser()
+    args = parser.parse_args()
     if args.command is None:
         print(f"entropytrade {__version__} (default trading mode: {DEFAULT_TRADING_MODE.value})")
     elif args.command == "bitcoin-history":
@@ -356,6 +363,22 @@ def main() -> None:
             raise SystemExit(
                 "Research failed; configure the research key and explicit provider opt-in."
             )
+    elif args.command == "cis1990-demo":
+        from entropytrade.agents.course_demo import DEMO_OUTPUT, run_course_demo
+        from entropytrade.agents.provider import ResearchCredentialError
+
+        try:
+            status = asyncio.run(
+                run_course_demo(
+                    output=args.output or DEMO_OUTPUT,
+                    check_sources=args.check_sources,
+                    emit=lambda message: print(message, flush=True),
+                )
+            )
+        except ResearchCredentialError as exc:
+            parser.exit(2, f"cis1990-demo: {exc}.\n")
+        if status:
+            sys.exit(status)
     elif args.command == "research":
         from entropytrade.agents.evidence import EvidenceConfig, ResearchEvidence, previous_research
         from entropytrade.agents.pipeline import run_research

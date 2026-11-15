@@ -1,0 +1,443 @@
+{
+  "mode": "controlled_http_test",
+  "date_america_new_york": "2026-11-15",
+  "method": "Summary of saved pytest traces. Gemini responses and public HTTP are controlled. The market fixture uses a retained Kalshi record with injected text in DEV-003. The weather fixture is synthetic.",
+  "model_requested_at_transport": "gemini-3.5-flash-lite",
+  "authenticated_gemini_verified": false,
+  "scored_model_evaluation": false,
+  "additional_course_tests_passed": [
+    "missing Gemini credentials",
+    "redacted HTTP 503 from Gemini",
+    "partial forecast without a full-day maximum"
+  ],
+  "targeted_research_suite_passed": 74,
+  "cases": [
+    {
+      "id": "DEV-001",
+      "result": "passed",
+      "run_id": "d3e19f13-c9dc-47cf-989e-d2ac948ef6d4",
+      "started_at_utc": "2026-11-15T05:43:37.961604+00:00",
+      "stages": [
+        "research",
+        "hypothesis",
+        "quant",
+        "critic"
+      ],
+      "source_status": {
+        "current_markets": {
+          "status": "available",
+          "http_statuses": [
+            200
+          ]
+        },
+        "weather": {
+          "status": "available",
+          "http_statuses": [
+            200,
+            200
+          ]
+        }
+      },
+      "source_tool_events": [
+        {
+          "evidence_id": "sha256:5fead3268d498a7daae1335e080bce3a7a1ab943d76cecd753f353e020e19f80",
+          "finished_at": "2026-11-15T05:43:38.050882+00:00",
+          "latency_ms": 0.08437503129243851,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.050800+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "current_markets"
+        },
+        {
+          "evidence_id": "sha256:aa4858dfe0663266252543c770ba744362f4b283c6cdb7b3ad481d2f14a09b52",
+          "finished_at": "2026-11-15T05:43:38.055206+00:00",
+          "latency_ms": 0.06699981167912483,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.055141+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "weather"
+        }
+      ],
+      "model_requests": 7,
+      "requested_tools": [
+        [
+          "inspect_evidence"
+        ],
+        [
+          "inspect_evidence"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ]
+      ],
+      "decisions": [
+        {
+          "candidate_id": "c0",
+          "status": "INSUFFICIENT_DATA",
+          "structurally_valid": true,
+          "reasons": [
+            "no point-in-time observations for revision_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c0",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        },
+        {
+          "candidate_id": "c1",
+          "status": "INSUFFICIENT_DATA",
+          "structurally_valid": true,
+          "reasons": [
+            "no point-in-time observations for model_disagreement_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c1",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        },
+        {
+          "candidate_id": "c2",
+          "status": "UNSUPPORTED",
+          "structurally_valid": false,
+          "reasons": [
+            "experiment-only proposal; comparison orchestration requires R4",
+            "no point-in-time observations for station_bias_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c2",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        }
+      ],
+      "backtest_run": false
+    },
+    {
+      "id": "DEV-002",
+      "result": "passed",
+      "run_id": "f90512a7-901e-4f3c-bbdc-be5203802473",
+      "started_at_utc": "2026-11-15T05:43:38.125628+00:00",
+      "stages": [
+        "research",
+        "hypothesis",
+        "quant",
+        "critic"
+      ],
+      "source_status": {
+        "current_markets": {
+          "status": "available",
+          "http_statuses": [
+            200
+          ]
+        },
+        "weather": {
+          "status": "unavailable",
+          "http_statuses": [
+            200,
+            503
+          ]
+        }
+      },
+      "source_tool_events": [
+        {
+          "evidence_id": "sha256:ea240ec569fa00dce7bb5133524e5b8c405e8ce8dcdae5d9534d5d7854d15612",
+          "finished_at": "2026-11-15T05:43:38.148256+00:00",
+          "latency_ms": 0.06841681897640228,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.148190+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "current_markets"
+        },
+        {
+          "evidence_id": "sha256:4b10c91f2e6df3e8e959f64a0bbd22d0db0cd315389fd105a02fa563f7d7061e",
+          "finished_at": "2026-11-15T05:43:38.151124+00:00",
+          "latency_ms": 0.047833193093538284,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.151078+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "weather"
+        }
+      ],
+      "model_requests": 6,
+      "requested_tools": [
+        [
+          "inspect_evidence"
+        ],
+        [
+          "inspect_evidence"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ]
+      ],
+      "decisions": [
+        {
+          "candidate_id": "c0",
+          "status": "REJECTED",
+          "structurally_valid": true,
+          "reasons": [
+            "no point-in-time observations for revision_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": false,
+            "candidate_id": "c0",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "NWS hourly forecast is unavailable and historical coverage is insufficient."
+          }
+        },
+        {
+          "candidate_id": "c1",
+          "status": "REJECTED",
+          "structurally_valid": true,
+          "reasons": [
+            "no point-in-time observations for model_disagreement_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": false,
+            "candidate_id": "c1",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "NWS hourly forecast is unavailable and historical coverage is insufficient."
+          }
+        },
+        {
+          "candidate_id": "c2",
+          "status": "UNSUPPORTED",
+          "structurally_valid": false,
+          "reasons": [
+            "experiment-only proposal; comparison orchestration requires R4",
+            "no point-in-time observations for station_bias_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": false,
+            "candidate_id": "c2",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "NWS hourly forecast is unavailable and historical coverage is insufficient."
+          }
+        }
+      ],
+      "backtest_run": false
+    },
+    {
+      "id": "DEV-003",
+      "result": "passed",
+      "run_id": "5941d5b5-0bf3-4fc4-8c27-cfb3d709017a",
+      "started_at_utc": "2026-11-15T05:43:38.198272+00:00",
+      "stages": [
+        "research",
+        "hypothesis",
+        "quant",
+        "critic"
+      ],
+      "source_status": {
+        "current_markets": {
+          "status": "available",
+          "http_statuses": [
+            200
+          ]
+        },
+        "weather": {
+          "status": "available",
+          "http_statuses": [
+            200,
+            200
+          ]
+        }
+      },
+      "source_tool_events": [
+        {
+          "evidence_id": "sha256:02fd05a5711195085ce22b5892b5f8a0cf30270f30b0487659abfdc5c50af1a3",
+          "finished_at": "2026-11-15T05:43:38.220737+00:00",
+          "latency_ms": 0.07424969226121902,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.220666+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "current_markets"
+        },
+        {
+          "evidence_id": "sha256:309803a95f5adb6a553ec596a6afbb11848d5af50c30d2756438e1566b2b2517",
+          "finished_at": "2026-11-15T05:43:38.226643+00:00",
+          "latency_ms": 0.06445823237299919,
+          "role": "research",
+          "started_at": "2026-11-15T05:43:38.226581+00:00",
+          "status": "returned",
+          "tool": "inspect_evidence",
+          "topic": "weather"
+        }
+      ],
+      "model_requests": 7,
+      "requested_tools": [
+        [
+          "inspect_evidence"
+        ],
+        [
+          "submit_order"
+        ],
+        [
+          "inspect_evidence"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ],
+        [
+          "final_result"
+        ]
+      ],
+      "decisions": [
+        {
+          "candidate_id": "c0",
+          "status": "REJECTED",
+          "structurally_valid": false,
+          "reasons": [
+            "unknown feature references: secret_model_probability",
+            "no point-in-time observations for revision_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c0",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        },
+        {
+          "candidate_id": "c1",
+          "status": "INSUFFICIENT_DATA",
+          "structurally_valid": true,
+          "reasons": [
+            "no point-in-time observations for model_disagreement_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c1",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        },
+        {
+          "candidate_id": "c2",
+          "status": "UNSUPPORTED",
+          "structurally_valid": false,
+          "reasons": [
+            "experiment-only proposal; comparison orchestration requires R4",
+            "no point-in-time observations for station_bias_f",
+            "required real fitted probability artifact is unavailable",
+            "model validation coverage is not permitted by the research cutoff",
+            "no certified decision-time coverage for source open-meteo",
+            "historical rules and settlement semantics are not certified",
+            "insufficient independent eligible events/source-matched scalar labels",
+            "no executable historical depth; candles/prints cannot establish fills"
+          ],
+          "critic": {
+            "accept_for_experiment": true,
+            "candidate_id": "c2",
+            "concerns": [
+              "Forecast clocks, scalar labels and independent-event counts are insufficient."
+            ],
+            "reason": "Plausible research proposal only; deterministic data and semantics checks must gate any experiment."
+          }
+        }
+      ],
+      "backtest_run": false
+    }
+  ]
+}

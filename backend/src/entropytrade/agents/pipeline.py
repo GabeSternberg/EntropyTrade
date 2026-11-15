@@ -5,6 +5,7 @@ agents run. TestModel supplies the demo outputs; a live provider is not called.
 """
 
 import asyncio
+import time
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -327,6 +328,7 @@ async def run_research(
     from pathlib import Path
     from uuid import uuid4
 
+    from pydantic_ai.exceptions import ModelHTTPError
     from pydantic_ai.models.function import FunctionModel
     from pydantic_ai.usage import RunUsage, UsageLimits
     from pydantic_core import to_jsonable_python
@@ -387,6 +389,7 @@ async def run_research(
         "pydantic_ai_version": version("pydantic-ai-slim"),
         "code": {p.name: file_hash(p) for p in Path(__file__).parent.glob("*.py")},
         "coverage": evidence.coverage,
+        "current_sources": evidence.current_sources,
         "models": evidence.models,
         "hypotheses": [],
         "candidates": [],
@@ -409,6 +412,7 @@ async def run_research(
             "mode": result["mode"],
             "provider": result["provider"],
             "coverage": result["coverage"],
+            **({"current_sources": evidence.current_sources} if evidence.current_sources else {}),
             "model_diagnostics": result["models"],
             "instruction_version": RESEARCH_INSTRUCTIONS_VERSION,
             "code": result["code"],
@@ -429,7 +433,9 @@ async def run_research(
     priced_model: PricedResearchModel | None = None
     try:
         initial = [
-            evidence.inspect(EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10))
+            evidence.inspect_for_role(
+                EvidenceQuery(topic=topic, limit=1 if topic == "history" else 10), role="bootstrap"
+            )
             for topic in ("coverage", "markets", "features", "models", "history")
         ]
         template_outputs = None
@@ -447,6 +453,7 @@ async def run_research(
             actual = research_model(provider)
             priced_model = PricedResearchModel(actual, stage=lambda: str(result["active_stage"]))
             result["responses"] = priced_model.responses
+            result["model_request_failures"] = priced_model.request_failures
             models = (priced_model,) * 4
         limits = UsageLimits(
             cost_limit=None if offline else Decimal("2.00"),
@@ -498,9 +505,18 @@ async def run_research(
             async with asyncio.timeout(timeout_seconds):
                 for index, (role, schema, instruction) in enumerate(roles):
                     result["active_stage"] = role
+                    stage_started = utc_now()
+                    stage_timer = time.monotonic()
                     if progress is not None:
                         progress(f"research_{role}", f"Bounded research: {role}")
                     agent = operational_agent(schema, role=role)
+                    if role == "research" and evidence.current_sources:
+                        instruction += (
+                            " Call inspect_evidence for both current_markets and weather before "
+                            "returning. Cite both responses, including any source failure. Compare "
+                            "forecasts and rules for matching dates. A full-day hourly maximum is "
+                            "a proxy. Partial maxima represent only the hours covered."
+                        )
                     message = (
                         instruction
                         + "\n\nUntrusted request and evidence:\n"
@@ -547,11 +563,22 @@ async def run_research(
                     seen = {entry["evidence_id"] for entry in evidence.calls}
                     if index == 0 and not set(payload["evidence_ids"]) <= seen:
                         raise ValueError("research note contains an unretrieved citation")
+                    if index == 0 and evidence.current_sources:
+                        cited_topics = {
+                            c["query"]["topic"]
+                            for c in evidence.calls[before:]
+                            if c["evidence_id"] in payload["evidence_ids"]
+                        }
+                        if not set(evidence.current_sources) <= cited_topics:
+                            raise ValueError("research note must cite both current source results")
                     context[role] = payload
                     context["retrieved_evidence"] = evidence.calls
                     result["stages"].append(
                         {
                             "role": role,
+                            "started_at": stage_started.isoformat(),
+                            "finished_at": utc_now().isoformat(),
+                            "latency_ms": (time.monotonic() - stage_timer) * 1000,
                             "returned_models": returned_models,
                             "prompt_hash": scientific_hash(message),
                             "prompt": message,
@@ -602,6 +629,8 @@ async def run_research(
                 "inspect the failure type and stage. No fallback or experiment was run."
             ),
         }
+        if isinstance(exc, ModelHTTPError):
+            result["failure"]["http_status"] = exc.status_code
         result["report"] = (
             "Research failed ("
             + type(exc).__name__
@@ -614,11 +643,12 @@ async def run_research(
             result["report"] = "Research interrupted; no candidates validated."
         result["finished_at"] = utc_now().isoformat()
         result["tool_calls"] = evidence.calls
+        result["tool_activity"] = evidence.tool_activity
         result["pricing_status"] = (
             "unavailable"
             if priced_model is not None and priced_model.refused
             else "available"
-            if priced_model is not None and priced_model.responses
+            if priced_model is not None and priced_model.observed_usage.cost is not None
             else "not_observed"
         )
         result["usage"] = to_jsonable_python(asdict(usage))

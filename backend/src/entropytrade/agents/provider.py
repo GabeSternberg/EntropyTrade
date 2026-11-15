@@ -3,16 +3,20 @@
 import os
 from typing import Literal
 
+from google.genai.types import HttpRetryOptions
 from pydantic import Field
 from pydantic_ai.models import Model
 from pydantic_ai.models.anthropic import AnthropicModel
+from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.anthropic import AnthropicProvider
+from pydantic_ai.providers.google import GoogleProvider
 from pydantic_ai.providers.openai import OpenAIProvider
 
 from entropytrade.domain.base import DomainModel
 
 RESEARCH_KEY_VARIABLE = "ENTROPYTRADE_RESEARCH_API_KEY"
+GEMINI_KEY_VARIABLE = "GEMINI_API_KEY"
 
 
 class ResearchCredentialError(ValueError):
@@ -22,8 +26,16 @@ class ResearchCredentialError(ValueError):
 class ResearchProviderConfig(DomainModel):
     """Serializable public configuration. Credentials are deliberately absent."""
 
-    provider: Literal["openai", "anthropic"]
+    provider: Literal["openai", "anthropic", "gemini"]
     model_name: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:/-]*$")
+
+
+def research_key(config: ResearchProviderConfig) -> str:
+    variable = GEMINI_KEY_VARIABLE if config.provider == "gemini" else RESEARCH_KEY_VARIABLE
+    key = os.environ.get(variable, "").strip()
+    if not key:
+        raise ResearchCredentialError(f"set {variable} for provider-backed research")
+    return key
 
 
 def research_model(config: ResearchProviderConfig) -> Model:
@@ -32,9 +44,14 @@ def research_model(config: ResearchProviderConfig) -> Model:
     Does not opt into requests, mutate the fixture guard or use ambient SDK base URLs.
     A later isolated research worker must scope and budget actual provider calls.
     """
-    key = os.environ.get(RESEARCH_KEY_VARIABLE, "").strip()
-    if not key:
-        raise ResearchCredentialError(f"set {RESEARCH_KEY_VARIABLE} for provider-backed research")
+    key = research_key(config)
+    if config.provider == "gemini":
+        google = GoogleProvider(
+            api_key=key,
+            base_url="https://generativelanguage.googleapis.com",
+            retry_options=HttpRetryOptions(attempts=1),
+        )
+        return GoogleModel(config.model_name, provider=google, settings={"thinking": False})
     if config.provider == "openai":
         selected = OpenAIProvider(api_key=key, base_url="https://api.openai.com/v1")
         selected.client.max_retries = 0

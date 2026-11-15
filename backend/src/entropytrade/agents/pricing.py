@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
+import time
 from dataclasses import asdict
 from typing import TYPE_CHECKING, Any
 
+from pydantic_ai.exceptions import ModelHTTPError
+from pydantic_ai.messages import ToolCallPart
 from pydantic_ai.models.wrapper import WrapperModel
 from pydantic_ai.usage import RunUsage
 from pydantic_core import to_jsonable_python
+
+from entropytrade.domain.time import utc_now
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -34,6 +39,7 @@ class PricedResearchModel(WrapperModel):
         super().__init__(model)
         self.stage = stage
         self.responses: list[dict[str, Any]] = []
+        self.request_failures: list[dict[str, Any]] = []
         self.observed_usage = RunUsage()
         self.refused = False
 
@@ -45,8 +51,23 @@ class PricedResearchModel(WrapperModel):
     ) -> ModelResponse:
         if self.refused:
             raise ResearchPricingError("provider response pricing is unavailable")
+        started = time.monotonic()
+        receipt: dict[str, Any] = {"stage": self.stage(), "started_at": utc_now().isoformat()}
         self.observed_usage.requests += 1
-        response = await self.wrapped.request(messages, model_settings, model_request_parameters)
+        try:
+            response = await self.wrapped.request(
+                messages, model_settings, model_request_parameters
+            )
+        except BaseException as exc:
+            receipt.update(status="failed", error=type(exc).__name__)
+            if isinstance(exc, ModelHTTPError):
+                receipt["http_status"] = exc.status_code
+            self.request_failures.append(receipt)
+            raise
+        finally:
+            receipt.update(
+                finished_at=utc_now().isoformat(), latency_ms=(time.monotonic() - started) * 1000
+            )
         if response.usage.cost is None:
             try:
                 response.usage.cost = response.cost().total_price
@@ -57,16 +78,16 @@ class PricedResearchModel(WrapperModel):
             self.refused = True
             response.usage.cost = None
         self.observed_usage.incr(response.usage)
-        self.responses.append(
-            {
-                "stage": self.stage(),
-                "model_name": response.model_name,
-                "provider_name": response.provider_name,
-                "provider_response_id": response.provider_response_id,
-                "timestamp": response.timestamp.isoformat(),
-                "usage": to_jsonable_python(asdict(response.usage)),
-            }
+        receipt.update(
+            status="unpriced" if self.refused else "returned",
+            model_name=response.model_name,
+            provider_name=response.provider_name,
+            provider_response_id=response.provider_response_id,
+            timestamp=response.timestamp.isoformat(),
+            usage=to_jsonable_python(asdict(response.usage)),
+            requested_tools=[p.tool_name for p in response.parts if isinstance(p, ToolCallPart)],
         )
+        self.responses.append(receipt)
         if self.refused:
             raise ResearchPricingError("provider response pricing is unavailable")
         return response
