@@ -117,7 +117,7 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
     walk(root); return inventory;
   }
   async function verifyReopened(name) {
-    await page.goto(origin);
+    await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download(name + "-schedule.json", "Download forward validation state"), stateBytes);
     assert.deepEqual(await (await fetch(origin + "/api/weather/label-partitions")).json(), partitionRows);
@@ -131,7 +131,7 @@ test("bounded label partitions: 130 controlled batches, outage, cancellation, re
   page.on("pageerror", error => { receipt.page_errors.push(error.message); save(); }); save();
   try {
     phase("official"); command(["-m", "tests.integration.label_partition_fixture", workspace], "seed-controlled");
-    await start(); await page.goto(origin); await expect(page.locator("#submit")).toBeEnabled();
+    await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
     await page.locator("#weather-schedule-optin").check();
     await page.locator("#weather-schedule-interval").selectOption("300");
     await page.locator("#weather-schedule-batch").selectOption("1");

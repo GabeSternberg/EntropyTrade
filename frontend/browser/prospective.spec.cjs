@@ -55,7 +55,7 @@ for (const authentic of [false, true]) {
       receipt.downloads.push({ file, sha256: sha(bytes) }); save(); return bytes;
     }
     async function inspect(mid, screenshot) {
-      await page.goto(origin); await expect(page.locator("#submit")).toBeEnabled();
+      await page.goto("about:blank"); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
       await page.locator("#shadow-history button").filter({ hasText: mid.slice(0, 8) }).click();
       await expect(page.locator("#shadow-evaluation")).toContainText("evidence cutoff");
       await expect(page.locator("#shadow-evaluation")).toContainText(authentic ? "Insufficient evidence: no forecast metrics" : "CONTROLLED SYNTHETIC");

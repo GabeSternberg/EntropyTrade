@@ -80,7 +80,7 @@ test("authentic weather labels: acquire, inspect provenance, freeze and restart"
     assert.equal(seeded.status, 0, seeded.stdout + seeded.stderr);
     fs.copyFileSync(imported, path.join(evidence, "authentic-inputs.json"), fs.constants.COPYFILE_EXCL);
     receipt.operations.push({ action: "import", evidence: JSON.parse(fs.readFileSync(path.join(evidence, "authentic-inputs.json"))) }); save();
-    await start(); await page.goto(origin);
+    await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#submit")).toBeEnabled();
     await page.getByRole("button", { name: "Freeze retained weather dataset", exact: true }).click();
     await expect(page.locator("#weather-message")).toContainText("Immutable dataset selected");
@@ -154,7 +154,7 @@ test("authentic weather labels: acquire, inspect provenance, freeze and restart"
       await expect(page.locator("#result-content")).toContainText("Final holdout is excluded");
       await screenshot(tab.replaceAll(/[^a-z]/gi, "-"));
     }
-    await stop(); await start(); await page.goto(origin);
+    await stop(); await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#weather-dataset")).toHaveValue(selected);
     await page.locator("#history button").filter({ has: page.getByText(idea, { exact: true }) }).click();
     await expect(page.locator("#run-header .badge").first()).toHaveText("completed");

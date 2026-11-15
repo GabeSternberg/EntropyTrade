@@ -108,7 +108,7 @@ test("provider-backed website: opt-in, typed candidates, failures, cancellation 
   }
   save();
   try {
-    await start(true); await page.goto(origin);
+    await start(true); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     const idea = "CONTROLLED provider transport: investigate Philadelphia forecast revisions and model disagreement";
     await submit(idea);
     await expect(page.locator("#run-header .badge").first()).toHaveText("completed", { timeout: 90_000 });
@@ -172,7 +172,7 @@ test("provider-backed website: opt-in, typed candidates, failures, cancellation 
     const interrupted = "CONTROLLED slow: interrupt provider request";
     await submit(interrupted);
     await expect(page.locator("#progress")).toContainText("research_research", { timeout: 30_000 });
-    await stop(); await start(false); await page.goto(origin);
+    await stop(); await start(false); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await reopen(interrupted, "interrupted"); await screenshot("recovered-interruption");
     await reopen(cancelled, "cancelled");
     await reopen(idea, "completed");

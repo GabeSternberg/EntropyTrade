@@ -114,7 +114,7 @@ test("four documented workbench workflows on the committed application", async (
   }
 
   async function load() {
-    await page.goto(origin);
+    await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.getByRole("button", { name: "Start research" })).toBeEnabled();
     await expect(page.getByText("Research only · execution disabled", { exact: true })).toBeVisible();
   }

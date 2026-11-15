@@ -58,7 +58,7 @@ def test_listener_to_real_worker_review_and_downloads_survive_restart(
         assert not catalog["provider_enabled"]
         assert client.post("/api/jobs", json={}).status_code == 403
         assert client.get("/api/catalog", headers={"Host": "attacker.invalid"}).status_code == 403
-        for path in ("/", "/app.js", "/style.css"):
+        for path in ("/", "/app.js", "/style.css", "/ui.js", "/demo-data.js", "/shell.js"):
             response = client.get(path)
             assert response.status_code == 200
             assert response.content

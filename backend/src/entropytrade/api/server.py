@@ -20,6 +20,15 @@ ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/app.js": ("app.js", "text/javascript; charset=utf-8"),
     "/style.css": ("style.css", "text/css; charset=utf-8"),
+    # Presentation shell. Demo Mode sample data is generated in the browser by
+    # demo-data.js and never reaches an API route; see frontend/src/README.md.
+    "/ui.js": ("ui.js", "text/javascript; charset=utf-8"),
+    "/demo-data.js": ("demo-data.js", "text/javascript; charset=utf-8"),
+    "/shell.js": ("shell.js", "text/javascript; charset=utf-8"),
+    "/views-markets.js": ("views-markets.js", "text/javascript; charset=utf-8"),
+    "/views-lab.js": ("views-lab.js", "text/javascript; charset=utf-8"),
+    "/views-ops.js": ("views-ops.js", "text/javascript; charset=utf-8"),
+    "/favicon.svg": ("favicon.svg", "image/svg+xml"),
 }
 
 

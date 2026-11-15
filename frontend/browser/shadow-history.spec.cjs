@@ -77,7 +77,7 @@ test(`${cohort ? "research cohort" : "sustained shadow history"}: ${controlled ?
     const seeded = spawnSync(python, ["-m", cohort ? "tests.integration.cohort_fixture" : "tests.integration.shadow_history_fixture", workspace, path.join(evidence, "authentic-inputs.json"), ...(controlled ? [] : ["--authentic"])], { cwd: repo, env, encoding: "utf8", timeout: 300_000 });
     assert.equal(seeded.status, 0, seeded.stdout + seeded.stderr);
     receipt.operations.push({ action: "import", evidence: JSON.parse(fs.readFileSync(path.join(evidence, "authentic-inputs.json"))) }); save();
-    await start(); await page.goto(origin);
+    await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#submit")).toBeEnabled();
     await expect(page.locator("#weather-partition-counts")).toContainText(controlled ? "130 retained inputs across 2 bounded partitions" : "2 retained inputs across 1 bounded partitions");
     if (cohort) {
@@ -155,7 +155,7 @@ test(`${cohort ? "research cohort" : "sustained shadow history"}: ${controlled ?
       receipt.operations.push({ action, receipt: JSON.parse(result.stdout) }); save();
     }
     workspace = restored;
-    await start(); await page.goto(origin);
+    await start(); await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#weather-dataset")).toHaveValue(selected);
     await page.locator("#history button").filter({ has: page.getByText(idea, { exact: true }) }).click();
     await expect(page.locator("#run-header .badge").first()).toHaveText("completed");

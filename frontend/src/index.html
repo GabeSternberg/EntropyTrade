@@ -3,34 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Private point-in-time market research, experiments and evidence.">
-  <title>EntropyTrade · Research workbench</title>
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Private prediction-market research, paper trading and evidence workspace.">
+  <title>EntropyTrade</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
+  <script src="/ui.js" defer></script>
+  <script src="/demo-data.js" defer></script>
+  <script src="/views-markets.js" defer></script>
+  <script src="/views-lab.js" defer></script>
+  <script src="/views-ops.js" defer></script>
+  <script src="/shell.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
-<body>
-  <header class="topbar"><a class="brand" href="/" aria-label="EntropyTrade home"><span class="mark">E</span>EntropyTrade</a><span class="private">● PRIVATE · LOCALHOST</span></header>
-  <main>
-    <div class="intro"><div><p class="eyebrow">THE RESEARCH DESK</p><h1>From an idea to evidence.</h1><p class="lede">Formulate a hypothesis. Test what the data can support. Keep the full lineage.</p></div><span class="boundary">Research only · execution disabled</span></div>
-    <div class="workspace">
-      <aside>
-        <section class="panel compose" aria-labelledby="compose-title">
+<body class="mode-real">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navigation"></aside>
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
+    <div class="main-col">
+      <header class="topbar" id="topbar"></header>
+      <div class="mode-banner" id="mode-banner" role="status" hidden></div>
+      <main id="content" class="content">
+        <div id="view" class="view"><div class="view-inner"><p class="boot-hint">Loading EntropyTrade…</p></div></div>
+        <section id="workbench-view" class="view legacy" aria-labelledby="workbench-title" hidden>
+          <header class="page-head">
+            <div class="page-titles"><h1 id="workbench-title">Research Workbench</h1><p class="page-sub">Formulate a hypothesis, test what authentic evidence can support and keep the full lineage. Always uses this real workspace; Demo Mode data never reaches it.</p></div>
+            <div class="page-actions"><span class="source-chip real"><span class="dot pos"></span>Real data · local workspace</span><span class="boundary">Research only · execution disabled</span></div>
+          </header>
+          <div class="workspace">
+          <aside>
+          <section class="panel compose" aria-labelledby="compose-title">
           <p class="eyebrow">01 / NEW EXPERIMENT</p><h2 id="compose-title">What would you like to test?</h2>
           <form id="research-form">
-            <label for="idea">Research idea</label>
-            <textarea id="idea" name="idea" rows="5" maxlength="6000" required placeholder="Do upward forecast revisions improve weather contract probabilities?">Do upward forecast revisions improve weather contract probabilities?</textarea>
-            <div class="examples"><button type="button" data-example="weather">Weather</button><button type="button" data-example="bitcoin">Bitcoin</button><button type="button" data-example="synthetic">Software demo</button></div>
-            <label for="family">Market family</label><select id="family" name="family"><option value="weather">Weather · daily high temperature</option><option value="bitcoin">Bitcoin · KXBTC contracts</option></select>
-            <label for="mode">Data source</label><select id="mode" name="mode"><option value="recorded">Legacy six-event weather sample</option><option value="weather_history">Retained weather dataset</option><option value="public">Fetch public sources now</option><option value="history">Retained Bitcoin history + official outcomes</option><option value="synthetic">Synthetic weather demonstration</option></select>
-            <p id="mode-help" class="hint"></p>
-            <label for="reasoning">Hypothesis formulation</label><select id="reasoning"><option value="local">Local templates · no provider credentials</option><option value="provider" disabled>Provider research · server configuration required</option></select>
-            <div id="provider-options" hidden><p id="provider-help" class="hint"></p><label><input id="enable-provider" type="checkbox"> I authorize this bounded provider research run and its API cost.</label><p class="hint">Only the separately configured research credential is used. Evidence and your idea are sent to the selected provider. Limits: $2 when cost is available, 16 requests, 24 tool calls, 180 seconds; unknown cost stops further requests. No exchange credentials or orders.</p></div>
-            <p id="reasoning-help" class="hint">Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f &gt;= 1.25 and hours_to_close &lt; 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only.</p>
-            <button class="primary" id="submit" type="submit">Start research <span aria-hidden="true">↗</span></button>
-            <p id="form-message" role="status" class="hint"></p>
+          <label for="idea">Research idea</label>
+          <textarea id="idea" name="idea" rows="5" maxlength="6000" required placeholder="Do upward forecast revisions improve weather contract probabilities?">Do upward forecast revisions improve weather contract probabilities?</textarea>
+          <div class="examples"><button type="button" data-example="weather">Weather</button><button type="button" data-example="bitcoin">Bitcoin</button><button type="button" data-example="synthetic">Software demo</button></div>
+          <label for="family">Market family</label><select id="family" name="family"><option value="weather">Weather · daily high temperature</option><option value="bitcoin">Bitcoin · KXBTC contracts</option></select>
+          <label for="mode">Data source</label><select id="mode" name="mode"><option value="recorded">Legacy six-event weather sample</option><option value="weather_history">Retained weather dataset</option><option value="public">Fetch public sources now</option><option value="history">Retained Bitcoin history + official outcomes</option><option value="synthetic">Synthetic weather demonstration</option></select>
+          <p id="mode-help" class="hint"></p>
+          <label for="reasoning">Hypothesis formulation</label><select id="reasoning"><option value="local">Local templates · no provider credentials</option><option value="provider" disabled>Provider research · server configuration required</option></select>
+          <div id="provider-options" hidden><p id="provider-help" class="hint"></p><label><input id="enable-provider" type="checkbox"> I authorize this bounded provider research run and its API cost.</label><p class="hint">Only the separately configured research credential is used. Evidence and your idea are sent to the selected provider. Limits: $2 when cost is available, 16 requests, 24 tool calls, 180 seconds; unknown cost stops further requests. No exchange credentials or orders.</p></div>
+          <p id="reasoning-help" class="hint">Select a forecast, revision, disagreement, bias or Bitcoin/spot signal, or enter exact comparisons joined only by AND: revision_f &gt;= 1.25 and hours_to_close &lt; 8. Optional Test/Research prefix; no other surrounding prose, XOR or unless in comparisons. Arbitrary prose is not fully interpreted. YES / hold to settlement / one contract templates only.</p>
+          <button class="primary" id="submit" type="submit">Start research <span aria-hidden="true">↗</span></button>
+          <p id="form-message" role="status" class="hint"></p>
           </form>
-        </section>
-        <section class="panel" aria-labelledby="weather-datasets-title">
+          </section>
+          <section class="panel" aria-labelledby="weather-datasets-title">
           <h2 id="weather-datasets-title">Retained weather history</h2>
           <p class="hint">Freeze verified public captures and completed shadow cycles from this workspace. Original availability clocks stay intact. Later receipts create a new immutable dataset.</p>
           <label for="weather-partition">History partition</label><select id="weather-partition"><option value="">All retained inputs (up to 128)</option></select>
@@ -56,24 +75,24 @@
           <a id="weather-label-partition-download" hidden>Download sealed label partition manifest</a>
           <div id="weather-labels"></div>
 
-        </section>
-        <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
-      </aside>
-      <section class="results" aria-label="Research results">
-        <div id="connection" role="status"></div>
-        <div id="run-header"></div>
-        <div id="progress" aria-live="polite"></div>
-        <section class="panel" aria-labelledby="gates-title">
+          </section>
+          <section class="panel history-panel" aria-labelledby="history-title"><div class="section-heading"><h2 id="history-title">Recent runs</h2><button id="refresh" type="button" class="quiet">Refresh</button></div><div id="history"><p class="hint">Loading saved runs…</p></div></section>
+          </aside>
+          <section class="results" aria-label="Research results">
+          <div id="connection" role="status"></div>
+          <div id="run-header"></div>
+          <div id="progress" aria-live="polite"></div>
+          <section class="panel" aria-labelledby="gates-title">
           <h2 id="gates-title">V1 acceptance gates</h2>
           <p class="hint">Read-only. A gate is attested only by a human-written file with matching evidence hashes under data/acceptance. This page never attests, certifies fees or enables trading.</p>
           <div id="v1-gates" aria-live="polite"></div>
-        </section>
-        <section class="panel" aria-labelledby="fee-title">
+          </section>
+          <section class="panel" aria-labelledby="fee-title">
           <h2 id="fee-title">Point-in-time fee evidence</h2>
           <p class="hint">Server-reviewed documents only. Series metadata cannot certify fees. Receipt and review clocks prevent historical lookahead.</p>
           <div id="fee-evidence" aria-live="polite"></div>
-        </section>
-        <section class="panel" aria-labelledby="shadow-title">
+          </section>
+          <section class="panel" aria-labelledby="shadow-title">
           <h2 id="shadow-title">Continuous shadow tracking</h2>
           <p class="hint">Select a typed candidate from a completed real research run. Automatic public capture records decisions and subsequent official outcomes. Missing models, fees or depth block intentions. No submissions, fills or performance claims.</p>
           <label for="shadow-candidate">Candidate to monitor</label><select id="shadow-candidate" disabled><option>Select a completed real run first</option></select>
@@ -82,8 +101,8 @@
           <p id="shadow-message" role="status" class="hint"></p>
           <div id="shadow-alerts" aria-live="polite"></div>
           <div id="shadow-history"></div><div id="shadow-evidence" aria-live="polite"></div>
-        </section>
-        <section class="panel" aria-labelledby="forward-validation-title">
+          </section>
+          <section class="panel" aria-labelledby="forward-validation-title">
           <h2 id="forward-validation-title">Continuous forward validation</h2>
           <p class="hint">Opt in to read-only label collection while this server runs. Batches cover at most eight dates. Preliminary reports and outages retry with backoff; official reports are checked daily for revisions. New snapshots preserve original receipt clocks and frozen boundaries.</p>
           <label for="weather-schedule-interval">Label retry interval</label><select id="weather-schedule-interval"><option value="21600">6 hours</option><option value="3600">1 hour</option><option value="300">5 minutes</option></select>
@@ -94,12 +113,15 @@
           <button id="weather-schedule-refresh" type="button">Refresh forward validation</button>
           <p id="weather-schedule-message" role="status" class="hint"></p>
           <div id="weather-schedules"></div>
+          </section>
+          <nav id="tabs" class="tabs" aria-label="Result sections" hidden><button type="button" data-tab="review" aria-pressed="true">Review</button><button type="button" data-tab="probabilities" aria-pressed="false">Probabilities</button><button type="button" data-tab="lineage" aria-pressed="false">Evidence &amp; lineage</button></nav>
+          <div id="result-content"><section class="panel empty"><span class="empty-mark" aria-hidden="true">↗</span><p class="eyebrow">A REJECTION IS A RESULT</p><h2>Put your next idea to the test.</h2><p>Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.</p><div class="empty-grid"><div><strong>01</strong><h3>Source &amp; formulate</h3><p>Actual contract rules, bounded source receipts, typed hypotheses.</p></div><div><strong>02</strong><h3>Model &amp; evaluate</h3><p>Temporal training gates, realistic simulated execution, explicit refusals.</p></div><div><strong>03</strong><h3>Inspect &amp; trace</h3><p>Candidate decisions, validation probabilities, immutable input identities.</p></div></div><p class="hint">Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.</p></section></div>
+          </section>
+          </div>
+          <footer class="legacy-foot">EntropyTrade / private research workspace<span>Protected holdout stays closed. No trading approval is implied.</span></footer>
         </section>
-        <nav id="tabs" class="tabs" aria-label="Result sections" hidden><button type="button" data-tab="review" aria-pressed="true">Review</button><button type="button" data-tab="probabilities" aria-pressed="false">Probabilities</button><button type="button" data-tab="lineage" aria-pressed="false">Evidence &amp; lineage</button></nav>
-        <div id="result-content"><section class="panel empty"><span class="empty-mark" aria-hidden="true">↗</span><p class="eyebrow">A REJECTION IS A RESULT</p><h2>Put your next idea to the test.</h2><p>Start with recorded evidence, fetch a fresh public snapshot, or explore the complete workflow with an explicitly synthetic demonstration.</p><div class="empty-grid"><div><strong>01</strong><h3>Source &amp; formulate</h3><p>Actual contract rules, bounded source receipts, typed hypotheses.</p></div><div><strong>02</strong><h3>Model &amp; evaluate</h3><p>Temporal training gates, realistic simulated execution, explicit refusals.</p></div><div><strong>03</strong><h3>Inspect &amp; trace</h3><p>Candidate decisions, validation probabilities, immutable input identities.</p></div></div><p class="hint">Real historical weather evidence is currently insufficient for empirical modeling. A fresh capture adds forward evidence; it does not create historical outcomes or executable depth.</p></section></div>
-      </section>
+      </main>
     </div>
-    <footer>EntropyTrade / private research workspace<span>Protected holdout stays closed. No trading approval is implied.</span></footer>
-  </main>
+  </div>
 </body>
 </html>

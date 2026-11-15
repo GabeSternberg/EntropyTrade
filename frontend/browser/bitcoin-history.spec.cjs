@@ -86,7 +86,7 @@ test(`Bitcoin retained history: ${retained ? "REAL retained receipts" : populate
       save();
     }
     await start(1);
-    await page.goto(origin);
+    await page.goto("about:blank"); await page.goto(origin + "/#/workbench");
     await page.getByLabel("Market family").selectOption("bitcoin");
     await page.getByLabel("Data source").selectOption("history");
     await page.getByLabel("Research idea", { exact: true }).fill("Test scaled_moneyness > 0");
