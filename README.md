@@ -47,7 +47,7 @@ Requires Python 3.12+, [uv](https://docs.astral.sh/uv/), and Make.
 ```bash
 uv sync --locked
 uv run entropytrade
-uv run entropytrade-web    # private localhost website; requires provisioned dependencies
+uv run entropytrade-web    # private localhost website at http://127.0.0.1:43128
 make check                 # Ruff lint/format, strict mypy, pytest + Hypothesis
 ```
 
@@ -79,7 +79,9 @@ semantics and lifecycle types. `exchange/kalshi/` contains the pinned SDK bounda
 `features/` builds causal matrices; `ml/` fits/calibrates temperature distributions and
 translates them to contract probabilities. `agents/` now runs configurable typed research; TestModel remains the explicit mock mode. `experiments/` connects family-neutral adapters,
 model predictions, replay and statistical comparison. `strategy_registry/` provides SQLite lineage and a small local HTML view;
-`frontend/` contains the local research workbench.
+`frontend/` contains the local website: an application shell (Overview, Market Explorer,
+Strategy Lab, Backtesting, Paper Trading, Data & Operations, Settings) around the research
+workbench, with a clearly labeled browser-only Demo Mode. See [frontend/src/README.md](frontend/src/README.md).
 
 LLMs never control money. Historical information requires verified availability at the
 decision time. Candles and prints never establish executable liquidity. No profitable

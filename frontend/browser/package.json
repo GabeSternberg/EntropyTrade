@@ -7,7 +7,8 @@
     "install:chromium": "playwright install chromium",
     "test": "playwright test",
     "test:paper": "playwright test paper.spec.cjs --max-failures=1",
-    "test:operator": "playwright test paper.spec.cjs alerts.spec.cjs --max-failures=1"
+    "test:operator": "playwright test paper.spec.cjs alerts.spec.cjs --max-failures=1",
+    "test:redesign": "playwright test redesign.spec.cjs --max-failures=1"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1"

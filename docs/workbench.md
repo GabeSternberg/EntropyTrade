@@ -1,5 +1,14 @@
 # Private research workbench
 
+November 15 redesign: **the website is now a full application shell** — Overview, Market
+Explorer, Strategy Lab, Backtesting & Analytics, Paper Trading, Data & Operations and
+Settings — around this workbench, which is unchanged in behavior and reachable at
+`http://127.0.0.1:43128/#/workbench`. A clearly labeled, browser-only Demo Mode previews the
+product with fictional sample data; Real Mode shows only this workspace's data and honest
+missing-data states. See [frontend/src/README.md](../frontend/src/README.md) for the
+architecture and the demo-isolation guarantees. No write endpoint, order path or credential
+handling was added.
+
 October 29 provider milestone: **Provider research is available through the existing
 website**, with server-side configuration and fresh per-run consent. See the
 [current evidence bundle](../data/provider-review/20261029/README.md). Controlled HTTP

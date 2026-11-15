@@ -53,7 +53,7 @@ for (const authentic of [false, true]) {
       const setup = spawnSync(python, ["-m", "tests.integration.fee_fixture", workspace, path.join(evidence, "setup.json"), ...(authentic ? ["--authentic"] : [])], { cwd: repo, env, encoding: "utf8", timeout: 120_000 });
       assert.equal(setup.status, 0, setup.stdout + setup.stderr);
       const seeded = JSON.parse(fs.readFileSync(path.join(evidence, "setup.json")));
-      await start(); await page.goto(origin); await expect(page.locator("#submit")).toBeEnabled();
+      await start(); await page.goto(origin + "/#/workbench"); await expect(page.locator("#submit")).toBeEnabled();
       await expect(page.locator("#fee-evidence")).toContainText(authentic ? "Official schedule HTTP 429" : "CONTROLLED fee fixture");
       const versionBytes = await download("Fee version JSON", "fee-version.json");
       const sourceBytes = await download("Original fee source 1", "fee-source.bin");

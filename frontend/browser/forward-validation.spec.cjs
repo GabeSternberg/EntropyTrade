@@ -120,7 +120,7 @@ async function procedure(page, browser, controlled) {
       command(["-m", "tests.integration.shadow_history_fixture", workspace, metadata, "--authentic"], "seed-authentic");
       fs.copyFileSync(metadata, path.join(evidence, "authentic-inputs.json"));
     }
-    await start(); await page.goto(origin);
+    await start(); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#submit")).toBeEnabled();
     if (!controlled) {
       await page.getByRole("button", { name: "Freeze retained weather dataset", exact: true }).click();
@@ -230,7 +230,7 @@ async function procedure(page, browser, controlled) {
     if (controlled) await expect(page.locator("#weather-readiness")).toContainText("12 source-matched scalar labels");
     await expect(page.locator("#weather-readiness")).toContainText("insufficient data");
     await shot("frozen-insufficient-data");
-    await stop(); await start(); await page.goto(origin);
+    await stop(); await start(); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restart-state.json"), stateBytes);
     if (controlled) await assertFailedEvidence("restart-preserves-failed-receipts");
@@ -247,7 +247,7 @@ async function procedure(page, browser, controlled) {
     command(["-m", "entropytrade.api.recovery", "restore", "--workspace", restored, "--archive", archive], "restore");
     receipt.operations.push({ action: "offline-restore", archive, sha256: sha(fs.readFileSync(archive)), restored }); save();
     workspace = restored;
-    await start(); await page.goto(origin);
+    await start(); await page.goto(origin + "/#/workbench");
     await expect(page.locator("#weather-schedules")).toContainText("Forward validation · paused");
     assert.deepEqual(await download("restored-state.json"), stateBytes);
     if (controlled) await assertFailedEvidence("restore-preserves-failed-receipts");

@@ -1,5 +1,13 @@
 # Real workbench browser acceptance
 
+**Redesigned website (Nov 15, 2026).** The workbench now lives at `/#/workbench` inside the
+application shell; every spec opens that route. `redesign.spec.cjs` drives the shell through
+Real and Demo modes on a real localhost listener: navigation of all sections, search, filters,
+sorting, tabs, dialogs, chart hover, the command palette, the real "New hypothesis" handoff,
+disabled execution controls, a no-writes check for Demo Mode, zero page/console errors and
+no horizontal overflow at 375 px. It saves rendered screenshots. Select it with
+`npm --prefix frontend/browser run test:redesign` (same environment variables as below).
+
 **Full regression sweep (Nov 5, 2026).** All 14 spec files ran against the current tree.
 The [sweep evidence](../../data/browser-regression-review/20261105/README.md) has the
 per-spec results and runner. When running them:

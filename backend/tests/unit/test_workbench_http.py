@@ -2,6 +2,7 @@
 
 import io
 import json
+import re
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, Self, cast
@@ -11,7 +12,7 @@ import pytest
 
 from entropytrade.api.jobs import Jobs, identifier, validate_request
 from entropytrade.api.runner import Runner, worker_environment
-from entropytrade.api.server import Handler, WorkbenchServer, workspace_path
+from entropytrade.api.server import ASSETS, Handler, WorkbenchServer, workspace_path
 
 REPO = Path(__file__).resolve().parents[3]
 REQUEST = {"idea": "Test forecast revisions", "family": "weather", "mode": "recorded"}
@@ -244,15 +245,61 @@ def test_credential_free_worker_environment_and_confined_workspace(tmp_path: Pat
 
 
 def test_all_static_assets_are_served_with_no_external_scripts(server: WorkbenchServer) -> None:
-    for path in ("/", "/app.js", "/style.css"):
+    assert {"/", "/app.js", "/style.css", "/ui.js", "/demo-data.js", "/shell.js"} <= set(ASSETS)
+    for path, (name, kind) in ASSETS.items():
         status, headers, body = exchange(server, path)
         assert status == 200
-        assert body
+        assert body == (REPO / "frontend/src" / name).read_bytes()
+        assert headers["Content-Type"] == kind
         assert headers["Cache-Control"] == "no-store"
         assert headers["X-Content-Type-Options"] == "nosniff"
-    script = (REPO / "frontend/src/app.js").read_text()
-    assert "innerHTML" not in script
-    assert "eval(" not in script
+        assert "script-src 'self'" in headers["Content-Security-Policy"]
+    # Only allowlisted files are served; neighbouring sources and traversal are not.
+    for path in ("/README.md", "/../pyproject.toml", "/frontend/src/app.js", "/views-unknown.js"):
+        assert exchange(server, path)[0] == 404
+    html = (REPO / "frontend/src/index.html").read_text()
+    referenced = set(re.findall(r'(?:src|href)="(/[^"]*)"', html))
+    assert referenced <= set(ASSETS), referenced - set(ASSETS)
+    for name, _kind in ASSETS.values():
+        if not name.endswith(".js"):
+            continue
+        script = (REPO / "frontend/src" / name).read_text()
+        assert "innerHTML" not in script, name
+        assert "outerHTML" not in script, name
+        assert "eval(" not in script, name
+        assert "new Function" not in script, name
+        assert "document.write" not in script, name
+        assert not re.search(r"https?://(?!www\.w3\.org/2000/svg)", script), name
+
+
+def test_demo_mode_data_is_isolated_at_the_presentation_boundary() -> None:
+    """Demo sample data stays in the browser and cannot be written to any API."""
+    source = REPO / "frontend/src"
+    demo = (source / "demo-data.js").read_text()
+    network = ("fetch(", "XMLHttpRequest", "sendBeacon", "WebSocket", "EventSource", "/api/")
+    for forbidden in network:
+        assert forbidden not in demo, forbidden
+    assert 'DATA_KIND = "demo"' in demo
+    assert "deepFreeze" in demo
+    shell = (source / "shell.js").read_text()
+    # Demo data is reachable only through ET.demo(), which refuses outside Demo Mode, and
+    # the shell's API helper is GET-only and refuses to run in Demo Mode.
+    demo_guard = 'if (mode !== "demo") throw new Error("Demo data is only available in Demo Mode")'
+    api_guard = 'if (mode !== "real") throw new Error("Real API reads are disabled in Demo Mode")'
+    assert demo_guard in shell
+    assert api_guard in shell
+    assert 'method: "GET"' in shell
+    for name in ("ui.js", "shell.js", "views-markets.js", "views-lab.js", "views-ops.js"):
+        script = (source / name).read_text()
+        assert "POST" not in script, name
+        assert "X-EntropyTrade-CSRF" not in script, name
+        assert "demoData" not in script or name == "shell.js", name
+        if name.startswith("views-"):
+            assert "fetch(" not in script, name
+    # The legacy workbench is the only writer, and it never reads demo data.
+    workbench = (source / "app.js").read_text()
+    assert "ET." not in workbench
+    assert "demoData" not in workbench
 
 
 class ControlledProcess:

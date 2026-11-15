@@ -63,7 +63,7 @@ test("continuous shadow: research, capture, pause, restart, resume and durable e
   save();
   try {
     await start(1);
-    await page.goto(origin);
+    await page.goto(origin + "/#/workbench");
     await expect(page.getByRole("button", { name: "Start shadow monitor", exact: true })).toBeDisabled();
     await page.getByLabel("Research idea", { exact: true }).fill("Test forecast_high_f > 70");
     await page.getByRole("button", { name: "Start research" }).click();
