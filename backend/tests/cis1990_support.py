@@ -60,7 +60,14 @@ def public_fixture(
     return httpx.MockTransport(response)
 
 
-def gemini_response(*calls: tuple[str, Any]) -> httpx2.Response:
+def gemini_response(
+    *calls: tuple[str, Any], output: dict[str, Any] | None = None
+) -> httpx2.Response:
+    parts = (
+        [{"text": json.dumps(output)}]
+        if output is not None
+        else [{"functionCall": {"name": tool, "args": arguments}} for tool, arguments in calls]
+    )
     return httpx2.Response(
         200,
         json={
@@ -70,10 +77,7 @@ def gemini_response(*calls: tuple[str, Any]) -> httpx2.Response:
                 {
                     "content": {
                         "role": "model",
-                        "parts": [
-                            {"functionCall": {"name": tool, "args": arguments}}
-                            for tool, arguments in calls
-                        ],
+                        "parts": parts,
                     },
                     "finishReason": "STOP",
                 }

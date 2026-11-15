@@ -101,13 +101,13 @@ def execute_controlled(workspace: Path, repo: Path, job_id: str, *, outage: bool
                 for item in payload["hypotheses" if index == 1 else "candidates"]:
                     item["evidence_ids"] = current_ids
             body = json.loads(request.content)
-            name = next(
-                tool["name"]
-                for group in body["tools"]
-                for tool in group["functionDeclarations"]
-                if tool["name"] != "inspect_evidence"
-            )
-            return gemini_response((name, payload))
+            names = {
+                tool["name"] for group in body["tools"] for tool in group["functionDeclarations"]
+            }
+            if index == 2:
+                assert names == {"inspect_evidence"}
+                return gemini_response(output=payload)
+            return gemini_response((next(iter(names - {"inspect_evidence"})), payload))
 
         async with httpx2.AsyncClient(transport=httpx2.MockTransport(respond)) as client:
             with patch.object(

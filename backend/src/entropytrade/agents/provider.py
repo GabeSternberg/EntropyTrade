@@ -30,6 +30,18 @@ class ResearchProviderConfig(DomainModel):
     model_name: str = Field(min_length=1, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:/-]*$")
 
 
+def gemini_bad_request_reason(body: object) -> str:
+    """Map a provider diagnostic to fixed text safe to display or save."""
+    error = body.get("error") if isinstance(body, dict) else None
+    message = error.get("message") if isinstance(error, dict) else None
+    detail = message.casefold() if isinstance(message, str) else ""
+    if "api key" in detail:
+        return "Gemini rejected the API key. Check the key in Google AI Studio and try again."
+    if "schema" in detail:
+        return "Gemini rejected the request schema. No candidate decisions were validated."
+    return "Gemini rejected the request parameters. No candidate decisions were validated."
+
+
 def research_key(config: ResearchProviderConfig) -> str:
     variable = GEMINI_KEY_VARIABLE if config.provider == "gemini" else RESEARCH_KEY_VARIABLE
     key = os.environ.get(variable, "").strip()

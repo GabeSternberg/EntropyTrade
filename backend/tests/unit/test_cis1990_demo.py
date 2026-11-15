@@ -52,11 +52,12 @@ def test_development_case(case_id: str, tmp_path: Path, monkeypatch: pytest.Monk
             Path("configs/research/weather.json").read_text()
         )
         evidence = ResearchEvidence(config, current_sources=sources)
-        stages = iter(("research", "hypothesis", "quant", "critic"))
-        retries = 0
+        stages = ("research", "hypothesis", "quant", "critic")
+        index = 0
+        retried: set[str] = set()
 
         def respond(request: httpx2.Request) -> httpx2.Response:
-            nonlocal retries
+            nonlocal index
             body = json.loads(request.content)
             requests.append(body)
             assert request.method == "POST"
@@ -77,12 +78,24 @@ def test_development_case(case_id: str, tmp_path: Path, monkeypatch: pytest.Monk
                 if topic not in topics:
                     return gemini_response(("inspect_evidence", {"query": {"topic": topic}}))
 
-            output_tool = next(iter(tools - {"inspect_evidence"}))
-            if case_id == "DEV-001" and retries == 0:
-                retries += 1
-                return gemini_response((output_tool, {"market_understanding": "too short"}))
-            role = next(stages)
-            index = ("research", "hypothesis", "quant", "critic").index(role)
+            role = stages[index]
+            output_tools = tools - {"inspect_evidence"}
+            if role == "quant":
+                assert not output_tools
+                assert (
+                    not {"responseJsonSchema", "responseSchema"}
+                    & body.get("generationConfig", {}).keys()
+                )
+                assert "StrategySpec" in transcript
+            else:
+                assert len(output_tools) == 1
+            if case_id == "DEV-001" and role in {"research", "quant"} and role not in retried:
+                retried.add(role)
+                if role == "quant":
+                    return gemini_response(output={"candidates": []})
+                return gemini_response(
+                    (next(iter(output_tools)), {"market_understanding": "too short"})
+                )
             outputs = operational_models(case["prompt"], evidence, run_id)
             payload = outputs[index].custom_output_args
             assert isinstance(payload, dict)
@@ -104,7 +117,12 @@ def test_development_case(case_id: str, tmp_path: Path, monkeypatch: pytest.Monk
                             "NWS hourly forecast is unavailable and historical coverage "
                             "is insufficient."
                         )
-            return gemini_response((output_tool, payload))
+            index += 1
+            return (
+                gemini_response(output=payload)
+                if role == "quant"
+                else gemini_response((next(iter(output_tools)), payload))
+            )
 
         async with httpx2.AsyncClient(transport=httpx2.MockTransport(respond)) as client:
             monkeypatch.setattr(
@@ -149,10 +167,18 @@ def test_development_case(case_id: str, tmp_path: Path, monkeypatch: pytest.Monk
         event["evidence_id"] for event in result["tool_activity"] if event["role"] == "research"
     }
     assert set(result["note"]["evidence_ids"]) == evidence_ids
+    assert (
+        next(
+            call["query"]["limit"]
+            for call in result["tool_calls"]
+            if call["query"]["topic"] == "markets"
+        )
+        == 3
+    )
     assert result["coverage"]["eligible_events"] == result["coverage"]["scalar_label_events"] == 0
     weather = result["current_sources"]["weather"]
     if case_id == "DEV-001":
-        assert len(requests) == 7  # Two evidence calls, one structured retry, and four outputs.
+        assert len(requests) == 8  # Two evidence calls, two structured retries, and four outputs.
         assert weather["market_dates_with_full_forecast"] == ["2026-10-03"]
         assert weather["items"][1]["projected_hourly_max_f"] == "73"
         assert weather["scope"].endswith("forecast proxies")
@@ -198,8 +224,24 @@ def test_missing_gemini_key_stops_before_source_calls(
     assert not list(tmp_path.iterdir())
 
 
+@pytest.mark.parametrize(
+    ("http_status", "diagnostic", "safe_reason"),
+    [
+        (503, "Service unavailable", "Research provider/configuration/budget/evidence failure"),
+        (
+            400,
+            "Tool schema exceeds the allowed nesting depth",
+            "Gemini rejected the request schema",
+        ),
+        (400, "API key not valid", "Gemini rejected the API key"),
+    ],
+)
 def test_gemini_http_failure_redacts_provider_body(
-    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+    http_status: int,
+    diagnostic: str,
+    safe_reason: str,
 ) -> None:
     monkeypatch.setenv("GEMINI_API_KEY", FIXTURE_KEY)
     monkeypatch.setattr(course_sources, "utc_now", lambda: FIXTURE_NOW)
@@ -213,7 +255,8 @@ def test_gemini_http_failure_redacts_provider_body(
         nonlocal attempts
         attempts += 1
         return httpx2.Response(
-            503, json={"error": {"code": 503, "message": FIXTURE_KEY, "status": "UNAVAILABLE"}}
+            http_status,
+            json={"error": {"code": http_status, "message": f"{diagnostic}: {FIXTURE_KEY}"}},
         )
 
     async def execute() -> int:
@@ -232,7 +275,9 @@ def test_gemini_http_failure_redacts_provider_body(
     assert FIXTURE_KEY not in trace
     assert FIXTURE_KEY not in "".join(messages)
     result = json.loads(trace)
-    assert result["failure"]["http_status"] == 503
+    assert result["failure"]["http_status"] == http_status
+    assert result["failure"]["reason"].startswith(safe_reason)
+    assert f"{diagnostic}: {FIXTURE_KEY}" not in trace
     assert result["responses"] == []
     assert result["model_request_failures"][0]["status"] == "failed"
     assert result["pricing_status"] == "not_observed"
