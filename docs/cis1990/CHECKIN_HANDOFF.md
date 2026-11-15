@@ -6,6 +6,12 @@
 
 ## Run from the repository root
 
+### Website
+
+Load `GEMINI_API_KEY` in the shell that starts the server, then run `uv run --locked entropytrade-web`. Open [CIS 1990 Research Demo](http://127.0.0.1:43128/#/cis1990) in Real Mode and click **Run Philadelphia Weather Research**. The latest course run can be reopened after a reload. The page shows public source receipts, validated stage outputs, candidate and Critic decisions, and a downloadable trace. A missing server credential disables the run button.
+
+### CLI
+
 ```sh
 uv sync --locked
 # Load GEMINI_API_KEY using your shell or secret manager before recording.
@@ -25,12 +31,13 @@ For a source-only smoke test, run `uv run --locked entropytrade cis1990-demo --c
 | Live source trace | [public-sources-2026-11-15.json](evidence/public-sources-2026-11-15.json). Kalshi and both NWS requests returned HTTP 200. The sources matched November 15, 2026, with four retained contract rules and a 24-hour NWS forecast. |
 | Controlled evaluation evidence | [controlled-dev-results-2026-11-15.json](evidence/controlled-dev-results-2026-11-15.json). Responses were scripted. |
 | Repository checks | Ruff lint and format and strict mypy passed. Full pytest with loopback access and one OpenMP/BLAS thread passed 1,506 tests. The final targeted suite passed 74 tests, including the partial-day forecast case added after full-suite collection. |
+| Website verification | Full pytest passed 1,510 tests. The 36 focused Python checks and 31 frontend unit checks passed. Real Chromium at port 43128 passed the controlled four-stage workflow, provider failure, missing-key and Demo Mode scenarios, and the existing shell regression. Authenticated Gemini verification requires a server-side key. |
 | Progress update notes | [checkin-progress-draft.md](checkin-progress-draft.md) |
 | Video recording instructions | [checkin-video-guide.md](checkin-video-guide.md) |
 
 ## Before submitting
 
-1. Load your Gemini key and rehearse the live CLI. Check the source status and open the printed trace. Authenticated Gemini is pending.
+1. Load your Gemini key and rehearse the website or CLI. Check the source status and open the trace. Authenticated Gemini is pending.
 2. Record a 30-second to 2-minute video yourself. Identify saved results or partial runs if you use them.
 3. Rewrite the one-page update in your own words. Check it against your original proposal and update the verification claims from your run. Keep the controlled development-check date distinct from any later scored evaluation.
 4. Submit the private repository URL and SHA, your video, and your progress update through Gradescope.

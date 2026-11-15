@@ -9,7 +9,7 @@ from typing import Any
 
 from entropytrade.agents.evidence import EvidenceConfig
 from entropytrade.agents.provider import ResearchProviderConfig
-from entropytrade.api.jobs import Jobs, identifier, validate_request
+from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, validate_request
 from entropytrade.api.server import workspace_path
 from entropytrade.data.sources import file_hash
 from entropytrade.execution.fee_evidence import FeeEvidenceStore
@@ -181,19 +181,99 @@ def review_result(result: dict[str, Any], output: Path) -> dict[str, Any]:
     }
 
 
+def _course_stage(stage: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in stage.items() if key != "prompt"}
+
+
+def _course_trace(result: dict[str, Any]) -> dict[str, Any]:
+    """Browser artifact with outcome-free evidence and per-stage outputs."""
+    return {
+        **{key: value for key, value in result.items() if key not in {"stages", "prompt"}},
+        "data_mode": "live_public",
+        "stages": [_course_stage(stage) for stage in result["stages"]],
+    }
+
+
+def _redact_course_value(value: Any, key: str) -> Any:
+    if isinstance(value, str):
+        return value.replace(key, "[redacted]")
+    if isinstance(value, dict):
+        return {
+            name.replace(key, "[redacted]"): _redact_course_value(item, key)
+            for name, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_redact_course_value(item, key) for item in value]
+    return value
+
+
+def _execute_course(jobs: Jobs, repo: Path, job_id: str) -> None:
+    from entropytrade.agents.course_demo import DEMO_PROVIDER, run_philadelphia_research
+    from entropytrade.agents.provider import ResearchCredentialError, research_key
+
+    try:
+        key = research_key(DEMO_PROVIDER)
+    except ResearchCredentialError:
+        jobs.update(
+            job_id,
+            "failed",
+            "Set GEMINI_API_KEY on the server and restart EntropyTrade.",
+            status="failed",
+        )
+        return
+    snapshot: dict[str, Any] = {"stages": [], "data_mode": "live_public"}
+
+    def progress(stage: str, message: str) -> None:
+        if not jobs.update(job_id, stage, message, result=_redact_course_value(snapshot, key)):
+            raise InterruptedError("course run is no longer active")
+
+    def sources_ready(sources: dict[str, Any]) -> None:
+        snapshot["current_sources"] = sources
+        progress("sources_checked", "Public source availability recorded")
+
+    def stage_complete(stage: dict[str, Any]) -> None:
+        snapshot["stages"].append(_course_stage(stage))
+        role = stage["role"]
+        progress(f"research_{role}_completed", f"{role.capitalize()} output validated")
+
+    trace = asyncio.run(
+        run_philadelphia_research(
+            repo=repo,
+            output=jobs.root / COURSE_MODE,
+            run_id=job_id,
+            progress=progress,
+            sources_ready=sources_ready,
+            stage_complete=stage_complete,
+        )
+    )
+    status = trace["status"]
+    jobs.update(
+        job_id,
+        status,
+        "Research completed. Review the candidate decisions and backtest eligibility."
+        if status == "completed"
+        else "Research failed. Inspect the failed stage and available trace events.",
+        status=status,
+        result=_redact_course_value(_course_trace(trace), key),
+    )
+
+
 def execute_job(jobs: Jobs, repo: Path, job_id: str) -> None:
     job = jobs.get(job_id)
     if job is None or job["status"] != "running":
         return
     request = validate_request(job["request"], stored=True)
     run = jobs.root / "runs" / identifier(job_id)
-    run.mkdir(parents=True, exist_ok=False)
 
     def progress(stage: str, detail: str) -> None:
         if not jobs.update(job_id, stage, detail):
             raise InterruptedError("job is no longer active")
 
     try:
+        if request["mode"] == COURSE_MODE:
+            _execute_course(jobs, repo, job_id)
+            return
+        run.mkdir(parents=True, exist_ok=False)
         adapters = None
         config_path = repo / "configs/research/weather.json"
         public = None

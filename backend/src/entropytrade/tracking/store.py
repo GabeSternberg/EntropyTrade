@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from typing import Any
 from uuid import uuid4
 
-from entropytrade.api.jobs import Jobs, identifier, timestamp
+from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, timestamp
 from entropytrade.features.registry import scientific_hash
 from entropytrade.tracking import alerts
 from entropytrade.tracking.accounting import account_hash, reproduce, summary
@@ -74,6 +74,8 @@ class TrackingStore:
         job = self.jobs.get(identifier(value["job_id"]))
         if not job or job["status"] != "completed" or not job["result"]:
             raise ValueError("select a completed research run")
+        if job["request"]["mode"] == COURSE_MODE:
+            raise ValueError("course research runs cannot start shadow monitors")
         if job["result"]["data_kind"] != "real":
             raise ValueError("synthetic candidates cannot monitor real markets")
         proposals = job["result"].get("proposals", [])

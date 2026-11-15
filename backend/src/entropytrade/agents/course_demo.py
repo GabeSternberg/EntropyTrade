@@ -3,6 +3,7 @@
 import json
 from collections.abc import Callable
 from pathlib import Path
+from typing import Any
 from uuid import uuid4
 
 from entropytrade.agents.course_sources import fetch_course_sources
@@ -11,6 +12,7 @@ from entropytrade.agents.pipeline import run_research
 from entropytrade.agents.provider import ResearchProviderConfig, research_key
 
 DEMO_MODEL = "gemini-3.5-flash-lite"
+DEMO_PROVIDER = ResearchProviderConfig(provider="gemini", model_name=DEMO_MODEL)
 DEMO_OUTPUT = Path("data/cache/cis1990")
 DEMO_PROMPT = (
     "Research a Philadelphia daily-high-temperature market on Kalshi. Retrieve relevant market "
@@ -21,18 +23,7 @@ DEMO_PROMPT = (
 )
 
 
-async def run_course_demo(*, output: Path, check_sources: bool, emit: Callable[[str], None]) -> int:
-    provider = ResearchProviderConfig(provider="gemini", model_name=DEMO_MODEL)
-    if not check_sources:
-        research_key(provider)
-    mode = (
-        "public-source check only" if check_sources else f"Gemini API via PydanticAI ({DEMO_MODEL})"
-    )
-    data_mode = "live public GETs" if check_sources else "live public GETs and retained coverage"
-    emit(f"Runtime: {mode} | Evidence: {data_mode}")
-    if not check_sources:
-        emit(f"Request: {DEMO_PROMPT}")
-    sources = await fetch_course_sources()
+def _describe_sources(sources: dict[str, Any], emit: Callable[[str], None]) -> None:
     for source in sources.values():
         requests = ", ".join(
             f"{item['url']} [HTTP {item.get('http_status', 'unavailable')}, "
@@ -44,28 +35,70 @@ async def run_course_demo(*, output: Path, check_sources: bool, emit: Callable[[
     full = sources["weather"]["market_dates_with_full_forecast"]
     emit("Market dates with NWS forecast hours: " + (", ".join(matched) if matched else "none"))
     emit("Market dates with a full NWS forecast: " + (", ".join(full) if full else "none"))
+
+
+async def run_philadelphia_research(
+    *,
+    repo: Path,
+    output: Path,
+    run_id: str | None = None,
+    progress: Callable[[str, str], None] | None = None,
+    sources_ready: Callable[[dict[str, Any]], None] | None = None,
+    stage_complete: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
+    """The shared CLI and website workflow. Inputs are fixed by the application."""
+    research_key(DEMO_PROVIDER)
+    if progress:
+        progress("sources", "Retrieving public Kalshi listings and NWS forecast hours")
+    sources = await fetch_course_sources()
+    if sources_ready:
+        sources_ready(sources)
+    registry = output / "registry.sqlite"
+    config = EvidenceConfig.model_validate_json(
+        (repo / "configs/research/weather.json").read_text()
+    )
+    evidence = ResearchEvidence(
+        config.revalidated(root=repo / config.root),
+        history=previous_research(registry),
+        current_sources=sources,
+    )
+    return await run_research(
+        prompt=DEMO_PROMPT,
+        evidence=evidence,
+        provider=DEMO_PROVIDER,
+        registry_path=registry,
+        output=output,
+        enable_provider=True,
+        progress=progress,
+        stage_complete=stage_complete,
+        run_id=run_id,
+    )
+
+
+async def run_course_demo(*, output: Path, check_sources: bool, emit: Callable[[str], None]) -> int:
     if check_sources:
+        emit("Runtime: public-source check only | Evidence: live public GETs")
+        sources = await fetch_course_sources()
+        _describe_sources(sources, emit)
         output.mkdir(parents=True, exist_ok=True)
         path = output / f"sources-{uuid4()}.json"
         path.write_text(
             json.dumps({"mode": "live_public_sources_only", **sources}, indent=2) + "\n"
         )
         emit(f"Source trace: {path}")
-        return 0 if matched else 1
+        return 0 if sources["weather"]["market_dates_with_forecast"] else 1
 
-    registry = output / "registry.sqlite"
-    config = EvidenceConfig.model_validate_json(Path("configs/research/weather.json").read_text())
-    evidence = ResearchEvidence(
-        config, history=previous_research(registry), current_sources=sources
+    research_key(DEMO_PROVIDER)
+    emit(
+        f"Runtime: Gemini API via PydanticAI ({DEMO_MODEL}) | "
+        "Evidence: live GETs and retained coverage"
     )
-    result = await run_research(
-        prompt=DEMO_PROMPT,
-        evidence=evidence,
-        provider=provider,
-        registry_path=registry,
+    emit(f"Request: {DEMO_PROMPT}")
+    result = await run_philadelphia_research(
+        repo=Path.cwd(),
         output=output,
-        enable_provider=True,
         progress=lambda _, message: emit(message),
+        sources_ready=lambda sources: _describe_sources(sources, emit),
     )
     emit(result["report"])
     emit(
