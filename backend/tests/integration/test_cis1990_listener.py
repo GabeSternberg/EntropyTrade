@@ -6,6 +6,7 @@ from tempfile import TemporaryDirectory
 
 import pytest
 
+from entropytrade.strategy_registry.store import Registry
 from tests.cis1990_support import FIXTURE_KEY
 from tests.integration.cis1990_fixture import controlled_worker
 from tests.integration.test_workbench_listener import listening
@@ -31,7 +32,9 @@ def test_course_route_guards_and_missing_credentials(
         assert client.post("/api/cis1990", json={}).status_code == 403
         assert (
             client.post(
-                "/api/cis1990", json={}, headers={**headers, "Origin": "https://example.invalid"}
+                "/api/cis1990",
+                json={"api_key": FIXTURE_KEY},
+                headers={**headers, "Origin": "https://example.invalid"},
             ).status_code
             == 403
         )
@@ -40,7 +43,11 @@ def test_course_route_guards_and_missing_credentials(
         )
         absent = client.post("/api/cis1990", json={}, headers=headers)
         assert absent.status_code == 503
-        assert "Set GEMINI_API_KEY" in absent.json()["error"]
+        assert "Enter a Gemini API key" in absent.json()["error"]
+        for bad_key in (None, {"token": FIXTURE_KEY}, FIXTURE_KEY + "\x00", "a" * 513):
+            invalid = client.post("/api/cis1990", json={"api_key": bad_key}, headers=headers)
+            assert invalid.status_code == 400
+            assert FIXTURE_KEY not in invalid.text
         assert server.jobs.queued() is None
         rejected = client.post(
             "/api/jobs",
@@ -50,12 +57,15 @@ def test_course_route_guards_and_missing_credentials(
         assert rejected.status_code == 400
         assert client.get("/views-cis1990.js").status_code == 200
         assert client.get("/api/catalog").json()["submission_enabled"] is False
-        monkeypatch.setenv("GEMINI_API_KEY", FIXTURE_KEY)
-        job_id = client.post("/api/cis1990", json={}, headers=headers).json()["id"]
+        accepted = client.post("/api/cis1990", json={"api_key": FIXTURE_KEY}, headers=headers)
+        assert accepted.status_code == 202
+        assert FIXTURE_KEY not in accepted.text
+        job_id = accepted.json()["id"]
         assert client.get(f"/api/cis1990/{job_id}/trace").status_code == 404
         cancelled = client.post(f"/api/cis1990/{job_id}/cancel", json={}, headers=headers)
         assert cancelled.json() == {"cancelled": True}
         assert client.get("/api/cis1990").json()["latest"]["status"] == "cancelled"
+        assert server.runner.forget_course_key(job_id) is None
         assert server.jobs.queued() is None
 
 
@@ -63,7 +73,7 @@ def test_course_route_guards_and_missing_credentials(
 def test_course_job_and_trace_over_real_listener(
     workspace: Path, monkeypatch: pytest.MonkeyPatch, outage: bool
 ) -> None:
-    monkeypatch.setenv("GEMINI_API_KEY", FIXTURE_KEY)
+    monkeypatch.setenv("GEMINI_API_KEY", FIXTURE_KEY if outage else "different-server-default")
     monkeypatch.setenv("GOOGLE_API_KEY", "ambient-google")
     monkeypatch.setenv("ENTROPYTRADE_RESEARCH_API_KEY", "ambient-other-research")
     with controlled_worker(REPO, outage=outage), listening(workspace) as (server, client):
@@ -71,10 +81,12 @@ def test_course_job_and_trace_over_real_listener(
         assert config.json()["configured"] is True
         assert FIXTURE_KEY not in config.text
         headers = {"X-EntropyTrade-CSRF": config.json()["csrf_token"]}
-        response = client.post("/api/cis1990", json={}, headers=headers)
+        request = {} if outage else {"api_key": "  " + FIXTURE_KEY + "  "}
+        response = client.post("/api/cis1990", json=request, headers=headers)
         assert response.status_code == 202
         job_id = response.json()["id"]
-        assert client.post("/api/cis1990", json={}, headers=headers).json()["id"] == job_id
+        duplicate = client.post("/api/cis1990", json={"api_key": "duplicate-key"}, headers=headers)
+        assert duplicate.json()["id"] == job_id
         assert client.get("/api/jobs").json() == []
         assert client.get(f"/api/jobs/{job_id}").status_code == 404
         assert (
@@ -97,7 +109,16 @@ def test_course_job_and_trace_over_real_listener(
         assert result["provider"]["provider"] == "gemini"
         assert result["current_sources"]["weather"]["status"] == "available"
         assert not (workspace / "runs" / job_id).exists()
-        assert (workspace / "cis1990" / job_id / "run.json").is_file()
+        run_json = (workspace / "cis1990" / job_id / "run.json").read_text()
+        assert FIXTURE_KEY not in run_json
+        registry = Registry(workspace / "cis1990/registry.sqlite")
+        try:
+            persisted = registry.agent_run(job_id)
+            assert persisted is not None
+            assert FIXTURE_KEY not in persisted
+        finally:
+            registry.close()
+        assert server.runner.forget_course_key(job_id) is None
         if outage:
             assert result["failure"]["stage"] == "research"
             assert result["failure"]["http_status"] == 503

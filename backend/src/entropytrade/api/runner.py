@@ -36,6 +36,8 @@ class Runner:
         self.jobs, self.repo, self.timeout = jobs, repo, timeout
         self.lease_fds = () if lease_fd is None else (lease_fd,)
         self.stop = threading.Event()
+        self._course_keys: dict[str, str] = {}
+        self._course_key_lock = threading.Lock()
         self.thread = threading.Thread(target=self.run, name="research-queue", daemon=True)
 
     def start(self) -> None:
@@ -43,8 +45,24 @@ class Runner:
 
     def close(self) -> None:
         self.stop.set()
+        with self._course_key_lock:
+            self._course_keys.clear()
         if self.thread.ident is not None:
             self.thread.join(timeout=5)
+
+    def submit_course(self, key: str) -> str:
+        # The worker waits on the same lock before consuming the credential.
+        with self._course_key_lock:
+            if self.stop.is_set():
+                raise ValueError("The research worker has stopped.")
+            job_id, created = self.jobs.create_course()
+            if created and key:
+                self._course_keys[job_id] = key
+        return job_id
+
+    def forget_course_key(self, job_id: str) -> str | None:
+        with self._course_key_lock:
+            return self._course_keys.pop(job_id, None)
 
     def run(self) -> None:
         while not self.stop.is_set():
@@ -53,6 +71,7 @@ class Runner:
                 self.stop.wait(0.25)
                 continue
             if not self.jobs.update(job_id, "starting", "Starting isolated research worker"):
+                self.forget_course_key(job_id)
                 continue
             try:
                 self.execute(job_id)
@@ -71,6 +90,7 @@ class Runner:
             "--job",
             job_id,
         ]
+        course_key = self.forget_course_key(job_id)
         job = self.jobs.get(job_id)
         if job is None or job["status"] != "running":
             return
@@ -81,8 +101,10 @@ class Runner:
         if request.get("reasoning") == "provider" and RESEARCH_KEY_VARIABLE in os.environ:
             environment[RESEARCH_KEY_VARIABLE] = os.environ[RESEARCH_KEY_VARIABLE]
         course = request["mode"] == COURSE_MODE
-        if course and COURSE_KEY_VARIABLE in os.environ:
-            environment[COURSE_KEY_VARIABLE] = os.environ[COURSE_KEY_VARIABLE]
+        if course:
+            course_key = course_key or os.environ.get(COURSE_KEY_VARIABLE, "").strip()
+            if course_key:
+                environment[COURSE_KEY_VARIABLE] = course_key
         if course or request.get("reasoning") == "provider":
             for name in (
                 "HTTP_PROXY",
@@ -103,6 +125,9 @@ class Runner:
             stderr=subprocess.DEVNULL,
             pass_fds=self.lease_fds,
         ) as process:
+            if course:
+                environment.pop(COURSE_KEY_VARIABLE, None)
+                course_key = None
             started = time.monotonic()
             while process.poll() is None:
                 job = self.jobs.get(job_id)

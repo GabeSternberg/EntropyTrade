@@ -29,7 +29,7 @@ async function withServer(mode, callback) {
   const env = { PATH: "/usr/bin:/bin", PYTHONNOUSERSITE: "1", PYTHONDONTWRITEBYTECODE: "1",
     OMP_NUM_THREADS: "1", OPENBLAS_NUM_THREADS: "1", TZ: "UTC",
     PYTHONPATH: [path.join(repo, "backend"), path.join(repo, "backend/src")].join(path.delimiter),
-    ...(live ? {} : { GEMINI_API_KEY: fixtureKey }) };
+    ...(mode === "outage" ? { GEMINI_API_KEY: fixtureKey } : {}) };
   const server = spawn(python, command, { cwd: repo, env, stdio: ["ignore", log.fd, log.fd] });
   const done = new Promise(resolve => server.once("exit", resolve));
   await log.close();
@@ -52,7 +52,7 @@ async function withServer(mode, callback) {
   }
 }
 
-test("CIS 1990 shows four stages, decisions and trace in a real browser using labeled controlled HTTP", async ({ page }) => {
+test("CIS 1990 accepts a masked browser key and shows a controlled four-stage run", async ({ page }) => {
   await withServer("controlled", async () => {
     const errors = [];
     page.on("pageerror", error => errors.push(error.message));
@@ -60,8 +60,20 @@ test("CIS 1990 shows four stages, decisions and trace in a real browser using la
     await page.getByRole("link", { name: "CIS 1990 Research Demo", exact: true }).click();
     await expect(page.getByRole("heading", { name: "CIS 1990 Research Demo", exact: true })).toBeVisible();
     const run = page.getByRole("button", { name: "Run Philadelphia Weather Research", exact: true });
+    const key = page.getByLabel("Gemini API key", { exact: true });
+    await expect(run).toBeDisabled();
+    await expect(key).toHaveAttribute("type", "password");
+    await key.fill(fixtureKey);
+    await page.getByRole("button", { name: "Show key", exact: true }).click();
+    await expect(key).toHaveAttribute("type", "text");
+    await expect(key).toHaveValue(fixtureKey);
+    await page.getByRole("button", { name: "Hide key", exact: true }).click();
+    await expect(key).toHaveAttribute("type", "password");
+    await page.getByRole("button", { name: "Show key", exact: true }).click();
     await expect(run).toBeEnabled();
     await run.click();
+    await expect(key).toHaveAttribute("type", "password");
+    await expect(key).toHaveValue("");
     await expect(page.locator("#course-stage-research [data-status]")).toHaveText("running");
     await expect(run).toBeDisabled();
     await expect(page.getByText("Controlled HTTP test run. Sources and model responses are fixture data.")).toBeVisible();
@@ -90,8 +102,11 @@ test("CIS 1990 shows four stages, decisions and trace in a real browser using la
     assert.equal(trace.usage.requests, 6);
     assert(!text.includes(fixtureKey));
     assert(!((await page.locator("body").textContent()).includes(fixtureKey)));
+    assert(!await page.evaluate(value => [localStorage, sessionStorage].some(storage =>
+      Object.entries(storage).flat().some(item => item.includes(value))), fixtureKey));
     await page.reload();
     await expect(page.locator("#course-stage-critic [data-status]")).toHaveText("completed");
+    await expect(key).toHaveValue("");
     await page.screenshot({ path: path.join(evidence, "cis1990-controlled.png"), fullPage: true });
     await page.setViewportSize({ width: 375, height: 812 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(375);
@@ -111,7 +126,7 @@ test("CIS 1990 reports a provider outage and retains its failed trace", async ({
   });
 });
 
-test("CIS 1990 stays out of fictional Demo Mode and explains missing server credentials", async ({ page }) => {
+test("CIS 1990 keeps credential entry out of fictional Demo Mode", async ({ page }) => {
   await withServer("no-key", async () => {
     const courseRequests = [];
     page.on("request", request => { if (request.url().includes("/api/cis1990")) courseRequests.push(request.method()); });
@@ -120,10 +135,11 @@ test("CIS 1990 stays out of fictional Demo Mode and explains missing server cred
     await page.getByRole("link", { name: "CIS 1990 Research Demo", exact: true }).click();
     await expect(page.getByText("Live research is available in Real Mode")).toBeVisible();
     await expect(page.getByRole("button", { name: "Run Philadelphia Weather Research" })).toHaveCount(0);
+    await expect(page.getByLabel("Gemini API key")).toHaveCount(0);
     assert.deepEqual(courseRequests, []);
     await page.locator('[data-view="cis1990"]').getByRole("button", { name: "Switch to Real Mode" }).click();
     await expect(page.getByRole("button", { name: "Run Philadelphia Weather Research" })).toBeDisabled();
-    await expect(page.getByText(/Set GEMINI_API_KEY on the server/)).toBeVisible();
+    await expect(page.getByLabel("Gemini API key")).toHaveAttribute("type", "password");
     assert.deepEqual(courseRequests, ["GET"]);
     await page.screenshot({ path: path.join(evidence, "cis1990-missing-key.png"), fullPage: true });
   });

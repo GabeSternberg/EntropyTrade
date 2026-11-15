@@ -1,6 +1,6 @@
 # CIS 1990 check-in video guide
 
-Record a 75–90 second video. Rehearse with a Gemini API key loaded through the shell or secret manager that starts EntropyTrade. Keep the key setup outside the recording. [Gemini API key setup](https://ai.google.dev/gemini-api/docs/api-key)
+Record a 75–90 second video. Rehearse with your Gemini key in the website’s masked field or loaded in the server’s environment. Keep the key masked during the recording. [Gemini API key setup](https://ai.google.dev/gemini-api/docs/api-key)
 
 ## 0:00–0:15 — Introduce the project
 

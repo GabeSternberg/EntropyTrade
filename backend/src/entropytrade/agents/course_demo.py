@@ -23,6 +23,20 @@ DEMO_PROMPT = (
 )
 
 
+def redact_course_value(value: Any, key: str) -> Any:
+    if isinstance(value, str):
+        return value.replace(key, "[redacted]")
+    if isinstance(value, dict):
+        # Field names and run identity are assigned by the application.
+        return {
+            name: item if name in {"run_id", "status"} else redact_course_value(item, key)
+            for name, item in value.items()
+        }
+    if isinstance(value, list):
+        return [redact_course_value(item, key) for item in value]
+    return value
+
+
 def _describe_sources(sources: dict[str, Any], emit: Callable[[str], None]) -> None:
     for source in sources.values():
         requests = ", ".join(
@@ -47,7 +61,7 @@ async def run_philadelphia_research(
     stage_complete: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     """The shared CLI and website workflow. Inputs are fixed by the application."""
-    research_key(DEMO_PROVIDER)
+    key = research_key(DEMO_PROVIDER)
     if progress:
         progress("sources", "Retrieving public Kalshi listings and NWS forecast hours")
     sources = await fetch_course_sources()
@@ -71,6 +85,7 @@ async def run_philadelphia_research(
         enable_provider=True,
         progress=progress,
         stage_complete=stage_complete,
+        redact=lambda trace: redact_course_value(trace, key),
         run_id=run_id,
     )
 

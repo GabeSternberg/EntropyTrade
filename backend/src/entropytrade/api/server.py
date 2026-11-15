@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import re
 import secrets
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -410,14 +411,23 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
             if self.path == "/api/cis1990":
-                if value != {}:
-                    raise ValueError("the course run takes no browser-supplied inputs")
-                if not os.environ.get(COURSE_KEY_VARIABLE, "").strip():
+                if not isinstance(value, dict) or set(value) - {"api_key"}:
+                    raise ValueError("the course run accepts only an optional Gemini API key")
+                key = value.get("api_key", "")
+                if not isinstance(key, str):
+                    raise ValueError("Enter a Gemini API key as text.")
+                key = key.strip()
+                if key and not re.fullmatch(r"[!-~]{1,512}", key):
+                    raise ValueError(
+                        "The Gemini API key contains invalid characters or is too long."
+                    )
+                if not key and not os.environ.get(COURSE_KEY_VARIABLE, "").strip():
                     self.document(
-                        503, {"error": "Set GEMINI_API_KEY on the server and restart EntropyTrade."}
+                        503,
+                        {"error": "Enter a Gemini API key or set GEMINI_API_KEY on the server."},
                     )
                     return
-                self.document(202, {"id": self.server.jobs.create_course()})
+                self.document(202, {"id": self.server.runner.submit_course(key)})
                 return
             if self.path == "/api/weather/schedules":
                 self.document(202, self.server.labels.scheduler.create(value))
@@ -526,6 +536,8 @@ class Handler(BaseHTTPRequestHandler):
                     changed = self.server.jobs.update(
                         route[0], "cancelled", "Cancelled by user", status="cancelled"
                     )
+                    if course_route and changed:
+                        self.server.runner.forget_course_key(route[0])
                     self.document(200, {"cancelled": changed})
                     return
         except (ValueError, UnicodeError, OSError, KeyError) as exc:

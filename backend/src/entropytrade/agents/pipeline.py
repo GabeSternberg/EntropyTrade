@@ -322,6 +322,7 @@ async def run_research(
     timeout_seconds: float = 180,
     progress: Callable[[str, str], None] | None = None,
     stage_complete: Callable[[dict[str, Any]], None] | None = None,
+    redact: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     import json
     from dataclasses import asdict
@@ -655,6 +656,8 @@ async def run_research(
             else "not_observed"
         )
         result["usage"] = to_jsonable_python(asdict(usage))
+        if redact:
+            result = redact(result)
         payload_text = json.dumps(result, sort_keys=True, allow_nan=False)
         try:
             registry.record_agent_run(identifier, payload_text)

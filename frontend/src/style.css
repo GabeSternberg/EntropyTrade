@@ -691,6 +691,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 [data-view="cis1990"] [aria-live] > span { min-width: 0; overflow-wrap: anywhere; }
 [data-view="cis1990"] :is([role="status"], .course-detail, .course-result, .course-list) { overflow-wrap: anywhere; }
 [data-view="cis1990"] .course-stages { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 12px; }
+[data-view="cis1990"] .course-key { display: grid; gap: 6px; width: min(100%, 460px); }
+[data-view="cis1990"] .course-key-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
 [data-view="cis1990"] h2 { font-size: 17px; }
 [data-view="cis1990"] .course-detail summary { cursor: pointer; color: var(--text-2); }
 [data-view="cis1990"] .course-detail pre { margin: 7px 0 0; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: auto; max-height: 260px; white-space: pre-wrap; }
