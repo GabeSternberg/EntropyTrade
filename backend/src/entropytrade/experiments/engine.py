@@ -5,7 +5,7 @@ from collections import defaultdict
 from datetime import datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, Self
 
 import numpy as np
 import pyarrow as pa  # type: ignore[import-untyped]
@@ -43,6 +43,10 @@ from entropytrade.strategy_registry.store import Registry
 class ExperimentConfig(DomainModel):
     fee_policy: FeePolicy | None = None
     fee_versions: tuple[FeeVersion, ...] | None = None
+    execution_policy: Literal["recorded_receipts", "legacy_snapshot_sensitivity"] = Field(
+        default="recorded_receipts",
+        exclude_if=lambda value: value == "legacy_snapshot_sensitivity",
+    )
     latency_seconds: int = Field(default=1, ge=0, le=3600)
     max_book_age_seconds: int = Field(default=60, ge=0, le=3600)
     starting_cash: ExactDecimal = Field(default=Decimal("1000"), gt=0)
@@ -58,6 +62,11 @@ class ExperimentConfig(DomainModel):
         FillScenario.BASE,
         FillScenario.CONSERVATIVE,
     )
+
+    def revalidated(self, **changes: object) -> Self:
+        # Wire serialization omits the legacy value for historical compatibility;
+        # validated copies must still preserve an explicitly selected legacy policy.
+        return super().revalidated(**{"execution_policy": self.execution_policy, **changes})
 
     @model_validator(mode="after")
     def unique_scenarios(self) -> "ExperimentConfig":
@@ -134,6 +143,21 @@ def _records(
     return observations
 
 
+def _uses_recorded_execution(
+    samples: list[ContractSample], data_kind: str, config: ExperimentConfig
+) -> bool:
+    return any(sample.execution_books for sample in samples) or (
+        config.execution_policy == "recorded_receipts"
+        and (
+            data_kind == "real"
+            or any(
+                sample.book is not None and sample.book.received_at != sample.decision_time
+                for sample in samples
+            )
+        )
+    )
+
+
 def _scenario(
     spec: StrategySpec,
     data: ExperimentData,
@@ -175,8 +199,19 @@ def _scenario(
         )
     start = min(s.decision_time for s in samples)
     ledger = Ledger(config.starting_cash, as_of=start)
+    explicit_execution = _uses_recorded_execution(samples, data.data_kind, config)
+    books = tuple(
+        book
+        for sample in samples
+        for book in ((sample.book,) if sample.book is not None else ()) + sample.execution_books
+    )
     result = run_replay(
-        books=tuple(s.book for s in samples if s.book is not None),
+        books=books,
+        decision_points=tuple(
+            (sample.decision_time, sample.book) for sample in samples if sample.book is not None
+        )
+        if explicit_execution
+        else None,
         records=_records(data, samples, predictions),
         strategy=compile_strategy(spec),
         ledger=ledger,
@@ -216,6 +251,10 @@ def _scenario(
         peak = max(peak, equity)
         drawdown = max(drawdown, peak - equity)
     complete = not ledger.positions
+    missing_execution_receipts = sum(
+        row["status"] == "execution_evidence_missing" for row in result.audit
+    )
+    execution_evidence_complete = missing_execution_receipts == 0
     by_date: dict[str, float] = defaultdict(float)
     dates = {s.event_id: s.target_date.isoformat() for s in samples}
     # Include zero-trade dates. These are correlated event blocks, not tick returns.
@@ -226,6 +265,15 @@ def _scenario(
     return {
         "scenario": scenario.value,
         "execution_fidelity": "sized_snapshot_taker_simulation",
+        **(
+            {
+                "execution_clock_mode": "recorded_post_decision_receipts",
+                "execution_evidence_complete": execution_evidence_complete,
+                "missing_execution_receipts": missing_execution_receipts,
+            }
+            if explicit_execution
+            else {}
+        ),
         "fee_policy": policy.model_dump(mode="json"),
         "fee_bindings": bindings,
         "fee_schedule_used": schedule.model_dump(mode="json"),
@@ -237,13 +285,17 @@ def _scenario(
                 for f in fills
             }
         ),
-        "net_pnl": str(ledger.equity() - config.starting_cash) if complete else None,
+        "net_pnl": str(ledger.equity() - config.starting_cash)
+        if complete and execution_evidence_complete
+        else None,
         "realized_pnl": str(ledger.realized_pnl),
         "fees_paid": str(ledger.fees_paid),
-        "drawdown_at_cost": str(drawdown) if complete else None,
+        "drawdown_at_cost": str(drawdown) if complete and execution_evidence_complete else None,
         "mark_basis": "cost-basis equity between settlements, not market marks",
         "unsettled_positions": len(ledger.positions),
-        "mean_date_pnl_interval": _interval(list(by_date.values()), config) if complete else None,
+        "mean_date_pnl_interval": _interval(list(by_date.values()), config)
+        if complete and execution_evidence_complete
+        else None,
         "ledger": ledger.dump(),
         "audit": result.audit,
         "equity_curve": [{"time": t.isoformat(), "equity": str(e)} for t, e in result.equity_curve],
@@ -543,15 +595,20 @@ def evaluate_candidate(
     if config.fee_versions is not None:
         # Replay decides on the retained book clock and executes after configured latency.
         # Verify every required clock before producing any scenario; mixed versions are legal.
+        explicit_execution = _uses_recorded_execution(samples, data.data_kind, config)
         checks = [
             select_fee(config.fee_versions, series=s.family, when=when, data_kind=data.data_kind)[1]
             for s in samples
-            for when in {
-                s.decision_time,
-                s.book.received_at if s.book else s.decision_time,
-                (s.book.received_at if s.book else s.decision_time)
-                + timedelta(seconds=config.latency_seconds),
-            }
+            for when in (
+                {s.decision_time, s.decision_time + timedelta(seconds=config.latency_seconds)}
+                if explicit_execution
+                else {
+                    s.decision_time,
+                    s.book.received_at if s.book else s.decision_time,
+                    (s.book.received_at if s.book else s.decision_time)
+                    + timedelta(seconds=config.latency_seconds),
+                }
+            )
         ]
         result["execution_fee_evidence"] = sorted(
             checks, key=lambda a: (a["series"], a["decision_time"])
@@ -579,7 +636,15 @@ def evaluate_candidate(
     ]
     result["tested"] = True
     result["status"] = "BACKTESTED"
-    if any(s["unsettled_positions"] for s in result["scenarios"]):
+    if any(s.get("execution_evidence_complete") is False for s in result["scenarios"]):
+        result.update(
+            status="INSUFFICIENT_DATA",
+            reasons=[
+                "missing actual post-decision execution receipts; "
+                "partial simulated accounting cannot establish execution profitability"
+            ],
+        )
+    elif any(s["unsettled_positions"] for s in result["scenarios"]):
         result.update(
             status="INSUFFICIENT_DATA",
             reasons=["positions unresolved within the permitted evaluation window"],
@@ -778,7 +843,12 @@ def run_experiments(
         replay_data = data.revalidated(
             samples=tuple(
                 s.revalidated(
-                    features={}, versions={}, outcome=None, outcome_available_at=None, book=None
+                    features={},
+                    versions={},
+                    outcome=None,
+                    outcome_available_at=None,
+                    book=None,
+                    execution_books=(),
                 )
                 if s.event_id in protected
                 else s

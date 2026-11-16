@@ -64,6 +64,9 @@ class WorkbenchServer(ThreadingHTTPServer):
             from entropytrade.research.service import ResearchService
 
             self.research = ResearchService(root, self.repo, lease_fd=self.lock.fileno())
+            from entropytrade.research.paper import ResearchPaperService
+
+            self.paper = ResearchPaperService(root, self.tracking)
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
@@ -180,6 +183,14 @@ class Handler(BaseHTTPRequestHandler):
                 found = research.detail(job_id)
             elif job_id and action == "report":
                 found = research.report(job_id)
+            elif job_id and action == "paper":
+                try:
+                    found = self.server.paper.proposals(job_id)
+                except KeyError:
+                    found = None
+                except (ValueError, OSError):
+                    self.document(409, {"error": "Paper source verification failed"})
+                    return
             else:
                 found = None
             if found is not None:
@@ -565,6 +576,16 @@ class Handler(BaseHTTPRequestHandler):
                 self.document(202, self.server.research.submit(value))
                 return
             research_route = self.research_route()
+            if research_route and research_route[1] == "paper":
+                from entropytrade.research.paper import PaperEligibilityError
+
+                try:
+                    created = self.server.paper.create(research_route[0], value)
+                except PaperEligibilityError as exc:
+                    self.document(409, {"error": str(exc), "eligibility": exc.proposal})
+                    return
+                self.document(201, created)
+                return
             if research_route and research_route[1] == "approve":
                 changed = self.server.research.approve(research_route[0], value)
                 self.document(200, {"id": research_route[0], "changed": changed})
@@ -598,7 +619,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.server.tracking.acknowledge(monitor_route[0], value["alert_id"])
                 self.document(200, {"id": monitor_route[0]})
                 return
-            if monitor_route and monitor_route[1] in {"pause", "resume"} and value == {}:
+            if (
+                monitor_route
+                and monitor_route[1] in {"pause", "resume", "suspend", "cancel"}
+                and value == {}
+            ):
                 self.server.tracking.control(*monitor_route)
                 self.document(200, {"id": monitor_route[0]})
                 return

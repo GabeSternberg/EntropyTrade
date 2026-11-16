@@ -32,13 +32,15 @@ MAX_BYTES = 2 * 1024 * 1024 * 1024
 # Bytes a restore may write to disk once every path is expanded (v1: equal to MAX_BYTES).
 MAX_EXPANDED_BYTES = 4 * 1024 * 1024 * 1024
 MAX_MANIFEST_BYTES = 16 * 1024 * 1024
+LEGACY_MONITOR_COLUMNS = (
+    "id job_id candidate_id family spec spec_hash status interval_seconds next_at "
+    "created_at failures model_binding"
+)
+SOURCE_MONITOR_COLUMNS = "source_kind research_job_id experiment_id deployment_key source_ref"
 TABLES = {
     "jobs": "id request status created_at updated_at detail result",
     "events": "sequence job_id at stage detail",
-    "monitors": (
-        "id job_id candidate_id family spec spec_hash status interval_seconds next_at "
-        "created_at failures model_binding"
-    ),
+    "monitors": LEGACY_MONITOR_COLUMNS + " " + SOURCE_MONITOR_COLUMNS,
     "shadow_cycles": "id monitor_id sequence status started_at finished_at detail result digest",
     "shadow_events": "sequence monitor_id at action",
     "shadow_contracts": "monitor_id ticker market last_attempt outcome",
@@ -180,7 +182,19 @@ def validate_database(root: Path) -> dict[str, int]:
         for table, columns in TABLES.items():
             if ("table", table) not in actual:
                 continue  # Legacy workspace before paper accounting; never invent past fills.
-            if [r[1] for r in db.execute(f"PRAGMA table_info({table})")] != columns.split():
+            actual_columns = [r[1] for r in db.execute(f"PRAGMA table_info({table})")]
+            permitted = [columns.split()]
+            if table == "monitors":
+                # Archive validation is read-only. Earlier stores gain the additive
+                # source columns only when TrackingStore is opened after restore.
+                permitted += [
+                    LEGACY_MONITOR_COLUMNS.split(),
+                    LEGACY_MONITOR_COLUMNS.split()[:-1],
+                    LEGACY_MONITOR_COLUMNS.split()[:-1]
+                    + SOURCE_MONITOR_COLUMNS.split()
+                    + ["model_binding"],
+                ]
+            if actual_columns not in permitted:
                 raise ValueError("unsupported workspace database columns")
         if [r[0] for r in db.execute("PRAGMA integrity_check")] != ["ok"]:
             raise ValueError("corrupt workspace database")
@@ -234,14 +248,36 @@ def validate_database(root: Path) -> dict[str, int]:
 
             validate(db, set(monitors))
         for monitor in monitors.values():
-            if monitor["job_id"] not in jobs or monitor["status"] not in {"active", "paused"}:
+            if monitor["status"] not in {"active", "paused", "cancelled", "suspended"}:
                 raise ValueError("invalid restored monitor reference/state")
+            origin = monitor.get("source_kind", "legacy")
+            if origin == "legacy":
+                if monitor["job_id"] not in jobs or any(
+                    monitor.get(field) is not None
+                    for field in (
+                        "research_job_id",
+                        "experiment_id",
+                        "deployment_key",
+                        "source_ref",
+                    )
+                ):
+                    raise ValueError("invalid restored legacy monitor source reference")
+            elif origin == "autonomous_research":
+                from entropytrade.research.paper import verify_paper_origin
+
+                # Frozen source verification checks the copied ResearchStore metadata
+                # and immutable artifacts. It never polls, retrains or reprices.
+                verify_paper_origin(root, monitor)
+            else:
+                raise ValueError("unsupported restored monitor source kind")
             spec = StrategySpec.model_validate_json(monitor["spec"])
             if spec.spec_hash() != monitor["spec_hash"]:
                 raise ValueError("restored strategy hash mismatch")
-            if monitor["model_binding"] is None:
+            if monitor.get("model_binding") is None:
                 # The store's legacy migration leaves SQL NULL unbound. Preserve it;
                 # scoring still refuses it, and recovery must never freeze a model.
+                if origin != "legacy":
+                    raise ValueError("research paper monitor has no frozen model binding")
                 continue
             binding = json.loads(monitor["model_binding"])
             if not isinstance(binding, dict):
@@ -251,6 +287,19 @@ def validate_database(root: Path) -> dict[str, int]:
             ) != binding.get("binding_hash"):
                 raise ValueError("restored model binding hash mismatch")
             if binding["status"] == "bound":
+                if binding.get("kind") == "research_weather_v1":
+                    from entropytrade.research.paper_models import verify_research_binding
+
+                    if origin != "autonomous_research":
+                        raise ValueError("research model binding requires an autonomous source")
+                    source_ref = json.loads(monitor["source_ref"])
+                    data_kind = source_ref["eligibility"]["data_kind"]
+                    if data_kind not in {"real", "synthetic"}:
+                        raise ValueError("restored research model provenance is unsupported")
+                    # Controlled deployments remain explicitly synthetic on restore;
+                    # restoring cannot reauthorize them to score authentic data.
+                    verify_research_binding(spec, binding, data_kind=data_kind)
+                    continue
                 model = FrozenWeather.model_validate(binding["snapshot"])
                 if (
                     model.data_kind != "real"
@@ -271,6 +320,8 @@ def validate_database(root: Path) -> dict[str, int]:
                 "interrupted",
             }:
                 raise ValueError("invalid restored cycle reference/state")
+            if row["status"] == "running" and monitors[monitor_id]["status"] != "active":
+                raise ValueError("non-active restored monitor has a running cycle")
             sequences[monitor_id].append(row["sequence"])
             if row["status"] in {"completed", "failed"} and row["result"] is None:
                 raise ValueError("finished cycle has no result")

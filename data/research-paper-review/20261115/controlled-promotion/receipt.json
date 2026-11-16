@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "data_kind": "synthetic",
+  "controlled_promotion": true,
+  "screenshots": [
+    "incoming-paper-account.png",
+    "incoming-paper-mobile-controls.png",
+    "paper-controls-and-provenance.png",
+    "paper-mobile.png",
+    "restored-paper-source.png"
+  ],
+  "downloads": [
+    {
+      "file": "cancelled-account.json",
+      "sha256": "ac1d65f1024ee0b395986b7aa685b50db6777cdce60f8d3c470cb0b088441524"
+    },
+    {
+      "file": "cancelled-evidence.json",
+      "sha256": "b65ec80d79347396ee459f5de1406167c611aa16117fb9dd7ccad380c9107184"
+    },
+    {
+      "file": "restarted-account.json",
+      "sha256": "ac1d65f1024ee0b395986b7aa685b50db6777cdce60f8d3c470cb0b088441524"
+    },
+    {
+      "file": "restarted-evidence.json",
+      "sha256": "b65ec80d79347396ee459f5de1406167c611aa16117fb9dd7ccad380c9107184"
+    },
+    {
+      "file": "restored-account.json",
+      "sha256": "ac1d65f1024ee0b395986b7aa685b50db6777cdce60f8d3c470cb0b088441524"
+    },
+    {
+      "file": "restored-evidence.json",
+      "sha256": "b65ec80d79347396ee459f5de1406167c611aa16117fb9dd7ccad380c9107184"
+    }
+  ],
+  "posts": [
+    {
+      "path": "/api/research/jobs/ed32b9de-0c8f-4496-822e-8475a0d92533/paper",
+      "body": {
+        "experiment_id": "sha256:1c070f00ccb1072aa050edba36971880ab49d13ede22560d7999fb41d0f88f1d",
+        "model_family": "ridge",
+        "interval_seconds": 300
+      }
+    },
+    {
+      "path": "/api/monitors/67dc77e9-2fe0-4cdc-9ac4-d56d6017a124/pause",
+      "body": {}
+    },
+    {
+      "path": "/api/monitors/67dc77e9-2fe0-4cdc-9ac4-d56d6017a124/resume",
+      "body": {}
+    },
+    {
+      "path": "/api/monitors/67dc77e9-2fe0-4cdc-9ac4-d56d6017a124/suspend",
+      "body": {}
+    },
+    {
+      "path": "/api/monitors/67dc77e9-2fe0-4cdc-9ac4-d56d6017a124/cancel",
+      "body": {}
+    }
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "incoming": {
+    "cycles": 1,
+    "fills": 1,
+    "positions": 1,
+    "state_hash": "sha256:7c2e86a76c809ae1d376de71c965b936a4996056197f55e2f7c84b709b936f98"
+  },
+  "restore": {
+    "workspace": "/workspace/EntropyTrade-paper/data/cache/milestone-d-browser-accepted-current-workspace-controlled-promotion-restored",
+    "archive_sha256": "sha256:a3520406883ccfb378a528e8027434fc744359a5a937e0840a959b47f4f93f44",
+    "jobs": 0,
+    "monitors": 1,
+    "cycles": 1,
+    "submission_enabled": false
+  }
+}

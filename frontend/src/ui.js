@@ -151,6 +151,12 @@
       if (value === null || value === undefined) return "—";
       return `${Math.round(Number(value) * 100)}¢`;
     },
+    decisionPoint(value) {
+      if (!value || !Number.isInteger(value.day_offset) || typeof value.local_time !== "string") return "No recorded decision schedule";
+      const n = Math.abs(value.day_offset);
+      const day = n === 0 ? "Target day" : `${n} day${n === 1 ? "" : "s"} ${value.day_offset < 0 ? "before" : "after"} target`;
+      return `${day} at ${value.local_time} local`;
+    },
     date(value) {
       if (!value) return "—";
       const d = new Date(value);

@@ -27,6 +27,7 @@ from entropytrade.exchange.kalshi.recorded import market_from_body
 from entropytrade.experiments.data import ContractSample, ExperimentData, PredictionBundle
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.research.paper_models import PortableResearchModel
 from entropytrade.tracking.history import verified_inputs
 from entropytrade.tracking.models import score
 from entropytrade.tracking.replay import verify
@@ -75,7 +76,8 @@ def _cycles(jobs: Jobs, monitor_id: str) -> tuple[dict[str, Any], list[dict[str,
 def _inputs(root: Path, result: dict[str, Any]) -> dict[str, Any]:
     inputs: dict[str, Any] = json.loads((root / "decision-inputs.json").read_text())
     data = ExperimentData.model_validate(inputs["data"])
-    if data.data_kind == "synthetic":
+    research = (result.get("model_binding") or {}).get("kind") == "research_weather_v1"
+    if data.data_kind == "synthetic" and not research:
         # A synthetic replay cannot certify public sources and is never grouped with real data.
         verify(root)
     else:
@@ -95,9 +97,27 @@ def _inputs(root: Path, result: dict[str, Any]) -> dict[str, Any]:
             ):
                 raise ValueError("frozen forecast contract differs from public receipt")
         bundle = PredictionBundle.model_validate(inputs["bundle"])
+        if research:
+            from entropytrade.tracking import history
+            from entropytrade.tracking.research_features import reconstruct_research_data
+
+            reconstructed = reconstruct_research_data(
+                root, history.forward_data(root / "public"), result, result["execution"]
+            )
+            # decision_inputs intentionally excludes full source provenance. Restore
+            # only the verified scoring markers in memory; original bytes stay intact.
+            scoring = data.revalidated(
+                provenance={
+                    key: reconstructed.provenance[key]
+                    for key in ("adapter", "feature_schema_hash", "deployment_created_at")
+                }
+                | {"research_window_at": result["research_window_at"]}
+            )
+        else:
+            scoring = data.revalidated(provenance={"adapter": "public-forward-v1:weather"})
         expected = score(
             spec,
-            data.revalidated(provenance={"adapter": "public-forward-v1:weather"}),
+            scoring,
             result.get("model_binding"),
             markets,
         )
@@ -304,12 +324,17 @@ def report(jobs: Jobs, monitor_id: str, *, as_of: datetime | None = None) -> dic
     monitor, cycles = _cycles(jobs, monitor_id)
     protected: set[str] = set()
     binding = json.loads(monitor["model_binding"]) if monitor["model_binding"] else None
+    research_model = None
     if binding and binding.get("snapshot"):
         if scientific_hash(
             {k: v for k, v in binding.items() if k != "binding_hash"}
         ) != binding.get("binding_hash"):
             raise ValueError("monitor protection binding mismatch")
-        protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
+        if binding.get("kind") == "research_weather_v1":
+            research_model = PortableResearchModel.model_validate(binding["snapshot"])
+            protected.update(research_model.protected_events)
+        else:
+            protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
     verified = []
     failures = []
     lifecycle = Counter(c["status"] for c in cycles)
@@ -375,7 +400,14 @@ def report(jobs: Jobs, monitor_id: str, *, as_of: datetime | None = None) -> dic
     )
     for sample, cycle, inputs, _result in samples:
         markets = market_maps[cycle["id"]]
-        if sample.event_id in protected:
+        if sample.event_id in protected or (
+            research_model is not None
+            and research_model.protects(
+                series=sample.family,
+                target_date=sample.target_date,
+                event_id=sample.event_id,
+            )
+        ):
             excluded.add(sample.event_id)
             continue
         if (

@@ -27,7 +27,12 @@ def reproduce(inputs: dict[str, Any]) -> list[dict[str, Any]]:
     if inputs["schema"] != "experiment-replay-v1":
         raise ValueError("unknown experiment replay schema")
     data = ExperimentData.model_validate(inputs["data"])
-    config = ExperimentConfig.model_validate(inputs["config"])
+    frozen_config = dict(inputs["config"])
+    if "execution_policy" not in frozen_config:
+        # Retained pre-policy archives explicitly reproduce their original sensitivity
+        # assumptions. New callers default to recorded execution receipts instead.
+        frozen_config["execution_policy"] = "legacy_snapshot_sensitivity"
+    config = ExperimentConfig.model_validate(frozen_config)
     predictor = FrozenPredictions(inputs["predictions"])
     research = inputs["research"]
     return [

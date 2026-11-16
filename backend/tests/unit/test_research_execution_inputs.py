@@ -4,7 +4,7 @@ import copy
 import json
 import shutil
 from collections.abc import Callable
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -70,7 +70,11 @@ def executed(
 
 
 def rewrite_dataset(
-    root: Path, identifier: str, change: Callable[[list[dict[str, Any]]], None]
+    root: Path,
+    identifier: str,
+    change: Callable[[list[dict[str, Any]]], None],
+    *,
+    change_receipts: Callable[[list[dict[str, Any]]], None] | None = None,
 ) -> str:
     source = root / "datasets" / ("sha256-" + identifier.removeprefix("sha256:"))
     staging = root / ".changed-execution"
@@ -80,6 +84,14 @@ def rewrite_dataset(
     (staging / "records.jsonl").write_text(
         "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows)
     )
+    if change_receipts is not None:
+        receipts = [
+            json.loads(line) for line in (staging / "receipts.jsonl").read_text().splitlines()
+        ]
+        change_receipts(receipts)
+        (staging / "receipts.jsonl").write_text(
+            "".join(json.dumps(receipt, sort_keys=True) + "\n" for receipt in receipts)
+        )
     manifest = json.loads((staging / "manifest.json").read_text())
     manifest["checksums"] = {
         name: file_hash(staging / name)
@@ -362,3 +374,75 @@ def test_missing_outcome_never_selects_profitable_subset(
     assert not result["eligible"]
     assert result["performance"] is None
     assert "entire decision-eligible universe" in result["reasons"][0]
+
+
+@pytest.mark.parametrize("delay", [0.5, 10.0])
+def test_genuine_followup_books_are_execution_only_and_never_move_decision(
+    executed: tuple[Path, dict[str, Any], dict[str, Any]],
+    delay: float,
+) -> None:
+    root, original, kwargs = executed
+    artifacts = [
+        json.loads(path.read_text()) for path in (root / "features").glob("*/manifest.json")
+    ]
+    identifier, _ = execution_fixture(
+        root, kwargs["spec"], artifacts, execution_delay_seconds=delay
+    )
+    result = acquired_backtest(**(kwargs | {"execution_datasets": (identifier,)}))
+    assert (
+        result["performance"]["forecast_metrics"]
+        == original["backtest"]["performance"]["forecast_metrics"]
+    )
+    assert (
+        result["performance"]["prediction_ids"]
+        == original["backtest"]["performance"]["prediction_ids"]
+    )
+    scenarios = {item["scenario"]: item for item in result["performance"]["scenarios"]}
+    assert scenarios["base"]["execution_clock_mode"] == "recorded_post_decision_receipts"
+    assert scenarios["base"]["fill_count"] == (43 if delay == 0.5 else 0)
+    assert scenarios["conservative"]["fill_count"] == 0
+    if delay == 10.0:
+        assert not result["eligible"]
+        assert result["performance"]["status"] == "INSUFFICIENT_DATA"
+        assert scenarios["base"]["net_pnl"] is None
+        assert not scenarios["base"]["execution_evidence_complete"]
+
+
+def test_identical_raw_book_bytes_keep_both_genuine_receipt_clocks(
+    executed: tuple[Path, dict[str, Any], dict[str, Any]],
+) -> None:
+    root, original, kwargs = executed
+    retained = []
+
+    def change(rows: list[dict[str, Any]]) -> None:
+        followups = []
+        for row in rows:
+            if row["record_type"] != "market_state":
+                continue
+            later = (
+                datetime.fromisoformat(row["received_at"]) + timedelta(seconds=0.5)
+            ).isoformat()
+            followup = copy.deepcopy(row)
+            followup.update(received_at=later, available_at=later)
+            # Actual HTTP response bodies need not contain local receipt timestamps.
+            # These declared synthetic captures retain byte-identical raw bytes and
+            # their original payload clock, with two distinct real capture receipts.
+            assert followup["payload"] == row["payload"]
+            followups.append(followup)
+            retained.append({"sha256": row["raw_hash"], "received_at": later})
+        rows.extend(followups)
+
+    identifier = rewrite_dataset(
+        root,
+        kwargs["execution_datasets"][0],
+        change,
+        change_receipts=lambda receipts: receipts.extend(retained),
+    )
+    result = acquired_backtest(**(kwargs | {"execution_datasets": (identifier,)}))
+    performance = result["performance"]
+    assert performance["prediction_ids"] == original["backtest"]["performance"]["prediction_ids"]
+    scenarios = {item["scenario"]: item for item in performance["scenarios"]}
+    assert scenarios["base"]["execution_clock_mode"] == "recorded_post_decision_receipts"
+    assert scenarios["base"]["execution_evidence_complete"]
+    assert scenarios["base"]["fill_count"] == 43
+    assert scenarios["conservative"]["fill_count"] == 0

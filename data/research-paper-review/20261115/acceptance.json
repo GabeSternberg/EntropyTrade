@@ -1,0 +1,104 @@
+{
+  "authentic_strategy_eligible": false,
+  "authenticated_provider_verified": false,
+  "browser_scenarios": {
+    "controlled-promotion": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "incoming-paper-account.png": "77d65dfa626f2374433dc4fbc365fb244ae82f48ae4acf844460e23b256cdf5c",
+        "incoming-paper-mobile-controls.png": "bd2d2a6dd3948de7919a1ceb84d8cb8d03852f02dc1c6ba4171bc4c42eb75dab",
+        "paper-controls-and-provenance.png": "8f73bb1a29baf3311272475f910810e672c83b88eb9e0cf727b44b911c6ca320",
+        "paper-mobile.png": "345e9064267ff0a2b401a6113af0686b8be4f649788ede9b900fcf6fd1b1d548",
+        "restored-paper-source.png": "f3e1bff885bd53475bc733e1a68f4afe50fa1c5eb6c34e7a8f5d27188a244335"
+      },
+      "status": "passed"
+    },
+    "legacy-authentic": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "paper-account.png": "d8d020883da177e3be81c95d6d94c97e6a01879f2adc5915e2faa961b5c6fe0f",
+        "restarted.png": "554cd05eabad09c1a82b79cb0e14f6e4bd47840b485bf4d73599f3f8fb289639"
+      },
+      "status": "passed"
+    },
+    "legacy-controlled": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "paper-account.png": "af4b7fc7f4ec5385b06a300d8d6b56aaba33af8c58697bd39f655484a7ce115a",
+        "restarted.png": "87fd872e8c028df93e2c1fce58d4880fe6b9a8190d949a5ef6ae5911addd9f4e"
+      },
+      "status": "passed"
+    },
+    "production-refusal": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "production-paper-refusal.png": "78dcb55a0d0de843a8b37d23ae3afeee877e7af3b6cbd87b0bb3b2a401c156df"
+      },
+      "status": "passed"
+    },
+    "redesign": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "demo-analytics-costs.png": "150fc1f70aeb2674df5426ef614d03668042216a19ef3433505ff57bf95e8048",
+        "demo-analytics.png": "8d0cb74004dc085ea6298daf25a1aa80b17028706543e70b383b4ad912851dc3",
+        "demo-market-detail.png": "069513040e7fddbdc248f42d9dd05e86caade1d67393e8c5cca0b65e110a503d",
+        "demo-markets.png": "53ff780e877b529f4c71ddc87cea8f7c2ef40fa20a1913cc4dc2519410805204",
+        "demo-mobile-markets.png": "ff7c15d744d17e90343ead2aa3bf9d3cdd54934492494289d6981ddb31fcee7f",
+        "demo-operations.png": "7ae3d91404e12ceb9d1fb0d9a4e1b62c4efb9c8eb58ae3e9aa7eecbdef4ed7f5",
+        "demo-overview.png": "1b869f95b788f17e750c0e91cbf646d5a529b4710aea80287bd76f612ad0db5f",
+        "demo-paper.png": "a9441a6fb7349ba798790ff05e7111b56eddc9e3459c4dc280b007e8ea8161cf",
+        "demo-settings.png": "0f736e856b798023fc3ee8af37946e58499fa530d08d239a269efc996946ee23",
+        "demo-strategy-detail.png": "97b4fae0dfb34f4dc4c04c5559557aa69f0c094af0efd934c1cc1fc990ad5b0c",
+        "demo-strategy-lab.png": "6caff8740b4448875cabc1025f41be46f77ce122269aed385828848d1cebc2c4",
+        "demo-tablet-overview.png": "52c682483cd0844d434e3617694a6fbcfc540b14a7cea823bace25481db6ff51",
+        "real-operations.png": "10cc73f8756cdc667352225346934bcd8bd0daeb6d90765f5aa0ec16075edaea",
+        "real-overview.png": "5279a40da84c6621bca5d22433ba44ae4df41a695d230693c1bfe31476440881",
+        "real-paper.png": "553005682c67818de30eb8ce738ea5ee3aea3eaa9690cb67a9522b6c55bd7196",
+        "real-workbench.png": "a467cc6ec9326818d9482533dfde99bd563e9f5f6f107744fa6033d80566840a"
+      },
+      "status": "passed"
+    }
+  },
+  "canonical_collector_accessed": false,
+  "controlled_results": {
+    "cycles": 1,
+    "download_hashes_preserved_after_restart_and_restore": true,
+    "open_positions": 1,
+    "simulated_fills": 1
+  },
+  "current_browser": {
+    "duration_seconds": 62.024,
+    "expected": 2,
+    "unexpected": 0
+  },
+  "full_regression": {
+    "prior_broad_failed": 1,
+    "prior_broad_passed": 1766,
+    "prior_failure": "Old read-only dashboard source assertion; fixed with guarded shared transport and behavioral Demo isolation coverage. A fresh complete run and PR CI are required.",
+    "required_before_integration": true
+  },
+  "independent_review": {
+    "focused_acquired_execution_store": 37,
+    "frontend": 56,
+    "http_boundary": 1,
+    "verdict": "accepted current source; fresh full regression required before integration"
+  },
+  "scope": "Milestone D software acceptance; no authentic deployable strategy or live authorization",
+  "submission_enabled": false,
+  "verification": {
+    "daily_and_legacy_alerts": 18,
+    "execution_inputs": 23,
+    "format_files": 627,
+    "frontend_node": 56,
+    "policy_promotion_store_recovery": 41,
+    "ruff": "passed",
+    "strict_mypy_files": 627,
+    "worker_source_status": 3
+  },
+  "windows_configured": false
+}

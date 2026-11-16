@@ -98,3 +98,22 @@ test("demo research jobs are frozen, labeled and never claim an edge", () => {
   }
 });
 
+
+
+test("modern API writes require Real Mode, a same-origin path and a current CSRF token", async () => {
+  const { ET, requests } = load();
+  for (const bad of ["https://example.invalid/api/jobs", "//evil/api/x", "/style.css", 42]) {
+    await assert.rejects(ET.mutate(bad, {}, "token"), /same-origin \/api\//);
+  }
+  for (const missing of [null, undefined, "", "  "]) await assert.rejects(ET.mutate("/api/jobs", {}, missing), /CSRF token/);
+  assert.equal(requests.length, 0);
+  await ET.mutate("/api/research/jobs", { objective: "Study" }, "csrf-current");
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].options.method, "POST");
+  assert.equal(requests[0].options.credentials, "same-origin");
+  assert.equal(requests[0].options.headers["X-EntropyTrade-CSRF"], "csrf-current");
+  assert.deepEqual(JSON.parse(requests[0].options.body), { objective: "Study" });
+  const demo = load({ stored: "demo" });
+  await assert.rejects(demo.ET.mutate("/api/research/jobs", {}, "known-token"), /writes are disabled in Demo Mode/);
+  assert.equal(demo.requests.length, 0);
+});

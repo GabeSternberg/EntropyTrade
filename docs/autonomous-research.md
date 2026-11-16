@@ -12,7 +12,7 @@ order. Production submission stays disabled.
 | A. Durable research and data requirements | Persistent jobs, typed hypotheses, machine-readable requirements, dataset inventory, missing-data reports, provider selection and budgets, website | Implemented |
 | B. Acquisition and feature registration | Source catalog and evaluation, read-only acquisition, immutable datasets, feature materialization, forward-collection requests, automatic reevaluation | Implemented; verified live for KXHIGHPHIL |
 | C. Modeling, backtesting and validation | Durable acquired-feature fitting, temporal validation, verified local evidence, contract replay and reports | Implemented; authentic validation and prospective evidence remain gated |
-| D. Paper-trading lifecycle | Validated strategies in persistent paper accounts | Not started |
+| D. Paper-trading lifecycle | Verified research promotion, exact forward features, persistent accounts and controls | Implemented; final acceptance in progress and production candidates remain gated |
 | E. Approval and live-readiness | Approval artifacts, promotion gates, degradation investigations | Not started; live trading stays disabled |
 | F. Complete frontend workflow | End-to-end observation and management on the website | Partial (each milestone ships its own pages) |
 
@@ -299,3 +299,11 @@ experiment per step. Missing, unsupported, late or insufficient inputs produce p
 scientific refusals. Experiments and their complete history appear in the **Modeling &
 validation** tab and JSON report. Successful predictive analysis does not imply executable
 profitability or deployment eligibility. See [modeling scope and acceptance](research-modeling.md).
+
+
+## Paper promotion
+
+Completed experiments expose **Paper eligibility** and frozen production refusals or proposals.
+Eligible references connect to the existing paper dashboard, accounting and controls. See
+[research-to-paper operations](research-paper.md) for exact source/horizon gates and the current
+strict execution-policy limitation. Completing C does not itself authorize paper or live orders.

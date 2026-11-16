@@ -283,22 +283,31 @@ def test_demo_mode_data_is_isolated_at_the_presentation_boundary() -> None:
     assert "deepFreeze" in demo
     shell = (source / "shell.js").read_text()
     # Demo data is reachable only through ET.demo(), which refuses outside Demo Mode, and
-    # the shell's API helper is GET-only and refuses to run in Demo Mode.
+    # both shell transport helpers refuse to dispatch in Demo Mode. Behavioral DOM tests
+    # also cover saved Real handlers and a mode switch while a CSRF read is in flight.
     demo_guard = 'if (mode !== "demo") throw new Error("Demo data is only available in Demo Mode")'
     api_guard = 'if (mode !== "real") throw new Error("Real API reads are disabled in Demo Mode")'
     assert demo_guard in shell
     assert api_guard in shell
     assert 'method: "GET"' in shell
-    for name in ("ui.js", "shell.js", "views-markets.js", "views-lab.js", "views-ops.js"):
+    assert (
+        'if (mode !== "real") throw new Error("Real API writes are disabled in Demo Mode")' in shell
+    )
+    assert 'method: "POST"' in shell
+    assert '"X-EntropyTrade-CSRF": csrf' in shell
+    for name in ("ui.js", "views-markets.js", "views-lab.js", "views-ops.js", "views-research.js"):
         script = (source / name).read_text()
         assert "POST" not in script, name
         assert "X-EntropyTrade-CSRF" not in script, name
-        assert "demoData" not in script or name == "shell.js", name
+        assert "demoData" not in script, name
         if name.startswith("views-"):
             assert "fetch(" not in script, name
-    # The legacy workbench is the only writer, and it never reads demo data.
+    # The independent legacy workbench may reuse pure formatting, never shell data or
+    # mutation access. All modern view writes use the guarded transport above.
+    for name in ("views-ops.js", "views-research.js"):
+        assert "ET.mutate(" in (source / name).read_text(), name
     workbench = (source / "app.js").read_text()
-    assert "ET." not in workbench
+    assert set(re.findall(r"ET\.(\w+)", workbench)) <= {"fmt"}
     assert "demoData" not in workbench
 
 

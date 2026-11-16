@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "data_kind": "synthetic",
+  "controlled_promotion": false,
+  "screenshots": [
+    "production-paper-refusal.png"
+  ],
+  "downloads": [],
+  "posts": [],
+  "page_errors": [],
+  "console_errors": []
+}

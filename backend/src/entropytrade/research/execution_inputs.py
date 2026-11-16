@@ -17,6 +17,7 @@ from zoneinfo import ZoneInfo
 
 from entropytrade.data.schema import MarketEvidence, MarketState
 from entropytrade.domain.enums import MarketResult, MarketStatus, MarketType
+from entropytrade.domain.market import Market
 from entropytrade.domain.market_data import OrderBook
 from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.execution.fee_evidence import FeeVersion
@@ -76,13 +77,13 @@ def _records(
     for identifier in sorted(set(identifiers)):
         _dataset(root, identifier, data_kind)
         directory = root / "datasets" / ("sha256-" + identifier.removeprefix("sha256:"))
-        receipts: dict[str, datetime] = {}
+        receipts: dict[str, set[datetime]] = defaultdict(set)
         for line in (directory / "receipts.jsonl").read_text().splitlines():
             raw = json.loads(line)
             if raw.get("received_at") is not None:
                 at = _clock(raw["received_at"])
                 digest = raw["sha256"]
-                receipts[digest] = min(receipts.get(digest, at), at)
+                receipts[digest].add(at)
         for raw in load_records(root, identifier):
             kind = raw.get("record_type")
             ticker = str(
@@ -147,7 +148,7 @@ def _records(
             digest = value.get("raw_hash")
             if digest not in receipts:
                 raise ValueError("execution record lacks its preserved raw receipt clock")
-            received = receipts[digest]
+            received = min(receipts[digest])
             if kind == "market_evidence":
                 evidence = MarketEvidence.model_validate(value)
                 if (
@@ -158,14 +159,21 @@ def _records(
                 markets.append((evidence, received))
             else:
                 state = MarketState.model_validate(value)
+                # Content-addressed raw bytes can have several genuine HTTP receipts.
+                # Bind this normalized state to its exact retained receipt when present;
+                # an unchanged response after decision still proves a later observation.
+                # Unmatched legacy clocks retain the earliest conservative boundary and
+                # cannot promote processing time into new post-decision evidence.
+                if state.received_at is not None and state.received_at in receipts[digest]:
+                    received = state.received_at
                 if state.available_at is None or state.available_at < received:
                     raise ValueError("market-state availability precedes its actual raw receipt")
                 states.append((state, received))
     return markets, states, reduced, protected_identities
 
 
-def _known_rules(evidence: MarketEvidence, *, entity: str, name: str) -> bool:
-    market = evidence.market
+def _known_rules(evidence: MarketEvidence | Market, *, entity: str, name: str) -> bool:
+    market = evidence.market if isinstance(evidence, MarketEvidence) else evidence
     rules = market.rules
     text = (rules.rules_primary + " " + rules.rules_secondary).casefold()
     authorities = " ".join(source.name.casefold() for source in rules.settlement_sources)
@@ -442,13 +450,9 @@ def acquired_backtest(
                     "source-matched scalar label and finalized exchange outcome disagree"
                 )
             candidates = []
+            execution_candidates: dict[datetime, OrderBook] = {}
             for state, state_receipt in books[ticker]:
-                if (
-                    state.fidelity != "order_book"
-                    or state.available_at is None
-                    or state.available_at > decision
-                    or state_receipt > decision
-                ):
+                if state.fidelity != "order_book" or state.available_at is None:
                     continue
                 raw_book = dict(state.payload)
                 # Outer availability is the actual receipt boundary, even if a payload
@@ -458,10 +462,32 @@ def acquired_backtest(
                     original_book.received_at, state.available_at, state_receipt
                 ).isoformat()
                 parsed_book = OrderBook.model_validate(raw_book)
-                if parsed_book.received_at > decision:
-                    continue
                 if parsed_book.market_ticker != ticker:
                     raise ValueError("market-state ticker differs from its sized book")
+                if parsed_book.received_at > decision:
+                    # Processing or payload clocks cannot turn an earlier HTTP response
+                    # into a newly observed post-decision book.
+                    if state_receipt <= decision:
+                        refusals["later book clock lacks a post-decision raw receipt"] += 1
+                        continue
+                    if parsed_book.received_at >= market.close_time or (
+                        asof is not None and parsed_book.received_at > asof
+                    ):
+                        continue
+                    if (
+                        parsed_book.exchange_ts is not None
+                        and parsed_book.exchange_ts > parsed_book.received_at
+                    ):
+                        raise ValueError(
+                            "execution book exchange clock is after its original receipt"
+                        )
+                    previous = execution_candidates.get(parsed_book.received_at)
+                    if previous is not None and previous != parsed_book:
+                        raise ValueError("conflicting execution books at one receipt clock")
+                    execution_candidates[parsed_book.received_at] = parsed_book
+                    if len(execution_candidates) > 1024:
+                        raise ValueError("execution book history exceeds bounded replay limit")
+                    continue
                 if decision - parsed_book.received_at > timedelta(
                     seconds=config.max_book_age_seconds
                 ):
@@ -497,6 +523,9 @@ def acquired_backtest(
                 outcome=actual,
                 outcome_available_at=outcome_at,
                 book=book,
+                execution_books=tuple(
+                    execution_candidates[key] for key in sorted(execution_candidates)
+                ),
                 fidelity="order_book" if book is not None else "missing",
             )
             samples.append(sample)

@@ -205,8 +205,14 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
     await page.screenshot({ path: path.join(evidence, "failure.png"), fullPage: true }).catch(() => {});
     throw error;
   } finally {
+    if (!page.isClosed()) await page.goto("about:blank");
     server.kill("SIGINT");
     for (let n = 0; n < 100 && server.exitCode === null && server.signalCode === null; n++) await pause(100);
     if (server.exitCode === null && server.signalCode === null) server.kill("SIGKILL");
+    if (receipt.status === "passed") {
+      try { assert.deepEqual(receipt.page_errors, []); assert.deepEqual(receipt.console_errors, []); }
+      catch (error) { receipt.status = "failed"; receipt.error = String(error.stack || error); save(); throw error; }
+    }
+    save();
   }
 });

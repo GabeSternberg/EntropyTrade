@@ -757,3 +757,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   .research-experiment .kv-row { flex-direction: column; gap: 3px; }
   .research-experiment .kv dd { text-align: left; }
 }
+
+.paper-deployment .card-actions { flex-wrap: wrap; }
+.paper-deployment .kv-row { align-items: flex-start; }
+.paper-deployment .kv dt { flex: 0 0 35%; }
+@media (max-width: 600px) {
+  .paper-deployment .kv-row { flex-direction: column; gap: 4px; }
+  .paper-deployment .kv dd { text-align: left; }
+}

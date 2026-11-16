@@ -24,6 +24,7 @@ KINDS = {"stale_collection", "repeated_failures", "unresolved_reconciliation"}
 
 
 RECONCILIATION_GRACE_SECONDS = 3600
+RESEARCH_WORKER_GRACE_SECONDS = 240
 RECONCILIATION_RULE = (
     "grace after the exchange's expected expiration captured with the contract, "
     "or after close_time when none was published"
@@ -53,6 +54,55 @@ def healthy(cycle: sqlite3.Row) -> bool:
     )
 
 
+def _freshness(
+    monitor: sqlite3.Row, good: sqlite3.Row | None, moment: datetime
+) -> tuple[bool, dict[str, Any], bool]:
+    baseline = good["finished_at"] if good else monitor["created_at"]
+    evidence: dict[str, Any] = {
+        "last_healthy_collection_at": good["finished_at"] if good else None,
+        "baseline_at": baseline,
+        "last_healthy_cycle_id": good["id"] if good else None,
+    }
+    if dict(monitor).get("source_kind") == "autonomous_research":
+        from entropytrade.domain.strategy import StrategySpec
+        from entropytrade.research.paper_models import (
+            next_research_decision,
+            verify_research_binding,
+        )
+
+        try:
+            binding = json.loads(monitor["model_binding"])
+            spec = StrategySpec.model_validate_json(monitor["spec"])
+            verify_research_binding(spec, binding, data_kind=binding["snapshot"]["data_kind"])
+            at = ensure_utc(datetime.fromisoformat(baseline))
+            due = next_research_decision(binding, at)
+            deadline = due + timedelta(seconds=RESEARCH_WORKER_GRACE_SECONDS)
+        except (ValueError, KeyError, TypeError):
+            evidence.update(
+                rule="trained_decision_schedule",
+                schedule_status="invalid",
+                reason="Frozen research decision schedule failed verification; "
+                "no interval fallback",
+            )
+            return True, evidence, True
+        evidence.update(
+            rule="trained_decision_schedule",
+            schedule_status="verified",
+            expected_decision_at=due.isoformat(),
+            grace_seconds=RESEARCH_WORKER_GRACE_SECONDS,
+            threshold_seconds=(deadline - at).total_seconds(),
+        )
+        return moment >= deadline, evidence, False
+    # Legacy continuous polling keeps its exact interval rule and evidence shape.
+    stale_after = max(300, monitor["interval_seconds"] * 3 + 240)
+    evidence["threshold_seconds"] = stale_after
+    return (
+        moment >= datetime.fromisoformat(baseline) + timedelta(seconds=stale_after),
+        evidence,
+        False,
+    )
+
+
 def refresh(db: sqlite3.Connection, now: str) -> None:
     """Called inside the store transaction, including when no collector is due.
 
@@ -69,15 +119,14 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
             "coalesce(json_array_length(result, '$.capture.failures'), 0) + "
             "coalesce(json_array_length(result, '$.outcome_failures'), 0) + "
             "coalesce(json_array_length(result, '$.execution.failures'), 0) + "
-            "coalesce(json_array_length(result, '$.paper_execution.failures'), 0) AS failure_count "
+            "coalesce(json_array_length(result, '$.paper_execution.failures'), 0) + "
+            "coalesce(json_array_length(result, '$.research_features.failures'), 0) "
+            "AS failure_count "
             "FROM shadow_cycles WHERE monitor_id=? ORDER BY sequence DESC",
             (mid,),
         ).fetchall()
         good = next((c for c in cycles if healthy(c)), None)
-        last_good = good["finished_at"] if good else monitor["created_at"]
-        # Allow three polling intervals plus the existing four-minute worker budget.
-        stale_after = max(300, monitor["interval_seconds"] * 3 + 240)
-        stale = moment >= datetime.fromisoformat(last_good) + timedelta(seconds=stale_after)
+        stale, freshness_evidence, invalid_schedule = _freshness(monitor, good, moment)
         terminal = [c for c in cycles if c["status"] in {"completed", "failed"}]
         failed = []
         for cycle in terminal:
@@ -105,13 +154,8 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
                 )
         conditions: dict[str, tuple[bool | None, dict[str, Any]]] = {
             "stale_collection": (
-                stale if monitor["status"] == "active" or not stale else None,
-                {
-                    "last_healthy_collection_at": good["finished_at"] if good else None,
-                    "baseline_at": last_good,
-                    "threshold_seconds": stale_after,
-                    "last_healthy_cycle_id": good["id"] if good else None,
-                },
+                stale if invalid_schedule or monitor["status"] == "active" or not stale else None,
+                freshness_evidence,
             ),
             "repeated_failures": (len(failed) >= 3, {"cycle_ids": failed, "threshold": 3}),
             "unresolved_reconciliation": (

@@ -374,7 +374,13 @@ def test_protected_targets_never_change_metrics_and_growing_windows_keep_boundar
         boundaries=boundaries,
     )
     assert second["status"] == "evaluated"
-    assert first["models"] == second["models"]
+    assert {
+        kind: {k: v for k, v in model.items() if k != "portable"}
+        for kind, model in first["models"].items()
+    } == {
+        kind: {k: v for k, v in model.items() if k != "portable"}
+        for kind, model in second["models"].items()
+    }
     assert first["validation"]["uncertainty"] == second["validation"]["uncertainty"]
     assert first["validation"]["walk_forward"] == second["validation"]["walk_forward"]
     for fold in second["validation"]["walk_forward"]:

@@ -9,10 +9,12 @@ from typing import TYPE_CHECKING, Any
 from entropytrade.data.schema import MarketEvidence
 from entropytrade.data.sources import file_hash
 from entropytrade.exchange.kalshi.recorded import public_book_from_body
+from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.experiments.data import ExperimentData
-from entropytrade.families.public import forward_data
+from entropytrade.families.public import forward_data as forward_data
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.research.paper_models import PortableResearchModel
 from entropytrade.tracking.replay import verify
 
 if TYPE_CHECKING:
@@ -134,6 +136,7 @@ def member_inputs(
         raise ValueError("history selection exceeds one bounded partition")
     captures = [input_root(jobs, e) / "public" for e in members]
     protected: set[str] = set()
+    research_models: list[PortableResearchModel] = []
     # Protection belongs to the workspace, independent of the selected receipt page.
     with jobs.connect() as db:
         tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
@@ -149,7 +152,14 @@ def member_inputs(
                     {k: v for k, v in binding.items() if k != "binding_hash"}
                 ) != binding.get("binding_hash"):
                     raise ValueError("history model protection hash mismatch")
-                protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
+                if binding.get("kind") == "research_weather_v1":
+                    research_model = PortableResearchModel.model_validate(binding["snapshot"])
+                    research_models.append(research_model)
+                    protected.update(research_model.protected_events)
+                else:
+                    protected.update(
+                        FrozenWeather.model_validate(binding["snapshot"]).protected_events
+                    )
         selected = {e["id"]: e for e in members + label_members if e["kind"] == "shadow"}
         for entry in selected.values():
             row = db.execute(
@@ -172,6 +182,19 @@ def member_inputs(
                     json.loads((root / "decision-inputs.json").read_text())["data"]
                 ).protected_events
             )
+    for capture in captures:
+        for line in (capture / "markets.jsonl").read_text().splitlines():
+            market = MarketEvidence.model_validate_json(line).market
+            target = market.rules.settlement_target_date or ticker_target_date(market.ticker)
+            if target is not None and any(
+                model.protects(
+                    series=market.series_ticker or "",
+                    target_date=target,
+                    event_id=market.event_ticker,
+                )
+                for model in research_models
+            ):
+                protected.add(market.event_ticker)
     outcomes = [input_root(jobs, entry) for entry in label_members if entry["kind"] == "shadow"]
     return captures, outcomes, frozenset(protected)
 
@@ -182,6 +205,12 @@ def verified_inputs(root: Path) -> dict[str, Any]:
     inputs: dict[str, Any] = json.loads((root / "decision-inputs.json").read_text())
     saved = ExperimentData.model_validate(inputs["data"])
     public = forward_data(root / "public")
+    result = json.loads((root / "result.json").read_text())
+    research = (result.get("model_binding") or {}).get("kind") == "research_weather_v1"
+    if research:
+        from entropytrade.tracking.research_features import reconstruct_research_data
+
+        public = reconstruct_research_data(root, public, result, result["execution"])
     if (
         saved.dataset_version != public.dataset_version
         or saved.feature_version != public.feature_version
@@ -202,15 +231,22 @@ def verified_inputs(root: Path) -> dict[str, Any]:
     originals = {s.ticker: s for s in public.samples}
     for sample in saved.samples:
         original = originals[sample.ticker]
-        features = {**original.features, "hours_to_close": (sample.close_time - at).total_seconds()}
-        features["hours_to_close"] = Decimal(str(features["hours_to_close"])) / Decimal(3600)
-        expected_hash = scientific_hash(
-            {
-                "source_features": original.feature_hash,
-                "decision": at.isoformat(),
-                "features": {k: str(v) for k, v in features.items()},
+        if research:
+            features = original.features
+            expected_hash = original.feature_hash
+        else:
+            features = {
+                **original.features,
+                "hours_to_close": Decimal(str((sample.close_time - at).total_seconds()))
+                / Decimal(3600),
             }
-        )
+            expected_hash = scientific_hash(
+                {
+                    "source_features": original.feature_hash,
+                    "decision": at.isoformat(),
+                    "features": {k: str(v) for k, v in features.items()},
+                }
+            )
         if (
             sample.decision_time != at
             or sample.features != features
@@ -257,4 +293,26 @@ def verified_inputs(root: Path) -> dict[str, Any]:
             or (book.exchange_ts and book.exchange_ts > at)
         ):
             raise ValueError("shadow book differs from causal receipt")
+    if research:
+        from entropytrade.domain.strategy import StrategySpec
+        from entropytrade.research.paper_models import score_research_model
+
+        markets = {
+            evidence.market.ticker: evidence.market
+            for evidence in (
+                MarketEvidence.model_validate_json(line)
+                for line in (root / "public/markets.jsonl").read_text().splitlines()
+            )
+        }
+        expected = score_research_model(
+            StrategySpec.model_validate(inputs["spec"]), public, result["model_binding"], markets
+        )
+        if (
+            inputs["bundle"]["records"]
+            != [record.model_dump(mode="json") for record in expected.records]
+            or inputs["bundle"]["source_hash"] != expected.source_hash
+            or inputs["bundle"]["model_metadata"].get("original_metadata_hash")
+            != scientific_hash(expected.model_metadata)
+        ):
+            raise ValueError("research paper predictions differ from frozen portable model")
     return inputs

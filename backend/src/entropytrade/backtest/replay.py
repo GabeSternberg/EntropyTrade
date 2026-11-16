@@ -125,11 +125,15 @@ def run_replay(
     target_dates: Mapping[str, date] | None = None,
     scenario: FillScenario = FillScenario.BASE,
     fidelity: ExecutionFidelity = ExecutionFidelity.ORDER_BOOK,
+    decision_points: Sequence[tuple[datetime, OrderBook]] | None = None,
 ) -> ReplayResult:
     """Chronological snapshot-taker simulation. No future books or cross-split fills.
 
     Unknown queues are not modeled. Identical book payloads do not replenish consumed
     capacity unless a non-null exchange sequence advances. Resting remainders cancel.
+    Explicit decision points keep the supplied original decision book and actual receipt
+    clock. Other book events only update execution state; they cannot trigger strategies.
+    This mode requires a distinct post-decision receipt before an execution may fill.
     """
     if window.split is SampleSplit.HOLDOUT:
         raise ReplayError("holdout rows are not passed to the strategy")
@@ -150,7 +154,22 @@ def run_replay(
         seen_books[key] = book
         if window.start <= book.received_at < window.end:
             heappush(events, (book.received_at, 0, next(serial), "book", book))
-            heappush(events, (book.received_at, 3, next(serial), "decision", book))
+            if decision_points is None:
+                heappush(events, (book.received_at, 3, next(serial), "decision", book))
+    if decision_points is not None:
+        seen_decisions: set[tuple[str, datetime]] = set()
+        for when, book in decision_points:
+            stamp = ensure_utc(when)
+            key = book.market_ticker, stamp
+            if (
+                book.received_at > stamp
+                or (book.exchange_ts is not None and book.exchange_ts > stamp)
+                or key in seen_decisions
+            ):
+                raise ReplayError("explicit decisions need unique causal original books")
+            seen_decisions.add(key)
+            if window.start <= stamp < window.end:
+                heappush(events, (stamp, 3, next(serial), "decision", book))
     for stamp, ticker, outcome in settlements:
         if window.start <= stamp < window.end:
             heappush(events, (stamp, 1, next(serial), "settle", (ticker, outcome)))
@@ -299,6 +318,28 @@ def run_replay(
         ledger.release(identifier)
         ticker = intent.contract.market_ticker
         execution_book = remaining.get(ticker)
+        known_closed = ticker in resolved or (
+            intent.expires_at is not None and stamp >= intent.expires_at
+        )
+        if (
+            decision_points is not None
+            and not known_closed
+            and (
+                execution_book is None
+                or execution_book.received_at <= intent.decision_time
+                or execution_book.received_at > stamp
+                or stamp - execution_book.received_at > max_book_age
+            )
+        ):
+            audit.append(
+                {
+                    "time": stamp.isoformat(),
+                    "decision_time": intent.decision_time.isoformat(),
+                    "status": "execution_evidence_missing",
+                    "ticker": ticker,
+                }
+            )
+            continue
         if (
             execution_book is None
             or execution_book.received_at > stamp

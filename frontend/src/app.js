@@ -519,16 +519,21 @@ async function selectMonitor(id, force = false) {
   const content = $("shadow-evidence"); content.replaceChildren();
   append(content, node("h3", `Shadow monitor · ${monitor.status}`), node("p", monitor.id, "small"),
     notice("SHADOW / SIMULATED PAPER ONLY · submission disabled · no observed fills or profitability claim. Monitoring does not approve a strategy."),
-    node("p", `${monitor.cycle_count} durable cycles; showing latest ${monitor.cycles.length}. Poll every ${monitor.interval_seconds}s. Next eligible poll: ${monitor.next_at}. Consecutive failures: ${monitor.failures}.`, "hint"));
-  const action = monitor.status === "active" ? "pause" : "resume";
-  const control = node("button", action === "pause" ? "Pause monitor" : "Resume monitor");
-  control.addEventListener("click", async () => {
-    try { await api(`/api/monitors/${id}/${action}`, {}); await selectMonitor(id, true); await shadowHistory(); }
-    catch (error) { shadowError(error); }
+    node("p", `${monitor.cycle_count} durable cycles; showing latest ${monitor.cycles.length}. ${monitor.source_kind === "autonomous_research" ? "Trained decision point: " + window.ET.fmt.decisionPoint(monitor.model_binding?.snapshot?.selected_schedule) : "Poll every " + monitor.interval_seconds + "s"}. Next eligible poll: ${monitor.next_at}. Consecutive failures: ${monitor.failures}.`, "hint"));
+  const actions = monitor.status === "active" ? ["pause"] : monitor.status === "paused" ? ["resume"] : [];
+  if (monitor.source_kind === "autonomous_research" && ["active", "paused"].includes(monitor.status)) actions.push("suspend");
+  if (monitor.source_kind === "autonomous_research" && monitor.status !== "cancelled") actions.push("cancel");
+  const controls = actions.map((action) => {
+    const control = node("button", ({ pause: "Pause monitor", resume: "Resume monitor", suspend: "Suspend monitor", cancel: "Cancel monitor" })[action]);
+    control.addEventListener("click", async () => {
+      try { await api(`/api/monitors/${id}/${action}`, {}); await selectMonitor(id, true); await shadowHistory(); }
+      catch (error) { shadowError(error); }
+    });
+    return control;
   });
   const download = node("a", "Shadow evidence JSON"); download.href = `/api/monitors/${id}/export`; download.download = `shadow-${id}.json`;
-  append(content, append(node("div", null, "run-tools"), control, download),
-    detail("Frozen strategy and research identity", { job_id: monitor.job_id, candidate_id: monitor.candidate_id, spec_hash: monitor.spec_hash, spec: monitor.spec }),
+  append(content, append(node("div", null, "run-tools"), ...controls, download),
+    detail("Frozen strategy and research identity", { source_kind: monitor.source_kind || "legacy", job_id: monitor.job_id, research_job_id: monitor.research_job_id, experiment_id: monitor.experiment_id, candidate_id: monitor.candidate_id, spec_hash: monitor.spec_hash, spec: monitor.spec }),
     detail("Frozen model binding", monitor.model_binding || { status: "blocked", reason: "Legacy monitor has no frozen model binding" }),
     detail("Lifecycle and recovery events", monitor.events),
     detail("Durable operator alerts", monitor.alerts || []),
