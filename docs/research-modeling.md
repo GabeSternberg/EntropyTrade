@@ -149,3 +149,7 @@ The implementation uses the existing SQLite/file stores, source adapters, featur
 weather models, replay engine, risk controls and backup/restore path. No new managed database,
 execution transport or collector process was introduced. Updating running server code requires
 stopping and restarting it so loaded code and recorded source versions remain aligned.
+
+Research stores and direct model publication also reject collector-chain roots and symlink
+aliases before creating directories or SQLite. The existing unused collector research
+service remains lazy; local-chain regression tests verify that path remains compatible.

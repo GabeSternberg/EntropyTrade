@@ -110,11 +110,23 @@ def job_identifier(value: str) -> str:
     return value
 
 
+def reject_collector_chain(root: Path) -> None:
+    """Refuse research writes anywhere inside a canonical collector store, before mkdir."""
+    if any(path.is_symlink() for path in (root, *root.parents)):
+        raise ValueError("research workspace paths cannot traverse symlinks")
+    for path in (root, *root.parents):
+        if (
+            path.name in {"chain", ".chain"}
+            or (path / ".chain").exists()
+            or ((path / "HEAD").is_file() and (path / "links").is_dir())
+        ):
+            raise ValueError("research cannot write inside a canonical collector chain")
+
+
 class ResearchStore:
     def __init__(self, root: Path) -> None:
         self.root = root
-        if any(p.is_symlink() for p in (root, *root.parents)):
-            raise ValueError("research workspace paths cannot traverse symlinks")
+        reject_collector_chain(root)
         root.mkdir(parents=True, exist_ok=True)
         self.path = root / "research.sqlite"
         self.lock = threading.RLock()

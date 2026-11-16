@@ -473,3 +473,54 @@ def test_corrupt_restored_snapshot_blocks_modeling_before_fitting(tmp_path: Path
     assert job["status"] == JobStatus.FAILED
     assert job["error"]["type"] == "LocalEvidenceRefused"
     assert svc.store.experiments(job_id) == []
+
+
+@pytest.mark.parametrize("layout", ["chain", ".chain", "renamed"])
+def test_collector_service_stays_lazy_and_research_refuses_before_first_write(
+    tmp_path: Path, layout: str
+) -> None:
+    from entropytrade.domain.time import SimulatedClock
+    from entropytrade.research.store import ResearchStore
+    from tests.unit.test_research_jobs import REPO
+
+    canonical = tmp_path / layout
+    if layout == "renamed":
+        (canonical / "links").mkdir(parents=True)
+        (canonical / "HEAD").write_text("canonical evidence pointer")
+    workspace = canonical / ".work-collector" / "workspace"
+    svc = ResearchService(workspace, REPO, clock=SimulatedClock(NOW))
+    svc.start()
+    svc.close()
+    assert not svc.started()
+    assert not workspace.exists()
+    with pytest.raises(ValueError, match="canonical collector chain"):
+        submit(svc)
+    with pytest.raises(ValueError, match="canonical collector chain"):
+        ResearchStore(workspace / "research")
+    assert not workspace.exists()
+
+
+def test_direct_modeling_refuses_collector_chain_before_publication(tmp_path: Path) -> None:
+    from entropytrade.research.model import HypothesisSpec
+    from entropytrade.research.modeling import run_hypothesis
+
+    svc, job_id = modeling_job(tmp_path)
+    spec = HypothesisSpec.model_validate(svc.store.hypotheses(job_id)[0]["spec"])
+    canonical = tmp_path / "chain"
+    with pytest.raises(ValueError, match="canonical collector chain"):
+        run_hypothesis(root=canonical, registry=svc.registry, spec=spec, artifacts=[], now=NOW)
+    assert not canonical.exists()
+
+
+def test_direct_modeling_cannot_alias_collector_chain_through_symlink(tmp_path: Path) -> None:
+    from entropytrade.research.model import HypothesisSpec
+    from entropytrade.research.modeling import run_hypothesis
+
+    svc, job_id = modeling_job(tmp_path)
+    spec = HypothesisSpec.model_validate(svc.store.hypotheses(job_id)[0]["spec"])
+    canonical = tmp_path / "chain"
+    alias = tmp_path / "aliased-research"
+    alias.symlink_to(canonical, target_is_directory=True)
+    with pytest.raises(ValueError, match="symlink"):
+        run_hypothesis(root=alias, registry=svc.registry, spec=spec, artifacts=[], now=NOW)
+    assert not canonical.exists()

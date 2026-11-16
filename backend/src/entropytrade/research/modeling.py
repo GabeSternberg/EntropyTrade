@@ -35,6 +35,7 @@ from entropytrade.ml.models import EventExample, WeatherModel
 from entropytrade.research.materialize import FEATURE_SCHEMA, decision_times
 from entropytrade.research.model import HypothesisSpec
 from entropytrade.research.registry import FeatureDefinition, FeatureRegistry
+from entropytrade.research.store import reject_collector_chain
 from entropytrade.weather.probability import InsufficientHistoryError
 
 WeatherKind = Literal["climatology", "raw_forecast", "forecast_error", "ridge", "boosting"]
@@ -87,6 +88,7 @@ def plan_hypothesis(
     fee_versions: tuple[FeeVersion, ...] | None = None,
 ) -> dict[str, Any]:
     """Freeze an identity before fitting; the caller persists boundaries before execution."""
+    reject_collector_chain(root)
     from entropytrade.research.execution_inputs import execution_locations
 
     if root.name == "chain" or root.is_symlink():

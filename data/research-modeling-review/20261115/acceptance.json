@@ -57,6 +57,11 @@
     "optimistic": 43
   },
   "verification": {
+    "canonical_write_guard": {
+      "passed": 78,
+      "scope": "Pre-write canonical layouts, symlink aliases, lazy collector startup, modeling/research regressions and existing local-chain tests",
+      "seconds": 24.81
+    },
     "final_frozen_core": {
       "passed": 83,
       "seconds": 31.43
@@ -71,6 +76,11 @@
       "passed": 1623,
       "scope": "Broad regression before final targeted local-ingestion and settlement hardening",
       "seconds": 808.01
+    },
+    "github_ci_core": {
+      "commit": "1fafe68300ffccefc8f8a5e15a82adfeacf0934d",
+      "status": "passed",
+      "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/43800216934"
     },
     "independent_integration": {
       "passed": 50
