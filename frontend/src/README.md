@@ -18,11 +18,13 @@ same-origin scripts and styles, and it serves a fixed allowlist of files (`ASSET
 | `views-markets.js` | Overview and Market Explorer |
 | `views-lab.js` | Strategy Lab and Backtesting & Analytics |
 | `views-ops.js` | Paper Trading, Data & Operations and Settings |
+| `views-research.js` | Autonomous Research: submission, jobs, hypotheses, requirements, sources, acquisitions (approve or deny), features, forward collection |
+| `views-cis1990.js` | CIS 1990 course workflow |
 | `shell.js` | Data mode, GET-only API reader, hash router, navigation, command palette (⌘K / Ctrl K) |
 | `app.js` | The original research workbench logic (research runs, datasets, labels, shadow, fees, gates) |
 
 Routes are hash-based: `#/overview`, `#/markets[/TICKER]`, `#/lab[/STRATEGY]`,
-`#/analytics`, `#/paper`, `#/workbench`, `#/ops`, `#/settings[/SECTION]`.
+`#/analytics`, `#/paper`, `#/research[/JOB]`, `#/workbench`, `#/ops`, `#/settings[/SECTION]`.
 
 ## Real Mode and Demo Mode
 

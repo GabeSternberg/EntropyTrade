@@ -11,6 +11,7 @@ from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any, cast
 from uuid import uuid4
 
+import httpx
 import pytest
 
 from entropytrade.domain.time import SimulatedClock
@@ -38,6 +39,17 @@ NOW = datetime(2026, 11, 15, 15, 0, tzinfo=UTC)
 OBJECTIVE = (
     "Find profitable strategies for Kalshi daily temperature markets using weather forecasts."
 )
+BASE: dict[str, Any] = {"objective": OBJECTIVE, "family": "weather", "acquisition": "none"}
+
+
+@pytest.fixture(autouse=True)
+def no_network(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Unit tests never reach a real source; acquisition uses replayed responses."""
+
+    def refuse(*_: object, **__: object) -> None:
+        raise AssertionError("unit test attempted a real network request")
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", refuse)
 
 
 def service(tmp_path: Path, proposer: Any = None) -> ResearchService:
@@ -47,7 +59,8 @@ def service(tmp_path: Path, proposer: Any = None) -> ResearchService:
 
 
 def submit(svc: ResearchService, **extra: Any) -> str:
-    return str(svc.submit({"objective": OBJECTIVE, "family": "weather", **extra})["id"])
+    # Milestone A behavior is inventory only; acquisition is tested with replayed responses.
+    return str(svc.submit(BASE | extra)["id"])
 
 
 def test_request_creates_persistent_hypotheses_and_machine_readable_requirements(
@@ -59,7 +72,9 @@ def test_request_creates_persistent_hypotheses_and_machine_readable_requirements
     svc.run_until_idle()
     job = svc.detail(job_id)
     assert job is not None
-    assert job["status"] == JobStatus.EVALUATED
+    # Inventory only: collector-covered evidence is awaited, nothing is downloaded.
+    assert job["status"] == JobStatus.AWAITING_OBSERVATIONS
+    assert job["acquisitions"] == []
     assert job["universe"] == ["KXHIGHPHIL"]  # defaulted, and recorded
     hypotheses = job["hypotheses"]
     assert len(hypotheses) == 5
@@ -91,8 +106,15 @@ def test_request_creates_persistent_hypotheses_and_machine_readable_requirements
     assert quotes.blocking_for(bias) == "execution"
     assert quotes.blocking_for(momentum) == "predictive"
     for row in hypotheses:
-        assert row["status"] == HypothesisStatus.NEEDS_DATA
+        assert row["status"] in {
+            HypothesisStatus.NEEDS_DATA,
+            HypothesisStatus.AWAITING_AUTHORIZATION,
+        }
         assert row["reasons"]
+    states = {(r["kind"], r["variable"]): r["assessment"]["status"] for r in requirements}
+    assert states[("forecast_vintages", "daytime_max_f")] == AssessmentStatus.MISSING
+    assert states[("decision_quotes", "yes_quotes")] == AssessmentStatus.AWAITING_OBSERVATIONS
+    assert states[("fee_schedule", "fee_schedule")] == AssessmentStatus.AWAITING_AUTHORIZATION
     # A fresh service on the same workspace sees the same durable state.
     again = service(tmp_path).detail(job_id)
     assert again is not None
@@ -109,8 +131,8 @@ def test_equivalent_unfinished_request_is_idempotent_and_search_history_is_kept(
     tmp_path: Path,
 ) -> None:
     svc = service(tmp_path)
-    first = svc.submit({"objective": OBJECTIVE, "family": "weather"})
-    second = svc.submit({"objective": OBJECTIVE, "family": "weather"})
+    first = svc.submit(BASE)
+    second = svc.submit(BASE)
     assert first["id"] == second["id"]
     assert second["created"] is False
     svc.run_until_idle()
@@ -158,9 +180,7 @@ def test_requests_are_validated(tmp_path: Path, value: object, message: str) -> 
 def test_named_cities_select_the_universe(tmp_path: Path) -> None:
     svc = service(tmp_path)
     job_id = str(
-        svc.submit(
-            {"objective": "Temperature markets in Chicago and Dallas please", "family": "weather"}
-        )["id"]
+        svc.submit(BASE | {"objective": "Temperature markets in Chicago and Dallas please"})["id"]
     )
     assert svc.store.get_job(job_id)["universe"] == ["KXHIGHCHI", "KXHIGHTDAL"]  # type: ignore[index]
 
@@ -199,12 +219,12 @@ def test_reevaluation_and_restart_resume_from_checkpoint(tmp_path: Path) -> None
     restarted.run_until_idle()
     job = restarted.detail(job_id)
     assert job is not None
-    assert job["status"] == JobStatus.EVALUATED
+    assert job["status"] == JobStatus.AWAITING_OBSERVATIONS
     assert any(e["stage"] == "recovered" for e in job["events"])
     assert restarted.resume(job_id)
     restarted.run_until_idle()
     stages = [e["stage"] for e in restarted.store.events(job_id)]
-    assert stages.count("evaluated") == 2
+    assert stages.count("awaiting_observations") == 2
     assert len(restarted.store.hypotheses(job_id)) == 5  # never duplicated by reevaluation
 
 
@@ -414,7 +434,7 @@ def test_research_http_boundary(tmp_path: Path) -> None:
     assert catalog["submission_enabled"] is False
     assert {p["provider"] for p in catalog["providers"]} >= {"local_templates", "gemini"}
     assert all("key" not in json.dumps(p).casefold() or p["requires"] for p in catalog["providers"])
-    request = {"objective": OBJECTIVE, "family": "weather"}
+    request = BASE
     status, _, _ = exchange(server, "/api/research/jobs", method="POST", body=request)
     assert status == 403  # missing CSRF token
     headers = {"X-EntropyTrade-CSRF": server.token}
@@ -426,12 +446,12 @@ def test_research_http_boundary(tmp_path: Path) -> None:
     server.research.run_until_idle()
     status, _, body = exchange(server, f"/api/research/jobs/{job_id}")
     assert status == 200
-    assert json.loads(body)["status"] == "evaluated"
+    assert json.loads(body)["status"] == "awaiting_observations"
     status, _, body = exchange(server, f"/api/research/jobs/{job_id}/report")
     assert status == 200
     assert json.loads(body)["schema"] == "entropytrade-research-report-v1"
     status, _, body = exchange(server, "/api/research/jobs")
-    assert json.loads(body)["jobs"][0]["hypothesis_counts"] == {"needs_more_data": 5}
+    assert sum(json.loads(body)["jobs"][0]["hypothesis_counts"].values()) == 5
     status, _, _ = exchange(server, "/api/research/jobs/not-a-uuid")
     assert status == 404
     status, _, body = exchange(
@@ -476,7 +496,7 @@ def test_research_state_survives_snapshot_and_restore_and_is_lazy(tmp_path: Path
         restore(REPO, archive, restored)
         again = ResearchService(restored, REPO, clock=SimulatedClock(NOW)).detail(job_id)
         assert again is not None
-        assert again["status"] == JobStatus.EVALUATED
+        assert again["status"] == JobStatus.AWAITING_OBSERVATIONS
         assert len(again["hypotheses"]) == 5
     finally:
         import shutil

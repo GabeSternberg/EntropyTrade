@@ -90,6 +90,7 @@ strategy has been validated.
 ## Start here
 
 1. [Status and exact next action](STATUS.md)
+1. [Autonomous research lifecycle and readiness dashboard](docs/autonomous-research.md)
 2. [Capability inventory and correctness risks](docs/capabilities.md)
 3. [Research results and limitations](docs/results.md)
 4. [Active capability roadmap](docs/roadmap.md)
