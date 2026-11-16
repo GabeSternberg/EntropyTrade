@@ -404,7 +404,7 @@
     const host = h("section", { class: "stack", id: "paper-governance" });
     const panel = h("div", { class: "stack" }, skeleton(3));
     const notice = h("div", { role: "status" });
-    const state = { report: null, owner: null, record: null, monitoring: null, tab: "readiness" };
+    const state = { report: null, owner: null, record: null, selectedId: null, loadingProposal: false, monitoring: null, tab: "readiness" };
     const current = () => ET.mode() === "real" && ctx.isCurrent();
     const uri = `/api/monitors/${encodeURIComponent(monitor.id)}`;
     const ownerButton = button("Owner access", { variant: "ghost sm", onclick: async () => { await ET.ownerAccess(); } }, "lock");
@@ -417,22 +417,26 @@
       if (!current()) return;
       const request = ++generation;
       refresh.disabled = true;
+      if (id && id !== state.record?.id) {
+        state.selectedId = id; state.record = null; state.loadingProposal = true;
+        replaceContent(panel, skeleton(3));
+      }
       try {
         const [report, owner] = await Promise.all([ET.api(uri + "/readiness", { fresh: true }), ET.api("/api/owner", { fresh: true })]);
         if (!current() || request !== generation) return;
-        const selected = id || state.record?.id || report.proposals?.[0]?.id;
+        const selected = id || state.selectedId || state.record?.id || report.proposals?.[0]?.id;
         const record = selected ? await ET.api(`/api/readiness/${encodeURIComponent(selected)}`, { fresh: true }) : null;
         if (!current() || request !== generation) return;
-        state.report = report; state.owner = owner; state.record = record;
+        state.report = report; state.owner = owner; state.record = record; state.selectedId = record?.id || null; state.loadingProposal = false;
         notice.replaceChildren(); draw();
-      } catch (error) { if (current()) notice.replaceChildren(errorState(error.message, () => load())); }
-      finally { if (request === generation) refresh.disabled = false; }
+      } catch (error) { if (current() && request === generation) notice.replaceChildren(errorState(error.message, () => load(id))); }
+      finally { if (request === generation) { state.loadingProposal = false; refresh.disabled = false; } }
     }
     ET.refreshPaperReview = () => current() ? load() : undefined;
     function proposalPicker() {
       const proposals = state.report.proposals || [];
       if (!proposals.length) return null;
-      const select = h("select", { class: "input", "aria-label": "Frozen readiness proposal" }, proposals.map((proposal) => h("option", { value: proposal.id, selected: proposal.id === state.record?.id }, `${fmt.words(proposal.status)} · ${proposal.id}`)));
+      const select = h("select", { class: "input", "aria-label": "Frozen readiness proposal" }, proposals.map((proposal) => h("option", { value: proposal.id, selected: proposal.id === state.selectedId }, `${fmt.words(proposal.status)} · ${proposal.id}`)));
       select.addEventListener("change", () => load(select.value));
       return h("label", { class: "field" }, h("span", { class: "field-label" }, "Frozen readiness proposal"), select);
     }
@@ -445,6 +449,7 @@
     }
     function draw() {
       if (!state.report || !current()) return;
+      if (state.loadingProposal) { replaceContent(panel, skeleton(3)); return; }
       if (state.tab === "monitoring") { drawMonitoring(); return; }
       if (state.tab === "audit") {
         replaceContent(panel, proposalPicker(), state.record ? h("div", { class: "stack" }, kv([["Proposal", state.record.id], ["Revision", evidenceValue(state.record.revision)], ["State", fmt.words(state.record.status)]]), auditEvents(state.record.events)) : emptyState({ title: "No frozen readiness proposal" }),

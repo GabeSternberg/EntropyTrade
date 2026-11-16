@@ -259,6 +259,31 @@ function readinessApp({ owner = ownerState(), report, record = readinessRecord()
 async function oversight(app) { await app.ET.views.paper(app.root, { params: [monitorId], isCurrent: () => true }); await new Promise((resolve) => setImmediate(resolve)); }
 const find = (root, key, value) => descendants(root).find((node) => node.attrs[key] === value);
 
+test("readiness: changing proposal hides the previous export and review controls until matching evidence arrives", async () => {
+  const app = readinessApp({ owner: ownerState(true) }), original = app.ET.api;
+  let finish;
+  app.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(priorId)}` ? new Promise((resolve) => { finish = resolve; }) : original(url, options);
+  await oversight(app);
+  assert.ok(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`));
+  assert.ok(find(app.root, "data-readiness-review", "approve"));
+  const picker = find(app.root, "aria-label", "Frozen readiness proposal");
+  picker.value = priorId;
+  const loading = picker.handlers.change();
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`), undefined);
+  assert.equal(find(app.root, "data-readiness-review", "approve"), undefined);
+  assert.equal(find(app.root, "data-readiness-review", "reject"), undefined);
+  assert.equal(find(app.root, "data-readiness-revoke", ""), undefined);
+  assert.equal(find(app.root, "data-readiness-rollback", ""), undefined);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(priorId)}`), undefined);
+  finish(readinessRecord({ id: priorId }));
+  await loading;
+  assert.ok(find(app.root, "href", `/api/readiness/${encodeURIComponent(priorId)}`));
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`), undefined);
+  assert.ok(find(app.root, "data-readiness-review", "approve"));
+  assert.equal(app.calls.length, 0);
+});
+
 test("owner access: unconfigured state gives local CLI guidance and no credential setup form", async () => {
   const app = readinessApp({ owner: { configured: false, authenticated: false, csrf_token: "owner-csrf" } });
   await app.ET.ownerAccess();
@@ -381,11 +406,16 @@ test("readiness: unauthenticated revocation and owner rollback use bounded refer
   find(app.root, "aria-label", "Readiness revocation reason").value = "Withdraw this review";
   await find(app.root, "data-readiness-revoke", "").handlers.click();
   assert.deepEqual(JSON.parse(app.calls[0].options.body), { reason: "Withdraw this review" });
-  const owner = readinessApp({ owner: ownerState(true) }); await oversight(owner);
+  const rollbackId = "sha256:" + "a".repeat(64);
+  const owner = readinessApp({ owner: ownerState(true), submit: async () => ({ ok: true, json: async () => ({ id: rollbackId }) }) });
+  const original = owner.ET.api;
+  owner.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(rollbackId)}` ? Promise.resolve(readinessRecord({ id: rollbackId })) : original(url, options);
+  await oversight(owner);
   find(owner.root, "aria-label", "Prior readiness proposal").value = priorId;
   find(owner.root, "aria-label", "Rollback proposal reason").value = "Compare prior bounded configuration";
   await find(owner.root, "data-readiness-rollback", "").handlers.click();
   assert.deepEqual(JSON.parse(owner.calls[0].options.body), { target_proposal_id: priorId, reason: "Compare prior bounded configuration" });
+  assert.ok(find(owner.root, "href", `/api/readiness/${encodeURIComponent(rollbackId)}`));
   assert.match(text(owner.root), /does not reactivate a deployment/);
 });
 

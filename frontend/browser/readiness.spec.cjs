@@ -110,16 +110,22 @@ for (const controlled of [false, true]) {
       assert.equal(saved.status(), 201, JSON.stringify(value));
       const id = value.id || value.proposal?.id;
       assert(id?.startsWith("sha256:"));
-      await expect(governance.locator(".readiness-record")).toContainText(id, { timeout: 90_000 });
+      await expectSelectedProposal(id);
       return id;
     }
-    async function recordDownload(file) {
+    async function expectSelectedProposal(id) {
+      await expect(page.getByRole("link", { name: "Readiness record JSON", exact: true })).toHaveAttribute("href", `/api/readiness/${encodeURIComponent(id)}`, { timeout: 90_000 });
+    }
+    async function recordDownload(file, id) {
+      await expectSelectedProposal(id);
       const waiting = page.waitForEvent("download");
       await page.getByRole("link", { name: "Readiness record JSON", exact: true }).click();
       await (await waiting).saveAs(path.join(evidence, file));
       const bytes = fs.readFileSync(path.join(evidence, file));
       receipt.downloads.push({ file, sha256: createHash("sha256").update(bytes).digest("hex") }); save();
-      return JSON.parse(bytes);
+      const record = JSON.parse(bytes);
+      assert.equal(record.id, id);
+      return record;
     }
     async function reviewProposal(id, decision) {
       // Confirm the privileged request before asking a separate, expensive evidence
@@ -199,7 +205,7 @@ for (const controlled of [false, true]) {
         assert.equal(rollback.proposal.status, "proposed");
         assert.equal(rollback.proposal.payload.execution_authorized, false);
         assert.equal(rollback.proposal.payload.submission_enabled, false);
-        await expect(governance.locator(".readiness-record")).toContainText(third, { timeout: 90_000 });
+        await expectSelectedProposal(third);
         assert.equal((await get(`/api/readiness/${encodeURIComponent(third)}`)).status, "proposed");
         await page.locator("#owner-access").click();
         const owner = page.getByRole("dialog", { name: "Owner access", exact: true });
@@ -229,7 +235,7 @@ for (const controlled of [false, true]) {
         const releasedMonitor = await get(`/api/monitors/${monitorId}`);
         assert.equal(releasedMonitor.status, haltedMonitor.status, "release does not resume a deployment");
         assert.deepEqual(releasedMonitor.model_binding, haltedMonitor.model_binding);
-        const before = await recordDownload("revoked-readiness.json");
+        const before = await recordDownload("revoked-readiness.json", third);
         await governance.getByRole("tab", { name: "Audit", exact: true }).click();
         await expect(governance).toContainText("browser-owner");
         await shot("owner-readiness-audit.png");
@@ -239,8 +245,8 @@ for (const controlled of [false, true]) {
         await stop(); await start(); await open();
         assert.equal((await page.request.get(origin + "/api/owner").then((response) => response.json())).authenticated, false, "RAM-only owner sessions expire on restart");
         await governance.getByRole("combobox", { name: "Frozen readiness proposal", exact: true }).selectOption(third);
-        await expect(governance.locator(".readiness-record")).toContainText(third);
-        const restarted = await recordDownload("restarted-readiness.json");
+        await expectSelectedProposal(third);
+        const restarted = await recordDownload("restarted-readiness.json", third);
         assert.deepEqual(restarted.payload, before.payload); assert.deepEqual(restarted.events, before.events);
         await stop();
         const archive = path.join(evidence, "workspace.zip");
@@ -252,8 +258,8 @@ for (const controlled of [false, true]) {
         }
         await start(); await open();
         await governance.getByRole("combobox", { name: "Frozen readiness proposal", exact: true }).selectOption(third);
-        await expect(governance.locator(".readiness-record")).toContainText(third);
-        const restored = await recordDownload("restored-readiness.json");
+        await expectSelectedProposal(third);
+        const restored = await recordDownload("restored-readiness.json", third);
         assert.deepEqual(restored.payload, before.payload); assert.deepEqual(restored.events, before.events);
         assert.equal((await get("/api/controls")).halted, false);
         await expect(page.getByRole("switch", { name: "Live trading (disabled)" })).toBeDisabled();
