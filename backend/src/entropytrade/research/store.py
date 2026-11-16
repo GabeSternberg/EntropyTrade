@@ -118,6 +118,10 @@ def investigation_job_id(origin_key: str) -> str:
     return str(uuid5(NAMESPACE_URL, "entropytrade-investigation-v1:" + origin_key))
 
 
+class CollectorChainError(ValueError):
+    """Research is unavailable inside a canonical collector store."""
+
+
 def reject_collector_chain(root: Path) -> None:
     """Refuse research writes anywhere inside a canonical collector store, before mkdir."""
     if any(path.is_symlink() for path in (root, *root.parents)):
@@ -128,7 +132,7 @@ def reject_collector_chain(root: Path) -> None:
             or (path / ".chain").exists()
             or ((path / "HEAD").is_file() and (path / "links").is_dir())
         ):
-            raise ValueError("research cannot write inside a canonical collector chain")
+            raise CollectorChainError("research cannot write inside a canonical collector chain")
 
 
 class ResearchStore:

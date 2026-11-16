@@ -9,6 +9,7 @@ import sqlite3
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from typing import TYPE_CHECKING
 from urllib.parse import unquote, urlsplit
 
 from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, provider_config
@@ -19,6 +20,9 @@ from entropytrade.api.workspace import workspace_path as workspace_path
 from entropytrade.tracking.runner import ShadowRunner
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.label_service import LabelService
+
+if TYPE_CHECKING:
+    from entropytrade.research.readiness import ResearchReadinessService
 
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -54,9 +58,16 @@ class WorkbenchServer(ThreadingHTTPServer):
         self.repo = repo.resolve()
         self.owner = OwnerAuth(self.repo, owner_file)
         self.research_provider = provider_config(research_provider) if research_provider else None
-        from entropytrade.research.store import reject_collector_chain
+        from entropytrade.research.store import CollectorChainError, reject_collector_chain
 
-        reject_collector_chain(workspace)
+        try:
+            reject_collector_chain(workspace)
+        except CollectorChainError:
+            # The existing collector serves its legacy API from chain/.work-*.
+            # Keep that collection path usable without activating research or E writes.
+            collector_workspace = True
+        else:
+            collector_workspace = False
         root = workspace_path(self.repo, workspace)
         self.lock = acquire_workspace(root)
         try:
@@ -74,10 +85,11 @@ class WorkbenchServer(ThreadingHTTPServer):
             from entropytrade.research.paper import ResearchPaperService
 
             self.paper = ResearchPaperService(root, self.tracking)
-            from entropytrade.research.readiness import ResearchReadinessService
-
-            self.readiness = ResearchReadinessService(root, self.tracking, self.research)
-            self.shadow.health_check = lambda: self.readiness.refresh_monitoring()
+            self._readiness: ResearchReadinessService | None = None
+            self._readiness_lock = threading.Lock()
+            if not collector_workspace:
+                _ = self.readiness  # initialize before starting normal research threads
+                self.shadow.health_check = lambda: self.readiness.refresh_monitoring()
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
@@ -86,6 +98,23 @@ class WorkbenchServer(ThreadingHTTPServer):
             raise
         self.token = secrets.token_urlsafe(32)
         self.labels.thread.start()
+
+    @property
+    def readiness(self) -> "ResearchReadinessService":
+        from entropytrade.research.readiness import ResearchReadinessService
+
+        with self._readiness_lock:
+            if self._readiness is None:
+                # Construction retains the canonical/symlink guard before any E writes.
+                self._readiness = ResearchReadinessService(
+                    self.jobs.root, self.tracking, self.research
+                )
+            return self._readiness
+
+    @readiness.setter
+    def readiness(self, service: "ResearchReadinessService") -> None:
+        with self._readiness_lock:
+            self._readiness = service
 
     def server_close(self) -> None:
         self.research.close()
