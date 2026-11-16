@@ -256,3 +256,28 @@ terminal status. The test-only source classification context also wraps archive 
 production classifiers and fee/clock/feature/risk gates remain unchanged. All HTTP source
 responses are controlled; this proves software behavior, not empirical performance,
 authentic fee certification, private collector access or real prospective validation.
+
+## Owner readiness and global halt
+
+Select `readiness.spec.cjs` with new absolute evidence/workspace paths under `data/cache/`.
+It uses a real localhost listener and the actual C fitter, portable prediction, incoming
+weather wire capture, book execution and paper accounting. Source HTTP is mocked only by
+explicit test helpers: one-day production refusal and 23-day controlled synthetic evidence.
+The production readiness policy remains `real`; only the private test listener may inject
+its internal synthetic policy. No metrics, audit actors or approval facts are fabricated.
+
+The controlled case initializes a test-only owner credential through the actual private-file
+initializer in a temporary 0700 directory outside the checkout, then manually types its fake
+passphrase into the page. It checks the real HttpOnly/SameSite cookie and session expiry on
+restart. Test receipts redact the login body; no real user credential is used. Production CLI
+setup still requires an interactive local terminal, and there is no HTTP setup endpoint.
+
+The procedures exercise blocked proposal saving, owner approve/reject, safe revocation,
+prior-reference rollback into a fresh pending review, persistent halt/release with no automatic
+resume or model replacement, audit JSON downloads, listener restart, offline snapshot/restore,
+mobile layout and disabled live controls. Frozen payloads and audit events are compared across
+recovery; mutable current-check projections are not mislabeled immutable downloads. Cleanup
+navigates away before stopping listeners and checks page/console errors after shutdown.
+The controlled case also opens the actual monitoring assessment after owner approval and
+compares its rendered status and reasons with the API response. Start/end source fingerprints
+must match; source changes during an otherwise completed procedure mark its receipt failed.

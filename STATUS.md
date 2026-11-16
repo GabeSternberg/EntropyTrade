@@ -1,10 +1,31 @@
 # EntropyTrade — current status
 
+## Autonomous research, Milestone E — readiness and monitoring (November 16, 2026)
+
+Implementation adds immutable evidence-backed proposals, local owner authentication,
+append-only review/control audits and deterministic halt/release epochs. Proposed capital
+and risk limits never allocate funds or enable exchange submission. A material change
+invalidates review; rollback creates a new proposal requiring fresh review.
+See [operations](docs/research-readiness.md) and
+[executed acceptance](data/research-readiness-review/20261116/README.md).
+
+- Readiness verifies actual paper evidence, independent dates, proper scores against genuine
+  recorded two-sided market books, uncertainty, current fees and source/account integrity.
+- Background monitoring retains fixed post-reference windows, records durable incidents,
+  suspends deterioration and enqueues bounded offline investigations without resetting evidence.
+- Halted or terminal deployments can reconcile known held contracts from fresh official outcomes;
+  these cycles cannot forecast, acquire books, trade, reset cash or inflate source health.
+- Explicit owner review, expiry/rotation, logout/restart, stale revisions and emergency halt are
+  enforced by the server. Existing production gateway refusal remains mandatory.
+- Controlled positive cases are synthetic; production rejects them. Full regression and final
+  browser acceptance are in progress. F and Windows deployment readiness follow integration.
+
 ## Autonomous research, Milestone D — paper lifecycle (November 15, 2026)
 
 Implementation connects verified research experiments to existing persistent paper accounts,
 with deterministic production eligibility, data-only models and exact PFM/CLI forward inputs.
-Independent review and actual browser acceptance pass; complete regressions gate integration.
+Independent review, actual browser acceptance, complete 1,780-case local regressions on
+Python 3.12.14 and 3.13.14, and final GitHub CI pass. PR #31 is merged.
 No actual strategy is deployed. See [executed acceptance](data/research-paper-review/20261115/README.md).
 See [research-to-paper operations and limits](docs/research-paper.md).
 
@@ -19,7 +40,7 @@ See [research-to-paper operations and limits](docs/research-paper.md).
 - Controlled source-to-account acceptance produces simulated fills; production rejects synthetic
   evidence. Existing exact-touch candidates fail conservative stress and cannot promote.
 - No live submission, Windows configuration or canonical collector access. Open positions
-  remain visible after terminal cancellation; settlement-only continuation remains future work.
+  remain visible after terminal cancellation; E adds bounded settlement-only continuation.
 
 ## Autonomous research, Milestone C — integrated modeling and replay (November 15, 2026)
 

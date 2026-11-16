@@ -18,6 +18,7 @@ from unittest.mock import patch
 import httpx
 
 from entropytrade.data.sources import file_hash
+from entropytrade.domain.market import Market
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.experiments.data import ExperimentData
@@ -56,7 +57,11 @@ def _shift(body: bytes, days: int) -> bytes:
     )
     text = re.sub(
         r"^([A-Z]{4}\d{2} [A-Z]{4} )(\d{2})(\d{4})",
-        lambda match: match[1] + f"{int(match[2]) + days:02d}" + match[3],
+        lambda match: (
+            match[1]
+            + f"{(date(2026, 11, int(match[2])) + timedelta(days=days)).day:02d}"
+            + match[3]
+        ),
         text,
         flags=re.MULTILINE,
     )
@@ -165,6 +170,53 @@ def source_transports(
     )
 
 
+def outcome_transport_for_monitor(
+    monitor: dict[str, Any], clock: SimulatedClock, *, yes: bool = True
+) -> httpx.MockTransport:
+    """CONTROLLED official outcomes preserving each original frozen payout contract."""
+    originals = {
+        item["ticker"]: Market.model_validate(item["market"]["market"])
+        for item in monitor.get("contracts", [])
+    }
+
+    def observed(request: httpx.Request) -> httpx.Response:
+        assert request.method == "GET"
+        clock.advance(timedelta(seconds=1))
+        ticker = request.url.path.rsplit("/", 1)[-1]
+        if ticker not in originals:
+            return httpx.Response(404, json={"error": "CONTROLLED unknown frozen contract"})
+        market = originals[ticker]
+        assert market.strike is not None
+        payload = _market_body() | {
+            "ticker": market.ticker,
+            "event_ticker": market.event_ticker,
+            "series_ticker": market.series_ticker,
+            "market_type": market.market_type.value,
+            "title": market.title,
+            "open_time": market.open_time.isoformat(),
+            "close_time": market.close_time.isoformat(),
+            "latest_expiration_time": (
+                market.latest_expiration_time or market.close_time
+            ).isoformat(),
+            "expected_expiration_time": market.expected_expiration_time.isoformat()
+            if market.expected_expiration_time
+            else None,
+            "rules_primary": market.rules.rules_primary,
+            "rules_secondary": market.rules.rules_secondary,
+            "early_close_condition": market.rules.early_close_condition,
+            "strike_type": market.strike.strike_type.value,
+            "floor_strike": str(market.strike.floor) if market.strike.floor is not None else None,
+            "cap_strike": str(market.strike.cap) if market.strike.cap is not None else None,
+            "status": "finalized",
+            "result": "yes" if yes else "no",
+            "settlement_value_dollars": "1.0000" if yes else "0.0000",
+            "settlement_ts": market.close_time.isoformat(),
+        }
+        return httpx.Response(200, json={"market": payload})
+
+    return httpx.MockTransport(observed)
+
+
 @contextmanager
 def controlled_forward_environment(clock: SimulatedClock) -> Iterator[None]:
     """Explicit synthetic classification for test-only mocked incoming observations."""
@@ -220,6 +272,7 @@ async def collect_controlled_cycle(
     *,
     clock: SimulatedClock,
     fee_versions: tuple[FeeVersion, ...],
+    outcome_transport: httpx.AsyncBaseTransport | None = None,
 ) -> dict[str, Any]:
     listing, hourly, exact, execution = source_transports(clock)
     with controlled_forward_environment(clock):
@@ -232,7 +285,7 @@ async def collect_controlled_cycle(
             source_transport=hourly,
             research_transport=exact,
             execution_transport=execution,
-            outcome_transport=execution,
+            outcome_transport=outcome_transport or outcome_transport_for_monitor(monitor, clock),
             fee_versions=fee_versions,
         )
     return result | {"data_kind": "synthetic", "controlled_synthetic": True}

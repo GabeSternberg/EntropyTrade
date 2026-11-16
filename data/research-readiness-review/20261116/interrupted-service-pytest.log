@@ -1,0 +1,5 @@
+..
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! KeyboardInterrupt !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/tmp/entropytrade-d-golden-compare/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/json/decoder.py:361: KeyboardInterrupt
+(to show a full traceback on KeyboardInterrupt use --full-trace)
+2 passed in 83.62s (0:01:23)

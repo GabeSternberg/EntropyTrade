@@ -1,0 +1,80 @@
+{
+  "files": [
+    {
+      "bytes": 28,
+      "file": "format.log",
+      "sha256": "fcbf1364bb4f32574c44c43d1babd1445aa1b29daf182aed54932d90a2effeab"
+    },
+    {
+      "bytes": 7253,
+      "file": "frontend-node-final.log",
+      "sha256": "845bfa2722cf3c2cd0d698a45af25885be1600d073af26770de7bf59ea84d14e"
+    },
+    {
+      "bytes": 7255,
+      "file": "frontend-node.log",
+      "sha256": "acb8297abe64a23af73dbdffd203ba27060c23851b3a1de6fdbb0b39f794588c"
+    },
+    {
+      "bytes": 14471,
+      "file": "historical-controlled-browser-receipt.json",
+      "sha256": "19e4e26c03274c68ec499a2b9805cf3b849c6bd59b6395e121cc11e0239f6937"
+    },
+    {
+      "bytes": 3963,
+      "file": "historical-controlled-playwright.json",
+      "sha256": "edc44c3d3c4d61cd36b4cb229f98d8c4cc38b1921b3502d2a9ac8bd804bf3bc4"
+    },
+    {
+      "bytes": 30218,
+      "file": "historical-controlled-revoked-proposal.json",
+      "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+    },
+    {
+      "bytes": 2396,
+      "file": "historical-production-refusal-receipt.json",
+      "sha256": "8c8333e77b89dd2391577834d3d36d8161e56d6b480caca071b27037306a4d4d"
+    },
+    {
+      "bytes": 302,
+      "file": "interrupted-browser-run.json",
+      "sha256": "b0d491f64b5b0afc16fd529f9b63dd859d0297c00e1d4dbd47f94c982deff14d"
+    },
+    {
+      "bytes": 1020,
+      "file": "interrupted-full-pytest.log",
+      "sha256": "d26625cf6c269a7b7eb57f3de837b18553dcc83e717c5835c46ea8f9e18b51a4"
+    },
+    {
+      "bytes": 307,
+      "file": "interrupted-service-pytest.log",
+      "sha256": "f9046ceba0e919062e12a752a5e2a55aa635228e0db89acef39feb1e5409deb5"
+    },
+    {
+      "bytes": 99,
+      "file": "owner-http-boundaries.log",
+      "sha256": "14063a23ecef47637c39d13646dcd9d4e09da015c8728de7bc5bdfcc80f3e06d"
+    },
+    {
+      "bytes": 19,
+      "file": "ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "bytes": 109,
+      "file": "scheduling-final.log",
+      "sha256": "b2c283d7222e22e751dc69b35c5e3ea6c5e36a51f659c655412ddd5b92e0d7a7"
+    },
+    {
+      "bytes": 45,
+      "file": "strict-mypy-final.log",
+      "sha256": "60b90905dbbeb07b8390609c83d8a357ed57c76231efc874d6e26027c3fd629d"
+    },
+    {
+      "bytes": 45,
+      "file": "strict-mypy.log",
+      "sha256": "60b90905dbbeb07b8390609c83d8a357ed57c76231efc874d6e26027c3fd629d"
+    }
+  ],
+  "scope": "Unmodified small retained development logs/receipts; excludes this manifest and mutable README/acceptance status. Large workspaces, archives, traces, screenshots and owner credentials are not included."
+}

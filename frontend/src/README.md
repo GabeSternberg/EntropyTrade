@@ -2,7 +2,7 @@
 
 `uv run entropytrade-web` serves this buildless HTML/CSS/JavaScript application from the
 checkout at `http://127.0.0.1:43128`. It calls only the same-origin local API. There is no
-frontend package install, bundler, external script, CDN, web font, credential form, order
+frontend package install, bundler, external script, CDN, web font, provider/exchange credential form, order
 endpoint or hosting service. The server's strict Content-Security-Policy allows only
 same-origin scripts and styles, and it serves a fixed allowlist of files (`ASSETS` in
 `backend/src/entropytrade/api/server.py`).
@@ -92,3 +92,33 @@ artifacts. JSON downloads and the original workbench execution view remain avail
 
 No account balance, simulated fill or P&L is invented before a committed incoming-data cycle.
 Paper controls cannot edit model coefficients, exchange credentials, fee policies or risk limits.
+
+
+## Owner review and global paper halt
+
+The top bar exposes **Owner access** and **Paper halt** in Real Mode. Owner setup remains
+an interactive local CLI operation with a private credential file outside the workspace.
+The website accepts only a manually entered owner passphrase for a short-lived same-origin
+session; it clears the input before dispatch and stores no password or session token in
+browser preferences. Demo Mode disables these controls and the shared mutation helper
+refuses saved Real Mode handlers at dispatch time.
+
+A global halt blocks new paper orders while official settlement polling continues for existing
+positions. It requires no owner sign-in. Release requires the owner
+session and the current control epoch. Neither action resumes a deployment or enables
+exchange submission. A server-local HALT file must be removed locally after review before
+the owner can release the persistent halt; the website explains this barrier and cannot
+remove the file. Current control state and recorded reasons remain inspectable.
+
+A selected paper deployment includes **Readiness**, **Monitoring** and **Audit** panels.
+Saving a readiness proposal records server-derived evidence and bounded future capital/loss
+limits, including precise refusals. Approve/reject requires the authenticated owner;
+approval additionally requires current eligibility and the exact proposal revision.
+Revocation is a safe reduction. Rollback refers to a prior server proposal and creates a
+fresh pending review: it never swaps a running model or reactivates a deployment.
+
+All reviews are data only: `execution_authorized=false` and `submission_enabled=false`.
+Prospective diagnostics and monitoring signals retain their evidence clocks and explicit
+synthetic/insufficient labels. Incidents show their recorded reasons and open, acknowledged
+or resolved state, with frozen evidence and lifecycle details. They do not establish
+profitability or authorize execution.

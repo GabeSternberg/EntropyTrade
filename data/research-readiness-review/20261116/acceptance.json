@@ -1,0 +1,209 @@
+{
+  "acceptance_status": "pending_final_regression_and_browser",
+  "authentic_strategy_eligible": false,
+  "authenticated_provider_verified": false,
+  "canonical_collector_accessed": false,
+  "execution_authorized": false,
+  "external_gates": [
+    "Sufficient authentic point-in-time forward history, decision-time books and settled labels.",
+    "Human-certified applicable fee evidence.",
+    "Authenticated AI-provider verification using separately authorized research credentials.",
+    "Current exact-touch strategy fails unchanged adverse execution stress.",
+    "Physical Windows/Tailscale/boot/offsite backup verification remains deployment work."
+  ],
+  "final_gates": {
+    "browser_two_cases": {
+      "required_source_before_after_match": true,
+      "status": "running_fresh_final_source"
+    },
+    "complete_local_pytest": {
+      "collected": 1948,
+      "status": "running_fresh_final_source"
+    },
+    "github_ci": {
+      "status": "pending"
+    }
+  },
+  "historical_browser": {
+    "controlled_prototype_4": {
+      "console_errors": [],
+      "cycles": 23,
+      "data_kind": "synthetic",
+      "download_hashes": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        },
+        {
+          "file": "restored-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        }
+      ],
+      "evidence_hash": "sha256:036f8b24d33b31da530ffcbd2648c8ccb9feb044a6ca334ba673df3696aa0881",
+      "independent_events": 21,
+      "page_errors": [],
+      "receipt": "historical-controlled-browser-receipt.json",
+      "scope": "Actual owner approve/reject/rollback, revoke/logout, HALT/owner release, paused state, restart session expiry, offline restore, mobile and Demo. Predates final monitoring-pane/source-fingerprint acceptance and final backend corrections.",
+      "stats": {
+        "duration": 474273.473,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T13:33:01.431Z",
+        "unexpected": 0
+      },
+      "status": "passed_prior_source"
+    },
+    "production_refusal_final_1": {
+      "console_errors": [],
+      "controlled_readiness": false,
+      "data_kind": "synthetic",
+      "page_errors": [],
+      "receipt": "historical-production-refusal-receipt.json",
+      "scope": "Production real policy refuses synthetic proposal evidence; unconfigured owner cannot release. Companion controlled case intentionally interrupted for backend corrections; combined run not accepted.",
+      "source_after": {
+        "files": 663,
+        "sha256": "6fad29217bc9718d5c679d55b44dc316fb68a5320a7adae94d32896b602fa24e"
+      },
+      "source_before": {
+        "files": 663,
+        "sha256": "6fad29217bc9718d5c679d55b44dc316fb68a5320a7adae94d32896b602fa24e"
+      },
+      "status": "passed_in_interrupted_overall_run"
+    },
+    "screenshot_sha256": {
+      "controlled": {
+        "demo-oversight-disabled.png": "7e13fec57347321b56af87d6ed658e9e288df3e0d8ea6d0d31faa29933e7a5e7",
+        "owner-readiness-audit.png": "b6a8b90badc6bffcfdbb4e4a360ce5088bb9aa3f8f690c781cd7c563a3c22f81",
+        "readiness-mobile.png": "dea39f281b10ad9d10eba95fa68517f36e589b995ad34900901f860bebe1ffd8",
+        "restored-readiness.png": "3aa6862488b1bc070c24ef5555a7ed69b87aafd23e2acef9156b4e85b357be40"
+      },
+      "production_refusal": {
+        "demo-oversight-disabled.png": "0fff7008ba1cb7a715b5654b0d374a7b905d204a1da3523718cedb2b6cd985cc",
+        "production-blocked-readiness.png": "53ee3809cc82426c4242039cd21989117d3cd4a0159d9d3c297594e8f55d88cf"
+      }
+    }
+  },
+  "independent_review": {
+    "corrections": [
+      "Recheck session expiry after credential reads and fee verification.",
+      "Refuse shutdown lease release if monitoring callback has not stopped.",
+      "Rotate monitoring fairly and back off failure; ordinary CAS progress is not an integrity failure.",
+      "Retain latest compatible historical owner reference rather than reset through new unreviewed proposals."
+    ],
+    "provenance": "review_e_final agent report; independent auth/HTTP21passed22.00s plus actual blocked-thread shutdown and fair-cursor checks. Later root boundary regressions cover23cases. Subsequent mixed legacy scheduling correction requires separate verification.",
+    "status": "accepted_assigned_final_scope"
+  },
+  "integration": {
+    "branch": "feature/research-milestone-e",
+    "status": "not_yet_integrated"
+  },
+  "interrupted_attempts": [
+    {
+      "log": "interrupted-full-pytest.log",
+      "passed_before_interrupt": 40,
+      "reason": "Independent review required expiry-at-commit and shutdown lease correctness changes before fresh run.",
+      "scope": "Complete local regression",
+      "seconds": 52.01,
+      "status": "intentionally_interrupted"
+    },
+    {
+      "log": "interrupted-service-pytest.log",
+      "passed_before_interrupt": 2,
+      "reason": "Source correction required fresh service tests.",
+      "scope": "Readiness service suite",
+      "seconds": 83.62,
+      "status": "intentionally_interrupted"
+    },
+    {
+      "accepted_final_run": false,
+      "receipt": "interrupted-browser-run.json",
+      "scope": "First final browser candidate",
+      "status": "intentionally_interrupted"
+    }
+  ],
+  "quality_checks": {
+    "format": {
+      "files": 644,
+      "log": "format.log",
+      "scope": "Final frozen source after mixed legacy scheduling correction.",
+      "status": "passed"
+    },
+    "frontend_node": {
+      "log": "frontend-node-final.log",
+      "scope": "Final frozen frontend.",
+      "status": "passed",
+      "tests": 78
+    },
+    "mixed_legacy_scheduling": {
+      "log": "scheduling-final.log",
+      "python": "3.13.14",
+      "scope": "60-second legacy monitors do not starve settlement-only drains or background readiness. Trained-horizon reservation remains enforced.",
+      "seconds": 74.43,
+      "status": "passed",
+      "tests": 4
+    },
+    "owner_http_boundaries": {
+      "log": "owner-http-boundaries.log",
+      "python": "3.13.14",
+      "scope": "Expiry after credential I/O, authenticated identity, logout/restart/rotation, rate limits, CSRF/strict bodies/SQLite refusal, callback error handling and shutdown lease retention.",
+      "seconds": 8.48,
+      "status": "passed",
+      "tests": 23
+    },
+    "ruff": {
+      "log": "ruff.log",
+      "scope": "Final frozen source after mixed legacy scheduling correction.",
+      "status": "passed"
+    },
+    "strict_mypy": {
+      "files": 644,
+      "log": "strict-mypy-final.log",
+      "scope": "Final frozen source after mixed legacy scheduling correction.",
+      "status": "passed"
+    }
+  },
+  "reported_scoped_checks": [
+    {
+      "passed": 70,
+      "provenance": "Prior store_drain_verify agent tool-result report; raw console log not located. Subsequent mixed legacy scheduling tests remain separately verified.",
+      "python": "3.13.14",
+      "scope": "Storage, settlement-only drain and recovery",
+      "seconds": 64.51
+    },
+    {
+      "passed": 21,
+      "provenance": "Prior modeling agent tool-result report; raw console log not located.",
+      "scope": "Actual forward readiness evidence",
+      "seconds": 75.3
+    },
+    {
+      "passed": 22,
+      "provenance": "Prior independent-review agent tool-result report; raw console log not located.",
+      "scope": "Investigation persistence, crash recovery and scope"
+    },
+    {
+      "passed": 14,
+      "provenance": "Prior monitoring_tests agent tool-result report. Two test-only assumptions corrected and those two cases rerun. Split runs are not a single full-suite pass.",
+      "python": "3.13.14",
+      "runs": [
+        {
+          "passed": 12,
+          "seconds": 301.6
+        },
+        {
+          "passed": 2,
+          "seconds": 200.79
+        }
+      ],
+      "scope": "Actual monitoring scenarios"
+    }
+  ],
+  "scope": "Milestone E software evidence; all positive readiness/account cases use controlled synthetic data, never authentic trading eligibility.",
+  "submission_enabled": false,
+  "windows_configured": false
+}

@@ -9,6 +9,7 @@ import sqlite3
 import stat
 from collections.abc import Iterator
 from contextlib import contextmanager
+from datetime import datetime
 from pathlib import Path, PurePosixPath
 from tempfile import TemporaryDirectory
 from typing import Any
@@ -17,9 +18,17 @@ from zipfile import ZIP_DEFLATED, ZIP_STORED, BadZipFile, ZipFile, ZipInfo
 from entropytrade.api.jobs import identifier, timestamp, validate_request
 from entropytrade.api.workspace import workspace_lease, workspace_path
 from entropytrade.data.sources import file_hash
+from entropytrade.domain.lifecycle import Actor
 from entropytrade.domain.strategy import StrategySpec
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.tracking.readiness_store import (
+    EMPTY_HASH,
+    MAX_CAPITAL_CENTS,
+    READINESS_TABLES,
+    SYSTEM_ACTOR,
+    _capital,
+)
 
 # v2 stores each distinct file content once (content-addressed members); every path is still
 # restored as its own independent, checksum-verified file. v1 archives remain restorable.
@@ -58,6 +67,341 @@ RUNTIME = {
     "registry.sqlite-shm",
     "matplotlib",
 }
+
+
+def _aware(value: object) -> None:
+    if not isinstance(value, str) or datetime.fromisoformat(value).utcoffset() is None:
+        raise ValueError("readiness audit requires an explicit timestamp timezone")
+
+
+def _integer(value: object, minimum: int = 0) -> bool:
+    return type(value) is int and value >= minimum
+
+
+def _readiness_guard(
+    db: sqlite3.Connection, guard: dict[str, Any], monitor_id: str, epoch: int
+) -> None:
+    if (
+        guard.get("schema") != "readiness-db-guard-v1"
+        or guard.get("monitor_id") != monitor_id
+        or guard.get("monitor_status") not in {"active", "paused", "cancelled", "suspended"}
+        or not _integer(guard.get("control_epoch"))
+        or guard["control_epoch"] > epoch
+    ):
+        raise ValueError("invalid historical readiness guard")
+    for field in (
+        "spec_hash",
+        "binding_hash",
+        "source_hash",
+        "account_hash",
+        "monitor_events_hash",
+    ):
+        blob_member(guard[field])
+    if guard.get("deployment_key") is not None:
+        blob_member(guard["deployment_key"])
+    head = guard.get("cycle_head")
+    if head is not None:
+        identifier(head["id"])
+        if not db.execute(
+            "SELECT 1 FROM shadow_cycles WHERE id=? AND monitor_id=? AND sequence=?",
+            (head["id"], monitor_id, head["sequence"]),
+        ).fetchone() or head["status"] not in {"running", "completed", "failed", "interrupted"}:
+            raise ValueError("readiness guard references an unknown cycle")
+        if head["digest"] is not None:
+            blob_member(head["digest"])
+    alerts = guard["alerts"]
+    if not isinstance(alerts, list) or len({a["id"] for a in alerts}) != len(alerts):
+        raise ValueError("readiness guard has invalid alert references")
+    for alert in alerts:
+        if not db.execute(
+            "SELECT 1 FROM shadow_alerts WHERE id=? AND monitor_id=?",
+            (alert["id"], monitor_id),
+        ).fetchone():
+            raise ValueError("readiness guard references an unknown alert")
+        blob_member(alert["evidence_hash"])
+        if alert["acknowledged_at"] is not None:
+            _aware(alert["acknowledged_at"])
+
+
+def _validate_readiness(
+    root: Path, db: sqlite3.Connection, monitors: dict[str, dict[str, Any]]
+) -> dict[str, dict[str, Any]]:
+    """Verify optional safety/review history without observing HALT or initializing stores."""
+    controls = db.execute("SELECT * FROM workspace_controls").fetchall()
+    if len(controls) != 1 or controls[0]["singleton"] != 1:
+        raise ValueError("workspace readiness control singleton is invalid")
+    state = dict(controls[0])
+    state["actor"] = json.loads(state["actor"])
+    Actor.model_validate(state["actor"])
+    _aware(state["updated_at"])
+    if state["halted"] not in {0, 1} or not _integer(state["epoch"]):
+        raise ValueError("workspace readiness control state is invalid")
+    states: dict[int, dict[str, Any]] = {0: {"halted": False, "event_hash": EMPTY_HASH}}
+    previous = EMPTY_HASH
+    history = db.execute("SELECT * FROM workspace_control_events ORDER BY sequence").fetchall()
+    latest: dict[str, Any] | None = None
+    for sequence, row in enumerate(history, 1):
+        event = dict(row)
+        payload = event["payload"] = json.loads(event["payload"])
+        _aware(event["at"])
+        actor = Actor.model_validate(payload["actor"])
+        if (
+            event["sequence"] != sequence
+            or event["epoch"] != sequence
+            or event["previous_hash"] != previous
+            or scientific_hash({k: v for k, v in event.items() if k != "digest"}) != event["digest"]
+            or event["action"] not in {"halted", "released"}
+            or payload["epoch"] != event["epoch"]
+            or payload["updated_at"] != event["at"]
+            or payload.get("execution_authorized") is not False
+            or type(payload["halted"]) is not bool
+            or payload["halted"] != (event["action"] == "halted")
+            or (event["action"] == "released" and actor.kind.value != "human")
+            or (event["action"] == "released" and not states[sequence - 1]["halted"])
+        ):
+            raise ValueError("workspace readiness control audit is inconsistent")
+        previous = event["digest"]
+        latest = payload
+        states[sequence] = {"halted": payload["halted"], "event_hash": previous}
+    if state["epoch"] != len(history) or state["event_hash"] != previous:
+        raise ValueError("workspace control differs from its append-only audit")
+    if latest is None:
+        if state["halted"] or state["actor"] != SYSTEM_ACTOR:
+            raise ValueError("unreviewed initial workspace readiness control")
+    elif (
+        any(state[key] != latest[key] for key in ("epoch", "reason", "updated_at", "actor"))
+        or bool(state["halted"]) != latest["halted"]
+    ):
+        raise ValueError("workspace readiness control payload differs from its audit")
+
+    cycles = {row["id"]: dict(row) for row in db.execute("SELECT * FROM shadow_cycles")}
+    cycle_controls: dict[str, dict[str, Any]] = {}
+    for row in db.execute("SELECT * FROM shadow_cycle_controls"):
+        frozen = json.loads(row["snapshot"])
+        epoch = row["epoch"]
+        if (
+            row["cycle_id"] not in cycles
+            or not _integer(epoch)
+            or epoch not in states
+            or row["mode"] not in {"paper", "reconcile_only"}
+            or frozen.get("schema") != "shadow-cycle-control-v1"
+            or frozen.get("control_epoch") != epoch
+            or frozen.get("cycle_mode") != row["mode"]
+            or frozen.get("execution_authorized") is not False
+            or frozen.get("halted") is not states[epoch]["halted"]
+            or frozen.get("event_hash") != states[epoch]["event_hash"]
+            or scientific_hash(frozen) != row["digest"]
+            or (row["mode"] == "paper" and frozen["halted"])
+        ):
+            raise ValueError("frozen paper cycle control proof is invalid")
+        cycle_controls[row["cycle_id"]] = frozen
+    for cycle in cycles.values():
+        result = json.loads(cycle["result"]) if cycle["result"] else None
+        if result is None:
+            continue
+        frozen = cycle_controls.get(cycle["id"])
+        if frozen is None:
+            supplied = any(
+                key in result for key in ("control_snapshot", "control_epoch", "cycle_mode")
+            )
+            legacy = {
+                "schema": "shadow-cycle-control-v1",
+                "control_epoch": 0,
+                "cycle_mode": "paper",
+                "halted": False,
+                "event_hash": EMPTY_HASH,
+                "execution_authorized": False,
+            }
+            if supplied and (
+                result.get("control_snapshot") != legacy
+                or result.get("control_epoch") != 0
+                or result.get("cycle_mode") != "paper"
+            ):
+                raise ValueError("paper result lacks its frozen cycle control")
+        else:
+            omitted_failure_control = (
+                cycle["status"] == "failed"
+                and not any(
+                    key in result for key in ("control_snapshot", "control_epoch", "cycle_mode")
+                )
+                and not any(
+                    result.get(key)
+                    for key in (
+                        "paper",
+                        "paper_inputs",
+                        "contracts",
+                        "decisions",
+                        "outcomes",
+                        "outcome_attempts",
+                        "orders",
+                        "fills",
+                        "settlements",
+                    )
+                )
+            )
+            if not omitted_failure_control and (
+                result.get("control_snapshot") != frozen
+                or result.get("control_epoch") != frozen["control_epoch"]
+                or result.get("cycle_mode") != frozen["cycle_mode"]
+            ):
+                raise ValueError("paper result differs from its frozen cycle control")
+
+    proposals = {r["id"]: dict(r) for r in db.execute("SELECT * FROM readiness_proposals")}
+    snapshots: dict[str, dict[str, Any]] = {}
+    for proposal_id, row in proposals.items():
+        payload = row["proposal"] = json.loads(row["proposal"])
+        guard = row["guard"] = json.loads(row["guard"])
+        blob_member(proposal_id)
+        blob_member(row["source_fingerprint"])
+        _aware(row["created_at"])
+        _aware(row["updated_at"])
+        _readiness_guard(db, guard, row["monitor_id"], state["epoch"])
+        if (
+            row["monitor_id"] not in monitors
+            or scientific_hash(payload) != proposal_id
+            or payload.get("monitor_id") != row["monitor_id"]
+            or payload.get("source_fingerprint") != row["source_fingerprint"]
+            or payload.get("execution_authorized") is not False
+            or payload.get("submission_enabled") is not False
+            or "proposal_hash" in payload
+            or not _integer(row["revision"])
+            or not _integer(row["capital_cents"])
+            or row["status"]
+            not in {"proposed", "approved", "rejected", "revoked", "invalidated", "superseded"}
+            or row["capital_cents"] != (_capital(payload) if row["status"] == "approved" else 0)
+            or (
+                row["status"] == "approved"
+                and (payload.get("eligible") is not True or state["halted"])
+            )
+        ):
+            raise ValueError("immutable readiness proposal/review is invalid")
+        _capital(payload)
+        if payload.get("schema_version") == "readiness-proposal-v1":
+            from entropytrade.research.readiness_evidence import (
+                verify_facts,
+                verify_frozen_evidence,
+            )
+
+            facts = verify_facts(payload["facts"])
+            material = payload["material_refs"]
+            source_verified = any(
+                check.name == "source_integrity" and check.passed for check in facts.checks
+            )
+            if (
+                facts.monitor_id != row["monitor_id"]
+                or scientific_hash(material) != row["source_fingerprint"]
+                or material.get("monitor_events_hash") != guard["monitor_events_hash"]
+                or material.get("control_epoch") != guard["control_epoch"]
+                or facts.source_refs.get("spec_hash") != guard["spec_hash"]
+                or facts.source_refs.get("deployment_key") != guard["deployment_key"]
+                or facts.eligible != all(check.passed for check in facts.checks)
+                or (payload.get("eligible") and not facts.eligible)
+                or (facts.eligible and not source_verified)
+            ):
+                raise ValueError("readiness frozen scientific evidence/reference is inconsistent")
+            # Refusals retain only the source claims they actually established. Complete
+            # claims require the original immutable model/account prefix independently.
+            verify_frozen_evidence(root, monitors[row["monitor_id"]], facts)
+    historical_allocations: dict[str, int] = {}
+    historical_monitors: dict[str, str] = {}
+    for sequence, row in enumerate(
+        db.execute("SELECT * FROM readiness_events ORDER BY sequence"), 1
+    ):
+        event = dict(row)
+        actor = Actor.model_validate_json(event["actor"])
+        event["actor"] = actor.model_dump(mode="json")
+        event["payload"] = json.loads(event["payload"])
+        _aware(event["at"])
+        proposal_id = event["proposal_id"]
+        before = snapshots.get(proposal_id)
+        expected_status = "proposed" if event["action"] == "published" else event["action"]
+        if (
+            event["sequence"] != sequence
+            or proposal_id not in proposals
+            or event["action"]
+            not in {"published", "approved", "rejected", "revoked", "invalidated", "superseded"}
+            or event["previous_hash"] != (before["digest"] if before else EMPTY_HASH)
+            or scientific_hash({k: v for k, v in event.items() if k != "digest"}) != event["digest"]
+            or event["payload"]["status"] != expected_status
+            or event["payload"]["revision"] != (before["payload"]["revision"] + 1 if before else 0)
+            or (before is None and event["action"] != "published")
+            or (before is not None and event["action"] == "published")
+            or (event["action"] in {"approved", "rejected"} and actor.kind.value != "human")
+        ):
+            raise ValueError("readiness review audit chain is invalid")
+        if before is None and event["at"] != proposals[proposal_id]["created_at"]:
+            raise ValueError("readiness proposal creation clock differs from publication")
+        allowed = {
+            "proposed": {"approved", "rejected", "revoked", "invalidated"},
+            "approved": {"revoked", "invalidated", "superseded"},
+        }
+        if before is not None and event["action"] not in allowed.get(
+            before["payload"]["status"], set()
+        ):
+            raise ValueError("readiness review history contains an invalid transition")
+        proposal = proposals[proposal_id]
+        observed = event["payload"].get("observed_guard")
+        if event["action"] in {"approved", "rejected"}:
+            if not isinstance(observed, dict):
+                raise ValueError("readiness review lacks its observed database guard")
+            _readiness_guard(db, observed, proposal["monitor_id"], state["epoch"])
+            if any(
+                observed[key] != proposal["guard"][key]
+                for key in (
+                    "monitor_id",
+                    "monitor_status",
+                    "spec_hash",
+                    "binding_hash",
+                    "source_hash",
+                    "deployment_key",
+                    "monitor_events_hash",
+                )
+            ):
+                raise ValueError("readiness source changed before the recorded review")
+        expected_capital = _capital(proposal["proposal"]) if expected_status == "approved" else 0
+        if (
+            event["payload"]["capital_cents"] != expected_capital
+            or event["payload"]["source_fingerprint"] != proposal["source_fingerprint"]
+            or event["payload"]["guard"] != proposal["guard"]
+        ):
+            raise ValueError("historical readiness review differs from its frozen proposal")
+        historical_allocations[proposal_id] = expected_capital
+        if expected_status == "approved":
+            historical_monitors[proposal_id] = proposal["monitor_id"]
+        else:
+            historical_monitors.pop(proposal_id, None)
+        if sum(historical_allocations.values()) > MAX_CAPITAL_CENTS or len(
+            set(historical_monitors.values())
+        ) != len(historical_monitors):
+            raise ValueError("historical readiness capital allocations exceed deterministic limits")
+        snapshots[proposal_id] = event
+    approved = []
+    for proposal_id, row in proposals.items():
+        last = snapshots.get(proposal_id)
+        current = {
+            key: row[key]
+            for key in ("status", "revision", "capital_cents", "source_fingerprint", "guard")
+        }
+        if (
+            last is None
+            or {key: last["payload"].get(key) for key in current} != current
+            or last["at"] != row["updated_at"]
+        ):
+            raise ValueError("readiness review state differs from its append-only audit")
+        if row["status"] == "approved":
+            approved.append(row)
+    if sum(r["capital_cents"] for r in approved) > MAX_CAPITAL_CENTS or len(
+        {r["monitor_id"] for r in approved}
+    ) != len(approved):
+        raise ValueError("readiness virtual capital allocations exceed deterministic limits")
+    for row in db.execute("SELECT * FROM readiness_investigations"):
+        from entropytrade.research.investigations import verify_investigation
+
+        if row["monitor_id"] not in monitors:
+            raise ValueError("readiness investigation identity/reference is invalid")
+        _aware(row["created_at"])
+        verify_investigation(root, dict(row))
+    return cycle_controls
 
 
 def validate_registry(root: Path, reviews: list[dict[str, Any]]) -> None:
@@ -171,15 +515,19 @@ def validate_database(root: Path) -> dict[str, int]:
             "SELECT type, name FROM sqlite_master WHERE type != 'index'"
         ).fetchall()
         actual = {(r["type"], r["name"]) for r in objects}
-        expected = {("table", t) for t in TABLES}
+        readiness_objects = {("table", t) for t in READINESS_TABLES}
+        present_readiness = actual & readiness_objects
+        if present_readiness and present_readiness != readiness_objects:
+            raise ValueError("incomplete workspace readiness database schema")
+        expected = {("table", t) for t in TABLES} | readiness_objects
         optional = {
             ("table", t) for t in ("shadow_accounts", "shadow_alerts", "shadow_alert_events")
-        }
+        } | readiness_objects
         if not expected - optional <= actual <= expected or (
             (("table", "shadow_alerts") in actual) != (("table", "shadow_alert_events") in actual)
         ):
             raise ValueError("unsupported or incomplete workspace database schema")
-        for table, columns in TABLES.items():
+        for table, columns in (TABLES | READINESS_TABLES).items():
             if ("table", table) not in actual:
                 continue  # Legacy workspace before paper accounting; never invent past fills.
             actual_columns = [r[1] for r in db.execute(f"PRAGMA table_info({table})")]
@@ -310,7 +658,12 @@ def validate_database(root: Path) -> dict[str, int]:
                     raise ValueError("restored model reference mismatch")
             elif binding["status"] != "blocked" or binding["snapshot"] is not None:
                 raise ValueError("invalid restored model binding")
+        try:
+            frozen_controls = _validate_readiness(root, db, monitors) if present_readiness else {}
+        except (KeyError, TypeError, AttributeError, sqlite3.Error) as exc:
+            raise ValueError("invalid workspace readiness evidence structure") from exc
         sequences: dict[str, list[int]] = {m: [] for m in monitors}
+        previous_accounts: dict[str, dict[str, Any]] = {}
         for row in db.execute("SELECT * FROM shadow_cycles ORDER BY sequence"):
             monitor_id, cycle_id = row["monitor_id"], identifier(row["id"])
             if monitor_id not in monitors or row["status"] not in {
@@ -339,6 +692,39 @@ def validate_database(root: Path) -> dict[str, int]:
                     raise ValueError("completed cycle is missing result bytes")
                 if result_file.is_file() and json.loads(result_file.read_text()) != result:
                     raise ValueError("cycle result disagrees with database")
+                from entropytrade.tracking.reconciliation import (
+                    is_reconciliation,
+                    verify_reconciliation,
+                )
+
+                if is_reconciliation(result):
+                    control = frozen_controls.get(cycle_id)
+                    if control is None:
+                        raise ValueError("reconciliation cycle lacks its frozen safety control")
+                    verify_reconciliation(
+                        cycle,
+                        result,
+                        expected_before=previous_accounts.get(monitor_id),
+                        expected_control={
+                            "control_snapshot": control,
+                            "started_at": row["started_at"],
+                        },
+                    )
+                    contracts = {
+                        r["ticker"]: json.loads(r["market"])
+                        for r in db.execute(
+                            "SELECT ticker,market FROM shadow_contracts WHERE monitor_id=?",
+                            (monitor_id,),
+                        )
+                    }
+                    if any(
+                        contract["ticker"] not in contracts
+                        or contract["market"] != contracts[contract["ticker"]]
+                        for contract in result["reconciliation_contracts"]
+                    ):
+                        raise ValueError("reconciliation changed its frozen tracked contract terms")
+                if "paper" in result:
+                    previous_accounts[monitor_id] = result["paper"]["state"]
         if any(seq != list(range(1, len(seq) + 1)) for seq in sequences.values()):
             raise ValueError("incomplete cycle sequence")
         from entropytrade.tracking.accounting import account_hash, verify_export
@@ -443,6 +829,9 @@ def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[
                 raise ValueError("workspace contains a symlink")
             if child.name in RUNTIME or child.name in {"jobs.sqlite", "registry.sqlite"}:
                 continue
+            if child.name == "HALT" and child.is_file():
+                shutil.copyfile(child, payload / "HALT")
+                continue
             if child.name not in WORKSPACE_DIRECTORIES or not child.is_dir():
                 raise ValueError("unexpected workspace entry: " + child.name)
             inventory(child)  # reject nested links/special files before copying
@@ -530,7 +919,7 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
         files = manifest["files"]
         for item in files:
             parts = PurePosixPath(relative(item["path"])).parts
-            if parts not in {("jobs.sqlite",), ("registry.sqlite",)} and (
+            if parts not in {("jobs.sqlite",), ("registry.sqlite",), ("HALT",)} and (
                 len(parts) < 2 or parts[0] not in WORKSPACE_DIRECTORIES
             ):
                 raise ValueError("unexpected snapshot workspace entry")

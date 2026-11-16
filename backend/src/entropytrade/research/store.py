@@ -5,6 +5,7 @@ It never stores credentials; provider choice is a public name only.
 """
 
 import json
+import re
 import sqlite3
 import threading
 from collections.abc import Iterator
@@ -13,7 +14,7 @@ from datetime import datetime
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
-from uuid import UUID, uuid4
+from uuid import NAMESPACE_URL, UUID, uuid4, uuid5
 
 from entropytrade.research.model import (
     RESEARCH_SETTABLE,
@@ -110,6 +111,13 @@ def job_identifier(value: str) -> str:
     return value
 
 
+def investigation_job_id(origin_key: str) -> str:
+    """Stable internal destination for an incident outbox, including terminal jobs."""
+    if re.fullmatch(r"sha256:[0-9a-f]{64}", origin_key) is None:
+        raise ValueError("investigation origin requires a content hash")
+    return str(uuid5(NAMESPACE_URL, "entropytrade-investigation-v1:" + origin_key))
+
+
 def reject_collector_chain(root: Path) -> None:
     """Refuse research writes anywhere inside a canonical collector store, before mkdir."""
     if any(path.is_symlink() for path in (root, *root.parents)):
@@ -152,18 +160,39 @@ class ResearchStore:
         universe: tuple[str, ...],
         now: datetime,
         limit: int = 12,
+        origin_key: str | None = None,
     ) -> tuple[str, bool]:
-        """Idempotent: an equivalent unfinished request returns the existing job."""
+        """Reuse normal requests or one internal incident destination across all states.
+
+        Origin keys are not part of ResearchRequest or any browser request schema. A
+        retried outbox can reuse a failed/cancelled job but cannot replace its content.
+        """
         fingerprint = request.fingerprint()
+        job_id = investigation_job_id(origin_key) if origin_key is not None else str(uuid4())
         with self.connect() as db:
             db.execute("BEGIN IMMEDIATE")
-            existing = db.execute(
-                "SELECT id FROM research_jobs WHERE fingerprint=? AND status NOT IN (?, ?) "
-                "ORDER BY created_at DESC LIMIT 1",
-                (fingerprint, JobStatus.FAILED.value, JobStatus.CANCELLED.value),
-            ).fetchone()
-            if existing:
-                return str(existing["id"]), False
+            if origin_key is not None:
+                existing = db.execute(
+                    "SELECT * FROM research_jobs WHERE id=?", (job_id,)
+                ).fetchone()
+                if existing:
+                    if (
+                        existing["fingerprint"] != fingerprint
+                        or ResearchRequest.model_validate_json(existing["request"]).fingerprint()
+                        != fingerprint
+                        or existing["family"] != request.family
+                        or json.loads(existing["universe"]) != list(universe)
+                    ):
+                        raise ValueError("investigation origin content changed")
+                    return job_id, False
+            else:
+                existing = db.execute(
+                    "SELECT id FROM research_jobs WHERE fingerprint=? AND status NOT IN (?, ?) "
+                    "ORDER BY created_at DESC LIMIT 1",
+                    (fingerprint, JobStatus.FAILED.value, JobStatus.CANCELLED.value),
+                ).fetchone()
+                if existing:
+                    return str(existing["id"]), False
             active = db.execute(
                 # Only fixed "?" placeholders are interpolated; values stay parameterized.
                 "SELECT count(*) FROM research_jobs WHERE status IN ({})".format(  # noqa: S608
@@ -173,7 +202,6 @@ class ResearchStore:
             ).fetchone()[0]
             if active >= limit:
                 raise ValueError("research queue is full; wait for active jobs to finish")
-            job_id = str(uuid4())
             stamp = now.isoformat()
             db.execute(
                 "INSERT INTO research_jobs(id, request, fingerprint, family, universe, status, "

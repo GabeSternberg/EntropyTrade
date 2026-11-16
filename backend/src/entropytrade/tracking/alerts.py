@@ -20,7 +20,8 @@ SCHEMA = """
         action TEXT NOT NULL, evidence TEXT NOT NULL);
     CREATE INDEX IF NOT EXISTS shadow_alert_lifecycle ON shadow_alert_events(alert_id, sequence);
 """
-KINDS = {"stale_collection", "repeated_failures", "unresolved_reconciliation"}
+READINESS_KINDS = {"readiness_integrity", "risk_limit_breach", "forecast_degradation"}
+KINDS = {"stale_collection", "repeated_failures", "unresolved_reconciliation"} | READINESS_KINDS
 
 
 RECONCILIATION_GRACE_SECONDS = 3600
@@ -111,6 +112,18 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
     resuming/resetting the backoff counter is not recovery evidence.
     """
     moment = ensure_utc(datetime.fromisoformat(now))
+    has_controls = (
+        db.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='shadow_cycle_controls'"
+        ).fetchone()
+        is not None
+    )
+    control_filter = (
+        "AND NOT EXISTS(SELECT 1 FROM shadow_cycle_controls "
+        "WHERE cycle_id=shadow_cycles.id AND mode='reconcile_only') "
+        if has_controls
+        else ""
+    )
     for monitor in db.execute("SELECT * FROM monitors").fetchall():
         mid = monitor["id"]
         cycles = db.execute(
@@ -122,7 +135,10 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
             "coalesce(json_array_length(result, '$.paper_execution.failures'), 0) + "
             "coalesce(json_array_length(result, '$.research_features.failures'), 0) "
             "AS failure_count "
-            "FROM shadow_cycles WHERE monitor_id=? ORDER BY sequence DESC",
+            "FROM shadow_cycles WHERE monitor_id=? "
+            "AND coalesce(json_extract(result, '$.cycle_mode'),'paper')<>'reconcile_only' "
+            + control_filter
+            + "ORDER BY sequence DESC",
             (mid,),
         ).fetchall()
         good = next((c for c in cycles if healthy(c)), None)
@@ -197,6 +213,53 @@ def refresh(db: sqlite3.Connection, now: str) -> None:
                     "VALUES (?, ?, ?, ?)",
                     (aid, now, action, encoded),
                 )
+
+
+def observe_condition(
+    db: sqlite3.Connection,
+    monitor_id: str,
+    kind: str,
+    *,
+    active: bool | None,
+    evidence: dict[str, Any],
+    now: str,
+) -> str | None:
+    """One durable episode per deterministic readiness condition; pending cannot resolve."""
+    if kind not in READINESS_KINDS:
+        raise ValueError("unsupported readiness incident kind")
+    identifier(monitor_id)
+    ensure_utc(datetime.fromisoformat(now))
+    current = db.execute(
+        "SELECT * FROM shadow_alerts WHERE monitor_id=? AND kind=? AND resolved_at IS NULL",
+        (monitor_id, kind),
+    ).fetchone()
+    if active is None:
+        return str(current["id"]) if current is not None else None
+    encoded = json.dumps(evidence, sort_keys=True, allow_nan=False)
+    action = None
+    if active and current is None:
+        aid = str(uuid4())
+        db.execute(
+            "INSERT INTO shadow_alerts VALUES (?,?,?,?,NULL,NULL,?)",
+            (aid, monitor_id, kind, now, encoded),
+        )
+        action = "opened"
+    elif current is not None:
+        aid = str(current["id"])
+        if not active:
+            db.execute("UPDATE shadow_alerts SET resolved_at=? WHERE id=?", (now, aid))
+            action = "resolved"
+        elif current["evidence"] != encoded:
+            db.execute("UPDATE shadow_alerts SET evidence=? WHERE id=?", (encoded, aid))
+            action = "evidence_updated"
+    else:
+        return None
+    if action is not None:
+        db.execute(
+            "INSERT INTO shadow_alert_events(alert_id,at,action,evidence) VALUES (?,?,?,?)",
+            (aid, now, action, encoded),
+        )
+    return aid if active else None
 
 
 def acknowledge(db: sqlite3.Connection, monitor_id: str, alert_id: str, now: str) -> None:

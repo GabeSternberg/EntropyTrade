@@ -274,3 +274,15 @@ test("V1 gates panel shows open and invalid gates as text and never claims compl
   assert.match(text(panel), /V1 gate report unavailable/);
   assert.doesNotMatch(text(panel), /attested\./);
 });
+
+test("workbench settlement-only cycles render without prediction or execution fields", async () => {
+  const { context } = application();
+  await new Promise((resolve) => setImmediate(resolve));
+  const monitor = { id: "monitor", status: "cancelled", source_kind: "legacy", interval_seconds: 300, next_at: "2026-11-15T23:00:00Z", failures: 0, cycle_count: 1, events: [], contracts: [], cycles: [{ sequence: 1, status: "completed", finished_at: "2026-11-15T23:01:00Z", detail: "Official settlement drained", result: { cycle_mode: "reconcile_only", schema: "shadow-reconciliation-cycle-v1", capture: null, model_binding: null, execution: null, paper_execution: null, decisions: [], quotes: [], outcomes: [], paper: { settlements: [] } } }] };
+  context.fetch = async (url) => ({ ok: true, json: async () => url.endsWith("/evaluation") ? { status: "insufficient", counts: {}, diagnostics: [], observations: [], cycle_statuses: {}, cycle_failures: [], limitations: [] } : monitor });
+  await context.selectMonitor("monitor", true);
+  const result = context.document.getElementById("shadow-evidence");
+  assert.match(text(result), /Settlement-only reconciliation/);
+  assert.match(text(result), /no new predictions, quotes or paper orders/);
+  assert.match(text(result), /Decisions: 0; quotes: 0/);
+});
