@@ -1,0 +1,14 @@
+{
+  "accepted": false,
+  "production_result": "passed",
+  "controlled_result": "failed: selected proposal load had not completed before download; broad card-text assertion also matched an option for the selected proposal",
+  "before_download_id": "sha256:79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+  "restart_download_id": "sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed",
+  "actual_requested_proposal_after_restart": {
+    "id": "sha256:79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+    "status": "revoked",
+    "payload_matches_before_restart": true
+  },
+  "trace_sha256": "1776fe97bbbd46fabae7f6ed82674bb89de3f052d7f1a6729b7e5b0ddaec358a",
+  "correction": "Immediately clear prior proposal/actions/export during changed selection, defer showing next proposal until evidence response; assert exact selected exporthref and downloaded recordid."
+}

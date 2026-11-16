@@ -19,7 +19,6 @@ from entropytrade.domain.time import Clock, SystemClock
 from entropytrade.exchange.gateway import GatewayError
 from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.transport import RawCapture
-from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.families.bitcoin_history import OutcomeTransport
 from entropytrade.families.weather_capture import capture_public
@@ -30,6 +29,10 @@ from entropytrade.tracking.accounting import reproduce as reproduce_paper
 from entropytrade.tracking.evaluate import evaluate, shadow_limits
 from entropytrade.tracking.market_data import capture_execution
 from entropytrade.tracking.models import score
+from entropytrade.tracking.reconciliation import SCHEMA as RECONCILIATION_SCHEMA
+from entropytrade.tracking.reconciliation import empty_inputs, same_frozen_terms, validate_control
+from entropytrade.tracking.reconciliation import paper_inputs as settlement_inputs
+from entropytrade.tracking.reconciliation import terms as terms
 from entropytrade.tracking.replay import decision_inputs
 from entropytrade.tracking.research_features import (
     acquire_research_features,
@@ -39,52 +42,91 @@ from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.collection import WeatherConfig
 
 
-def terms(market: Market) -> dict[str, Any]:
-    return {
-        "ticker": market.ticker,
-        "event": market.event_ticker,
-        # Individual-market responses omit series_ticker; the frozen full ticker still
-        # carries its venue series prefix. An explicit contradictory series remains distinct.
-        "series": market.series_ticker or market.ticker.split("-", 1)[0],
-        "market_type": market.market_type.value,
-        "settlement_basis": market.rules.settlement_basis,
-        "settlement_target_date": market.rules.settlement_target_date.isoformat()
-        if market.rules.settlement_target_date is not None
-        else None,
-        "settlement_sources": [
-            source.model_dump(mode="json") for source in market.rules.settlement_sources
-        ],
-        "close": market.close_time.isoformat(),
-        "strike": market.strike.model_dump(mode="json") if market.strike else None,
-        "primary": market.rules.rules_primary,
-        "secondary": market.rules.rules_secondary,
-        "early_close": market.rules.early_close_condition,
-    }
+def _claim_fields(monitor: dict[str, Any]) -> dict[str, Any]:
+    claim = monitor.get("_claimed_cycle")
+    if claim is None:
+        running = [c for c in monitor.get("cycles", []) if c["status"] == "running"]
+        claim = running[0] if len(running) == 1 else None
+    if claim is None:
+        return {"cycle_mode": "paper"}
+    fields: dict[str, Any] = {"cycle_id": claim["id"], "cycle_started_at": claim["started_at"]}
+    if "control_snapshot" in claim:
+        control = claim["control_snapshot"]
+        validate_control(control)
+        if any(claim[key] != control[key] for key in ("cycle_mode", "control_epoch")):
+            raise ValueError("claimed cycle control fields disagree")
+        fields.update(
+            {key: claim[key] for key in ("cycle_mode", "control_epoch", "control_snapshot")}
+        )
+    else:
+        fields["cycle_mode"] = "paper"
+    return fields
 
 
-def same_frozen_terms(current: Market, frozen: Market) -> bool:
-    """Compare payout terms while retaining the frozen context of optional parsed dates.
-
-    Calendar metadata is deliberately cleared by the unsupported Bitcoin adapter. Its
-    official binary result may still be observed without upgrading those unverified rules.
-    An opaque legacy contract may retain its originally supplied calendar when the final
-    decoder cannot derive one. Neither case permits a change to text, payout type, source,
-    basis, ticker/event/series, close or strike, or an explicit conflicting verified date.
-    """
-    observed, original = terms(current), terms(frozen)
-    observed_date = observed.pop("settlement_target_date")
-    frozen_date = original.pop("settlement_target_date")
-    if observed != original:
-        return False
-    if observed_date == frozen_date:
-        return True
-    if current.rules.settlement_basis == "unresolved":
-        return True
-    return (
-        observed_date is None
-        and frozen_date is not None
-        and ticker_target_date(current.ticker) is None
+async def collect_reconciliation(
+    monitor: dict[str, Any],
+    repo: Path,
+    root: Path,
+    claim: dict[str, Any],
+    *,
+    outcome_transport: httpx.AsyncBaseTransport | None = None,
+    clock: Clock | None = None,
+) -> dict[str, Any]:
+    """Only observe official outcomes for the original account and frozen contracts."""
+    before = monitor.get("paper_account")
+    if not isinstance(before, dict):
+        raise ValueError("settlement-only cycle requires an existing paper account")
+    contracts = monitor["contracts"]
+    spec = StrategySpec.model_validate(monitor["spec"])
+    inputs = empty_inputs(spec, before, contracts, claim["control_snapshot"])
+    reconciliation = await outcomes(
+        root / "outcomes", contracts, transport=outcome_transport, clock=clock
     )
+    paper_inputs = settlement_inputs(
+        inputs, before, contracts, reconciliation["outcomes"], (clock or SystemClock()).now()
+    )
+    paper = reproduce_paper(paper_inputs)
+    (root / "decision-inputs.json").write_text(json.dumps(inputs, sort_keys=True, indent=2))
+    (root / "paper-inputs.json").write_text(json.dumps(paper_inputs, sort_keys=True, indent=2))
+    return {
+        "schema": RECONCILIATION_SCHEMA,
+        **claim,
+        "submission_enabled": False,
+        "detail": f"Settlement-only reconciliation; {len(paper['settlements'])} new settlements",
+        "data_kind": before["data_kind"],
+        "dataset_version": inputs["data"]["dataset_version"],
+        "feature_version": inputs["data"]["feature_version"],
+        "reconciliation_contracts": contracts,
+        "contracts": [],
+        "decisions": [],
+        "quotes": [],
+        "fee_versions": [],
+        "capture": None,
+        "execution": None,
+        "paper_execution": None,
+        "model_binding": None,
+        "model_refusals": {},
+        "paper_inputs": paper_inputs,
+        "paper": paper,
+        "implementation": {
+            name: file_hash(repo / name)
+            for name in (
+                "uv.lock",
+                "pyproject.toml",
+                "backend/src/entropytrade/tracking/worker.py",
+                "backend/src/entropytrade/tracking/reconciliation.py",
+                "backend/src/entropytrade/tracking/accounting.py",
+                "backend/src/entropytrade/portfolio/ledger.py",
+                "backend/src/entropytrade/exchange/kalshi/recorded.py",
+            )
+        },
+        **reconciliation,
+        "limitations": [
+            "Settlements of the existing simulated account only; no new predictions, "
+            "orders, fills, source acquisition or bankroll initialization.",
+            "Official result availability is its actual retained GET receipt clock.",
+        ],
+    }
 
 
 async def outcomes(
@@ -217,6 +259,11 @@ async def collect(
     clock: Clock | None = None,
     fee_versions: tuple[FeeVersion, ...] = (),
 ) -> dict[str, Any]:
+    claim = _claim_fields(monitor)
+    if claim["cycle_mode"] == "reconcile_only":
+        return await collect_reconciliation(
+            monitor, repo, root, claim, outcome_transport=outcome_transport, clock=clock
+        )
     implementation = {
         name: file_hash(repo / name)
         for name in (
@@ -442,11 +489,12 @@ async def collect(
     (root / "paper-inputs.json").write_text(json.dumps(paper_inputs, sort_keys=True, indent=2))
     return {
         "schema": "shadow-cycle-v1",
+        **claim,
         "submission_enabled": False,
         "detail": (
             f"{len(decisions)} shadow decisions; {len(capture['failures'])} acquisition failures"
         ),
-        "data_kind": "real",
+        "data_kind": data.data_kind,
         "dataset_version": data.dataset_version,
         "feature_version": data.feature_version,
         "capture": capture,
@@ -488,28 +536,41 @@ async def collect(
 
 
 def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) -> None:
-    monitor = store.get(monitor_id, export=True)
-    if (
-        not monitor
-        or monitor["status"] != "active"
-        or not any(c["id"] == cycle_id and c["status"] == "running" for c in monitor["cycles"])
+    monitor = store.get_for_cycle(monitor_id, cycle_id)
+    if not monitor:
+        return
+    cycle = next(
+        (c for c in monitor["cycles"] if c["id"] == cycle_id and c["status"] == "running"), None
+    )
+    if cycle is None or (
+        monitor["status"] != "active" and cycle.get("cycle_mode", "paper") != "reconcile_only"
     ):
         return
+    monitor["_claimed_cycle"] = cycle
+    claim = _claim_fields(monitor)
     root = store.jobs.root / "shadow" / identifier(monitor_id) / identifier(cycle_id)
     root.mkdir(parents=True, exist_ok=False)
     try:
         result = asyncio.run(
-            collect(monitor, repo, root, fee_versions=FeeEvidenceStore(store.jobs.root).snapshot())
+            collect(
+                monitor,
+                repo,
+                root,
+                fee_versions=()
+                if claim["cycle_mode"] == "reconcile_only"
+                else FeeEvidenceStore(store.jobs.root).snapshot(),
+            )
         )
         failed = bool(
-            result["capture"]["failures"]
+            (result.get("capture") or {}).get("failures")
             or result["outcome_failures"]
-            or result.get("execution", {}).get("failures")
+            or (result.get("execution") or {}).get("failures")
             or (result.get("paper_execution") or {}).get("failures")
             or (result.get("research_features") or {}).get("failures")
         )
     except Exception as exc:  # noqa: BLE001 - worker records a fail-closed bounded cycle
         result = {
+            **claim,
             "detail": "Shadow cycle failed: " + type(exc).__name__,
             "failure": str(exc)[:1000],
             "submission_enabled": False,
@@ -520,8 +581,15 @@ def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) ->
         for p in sorted(root.rglob("*"))
         if p.is_file()
     ]
-    (root / "result.json").write_text(json.dumps(result, sort_keys=True, indent=2))
-    store.finish(monitor_id, cycle_id, result, failed=failed)
+    # Freeze trusted claim fields even when a collector or a failed source omits them.
+    result.update(claim)
+    result_file = root / "result.json"
+    result_file.write_text(json.dumps(result, sort_keys=True, indent=2))
+    if not store.finish(monitor_id, cycle_id, result, failed=failed):
+        uncommitted = root / "uncommitted-result.json"
+        if uncommitted.exists():
+            raise ValueError("uncommitted worker evidence already exists")
+        result_file.rename(uncommitted)
 
 
 def main() -> None:

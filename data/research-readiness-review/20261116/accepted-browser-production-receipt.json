@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "data_kind": "synthetic",
+  "controlled_readiness": false,
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+    "files": 664
+  },
+  "posts": [
+    {
+      "path": "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/controls/halt",
+      "body": {
+        "reason": "Controlled refusal acceptance"
+      }
+    }
+  ],
+  "sensitive_requests": [
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A8a273e48b50262807ea2d666034fedb16387d692996a03e3c207388b830d24c0",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/halt",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A8a273e48b50262807ea2d666034fedb16387d692996a03e3c207388b830d24c0",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    }
+  ],
+  "screenshots": [
+    "production-blocked-readiness.png",
+    "demo-oversight-disabled.png"
+  ],
+  "downloads": [],
+  "page_errors": [],
+  "console_errors": [],
+  "source_after": {
+    "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+    "files": 664
+  }
+}

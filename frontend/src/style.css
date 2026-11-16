@@ -765,3 +765,22 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   .paper-deployment .kv-row { flex-direction: column; gap: 4px; }
   .paper-deployment .kv dd { text-align: left; }
 }
+
+/* Human review and paper halt controls. Full hashes and audit notes must wrap. */
+.owner-setup { display: block; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; }
+.readiness-envelope { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.readiness-checks, .readiness-signals { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.readiness-checks li, .readiness-signals li { display: flex; align-items: flex-start; gap: 10px; overflow-wrap: anywhere; }
+.readiness-checks li > div, .readiness-signals li > div { flex: 1; min-width: 0; }
+.readiness-record .card-sub, #paper-governance .kv dd { overflow-wrap: anywhere; }
+#global-halt[data-halted="true"] { color: var(--warn); border-color: var(--warn); }
+@media (max-width: 1100px) {
+  #owner-access, #global-halt { max-width: 112px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+@media (max-width: 640px) {
+  .topbar { flex-wrap: wrap; height: auto; min-height: var(--topbar-h, 58px); padding-top: 8px; padding-bottom: 8px; }
+  .top-actions { flex-wrap: wrap; justify-content: flex-end; }
+  #owner-access, #global-halt { font-size: 11px; height: 28px; padding: 0 7px; max-width: 124px; }
+  .readiness-envelope { grid-template-columns: minmax(0, 1fr); }
+  .readiness-checks li { flex-wrap: wrap; }
+}

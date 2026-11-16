@@ -7,6 +7,10 @@ import threading
 import time
 from contextlib import suppress
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 from entropytrade.api.runner import worker_environment
 from entropytrade.data.sources import file_hash
@@ -22,6 +26,8 @@ class ShadowRunner:
         self.stop = threading.Event()
         self.thread = threading.Thread(target=self.run, name="shadow-monitor", daemon=True)
         self.next_alert_check = 0.0
+        self.health_check: Callable[[], None] | None = None
+        self.health_error: str | None = None
 
     def start(self) -> None:
         self.thread.start()
@@ -29,12 +35,20 @@ class ShadowRunner:
     def close(self) -> None:
         self.stop.set()
         if self.thread.ident is not None:
-            self.thread.join(timeout=5)
+            self.thread.join(timeout=self.timeout + 5 if self.health_check is not None else 5)
+            if self.thread.is_alive():
+                raise RuntimeError("Shadow monitoring has not stopped; retain the workspace lease")
 
     def check_alerts(self) -> None:
         if time.monotonic() >= self.next_alert_check:
             self.store.alerts()
             self.next_alert_check = time.monotonic() + 5
+            if self.health_check is not None:
+                try:
+                    self.health_check()
+                    self.health_error = None
+                except Exception as exc:  # noqa: BLE001 - a diagnostic failure cannot stop the runner
+                    self.health_error = type(exc).__name__
 
     def run(self) -> None:
         while not self.stop.is_set():

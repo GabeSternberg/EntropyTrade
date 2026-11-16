@@ -170,8 +170,10 @@
     search.addEventListener("click", palette);
     const modeSwitch = segmented([{ key: "real", label: "Real" }, { key: "demo", label: "Demo" }], mode, (key) => ET.setMode(key), { class: "segmented mode-switch", "aria-label": "Data mode", id: "mode-switch" });
     const bell = h("a", { class: "btn ghost icon bell", href: "#/ops", "aria-label": "Alerts", title: "Alerts" }, icon("bell", 17), h("span", { class: "bell-dot", id: "bell-dot", hidden: true }));
+    const owner = button("Owner access", { variant: "ghost sm", id: "owner-access", onclick: () => ET.ownerAccess?.() }, "lock");
+    const halt = button("Paper halt", { variant: "ghost sm", id: "global-halt", onclick: () => ET.controlAccess?.() }, "shield");
     bar.replaceChildren(menu, h("div", { class: "crumb", id: "crumb" }), search,
-      h("div", { class: "top-actions" }, h("span", { class: "mode-label" }, "Data"), modeSwitch, bell,
+      h("div", { class: "top-actions" }, h("span", { class: "mode-label" }, "Data"), modeSwitch, owner, halt, bell,
         h("span", { class: "exec-pill", title: "No order endpoint exists on this server" }, icon("lock", 13), "Live trading off")));
   }
   function applyMode() {
@@ -180,6 +182,7 @@
     document.querySelectorAll("#mode-switch button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === mode)));
     const banner = document.getElementById("mode-banner");
     if (mode === "demo") {
+      document.querySelectorAll("dialog[data-owner-control]").forEach((modal) => modal.close());
       const exit = button("Switch to Real Mode", { variant: "sm banner-btn" });
       exit.addEventListener("click", () => ET.setMode("real"));
       banner.replaceChildren(h("div", { class: "banner-inner" }, icon("eye", 15), h("strong", "Demo Mode"),
@@ -187,7 +190,22 @@
       banner.hidden = false;
     } else banner.hidden = true;
     updateIndicators();
+    updateSafety();
   }
+  async function updateSafety() {
+    const owner = document.getElementById("owner-access");
+    const halt = document.getElementById("global-halt");
+    if (!owner || !halt) return;
+    owner.disabled = halt.disabled = mode !== "real";
+    if (mode !== "real") { owner.textContent = "Owner access"; halt.textContent = "Paper halt · demo"; return; }
+    const result = await ET.apiAll({ owner: "/api/owner", control: "/api/controls" });
+    if (mode !== "real") return;
+    owner.textContent = result.owner.ok && result.owner.data.authenticated ? "Owner signed in" : "Owner access";
+    owner.title = result.owner.ok ? "Owner identity is required for readiness review and halt release" : "Owner status unavailable; open to retry";
+    halt.textContent = result.control.ok ? (result.control.data.halted ? "Paper halt engaged" : "Paper halt") : "Paper halt · unavailable";
+    halt.setAttribute("data-halted", result.control.ok ? String(result.control.data.halted) : "unknown");
+  }
+  ET.refreshSafety = updateSafety;
   function applyPrefs() {
     document.body.classList.toggle("collapsed", !!ET.prefs.get("collapsed", false));
     document.body.classList.toggle("density-compact", ET.prefs.get("density", "comfortable") === "compact");
@@ -245,6 +263,7 @@
     buildSidebar(); buildTopbar(); applyPrefs(); applyMode(); tick();
     setInterval(tick, 1000);
     setInterval(updateIndicators, 15000);
+    setInterval(updateSafety, 15000);
     window.addEventListener("hashchange", route);
     document.addEventListener("keydown", (event) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); palette(); }

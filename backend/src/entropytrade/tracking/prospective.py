@@ -30,8 +30,8 @@ from entropytrade.ml.forward import FrozenWeather
 from entropytrade.research.paper_models import PortableResearchModel
 from entropytrade.tracking.history import verified_inputs
 from entropytrade.tracking.models import score
+from entropytrade.tracking.reconciliation import is_reconciliation, same_frozen_terms, terms
 from entropytrade.tracking.replay import verify
-from entropytrade.tracking.worker import terms
 
 MAX_BYTES = 256_000_000
 MIN_EVENTS = 10
@@ -74,6 +74,8 @@ def _cycles(jobs: Jobs, monitor_id: str) -> tuple[dict[str, Any], list[dict[str,
 
 
 def _inputs(root: Path, result: dict[str, Any]) -> dict[str, Any]:
+    if is_reconciliation(result):
+        return verified_inputs(root)
     inputs: dict[str, Any] = json.loads((root / "decision-inputs.json").read_text())
     data = ExperimentData.model_validate(inputs["data"])
     research = (result.get("model_binding") or {}).get("kind") == "research_weather_v1"
@@ -169,7 +171,7 @@ def _label(observed: dict[str, Any], original: Market, cutoff: datetime) -> dict
             raise ValueError("outcome_http_failure")
         body = observed["body"]["market"]
         market = market_from_body(body, captured_at=received, series=original.series_ticker or "")
-        if terms(market) != terms(original):
+        if not same_frozen_terms(market, original):
             raise ValueError("outcome_contract_terms_changed")
         if (
             market.status is not MarketStatus.FINALIZED
@@ -369,7 +371,11 @@ def report(jobs: Jobs, monitor_id: str, *, as_of: datetime | None = None) -> dic
                 raise ValueError("cycle strategy differs from frozen monitor")
             protected.update(inputs["data"]["protected_events"])
             data = ExperimentData.model_validate(inputs["data"])
-            if data.data_kind == "real" and result.get("model_binding") != binding:
+            if (
+                not is_reconciliation(result)
+                and data.data_kind == "real"
+                and result.get("model_binding") != binding
+            ):
                 raise ValueError("cycle model differs from frozen monitor")
             for contract in result["contracts"]:
                 Market.model_validate(contract["market"])

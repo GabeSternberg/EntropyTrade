@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/EntropyTrade-paper
+configfile: pyproject.toml
+testpaths: backend/tests
+plugins: cov-7.1.0, hypothesis-6.168.3, anyio-4.15.1, platformdirs-4.12.2
+collected 1948 items
+
+backend/tests/architecture/test_boundaries.py ..                         [  0%]
+backend/tests/architecture/test_sqlite_uri.py ..                         [  0%]
+backend/tests/exchange/test_collector_service.py .......                 [  0%]
+backend/tests/exchange/test_feed_recorder.py ........                    [  0%]
+backend/tests/exchange/test_gateway_http.py .....                        [  1%]
+backend/tests/exchange/test_recording_v2.py .........                    [  1%]
+backend/tests/exchange/test_wire_session.py ..                           [  1%]
+backend/tests/integration/test_bitcoin_history_listener.py .             [  1%]
+backend/tests/integration/test_cis1990_listener.py 

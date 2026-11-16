@@ -1,0 +1,7 @@
+{
+  "status": "interrupted",
+  "at": "2026-11-16T14:03:27.088043+00:00",
+  "reason": "Root requested stop after independent review found session-expiry recheck gap at privileged commit; source correction and fresh two-case run required.",
+  "playwright_exit_code": 130,
+  "accepted_final_run": false
+}

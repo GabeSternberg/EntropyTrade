@@ -10,7 +10,7 @@
     const toggle = h("button", { type: "button", class: "switch", role: "switch", "aria-checked": "false", disabled: true, "aria-label": "Live trading (disabled)" }, h("span", { class: "switch-knob" }));
     return card({ title: "Execution controls", subtitle: "Real-money submission" },
       h("div", { class: "exec-row" }, h("div", h("strong", "Live trading"), h("p", { class: "hint" }, "Disabled. This server has no order-submission endpoint, and the browser never receives exchange credentials.")), toggle),
-      kv([["Trading mode", "paper (simulated fills)"], ["Exchange submission", h("span", { class: "num-neg" }, "Not available")], ["Kill switch", realInfo ? "Enforced by the risk engine; not controllable here" : "Engaged (demo)"], ["Promotion to live", "Requires a recorded human approval outside the website"]]),
+      kv([["Trading mode", "paper (simulated fills)"], ["Exchange submission", h("span", { class: "num-neg" }, "Not available")], ["Global paper halt", realInfo ? "Available in the top bar. Halting preserves accounts and evidence." : "Engaged (demo)"], ["Readiness approval", "A data-only review. It never authorizes execution or live trading."]]),
       h("div", { class: "row-actions" }, button("Place order", { variant: "primary", disabled: true, title: "Order entry is intentionally absent" }, "lock"), button("Flatten all", { variant: "ghost", disabled: true, title: "No live positions exist" }, "x")));
   }
 
@@ -100,6 +100,7 @@
     const known = new Map();
     let shown = null;
     let token = null;
+    let governance = null;
     async function refresh() {
       try {
         const [list, catalog] = await Promise.all([
@@ -157,6 +158,10 @@
         if (selected) {
           const found = monitors.find((x) => x.m.id === selected);
           parts.push(found?.ok ? paperDeployment(found.m, catalog.error ? null : catalog.csrf_token) : errorState(found?.error?.message || "Paper deployment not found", () => ET.go("#/paper")));
+          if (found?.ok) {
+            governance ||= paperGovernance(found.m, ctx);
+            parts.push(governance);
+          }
         } else parts.push(callout("Select an account to inspect frozen research lineage, positions, execution decisions and deployment controls.", "info"));
         parts.push(executionPanel(true));
         host.replaceChildren(...parts);
@@ -203,6 +208,7 @@
     const executions = cycles.flatMap((cycle) => [
       ...(cycle.result?.paper?.decisions || []).map((decision) => ({ cycle: cycle.sequence, kind: "Decision / risk", ticker: decision.ticker, status: decision.status, reason: (decision.reasons || []).join(" · "), quantity: null })),
       ...(cycle.result?.paper?.executions || []).map((execution) => ({ cycle: cycle.sequence, kind: "Execution", ticker: execution.ticker, status: execution.status, reason: execution.reason || "—", quantity: execution.order?.filled_quantity })),
+      ...(cycle.result?.paper?.settlements || []).map((row) => ({ cycle: cycle.sequence, kind: "Official settlement", ticker: row.settlement?.market_ticker || "—", status: "settled", reason: `Result: ${row.settlement?.result || "—"} · observed ${fmt.dateTime(row.observed_outcome?.retrieved_at || row.settlement?.settled_at)}`, quantity: null })),
     ]);
     const metadata = [
       ["Source", research ? "Autonomous research experiment" : "Legacy research run"],
@@ -219,6 +225,7 @@
     ];
     return card({ title: "Paper deployment", subtitle: monitor.id, className: "paper-deployment", id: "paper-deployment", actions: controls },
       h("div", { "data-paper-monitor": monitor.id, "data-paper-status": monitor.status }, statusPill(monitor.status)), issue,
+      h("p", { class: "hint" }, "Deployment lifecycle controls are separate from the global paper halt. Resuming a deployment does not release a halt; releasing a halt does not resume a deployment."),
       [account.data_kind, binding.snapshot?.data_kind, source.eligibility?.data_kind].includes("synthetic") ? callout("CONTROLLED SYNTHETIC: this account verifies software behavior. Its simulated fills and P&L are not empirical trading evidence.", "demo") : null,
       kv(metadata),
       monitor.status === "suspended" || monitor.status === "cancelled" ? callout("This deployment is stopped permanently. Its account, evidence and event history remain available for inspection.", "info") : null,
@@ -254,6 +261,7 @@
       ], rows: executions, sortKey: "cycle", dense: true, pageSize: 20, empty: emptyState({ title: "No execution or risk events yet", body: "Only committed incoming-data cycles produce decisions and simulated fills." }) }),
       h("details", { class: "hyp-more" }, h("summary", `Collection cycles (${cycles.length} shown)`), dataTable({ columns: [
         { key: "sequence", label: "Cycle", align: "num" },
+        { key: "mode", label: "Purpose", render: (cycle) => cycle.result?.cycle_mode === "reconcile_only" ? "Settlement-only reconciliation" : "Paper observations" },
         { key: "status", label: "Status", render: (cycle) => statusPill(cycle.status) },
         { key: "finished_at", label: "Finished", render: (cycle) => fmt.dateTime(cycle.finished_at) },
         { key: "detail", label: "Detail", sortable: false },
@@ -269,6 +277,263 @@
         ["Risk limits", JSON.stringify(source.eligibility?.risk_limits || cycles[0]?.result?.risk_limits || "No recorded risk policy")],
         ["Risk overrides", monitor.spec?.risk_overrides_allowed || "Not available"],
       ])));
+  }
+
+  // ============================================================ OWNER & READINESS
+  const replaceContent = (element, ...children) => element.replaceChildren(...children.filter((child) => child !== null && child !== undefined));
+  const ownerSetup = () => h("div", { class: "stack" },
+    callout("Owner access is not configured. Readiness approval, rollback and halt release require a locally configured owner. Halting paper activity and revoking a proposal remain available.", "warn"),
+    h("p", { class: "hint" }, "On the server, run the interactive setup command and restart with --owner-file pointing to that private file. The website cannot create owner credentials."),
+    h("code", { class: "owner-setup" }, 'python -m entropytrade.api.owner init --file "$HOME/.config/entropytrade/owner.json" --owner-id owner'));
+  const evidenceValue = (value) => value === null || value === undefined ? "—" : typeof value === "object" ? JSON.stringify(value) : String(value);
+  function checkList(checks) {
+    return h("ul", { class: "readiness-checks" }, (Array.isArray(checks) ? checks : []).map((check) => h("li",
+      icon(check.passed === true ? "check" : "alert", 14), h("div", h("strong", fmt.words(check.name || "Evidence check")), h("p", { class: "hint" }, check.reason || "No assessment reason supplied")),
+      statusPill(check.passed === true ? "passed" : "blocked"))));
+  }
+  function readinessFacts(facts) {
+    if (!facts || typeof facts !== "object") return emptyState({ title: "Evidence facts are not available" });
+    const scores = facts.scores || {}, account = facts.account || {};
+    const interval = scores.brier_skill_interval;
+    return h("details", { class: "readiness-facts" }, h("summary", "Paper observations and prospective validation"),
+      kv([
+        ["Evidence as of", fmt.dateTime(facts.evidence_as_of)], ["Evidence hash", facts.evidence_hash || "—"],
+        ["Data kind", account.data_kind || "Not assessed"], ["Verified cycle prefix", Array.isArray(facts.paper_prefix) ? String(facts.paper_prefix.length) : "—"],
+        ["Prospective assessment", fmt.words(scores.status || "Not assessed")], ["Independent events", fmt.num(scores.independent_events)], ["Independent dates", fmt.num(scores.independent_dates)],
+        ["Scored observations", fmt.num(scores.observations)], ["Quote coverage", typeof scores.quote_coverage === "number" ? fmt.pct(scores.quote_coverage) : "—"],
+        ["Model Brier score", fmt.num(scores.model?.brier, 4)], ["Baseline Brier score", fmt.num(scores.baseline?.brier, 4)],
+        ["Model log loss", fmt.num(scores.model?.log_loss, 4)], ["Baseline log loss", fmt.num(scores.baseline?.log_loss, 4)],
+        ["Brier skill interval", interval ? `${fmt.num(interval.lower, 4)} to ${fmt.num(interval.upper, 4)}` : "Not estimated"],
+        ["Realized simulated P&L", fmt.signedUsd(account.realized_pnl)], ["Simulated fees", fmt.usd(account.fees)], ["Current drawdown at cost", fmt.usd(account.drawdown_at_cost)],
+      ]), h("p", { class: "hint" }, account.limitation || "Paper accounting and prospective diagnostics do not authorize execution or establish future profitability."));
+  }
+  function auditEvents(events) {
+    return events?.length ? dataTable({ columns: [
+      { key: "at", label: "Time (UTC)", render: (event) => fmt.dateTime(event.at) },
+      { key: "action", label: "Action", render: (event) => fmt.words(event.action || event.kind || "Event") },
+      { key: "actor", label: "Recorded actor", render: (event) => evidenceValue(event.actor || event.principal || event.payload?.actor) },
+      { key: "reason", label: "Reason", render: (event) => event.reason || event.note || event.payload?.reason || "—" },
+    ], rows: events, sortKey: "at", dense: true }) : emptyState({ title: "No recorded events" });
+  }
+  function incidentTable(incidents) {
+    if (!incidents?.length) return emptyState({ title: "No recorded incidents" });
+    return dataTable({ columns: [
+      { key: "id", label: "Incident", render: (incident) => h("div", h("strong", fmt.words(incident.kind)), h("p", { class: "mono hint" }, incident.id)) },
+      { key: "state", label: "State", render: (incident) => statusPill(incident.resolved_at ? "resolved" : incident.acknowledged_at ? "acknowledged" : "open") },
+      { key: "opened_at", label: "Detected", render: (incident) => fmt.dateTime(incident.opened_at) },
+      { key: "evidence", label: "Recorded observation", sortable: false, render: (incident) => {
+        const signals = Array.isArray(incident.evidence?.signals) ? incident.evidence.signals : [];
+        const relevant = signals.filter((signal) => signal.kind === incident.kind);
+        const reasons = (relevant.length ? relevant : signals).map((signal) => signal.reason).filter(Boolean);
+        return h("div", h("p", reasons.join("; ") || incident.detail || incident.reason || "No recorded reason"),
+          h("details", h("summary", "Incident evidence and lifecycle"), kv([["Acknowledged", fmt.dateTime(incident.acknowledged_at)], ["Resolved", fmt.dateTime(incident.resolved_at)], ["Evidence", evidenceValue(incident.evidence)]]), auditEvents(incident.events)));
+      } },
+    ], rows: incidents, sortKey: "opened_at", dense: true });
+  }
+  ET.ownerAccess = async () => {
+    if (ET.mode() !== "real") return;
+    const body = h("div", { class: "stack" }, skeleton(3));
+    const modal = dialog({ title: "Owner access", body });
+    modal.setAttribute("data-owner-control", "");
+    async function load() {
+      try {
+        const owner = await ET.api("/api/owner", { fresh: true });
+        if (ET.mode() !== "real" || !modal.open) return;
+        if (!owner.configured) { replaceContent(body, ownerSetup()); return; }
+        const issue = h("div", { role: "status" });
+        if (owner.authenticated) {
+          const out = button("Sign out", { variant: "ghost", "data-owner-logout": true, onclick: async () => {
+            try { await ET.mutate("/api/owner/logout", {}, owner.csrf_token); ET.refreshSafety?.(); await ET.refreshPaperReview?.(); await load(); }
+            catch (error) { issue.replaceChildren(callout(error.message, "error")); }
+          } });
+          replaceContent(body, callout("Signed in for readiness review and halt release. This session cannot authorize trading.", "info"), kv([["Authenticated owner", evidenceValue(owner.principal)]]), issue, out);
+          return;
+        }
+        const password = h("input", { class: "input", type: "password", autocomplete: "current-password", "aria-label": "Owner passphrase", "data-owner-password": true });
+        const signIn = button("Sign in", { variant: "primary", "data-owner-login": true });
+        const submit = async () => {
+          const value = password.value || "";
+          password.value = "";
+          if (!value) { issue.replaceChildren(callout("Enter the locally configured owner passphrase.", "warn")); return; }
+          signIn.disabled = true;
+          try { await ET.mutate("/api/owner/login", { password: value }, owner.csrf_token); ET.refreshSafety?.(); await ET.refreshPaperReview?.(); await load(); }
+          catch (error) { issue.replaceChildren(callout(error.message, "error")); signIn.disabled = false; }
+        };
+        signIn.addEventListener("click", submit);
+        password.addEventListener("keydown", (event) => { if (event.key === "Enter") { event.preventDefault(); submit(); } });
+        modal.addEventListener("close", () => { password.value = ""; });
+        replaceContent(body, h("p", "Enter the owner passphrase configured locally on this server. The session uses a private same-origin cookie; the passphrase is not saved in browser preferences."), password, issue, signIn);
+        password.focus();
+      } catch (error) { if (ET.mode() === "real" && modal.open) replaceContent(body, errorState(error.message, load)); }
+    }
+    await load();
+  };
+  ET.controlAccess = async () => {
+    if (ET.mode() !== "real") return;
+    const body = h("div", { class: "stack" }, skeleton(3));
+    const modal = dialog({ title: "Global paper halt", body });
+    modal.setAttribute("data-owner-control", "");
+    async function load(message) {
+      try {
+        const [owner, control] = await Promise.all([ET.api("/api/owner", { fresh: true }), ET.api("/api/controls", { fresh: true })]);
+        if (ET.mode() !== "real" || !modal.open) return;
+        const issue = h("div", { role: "status" }, typeof message === "string" && message ? callout(message, "error") : null);
+        const reason = h("textarea", { class: "input", rows: 2, maxlength: 500, "aria-label": "Global halt reason" });
+        const releaseBlocked = control.halted && (!owner.authenticated || control.halt_file_present === true);
+        const act = button(control.halted ? "Release global halt" : "Halt new paper orders", { variant: control.halted ? "ghost" : "primary", disabled: releaseBlocked, "data-global-control": control.halted ? "release" : "halt" });
+        act.addEventListener("click", async () => {
+          if (!reason.value?.trim()) { issue.replaceChildren(callout("Enter a reason for the audit trail.", "warn")); return; }
+          act.disabled = true;
+          try {
+            await ET.mutate(`/api/controls/${control.halted ? "release" : "halt"}`, { reason: reason.value.trim(), ...(control.halted ? { expected_epoch: control.epoch } : {}) }, owner.csrf_token);
+            ET.refreshSafety?.(); await ET.refreshPaperReview?.(); await load();
+          } catch (error) { await load(error.message); }
+        });
+        replaceContent(body, callout(control.halted ? "Global paper halt is engaged. New paper orders are blocked; official settlement polling continues for existing positions." : "Global paper halt is released. Each deployment still requires its own eligibility and lifecycle checks.", control.halted ? "warn" : "info"),
+          kv([["Control epoch", evidenceValue(control.epoch)], ["Updated", fmt.dateTime(control.updated_at)], ["Recorded reason", control.reason || "—"]]),
+          h("p", { class: "hint" }, "Halting blocks new paper orders while official settlement polling continues for existing positions. Releasing a halt does not resume paused, suspended or cancelled deployments and never enables live submission."),
+          control.halt_file_present === true ? callout("The server's HALT file is present. Remove it locally after review, refresh this dialog, then release the persistent halt as the owner. The website cannot remove the file.", "warn") : null,
+          control.halted && !owner.configured ? ownerSetup() : control.halted && !owner.authenticated ? callout("Sign in as the configured owner to release this halt.", "warn") : null,
+          reason, issue, act, h("details", h("summary", "Global control audit"), auditEvents(control.events)));
+      } catch (error) { if (ET.mode() === "real" && modal.open) replaceContent(body, errorState(error.message, load)); }
+    }
+    await load();
+  };
+
+  function paperGovernance(monitor, ctx) {
+    const host = h("section", { class: "stack", id: "paper-governance" });
+    const panel = h("div", { class: "stack" }, skeleton(3));
+    const notice = h("div", { role: "status" });
+    const state = { report: null, owner: null, record: null, selectedId: null, loadingProposal: false, monitoring: null, tab: "readiness" };
+    const current = () => ET.mode() === "real" && ctx.isCurrent();
+    const uri = `/api/monitors/${encodeURIComponent(monitor.id)}`;
+    const ownerButton = button("Owner access", { variant: "ghost sm", onclick: async () => { await ET.ownerAccess(); } }, "lock");
+    const refresh = button("Refresh review", { variant: "ghost sm", onclick: () => load() }, "refresh");
+    const tabBar = tabs([{ key: "readiness", label: "Readiness" }, { key: "monitoring", label: "Monitoring" }, { key: "audit", label: "Audit" }], state.tab, (key) => { state.tab = key; draw(); });
+    host.append(card({ title: "Readiness & oversight", subtitle: "Human review records only. Execution remains unauthorized.", actions: h("div", { class: "row-actions" }, ownerButton, refresh) },
+      callout("Readiness approval is data only: execution_authorized=false and real-money submission stays disabled. No review, rollback or halt release changes a running model.", "lock"), notice, tabBar.el, panel));
+    let generation = 0, monitoringGeneration = 0;
+    async function load(id) {
+      if (!current()) return;
+      const request = ++generation;
+      refresh.disabled = true;
+      if (id && id !== state.record?.id) {
+        state.selectedId = id; state.record = null; state.loadingProposal = true;
+        replaceContent(panel, skeleton(3));
+      }
+      try {
+        const [report, owner] = await Promise.all([ET.api(uri + "/readiness", { fresh: true }), ET.api("/api/owner", { fresh: true })]);
+        if (!current() || request !== generation) return;
+        const selected = id || state.selectedId || state.record?.id || report.proposals?.[0]?.id;
+        const record = selected ? await ET.api(`/api/readiness/${encodeURIComponent(selected)}`, { fresh: true }) : null;
+        if (!current() || request !== generation) return;
+        state.report = report; state.owner = owner; state.record = record; state.selectedId = record?.id || null; state.loadingProposal = false;
+        notice.replaceChildren(); draw();
+      } catch (error) { if (current() && request === generation) notice.replaceChildren(errorState(error.message, () => load(id))); }
+      finally { if (request === generation) { state.loadingProposal = false; refresh.disabled = false; } }
+    }
+    ET.refreshPaperReview = () => current() ? load() : undefined;
+    function proposalPicker() {
+      const proposals = state.report.proposals || [];
+      if (!proposals.length) return null;
+      const select = h("select", { class: "input", "aria-label": "Frozen readiness proposal" }, proposals.map((proposal) => h("option", { value: proposal.id, selected: proposal.id === state.selectedId }, `${fmt.words(proposal.status)} · ${proposal.id}`)));
+      select.addEventListener("change", () => load(select.value));
+      return h("label", { class: "field" }, h("span", { class: "field-label" }, "Frozen readiness proposal"), select);
+    }
+    async function mutation(path, body, id) {
+      try { const result = await ET.mutate(path, body, state.owner.csrf_token); await load(id || result.id || result.proposal?.id); }
+      catch (error) {
+        if (!current()) return;
+        await load(id); notice.replaceChildren(callout(error.message, "error"));
+      }
+    }
+    function draw() {
+      if (!state.report || !current()) return;
+      if (state.loadingProposal) { replaceContent(panel, skeleton(3)); return; }
+      if (state.tab === "monitoring") { drawMonitoring(); return; }
+      if (state.tab === "audit") {
+        replaceContent(panel, proposalPicker(), state.record ? h("div", { class: "stack" }, kv([["Proposal", state.record.id], ["Revision", evidenceValue(state.record.revision)], ["State", fmt.words(state.record.status)]]), auditEvents(state.record.events)) : emptyState({ title: "No frozen readiness proposal" }),
+          h("details", h("summary", "Global control audit"), auditEvents(state.report.control?.events)));
+        return;
+      }
+      const preview = state.report.preview || {};
+      const capital = h("input", { class: "input", type: "number", min: "10", max: "1000", step: ".01", value: "100.00", "aria-label": "Proposed capital in dollars" });
+      const loss = h("input", { class: "input", type: "number", min: ".01", max: "50", step: ".01", value: "10.00", "aria-label": "Proposed maximum loss in dollars" });
+      const freeze = button("Save readiness proposal", { variant: "primary sm", disabled: !state.owner.csrf_token, "data-readiness-freeze": true });
+      freeze.addEventListener("click", async () => {
+        freeze.disabled = true;
+        try {
+          const result = await ET.mutate(uri + "/readiness", { capital_dollars: capital.value, max_loss_dollars: loss.value }, state.owner.csrf_token);
+          await load(result.id || result.proposal?.id);
+        } catch (error) { if (current()) { await load(); notice.replaceChildren(callout(error.message, "error")); } }
+      });
+      const overview = h("div", { class: "stack" },
+        preview.facts?.account?.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC readiness diagnostics verify software behavior only. They are not authentic prospective trading evidence.", "demo") : null,
+        state.owner.configured ? callout(state.owner.authenticated ? "Owner signed in. Reviews record this server's authenticated principal." : "Owner sign-in is required to approve, reject, roll back or release a global halt.", "info") : ownerSetup(),
+        h("div", { class: "chip-row" }, statusPill(preview.eligible === true ? "eligible" : "blocked"), statusPill(state.report.control?.halted === true ? "halted" : "execution disabled")),
+        checkList(preview.checks), readinessFacts(preview.facts), (preview.reasons || []).length ? h("ul", { class: "hyp-reasons" }, preview.reasons.map((reason) => h("li", reason))) : null,
+        h("details", h("summary", "Frozen source and evidence references"), kv([
+          ["Monitor", monitor.id], ["Research job", monitor.research_job_id || "Legacy source"], ["Experiment", monitor.experiment_id || "—"], ["Strategy hash", monitor.spec_hash || "—"],
+          ["Model hash", monitor.model_binding?.model_ref?.version || "—"], ["Source fingerprint", preview.source_fingerprint || "—"], ["Policy hash", preview.policy_hash || "—"],
+          ["Data kind", preview.facts?.data_kind || monitor.paper_summary?.data_kind || "Not assessed"], ["Paper account as of", fmt.dateTime(monitor.paper_summary?.as_of)],
+        ])),
+        h("p", { class: "hint" }, "Capital and maximum loss describe a future proposal only. The server derives bounded risk limits; these fields do not fund an account or change this deployment."),
+        h("div", { class: "readiness-envelope" }, h("label", { class: "field" }, h("span", { class: "field-label" }, "Proposed capital ($10–$1,000)"), capital), h("label", { class: "field" }, h("span", { class: "field-label" }, "Maximum loss (up to $50 and proposed capital)"), loss)), freeze,
+        h("details", h("summary", "Default preview capital envelope and server risk limits"), kv([["Capital envelope", evidenceValue(preview.capital_envelope)], ["Server-derived risk limits", evidenceValue(preview.risk_limits)]])));
+      replaceContent(panel, overview, proposalPicker(), state.record ? recordCard() : emptyState({ title: "No frozen readiness proposal", body: "A proposal records the server's evidence assessment and must receive a separate owner review." }));
+    }
+    function recordCard() {
+      const record = state.record, payload = record.payload || {};
+      const base = `/api/readiness/${encodeURIComponent(record.id)}`;
+      const note = h("textarea", { class: "input", rows: 2, maxlength: 1000, required: true, placeholder: "Required: reason for approving or rejecting this frozen evidence", "aria-label": "Readiness review note" });
+      const reason = h("textarea", { class: "input", rows: 2, maxlength: 500, "aria-label": "Readiness revocation reason" });
+      const review = (decision) => {
+        if (!note.value?.trim()) { notice.replaceChildren(callout("Enter a review reason before approving or rejecting the proposal.", "warn")); note.focus(); return; }
+        return mutation(base + "/review", { decision, expected_revision: record.revision, note: note.value.trim() }, record.id);
+      };
+      const approval = state.owner.authenticated && record.status === "proposed";
+      const currentChecks = record.current_checks;
+      const checks = Array.isArray(currentChecks) ? currentChecks : currentChecks?.checks;
+      const currentEligible = currentChecks?.eligible === true;
+      const approve = button("Approve readiness review", { variant: "primary sm", disabled: !approval || !currentEligible, "data-readiness-review": "approve", onclick: () => review("approve") });
+      const reject = button("Reject readiness review", { variant: "ghost sm", disabled: !approval, "data-readiness-review": "reject", onclick: () => review("reject") });
+      const revoke = button("Revoke readiness proposal", { variant: "ghost sm", disabled: record.status === "revoked", "data-readiness-revoke": true, onclick: () => {
+        if (!reason.value?.trim()) { notice.replaceChildren(callout("Enter a revocation reason for the audit trail.", "warn")); return; }
+        return mutation(base + "/revoke", { reason: reason.value.trim() }, record.id);
+      } });
+      const prior = (state.report.proposals || []).filter((proposal) => proposal.id !== record.id);
+      const target = h("select", { class: "input", "aria-label": "Prior readiness proposal" }, prior.map((proposal) => h("option", { value: proposal.id }, `${fmt.words(proposal.status)} · ${proposal.id}`)));
+      const rollbackReason = h("textarea", { class: "input", rows: 2, maxlength: 500, "aria-label": "Rollback proposal reason" });
+      const rollback = button("Create pending rollback proposal", { variant: "ghost sm", disabled: !state.owner.authenticated || !prior.length, "data-readiness-rollback": true, onclick: async () => {
+        if (!rollbackReason.value?.trim()) { notice.replaceChildren(callout("Enter a rollback reason for the audit trail.", "warn")); return; }
+        await mutation(base + "/rollback", { target_proposal_id: target.value, reason: rollbackReason.value.trim() });
+      } });
+      return card({ title: "Frozen proposal", subtitle: record.id, className: "readiness-record" },
+        h("div", { class: "chip-row" }, statusPill(record.status), h("span", { class: "mono" }, `revision ${record.revision}`)),
+        h("a", { class: "btn ghost sm", href: base, download: `readiness-${record.id.replace(/^sha256:/, "")}.json` }, "Readiness record JSON"),
+        payload.facts?.account?.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC review: software evidence only. Approval does not establish authentic prospective skill.", "demo") : null,
+        kv([["Source fingerprint", payload.source_fingerprint || record.source_fingerprint], ["Policy hash", payload.policy_hash], ["Control epoch at proposal", evidenceValue(payload.control_epoch)], ["Capital envelope", evidenceValue(payload.capital_envelope)], ["Server-derived risk limits", evidenceValue(payload.risk_limits)], ["Execution authorized", "False"], ["Real-money submission", "Disabled"]]),
+        currentChecks?.eligible === false ? callout("This frozen proposal does not pass the current checks. A recorded review cannot bypass changed evidence or controls.", "warn") : null,
+        readinessFacts(payload.facts), checkList(checks || payload.checks), h("p", { class: "hint" }, "Review uses the current server revision and checks. A stale proposal or changed evidence requires a fresh review."), note,
+        h("div", { class: "row-actions" }, approve, reject), reason, revoke,
+        h("details", h("summary", "Rollback from a prior server proposal"), h("div", { class: "stack" }, h("p", { class: "hint" }, "Rollback creates a fresh pending proposal from prior server references. It does not reactivate a deployment, swap its model or approve trading."), target, rollbackReason, rollback)));
+    }
+    async function drawMonitoring() {
+      const request = ++monitoringGeneration;
+      replaceContent(panel, skeleton(3));
+      try {
+        const result = await ET.api(uri + "/monitoring", { fresh: true });
+        if (!current() || state.tab !== "monitoring" || request !== monitoringGeneration) return;
+        state.monitoring = result;
+        const evaluation = result.evaluation || {};
+        replaceContent(panel, kv([["Evidence as of", fmt.dateTime(evaluation.evidence_as_of)], ["Assessment", fmt.words(evaluation.status || "Not assessed")]]), checkList(evaluation.checks),
+          h("h4", "Observed signals"), Array.isArray(evaluation.signals) && evaluation.signals.length ? h("ul", { class: "readiness-signals" }, evaluation.signals.map((signal) => h("li", statusPill(signal.severity || "info"), h("div", h("strong", fmt.words(signal.kind || "Observation")), h("p", signal.reason || "No assessment reason supplied"), h("p", { class: "hint" }, fmt.words(signal.recommended_action || "Inspect evidence")))))) : emptyState({ title: "Awaiting monitoring observations" }),
+          h("h4", "Incidents"), incidentTable(result.incidents),
+          h("h4", "Investigations"), (result.investigations || []).length ? h("ul", { class: "mini-list" }, result.investigations.map((investigation) => h("li", h("div", h("strong", investigation.objective || "Read-only investigation"), h("p", { class: "hint" }, fmt.words(investigation.status))), investigation.research_job_id ? h("a", { class: "link", href: `#/research/${encodeURIComponent(investigation.research_job_id)}` }, "Open investigation research") : h("span", "Research link pending")))) : emptyState({ title: "No investigation jobs", body: "Missing observations are not proof of model drift or profitability." }));
+      } catch (error) { if (current() && state.tab === "monitoring" && request === monitoringGeneration) replaceContent(panel, errorState(error.message, drawMonitoring)); }
+    }
+    load();
+    return host;
   }
 
   // ============================================================ OPERATIONS

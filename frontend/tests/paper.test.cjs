@@ -15,6 +15,10 @@ class Element {
   setAttribute(name, value) { this.attrs[name] = String(value); if (name === "value") this.value = String(value); }
   getAttribute(name) { return this.attrs[name]; }
   addEventListener(name, handler) { this.handlers[name] = handler; }
+  focus() {}
+  showModal() { this.open = true; }
+  close() { this.open = false; this.handlers.close?.(); }
+  remove() {}
   querySelector(tag) { return descendants(this).slice(1).find((e) => e.tag === tag); }
   querySelectorAll(tag) { return descendants(this).slice(1).filter((e) => e.tag === tag); }
 }
@@ -62,7 +66,7 @@ function application({ mode = "real", responses = {}, submit } = {}) {
       return typeof value === "function" ? value() : value;
     },
   });
-  return { root, ET: window.ET, calls, routes, timers, reads };
+  return { root, ET: window.ET, calls, routes, timers, reads, body: context.document.body };
 }
 async function paperProposals(app) {
   await app.ET.views.research(app.root, { params: [jobId], isCurrent: () => true });
@@ -240,4 +244,304 @@ test("paper dashboard: switching Demo while a CSRF read is pending cannot expose
   assert.equal(descendants(app.root).filter((node) => node.attrs["data-paper-action"]).length, 0);
   await assert.rejects(app.ET.mutate(`/api/monitors/${monitorId}/cancel`, {}, "csrf-from-real-request"), /disabled in Demo Mode/);
   assert.equal(app.calls.length, 0);
+});
+
+
+const readinessId = "sha256:" + "e".repeat(64);
+const priorId = "sha256:" + "f".repeat(64);
+const ownerState = (authenticated = false) => ({ configured: true, authenticated, principal: authenticated ? "owner" : null, csrf_token: "owner-csrf", submission_enabled: false });
+const controlState = (halted = false) => ({ halted, epoch: 4, reason: "Recorded reason", updated_at: "2026-11-15T23:00:00Z", events: [], submission_enabled: false });
+const readinessRecord = (overrides = {}) => ({ id: readinessId, monitor_id: monitorId, revision: 2, status: "proposed", source_fingerprint: "sha256:source", payload: { policy_hash: "sha256:policy", control_epoch: 4, source_fingerprint: "sha256:source", eligible: true, checks: [{ name: "evidence", passed: true, reason: "Bound evidence verified" }], capital_envelope: { max_dollars: "100.00", max_contracts: 10 }, risk_limits: { max_loss_dollars: "10.00" }, execution_authorized: false, submission_enabled: false }, current_checks: { eligible: true, checks: [{ name: "current_evidence", passed: true, reason: "Still current" }] }, events: [], ...overrides });
+function readinessApp({ owner = ownerState(), report, record = readinessRecord(), submit } = {}) {
+  const value = report || { preview: { ...record.payload, proposal_hash: readinessId }, proposals: [{ id: readinessId, status: record.status }, { id: priorId, status: "rejected" }], control: controlState() };
+  return application({ responses: { "/api/owner": owner, "/api/controls": controlState(), "/api/monitors": [{ id: monitorId }], [`/api/monitors/${monitorId}`]: monitor(), [`/api/monitors/${monitorId}/readiness`]: value, [`/api/readiness/${encodeURIComponent(readinessId)}`]: record, [`/api/readiness/${encodeURIComponent(priorId)}`]: record }, submit });
+}
+async function oversight(app) { await app.ET.views.paper(app.root, { params: [monitorId], isCurrent: () => true }); await new Promise((resolve) => setImmediate(resolve)); }
+const find = (root, key, value) => descendants(root).find((node) => node.attrs[key] === value);
+
+test("readiness: changing proposal hides the previous export and review controls until matching evidence arrives", async () => {
+  const app = readinessApp({ owner: ownerState(true) }), original = app.ET.api;
+  let finish;
+  app.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(priorId)}` ? new Promise((resolve) => { finish = resolve; }) : original(url, options);
+  await oversight(app);
+  assert.ok(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`));
+  assert.ok(find(app.root, "data-readiness-review", "approve"));
+  const picker = find(app.root, "aria-label", "Frozen readiness proposal");
+  picker.value = priorId;
+  const loading = picker.handlers.change();
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`), undefined);
+  assert.equal(find(app.root, "data-readiness-review", "approve"), undefined);
+  assert.equal(find(app.root, "data-readiness-review", "reject"), undefined);
+  assert.equal(find(app.root, "data-readiness-revoke", ""), undefined);
+  assert.equal(find(app.root, "data-readiness-rollback", ""), undefined);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(priorId)}`), undefined);
+  finish(readinessRecord({ id: priorId }));
+  await loading;
+  assert.ok(find(app.root, "href", `/api/readiness/${encodeURIComponent(priorId)}`));
+  assert.equal(find(app.root, "href", `/api/readiness/${encodeURIComponent(readinessId)}`), undefined);
+  assert.ok(find(app.root, "data-readiness-review", "approve"));
+  assert.equal(app.calls.length, 0);
+});
+
+test("owner access: unconfigured state gives local CLI guidance and no credential setup form", async () => {
+  const app = readinessApp({ owner: { configured: false, authenticated: false, csrf_token: "owner-csrf" } });
+  await app.ET.ownerAccess();
+  assert.match(text(app.body), /Owner access is not configured/);
+  assert.match(text(app.body), /entropytrade.api.owner init/);
+  assert.equal(descendants(app.body).filter((node) => node.attrs.type === "password").length, 0);
+  assert.equal(app.calls.length, 0);
+});
+
+test("owner access: manual sign-in clears passphrase before dispatch and sends no principal", async () => {
+  let entered;
+  const app = readinessApp({ submit: async (_, options) => { entered = JSON.parse(options.body); return { ok: false, status: 429, json: async () => ({ error: "Try again later" }) }; } });
+  await app.ET.ownerAccess();
+  const password = find(app.body, "data-owner-password", "");
+  password.value = "manual-owner-passphrase";
+  await find(app.body, "data-owner-login", "").handlers.click();
+  assert.equal(password.value, "");
+  assert.deepEqual(entered, { password: "manual-owner-passphrase" });
+  assert.equal(app.calls[0].url, "/api/owner/login");
+  assert.equal(app.calls[0].options.headers["X-EntropyTrade-CSRF"], "owner-csrf");
+  assert.match(text(app.body), /Try again later/);
+});
+
+test("global halt: local risk reduction does not need an owner and cannot resume deployments", async () => {
+  const app = readinessApp({ owner: { configured: false, authenticated: false, csrf_token: "owner-csrf" } });
+  await app.ET.controlAccess();
+  const act = find(app.body, "data-global-control", "halt");
+  assert.equal(disabled(act), false);
+  find(app.body, "aria-label", "Global halt reason").value = "Stop new activity for investigation";
+  await act.handlers.click();
+  assert.equal(app.calls[0].url, "/api/controls/halt");
+  assert.deepEqual(JSON.parse(app.calls[0].options.body), { reason: "Stop new activity for investigation" });
+  assert.match(text(app.body), /does not resume paused, suspended or cancelled/);
+  assert.equal(app.calls.filter((call) => /resume|orders/.test(call.url)).length, 0);
+});
+
+test("global halt: release is owner-only and binds the observed epoch", async () => {
+  const denied = application({ responses: { "/api/owner": ownerState(), "/api/controls": controlState(true) } });
+  await denied.ET.controlAccess();
+  assert.equal(disabled(find(denied.body, "data-global-control", "release")), true);
+  const app = application({ responses: { "/api/owner": ownerState(true), "/api/controls": controlState(true) } });
+  await app.ET.controlAccess();
+  find(app.body, "aria-label", "Global halt reason").value = "Evidence reviewed";
+  await find(app.body, "data-global-control", "release").handlers.click();
+  assert.deepEqual(JSON.parse(app.calls[0].options.body), { reason: "Evidence reviewed", expected_epoch: 4 });
+  assert.equal(app.calls[0].url, "/api/controls/release");
+});
+
+test("global halt: a local HALT file keeps owner release disabled with local recovery guidance", async () => {
+  const app = application({ responses: { "/api/owner": ownerState(true), "/api/controls": { ...controlState(true), halt_file_present: true } } });
+  await app.ET.controlAccess();
+  assert.equal(disabled(find(app.body, "data-global-control", "release")), true);
+  assert.match(text(app.body), /Remove it locally after review/);
+  assert.match(text(app.body), /website cannot remove the file/);
+  assert.equal(app.calls.length, 0);
+});
+
+test("global halt: a refused stale release refreshes the barrier without retrying the mutation", async () => {
+  let sentinel = false;
+  const app = application({ responses: { "/api/owner": ownerState(true), "/api/controls": () => ({ ...controlState(true), halt_file_present: sentinel }) }, submit: async () => {
+    sentinel = true;
+    return { ok: false, status: 409, json: async () => ({ error: "HALT sentinel was observed before release" }) };
+  } });
+  await app.ET.controlAccess();
+  find(app.body, "aria-label", "Global halt reason").value = "Review the current barrier";
+  await find(app.body, "data-global-control", "release").handlers.click();
+  assert.equal(app.calls.length, 1);
+  assert.equal(disabled(find(app.body, "data-global-control", "release")), true);
+  assert.match(text(app.body), /HALT sentinel was observed before release/);
+  assert.match(text(app.body), /Remove it locally after review/);
+});
+
+test("readiness: precise missing evidence and unconfigured owner remain blocked without fake metrics", async () => {
+  const report = { preview: { eligible: false, checks: [{ name: "prospective_events", passed: false, reason: "Only 3 independent prospective dates; 20 required" }], reasons: ["Authentic history is missing"] }, proposals: [], control: controlState() };
+  const app = readinessApp({ owner: { configured: false, csrf_token: "owner-csrf" }, report });
+  await oversight(app);
+  assert.match(text(app.root), /Only 3 independent prospective dates/);
+  assert.match(text(app.root), /Authentic history is missing/);
+  assert.match(text(app.root), /Owner access is not configured/);
+  assert.equal(disabled(find(app.root, "data-readiness-freeze", "")), false);
+  assert.match(text(app.root), /execution_authorized=false/);
+  assert.equal(app.calls.length, 0);
+});
+
+test("readiness: freeze sends only future capital and loss fields", async () => {
+  const app = readinessApp({ submit: async () => ({ ok: true, json: async () => ({ id: readinessId }) }) });
+  await oversight(app);
+  find(app.root, "aria-label", "Proposed capital in dollars").value = "200.00";
+  find(app.root, "aria-label", "Proposed maximum loss in dollars").value = "15.00";
+  await find(app.root, "data-readiness-freeze", "").handlers.click();
+  assert.equal(app.calls[0].url, `/api/monitors/${monitorId}/readiness`);
+  assert.deepEqual(JSON.parse(app.calls[0].options.body), { capital_dollars: "200.00", max_loss_dollars: "15.00" });
+});
+
+test("readiness: approval requires owner and current checks and sends revision, never actor or execution", async () => {
+  const unsigned = readinessApp(); await oversight(unsigned);
+  assert.equal(disabled(find(unsigned.root, "data-readiness-review", "approve")), true);
+  const stale = readinessApp({ owner: ownerState(true), record: readinessRecord({ current_checks: { eligible: false, checks: [{ name: "freshness", passed: false, reason: "Evidence changed" }] } }) });
+  await oversight(stale);
+  assert.equal(disabled(find(stale.root, "data-readiness-review", "approve")), true);
+  const app = readinessApp({ owner: ownerState(true) }); await oversight(app);
+  find(app.root, "aria-label", "Readiness review note").value = "Reviewed frozen source and limits";
+  find(app.root, "aria-label", "Readiness review note").value ||= "Reviewed current evidence";
+  await find(app.root, "data-readiness-review", "approve").handlers.click();
+  assert.equal(app.calls[0].url, `/api/readiness/${encodeURIComponent(readinessId)}/review`);
+  assert.deepEqual(JSON.parse(app.calls[0].options.body), { decision: "approve", expected_revision: 2, note: "Reviewed frozen source and limits" });
+});
+
+test("readiness: server stale revision remains authoritative and does not retry approval", async () => {
+  const app = readinessApp({ owner: ownerState(true), submit: async () => ({ ok: false, status: 409, json: async () => ({ error: "Proposal revision changed" }) }) });
+  await oversight(app);
+  find(app.root, "aria-label", "Readiness review note").value ||= "Reviewed current evidence";
+  await find(app.root, "data-readiness-review", "approve").handlers.click();
+  assert.equal(app.calls.length, 1);
+  assert.match(text(app.root), /Proposal revision changed/);
+});
+
+test("readiness: unauthenticated revocation and owner rollback use bounded references only", async () => {
+  const app = readinessApp(); await oversight(app);
+  find(app.root, "aria-label", "Readiness revocation reason").value = "Withdraw this review";
+  await find(app.root, "data-readiness-revoke", "").handlers.click();
+  assert.deepEqual(JSON.parse(app.calls[0].options.body), { reason: "Withdraw this review" });
+  const rollbackId = "sha256:" + "a".repeat(64);
+  const owner = readinessApp({ owner: ownerState(true), submit: async () => ({ ok: true, json: async () => ({ id: rollbackId }) }) });
+  const original = owner.ET.api;
+  owner.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(rollbackId)}` ? Promise.resolve(readinessRecord({ id: rollbackId })) : original(url, options);
+  await oversight(owner);
+  find(owner.root, "aria-label", "Prior readiness proposal").value = priorId;
+  find(owner.root, "aria-label", "Rollback proposal reason").value = "Compare prior bounded configuration";
+  await find(owner.root, "data-readiness-rollback", "").handlers.click();
+  assert.deepEqual(JSON.parse(owner.calls[0].options.body), { target_proposal_id: priorId, reason: "Compare prior bounded configuration" });
+  assert.ok(find(owner.root, "href", `/api/readiness/${encodeURIComponent(rollbackId)}`));
+  assert.match(text(owner.root), /does not reactivate a deployment/);
+});
+
+test("owner and governance: saved Real handlers dispatch nothing after switching Demo", async () => {
+  const app = readinessApp({ owner: ownerState(true) }); await oversight(app);
+  find(app.root, "aria-label", "Readiness review note").value = "Reviewed current evidence";
+  const approve = find(app.root, "data-readiness-review", "approve").handlers.click;
+  const freeze = find(app.root, "data-readiness-freeze", "").handlers.click;
+  await app.ET.controlAccess();
+  find(app.body, "aria-label", "Global halt reason").value = "Stop";
+  const halt = find(app.body, "data-global-control", "halt").handlers.click;
+  app.ET.setMode("demo");
+  const reads = app.reads.length;
+  await approve(); await freeze(); await halt(); await app.ET.ownerAccess();
+  assert.equal(app.calls.length, 0);
+  assert.equal(app.reads.length, reads);
+});
+
+test("owner access: logout carries no actor and a saved login handler cannot send a secret in Demo", async () => {
+  const owner = readinessApp({ owner: ownerState(true) });
+  await owner.ET.ownerAccess();
+  await find(owner.body, "data-owner-logout", "").handlers.click();
+  assert.equal(owner.calls[0].url, "/api/owner/logout");
+  assert.deepEqual(JSON.parse(owner.calls[0].options.body), {});
+  const app = readinessApp();
+  await app.ET.ownerAccess();
+  const password = find(app.body, "data-owner-password", "");
+  password.value = "manually-entered-secret";
+  const login = find(app.body, "data-owner-login", "").handlers.click;
+  app.ET.setMode("demo");
+  const reads = app.reads.length;
+  await login();
+  assert.equal(password.value, "");
+  assert.equal(app.calls.length, 0);
+  assert.equal(app.reads.length, reads);
+  assert.doesNotMatch(text(app.body), /manually-entered-secret/);
+});
+
+test("readiness audit: recorded owner and reason remain text, with no automatic approval", async () => {
+  const record = readinessRecord({ events: [{ at: "2026-11-15T23:00:00Z", action: "approved", actor: { kind: "human", actor_id: "local-owner" }, reason: "<script>reviewed evidence</script>" }] });
+  const app = readinessApp({ record }); await oversight(app);
+  descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === "Audit").handlers.click();
+  assert.match(text(app.root), /local-owner/);
+  assert.match(text(app.root), /<script>reviewed evidence<\/script>/);
+  assert.equal(descendants(app.root).filter((node) => node.tag === "script").length, 0);
+  assert.equal(app.calls.length, 0);
+});
+
+test("readiness monitoring: pending evidence is explicit and incident research links are canonical", async () => {
+  const app = readinessApp();
+  const original = app.ET.api;
+  app.ET.api = (url, options) => url === `/api/monitors/${monitorId}/monitoring` ? Promise.resolve({ monitor_id: monitorId, evaluation: { evidence_as_of: "2026-11-15T23:00:00Z", status: "pending", checks: [{ name: "sample", passed: false, reason: "Awaiting enough independent prospective dates" }], signals: [{ kind: "pending_observations", severity: "info", recommended_action: "await_evidence", reason: "No drift conclusion from three dates" }] }, incidents: [], investigations: [{ id: "i1", status: "proposed", research_job_id: jobId, objective: "Investigate retained source coverage" }], submission_enabled: false }) : original(url, options);
+  await oversight(app);
+  descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === "Monitoring").handlers.click();
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.match(text(app.root), /Awaiting enough independent prospective dates/);
+  assert.match(text(app.root), /No drift conclusion from three dates/);
+  assert.ok(descendants(app.root).some((node) => node.attrs.href === `#/research/${jobId}`));
+  assert.equal(app.calls.length, 0);
+});
+
+test("readiness monitoring: durable incidents show recorded reasons and open or resolved state", async () => {
+  const app = readinessApp(), original = app.ET.api;
+  app.ET.api = (url, options) => url.endsWith("/monitoring") ? Promise.resolve({ evaluation: {}, incidents: [
+    { id: "incident-open", kind: "forecast_degradation", opened_at: "2026-11-15T23:00:00Z", acknowledged_at: "2026-11-15T23:01:00Z", resolved_at: null, evidence: { signals: [{ kind: "forecast_degradation", reason: "<script>proper score worsened</script>" }] }, events: [] },
+    { id: "incident-resolved", kind: "readiness_integrity", opened_at: "2026-11-14T23:00:00Z", resolved_at: "2026-11-15T00:00:00Z", evidence: { signals: [{ kind: "readiness_integrity", reason: "Retained source was restored" }] }, events: [] },
+  ] }) : original(url, options);
+  await oversight(app);
+  descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === "Monitoring").handlers.click();
+  await new Promise((resolve) => setImmediate(resolve));
+  for (const expected of [/incident-open/, /acknowledged/, /incident-resolved/, /resolved/, /<script>proper score worsened<\/script>/, /Retained source was restored/]) assert.match(text(app.root), expected);
+  assert.equal(descendants(app.root).filter((node) => node.tag === "script").length, 0);
+});
+
+test("readiness monitoring: an earlier request cannot overwrite the latest assessment", async () => {
+  const app = readinessApp(), original = app.ET.api, pending = [];
+  app.ET.api = (url, options) => url.endsWith("/monitoring") ? new Promise((resolve) => pending.push(resolve)) : original(url, options);
+  await oversight(app);
+  const tab = (label) => descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === label).handlers.click();
+  tab("Monitoring"); tab("Readiness"); tab("Monitoring");
+  assert.equal(pending.length, 2);
+  const assessment = (reason) => ({ evaluation: { signals: [{ reason }] }, incidents: [], investigations: [] });
+  pending[1](assessment("Current degraded observation"));
+  await new Promise((resolve) => setImmediate(resolve));
+  pending[0](assessment("Outdated healthy observation"));
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.match(text(app.root), /Current degraded observation/);
+  assert.doesNotMatch(text(app.root), /Outdated healthy observation/);
+});
+
+test("readiness: expired owner session refreshes sign-in state without retrying approval", async () => {
+  let authenticated = true;
+  const app = readinessApp({ owner: () => ownerState(authenticated), submit: async () => { authenticated = false; return { ok: false, status: 401, json: async () => ({ error: "Owner session expired" }) }; } });
+  await oversight(app);
+  find(app.root, "aria-label", "Readiness review note").value ||= "Reviewed current evidence";
+  await find(app.root, "data-readiness-review", "approve").handlers.click();
+  assert.equal(app.calls.length, 1);
+  assert.equal(disabled(find(app.root, "data-readiness-review", "approve")), true);
+  assert.match(text(app.root), /Owner session expired/);
+  assert.match(text(app.root), /Owner sign-in is required/);
+});
+
+test("readiness: an unknown current eligibility cannot become an approval", async () => {
+  const app = readinessApp({ owner: ownerState(true), record: readinessRecord({ current_checks: { checks: [{ name: "source", passed: true, reason: "Partial source assessment only" }] } }) });
+  await oversight(app);
+  assert.equal(disabled(find(app.root, "data-readiness-review", "approve")), true);
+  assert.equal(app.calls.length, 0);
+});
+
+test("paper timeline: settlement-only reconciliation is explicit and nullable prediction fields stay safe", async () => {
+  const value = monitor("cancelled");
+  value.cycles = [{ sequence: 2, status: "completed", finished_at: "2026-11-15T23:05:00Z", detail: "Official outcome reconciled", result: { schema: "shadow-reconciliation-cycle-v1", cycle_mode: "reconcile_only", capture: null, model_binding: null, execution: null, paper_execution: null, decisions: [], quotes: [], contracts: [], paper: { settlements: [{ settlement: { market_ticker: "KXHIGHPHIL-26NOV15-T55", result: "yes", settled_at: "2026-11-15T23:04:00Z" }, observed_outcome: { retrieved_at: "2026-11-15T23:05:00Z" } }] } } }];
+  const app = application({ responses: { "/api/monitors": [{ id: monitorId }], [`/api/monitors/${monitorId}`]: value } });
+  await oversight(app);
+  assert.match(text(app.root), /Settlement-only reconciliation/);
+  assert.match(text(app.root), /Official settlement/);
+  assert.match(text(app.root), /KXHIGHPHIL-26NOV15-T55/);
+  assert.match(text(app.root), /Result: yes/);
+  assert.equal(app.calls.length, 0);
+});
+
+
+test("readiness: approve and reject require an audit reason before dispatch", async () => {
+  const app = readinessApp({ owner: ownerState(true) }); await oversight(app);
+  await find(app.root, "data-readiness-review", "approve").handlers.click();
+  await find(app.root, "data-readiness-review", "reject").handlers.click();
+  assert.equal(app.calls.length, 0);
+  assert.match(text(app.root), /Enter a review reason before approving or rejecting/);
 });

@@ -14,6 +14,7 @@ from entropytrade.execution.fee_policy import FeePolicy
 from entropytrade.experiments.data import ExperimentData, PredictionBundle
 from entropytrade.features.registry import scientific_hash
 from entropytrade.tracking.evaluate import evaluate, protected_events
+from entropytrade.tracking.reconciliation import is_reconciliation
 
 
 def decision_inputs(
@@ -117,6 +118,16 @@ def _verify_capture(
 
 def verify(root: Path) -> dict[str, Any]:
     result = json.loads((root / "result.json").read_text())
+    if is_reconciliation(result):
+        from entropytrade.tracking.reconciliation import verify_reconciliation
+
+        verify_reconciliation(root, result)
+        return {
+            "verified": True,
+            "decision_count": 0,
+            "submission_enabled": False,
+            "limitation": "Settlement-only replay of the existing simulated account",
+        }
     artifacts = result["artifacts"]
     if not any(a["path"] == "decision-inputs.json" for a in artifacts):
         raise ValueError("cycle has no committed replay inputs (failed or interrupted)")

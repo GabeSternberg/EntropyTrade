@@ -562,6 +562,7 @@ async function selectMonitor(id, force = false) {
     const section = append(node("section"), node("h3", `Cycle ${cycle.sequence} · ${cycle.status}`), node("p", cycle.detail, "hint"));
     const result = cycle.result;
     if (result) {
+      if (result.cycle_mode === "reconcile_only") section.append(notice("Settlement-only reconciliation: official outcomes for existing positions; no new predictions, quotes or paper orders."));
       section.append(node("p", `Decisions: ${result.decisions?.length || 0}; quotes: ${result.quotes?.length || 0}; official outcomes: ${result.outcomes?.length || 0}.`, "small"));
       if (result.failure) section.append(notice(result.failure, true));
       if (result.model_refusals && Object.keys(result.model_refusals).length) section.append(notice(`Model scoring blocked: ${Object.values(result.model_refusals).join("; ")}`, true));
@@ -573,8 +574,8 @@ async function selectMonitor(id, force = false) {
       if (result.decisions?.length) section.append(table(["Contract", "Status", "P(YES)", "Reasons"], result.decisions.map((d) => [d.ticker, d.status, d.prediction?.probability_yes, d.reasons.join(", ")])));
       if (result.paper) {
         section.append(detail("Simulated decisions, execution risk, fills and settlements", result.paper));
-        section.append(table(["Paper contract", "Execution status", "Refusal / fill quantity"], result.paper.executions.map(e => [e.ticker, e.status, e.reason || e.order?.filled_quantity])));
-        section.append(table(["Paper decision", "Status", "Reasons"], result.paper.decisions.map(d => [d.ticker, d.status, d.reasons.join(", ")])));
+        section.append(table(["Paper contract", "Execution status", "Refusal / fill quantity"], (result.paper.executions || []).map(e => [e.ticker, e.status, e.reason || e.order?.filled_quantity])));
+        section.append(table(["Paper decision", "Status", "Reasons"], (result.paper.decisions || []).map(d => [d.ticker, d.status, d.reasons.join(", ")])));
       }
       section.append(detail("Source receipts, predictions, intended orders, risk checks and artifacts", result));
     }

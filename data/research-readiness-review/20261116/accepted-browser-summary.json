@@ -1,0 +1,120 @@
+{
+  "scope": "Milestone E software acceptance, controlled synthetic positive and production refusal; no empirical edge, authentic readiness, live submission, Windows deployment or canonical collector access",
+  "accepted": true,
+  "python": "Python 3.13.14",
+  "node": "v24.22.1",
+  "stats": {
+    "startTime": "2026-11-16T20:16:42.596Z",
+    "duration": 497096.36100000003,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": {
+    "production-refusal": {
+      "status": "passed",
+      "data_kind": "synthetic",
+      "browser": "141.0.7390.37",
+      "source_before": {
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+        "files": 664
+      },
+      "source_after": {
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+        "files": 664
+      },
+      "page_errors": [],
+      "console_errors": [],
+      "screenshots": {
+        "production-blocked-readiness.png": "0b9529dea4db5a80d855bc27989d6eca7460c1c598880491ba40f4028c736ae0",
+        "demo-oversight-disabled.png": "949ea9f450cf37d3421fc477f97c396886b6e57d1f21ba9fcd3d9e2208a9f978"
+      },
+      "downloads": [],
+      "posts": [
+        "/api/monitors/32fc39d0-bef5-42f2-aec8-40e5a9120e62/readiness",
+        "/api/controls/halt"
+      ],
+      "evidence": null,
+      "monitoring": null,
+      "snapshot": null,
+      "restore": null
+    },
+    "controlled-readiness": {
+      "status": "passed",
+      "data_kind": "synthetic",
+      "browser": "141.0.7390.37",
+      "source_before": {
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+        "files": 664
+      },
+      "source_after": {
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5",
+        "files": 664
+      },
+      "page_errors": [],
+      "console_errors": [],
+      "screenshots": {
+        "actual-readiness-monitoring.png": "09448a97ebab309c1adfc1adc4178c3749ff4b9d8c11d53e7c4fe7671ac62e2f",
+        "owner-readiness-audit.png": "bdbf9d1b06b68301e05a59ef70c5f2c871baec9b88c52889fa822ea5a8594e16",
+        "readiness-mobile.png": "3414119222e1bed444b3e6fce456c4df431da9146634e74b3e943e78d2defe27",
+        "restored-readiness.png": "66ab81735163761b2ddc6e02b3101059d2fbeeb3b1f1c2a51b284f1fdfafb2d7",
+        "demo-oversight-disabled.png": "7e13fec57347321b56af87d6ed658e9e288df3e0d8ea6d0d31faa29933e7a5e7"
+      },
+      "downloads": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        },
+        {
+          "file": "restored-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        }
+      ],
+      "posts": [
+        "/api/owner/login",
+        "/api/monitors/93e8f24d-afaf-42cd-835e-eea7db6e8392/readiness",
+        "/api/readiness/sha256%3A6ad987f80ac543c3e16e1e35dd56fa0d638b6886099ca46cd000a8ead36c9bbc/review",
+        "/api/monitors/93e8f24d-afaf-42cd-835e-eea7db6e8392/readiness",
+        "/api/readiness/sha256%3A68ed7f6e0856651e70d297453632eea9efedfb92dd5ec27383c86d17a2940d5f/review",
+        "/api/readiness/sha256%3A68ed7f6e0856651e70d297453632eea9efedfb92dd5ec27383c86d17a2940d5f/rollback",
+        "/api/owner/logout",
+        "/api/readiness/sha256%3A3083d981287b119b62ce3c50ddc0ef6423f6a4b9d5df974bbe099a5c2dc6fb01/revoke",
+        "/api/controls/halt",
+        "/api/owner/login",
+        "/api/controls/release"
+      ],
+      "evidence": {
+        "cycles": 23,
+        "independent_events": 21,
+        "evidence_hash": "sha256:5f1fb0cd2a1f72860afd8549f70e212f41aa4e7e54aef7df4762b93d6bca2767"
+      },
+      "monitoring": {
+        "status": "pending",
+        "evidence_as_of": "2026-12-06T23:00:27+00:00",
+        "signal_kinds": [],
+        "incident_ids": []
+      },
+      "snapshot": {
+        "archive": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-5/controlled-readiness/workspace.zip",
+        "sha256": "sha256:c31cf8c2311433bea95c566e9a41e19e4fbbba7e05add9d5a26142d34be7da01",
+        "jobs": 0,
+        "monitors": 1,
+        "cycles": 23,
+        "submission_enabled": false
+      },
+      "restore": {
+        "workspace": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-5-workspace-controlled-readiness-restored",
+        "archive_sha256": "sha256:c31cf8c2311433bea95c566e9a41e19e4fbbba7e05add9d5a26142d34be7da01",
+        "jobs": 0,
+        "monitors": 1,
+        "cycles": 23,
+        "submission_enabled": false
+      }
+    }
+  }
+}

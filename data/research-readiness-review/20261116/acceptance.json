@@ -1,0 +1,456 @@
+{
+  "acceptance_status": "accepted",
+  "authentic_strategy_eligible": false,
+  "authenticated_provider_verified": false,
+  "canonical_collector_accessed": false,
+  "execution_authorized": false,
+  "external_gates": [
+    "Sufficient authentic point-in-time forward history, decision-time books and settled labels.",
+    "Human-certified applicable fee evidence.",
+    "Authenticated AI-provider verification using separately authorized research credentials.",
+    "Current exact-touch strategy fails unchanged adverse execution stress.",
+    "Physical Windows/Tailscale/boot/offsite backup verification remains deployment work."
+  ],
+  "final_gates": {
+    "browser_two_cases": {
+      "accepted_final_run": true,
+      "playwright": "accepted-browser-playwright.json",
+      "scope": "Both actual Chromium procedures completed against matching final source. Positive case is synthetic; production refuses synthetic evidence.",
+      "source_after": {
+        "files": 664,
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5"
+      },
+      "source_before": {
+        "files": 664,
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5"
+      },
+      "stats": {
+        "duration": 497096.36100000003,
+        "expected": 2,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T20:16:42.596Z",
+        "unexpected": 0
+      },
+      "status": "passed",
+      "summary": "accepted-browser-summary.json"
+    },
+    "github_ci": {
+      "collected": 1952,
+      "log": "github-ci-accepted.log",
+      "passed": 1952,
+      "provenance": "Retained final GitHub CI log: all quality steps and complete 1952-case suite pass on a2ea64cfc71404bc9458f26e55739d7dac27a8fa. Completion changes after this source commit contain documentation and retained evidence only.",
+      "required_for_integration": true,
+      "seconds": 1121.19,
+      "source_commit": "a2ea64cfc71404bc9458f26e55739d7dac27a8fa",
+      "source_fingerprint": {
+        "files": 664,
+        "sha256": "807fccad2485930cb13a2b971ab55267d25c282c0e67493a346f0d33b0489af5"
+      },
+      "status": "passed",
+      "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/43947708763"
+    },
+    "isolated_legacy_listener": {
+      "log": "isolated-legacy-listener.log",
+      "python": "3.13.14",
+      "scope": "The unchanged legacy listener test passes alone on final source a2ea64cfc71404bc9458f26e55739d7dac27a8fa. No production fix or test-timeout relaxation was applied. The original failed broad run remains preserved; final complete CI independently passes all 1952 cases.",
+      "seconds": 38.09,
+      "status": "passed",
+      "tests": 1
+    }
+  },
+  "historical_browser": {
+    "controlled_prototype_4": {
+      "console_errors": [],
+      "cycles": 23,
+      "data_kind": "synthetic",
+      "download_hashes": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        },
+        {
+          "file": "restored-readiness.json",
+          "sha256": "7999a550d3445c14aa2655b7a0fe58e20780dfbcdfce7128d3602ee04b70f6f8"
+        }
+      ],
+      "evidence_hash": "sha256:036f8b24d33b31da530ffcbd2648c8ccb9feb044a6ca334ba673df3696aa0881",
+      "independent_events": 21,
+      "page_errors": [],
+      "receipt": "historical-controlled-browser-receipt.json",
+      "scope": "Actual owner approve/reject/rollback, revoke/logout, HALT/owner release, paused state, restart session expiry, offline restore, mobile and Demo governance I/O isolation. Predates final monitoring-pane/source-fingerprint acceptance and final backend corrections.",
+      "stats": {
+        "duration": 474273.473,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T13:33:01.431Z",
+        "unexpected": 0
+      },
+      "status": "passed_prior_source"
+    },
+    "final_candidate_2": {
+      "accepted_final_run": false,
+      "browser_analysis": "failed-browser-final-2-analysis.json",
+      "console_errors": [],
+      "controlled_receipt": "failed-browser-final-2-controlled-receipt.json",
+      "correction": "Acceptance harness will await POST response before a fresh GET; no production behavior change for this synchronization fix.",
+      "page_errors": [],
+      "production_duration_seconds": 34.558,
+      "production_receipt": "failed-browser-final-2-production-receipt.json",
+      "production_source_after": {
+        "files": 663,
+        "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5"
+      },
+      "production_source_before": {
+        "files": 663,
+        "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5"
+      },
+      "review_post": {
+        "duration_ms": 60654.928,
+        "http_status": 200,
+        "response_status": "approved",
+        "submission_enabled": false
+      },
+      "source_after": {
+        "files": 663,
+        "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5"
+      },
+      "source_before": {
+        "files": 663,
+        "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5"
+      },
+      "stats": {
+        "duration": 249914.39500000002,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T19:47:22.416Z",
+        "unexpected": 1
+      },
+      "status": "failed",
+      "trace_summary": "failed-browser-final-2-trace-summary.json"
+    },
+    "final_candidate_3": {
+      "accepted_final_run": false,
+      "analysis": "failed-browser-final-3-analysis.json",
+      "cause": "Old selected-proposal controls/export stayed visible while a new selection loaded. The download after restart came from the previous selection; actual requested proposal payload in the database was unchanged.",
+      "console_errors": [],
+      "controlled_receipt": "failed-browser-final-3-controlled-readiness-receipt.json",
+      "correction": "Production UI clears old proposal controls during changed selection. Harness asserts exact export href and downloaded proposal ID. An added deferred-response regression is included in final79frontend tests.",
+      "download_hashes": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "25bafe3af4643a8ea0b5c250ba9f878b60a7b1f5097d7ee7c7177c6a070ca712"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "45d007197af21b3d7cfbc8cba2f1e548a6480a446d92a3f5be329cdf06d7beea"
+        }
+      ],
+      "page_errors": [],
+      "production_receipt": "failed-browser-final-3-production-refusal-receipt.json",
+      "source_after": {
+        "files": 663,
+        "sha256": "912a4fad4b487d448c2619336bee0ae6cdd6c7f11d5ec4db7bfb496f2607239e"
+      },
+      "source_before": {
+        "files": 663,
+        "sha256": "912a4fad4b487d448c2619336bee0ae6cdd6c7f11d5ec4db7bfb496f2607239e"
+      },
+      "stats": {
+        "duration": 443391.628,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T19:53:44.488Z",
+        "unexpected": 1
+      },
+      "status": "failed"
+    },
+    "final_candidate_4": {
+      "accepted_final_run": false,
+      "cause": "Canonical legacy collector compatibility source correction occurred during execution, so the source fingerprint gate correctly rejected acceptance despite successful functional lifecycle and identical exports.",
+      "console_errors": [],
+      "controlled_receipt": "failed-browser-final-4-controlled-readiness-receipt.json",
+      "correction": "A fresh two-case final5 run against the final frozen source remains required.",
+      "download_hashes": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "22770ad45ed9a9b33c10c1c8b7aecab6c9245ca322ffda59f488d07199b6f180"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "22770ad45ed9a9b33c10c1c8b7aecab6c9245ca322ffda59f488d07199b6f180"
+        },
+        {
+          "file": "restored-readiness.json",
+          "sha256": "22770ad45ed9a9b33c10c1c8b7aecab6c9245ca322ffda59f488d07199b6f180"
+        }
+      ],
+      "download_hashes_identical": true,
+      "functional_lifecycle_assertions_completed": true,
+      "interruption": "failed-browser-final-4-interruption.json",
+      "page_errors": [],
+      "production_receipt": "failed-browser-final-4-production-refusal-receipt.json",
+      "source_after": {
+        "files": 663,
+        "sha256": "1979779cdb1c23ac0d287211b9761dfe3c172aecf2815ed706fe44ed2aa5789d"
+      },
+      "source_before": {
+        "files": 663,
+        "sha256": "9807cfcd49fb5e4ce83de184d126aa0b9918f582a19d2bab20b52e741f579696"
+      },
+      "stats": {
+        "duration": 493524.918,
+        "expected": 1,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-16T20:05:10.927Z",
+        "unexpected": 1
+      },
+      "status": "failed"
+    },
+    "production_refusal_final_1": {
+      "console_errors": [],
+      "controlled_readiness": false,
+      "data_kind": "synthetic",
+      "page_errors": [],
+      "receipt": "historical-production-refusal-receipt.json",
+      "scope": "Production real policy refuses synthetic proposal evidence; unconfigured owner cannot release. Companion controlled case intentionally interrupted for backend corrections; combined run not accepted.",
+      "source_after": {
+        "files": 663,
+        "sha256": "6fad29217bc9718d5c679d55b44dc316fb68a5320a7adae94d32896b602fa24e"
+      },
+      "source_before": {
+        "files": 663,
+        "sha256": "6fad29217bc9718d5c679d55b44dc316fb68a5320a7adae94d32896b602fa24e"
+      },
+      "status": "passed_in_interrupted_overall_run"
+    },
+    "screenshot_sha256": {
+      "controlled": {
+        "demo-oversight-disabled.png": "7e13fec57347321b56af87d6ed658e9e288df3e0d8ea6d0d31faa29933e7a5e7",
+        "owner-readiness-audit.png": "b6a8b90badc6bffcfdbb4e4a360ce5088bb9aa3f8f690c781cd7c563a3c22f81",
+        "readiness-mobile.png": "dea39f281b10ad9d10eba95fa68517f36e589b995ad34900901f860bebe1ffd8",
+        "restored-readiness.png": "3aa6862488b1bc070c24ef5555a7ed69b87aafd23e2acef9156b4e85b357be40"
+      },
+      "production_refusal": {
+        "demo-oversight-disabled.png": "0fff7008ba1cb7a715b5654b0d374a7b905d204a1da3523718cedb2b6cd985cc",
+        "production-blocked-readiness.png": "53ee3809cc82426c4242039cd21989117d3cd4a0159d9d3c297594e8f55d88cf"
+      }
+    }
+  },
+  "historical_full_regression": {
+    "prior_source_complete_local": {
+      "classification": "Concurrent-load test timeout: HTTP client POST /api/weather/datasets raised ReadTimeout while heavy suites ran concurrently, then temporary-directory cleanup raced the handler still completing. The unchanged test passes alone; no production fix or timeout relaxation was applied.",
+      "exception": "httpx.ReadTimeout, followed by cleanup OSError while request work continued",
+      "failed": 1,
+      "failure": "backend/tests/integration/test_shadow_history_listener.py::test_sustained_partition_research_downloads_and_offline_listener_restore",
+      "junit_summary": "failed-local-pytest-junit-summary.json",
+      "log": "failed-complete-local-pytest.log",
+      "passed": 1947,
+      "python": "3.13.14",
+      "scope": "Original full run predates final canonical compatibility correction. All new15monitoring and16service cases passed. Final-source4extra canonical tests are covered by focused28 tests and pending complete1952-case CI. No complete local pass is claimed.",
+      "seconds": 2203.83,
+      "status": "failed_prior_source",
+      "total": 1948
+    }
+  },
+  "independent_review": {
+    "corrections": [
+      "Recheck session expiry after credential reads and fee verification.",
+      "Refuse shutdown lease release if monitoring callback has not stopped.",
+      "Rotate monitoring fairly and back off failure; ordinary CAS progress is not an integrity failure.",
+      "Retain latest compatible historical owner reference rather than reset through new unreviewed proposals."
+    ],
+    "provenance": "review_e_final agent report; independent auth/HTTP21passed22.00s plus actual blocked-thread shutdown and fair-cursor checks. Later root boundary regressions cover23cases. Subsequent mixed legacy scheduling correction requires separate verification.",
+    "status": "accepted_assigned_final_scope"
+  },
+  "integration": {
+    "branch": "feature/research-milestone-e",
+    "pull_request": "https://github.com/GabeSternberg/EntropyTrade/pull/32",
+    "status": "accepted_ready_for_merge"
+  },
+  "interrupted_attempts": [
+    {
+      "log": "interrupted-full-pytest.log",
+      "passed_before_interrupt": 40,
+      "reason": "Independent review required expiry-at-commit and shutdown lease correctness changes before fresh run.",
+      "scope": "Complete local regression",
+      "seconds": 52.01,
+      "status": "intentionally_interrupted"
+    },
+    {
+      "log": "interrupted-service-pytest.log",
+      "passed_before_interrupt": 2,
+      "reason": "Source correction required fresh service tests.",
+      "scope": "Readiness service suite",
+      "seconds": 83.62,
+      "status": "intentionally_interrupted"
+    },
+    {
+      "accepted_final_run": false,
+      "receipt": "interrupted-browser-run.json",
+      "scope": "First final browser candidate",
+      "status": "intentionally_interrupted"
+    }
+  ],
+  "known_frontend_followup": "Milestone F must stop legacy app background GET polling while hidden or in Demo; E browser isolation asserts owner/review/monitoring/halt I/O and all writes.",
+  "quality_checks": {
+    "actual_browser": {
+      "browser": "Chromium141.0.7390.37",
+      "console_errors": [],
+      "controlled_receipt": "accepted-browser-controlled-receipt.json",
+      "downloads": [
+        {
+          "file": "revoked-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        },
+        {
+          "file": "restarted-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        },
+        {
+          "file": "restored-readiness.json",
+          "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+        }
+      ],
+      "node": "v24.22.1",
+      "page_errors": [],
+      "production_receipt": "accepted-browser-production-receipt.json",
+      "python": "Python 3.13.14",
+      "screenshots": {
+        "controlled-readiness": {
+          "actual-readiness-monitoring.png": "09448a97ebab309c1adfc1adc4178c3749ff4b9d8c11d53e7c4fe7671ac62e2f",
+          "demo-oversight-disabled.png": "7e13fec57347321b56af87d6ed658e9e288df3e0d8ea6d0d31faa29933e7a5e7",
+          "owner-readiness-audit.png": "bdbf9d1b06b68301e05a59ef70c5f2c871baec9b88c52889fa822ea5a8594e16",
+          "readiness-mobile.png": "3414119222e1bed444b3e6fce456c4df431da9146634e74b3e943e78d2defe27",
+          "restored-readiness.png": "66ab81735163761b2ddc6e02b3101059d2fbeeb3b1f1c2a51b284f1fdfafb2d7"
+        },
+        "production-refusal": {
+          "demo-oversight-disabled.png": "949ea9f450cf37d3421fc477f97c396886b6e57d1f21ba9fcd3d9e2208a9f978",
+          "production-blocked-readiness.png": "0b9529dea4db5a80d855bc27989d6eca7460c1c598880491ba40f4028c736ae0"
+        }
+      },
+      "seconds": 497.09636100000006,
+      "status": "passed",
+      "summary": "accepted-browser-summary.json",
+      "tests": 2
+    },
+    "collector_compatibility": {
+      "log": "collector-compatibility-final.log",
+      "scope": "Legacy collector behavior and canonical workspace compatibility after E gates; no physical Windows access or canonical collector modification.",
+      "seconds": 10.55,
+      "status": "passed",
+      "tests": 28
+    },
+    "format": {
+      "files": 645,
+      "log": "accepted-final-format.log",
+      "scope": "Final source including canonical collector compatibility.",
+      "status": "passed"
+    },
+    "frontend_node": {
+      "duration_ms": 1562.319268,
+      "log": "accepted-final-node.log",
+      "scope": "Includes a deferred-response regression for selected readiness proposal isolation.",
+      "status": "passed",
+      "tests": 79
+    },
+    "mixed_legacy_scheduling": {
+      "log": "scheduling-final.log",
+      "python": "3.13.14",
+      "scope": "60-second legacy monitors do not starve settlement-only drains or background readiness. Trained-horizon reservation remains enforced.",
+      "seconds": 74.43,
+      "status": "passed",
+      "tests": 4
+    },
+    "owner_http_boundaries": {
+      "log": "owner-http-boundaries.log",
+      "python": "3.13.14",
+      "scope": "Expiry after credential I/O, authenticated identity, logout/restart/rotation, rate limits, CSRF/strict bodies/SQLite refusal, callback error handling and shutdown lease retention.",
+      "seconds": 8.48,
+      "status": "passed",
+      "tests": 23
+    },
+    "readiness_service": {
+      "log": "service-final.log",
+      "python": "3.13.14",
+      "scope": "Actual readiness service including expiry during fee verification; positive evidence remains synthetic.",
+      "seconds": 323.0,
+      "status": "passed",
+      "tests": 16
+    },
+    "ruff": {
+      "log": "accepted-final-ruff.log",
+      "scope": "Final source including canonical collector compatibility.",
+      "status": "passed"
+    },
+    "strict_mypy": {
+      "files": 645,
+      "log": "accepted-final-mypy.log",
+      "scope": "Final source including canonical collector compatibility.",
+      "status": "passed"
+    }
+  },
+  "reported_scoped_checks": [
+    {
+      "passed": 70,
+      "provenance": "Prior store_drain_verify agent tool-result report; raw console log not located. Subsequent mixed legacy scheduling tests remain separately verified.",
+      "python": "3.13.14",
+      "scope": "Storage, settlement-only drain and recovery",
+      "seconds": 64.51
+    },
+    {
+      "passed": 21,
+      "provenance": "Prior modeling agent tool-result report; raw console log not located.",
+      "scope": "Actual forward readiness evidence",
+      "seconds": 75.3
+    },
+    {
+      "passed": 22,
+      "provenance": "Prior independent-review agent tool-result report; raw console log not located.",
+      "scope": "Investigation persistence, crash recovery and scope"
+    },
+    {
+      "passed": 14,
+      "provenance": "Prior monitoring_tests agent tool-result report. Two test-only assumptions corrected and those two cases rerun. Split runs are not a single full-suite pass.",
+      "python": "3.13.14",
+      "runs": [
+        {
+          "passed": 12,
+          "seconds": 301.6
+        },
+        {
+          "passed": 2,
+          "seconds": 200.79
+        }
+      ],
+      "scope": "Actual monitoring scenarios"
+    },
+    {
+      "passed": 4,
+      "provenance": "Root reports independent reviewer accepted four actual canonical/legacy compatibility tests; raw console log not included.",
+      "scope": "Independent final canonical legacy compatibility review",
+      "seconds": 4.79
+    },
+    {
+      "passed": 1,
+      "provenance": "Root reports independent deferred-response test accepted; exact test is also covered by final79-test frontend log.",
+      "scope": "Independent selected-proposal stale UI review"
+    }
+  ],
+  "required_gate_remaining": [],
+  "scope": "Milestone E software evidence; all positive readiness/account cases use controlled synthetic data, never authentic trading eligibility.",
+  "source_revision": {
+    "commit": "a2ea64cfc71404bc9458f26e55739d7dac27a8fa",
+    "scope": "Final E implementation, including selected-proposal UI isolation and canonical legacy collector compatibility. Documents may change after this source freeze."
+  },
+  "submission_enabled": false,
+  "windows_configured": false
+}

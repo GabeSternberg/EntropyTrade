@@ -5,18 +5,24 @@ import json
 import os
 import re
 import secrets
+import sqlite3
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import urlsplit
+from typing import TYPE_CHECKING
+from urllib.parse import unquote, urlsplit
 
 from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, provider_config
+from entropytrade.api.owner import OwnerAuth, OwnerAuthError, OwnerRateError
 from entropytrade.api.runner import COURSE_KEY_VARIABLE, Runner
 from entropytrade.api.workspace import acquire_workspace
 from entropytrade.api.workspace import workspace_path as workspace_path
 from entropytrade.tracking.runner import ShadowRunner
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.label_service import LabelService
+
+if TYPE_CHECKING:
+    from entropytrade.research.readiness import ResearchReadinessService
 
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -47,9 +53,21 @@ class WorkbenchServer(ThreadingHTTPServer):
         *,
         port: int = 43128,
         research_provider: dict[str, str] | None = None,
+        owner_file: Path | None = None,
     ) -> None:
         self.repo = repo.resolve()
+        self.owner = OwnerAuth(self.repo, owner_file)
         self.research_provider = provider_config(research_provider) if research_provider else None
+        from entropytrade.research.store import CollectorChainError, reject_collector_chain
+
+        try:
+            reject_collector_chain(workspace)
+        except CollectorChainError:
+            # The existing collector serves its legacy API from chain/.work-*.
+            # Keep that collection path usable without activating research or E writes.
+            collector_workspace = True
+        else:
+            collector_workspace = False
         root = workspace_path(self.repo, workspace)
         self.lock = acquire_workspace(root)
         try:
@@ -67,6 +85,11 @@ class WorkbenchServer(ThreadingHTTPServer):
             from entropytrade.research.paper import ResearchPaperService
 
             self.paper = ResearchPaperService(root, self.tracking)
+            self._readiness: ResearchReadinessService | None = None
+            self._readiness_lock = threading.Lock()
+            if not collector_workspace:
+                _ = self.readiness  # initialize before starting normal research threads
+                self.shadow.health_check = lambda: self.readiness.refresh_monitoring()
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
@@ -75,6 +98,23 @@ class WorkbenchServer(ThreadingHTTPServer):
             raise
         self.token = secrets.token_urlsafe(32)
         self.labels.thread.start()
+
+    @property
+    def readiness(self) -> "ResearchReadinessService":
+        from entropytrade.research.readiness import ResearchReadinessService
+
+        with self._readiness_lock:
+            if self._readiness is None:
+                # Construction retains the canonical/symlink guard before any E writes.
+                self._readiness = ResearchReadinessService(
+                    self.jobs.root, self.tracking, self.research
+                )
+            return self._readiness
+
+    @readiness.setter
+    def readiness(self, service: "ResearchReadinessService") -> None:
+        with self._readiness_lock:
+            self._readiness = service
 
     def server_close(self) -> None:
         self.research.close()
@@ -103,7 +143,14 @@ class Handler(BaseHTTPRequestHandler):
             origin is None or origin == "http://" + host
         )
 
-    def send(self, status: int, body: bytes, content_type: str = "application/json") -> None:
+    def send(
+        self,
+        status: int,
+        body: bytes,
+        content_type: str = "application/json",
+        *,
+        cookie: str | None = None,
+    ) -> None:
         self.send_response(status)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
@@ -111,6 +158,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
         self.send_header("Cross-Origin-Resource-Policy", "same-origin")
+        if cookie is not None:
+            self.send_header("Set-Cookie", cookie)
         self.send_header(
             "Content-Security-Policy",
             "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; "
@@ -119,8 +168,152 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def document(self, status: int, value: object) -> None:
-        self.send(status, json.dumps(value, allow_nan=False).encode())
+    def document(self, status: int, value: object, *, cookie: str | None = None) -> None:
+        self.send(status, json.dumps(value, allow_nan=False).encode(), cookie=cookie)
+
+    def owner_audience(self) -> str:
+        return "http://" + self.headers.get("Host", "")
+
+    def readiness_route(self) -> tuple[str, str] | None:
+        from entropytrade.research.readiness import proposal_identifier
+
+        parts = urlsplit(self.path).path.strip("/").split("/")
+        if len(parts) not in {3, 4} or parts[:2] != ["api", "readiness"]:
+            return None
+        return proposal_identifier(unquote(parts[2])), parts[3] if len(parts) == 4 else ""
+
+    def governance_get(self, path: str) -> bool:
+        if path == "/api/owner":
+            self.document(
+                200,
+                {
+                    "csrf_token": self.server.token,
+                    **self.server.owner.status(self.headers.get("Cookie"), self.owner_audience()),
+                },
+            )
+            return True
+        if path == "/api/controls":
+            self.document(
+                200, {**self.server.readiness.store.status(), "submission_enabled": False}
+            )
+            return True
+        monitor = self.monitor_route()
+        if monitor and monitor[1] in {"readiness", "monitoring"}:
+            value = (
+                self.server.readiness.proposals(monitor[0])
+                if monitor[1] == "readiness"
+                else self.server.readiness.monitoring(monitor[0])
+            )
+            self.document(200, value)
+            return True
+        route = self.readiness_route()
+        if route and route[1] == "":
+            self.document(200, self.server.readiness.detail(route[0]))
+            return True
+        return False
+
+    def governance_post(self, path: str, value: object) -> bool:
+        from entropytrade.research.readiness import ReadinessEligibilityError
+
+        monitor = self.monitor_route()
+        route = self.readiness_route()
+        if not (
+            path
+            in {
+                "/api/owner/login",
+                "/api/owner/logout",
+                "/api/controls/halt",
+                "/api/controls/release",
+            }
+            or (monitor and monitor[1] == "readiness")
+            or (route and route[1] in {"review", "revoke", "rollback"})
+        ):
+            return False
+        auth, service = self.server.owner, self.server.readiness
+        audience, cookies = self.owner_audience(), self.headers.get("Cookie")
+        if path == "/api/owner/login":
+            if (
+                not isinstance(value, dict)
+                or set(value) != {"password"}
+                or not isinstance(value["password"], str)
+            ):
+                raise ValueError("provide the owner passphrase only")
+            try:
+                token = auth.login(value["password"], audience)
+            except OwnerRateError:
+                self.document(429, {"error": "Owner login is rate limited; try again shortly"})
+                return True
+            except (OwnerAuthError, OSError, ValueError):
+                self.document(
+                    401, {"error": "Owner login failed or credentials are not configured"}
+                )
+                return True
+            self.document(
+                200,
+                auth.status(auth.cookie_name + "=" + token, audience),
+                cookie=auth.set_cookie(token),
+            )
+            return True
+        if path == "/api/owner/logout" and value == {}:
+            auth.logout(cookies)
+            self.document(200, auth.status(None, audience), cookie=auth.set_cookie(None))
+            return True
+        if path == "/api/controls/halt":
+            if (
+                not isinstance(value, dict)
+                or set(value) != {"reason"}
+                or not isinstance(value["reason"], str)
+                or not 1 <= len(value["reason"].strip()) <= 1000
+            ):
+                raise ValueError("provide a halt reason containing 1-1000 characters")
+            self.document(
+                200, {**service.store.halt(value["reason"].strip()), "submission_enabled": False}
+            )
+            return True
+        if path == "/api/controls/release":
+            if (
+                not isinstance(value, dict)
+                or set(value) != {"expected_epoch", "reason"}
+                or type(value["expected_epoch"]) is not int
+                or not isinstance(value["reason"], str)
+                or not 1 <= len(value["reason"].strip()) <= 1000
+            ):
+                raise ValueError("provide the exact control epoch and a release reason")
+            with auth.authorize(cookies, audience) as principal:
+                result = service.store.release(
+                    value["expected_epoch"],
+                    actor=principal.actor(),
+                    reason=value["reason"].strip(),
+                    before_commit=principal.require_current,
+                )
+            self.document(200, {**result, "submission_enabled": False})
+            return True
+        monitor = self.monitor_route()
+        if monitor and monitor[1] == "readiness":
+            self.document(201, service.create(monitor[0], value))
+            return True
+        route = self.readiness_route()
+        if route and route[1] == "review":
+            with auth.authorize(cookies, audience):
+                pass  # reject anonymous expensive review work before reading evidence
+            try:
+                prepared = service.prepare_review(route[0], value)
+            except ReadinessEligibilityError as exc:
+                self.document(409, {"error": str(exc), "current_checks": exc.checks})
+                return True
+            with auth.authorize(cookies, audience) as principal:
+                result = service.commit_review(prepared, principal)
+            self.document(200, result)
+            return True
+        if route and route[1] == "revoke":
+            self.document(200, service.revoke(route[0], value))
+            return True
+        if route and route[1] == "rollback":
+            with auth.authorize(cookies, audience) as principal:
+                result = service.rollback(route[0], value, principal)
+            self.document(201, result)
+            return True
+        return False
 
     def job_route(self, collection: str = "jobs") -> tuple[str, str] | None:
         parts = urlsplit(self.path).path.strip("/").split("/")
@@ -207,6 +400,15 @@ class Handler(BaseHTTPRequestHandler):
             self.document(403, {"error": "localhost same-origin access required"})
             return
         path = urlsplit(self.path).path
+        try:
+            if self.governance_get(path):
+                return
+        except KeyError:
+            self.document(404, {"error": "readiness source not found"})
+            return
+        except (ValueError, OSError, sqlite3.Error):
+            self.document(409, {"error": "Readiness evidence or controls failed verification"})
+            return
         if path in ASSETS:
             name, kind = ASSETS[path]
             self.send(200, (self.server.repo / "frontend" / "src" / name).read_bytes(), kind)
@@ -481,6 +683,20 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < size <= 24_000:
                 raise ValueError("request exceeds size budget or is empty")
             value = json.loads(self.rfile.read(size))
+            from entropytrade.research.readiness import ReadinessConflictError
+
+            try:
+                if self.governance_post(urlsplit(self.path).path, value):
+                    return
+            except OwnerAuthError:
+                self.document(401, {"error": "An authenticated owner session is required"})
+                return
+            except ReadinessConflictError as exc:
+                self.document(409, {"error": str(exc)})
+                return
+            except sqlite3.Error:
+                self.document(409, {"error": "Readiness metadata failed verification"})
+                return
             if self.path == "/api/cis1990":
                 if not isinstance(value, dict) or set(value) - {"api_key"}:
                     raise ValueError("the course run accepts only an optional Gemini API key")
@@ -651,6 +867,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="EntropyTrade private localhost workbench")
     parser.add_argument("--port", type=int, default=43128)
     parser.add_argument("--workspace", type=Path, default=Path("data/cache/workbench"))
+    parser.add_argument("--owner-file", type=Path)
     parser.add_argument("--research-provider", choices=("openai", "anthropic"))
     parser.add_argument("--research-model")
     args = parser.parse_args()
@@ -663,7 +880,13 @@ def main() -> None:
     )
     repo = Path(__file__).resolve().parents[4]
     workspace = args.workspace if args.workspace.is_absolute() else repo / args.workspace
-    server = WorkbenchServer(repo, workspace, port=args.port, research_provider=configured)
+    server = WorkbenchServer(
+        repo,
+        workspace,
+        port=args.port,
+        research_provider=configured,
+        owner_file=args.owner_file.expanduser() if args.owner_file else None,
+    )
     server.runner.start()
     server.shadow.start()
     server.research.start()

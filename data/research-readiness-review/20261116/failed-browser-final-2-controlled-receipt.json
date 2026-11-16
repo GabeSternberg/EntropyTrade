@@ -1,0 +1,192 @@
+{
+  "status": "failed",
+  "data_kind": "synthetic",
+  "controlled_readiness": true,
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5",
+    "files": 663
+  },
+  "posts": [
+    {
+      "path": "/api/owner/login",
+      "body": {
+        "password": "[REDACTED CONTROLLED TEST INPUT]"
+      }
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38/review",
+      "body": {
+        "decision": "approve",
+        "expected_revision": 0,
+        "note": "Reviewed actual retained synthetic wires and bounded capital"
+      }
+    }
+  ],
+  "sensitive_requests": [
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/login",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38/review",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/1c27c0b5-d0d2-43c1-b36e-0950d8216f7f/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38",
+      "method": "GET"
+    }
+  ],
+  "screenshots": [],
+  "downloads": [],
+  "page_errors": [],
+  "console_errors": [],
+  "error": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mapprov\u001b[27med\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mpropos\u001b[27med\"\u001b[39m\n\nCall Log:\n- Timeout 90000ms exceeded while waiting on the predicate\n    at pollMatcher (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/matchers/expect.js:299:11)\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:153:9\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:310:9\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:305:11\n    at TimeoutManager.withRunnable (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/timeoutManager.js:67:14)\n    at TestInfoImpl._runWithTimeout (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:303:7)\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:308:7\n    at WorkerMain._runTest (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:283:5)\n    at WorkerMain.runTestGroup (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:198:11)\n    at process.<anonymous> (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/common/process.js:65:22)",
+  "source_after": {
+    "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5",
+    "files": 663
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "accepted_final_run": false,
+  "reason": "Source freeze lifted for root canonical legacy compatibility correction while browser agent turn was interrupted. Browser completed lifecycle assertions but correctly rejected changed start/end source fingerprints. Original failure receipt preserved.",
+  "full_controlled_lifecycle_assertions_completed": true,
+  "download_hashes_identical": true,
+  "page_errors": [],
+  "console_errors": [],
+  "source_before": {
+    "sha256": "9807cfcd49fb5e4ce83de184d126aa0b9918f582a19d2bab20b52e741f579696",
+    "files": 663
+  },
+  "source_after": {
+    "sha256": "1979779cdb1c23ac0d287211b9761dfe3c172aecf2815ed706fe44ed2aa5789d",
+    "files": 663
+  }
+}

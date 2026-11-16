@@ -2,6 +2,7 @@
 
 import json
 import re
+import sqlite3
 from datetime import datetime, timedelta
 from typing import Any
 from uuid import uuid4
@@ -11,11 +12,14 @@ from entropytrade.domain.strategy import StrategySpec
 from entropytrade.features.registry import scientific_hash
 from entropytrade.portfolio.ledger import Ledger
 from entropytrade.tracking import alerts
+from entropytrade.tracking import readiness_store as readiness
 from entropytrade.tracking.accounting import account_hash, reproduce, summary
 from entropytrade.tracking.models import freeze_binding
 
 HASH = re.compile(r"sha256:[0-9a-f]{64}\Z")
 SOURCE_SCHEMA = "autonomous-paper-source-v1"
+RECONCILIATION_RETRY_SECONDS = 3600
+RECONCILIATION_WORKER_SECONDS = 240
 
 
 def research_deployment_key(source: dict[str, Any]) -> str:
@@ -137,6 +141,13 @@ class TrackingStore:
             )
             db.executescript(alerts.SCHEMA)
 
+    def _latch_sentinel(self) -> None:
+        sentinel = self.jobs.root / "HALT"
+        if sentinel.exists() or sentinel.is_symlink():
+            with self.jobs.connect() as db:
+                db.execute("BEGIN IMMEDIATE")
+                readiness.observe_halt(db, self.jobs.root, timestamp())
+
     def alerts(self) -> list[dict[str, Any]]:
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
@@ -153,6 +164,7 @@ class TrackingStore:
     def create(self, value: object) -> str:
         from entropytrade.strategies.interpret import compile_strategy
 
+        self._latch_sentinel()
         if not isinstance(value, dict) or set(value) != {
             "job_id",
             "candidate_id",
@@ -183,6 +195,11 @@ class TrackingStore:
         monitor_id, now = str(uuid4()), timestamp()
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            state = readiness.observe_halt(db, self.jobs.root, now)
+            readiness.guard_write(db, self.jobs.root)
+            if state["halted"]:
+                db.commit()
+                raise ValueError("workspace is halted; new paper monitors cannot start")
             if db.execute("SELECT count(*) FROM monitors WHERE status='active'").fetchone()[0] >= 4:
                 raise ValueError("four active monitors maximum; pause one first")
             if db.execute("SELECT count(*) FROM monitors").fetchone()[0] >= 100:
@@ -232,6 +249,7 @@ class TrackingStore:
         from entropytrade.strategies.interpret import compile_strategy
 
         reject_collector_chain(self.jobs.root)
+        self._latch_sentinel()
         job_id = identifier(research_job_id)
         if HASH.fullmatch(experiment_id) is None or not hypothesis_id:
             raise ValueError("research paper deployment requires immutable experiment references")
@@ -269,12 +287,16 @@ class TrackingStore:
         )
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            state = readiness.observe_halt(db, self.jobs.root, now)
             existing = db.execute(
                 "SELECT * FROM monitors WHERE deployment_key=?", (deployment_key,)
             ).fetchone()
             if existing is not None:
                 validate_research_source(dict(existing))
                 return str(existing["id"])
+            if state["halted"]:
+                db.commit()
+                raise ValueError("workspace is halted; new paper monitors cannot start")
             if db.execute("SELECT count(*) FROM monitors WHERE status='active'").fetchone()[0] >= 4:
                 raise ValueError("four active monitors maximum; pause one first")
             if db.execute("SELECT count(*) FROM monitors").fetchone()[0] >= 100:
@@ -321,17 +343,58 @@ class TrackingStore:
 
     def running(self, monitor_id: str, cycle_id: str) -> bool:
         with self.jobs.connect() as db:
-            return (
-                db.execute(
-                    "SELECT 1 FROM monitors m JOIN shadow_cycles c ON c.monitor_id=m.id "
-                    "WHERE m.id=? AND c.id=? AND m.status='active' AND c.status='running'",
-                    (identifier(monitor_id), identifier(cycle_id)),
-                ).fetchone()
-                is not None
+            db.execute("BEGIN IMMEDIATE")
+            state = readiness.observe_halt(db, self.jobs.root, timestamp())
+            row = db.execute(
+                "SELECT m.status FROM monitors m JOIN shadow_cycles c ON c.monitor_id=m.id "
+                "WHERE m.id=? AND c.id=? AND c.status='running'",
+                (identifier(monitor_id), identifier(cycle_id)),
+            ).fetchone()
+            control = readiness.cycle_control(db, cycle_id)
+            return bool(
+                row
+                and control["control_epoch"] == state["epoch"]
+                and (
+                    control["cycle_mode"] == "reconcile_only"
+                    or (row[0] == "active" and not state["halted"])
+                )
             )
 
-    def get(self, monitor_id: str, *, export: bool = False) -> dict[str, Any] | None:
+    def get_for_cycle(self, monitor_id: str, cycle_id: str) -> dict[str, Any] | None:
         with self.jobs.connect() as db:
+            control = readiness.cycle_control(db, identifier(cycle_id))
+        return self.get(
+            monitor_id,
+            export=True,
+            reconciliation_cycle_id=cycle_id if control["cycle_mode"] == "reconcile_only" else None,
+        )
+
+    def get(
+        self,
+        monitor_id: str,
+        *,
+        export: bool = False,
+        reconciliation_cycle_id: str | None = None,
+    ) -> dict[str, Any] | None:
+        with self.jobs.connect() as db:
+            draining_read = reconciliation_cycle_id is not None
+            if reconciliation_cycle_id is not None:
+                db.execute("BEGIN IMMEDIATE")
+                state = readiness.observe_halt(db, self.jobs.root, timestamp())
+                claim = db.execute(
+                    "SELECT status FROM shadow_cycles WHERE id=? AND monitor_id=?",
+                    (identifier(reconciliation_cycle_id), identifier(monitor_id)),
+                ).fetchone()
+                control = readiness.cycle_control(db, reconciliation_cycle_id)
+                if (
+                    not claim
+                    or claim[0] != "running"
+                    or control["cycle_mode"] != "reconcile_only"
+                    or control["control_epoch"] != state["epoch"]
+                ):
+                    raise ValueError(
+                        "settlement-only read requires a current running reconciliation claim"
+                    )
             row = db.execute(
                 "SELECT * FROM monitors WHERE id=?", (identifier(monitor_id),)
             ).fetchone()
@@ -340,9 +403,17 @@ class TrackingStore:
             monitor = dict(row)
             monitor["spec"] = json.loads(monitor["spec"])
             monitor["model_binding"] = (
-                json.loads(monitor["model_binding"]) if monitor["model_binding"] else None
+                None
+                if draining_read
+                else (json.loads(monitor["model_binding"]) if monitor["model_binding"] else None)
             )
-            if monitor["source_kind"] == "autonomous_research":
+            if draining_read:
+                if StrategySpec.model_validate(monitor["spec"]).spec_hash() != monitor["spec_hash"]:
+                    raise ValueError("settlement-only immutable strategy checksum mismatch")
+                monitor["source_verification"] = (
+                    "model/current policy not required for settlement-only claim"
+                )
+            elif monitor["source_kind"] == "autonomous_research":
                 monitor["source_ref"] = validate_research_source(monitor)
             elif monitor["source_kind"] != "legacy" or any(
                 monitor[name] is not None
@@ -355,6 +426,9 @@ class TrackingStore:
             monitor["cycles"] = [
                 {
                     **dict(c),
+                    "cycle_mode": readiness.cycle_control(db, c["id"])["cycle_mode"],
+                    "control_epoch": readiness.cycle_control(db, c["id"])["control_epoch"],
+                    "control_snapshot": readiness.cycle_control(db, c["id"]),
                     "result": json.loads(c["result"]) if c["result"] else None,
                     "artifact_root": f"shadow/{monitor_id}/{c['id']}",
                 }
@@ -410,11 +484,14 @@ class TrackingStore:
         return monitor
 
     def control(self, monitor_id: str, action: str) -> None:
+        self._latch_sentinel()
         if action not in {"pause", "resume", "suspend", "cancel"}:
             raise ValueError("unknown monitor action")
         now = timestamp()
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            state = readiness.observe_halt(db, self.jobs.root, now)
+            readiness.guard_write(db, self.jobs.root)
             row = db.execute(
                 "SELECT * FROM monitors WHERE id=?", (identifier(monitor_id),)
             ).fetchone()
@@ -431,6 +508,11 @@ class TrackingStore:
                 if action != "cancel":
                     raise ValueError("suspended paper deployments require a new validated proposal")
             if action == "resume":
+                if state["halted"]:
+                    db.commit()
+                    raise ValueError(
+                        "workspace is halted; release does not automatically resume monitors"
+                    )
                 if current != "paused":
                     raise ValueError("only paused monitors can resume")
                 if (
@@ -456,6 +538,7 @@ class TrackingStore:
                 (target, next_at, monitor_id),
             )
             if action != "resume":
+                readiness.invalidate_monitor(db, monitor_id, f"Monitor {target}", now)
                 db.execute(
                     "UPDATE shadow_cycles SET status='interrupted', finished_at=?, "
                     "detail=? "
@@ -471,16 +554,44 @@ class TrackingStore:
         now = timestamp()
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
-            row = db.execute(
-                "SELECT * FROM monitors WHERE status='active' AND next_at<=? AND NOT EXISTS "
-                "(SELECT 1 FROM shadow_cycles WHERE monitor_id=monitors.id AND status='running') "
-                "ORDER BY next_at, id LIMIT 1",
-                (now,),
-            ).fetchone()
+            state = readiness.observe_halt(db, self.jobs.root, now)
+            readiness.guard_write(db, self.jobs.root)
+            row = (
+                None
+                if state["halted"]
+                else db.execute(
+                    "SELECT * FROM monitors WHERE status='active' AND next_at<=? AND NOT EXISTS "
+                    "(SELECT 1 FROM shadow_cycles WHERE monitor_id=monitors.id "
+                    "AND status='running') "
+                    "ORDER BY next_at, id LIMIT 1",
+                    (now,),
+                ).fetchone()
+            )
+            mode = "paper"
             if row is None:
-                return None
+                if (
+                    not state["halted"]
+                    and db.execute(
+                        "SELECT 1 FROM monitors WHERE status='active' "
+                        "AND source_kind='autonomous_research' AND next_at<=? LIMIT 1",
+                        (
+                            (
+                                datetime.fromisoformat(now)
+                                + timedelta(seconds=RECONCILIATION_WORKER_SECONDS)
+                            ).isoformat(),
+                        ),
+                    ).fetchone()
+                ):
+                    # A drain can consume the bounded worker's entire budget. Preserve
+                    # its capacity for a trained decision instead of missing that minute.
+                    # Legacy polling intervals do not impose that narrow decision window.
+                    return None
+                row = self._reconciliation_due(db, now)
+                mode = "reconcile_only"
+                if row is None:
+                    return None
             monitor_id = str(row[0])
-            if row["source_kind"] == "autonomous_research":
+            if mode == "paper" and row["source_kind"] == "autonomous_research":
                 from entropytrade.research.paper_models import paper_window
 
                 try:
@@ -490,6 +601,9 @@ class TrackingStore:
                     valid_window = paper_window(binding, datetime.fromisoformat(now)) is not None
                 except (ValueError, KeyError, TypeError):
                     db.execute("UPDATE monitors SET status='suspended' WHERE id=?", (monitor_id,))
+                    readiness.invalidate_monitor(
+                        db, monitor_id, "Frozen research proof invalid", now
+                    )
                     db.execute(
                         "INSERT INTO shadow_events(monitor_id, at, action) VALUES (?, ?, ?)",
                         (monitor_id, now, "suspended: frozen research scheduling proof is invalid"),
@@ -506,6 +620,8 @@ class TrackingStore:
                 "SELECT count(*)+1 FROM shadow_cycles WHERE monitor_id=?", (monitor_id,)
             ).fetchone()[0]
             if sequence > 1000:
+                if mode == "reconcile_only":
+                    return None
                 db.execute("UPDATE monitors SET status='paused' WHERE id=?", (monitor_id,))
                 db.execute(
                     "INSERT INTO shadow_events(monitor_id, at, action) VALUES (?, ?, ?)",
@@ -517,7 +633,59 @@ class TrackingStore:
                 "INSERT INTO shadow_cycles VALUES (?, ?, ?, 'running', ?, NULL, ?, NULL, NULL)",
                 (cycle_id, monitor_id, sequence, now, "Collecting read-only evidence"),
             )
+            readiness.freeze_cycle(db, cycle_id, mode)
             return monitor_id, cycle_id
+
+    def _reconciliation_due(self, db: sqlite3.Connection, now: str) -> sqlite3.Row | None:
+        """A settlement drain needs existing positions and frozen, closed contracts."""
+        moment = datetime.fromisoformat(now)
+        for row in db.execute(
+            "SELECT m.*,a.state AS account_state,a.digest AS account_digest FROM monitors m "
+            "JOIN shadow_accounts a ON a.monitor_id=m.id WHERE NOT EXISTS "
+            "(SELECT 1 FROM shadow_cycles c WHERE c.monitor_id=m.id AND c.status='running') "
+            "ORDER BY m.id"
+        ).fetchall():
+            if readiness.enabled(db):
+                latest = db.execute(
+                    "SELECT c.started_at FROM shadow_cycles c JOIN shadow_cycle_controls e "
+                    "ON e.cycle_id=c.id WHERE c.monitor_id=? AND e.mode='reconcile_only' "
+                    "ORDER BY c.sequence DESC LIMIT 1",
+                    (row["id"],),
+                ).fetchone()
+                if latest and moment < datetime.fromisoformat(latest[0]) + timedelta(
+                    seconds=RECONCILIATION_RETRY_SECONDS
+                ):
+                    continue
+            account = json.loads(row["account_state"])
+            if account_hash(account) != row["account_digest"]:
+                raise ValueError("paper account checksum mismatch before reconciliation claim")
+            positions = {
+                p.contract.market_ticker
+                for p in Ledger.load(account["ledger"]).positions
+                if p.quantity > 0
+            }
+            for contract in db.execute(
+                "SELECT * FROM shadow_contracts WHERE monitor_id=? AND outcome IS NULL "
+                "ORDER BY ticker",
+                (row["id"],),
+            ):
+                market = json.loads(contract["market"])["market"]
+                expected, _ = alerts.settlement_expected(market)
+                attempted = contract["last_attempt"]
+                if (
+                    contract["ticker"] in positions
+                    and expected <= moment
+                    and (
+                        not attempted
+                        or moment
+                        >= datetime.fromisoformat(attempted)
+                        + timedelta(seconds=RECONCILIATION_RETRY_SECONDS)
+                    )
+                ):
+                    readiness.initialize(db, self.jobs.root, now)
+                    matching: sqlite3.Row = row
+                    return matching
+        return None
 
     def finish(
         self, monitor_id: str, cycle_id: str, result: dict[str, Any], *, failed: bool = False
@@ -526,17 +694,56 @@ class TrackingStore:
         encoded = json.dumps(result, sort_keys=True, allow_nan=False)
         with self.jobs.connect() as db:
             db.execute("BEGIN IMMEDIATE")
+            state = readiness.observe_halt(db, self.jobs.root, now)
+            readiness.guard_write(db, self.jobs.root)
             monitor = db.execute(
                 "SELECT * FROM monitors WHERE id=?", (identifier(monitor_id),)
             ).fetchone()
             cycle = db.execute(
-                "SELECT status FROM shadow_cycles WHERE id=? AND monitor_id=?",
+                "SELECT status,started_at FROM shadow_cycles WHERE id=? AND monitor_id=?",
                 (identifier(cycle_id), monitor_id),
             ).fetchone()
-            if not monitor or monitor["status"] != "active" or not cycle or cycle[0] != "running":
+            control = readiness.cycle_control(db, cycle_id)
+            draining = control["cycle_mode"] == "reconcile_only"
+            if (
+                not monitor
+                or not cycle
+                or cycle[0] != "running"
+                or control["control_epoch"] != state["epoch"]
+                or (not draining and (monitor["status"] != "active" or state["halted"]))
+            ):
                 return False
+            if (
+                draining
+                and "paper" not in result
+                and any(
+                    result.get(key)
+                    for key in ("contracts", "decisions", "outcomes", "outcome_attempts")
+                )
+            ):
+                raise ValueError("a failed reconciliation cannot change economic evidence")
+            if draining and "paper" not in result and not failed:
+                raise ValueError("a completed reconciliation requires reproduced accounting")
+            if "paper" in result:
+                from entropytrade.tracking.reconciliation import is_reconciliation
+
+                if is_reconciliation(result) != draining:
+                    raise ValueError("paper result mode/schema differs from its trusted claim")
+            if (
+                readiness.enabled(db)
+                and "paper" in result
+                and any(
+                    result.get(key) != expected
+                    for key, expected in (
+                        ("control_epoch", control["control_epoch"]),
+                        ("cycle_mode", control["cycle_mode"]),
+                        ("control_snapshot", control),
+                    )
+                )
+            ):
+                raise ValueError("paper result differs from its frozen cycle controls")
             research_next = None
-            if monitor["source_kind"] == "autonomous_research":
+            if not draining and monitor["source_kind"] == "autonomous_research":
                 try:
                     validate_research_source(dict(monitor))
                     research_next = _research_next(dict(monitor), now)
@@ -544,6 +751,9 @@ class TrackingStore:
                     # Invalidated origin/model metadata cannot commit a late simulated
                     # account transition or stop the shared monitoring runner.
                     db.execute("UPDATE monitors SET status='suspended' WHERE id=?", (monitor_id,))
+                    readiness.invalidate_monitor(
+                        db, monitor_id, "Frozen research proof invalid", now
+                    )
                     db.execute(
                         "UPDATE shadow_cycles SET status='interrupted', finished_at=?, "
                         "detail='Frozen research proof failed before account commit' WHERE id=?",
@@ -580,6 +790,17 @@ class TrackingStore:
                     raise ValueError("stale/corrupt paper account; cycle cannot commit")
                 if reproduce(result["paper_inputs"]) != result["paper"]:
                     raise ValueError("paper result differs from frozen inputs")
+                if draining:
+                    self._verify_reconciliation(
+                        db, monitor_id, cycle_id, cycle["started_at"], control, previous, result
+                    )
+                # The sentinel can arrive while verifying a large immutable outbox.
+                # Observe it again before any account write, retaining its epoch latch.
+                latest_control = readiness.observe_halt(db, self.jobs.root, timestamp())
+                if latest_control["epoch"] != control["control_epoch"] or (
+                    not draining and latest_control["halted"]
+                ):
+                    return False
                 state = result["paper"]["state"]
                 db.execute(
                     "INSERT INTO shadow_accounts VALUES (?, ?, ?) "
@@ -610,10 +831,11 @@ class TrackingStore:
                 if research_next is not None
                 else (datetime.fromisoformat(now) + timedelta(seconds=delay)).isoformat()
             )
-            db.execute(
-                "UPDATE monitors SET next_at=?, failures=?, status=? WHERE id=?",
-                (next_at, failures, "paused" if failures >= 5 else "active", monitor_id),
-            )
+            if not draining:
+                db.execute(
+                    "UPDATE monitors SET next_at=?, failures=?, status=? WHERE id=?",
+                    (next_at, failures, "paused" if failures >= 5 else "active", monitor_id),
+                )
             db.execute(
                 "UPDATE shadow_cycles SET status=?, finished_at=?, detail=?, result=?, digest=? "
                 "WHERE id=?",
@@ -626,13 +848,59 @@ class TrackingStore:
                     cycle_id,
                 ),
             )
-            if failures >= 5:
+            if failures >= 5 and not draining:
+                readiness.invalidate_monitor(db, monitor_id, "Repeated worker failures", now)
                 db.execute(
                     "INSERT INTO shadow_events(monitor_id, at, action) VALUES (?, ?, ?)",
                     (monitor_id, now, "paused after five consecutive acquisition/worker failures"),
                 )
             alerts.refresh(db, now)
             return True
+
+    def _verify_reconciliation(
+        self,
+        db: sqlite3.Connection,
+        monitor_id: str,
+        cycle_id: str,
+        started_at: str,
+        control: dict[str, Any],
+        previous: dict[str, Any] | None,
+        result: dict[str, Any],
+    ) -> None:
+        if result.get("cycle_id") != cycle_id:
+            raise ValueError("reconciliation result differs from its claimed cycle identity")
+        if previous is None or result.get("contracts") or result.get("decisions"):
+            raise ValueError("reconciliation cannot create positions, contracts or decisions")
+        after = result["paper"]["state"]
+        if any(after["ledger"][key] != previous["ledger"][key] for key in ("orders", "fills")):
+            raise ValueError("reconciliation cannot introduce orders or fills")
+        # Shared artifact/source verifier is supplied by the settlement worker module.
+        from entropytrade.tracking.reconciliation import verify_reconciliation
+
+        contracts = [
+            {
+                **dict(row),
+                "market": json.loads(row["market"]),
+                "outcome": json.loads(row["outcome"]) if row["outcome"] else None,
+            }
+            for row in db.execute(
+                "SELECT ticker,market,last_attempt,outcome FROM shadow_contracts "
+                "WHERE monitor_id=? ORDER BY ticker",
+                (monitor_id,),
+            )
+        ]
+        verify_reconciliation(
+            self.jobs.root / "shadow" / monitor_id / cycle_id,
+            result,
+            expected_before=previous,
+            expected_control={
+                "control_epoch": control["control_epoch"],
+                "cycle_mode": "reconcile_only",
+                "control_snapshot": control,
+                "started_at": started_at,
+            },
+            expected_contracts=contracts,
+        )
 
     def recover(self) -> None:
         with self.jobs.connect() as db:
@@ -641,6 +909,8 @@ class TrackingStore:
                 "SELECT DISTINCT monitor_id FROM shadow_cycles WHERE status='running'"
             ).fetchall()
             now = timestamp()
+            readiness.observe_halt(db, self.jobs.root, now)
+            readiness.guard_write(db, self.jobs.root)
             db.execute(
                 "UPDATE shadow_cycles SET status='interrupted', finished_at=?, "
                 "detail='Server stopped; partial receipts retained; fresh cycle will resume' "
@@ -659,6 +929,9 @@ class TrackingStore:
                     validate_research_source(dict(monitor))
                     next_at = _research_next(dict(monitor), now)
                 except (ValueError, KeyError, TypeError):
+                    readiness.invalidate_monitor(
+                        db, monitor["id"], "Frozen research proof invalid", now
+                    )
                     db.execute(
                         "UPDATE monitors SET status='suspended' WHERE id=?", (monitor["id"],)
                     )

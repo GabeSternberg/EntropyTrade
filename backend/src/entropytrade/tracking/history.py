@@ -15,6 +15,7 @@ from entropytrade.families.public import forward_data as forward_data
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
 from entropytrade.research.paper_models import PortableResearchModel
+from entropytrade.tracking.reconciliation import is_reconciliation
 from entropytrade.tracking.replay import verify
 
 if TYPE_CHECKING:
@@ -33,7 +34,8 @@ def entries(jobs: "Jobs") -> list[dict[str, Any]]:
         tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
         cycles = (
             db.execute(
-                "SELECT c.id, c.monitor_id, c.started_at FROM shadow_cycles c "
+                "SELECT c.id, c.monitor_id, c.started_at, "
+                "json_extract(c.result, '$.cycle_mode') AS cycle_mode FROM shadow_cycles c "
                 "JOIN monitors m ON m.id=c.monitor_id WHERE m.family='weather' "
                 "AND c.status='completed' ORDER BY c.started_at, c.id"
             ).fetchall()
@@ -43,7 +45,13 @@ def entries(jobs: "Jobs") -> list[dict[str, Any]]:
     return sorted(
         [{"id": r["id"], "kind": "public", "at": r["created_at"], "monitor_id": None} for r in runs]
         + [
-            {"id": r["id"], "kind": "shadow", "at": r["started_at"], "monitor_id": r["monitor_id"]}
+            {
+                "id": r["id"],
+                "kind": "shadow",
+                "at": r["started_at"],
+                "monitor_id": r["monitor_id"],
+                **({"outcome_only": True} if r["cycle_mode"] == "reconcile_only" else {}),
+            }
             for r in cycles
         ],
         key=lambda r: (r["at"], r["kind"], r["id"]),
@@ -84,6 +92,8 @@ def anchor(jobs: "Jobs") -> date:
     """
     dates: list[date] = []
     for entry in entries(jobs):
+        if entry.get("outcome_only"):
+            continue
         root = input_root(jobs, entry) / "public"
         manifest = json.loads((root / "manifest.json").read_text())
         if (
@@ -134,7 +144,7 @@ def member_inputs(
 
     if len(members) > PARTITION_SIZE or len(label_members) > PARTITION_SIZE:
         raise ValueError("history selection exceeds one bounded partition")
-    captures = [input_root(jobs, e) / "public" for e in members]
+    captures = [input_root(jobs, e) / "public" for e in members if not e.get("outcome_only")]
     protected: set[str] = set()
     research_models: list[PortableResearchModel] = []
     # Protection belongs to the workspace, independent of the selected receipt page.
@@ -172,6 +182,11 @@ def member_inputs(
                 or json.loads((root / "result.json").read_text()) != result
             ):
                 raise ValueError("retained weather cycle differs from committed evidence")
+            if is_reconciliation(result):
+                from entropytrade.tracking.reconciliation import verify_reconciliation
+
+                verify_reconciliation(root, result)
+                continue
             if not {"public/manifest.json", "outcomes/summary.json", "decision-inputs.json"} <= {
                 a["path"] for a in result["artifacts"]
             }:
@@ -201,11 +216,15 @@ def member_inputs(
 
 def verified_inputs(root: Path) -> dict[str, Any]:
     """Reproduce saved decisions AND bind every saved book to its original raw GET receipt."""
+    result = json.loads((root / "result.json").read_text())
+    if is_reconciliation(result):
+        from entropytrade.tracking.reconciliation import verify_reconciliation
+
+        return verify_reconciliation(root, result)
     verify(root)
     inputs: dict[str, Any] = json.loads((root / "decision-inputs.json").read_text())
     saved = ExperimentData.model_validate(inputs["data"])
     public = forward_data(root / "public")
-    result = json.loads((root / "result.json").read_text())
     research = (result.get("model_binding") or {}).get("kind") == "research_weather_v1"
     if research:
         from entropytrade.tracking.research_features import reconstruct_research_data

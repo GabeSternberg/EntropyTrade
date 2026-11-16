@@ -1,0 +1,215 @@
+{
+  "config": {
+    "configFile": "/workspace/EntropyTrade-paper/frontend/browser/playwright.config.cjs",
+    "rootDir": "/workspace/EntropyTrade-paper/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/workspace/EntropyTrade-paper/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs",
+          "prospective.spec.cjs",
+          "redesign.spec.cjs",
+          "cis1990.spec.cjs",
+          "research.spec.cjs",
+          "research-paper.spec.cjs",
+          "readiness.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "readiness.spec.cjs",
+      "file": "readiness.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "readiness oversight: production evidence and unconfigured owner refusal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 34558,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-16T19:47:23.629Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9ace03e0b2f585f54310-9779c41ce5962e670a7a",
+          "file": "readiness.spec.cjs",
+          "line": 13,
+          "column": 3
+        },
+        {
+          "title": "readiness oversight: CONTROLLED owner review and audit recovery",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 208035,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mapprov\u001b[27med\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mpropos\u001b[27med\"\u001b[39m\n\nCall Log:\n- Timeout 90000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mapprov\u001b[27med\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mpropos\u001b[27med\"\u001b[39m\n\nCall Log:\n- Timeout 90000ms exceeded while waiting on the predicate\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:153:9",
+                    "location": {
+                      "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                      "column": 9,
+                      "line": 153
+                    },
+                    "snippet": "  151 |         await governance.getByLabel(\"Readiness review note\").fill(\"Reviewed actual retained synthetic wires and bounded capital\");\n  152 |         await governance.getByRole(\"button\", { name: \"Approve readiness review\", exact: true }).click();\n> 153 |         await expect.poll(async () => (await get(`/api/readiness/${encodeURIComponent(first)}`)).status, { timeout: 90_000 }).toBe(\"approved\");\n      |         ^\n  154 |         const approved = await get(`/api/readiness/${encodeURIComponent(first)}`);\n  155 |         assert.equal(approved.payload.execution_authorized, false);\n  156 |         assert.equal(approved.payload.submission_enabled, false);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                        "column": 9,
+                        "line": 153
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mapprov\u001b[27med\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7mpropos\u001b[27med\"\u001b[39m\n\nCall Log:\n- Timeout 90000ms exceeded while waiting on the predicate\n\n  151 |         await governance.getByLabel(\"Readiness review note\").fill(\"Reviewed actual retained synthetic wires and bounded capital\");\n  152 |         await governance.getByRole(\"button\", { name: \"Approve readiness review\", exact: true }).click();\n> 153 |         await expect.poll(async () => (await get(`/api/readiness/${encodeURIComponent(first)}`)).status, { timeout: 90_000 }).toBe(\"approved\");\n      |         ^\n  154 |         const approved = await get(`/api/readiness/${encodeURIComponent(first)}`);\n  155 |         assert.equal(approved.payload.execution_authorized, false);\n  156 |         assert.equal(approved.payload.submission_enabled, false);\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:153:9"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-16T19:48:00.882Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/test-failed-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                    "column": 9,
+                    "line": 153
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9ace03e0b2f585f54310-f5bd4d60e513c5bcfc48",
+          "file": "readiness.spec.cjs",
+          "line": 13,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "Testing stopped early after 1 maximum allowed failures."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-11-16T19:47:22.416Z",
+    "duration": 249914.39500000002,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

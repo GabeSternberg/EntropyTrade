@@ -44,6 +44,9 @@ The Autonomous Research page now connects persistent acquired-feature jobs to we
 fitting, temporal validation and deterministic contract replay with inspectable experiment
 reports. [Milestone C scope and external gates](docs/research-modeling.md) distinguish
 controlled software acceptance from unavailable authentic trading evidence. No empirical edge is claimed.
+Verified experiments feed [persistent paper deployments](docs/research-paper.md);
+[readiness proposals and monitoring](docs/research-readiness.md) add owner review,
+emergency halt and bounded deterioration investigations while production orders remain disabled.
 
 ## Setup and checks
 

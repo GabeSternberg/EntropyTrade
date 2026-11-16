@@ -1,0 +1,215 @@
+{
+  "config": {
+    "configFile": "/workspace/EntropyTrade-paper/frontend/browser/playwright.config.cjs",
+    "rootDir": "/workspace/EntropyTrade-paper/frontend/browser",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 1,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-results.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-results.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "",
+        "name": "",
+        "testDir": "/workspace/EntropyTrade-paper/frontend/browser",
+        "testIgnore": [],
+        "testMatch": [
+          "workbench.spec.cjs",
+          "bitcoin-history.spec.cjs",
+          "shadow.spec.cjs",
+          "recovery.spec.cjs",
+          "provider.spec.cjs",
+          "weather-history.spec.cjs",
+          "weather-labels.spec.cjs",
+          "forward-validation.spec.cjs",
+          "label-partitions.spec.cjs",
+          "shadow-history.spec.cjs",
+          "fees.spec.cjs",
+          "paper.spec.cjs",
+          "alerts.spec.cjs",
+          "prospective.spec.cjs",
+          "redesign.spec.cjs",
+          "cis1990.spec.cjs",
+          "research.spec.cjs",
+          "research-paper.spec.cjs",
+          "readiness.spec.cjs"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.56.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "readiness.spec.cjs",
+      "file": "readiness.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "readiness oversight: production evidence and unconfigured owner refusal",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 21180,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-16T19:53:45.872Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/trace.zip"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "9ace03e0b2f585f54310-9779c41ce5962e670a7a",
+          "file": "readiness.spec.cjs",
+          "line": 13,
+          "column": 3
+        },
+        {
+          "title": "readiness oversight: CONTROLLED owner review and audit recovery",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 600000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 413249,
+                  "error": {
+                    "message": "AssertionError: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n... Skipped lines\n\n\u001b[39m  {\n\u001b[39m    capital_envelope: {\n\u001b[39m      max_contracts: '100.00',\n\u001b[39m      max_dollars: '100.000000'\n\u001b[39m    },\n\u001b[34m...\u001b[39m\n\u001b[39m    },\n\u001b[31m-\u001b[39m   rollback: {\n\u001b[31m-\u001b[39m     from: 'sha256:82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d',\n\u001b[31m-\u001b[39m     reason: 'Review prior server references without replacing the deployed model',\n\u001b[31m-\u001b[39m     target: 'sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed'\n\u001b[31m-\u001b[39m   },\n\u001b[39m    schema_version: 'readiness-proposal-v1',\n\u001b[39m    scope: 'Future readiness review only; proposed capital is not allocated. No live activation or orders.',\n\u001b[39m    source_fingerprint: 'sha256:f9163f8aedd65163a5fd940e1594a0a89863a0ab808583e5007e502f22200b06',\n\u001b[39m    submission_enabled: false\n\u001b[39m  }\n",
+                    "stack": "AssertionError: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n... Skipped lines\n\n\u001b[39m  {\n\u001b[39m    capital_envelope: {\n\u001b[39m      max_contracts: '100.00',\n\u001b[39m      max_dollars: '100.000000'\n\u001b[39m    },\n\u001b[34m...\u001b[39m\n\u001b[39m    },\n\u001b[31m-\u001b[39m   rollback: {\n\u001b[31m-\u001b[39m     from: 'sha256:82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d',\n\u001b[31m-\u001b[39m     reason: 'Review prior server references without replacing the deployed model',\n\u001b[31m-\u001b[39m     target: 'sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed'\n\u001b[31m-\u001b[39m   },\n\u001b[39m    schema_version: 'readiness-proposal-v1',\n\u001b[39m    scope: 'Future readiness review only; proposed capital is not allocated. No live activation or orders.',\n\u001b[39m    source_fingerprint: 'sha256:f9163f8aedd65163a5fd940e1594a0a89863a0ab808583e5007e502f22200b06',\n\u001b[39m    submission_enabled: false\n\u001b[39m  }\n\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:244:16",
+                    "location": {
+                      "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                      "column": 16,
+                      "line": 244
+                    },
+                    "snippet": "  242 |         await expect(governance.locator(\".readiness-record\")).toContainText(third);\n  243 |         const restarted = await recordDownload(\"restarted-readiness.json\");\n> 244 |         assert.deepEqual(restarted.payload, before.payload); assert.deepEqual(restarted.events, before.events);\n      |                ^\n  245 |         await stop();\n  246 |         const archive = path.join(evidence, \"workspace.zip\");\n  247 |         for (const recovery of [\"snapshot\", \"restore\"]) {"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                        "column": 16,
+                        "line": 244
+                      },
+                      "message": "AssertionError: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n... Skipped lines\n\n\u001b[39m  {\n\u001b[39m    capital_envelope: {\n\u001b[39m      max_contracts: '100.00',\n\u001b[39m      max_dollars: '100.000000'\n\u001b[39m    },\n\u001b[34m...\u001b[39m\n\u001b[39m    },\n\u001b[31m-\u001b[39m   rollback: {\n\u001b[31m-\u001b[39m     from: 'sha256:82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d',\n\u001b[31m-\u001b[39m     reason: 'Review prior server references without replacing the deployed model',\n\u001b[31m-\u001b[39m     target: 'sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed'\n\u001b[31m-\u001b[39m   },\n\u001b[39m    schema_version: 'readiness-proposal-v1',\n\u001b[39m    scope: 'Future readiness review only; proposed capital is not allocated. No live activation or orders.',\n\u001b[39m    source_fingerprint: 'sha256:f9163f8aedd65163a5fd940e1594a0a89863a0ab808583e5007e502f22200b06',\n\u001b[39m    submission_enabled: false\n\u001b[39m  }\n\n\n  242 |         await expect(governance.locator(\".readiness-record\")).toContainText(third);\n  243 |         const restarted = await recordDownload(\"restarted-readiness.json\");\n> 244 |         assert.deepEqual(restarted.payload, before.payload); assert.deepEqual(restarted.events, before.events);\n      |                ^\n  245 |         await stop();\n  246 |         const archive = path.join(evidence, \"workspace.zip\");\n  247 |         for (const recovery of [\"snapshot\", \"restore\"]) {\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:244:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-16T19:54:08.524Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/test-failed-1.png"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/workspace/EntropyTrade-paper/data/cache/milestone-e-browser-final-3/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs",
+                    "column": 16,
+                    "line": 244
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9ace03e0b2f585f54310-f5bd4d60e513c5bcfc48",
+          "file": "readiness.spec.cjs",
+          "line": 13,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "message": "Testing stopped early after 1 maximum allowed failures."
+    }
+  ],
+  "stats": {
+    "startTime": "2026-11-16T19:53:44.488Z",
+    "duration": 443391.628,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
