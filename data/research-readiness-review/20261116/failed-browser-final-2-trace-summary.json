@@ -1,0 +1,42 @@
+{
+  "accepted_final_run": false,
+  "extracted_readiness_requests": [
+    {
+      "duration_ms": 10205.928999999998,
+      "http_status": 200,
+      "method": "GET",
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38",
+      "response_status": "proposed",
+      "started_at": "2026-11-16T19:49:40.001Z",
+      "submission_enabled": false
+    },
+    {
+      "duration_ms": 60654.928,
+      "http_status": 200,
+      "method": "POST",
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38/review",
+      "response_status": "approved",
+      "started_at": "2026-11-16T19:49:51.285Z",
+      "submission_enabled": false
+    },
+    {
+      "duration_ms": -1,
+      "http_status": -1,
+      "method": "GET",
+      "path": "/api/readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38",
+      "response_status": null,
+      "started_at": "2026-11-16T19:51:17.522Z",
+      "submission_enabled": null
+    }
+  ],
+  "interpretation": {
+    "actual_commit": "The trace records an approved review response with HTTP 200 after 60,654.928 ms and submission_enabled=false.",
+    "harness_failure": "The controlled procedure timed out after 90 seconds while polling for approved and received proposed.",
+    "remaining_gate": "A fresh corrected two-case browser run must pass; this failed run is not acceptance.",
+    "reported_cause": "Browser agent identified a concurrent heavy GET started before commit and stale status under concurrent full-suite/service CPU load. This is an acceptance synchronization issue; awaiting the actual POST response before fresh GET is being added."
+  },
+  "status": "failed_harness_status_poll",
+  "trace_bytes": 36900623,
+  "trace_path": "data/cache/milestone-e-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip",
+  "trace_sha256": "b35be62f2bb788f2c570f19e246f79e6d9f24774913b74e4d499d62f2673b915"
+}

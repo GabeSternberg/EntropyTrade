@@ -1,6 +1,131 @@
 {
   "files": [
     {
+      "bytes": 14879,
+      "file": "accepted-browser-controlled-receipt.json",
+      "sha256": "5447c0df41ec8e2320a21342ee7fdc65ad14b30eeec7a0d6593e86c36b781921"
+    },
+    {
+      "bytes": 5366,
+      "file": "accepted-browser-playwright.json",
+      "sha256": "f382a90dd186a16fa08c6783ec2fa2259f7f657f19d0d85b029d2f0766919004"
+    },
+    {
+      "bytes": 2396,
+      "file": "accepted-browser-production-receipt.json",
+      "sha256": "068a25870eb41d6ffdd222b63cb9b86b757c398b609beb85a60c7e2a2d45595e"
+    },
+    {
+      "bytes": 30218,
+      "file": "accepted-browser-revoked-proposal.json",
+      "sha256": "13f3f7167526a10d32d1937e2dc0feb6a7c114ae6fddfba6818faca84f0ceca7"
+    },
+    {
+      "bytes": 4745,
+      "file": "accepted-browser-summary.json",
+      "sha256": "a673678ef4a7ac0291e642a511b9f710aa36407449403241bad230e68f8d7797"
+    },
+    {
+      "bytes": 28,
+      "file": "accepted-final-format.log",
+      "sha256": "a82ac612f035421cc61b888bd217b728fc9a32b06326132229920940c879795d"
+    },
+    {
+      "bytes": 45,
+      "file": "accepted-final-mypy.log",
+      "sha256": "b935eb35206436eadbbc04b5e7e6c1dccd5918f459c5a668a3b66642e95465f3"
+    },
+    {
+      "bytes": 7382,
+      "file": "accepted-final-node.log",
+      "sha256": "6d7760c0a9019bd4c1f9863314a830372163cc663b1de8bc75139b4205ae4f7f"
+    },
+    {
+      "bytes": 19,
+      "file": "accepted-final-ruff.log",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "bytes": 100,
+      "file": "collector-compatibility-final.log",
+      "sha256": "f89ac2391e9fe3abdfc31f2af3d183aae6778fc0952626391047f348956a936e"
+    },
+    {
+      "bytes": 1138,
+      "file": "failed-browser-final-2-analysis.json",
+      "sha256": "4d27a550dbede342149f1960507092aa50a655e3192e5d8952177314af01c3ca"
+    },
+    {
+      "bytes": 5569,
+      "file": "failed-browser-final-2-controlled-receipt.json",
+      "sha256": "b382eefdfebe97fb25d51f244ce3d40ac933f50c61de794ca99689f613438219"
+    },
+    {
+      "bytes": 9378,
+      "file": "failed-browser-final-2-playwright.json",
+      "sha256": "3200f77cf812e0aac3164827a4ec4ce3c3b41526bd9886be7f8df67d63d72096"
+    },
+    {
+      "bytes": 2396,
+      "file": "failed-browser-final-2-production-receipt.json",
+      "sha256": "ff1a022135ba0720ae56b60ab5e2c9b989baec0868c977bebbf8b6bd0e9c842c"
+    },
+    {
+      "bytes": 2006,
+      "file": "failed-browser-final-2-trace-summary.json",
+      "sha256": "e7a52c1f4002c14cf919284312e8e1063e03496c31a283dce96623cb6522a4f5"
+    },
+    {
+      "bytes": 918,
+      "file": "failed-browser-final-3-analysis.json",
+      "sha256": "b402edf90a8f721f0df766f4721e601e7d46d3776963ed76a61588356ec9f458"
+    },
+    {
+      "bytes": 15203,
+      "file": "failed-browser-final-3-controlled-readiness-receipt.json",
+      "sha256": "ebdb02462cad9a78863df3699dbf6744c6891f8f1088b2c641cccabe562c996c"
+    },
+    {
+      "bytes": 11099,
+      "file": "failed-browser-final-3-playwright.json",
+      "sha256": "985c7cd49f73e5a4ad7ba876e518bc8c3531fda05ff92c097e44d914d1060637"
+    },
+    {
+      "bytes": 2396,
+      "file": "failed-browser-final-3-production-refusal-receipt.json",
+      "sha256": "19054fcccb6b4cf3be26a090d4c71633a4f2530fd029cd545ca5f0701790daae"
+    },
+    {
+      "bytes": 15143,
+      "file": "failed-browser-final-4-controlled-readiness-receipt.json",
+      "sha256": "e58f29e7a72bf7e2dfa107cd7d42f4719c73b310d1cbcef045f355c130cd30b2"
+    },
+    {
+      "bytes": 689,
+      "file": "failed-browser-final-4-interruption.json",
+      "sha256": "867bb54e5215c06aedafdf52e0bbc23155a8c7caaf73b2c4cef207bc15062afc"
+    },
+    {
+      "bytes": 8972,
+      "file": "failed-browser-final-4-playwright.json",
+      "sha256": "8c83b04da4f75dada20c648e7d2379ae042e77cc5384e53a988fd9fe95a06ad4"
+    },
+    {
+      "bytes": 2396,
+      "file": "failed-browser-final-4-production-refusal-receipt.json",
+      "sha256": "85880060644aa1f2cc12889b45adbe18c3ee50c444afa88a5d5467393cc6c959"
+    },
+    {
+      "bytes": 38316,
+      "file": "failed-complete-local-pytest.log",
+      "sha256": "8b9b78fbd3ac2656e9e12b4985ef5487332f818771d494e127094b4ac1a7cf91"
+    },
+    {
+      "bytes": 1070,
+      "file": "failed-local-pytest-junit-summary.json",
+      "sha256": "e32328dfe3d5b0641fdd351225591e8718a8a7745f0ebd7e702389e6299460f5"
+    },
+    {
       "bytes": 28,
       "file": "format.log",
       "sha256": "fcbf1364bb4f32574c44c43d1babd1445aa1b29daf182aed54932d90a2effeab"
@@ -14,6 +139,11 @@
       "bytes": 7255,
       "file": "frontend-node.log",
       "sha256": "acb8297abe64a23af73dbdffd203ba27060c23851b3a1de6fdbb0b39f794588c"
+    },
+    {
+      "bytes": 173539,
+      "file": "github-ci-accepted.log",
+      "sha256": "60946b31c85d97ea89ab025dbff60894cfd9412385e0fa3a74d832a7875bfa42"
     },
     {
       "bytes": 14471,
@@ -52,6 +182,11 @@
     },
     {
       "bytes": 99,
+      "file": "isolated-legacy-listener.log",
+      "sha256": "67823c014f5394bc27fc6af4b6e15cf976c8ac67ec17e8d056621561bda80464"
+    },
+    {
+      "bytes": 99,
       "file": "owner-http-boundaries.log",
       "sha256": "14063a23ecef47637c39d13646dcd9d4e09da015c8728de7bc5bdfcc80f3e06d"
     },
@@ -66,6 +201,11 @@
       "sha256": "b2c283d7222e22e751dc69b35c5e3ea6c5e36a51f659c655412ddd5b92e0d7a7"
     },
     {
+      "bytes": 111,
+      "file": "service-final.log",
+      "sha256": "95d5eae34083a8d8dba09433fdb0365196ed6f74bc172420aaec07fed37ba73b"
+    },
+    {
       "bytes": 45,
       "file": "strict-mypy-final.log",
       "sha256": "60b90905dbbeb07b8390609c83d8a357ed57c76231efc874d6e26027c3fd629d"
@@ -76,5 +216,5 @@
       "sha256": "60b90905dbbeb07b8390609c83d8a357ed57c76231efc874d6e26027c3fd629d"
     }
   ],
-  "scope": "Unmodified small retained development logs/receipts; excludes this manifest and mutable README/acceptance status. Large workspaces, archives, traces, screenshots and owner credentials are not included."
+  "scope": "Unmodified retained development/CI logs and browser receipts, plus explicitly derived summaries. Excludes this manifest and mutable README/acceptance status. Positive source/account examples are synthetic. Owner credentials are excluded."
 }

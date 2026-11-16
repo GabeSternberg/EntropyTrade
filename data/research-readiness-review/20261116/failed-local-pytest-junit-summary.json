@@ -1,0 +1,27 @@
+{
+  "bytes": 308573,
+  "failures": [
+    {
+      "class": "backend.tests.integration.test_shadow_history_listener",
+      "failure_type": null,
+      "message": "OSError: [Errno 39] Directory not empty: '/workspace/EntropyTrade-paper/data/cache/shadow-history-http-2to02m8p/workspace/runs/weather-datasets/.building-c237cac82a854b6e53d1699c8830545408ca084ac9218bbdbb260d7ed22d9347'",
+      "name": "test_sustained_partition_research_downloads_and_offline_listener_restore",
+      "time": "55.222"
+    }
+  ],
+  "scope": "Original1948-case complete local run before final canonical legacy compatibility correction; this run failed and is not final-source acceptance.",
+  "sha256": "d9539b53d2b9426d9a13180b59e83734db1fc09f4e16096caf8a6a712fff5924",
+  "source": "data/cache/milestone-e-checks/pytest-results.xml",
+  "suites": [
+    {
+      "errors": "0",
+      "failures": "1",
+      "hostname": "3172696d241c",
+      "name": "pytest",
+      "skipped": "0",
+      "tests": "1948",
+      "time": "2203.700",
+      "timestamp": "2026-11-16T14:47:22.095496-05:00"
+    }
+  ]
+}

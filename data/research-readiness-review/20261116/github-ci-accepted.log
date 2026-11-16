@@ -1,0 +1,1332 @@
+lint, types, frontend, pytest	Set up job	﻿2026-11-16T20:14:50.2171459Z Current runner version: '2.338.2'
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2196587Z ##[group]Runner Image Provisioner
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2197771Z Hosted Compute Agent
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2198377Z Version: 20261103.629
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2199005Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2199808Z Build Date: 2026-11-03T17:26:59Z
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2200499Z Worker ID: {9cf26539-95cc-4723-b68a-0f1a9a1efa43}
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2201202Z Region: us-east-1
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2201740Z Cloud: AWS
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2202297Z ##[endgroup]
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2203905Z ##[group]Operating System
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2204487Z Ubuntu
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2205006Z 24.04.5
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2205499Z LTS
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2206014Z ##[endgroup]
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2206568Z ##[group]Runner Image
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2207336Z Image: ubuntu-24.04
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2207939Z Version: 20261111.127.1
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2209017Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.127/images/ubuntu/Ubuntu2404-Readme.md
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2210862Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.127
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2211874Z ##[endgroup]
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2213013Z ##[group]GITHUB_TOKEN Permissions
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2215183Z Contents: read
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2215829Z Metadata: read
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2216489Z ##[endgroup]
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2219055Z Secret source: Actions
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2219974Z Cache mode: write
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2220711Z Prepare workflow directory
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2593565Z Prepare all required actions
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.2645663Z Getting action download info
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:50.4536860Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:51.4170081Z Download action repository 'astral-sh/setup-uv@v6' (SHA:d0cc045d04ccac9d8b7881df0226f9e82c39688e)
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:51.6214526Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:51.7544109Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+lint, types, frontend, pytest	Set up job	2026-11-16T20:14:51.9771748Z Complete job name: lint, types, frontend, pytest
+lint, types, frontend, pytest	Run actions/checkout@v4	﻿2026-11-16T20:14:52.0453490Z ##[group]Run actions/checkout@v4
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0454132Z with:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0454411Z   persist-credentials: false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0454770Z   repository: GabeSternberg/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0457305Z   token: ***
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0457579Z   ssh-strict: true
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0457898Z   ssh-user: git
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0458156Z   clean: true
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0458433Z   sparse-checkout-cone-mode: true
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0458767Z   fetch-depth: 1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0459011Z   fetch-tags: false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0459327Z   show-progress: true
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0459590Z   lfs: false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0459842Z   submodules: false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0460119Z   set-safe-directory: true
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0460417Z   allow-unsafe-pr-checkout: false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0461034Z env:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0461277Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0461535Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0461869Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0462152Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:52.0462499Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3741904Z Syncing repository: GabeSternberg/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3743653Z ##[group]Getting Git version info
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3744049Z Working directory is '/home/runner/work/EntropyTrade/EntropyTrade'
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3744632Z [command]/usr/bin/git version
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3922381Z git version 2.56.1
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3935673Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3945209Z Temporarily overriding HOME='/home/runner/work/_temp/728e7788-5fe0-432b-8df5-ed2c6c60597b' before making global git config changes
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3946370Z Adding repository directory to the temporary git global config as a safe directory
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.3948722Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4002013Z Deleting the contents of '/home/runner/work/EntropyTrade/EntropyTrade'
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4006259Z ##[group]Initializing the repository
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4009745Z [command]/usr/bin/git init /home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4160671Z hint: Using 'master' as the name for the initial branch. This default branch name
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4161499Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4162078Z hint: to use in all of your new repositories, which will suppress this warning,
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4162527Z hint: call:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4162839Z hint:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4163230Z hint: 	git config --global init.defaultBranch <name>
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4163578Z hint:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4163932Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4164387Z hint: 'development'. The just-created branch can be renamed via this command:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4164755Z hint:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4165152Z hint: 	git branch -m <name>
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4165424Z hint:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4165709Z hint: Disable this message with "git config set advice.defaultBranchName false"
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4177284Z Initialized empty Git repository in /home/runner/work/EntropyTrade/EntropyTrade/.git/
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4185845Z [command]/usr/bin/git remote add origin https://github.com/GabeSternberg/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4256695Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4261919Z ##[group]Disabling automatic garbage collection
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4262408Z [command]/usr/bin/git config --local gc.auto 0
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4286717Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4287483Z ##[group]Setting up auth
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4292354Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.4320225Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5477506Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5502059Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5652402Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5676692Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5825514Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5853293Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5853921Z ##[group]Fetching the repository
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:53.5865645Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +13e2ee3ae9963a34f49a99d8fce8d464f436a681:refs/remotes/pull/32/merge
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2685623Z From https://github.com/GabeSternberg/EntropyTrade
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2686426Z  * [new ref]         13e2ee3ae9963a34f49a99d8fce8d464f436a681 -> pull/32/merge
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2688881Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2689413Z ##[group]Determining the checkout info
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2691683Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2695843Z [command]/usr/bin/git sparse-checkout disable
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2762354Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2792157Z ##[group]Checking out the ref
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:57.2795905Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/32/merge
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.3590508Z Updating files:  79% (6898/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.3648200Z Updating files:  80% (6972/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.3884852Z Updating files:  81% (7059/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.3993515Z Updating files:  82% (7146/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.4043694Z Updating files:  83% (7233/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.4063347Z Updating files:  84% (7320/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.4288262Z Updating files:  85% (7407/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.4842761Z Updating files:  86% (7495/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.5516860Z Updating files:  87% (7582/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.5606642Z Updating files:  88% (7669/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.5660164Z Updating files:  89% (7756/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.5707827Z Updating files:  90% (7843/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.5888631Z Updating files:  91% (7930/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.6237444Z Updating files:  92% (8017/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.6398979Z Updating files:  93% (8105/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7095633Z Updating files:  94% (8192/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7168353Z Updating files:  95% (8279/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7183613Z Updating files:  96% (8366/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7205920Z Updating files:  97% (8453/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7235209Z Updating files:  98% (8540/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7436193Z Updating files:  99% (8627/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7436639Z Updating files: 100% (8714/8714)
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7436925Z Updating files: 100% (8714/8714), done.
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7515630Z Note: switching to 'refs/remotes/pull/32/merge'.
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7515937Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7516141Z You are in 'detached HEAD' state. You can look around, make experimental
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7516586Z changes and commit them, and you can discard any commits you make in this
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7516973Z state without impacting any branches by switching back to a branch.
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7517344Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7517491Z If you want to create a new branch to retain commits you create, you may
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7517831Z do so (now or later) by using -c with the switch command. Example:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518014Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518109Z   git switch -c <new-branch-name>
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518237Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518323Z Or undo this operation with:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518463Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518539Z   git switch -
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518640Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7518791Z Turn off this advice by setting config variable advice.detachedHead to false
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7519179Z 
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7519432Z HEAD is now at 13e2ee3 Merge a2ea64cfc71404bc9458f26e55739d7dac27a8fa into bcdd2c675390840d679a233326e44b77a8eedd67
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7578846Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7624427Z [command]/usr/bin/git log -1 --format=%H
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7646073Z 13e2ee3ae9963a34f49a99d8fce8d464f436a681
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7655874Z ##[group]Removing auth
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7657202Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7683729Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7847512Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7869925Z http.https://github.com/.extraheader
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7880200Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.7899305Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.8060220Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.8074935Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+lint, types, frontend, pytest	Run actions/checkout@v4	2026-11-16T20:14:58.8230941Z ##[endgroup]
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	﻿2026-11-16T20:14:58.8420230Z ##[group]Run astral-sh/setup-uv@v6
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8420494Z with:
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8420702Z   version: 0.11.32
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8420905Z   python-version: 3.13
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8421219Z   enable-cache: true
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8421422Z   activate-environment: false
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8421692Z   working-directory: /home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8421984Z   server-url: https://github.com
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8424013Z   github-token: ***
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8424419Z   cache-dependency-glob: **/*requirements*.txt
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/*requirements*.in
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/*constraints*.txt
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/*constraints*.in
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/pyproject.toml
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/uv.lock
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	**/*.py.lock
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8424877Z   restore-cache: true
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425046Z   save-cache: true
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425209Z   prune-cache: true
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425395Z   ignore-nothing-to-cache: false
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425604Z   ignore-empty-workdir: false
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425812Z   add-problem-matchers: true
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8425997Z env:
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8426186Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8426368Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8426602Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8426820Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:58.8427203Z ##[endgroup]
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.0262630Z (node:2244) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.0263841Z (Use `node --trace-deprecation ...` to show where the warning was created)
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.0360021Z manifest-file not provided, reading from local file.
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.0372955Z manifest-file does not contain version 0.11.32, arch x86_64, platform unknown-linux-gnu. Falling back to GitHub releases.
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.0374137Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.3146570Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/cf2606cb-e53b-4788-aece-87c95d7a9385 -f /home/runner/work/_temp/3328e7e0-db9f-4e6b-b947-e249fc5f3b78
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7673763Z Added /home/runner/.local/bin to the path
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7675266Z Added /opt/hostedtoolcache/uv/0.11.32/x86_64 to the path
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7675890Z Set UV_PYTHON to 3.13
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7699852Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7700313Z Successfully installed uv version 0.11.32
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:14:59.7702267Z Searching files using cache dependency glob: /home/runner/work/EntropyTrade/EntropyTrade/**/*requirements*.txt,/home/runner/work/EntropyTrade/EntropyTrade/**/*requirements*.in,/home/runner/work/EntropyTrade/EntropyTrade/**/*constraints*.txt,/home/runner/work/EntropyTrade/EntropyTrade/**/*constraints*.in,/home/runner/work/EntropyTrade/EntropyTrade/**/pyproject.toml,/home/runner/work/EntropyTrade/EntropyTrade/**/uv.lock,/home/runner/work/EntropyTrade/EntropyTrade/**/*.py.lock
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.3697612Z /home/runner/work/EntropyTrade/EntropyTrade/pyproject.toml
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.3722158Z /home/runner/work/EntropyTrade/EntropyTrade/uv.lock
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.3739566Z Found 2 files to hash.
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.3800860Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.4406510Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.4477470Z (node:2244) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.5100019Z Received 7049 of 7049 (100.0%), 0.2 MBs/sec
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.5100422Z Cache Size: ~0 MB (7049 B)
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.5119028Z [command]/usr/bin/tar -xf /home/runner/work/_temp/bf2a26c9-14e8-4ded-9a2c-44adb3383512/cache.tzst -P -C /home/runner/work/EntropyTrade/EntropyTrade --use-compress-program unzstd
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.5165500Z Cache restored successfully
+lint, types, frontend, pytest	Run astral-sh/setup-uv@v6	2026-11-16T20:15:00.5168810Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+lint, types, frontend, pytest	Run actions/setup-node@v4	﻿2026-11-16T20:15:00.5313918Z ##[group]Run actions/setup-node@v4
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5314142Z with:
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5314304Z   node-version: 22
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5314473Z   always-auth: false
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5314657Z   check-latest: false
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5316604Z   token: ***
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5316762Z env:
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5316916Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5318564Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5318785Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5319019Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5319199Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5319405Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.5319636Z ##[endgroup]
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.7119999Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.7127724Z (node:2267) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.7128629Z ##[group]Environment details
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:00.7129224Z (Use `node --trace-deprecation ...` to show where the warning was created)
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:02.5682489Z node: v22.23.4
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:02.5682890Z npm: 10.9.9
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:02.5683193Z yarn: 1.22.22
+lint, types, frontend, pytest	Run actions/setup-node@v4	2026-11-16T20:15:02.5683808Z ##[endgroup]
+lint, types, frontend, pytest	Install locked dependencies	﻿2026-11-16T20:15:02.5776908Z ##[group]Run uv sync
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.5777406Z [36;1muv sync[0m
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7988453Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7988708Z env:
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7988865Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7989054Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7989255Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7989430Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7989607Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7989823Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:02.7990054Z ##[endgroup]
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.0334755Z Downloading cpython-3.13.14-linux-x86_64-gnu (download) (33.2MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.6959008Z  Downloaded cpython-3.13.14-linux-x86_64-gnu (download)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8184170Z Using CPython 3.13.14
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8184965Z Creating virtual environment at: .venv
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8265058Z Resolved 124 packages in 0.64ms
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8347391Z    Building entropytrade @ file:///home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8362878Z       Built entropytrade @ file:///home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8535042Z Downloading google-genai (1.1MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8535784Z Downloading scikit-learn (8.7MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8577449Z Downloading matplotlib (9.4MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8577963Z Downloading ast-serialize (1.3MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8578400Z Downloading ruff (9.9MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8579112Z Downloading kiwisolver (1.4MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8579695Z Downloading tiktoken (1.1MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8599956Z Downloading anthropic (1.6MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8602529Z Downloading pydantic-core (2.0MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8603024Z Downloading pygments (1.2MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8603732Z Downloading pydantic-ai-slim (2.0MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8674445Z Downloading pandas (11.7MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8713266Z Downloading numpy (15.9MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8714128Z Downloading cryptography (4.5MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8714958Z Downloading scipy (33.7MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8715952Z Downloading pillow (6.6MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8716927Z Downloading mypy (14.7MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8718148Z Downloading hypothesis (1.1MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8719192Z Downloading mlflow-skinny (6.0MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8720219Z Downloading pyarrow (40.1MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8721226Z Downloading fonttools (5.1MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8722216Z Downloading virtualenv (5.2MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8723175Z Downloading mlflow (27.7MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8724353Z Downloading sqlalchemy (4.4MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8748499Z Downloading databricks-sdk (1.0MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:03.8750283Z Downloading openai (2.0MiB)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.3168347Z  Downloaded databricks-sdk
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.3864600Z  Downloaded tiktoken
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.3865081Z  Downloaded ast-serialize
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.4663741Z  Downloaded kiwisolver
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.4736244Z  Downloaded hypothesis
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.5909381Z  Downloaded pydantic-core
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.6889609Z  Downloaded pygments
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.8721662Z  Downloaded pydantic-ai-slim
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:04.9496483Z  Downloaded sqlalchemy
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.0114488Z  Downloaded cryptography
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.0177751Z  Downloaded google-genai
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.0672117Z  Downloaded virtualenv
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.0880007Z  Downloaded fonttools
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.3076494Z  Downloaded pillow
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.5425596Z  Downloaded mlflow-skinny
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.5556718Z  Downloaded scikit-learn
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.5659764Z  Downloaded ruff
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:05.7018119Z  Downloaded matplotlib
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.0217288Z  Downloaded numpy
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.0581571Z  Downloaded anthropic
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.1258210Z  Downloaded openai
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.3906471Z  Downloaded scipy
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.4453951Z  Downloaded mlflow
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.4638271Z  Downloaded pandas
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.4964611Z  Downloaded pyarrow
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.5115168Z  Downloaded mypy
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.5116622Z Prepared 120 packages in 2.68s
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6348767Z Installed 120 packages in 122ms
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6349239Z  + alembic==1.20.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6349724Z  + annotated-doc==0.0.5
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6349990Z  + annotated-types==0.8.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6350237Z  + anthropic==1.11.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6350464Z  + anyio==4.15.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6350686Z  + ast-serialize==0.11.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6350923Z  + blinker==1.9.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6351133Z  + cachetools==5.5.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6351367Z  + certifi==2026.7.22
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6351582Z  + cffi==2.1.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6351773Z  + cfgv==3.5.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6352044Z  + charset-normalizer==3.5.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6352297Z  + click==8.5.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6352507Z  + cloudpickle==3.1.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6352729Z  + contourpy==1.4.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6352953Z  + coverage==7.16.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6353170Z  + cryptography==50.0.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6353403Z  + cycler==0.12.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6353621Z  + databricks-sdk==0.146.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6353851Z  + distlib==0.4.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6354072Z  + distro==1.9.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6354285Z  + docker==7.2.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6354506Z  + docstring-parser==0.18.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6354930Z  + entropytrade==0.0.0 (from file:///home/runner/work/EntropyTrade/EntropyTrade)
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6355324Z  + fastapi==0.142.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6355524Z  + filelock==4.0.9
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6355730Z  + flask==3.1.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6355941Z  + fonttools==4.66.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6356161Z  + genai-prices==0.1.9
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6356375Z  + gitdb==4.0.12
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6356592Z  + gitpython==3.2.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6356808Z  + google-auth==2.59.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6357159Z  + google-genai==2.29.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6357423Z  + graphene==3.4.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6357639Z  + graphql-core==3.2.13
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6357868Z  + graphql-relay==3.2.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6358097Z  + griffelib==2.3.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6358307Z  + gunicorn==23.0.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6358507Z  + h11==0.16.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6358723Z  + httpcore==1.0.9
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6358931Z  + httpcore2==2.13.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6359152Z  + httpx==0.28.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6359370Z  + httpx2==2.13.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6359592Z  + hypothesis==6.168.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6359808Z  + identify==2.6.20
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6360012Z  + idna==3.20
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6360224Z  + importlib-metadata==8.9.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6360481Z  + iniconfig==2.3.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6360701Z  + itsdangerous==2.2.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6360913Z  + jinja2==3.1.6
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6361109Z  + jiter==0.17.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6361557Z  + joblib==1.6.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6361760Z  + kalshi-sdk==17.1.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6361994Z  + kiwisolver==1.5.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6362209Z  + librt==0.16.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6362427Z  + logfire-api==5.1.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6362653Z  + mako==1.4.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6362877Z  + markdown==3.11
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6363094Z  + markupsafe==3.0.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6363329Z  + matplotlib==3.11.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6363556Z  + mlflow==2.22.5
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6364071Z  + mlflow-skinny==2.22.5
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6364355Z  + mypy==2.4.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6364597Z  + mypy-extensions==1.1.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6364844Z  + narwhals==2.26.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6365068Z  + nodeenv==1.11.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6365292Z  + numpy==2.5.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6365498Z  + openai==3.23.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6365726Z  + opentelemetry-api==1.45.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6365999Z  + opentelemetry-sdk==1.45.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6366318Z  + opentelemetry-semantic-conventions==0.66b0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6366627Z  + packaging==24.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6366846Z  + pandas==2.3.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6367190Z  + pathspec==1.1.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6367422Z  + pillow==12.3.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6367645Z  + platformdirs==4.12.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6367904Z  + pluggy==1.6.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6368115Z  + pre-commit==4.6.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6368331Z  + protobuf==6.33.6
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6368548Z  + pyarrow==19.0.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6368895Z  + pyasn1==0.6.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6369115Z  + pyasn1-modules==0.4.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6369363Z  + pycparser==3.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6369580Z  + pydantic==2.13.5
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6369801Z  + pydantic-ai-slim==2.53.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6370075Z  + pydantic-core==2.46.5
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6370324Z  + pydantic-graph==2.53.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6370575Z  + pygments==2.21.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6370786Z  + pyparsing==3.3.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6370957Z  + pytest==9.1.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6371138Z  + pytest-cov==7.1.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6371350Z  + python-dateutil==2.9.0.post0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6371578Z  + python-discovery==1.6.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6371767Z  + pytz==2026.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6371940Z  + pyyaml==6.0.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6372108Z  + regex==2026.9.29
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6372291Z  + requests==2.34.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6372466Z  + ruff==0.16.10
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6372636Z  + scikit-learn==1.9.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6372825Z  + scipy==1.18.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6373002Z  + six==1.17.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6373200Z  + smmap==5.0.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6373388Z  + sniffio==1.3.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6373615Z  + sortedcontainers==2.4.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6373815Z  + sqlalchemy==2.1.2
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374009Z  + sqlparse==0.6.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374208Z  + starlette==1.7.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374382Z  + tenacity==9.1.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374573Z  + threadpoolctl==3.7.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374761Z  + tiktoken==0.14.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6374938Z  + truststore==0.10.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6375135Z  + typing-extensions==4.16.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6375342Z  + typing-inspection==0.4.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6375540Z  + tzdata==2026.4
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6375708Z  + urllib3==2.8.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6375884Z  + uvicorn==0.54.0
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6376061Z  + virtualenv==21.14.3
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6376253Z  + websockets==16.1.1
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6376431Z  + werkzeug==3.1.9
+lint, types, frontend, pytest	Install locked dependencies	2026-11-16T20:15:06.6376607Z  + zipp==4.1.0
+lint, types, frontend, pytest	Ruff lint	﻿2026-11-16T20:15:06.6459034Z ##[group]Run uv run ruff check backend
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6459339Z [36;1muv run ruff check backend[0m
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6488976Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6489229Z env:
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6489408Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6489599Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6489796Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6489983Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6490163Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6490367Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.6490618Z ##[endgroup]
+lint, types, frontend, pytest	Ruff lint	2026-11-16T20:15:06.8934534Z All checks passed!
+lint, types, frontend, pytest	Ruff format	﻿2026-11-16T20:15:06.8985021Z ##[group]Run uv run ruff format --check backend
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.8985351Z [36;1muv run ruff format --check backend[0m
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9012634Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9012868Z env:
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9013026Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9013219Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9013419Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9013608Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9013784Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9014006Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9014263Z ##[endgroup]
+lint, types, frontend, pytest	Ruff format	2026-11-16T20:15:06.9975728Z 645 files already formatted
+lint, types, frontend, pytest	Strict mypy	﻿2026-11-16T20:15:07.0026819Z ##[group]Run uv run mypy
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0027567Z [36;1muv run mypy[0m
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0053545Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0053827Z env:
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0054130Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0054383Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0054639Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0054911Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0055181Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0055467Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:07.0055779Z ##[endgroup]
+lint, types, frontend, pytest	Strict mypy	2026-11-16T20:15:37.6485299Z Success: no issues found in 645 source files
+lint, types, frontend, pytest	Frontend DOM tests	﻿2026-11-16T20:15:37.6947566Z ##[group]Run node --test frontend/tests/*.test.cjs
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6948043Z [36;1mnode --test frontend/tests/*.test.cjs[0m
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6974320Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6974642Z env:
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6974905Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6975167Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6975420Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6975681Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6975948Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6976224Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.6976538Z ##[endgroup]
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.7995554Z TAP version 13
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8799307Z # Subtest: label partitions: an older overlapping refresh cannot overwrite the selected partition
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8847439Z ok 1 - label partitions: an older overlapping refresh cannot overwrite the selected partition
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8851813Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8878595Z   duration_ms: 17.209619
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8879530Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8880032Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8880763Z # Subtest: prospective evaluation: authentic insufficiency has no invented metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8881780Z ok 2 - prospective evaluation: authentic insufficiency has no invented metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8882402Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8882872Z   duration_ms: 1.429222
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8883354Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8883805Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8884393Z # Subtest: prospective evaluation: synthetic diagnostics are labeled
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8885256Z ok 3 - prospective evaluation: synthetic diagnostics are labeled
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8885803Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8886192Z   duration_ms: 1.146874
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8886676Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8887186Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8887974Z # Subtest: operator alerts keep acknowledged incidents open and resolved history inspectable
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8888973Z ok 4 - operator alerts keep acknowledged incidents open and resolved history inspectable
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8889668Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8890132Z   duration_ms: 1.279936
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8890595Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8891047Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8891778Z # Subtest: review: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8892626Z ok 5 - review: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8893211Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8893771Z   duration_ms: 1.527939
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8894242Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8894676Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8895368Z # Subtest: review: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8896186Z ok 6 - review: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8897453Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8897986Z   duration_ms: 0.96432
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8898458Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8898947Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8899497Z # Subtest: review: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8900174Z ok 7 - review: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8900744Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8901153Z   duration_ms: 1.265036
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8901648Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8902115Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8902797Z # Subtest: review: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8903679Z ok 8 - review: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8904345Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8904784Z   duration_ms: 0.988225
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8905336Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8905815Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8906478Z # Subtest: probabilities: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8907603Z ok 9 - probabilities: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8908277Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8908699Z   duration_ms: 1.330161
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8909239Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8909659Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8910367Z # Subtest: probabilities: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8911604Z ok 10 - probabilities: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8912325Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8912774Z   duration_ms: 1.270676
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8913316Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8913743Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8914361Z # Subtest: probabilities: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8915049Z ok 11 - probabilities: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8915603Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8916109Z   duration_ms: 1.354745
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8916555Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8916972Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8917939Z # Subtest: probabilities: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8918901Z ok 12 - probabilities: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8919657Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8920115Z   duration_ms: 0.894127
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8920594Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8921014Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8921778Z # Subtest: lineage: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8922626Z ok 13 - lineage: failed acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8923253Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8923700Z   duration_ms: 1.160823
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8924153Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8924640Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8925268Z # Subtest: lineage: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8926102Z ok 14 - lineage: partial acquisition is visible without expanding details
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8926779Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8927384Z   duration_ms: 1.05222
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8927873Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8928760Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8929393Z # Subtest: lineage: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8930172Z ok 15 - lineage: synthetic banner stays visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8930875Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8931390Z   duration_ms: 1.788964
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8931928Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8932385Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8933091Z # Subtest: lineage: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8934673Z ok 16 - lineage: retained Bitcoin gaps and reconciliation failures are visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8935381Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8935835Z   duration_ms: 1.376413
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8936371Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8936842Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8937832Z # Subtest: review: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8939009Z ok 17 - review: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8939953Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8940524Z   duration_ms: 1.426959
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8941040Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8941482Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8942269Z # Subtest: probabilities: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8943412Z ok 18 - probabilities: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8944170Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8944648Z   duration_ms: 1.329026
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8945118Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8945554Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8946316Z # Subtest: lineage: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8947394Z ok 19 - lineage: provider failure and limits are visible with zero experiment success
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8948127Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8948554Z   duration_ms: 1.959655
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8949009Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8949550Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8950171Z # Subtest: review: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8950984Z ok 20 - review: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8951595Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8952027Z   duration_ms: 1.617206
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8952514Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8953451Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8954153Z # Subtest: probabilities: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8954987Z ok 21 - probabilities: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8955662Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8956079Z   duration_ms: 0.944729
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8956517Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8956992Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8957700Z # Subtest: lineage: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8958317Z ok 22 - lineage: retained weather counts and shortages stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8958792Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8959182Z   duration_ms: 1.469341
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8960084Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8960609Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8961174Z # Subtest: review: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8961875Z ok 23 - review: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8962456Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8962766Z   duration_ms: 0.991556
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8963180Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8963547Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8964080Z # Subtest: probabilities: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8964840Z ok 24 - probabilities: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8965389Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8965715Z   duration_ms: 1.072586
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8966100Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8966498Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8966994Z # Subtest: lineage: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8967911Z ok 25 - lineage: shadow history clocks, depth and fee blockers stay visible
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8968493Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8968779Z   duration_ms: 0.906436
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8969135Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8969484Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8970069Z # Subtest: V1 gates panel shows open and invalid gates as text and never claims completion
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8970921Z ok 26 - V1 gates panel shows open and invalid gates as text and never claims completion
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8971492Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8971799Z   duration_ms: 11.676436
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8972135Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8972504Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8973037Z # Subtest: workbench settlement-only cycles render without prediction or execution fields
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8973857Z ok 27 - workbench settlement-only cycles render without prediction or execution fields
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8974444Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8974738Z   duration_ms: 2.386312
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8975126Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:37.8975459Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1640367Z # Subtest: paper proposals: precise evidence refusals keep deployment disabled and make no POST
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1642108Z ok 28 - paper proposals: precise evidence refusals keep deployment disabled and make no POST
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1642788Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1643174Z   duration_ms: 334.195138
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1684859Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1687855Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1725688Z # Subtest: paper proposals: explicit eligible action sends references and interval only with CSRF
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1726972Z ok 29 - paper proposals: explicit eligible action sends references and interval only with CSRF
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1727984Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1728400Z   duration_ms: 8.565352
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1728850Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1729324Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1828376Z # Subtest: paper proposals: server rejection refreshes authoritative refusal without retrying create
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1832568Z ok 30 - paper proposals: server rejection refreshes authoritative refusal without retrying create
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1857786Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1884151Z   duration_ms: 7.229847
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1887008Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1887816Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1888790Z # Subtest: paper proposals: existing cancelled deployment stays inspectable without creating another
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1918234Z ok 31 - paper proposals: existing cancelled deployment stays inspectable without creating another
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1940651Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1955593Z   duration_ms: 7.922031
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.1978338Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2007735Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2431006Z # Subtest: paper proposals: Demo Mode has no eligibility reads or deployment writes
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2432577Z ok 32 - paper proposals: Demo Mode has no eligibility reads or deployment writes
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2434317Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2434777Z   duration_ms: 4.007307
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2435218Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2435653Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2436358Z # Subtest: paper dashboard: active exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2437387Z ok 33 - paper dashboard: active exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2438709Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2439127Z   duration_ms: 10.522142
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2439619Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2440058Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2441038Z # Subtest: paper dashboard: paused exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2442407Z ok 34 - paper dashboard: paused exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2442978Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2443443Z   duration_ms: 7.524608
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2443921Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2444464Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2478105Z # Subtest: paper dashboard: suspended exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2538781Z ok 35 - paper dashboard: suspended exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2598146Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2628188Z   duration_ms: 8.115455
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2632383Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2634252Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2658239Z # Subtest: paper dashboard: cancelled exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2688188Z ok 36 - paper dashboard: cancelled exposes only permitted lifecycle controls
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2717768Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2747819Z   duration_ms: 6.638204
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2748445Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2751806Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2758476Z # Subtest: paper dashboard: control requests carry CSRF and no risk or model overrides
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2759500Z ok 37 - paper dashboard: control requests carry CSRF and no risk or model overrides
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2760383Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2760818Z   duration_ms: 4.355676
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2761280Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2761768Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2762468Z # Subtest: paper dashboard: cancellation preserves real recorded accounting and risk refusals
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2763853Z ok 38 - paper dashboard: cancellation preserves real recorded accounting and risk refusals
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2764534Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2764909Z   duration_ms: 11.088925
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2765307Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2765697Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2772679Z # Subtest: paper dashboard: polling shows committed changes and recovers after an API outage
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2773806Z ok 39 - paper dashboard: polling shows committed changes and recovers after an API outage
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2774590Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2775055Z   duration_ms: 33.389457
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2775963Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2776388Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2955888Z # Subtest: paper dashboard: leaving the page stops subsequent polling
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2957333Z ok 40 - paper dashboard: leaving the page stops subsequent polling
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2957931Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2958458Z   duration_ms: 16.678566
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2958876Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2959280Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2959967Z # Subtest: paper dashboard: mixed evidence headline totals disclose synthetic accounts
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2960778Z ok 41 - paper dashboard: mixed evidence headline totals disclose synthetic accounts
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2961407Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2961851Z   duration_ms: 5.540744
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2962653Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.2963129Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3129149Z # Subtest: paper proposals: saved Real action cannot write after a switch to Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3149676Z ok 42 - paper proposals: saved Real action cannot write after a switch to Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3164051Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3164726Z   duration_ms: 5.889693
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3187836Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3188328Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3188943Z # Subtest: paper dashboard: saved Real control cannot write after a switch to Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3189747Z ok 43 - paper dashboard: saved Real control cannot write after a switch to Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3190357Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3190692Z   duration_ms: 4.209321
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3191040Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3191400Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3191977Z # Subtest: paper dashboard: switching Demo while a CSRF read is pending cannot expose a writer
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3192784Z ok 44 - paper dashboard: switching Demo while a CSRF read is pending cannot expose a writer
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3193356Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3193674Z   duration_ms: 3.564442
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3193994Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3194313Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3528306Z # Subtest: readiness: changing proposal hides the previous export and review controls until matching evidence arrives
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3554512Z ok 45 - readiness: changing proposal hides the previous export and review controls until matching evidence arrives
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3591078Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3597891Z   duration_ms: 20.360034
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3598542Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3599042Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3599723Z # Subtest: owner access: unconfigured state gives local CLI guidance and no credential setup form
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3600763Z ok 46 - owner access: unconfigured state gives local CLI guidance and no credential setup form
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3601423Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3601856Z   duration_ms: 9.127601
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3602315Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3602691Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3603368Z # Subtest: owner access: manual sign-in clears passphrase before dispatch and sends no principal
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3604263Z ok 47 - owner access: manual sign-in clears passphrase before dispatch and sends no principal
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3613532Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3613919Z   duration_ms: 3.071336
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3614307Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3614606Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3615115Z # Subtest: global halt: local risk reduction does not need an owner and cannot resume deployments
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3615756Z ok 48 - global halt: local risk reduction does not need an owner and cannot resume deployments
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3616468Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3616800Z   duration_ms: 3.987427
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3617283Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3618607Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3619243Z # Subtest: global halt: release is owner-only and binds the observed epoch
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3619954Z ok 49 - global halt: release is owner-only and binds the observed epoch
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3620495Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3620992Z   duration_ms: 2.919336
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3621441Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3621848Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3622537Z # Subtest: global halt: a local HALT file keeps owner release disabled with local recovery guidance
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3623450Z ok 50 - global halt: a local HALT file keeps owner release disabled with local recovery guidance
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3624172Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3624574Z   duration_ms: 1.425622
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3624995Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3625448Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3626148Z # Subtest: global halt: a refused stale release refreshes the barrier without retrying the mutation
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3627330Z ok 51 - global halt: a refused stale release refreshes the barrier without retrying the mutation
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3628087Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3628781Z   duration_ms: 1.781272
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3629278Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3629682Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3648106Z # Subtest: readiness: precise missing evidence and unconfigured owner remain blocked without fake metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3649128Z ok 52 - readiness: precise missing evidence and unconfigured owner remain blocked without fake metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3668007Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3668383Z   duration_ms: 9.85207
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3668786Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3669133Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3701617Z # Subtest: readiness: freeze sends only future capital and loss fields
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3702575Z ok 53 - readiness: freeze sends only future capital and loss fields
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3703181Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3703588Z   duration_ms: 9.013744
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3703965Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3704347Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3819706Z # Subtest: readiness: approval requires owner and current checks and sends revision, never actor or execution
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3821300Z ok 54 - readiness: approval requires owner and current checks and sends revision, never actor or execution
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3822069Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3822415Z   duration_ms: 12.913416
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3822832Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3823160Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3883987Z # Subtest: readiness: server stale revision remains authoritative and does not retry approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3885240Z ok 55 - readiness: server stale revision remains authoritative and does not retry approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3885987Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3887234Z   duration_ms: 4.429406
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3887753Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3888155Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3984103Z # Subtest: readiness: unauthenticated revocation and owner rollback use bounded references only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3985319Z ok 56 - readiness: unauthenticated revocation and owner rollback use bounded references only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3986253Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3987293Z   duration_ms: 10.78341
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3987857Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.3988198Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4083994Z # Subtest: owner and governance: saved Real handlers dispatch nothing after switching Demo
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4085022Z ok 57 - owner and governance: saved Real handlers dispatch nothing after switching Demo
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4085787Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4086293Z   duration_ms: 6.042224
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4100058Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4100614Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4101511Z # Subtest: owner access: logout carries no actor and a saved login handler cannot send a secret in Demo
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4103056Z ok 58 - owner access: logout carries no actor and a saved login handler cannot send a secret in Demo
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4103795Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4104192Z   duration_ms: 3.206533
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4104682Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4105112Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4166647Z # Subtest: readiness audit: recorded owner and reason remain text, with no automatic approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4167878Z ok 59 - readiness audit: recorded owner and reason remain text, with no automatic approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4168629Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4169142Z   duration_ms: 8.730838
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4169590Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4170040Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4250657Z # Subtest: readiness monitoring: pending evidence is explicit and incident research links are canonical
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4251973Z ok 60 - readiness monitoring: pending evidence is explicit and incident research links are canonical
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4252732Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4253154Z   duration_ms: 6.503893
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4253701Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4254092Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4327604Z # Subtest: readiness monitoring: durable incidents show recorded reasons and open or resolved state
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4328834Z ok 61 - readiness monitoring: durable incidents show recorded reasons and open or resolved state
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4330006Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4330472Z   duration_ms: 8.41832
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4330970Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4331413Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4513185Z # Subtest: readiness monitoring: an earlier request cannot overwrite the latest assessment
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4528726Z ok 62 - readiness monitoring: an earlier request cannot overwrite the latest assessment
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4567460Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4567961Z   duration_ms: 13.279327
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4568318Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4568605Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4569271Z # Subtest: readiness: expired owner session refreshes sign-in state without retrying approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4570139Z ok 63 - readiness: expired owner session refreshes sign-in state without retrying approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4570726Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4571062Z   duration_ms: 7.050218
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4571375Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4571870Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4572434Z # Subtest: readiness: an unknown current eligibility cannot become an approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4573331Z ok 64 - readiness: an unknown current eligibility cannot become an approval
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4589523Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4590081Z   duration_ms: 5.036434
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4590451Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4590752Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4606364Z # Subtest: paper timeline: settlement-only reconciliation is explicit and nullable prediction fields stay safe
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4607791Z ok 65 - paper timeline: settlement-only reconciliation is explicit and nullable prediction fields stay safe
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4608587Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4609037Z   duration_ms: 4.01961
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4609557Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4609952Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4618844Z # Subtest: readiness: approve and reject require an audit reason before dispatch
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4619867Z ok 66 - readiness: approve and reject require an audit reason before dispatch
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4620446Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4620846Z   duration_ms: 4.662213
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4621252Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4621600Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4707685Z # Subtest: research modeling: empty history has no invented metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4708524Z ok 67 - research modeling: empty history has no invented metrics
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4709153Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4709574Z   duration_ms: 318.833767
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4709998Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4710368Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4710953Z # Subtest: research modeling: precise refusals, no fabricated zero scores or returns
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4711742Z ok 68 - research modeling: precise refusals, no fabricated zero scores or returns
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4712717Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4713056Z   duration_ms: 6.017836
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4713496Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4713912Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4714607Z # Subtest: research modeling: frozen metrics and baselines retain synthetic label and provenance
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4715557Z ok 69 - research modeling: frozen metrics and baselines retain synthetic label and provenance
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4716270Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4716638Z   duration_ms: 110.369444
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4717226Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4717798Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4718437Z # Subtest: research modeling: interrupted training error stays visible with no results
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4719290Z ok 70 - research modeling: interrupted training error stays visible with no results
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4719863Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4720176Z   duration_ms: 14.188426
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4720530Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4720930Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4721532Z # Subtest: research route: returning from a demo job cannot request a fictional real job
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4722404Z ok 71 - research route: returning from a demo job cannot request a fictional real job
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4722942Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4723237Z   duration_ms: 2.786363
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4723794Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4724134Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4724686Z # Subtest: research backtests: recorded scenarios display simulated accounting only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4725373Z ok 72 - research backtests: recorded scenarios display simulated accounting only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4725965Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4726278Z   duration_ms: 5.387089
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4726612Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.4726964Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6334621Z # Subtest: real mode is the default and demo data is refused outside Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6336034Z ok 73 - real mode is the default and demo data is refused outside Demo Mode
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6336771Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6338009Z   duration_ms: 280.023931
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6338742Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6339067Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6339582Z # Subtest: demo mode serves frozen data and disables every API read
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6340327Z ok 74 - demo mode serves frozen data and disables every API read
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6340803Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6341160Z   duration_ms: 49.933807
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6341536Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6341898Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6342332Z # Subtest: real API reads are same-origin GETs under /api/ only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6342999Z ok 75 - real API reads are same-origin GETs under /api/ only
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6343453Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6343769Z   duration_ms: 66.98463
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6344162Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6344509Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6345145Z # Subtest: an unreachable resource does not blank the others
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6345667Z ok 76 - an unreachable resource does not blank the others
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6347712Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6348032Z   duration_ms: 57.25878
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6348349Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6348715Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6349205Z # Subtest: demo data is deterministic across loads and internally consistent
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6349775Z ok 77 - demo data is deterministic across loads and internally consistent
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6350166Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6350380Z   duration_ms: 130.419563
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6350650Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6350863Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6351262Z # Subtest: demo research jobs are frozen, labeled and never claim an edge
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6351712Z ok 78 - demo research jobs are frozen, labeled and never claim an edge
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6352027Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6352301Z   duration_ms: 39.111847
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6352564Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6352788Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6353219Z # Subtest: modern API writes require Real Mode, a same-origin path and a current CSRF token
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6354125Z ok 79 - modern API writes require Real Mode, a same-origin path and a current CSRF token
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6354504Z   ---
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6354764Z   duration_ms: 77.496388
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6355029Z   type: 'test'
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6355249Z   ...
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6512069Z 1..79
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6512517Z # tests 79
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6512814Z # suites 0
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6513239Z # pass 79
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6513540Z # fail 0
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6513870Z # cancelled 0
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6528219Z # skipped 0
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6534222Z # todo 0
+lint, types, frontend, pytest	Frontend DOM tests	2026-11-16T20:15:38.6534823Z # duration_ms 921.206261
+lint, types, frontend, pytest	Pytest (complete offline suite)	﻿2026-11-16T20:15:38.6585756Z ##[group]Run uv run pytest -p no:cacheprovider -o faulthandler_timeout=600 --junitxml=pytest-results.xml
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6586431Z [36;1muv run pytest -p no:cacheprovider -o faulthandler_timeout=600 --junitxml=pytest-results.xml[0m
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6613537Z shell: /usr/bin/bash -e {0}
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6613906Z env:
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6614195Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6614444Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6614693Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6614978Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6615221Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6615516Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:38.6615816Z ##[endgroup]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5708184Z ============================= test session starts ==============================
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5708724Z platform linux -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5709077Z rootdir: /home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5709355Z configfile: pyproject.toml
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5709635Z testpaths: backend/tests
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5709970Z plugins: platformdirs-4.12.2, anyio-4.15.1, cov-7.1.0, hypothesis-6.168.3
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5710278Z collected 1952 items
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:51.5710396Z 
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:52.0868999Z backend/tests/architecture/test_boundaries.py ..                         [  0%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:52.5591861Z backend/tests/architecture/test_sqlite_uri.py ..                         [  0%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:54.9785735Z backend/tests/exchange/test_collector_service.py .......                 [  0%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:54.9946628Z backend/tests/exchange/test_feed_recorder.py ........                    [  0%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:55.2266864Z backend/tests/exchange/test_gateway_http.py .....                        [  1%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:55.9321824Z backend/tests/exchange/test_recording_v2.py .........                    [  1%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:15:55.9339372Z backend/tests/exchange/test_wire_session.py ..                           [  1%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:14.0907538Z backend/tests/integration/test_bitcoin_history_listener.py .             [  1%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:32.4860082Z backend/tests/integration/test_cis1990_listener.py ...                   [  1%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:32.7021375Z backend/tests/integration/test_collector_workbench_compatibility.py .... [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:32.7028034Z                                                                          [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:32.8999798Z backend/tests/integration/test_forward_operator_listener.py .            [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:35.7098105Z backend/tests/integration/test_forward_validation_listener.py .          [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:36.0839806Z backend/tests/integration/test_prospective_listener.py .                 [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:16:37.2041210Z backend/tests/integration/test_prospective_offline.py ..                 [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:08.6410016Z backend/tests/integration/test_recovery_listener.py .                    [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:08.9534635Z backend/tests/integration/test_shadow_accounting.py ..                   [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:35.9010725Z backend/tests/integration/test_shadow_history_listener.py .              [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:36.0331033Z backend/tests/integration/test_shadow_tracking.py ...                    [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:50.4976178Z backend/tests/integration/test_weather_cohorts_listener.py .             [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:17:59.9195373Z backend/tests/integration/test_weather_history_listener.py .             [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:18:01.1596866Z backend/tests/integration/test_weather_labels_listener.py .              [  2%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:18:32.1865312Z backend/tests/integration/test_workbench_listener.py ...                 [  3%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:23.1734722Z backend/tests/integration/test_workbench_process.py ......               [  3%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:23.4521956Z backend/tests/property/test_accounting.py ....                           [  3%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:23.8772141Z backend/tests/property/test_invariants.py .........                      [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:23.8781520Z backend/tests/unit/test_amsterdam_listing.py .                           [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:23.9139849Z backend/tests/unit/test_ask_values.py ..                                 [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:25.0264587Z backend/tests/unit/test_austin_rules.py ..                               [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:26.6655225Z backend/tests/unit/test_before_close.py ..                               [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:27.2390958Z backend/tests/unit/test_before_occurrence.py ..                          [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:27.2740425Z backend/tests/unit/test_bid_values.py ..                                 [  4%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:29.7406445Z backend/tests/unit/test_bitcoin_history.py ...................           [  5%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:29.7433079Z backend/tests/unit/test_book_imbalance.py ..                             [  5%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.2993296Z backend/tests/unit/test_calibration_gap.py .                             [  5%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.3288158Z backend/tests/unit/test_candle_activity.py ..                            [  5%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.3627847Z backend/tests/unit/test_candle_change.py ..                              [  5%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.3923222Z backend/tests/unit/test_candle_price.py ..                               [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.4214280Z backend/tests/unit/test_candle_quotes.py ..                              [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.4561366Z backend/tests/unit/test_candle_spread.py ..                              [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.4900637Z backend/tests/unit/test_change_values.py ..                              [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.5408159Z backend/tests/unit/test_checkpoint_verifier.py ....                      [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.5852617Z backend/tests/unit/test_chicago_expiration_cli.py .                      [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:31.9623977Z backend/tests/unit/test_chicago_fold_equity.py .                         [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:32.0062519Z backend/tests/unit/test_chicago_forecast_error.py .                      [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:32.8601828Z backend/tests/unit/test_chicago_guess_walk.py .                          [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:35.4938814Z backend/tests/unit/test_chicago_manifest_gap.py .                        [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:35.6135408Z backend/tests/unit/test_chicago_note.py .                                [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:36.7215143Z backend/tests/unit/test_chicago_print_guess.py .                         [  6%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:37.5518014Z backend/tests/unit/test_chicago_print_miss.py .                          [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:37.5964106Z backend/tests/unit/test_chicago_results.py .                             [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:38.7228158Z backend/tests/unit/test_chicago_rules.py ..                              [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:38.7238850Z backend/tests/unit/test_chicago_settlement.py .                          [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:39.5682878Z backend/tests/unit/test_chicago_walk_forward.py .                        [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:39.9416365Z backend/tests/unit/test_cis1990_demo.py ........                         [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:39.9611918Z backend/tests/unit/test_cli_observations.py ...                          [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:40.7382953Z backend/tests/unit/test_cli_print_guess.py ..                            [  7%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:40.7642409Z backend/tests/unit/test_cli_window.py ..                                 [  8%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:40.7976542Z backend/tests/unit/test_close_values.py ..                               [  8%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:40.8005745Z backend/tests/unit/test_cloud_cover.py ..                                [  8%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.0484942Z backend/tests/unit/test_dallas_rules.py ..                               [  8%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1389781Z backend/tests/unit/test_dataset_pipeline.py .........                    [  8%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1424367Z backend/tests/unit/test_decay.py ......                                  [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1456421Z backend/tests/unit/test_dew_point.py ..                                  [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1472684Z backend/tests/unit/test_ecmwf_ifs.py ..                                  [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1487997Z backend/tests/unit/test_ecmwf_ifs_previous.py ..                         [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1514865Z backend/tests/unit/test_ensemble_ecmwf_gap.py ..                         [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1541472Z backend/tests/unit/test_ensemble_hrrr_gap.py ..                          [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.1569016Z backend/tests/unit/test_ensemble_rank.py ..                              [  9%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.4858860Z backend/tests/unit/test_execution_book_routing.py ....................   [ 10%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:42.5238113Z backend/tests/unit/test_execution_r4.py .............                    [ 11%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:57.9693679Z backend/tests/unit/test_experiments_r4.py ..................             [ 12%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:19:58.0344873Z backend/tests/unit/test_expiration_check.py ..                           [ 12%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:00.7968794Z backend/tests/unit/test_family_discovery.py ..............               [ 13%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:00.8423390Z backend/tests/unit/test_family_screening.py ............................ [ 14%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:03.7068655Z ...                                                                      [ 14%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:06.9391932Z backend/tests/unit/test_feature_coverage.py .                            [ 14%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:09.4834469Z backend/tests/unit/test_feature_hash_gap.py .                            [ 14%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:09.4971348Z backend/tests/unit/test_fee_capture_due.py .....                         [ 15%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:10.0888118Z backend/tests/unit/test_fee_evidence.py ..........................       [ 16%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:10.1125233Z backend/tests/unit/test_fee_manual_import.py .............               [ 17%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:10.1153116Z backend/tests/unit/test_forecast_dispersion.py ..                        [ 17%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:10.1180607Z backend/tests/unit/test_forecast_mean.py ..                              [ 17%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:27.4463037Z backend/tests/unit/test_forward_operator.py ............................ [ 18%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:27.9139893Z ........                                                                 [ 19%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:27.9245379Z backend/tests/unit/test_forward_station_bindings.py ......               [ 19%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.7874243Z backend/tests/unit/test_forward_workflow_chain.py ...................... [ 20%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8603415Z ..                                                                       [ 20%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8641428Z backend/tests/unit/test_gateway.py .....                                 [ 20%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8661176Z backend/tests/unit/test_gfs_ecmwf_gap.py ..                              [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8685595Z backend/tests/unit/test_gfs_ensemble.py ..                               [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8705783Z backend/tests/unit/test_gfs_hrrr_gap.py ..                               [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.8720979Z backend/tests/unit/test_gfs_seamless_previous.py ..                      [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9199332Z backend/tests/unit/test_historical_trades.py ..                          [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9229237Z backend/tests/unit/test_hour_of_day.py ..                                [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9399455Z backend/tests/unit/test_hours_until_resolution.py ..                     [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9408129Z backend/tests/unit/test_houston_listing.py .                             [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9421767Z backend/tests/unit/test_hrrr_archive.py ..                               [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:28.9448807Z backend/tests/unit/test_humidity.py ..                                   [ 21%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:30.5577576Z backend/tests/unit/test_informational_rules.py ....                      [ 22%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:30.5944003Z backend/tests/unit/test_interest_values.py ..                            [ 22%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:30.6003976Z backend/tests/unit/test_interpret.py ......                              [ 22%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:38.8965396Z backend/tests/unit/test_kxhigh_scan.py ..                                [ 22%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:39.3174670Z backend/tests/unit/test_label_acquisition_errors.py .....                [ 22%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:20:39.7820009Z backend/tests/unit/test_label_lifecycle.py ......                        [ 23%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:45.9769750Z backend/tests/unit/test_label_partitions.py ..........                   [ 23%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:51.7263348Z backend/tests/unit/test_label_schedule.py ..................             [ 24%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:52.4194008Z backend/tests/unit/test_last_print.py ..                                 [ 24%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:52.4410248Z backend/tests/unit/test_live_trades_short.py ..                          [ 24%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:52.5493652Z backend/tests/unit/test_local_acceptance.py ............................ [ 26%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:52.7648522Z .........................                                                [ 27%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.6491547Z backend/tests/unit/test_local_chain.py ....................              [ 28%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.6683108Z backend/tests/unit/test_local_templates.py ............................. [ 30%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.6864289Z ...........................                                              [ 31%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.6926862Z backend/tests/unit/test_markets_books_accounting.py .........            [ 31%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.6963992Z backend/tests/unit/test_mean_control_gap.py ..                           [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.7001364Z backend/tests/unit/test_mean_ecmwf_gap.py ..                             [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.7037807Z backend/tests/unit/test_mean_hrrr_gap.py ..                              [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.7046397Z backend/tests/unit/test_mexicocity_listing.py .                          [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:21:54.7066132Z backend/tests/unit/test_model_gap.py ..                                  [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:26.5918188Z backend/tests/unit/test_model_workflow_r2.py ....                        [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:26.5934154Z backend/tests/unit/test_ncep_hrrr.py ..                                  [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:26.5949713Z backend/tests/unit/test_ncep_hrrr_previous.py ..                         [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.8861513Z backend/tests/unit/test_newyork_rules.py ..                              [ 32%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.8939983Z backend/tests/unit/test_numeric_time_ids.py ..............               [ 33%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.8999108Z backend/tests/unit/test_nws_control_gap.py ..                            [ 33%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9036176Z backend/tests/unit/test_nws_daytime.py ..                                [ 33%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9076638Z backend/tests/unit/test_nws_detailed_forecast.py ..                      [ 33%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9119822Z backend/tests/unit/test_nws_dew_point.py ..                              [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9171935Z backend/tests/unit/test_nws_ecmwf_gap.py ..                              [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9212848Z backend/tests/unit/test_nws_end_time.py ..                               [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9229285Z backend/tests/unit/test_nws_forecast.py ..                               [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9246048Z backend/tests/unit/test_nws_forecast_context.py ..                       [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9264424Z backend/tests/unit/test_nws_forecast_coordinate_count.py ..              [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9281076Z backend/tests/unit/test_nws_forecast_daytime.py ..                       [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9298509Z backend/tests/unit/test_nws_forecast_detailed.py ..                      [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9315706Z backend/tests/unit/test_nws_forecast_elevation.py ..                     [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9333599Z backend/tests/unit/test_nws_forecast_end_time.py ..                      [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9345169Z backend/tests/unit/test_nws_forecast_generated_at.py .                   [ 34%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9357007Z backend/tests/unit/test_nws_forecast_generator.py .                      [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9373787Z backend/tests/unit/test_nws_forecast_geometry_type.py ..                 [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9396081Z backend/tests/unit/test_nws_forecast_hrrr_gap.py ..                      [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9414750Z backend/tests/unit/test_nws_forecast_icon.py ..                          [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9433186Z backend/tests/unit/test_nws_forecast_name.py ..                          [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9450667Z backend/tests/unit/test_nws_forecast_number.py ..                        [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9468841Z backend/tests/unit/test_nws_forecast_precipitation.py ..                 [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9486768Z backend/tests/unit/test_nws_forecast_short.py ..                         [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9504912Z backend/tests/unit/test_nws_forecast_start_time.py ..                    [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9522814Z backend/tests/unit/test_nws_forecast_temperature_trend.py ..             [ 35%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9540694Z backend/tests/unit/test_nws_forecast_temperature_unit.py ..              [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9558805Z backend/tests/unit/test_nws_forecast_temperatures.py ..                  [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9575440Z backend/tests/unit/test_nws_forecast_type.py ..                          [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9587440Z backend/tests/unit/test_nws_forecast_units.py .                          [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9599167Z backend/tests/unit/test_nws_forecast_update_time.py .                    [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9610353Z backend/tests/unit/test_nws_forecast_valid_times.py .                    [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9628406Z backend/tests/unit/test_nws_forecast_wind_direction.py ..                [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9646595Z backend/tests/unit/test_nws_forecast_wind_speed.py ..                    [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9679376Z backend/tests/unit/test_nws_hourly.py ..                                 [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9718486Z backend/tests/unit/test_nws_hourly_context.py ..                         [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9757329Z backend/tests/unit/test_nws_hourly_coordinate_count.py ..                [ 36%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9795326Z backend/tests/unit/test_nws_hourly_elevation.py ..                       [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9827817Z backend/tests/unit/test_nws_hourly_generated_at.py .                     [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9859975Z backend/tests/unit/test_nws_hourly_generator.py .                        [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9896850Z backend/tests/unit/test_nws_hourly_geometry_type.py ..                   [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9934009Z backend/tests/unit/test_nws_hourly_type.py ..                            [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9966111Z backend/tests/unit/test_nws_hourly_units.py .                            [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:27.9997405Z backend/tests/unit/test_nws_hourly_update_time.py .                      [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0028789Z backend/tests/unit/test_nws_hourly_valid_times.py .                      [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0081479Z backend/tests/unit/test_nws_hrrr_gap.py ..                               [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0121602Z backend/tests/unit/test_nws_icon.py ..                                   [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0190628Z backend/tests/unit/test_nws_mean_gap.py ..                               [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0249421Z backend/tests/unit/test_nws_member_gap.py ..                             [ 37%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0913307Z backend/tests/unit/test_nws_metadata.py ......                           [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0954251Z backend/tests/unit/test_nws_period_name.py ..                            [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.0995147Z backend/tests/unit/test_nws_period_number.py ..                          [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1009884Z backend/tests/unit/test_nws_points_astronomical.py ..                    [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1024961Z backend/tests/unit/test_nws_points_context.py ..                         [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1039674Z backend/tests/unit/test_nws_points_coordinate_count.py ..                [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1053596Z backend/tests/unit/test_nws_points_geometry_type.py ..                   [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1067807Z backend/tests/unit/test_nws_points_id.py ..                              [ 38%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1082158Z backend/tests/unit/test_nws_points_property_id.py ..                     [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1095668Z backend/tests/unit/test_nws_points_property_type.py ..                   [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1110089Z backend/tests/unit/test_nws_points_twilight_begin.py ..                  [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1123822Z backend/tests/unit/test_nws_points_type.py ..                            [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1166216Z backend/tests/unit/test_nws_precipitation_probability.py ..              [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1209172Z backend/tests/unit/test_nws_relative_humidity.py ..                      [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1249417Z backend/tests/unit/test_nws_short_forecast.py ..                         [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1290454Z backend/tests/unit/test_nws_start_time.py ..                             [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1331280Z backend/tests/unit/test_nws_temperature_trend.py ..                      [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1371919Z backend/tests/unit/test_nws_temperature_unit.py ..                       [ 39%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1414429Z backend/tests/unit/test_nws_temperature_values.py ..                     [ 40%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1455247Z backend/tests/unit/test_nws_wind_direction.py ..                         [ 40%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1495642Z backend/tests/unit/test_nws_wind_speed.py ..                             [ 40%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:28.1526794Z backend/tests/unit/test_observed_temperature.py ..                       [ 40%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:29.4271597Z backend/tests/unit/test_oklahomacity_rules.py ..                         [ 40%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:29.8636497Z backend/tests/unit/test_operational_research.py ........................ [ 41%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:29.8976715Z ....                                                                     [ 41%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:29.9045387Z backend/tests/unit/test_orders_risk_lifecycle.py ..........              [ 42%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:33.1652048Z backend/tests/unit/test_owner_auth.py ...............                    [ 43%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:41.2869946Z backend/tests/unit/test_paper_reconciliation.py ....................     [ 44%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:44.3865808Z backend/tests/unit/test_paper_research_collection.py .........           [ 44%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:44.7498800Z backend/tests/unit/test_paper_research_features.py ...............       [ 45%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:44.7699082Z backend/tests/unit/test_paper_risk.py .....................              [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:46.4471474Z backend/tests/unit/test_philadelphia_note.py .                           [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:46.4503210Z backend/tests/unit/test_precipitation.py ..                              [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:49.2996855Z backend/tests/unit/test_prediction_coverage.py .                         [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:51.0055882Z backend/tests/unit/test_prediction_strategy.py .                         [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:51.0108630Z backend/tests/unit/test_previous_day_error.py ..                         [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:51.0128872Z backend/tests/unit/test_previous_model_gap.py ..                         [ 46%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:51.1667507Z backend/tests/unit/test_probability_models_r2.py ........                [ 47%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:52.9571248Z backend/tests/unit/test_prospective.py .......................           [ 48%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:59.5158976Z backend/tests/unit/test_provenance.py ...                                [ 48%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:59.5481029Z backend/tests/unit/test_public_dataset.py ...                            [ 48%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:59.7070336Z backend/tests/unit/test_public_families.py ......................        [ 50%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:22:59.7169142Z backend/tests/unit/test_public_tape.py ...                               [ 50%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:38.4080982Z backend/tests/unit/test_readiness_evidence.py .....................      [ 51%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:39.4400227Z backend/tests/unit/test_readiness_http.py ........                       [ 51%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:45.3191813Z backend/tests/unit/test_readiness_recovery.py ...............            [ 52%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:45.8646320Z backend/tests/unit/test_readiness_store.py ............................. [ 53%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:46.0150167Z .......                                                                  [ 54%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:46.1082956Z backend/tests/unit/test_recovery_proof.py .........                      [ 54%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:47.2436799Z backend/tests/unit/test_registry.py ......                               [ 55%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:47.2710357Z backend/tests/unit/test_related_strikes.py ..                            [ 55%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:47.2770445Z backend/tests/unit/test_replay.py ......                                 [ 55%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:51.4527931Z backend/tests/unit/test_research_acquisition.py ..............           [ 56%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:53.7740424Z backend/tests/unit/test_research_alert_schedule.py ......                [ 56%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:53.9102821Z backend/tests/unit/test_research_backtesting.py ..............           [ 57%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:57.4653246Z backend/tests/unit/test_research_execution_inputs.py ................... [ 58%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:58.4302736Z ....                                                                     [ 58%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:58.4431322Z backend/tests/unit/test_research_forward_status.py .......               [ 58%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:23:58.4652856Z backend/tests/unit/test_research_hypothesis_provider.py ................ [ 59%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:08.1875382Z ......                                                                   [ 59%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:08.7217918Z backend/tests/unit/test_research_investigations.py ..................... [ 60%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:08.7472385Z .                                                                        [ 60%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:10.8022358Z backend/tests/unit/test_research_jobs.py ....................            [ 61%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:16.3218138Z backend/tests/unit/test_research_local_evidence.py ................      [ 62%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:18.4217682Z backend/tests/unit/test_research_modeling.py .................           [ 63%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:24:25.4392918Z backend/tests/unit/test_research_modeling_jobs.py .....................  [ 64%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:28.2760700Z backend/tests/unit/test_research_monitoring.py ...............           [ 65%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:32.1091634Z backend/tests/unit/test_research_paper.py ...............                [ 66%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:33.5955142Z backend/tests/unit/test_research_paper_models.py ...................     [ 67%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:36.4500207Z backend/tests/unit/test_research_paper_recovery.py ............          [ 67%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:39.1235478Z backend/tests/unit/test_research_paper_store.py ..............           [ 68%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:39.1556760Z backend/tests/unit/test_research_pipeline.py ....                        [ 68%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:39.1690639Z backend/tests/unit/test_research_pricing.py .......                      [ 69%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:29:39.1773070Z backend/tests/unit/test_research_provider.py ........                    [ 69%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:31:54.9900862Z backend/tests/unit/test_research_readiness.py ................           [ 70%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:31:55.0837643Z backend/tests/unit/test_research_transport.py ..                         [ 70%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:31:55.1279719Z backend/tests/unit/test_review_artifacts.py .............                [ 71%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:04.1326712Z backend/tests/unit/test_revision_bracket.py ....................         [ 72%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:06.7081417Z backend/tests/unit/test_revision_down.py .....                           [ 72%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:31.3663780Z backend/tests/unit/test_revision_records.py .......                      [ 72%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.6248828Z backend/tests/unit/test_revision_rule.py ...                             [ 72%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.6298448Z backend/tests/unit/test_scanner.py .......                               [ 73%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.6327723Z backend/tests/unit/test_seasonality.py ..                                [ 73%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.6373996Z backend/tests/unit/test_series_fees.py .....                             [ 73%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.6532086Z backend/tests/unit/test_settlement_score.py ..                           [ 73%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.7058677Z backend/tests/unit/test_settlement_value.py ..                           [ 73%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:34.7104757Z backend/tests/unit/test_shadow.py ......                                 [ 74%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:35.0147471Z backend/tests/unit/test_shadow_accounting.py ........................... [ 75%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:32:35.4149750Z ......                                                                   [ 75%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.0920055Z backend/tests/unit/test_shadow_history.py ...............                [ 76%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.3599063Z backend/tests/unit/test_short_refresh.py ..                              [ 76%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.3970784Z backend/tests/unit/test_spread_values.py ..                              [ 76%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.4018862Z backend/tests/unit/test_station_bias.py ..                               [ 76%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.4101385Z backend/tests/unit/test_strategy_and_pit.py .........                    [ 77%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.4225128Z backend/tests/unit/test_structure.py ..                                  [ 77%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.4243981Z backend/tests/unit/test_submit_gate.py ...                               [ 77%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.4600056Z backend/tests/unit/test_tape_score.py ..                                 [ 77%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.6408588Z backend/tests/unit/test_tracking.py .................................... [ 79%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:02.9786896Z ........................................................................ [ 83%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:03.3866228Z .......................................................                  [ 86%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:03.7087418Z backend/tests/unit/test_tracking_alerts.py ............                  [ 86%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:03.9564955Z backend/tests/unit/test_tracking_models.py ............................. [ 88%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:04.0513079Z .................                                                        [ 89%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:05.6170816Z backend/tests/unit/test_trade_prints.py ....                             [ 89%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:05.6470439Z backend/tests/unit/test_unit_asks.py ..                                  [ 89%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:05.6765033Z backend/tests/unit/test_unit_interest.py ..                              [ 89%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:05.6945656Z backend/tests/unit/test_v1_gates.py ...........                          [ 90%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:06.2322109Z backend/tests/unit/test_volume_check.py ..                               [ 90%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:06.2681960Z backend/tests/unit/test_volume_values.py ..                              [ 90%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:07.9420505Z backend/tests/unit/test_walk_forward.py ....                             [ 90%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:09.3332664Z backend/tests/unit/test_weather_archive_r2.py ...........                [ 91%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:09.3366689Z backend/tests/unit/test_weather_baseline.py ....                         [ 91%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:35.1691424Z backend/tests/unit/test_weather_cohorts.py .........                     [ 91%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:35.1801108Z backend/tests/unit/test_weather_features_r2.py ...........               [ 92%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:44.3528037Z backend/tests/unit/test_weather_history.py ..........                    [ 92%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:50.5113294Z backend/tests/unit/test_weather_labels.py .............................. [ 94%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:50.5147436Z ...                                                                      [ 94%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:50.5221539Z backend/tests/unit/test_weather_recorded.py ...........                  [ 95%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:50.5252660Z backend/tests/unit/test_wind.py ..                                       [ 95%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:50.6045018Z backend/tests/unit/test_workbench_http.py ...............                [ 95%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:51.4944268Z backend/tests/unit/test_workbench_provider.py .......................... [ 97%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:33:51.5423889Z .                                                                        [ 97%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:05.6343421Z backend/tests/unit/test_workbench_workflow.py ........                   [ 97%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:06.8028904Z backend/tests/unit/test_workspace_recovery.py .......................... [ 99%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:20.5566422Z ...............                                                          [ 99%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:20.5875931Z backend/tests/unit/test_zero_bids.py ..                                  [ 99%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:21.2342391Z backend/tests/unit/test_zero_volumes.py ..                               [100%]
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:21.2342809Z 
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:21.2343142Z - generated xml file: /home/runner/work/EntropyTrade/EntropyTrade/pytest-results.xml -
+lint, types, frontend, pytest	Pytest (complete offline suite)	2026-11-16T20:34:21.2343617Z ====================== 1952 passed in 1121.19s (0:18:41) =======================
+lint, types, frontend, pytest	Retain pytest results	﻿2026-11-16T20:34:22.5375484Z ##[group]Run actions/upload-artifact@v4
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5375732Z with:
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5375901Z   name: pytest-results
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376083Z   path: pytest-results.xml
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376276Z   if-no-files-found: ignore
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376462Z   retention-days: 14
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376649Z   compression-level: 6
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376820Z   overwrite: false
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5376993Z   include-hidden-files: false
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5377368Z env:
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5377518Z   UV_LOCKED: 1
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5377697Z   PYTHONDONTWRITEBYTECODE: 1
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5377891Z   OMP_NUM_THREADS: 1
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5378065Z   OPENBLAS_NUM_THREADS: 1
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5378309Z   UV_PYTHON: 3.13
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5378519Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.5378758Z ##[endgroup]
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.6681085Z (node:6423) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.6682105Z (Use `node --trace-deprecation ...` to show where the warning was created)
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.6733592Z With the provided path, there will be 1 file uploaded
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.6734478Z Artifact name is valid!
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.6734852Z Root directory input is valid!
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.8747162Z Beginning upload of artifact content to blob storage
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.8913053Z (node:6423) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.9256625Z Uploaded bytes 39281
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.9418991Z Finished uploading artifact content to blob storage!
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.9419970Z SHA256 digest of uploaded artifact zip is 0cfa1d81c296bdaa22447925e4db66f5dbd0c7f9da46fcb611f232e3c9db349f
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:22.9421680Z Finalizing artifact upload
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:23.2557469Z Artifact pytest-results.zip successfully finalized. Artifact ID 14267732461
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:23.2558555Z Artifact pytest-results has been successfully uploaded! Final size is 39281 bytes. Artifact ID is 14267732461
+lint, types, frontend, pytest	Retain pytest results	2026-11-16T20:34:23.2563789Z Artifact download URL: https://github.com/GabeSternberg/EntropyTrade/actions/runs/43947708763/artifacts/14267732461
+lint, types, frontend, pytest	Post Run actions/setup-node@v4	﻿2026-11-16T20:34:23.2702840Z Post job cleanup.
+lint, types, frontend, pytest	Post Run actions/setup-node@v4	2026-11-16T20:34:23.3619556Z (node:6437) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+lint, types, frontend, pytest	Post Run actions/setup-node@v4	2026-11-16T20:34:23.3620224Z (Use `node --trace-deprecation ...` to show where the warning was created)
+lint, types, frontend, pytest	Post Run astral-sh/setup-uv@v6	﻿2026-11-16T20:34:23.3761788Z Post job cleanup.
+lint, types, frontend, pytest	Post Run astral-sh/setup-uv@v6	2026-11-16T20:34:23.4730571Z (node:6445) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+lint, types, frontend, pytest	Post Run astral-sh/setup-uv@v6	2026-11-16T20:34:23.4732246Z Cache hit occurred on key setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6, not saving cache.
+lint, types, frontend, pytest	Post Run astral-sh/setup-uv@v6	2026-11-16T20:34:23.4733043Z (Use `node --trace-deprecation ...` to show where the warning was created)
+lint, types, frontend, pytest	Post Run actions/checkout@v4	﻿2026-11-16T20:34:23.4841962Z Post job cleanup.
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5498283Z [command]/usr/bin/git version
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5536202Z git version 2.56.1
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5569224Z Temporarily overriding HOME='/home/runner/work/_temp/0d3bb591-172b-4863-989c-83c7a227e933' before making global git config changes
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5570008Z Adding repository directory to the temporary git global config as a safe directory
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5573910Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/EntropyTrade/EntropyTrade
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5605723Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5636727Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5808840Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5833055Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.5996276Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+lint, types, frontend, pytest	Post Run actions/checkout@v4	2026-11-16T20:34:23.6021391Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+lint, types, frontend, pytest	Complete job	﻿2026-11-16T20:34:23.6298223Z Cleaning up orphan processes
+lint, types, frontend, pytest	Complete job	2026-11-16T20:34:23.6575503Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4, astral-sh/setup-uv@v6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

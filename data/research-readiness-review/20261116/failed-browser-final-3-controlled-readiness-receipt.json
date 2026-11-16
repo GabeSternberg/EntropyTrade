@@ -1,0 +1,591 @@
+{
+  "status": "failed",
+  "data_kind": "synthetic",
+  "controlled_readiness": true,
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "912a4fad4b487d448c2619336bee0ae6cdd6c7f11d5ec4db7bfb496f2607239e",
+    "files": 663
+  },
+  "posts": [
+    {
+      "path": "/api/owner/login",
+      "body": {
+        "password": "[REDACTED CONTROLLED TEST INPUT]"
+      }
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed/review",
+      "body": {
+        "decision": "approve",
+        "expected_revision": 0,
+        "note": "Reviewed actual retained synthetic wires and bounded capital"
+      }
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "body": {
+        "capital_dollars": "200.00",
+        "max_loss_dollars": "15.00"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d/review",
+      "body": {
+        "decision": "reject",
+        "expected_revision": 0,
+        "note": "Reject this larger proposed envelope for controlled review coverage"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d/rollback",
+      "body": {
+        "target_proposal_id": "sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed",
+        "reason": "Review prior server references without replacing the deployed model"
+      }
+    },
+    {
+      "path": "/api/owner/logout",
+      "body": {}
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd/revoke",
+      "body": {
+        "reason": "Withdraw pending controlled proposal"
+      }
+    },
+    {
+      "path": "/api/controls/halt",
+      "body": {
+        "reason": "Check the persistent global barrier"
+      }
+    },
+    {
+      "path": "/api/owner/login",
+      "body": {
+        "password": "[REDACTED CONTROLLED TEST INPUT]"
+      }
+    },
+    {
+      "path": "/api/controls/release",
+      "body": {
+        "reason": "Owner reviewed the barrier state",
+        "expected_epoch": 1
+      }
+    }
+  ],
+  "sensitive_requests": [
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/login",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed/review",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/monitoring",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d/review",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d/rollback",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/logout",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd/revoke",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/halt",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/login",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/release",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/80f171f6-34ba-4e75-a207-2fd88103bcd6/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A79cc9e4b61642fe1ec45d2f624f27d82b23920c67042b845560a8484e13c2acd",
+      "method": "GET"
+    }
+  ],
+  "screenshots": [
+    "actual-readiness-monitoring.png",
+    "owner-readiness-audit.png",
+    "readiness-mobile.png"
+  ],
+  "downloads": [
+    {
+      "file": "revoked-readiness.json",
+      "sha256": "25bafe3af4643a8ea0b5c250ba9f878b60a7b1f5097d7ee7c7177c6a070ca712"
+    },
+    {
+      "file": "restarted-readiness.json",
+      "sha256": "45d007197af21b3d7cfbc8cba2f1e548a6480a446d92a3f5be329cdf06d7beea"
+    }
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "evidence": {
+    "cycles": 23,
+    "independent_events": 21,
+    "evidence_hash": "sha256:2f5446fb433c3933edae6ebc889bef0cd52709dbbf208bbdf88ac55f4bfa3c08"
+  },
+  "monitoring": {
+    "status": "pending",
+    "evidence_as_of": "2026-12-06T23:00:27+00:00",
+    "signal_kinds": [],
+    "incident_ids": []
+  },
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n\u001b[32m+ actual\u001b[39m \u001b[31m- expected\u001b[39m\n... Skipped lines\n\n\u001b[39m  {\n\u001b[39m    capital_envelope: {\n\u001b[39m      max_contracts: '100.00',\n\u001b[39m      max_dollars: '100.000000'\n\u001b[39m    },\n\u001b[34m...\u001b[39m\n\u001b[39m    },\n\u001b[31m-\u001b[39m   rollback: {\n\u001b[31m-\u001b[39m     from: 'sha256:82dcf10838a29748f0572caef0b06ffc7c4383b5131fe613c2611c9bc5fd090d',\n\u001b[31m-\u001b[39m     reason: 'Review prior server references without replacing the deployed model',\n\u001b[31m-\u001b[39m     target: 'sha256:74fa11e57508b654ee572bc7875d8f1d980cdc5f56fd9774b68edd70affe13ed'\n\u001b[31m-\u001b[39m   },\n\u001b[39m    schema_version: 'readiness-proposal-v1',\n\u001b[39m    scope: 'Future readiness review only; proposed capital is not allocated. No live activation or orders.',\n\u001b[39m    source_fingerprint: 'sha256:f9163f8aedd65163a5fd940e1594a0a89863a0ab808583e5007e502f22200b06',\n\u001b[39m    submission_enabled: false\n\u001b[39m  }\n\n    at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:244:16\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:310:9\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:305:11\n    at TimeoutManager.withRunnable (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/timeoutManager.js:67:14)\n    at TestInfoImpl._runWithTimeout (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/testInfo.js:303:7)\n    at /workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:308:7\n    at WorkerMain._runTest (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:283:5)\n    at WorkerMain.runTestGroup (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/worker/workerMain.js:198:11)\n    at process.<anonymous> (/workspace/EntropyTrade-paper/frontend/browser/node_modules/playwright/lib/common/process.js:65:22)",
+  "source_after": {
+    "sha256": "912a4fad4b487d448c2619336bee0ae6cdd6c7f11d5ec4db7bfb496f2607239e",
+    "files": 663
+  }
+}

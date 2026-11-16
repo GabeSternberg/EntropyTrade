@@ -6,8 +6,9 @@
 proposed capital/risk envelopes, audit/control epochs, durable degradation incidents and
 bounded offline investigations. Settlement-only cycles preserve held positions through
 pause, cancellation and halt without new trading. Controlled acceptance remains synthetic;
-no strategy or owner review authorizes real-money submission. Final regression/browser gates
-are running. F unifies the lifecycle, followed by reproducible private Windows deployment.
+no strategy or owner review authorizes real-money submission. Final complete CI (1,952 tests),
+quality checks, independent review and both Chromium procedures pass. F unifies the lifecycle,
+followed by reproducible private Windows deployment.
 
 ## Autonomous research Milestone D — November 15, 2026
 

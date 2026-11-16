@@ -1,0 +1,29 @@
+{
+  "accepted": false,
+  "controlled_result": "failed: concurrent current-state polling exceeded90s while request/evidence work shared2CPU with regressions",
+  "production_result": "passed",
+  "actual_privileged_requests": [
+    {
+      "method": "POST",
+      "path": "readiness/sha256%3A90c1fad6f47f45fda402a5120c6eacd76112cb70c23ad6ba2ac46a8f61e58b38/review",
+      "started_at": "2026-11-16T19:49:51.285Z",
+      "duration_ms": 60654.928,
+      "http_status": 200,
+      "review_status": "approved",
+      "execution_authorized": false,
+      "submission_enabled": false
+    }
+  ],
+  "source_before": {
+    "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5",
+    "files": 663
+  },
+  "source_after": {
+    "sha256": "3dfa1194ad69b4bd4fb36726cd907ff15da5d96f0fb906f4735bcdbfe6daa3d5",
+    "files": 663
+  },
+  "page_errors": [],
+  "console_errors": [],
+  "trace_sha256": "b35be62f2bb788f2c570f19e246f79e6d9f24774913b74e4d499d62f2673b915",
+  "correction": "Await and assert privileged POSTresponse before independently polling fresh detail; retain exact evidence/risk/auth gates and90s freshdetail assertion."
+}

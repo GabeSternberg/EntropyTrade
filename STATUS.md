@@ -17,8 +17,10 @@ See [operations](docs/research-readiness.md) and
   these cycles cannot forecast, acquire books, trade, reset cash or inflate source health.
 - Explicit owner review, expiry/rotation, logout/restart, stale revisions and emergency halt are
   enforced by the server. Existing production gateway refusal remains mandatory.
-- Controlled positive cases are synthetic; production rejects them. Full regression and final
-  browser acceptance are in progress. F and Windows deployment readiness follow integration.
+- Controlled positive cases are synthetic; production rejects them. Final CI passes all 1,952
+  tests, Ruff/format, mypy (645 files) and 79 frontend tests. Both fresh Chromium procedures
+  pass with matching source hashes and byte-identical restart/restore exports. Independent
+  review accepts the final implementation. F and Windows deployment readiness follow integration.
 
 ## Autonomous research, Milestone D — paper lifecycle (November 15, 2026)
 

@@ -70,7 +70,8 @@ Pause and resume preserve the account. Cancel and suspend are terminal for that 
 late worker results cannot publish fills, account changes or approval state. They preserve
 open positions and history. **Terminal deployments currently stop outcome polling too:**
 retained open positions may remain unresolved. There is no invented liquidation fill or
-bankroll reset. Read-only settlement continuation is a later operational enhancement.
+bankroll reset. [Milestone E](research-readiness.md) adds bounded settlement-only
+continuation for known held contracts after pause, cancellation, suspension or halt.
 
 Source/spec/binding corruption or a changed deterministic risk profile suspends execution.
 Promotion fee artifacts must still exist for restore even when their historical effective

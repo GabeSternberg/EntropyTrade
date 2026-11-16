@@ -232,6 +232,11 @@ Optional E tables are created lazily for E activity; unused legacy/collector wor
 not acquire them merely by constructing a store. Canonical collector-chain paths are
 rejected before readiness writes. This work does not access or change the Windows collector.
 
+The existing collector can still start its legacy workbench API from canonical staging
+workspaces, including `chain/.work-*`. Those servers activate no E monitoring callback or
+readiness state. Requesting an E operation there still refuses before research/readiness
+writes; ordinary research and owner-review operation belongs in the separate research workspace.
+
 Use [offline workspace recovery](local-recovery.md) after stopping the server and waiting
 for all workers and the exclusive lease to exit. The E health callback means
 `ShadowRunner.close()` can wait `timeout + 5` seconds: about **245 seconds** with the current
