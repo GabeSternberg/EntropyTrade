@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import asdict
+from decimal import Decimal
 from typing import TYPE_CHECKING, Any
 
 from pydantic_ai.exceptions import ModelHTTPError
@@ -35,9 +36,11 @@ class PricedResearchModel(WrapperModel):
     Research uses only ``Agent.run``; no streaming requests enter this boundary.
     """
 
-    def __init__(self, model: Model, *, stage: Callable[[], str]) -> None:
+    def __init__(self, model: Model, *, stage: Callable[[], str], free: bool = False) -> None:
         super().__init__(model)
         self.stage = stage
+        # Only a server-configured loopback endpoint is free; every hosted provider is priced.
+        self.free = free
         self.responses: list[dict[str, Any]] = []
         self.request_failures: list[dict[str, Any]] = []
         self.observed_usage = RunUsage()
@@ -68,6 +71,8 @@ class PricedResearchModel(WrapperModel):
             receipt.update(
                 finished_at=utc_now().isoformat(), latency_ms=(time.monotonic() - started) * 1000
             )
+        if self.free:
+            response.usage.cost = Decimal(0)
         if response.usage.cost is None:
             try:
                 response.usage.cost = response.cost().total_price

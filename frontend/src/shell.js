@@ -70,6 +70,7 @@
       { key: "paper", label: "Paper Trading", icon: "paper" },
     ] },
     { group: "Research", items: [
+      { key: "research", label: "Autonomous Research", icon: "sparkles" },
       { key: "workbench", label: "Research Workbench", icon: "workbench" },
       { key: "cis1990", label: "CIS 1990 Research Demo", icon: "beaker" },
     ] },

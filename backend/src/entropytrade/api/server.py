@@ -31,6 +31,7 @@ ASSETS = {
     "/views-lab.js": ("views-lab.js", "text/javascript; charset=utf-8"),
     "/views-ops.js": ("views-ops.js", "text/javascript; charset=utf-8"),
     "/views-cis1990.js": ("views-cis1990.js", "text/javascript; charset=utf-8"),
+    "/views-research.js": ("views-research.js", "text/javascript; charset=utf-8"),
     "/favicon.svg": ("favicon.svg", "image/svg+xml"),
 }
 
@@ -60,6 +61,9 @@ class WorkbenchServer(ThreadingHTTPServer):
             self.labels = LabelService(self.jobs.root, self.weather_lock)
             self.labels.recover()
             self.labels.scheduler.validate()
+            from entropytrade.research.service import ResearchService
+
+            self.research = ResearchService(root, self.repo, lease_fd=self.lock.fileno())
             super().__init__(("127.0.0.1", port), Handler)
             self.jobs.recover()
             self.tracking.recover()
@@ -70,6 +74,7 @@ class WorkbenchServer(ThreadingHTTPServer):
         self.labels.thread.start()
 
     def server_close(self) -> None:
+        self.research.close()
         self.labels.close()
         self.runner.close()
         self.shadow.close()
@@ -124,6 +129,15 @@ class Handler(BaseHTTPRequestHandler):
             return None
         return job_id, parts[3] if len(parts) == 4 else ""
 
+    def research_route(self) -> tuple[str, str] | None:
+        parts = urlsplit(self.path).path.strip("/").split("/")
+        if len(parts) != 5 or parts[:3] != ["api", "research", "jobs"]:
+            return None
+        try:
+            return identifier(parts[3]), parts[4]
+        except ValueError:
+            return None
+
     def monitor_route(self) -> tuple[str, str] | None:
         parts = urlsplit(self.path).path.strip("/").split("/")
         if len(parts) not in {3, 4} or parts[:2] != ["api", "monitors"]:
@@ -132,6 +146,39 @@ class Handler(BaseHTTPRequestHandler):
             return identifier(parts[2]), parts[3] if len(parts) == 4 else ""
         except ValueError:
             return None
+
+    def research_get(self, path: str) -> None:
+        research = self.server.research
+        if path == "/api/research":
+            self.document(200, {"csrf_token": self.server.token, **research.catalog()})
+            return
+        if path == "/api/research/jobs":
+            self.document(200, {"jobs": research.list_jobs(), "submission_enabled": False})
+            return
+        if path == "/api/research/inventory":
+            self.document(200, research.inventory_summary())
+            return
+        parts = path.strip("/").split("/")
+        if len(parts) in {4, 5} and parts[:3] == ["api", "research", "jobs"]:
+            try:
+                job_id = identifier(parts[3])
+            except ValueError:
+                job_id = ""
+            action = parts[4] if len(parts) == 5 else ""
+            if job_id and action == "":
+                found = research.detail(job_id)
+            elif job_id and action == "report":
+                found = research.report(job_id)
+            else:
+                found = None
+            if found is not None:
+                self.document(200, found)
+                return
+        self.extra_research_get(path)
+
+    def extra_research_get(self, path: str) -> None:
+        del path
+        self.document(404, {"error": "not found"})
 
     def do_GET(self) -> None:
         if not self.safe_origin():
@@ -297,6 +344,8 @@ class Handler(BaseHTTPRequestHandler):
                     "submission_enabled": False,
                 },
             )
+        elif path == "/api/research" or path.startswith("/api/research/"):
+            self.research_get(path)
         elif path == "/api/jobs":
             self.document(200, self.server.jobs.history())
         elif path == "/api/monitors":
@@ -501,6 +550,18 @@ class Handler(BaseHTTPRequestHandler):
                 finally:
                     self.server.weather_lock.release()
                 return
+            if self.path == "/api/research/jobs":
+                self.document(202, self.server.research.submit(value))
+                return
+            research_route = self.research_route()
+            if research_route and research_route[1] in {"cancel", "resume"} and value == {}:
+                action = (
+                    self.server.research.cancel
+                    if research_route[1] == "cancel"
+                    else self.server.research.resume
+                )
+                self.document(200, {"id": research_route[0], "changed": action(research_route[0])})
+                return
             if self.path == "/api/jobs":
                 job_id = self.server.jobs.create(
                     value, provider=getattr(self.server, "research_provider", None)
@@ -565,6 +626,7 @@ def main() -> None:
     server = WorkbenchServer(repo, workspace, port=args.port, research_provider=configured)
     server.runner.start()
     server.shadow.start()
+    server.research.start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
