@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from entropytrade.domain.time import Clock, SystemClock
+from entropytrade.execution.fee_evidence import FeeEvidenceStore
 from entropytrade.features.registry import scientific_hash
 from entropytrade.research.acquire import (
     AcquisitionError,
@@ -27,7 +28,7 @@ from entropytrade.research.acquire import (
     run_acquisition,
 )
 from entropytrade.research.families import Entity, Family, load_families
-from entropytrade.research.forward import CHECK_INTERVAL, CollectorConfig
+from entropytrade.research.forward import CHECK_INTERVAL, CollectorConfig, decorate_forward
 from entropytrade.research.hypotheses import (
     HypothesisProposalBatch,
     deduplicate,
@@ -138,6 +139,7 @@ class ResearchService:
         if not self.started():
             return
         requeued = self.store.recover_acquisitions(now=self.now())
+        self.store.recover_experiments(now=self.now())
         for job in self.store.list_jobs(limit=500):
             if JobStatus(job["status"]) in RUNNABLE - {JobStatus.QUEUED}:
                 self.store.event(
@@ -622,6 +624,8 @@ class ResearchService:
             self._acquire(job, request)
         elif status is JobStatus.FEATURIZING:
             self._featurize(job, request)
+        elif status is JobStatus.MODELING:
+            self._model(job, request)
         else:
             raise StepError(f"no handler for {status.value}", transient=False)
 
@@ -790,6 +794,235 @@ class ResearchService:
             job_id, "features", f"{built} feature artifacts registered", now=self.now()
         )
         self.evaluate(job_id)
+        self.store.transition(
+            job_id,
+            JobStatus.MODELING,
+            "Assessing and fitting frozen hypothesis experiments",
+            now=self.now(),
+        )
+
+    def _model(self, job: dict[str, Any], request: ResearchRequest) -> None:
+        """One durable, bounded hypothesis experiment per worker step; never an order."""
+        from entropytrade.research.modeling import (
+            plan_hypothesis,
+            run_hypothesis,
+            verify_hypothesis,
+        )
+
+        job_id = job["id"]
+        self._local_execution_inputs(job, request)
+        artifacts = self.store.job_features(job_id)
+        execution_datasets = tuple(
+            sorted(
+                {
+                    row["dataset_id"]
+                    for row in self.store.job_acquisitions(job_id, statuses=("completed",))
+                    if row["dataset_id"]
+                }
+            )
+        )
+        fee_versions = FeeEvidenceStore(self.workspace).snapshot()
+        prior = {row["id"]: row for row in self.store.experiments(job_id)}
+        for hypothesis in self.store.hypotheses(job_id):
+            if hypothesis["status"] == HypothesisStatus.DUPLICATE.value:
+                continue
+            spec = HypothesisSpec.model_validate(hypothesis["spec"])
+            # One underlying market outcome cannot become training evidence by submitting
+            # a new job, widening the window or renaming the mechanism/features.
+            scope = scientific_hash({"family": spec.family})
+            frozen = self.store.freeze_boundaries(scope, [], now=self.now())
+            options: dict[str, Any] = {
+                "root": self.store.root,
+                "registry": self.registry,
+                "spec": spec,
+                "artifacts": artifacts,
+                "validation_depth": request.validation_depth,
+                "boundaries": tuple(date.fromisoformat(d) for d in frozen) if frozen else None,
+                "execution_datasets": execution_datasets,
+                "fee_versions": fee_versions,
+            }
+            plan = plan_hypothesis(**options)
+            if not frozen and plan.get("boundaries") and plan.get("freeze_ready"):
+                frozen = self.store.freeze_boundaries(
+                    scope, list(plan["boundaries"]), now=self.now()
+                )
+                options["boundaries"] = tuple(date.fromisoformat(d) for d in frozen)
+                plan = plan_hypothesis(**options)
+            experiment_id = str(plan["experiment_id"])
+            if experiment_id in prior and prior[experiment_id]["status"] in {
+                "completed",
+                "refused",
+                "cancelled",
+            }:
+                cached_result = prior[experiment_id]["result"]
+                if cached_result is not None:
+                    try:
+                        verified = verify_hypothesis(**options, expected_id=experiment_id)
+                    except (OSError, ValueError, TypeError, KeyError) as exc:
+                        self.store.invalidate_experiment(job_id, experiment_id, now=self.now())
+                        raise StepError(
+                            "Frozen experiment evidence or artifacts failed verification",
+                            transient=False,
+                            kind="ArtifactIntegrityError",
+                        ) from exc
+                    self._experiment_facets(job_id, hypothesis, experiment_id, verified)
+                continue
+            self.store.plan_experiment(
+                job_id,
+                experiment_id,
+                spec.hypothesis_id,
+                plan,
+                now=self.now(),
+            )
+            if not self.store.start_experiment(job_id, experiment_id, now=self.now()):
+                return
+            self.store.event(job_id, "experiment", f"Fitting {experiment_id}", now=self.now())
+            started = time.monotonic()
+            spent = job["usage"]["runtime_seconds"] - job["checkpoint"].get("runtime_base", 0)
+
+            def interrupted(started: float = started, spent: float = spent) -> bool:
+                return (
+                    self.stop.is_set()
+                    or job_id in self.cancelled
+                    or spent + time.monotonic() - started >= request.budget.max_runtime_seconds
+                )
+
+            try:
+                result = run_hypothesis(**options, now=self.now(), cancelled=interrupted)
+            except InterruptedError as exc:
+                if self.stop.is_set():
+                    # Leave the running checkpoint for startup recovery.
+                    return
+                if job_id in self.cancelled:
+                    return
+                self.store.finish_experiment(
+                    job_id,
+                    experiment_id,
+                    status="failed",
+                    error={"type": "BudgetExceeded", "reason": "Modeling runtime budget exhausted"},
+                    now=self.now(),
+                )
+                raise StepError("Modeling runtime budget exhausted", transient=False) from exc
+            except Exception as exc:
+                # Persist a credential-free error, then use the existing retry budget.
+                self.store.finish_experiment(
+                    job_id,
+                    experiment_id,
+                    status="failed",
+                    error={"type": type(exc).__name__, "reason": "Model fitting failed"},
+                    now=self.now(),
+                )
+                raise StepError(
+                    f"Model fitting failed ({type(exc).__name__})",
+                    transient=True,
+                    kind=type(exc).__name__,
+                ) from exc
+            finished = self.store.finish_experiment(
+                job_id,
+                experiment_id,
+                status="completed"
+                if result.get("status") in {"completed", "evaluated"}
+                else "refused",
+                result=result,
+                now=self.now(),
+            )
+            if finished:
+                self._experiment_facets(job_id, hypothesis, experiment_id, result)
+                self.store.event(
+                    job_id,
+                    "experiment",
+                    f"{experiment_id}: {result.get('status')}",
+                    now=self.now(),
+                )
+            return
+        self._settle(job, request)
+
+    def _local_execution_inputs(self, job: dict[str, Any], request: ResearchRequest) -> None:
+        """Consume verified immutable snapshots in this workspace, preserving source protection."""
+        from entropytrade.research.local_evidence import local_execution_evidence
+
+        copied = local_execution_evidence(
+            self.workspace, now=self.now(), max_bytes=max(0, self.budget_left(job, request)[1])
+        )
+        if copied["imported_bytes"]:
+            self.store.add_usage(job["id"], bytes=copied["imported_bytes"])
+        for problem in copied["problems"]:
+            self.store.event(job["id"], "local_evidence", problem["reason"], now=self.now())
+            if problem["type"] == "SourceProtectionConflict":
+                raise StepError(problem["reason"], transient=False, kind=problem["type"])
+        if copied.get("block_modeling"):
+            raise StepError(
+                "Local execution evidence or inherited source protection could not be verified; "
+                "inspect the local evidence events",
+                transient=False,
+                kind="LocalEvidenceRefused",
+            )
+        for family, boundaries in copied["inherited_boundaries"].items():
+            retained = self.store.freeze_boundaries(
+                scientific_hash({"family": family}), list(boundaries), now=self.now()
+            )
+            if any(
+                existing > incoming for existing, incoming in zip(retained, boundaries, strict=True)
+            ):
+                raise StepError(
+                    "Restored source protection predates existing research partitions; "
+                    "a reviewed evidence epoch is required",
+                    transient=False,
+                    kind="SourceProtectionConflict",
+                )
+        for dataset_id in copied["dataset_ids"]:
+            acquisition = self.store.plan_acquisition(
+                dataset_id,
+                "local-restored-execution",
+                {"entity": "verified-local-snapshot"},
+                status="queued",
+                now=self.now(),
+            )
+            self.store.link_acquisition(
+                job["id"], acquisition, "local-execution-evidence", "inherited"
+            )
+            self.store.finish_acquisition(
+                acquisition,
+                "completed",
+                "Verified local snapshot; original receipt clocks retained",
+                dataset_id=dataset_id,
+                now=self.now(),
+            )
+
+    def _experiment_facets(
+        self,
+        job_id: str,
+        hypothesis: dict[str, Any],
+        experiment_id: str,
+        result: dict[str, Any],
+    ) -> None:
+        facets = dict(hypothesis["facets"])
+        facets["modeling"] = {
+            "experiment_id": experiment_id,
+            "status": result.get("status"),
+            **result.get("eligibility", {}),
+        }
+        facets["backtest"] = result.get("backtest", {})
+        hypothesis_status = HypothesisStatus(hypothesis["status"])
+        reasons = list(hypothesis["reasons"])
+        if hypothesis_status is HypothesisStatus.BACKTEST_ELIGIBLE and not result.get(
+            "backtest", {}
+        ).get("eligible", False):
+            hypothesis_status = HypothesisStatus.INSUFFICIENT_EVIDENCE
+            reasons.extend(result.get("eligibility", {}).get("reasons", []))
+            reasons.extend(result.get("backtest", {}).get("reasons", []))
+        self.store.set_hypothesis_status(
+            job_id,
+            hypothesis["hypothesis_id"],
+            hypothesis_status,
+            reasons,
+            facets,
+            now=self.now(),
+        )
+
+    def _settle(self, job: dict[str, Any], request: ResearchRequest) -> None:
+        """Evidence waits stay durable after predictive modeling; no eligibility promotion."""
+        job_id = job["id"]
         approved = self.store.job_acquisitions(job_id, statuses=("queued",))
         if approved and min(self.budget_left(job, request)) > 0:
             # Approved while features were being built: acquire before settling.
@@ -1129,7 +1362,13 @@ class ResearchService:
             for a in self.store.job_acquisitions(job_id)
         ]
         job["features"] = self.store.job_features(job_id)
-        job["forward_requests"] = self.store.job_forward(job_id)
+        job["experiments"] = self.store.experiments(job_id)
+        job["forward_requests"] = decorate_forward(
+            self.store.job_forward(job_id),
+            self.store.requirements(job_id),
+            assessments,
+            self.now(),
+        )
         job["transport"] = self.transport_label
 
     def report(self, job_id: str) -> dict[str, Any] | None:

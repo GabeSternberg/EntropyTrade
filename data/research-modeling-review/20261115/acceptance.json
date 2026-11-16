@@ -1,0 +1,98 @@
+{
+  "authenticated_provider_verified": false,
+  "browser_scenarios": {
+    "research": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "research-demo-detail.png": "3da59f15b08d02812fe59b03c512447d38c686eab35bc1de736de70aef8f9668",
+        "research-mobile-detail.png": "90ee99a9a53f0c621c17d7c0a54089eab7eef94781eab0b03bba2df6d0cb6ea9",
+        "research-real-detail.png": "7206fbb82539e89f24b2367e4cdfa11d90fcd13dbbb4c108293ff28f750876f1",
+        "research-real-empty.png": "5bd2a8faed3d8fdf10a7a4914d7df4d9accfec7e0942e4f71d38d08d4d0037e4",
+        "research-real-forward.png": "b74e9954501011765df82e8af5f4af5c620270c067b261e774db9738144138d5",
+        "research-real-list.png": "c41aca59003c0d0079e62acdfcb704b332203d7894d1784d9762ebd19b7a46b6",
+        "research-real-modeling-refusals.png": "71fd5a3ce39717130eff9e931f4bd70ea9263bf7b8382609c1a8ad1b739dcdd0",
+        "research-real-requirements.png": "774b398983ac3a6732b0998bd33043be0320219386cedc16d075048d9960a05e"
+      },
+      "status": "passed"
+    },
+    "research-acquisition": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "acquisition-awaiting-approval.png": "5632047e3de1b1334afeaecfc8ac04271f412e0b8a6d62533e413fae29297ee9",
+        "acquisition-completed.png": "c0b0a50e271c0df34dfd89c3fc90ca43e1c0118297979476fcad1826996dc4c2",
+        "acquisition-features.png": "a915276dd1f5b9851583633b6cc62f5b5940c914f5d1172bc51c0265bd8f9c84",
+        "acquisition-hypotheses.png": "0ab979a090f78b3fd653cc6c61f2ee8966cbc7076965e9e5f0ffde4418869235",
+        "acquisition-modeling-refusals.png": "47eeca482d685004b1fe160e7c63660d171c5633897b05dc78bea6a864965e4d",
+        "acquisition-sources.png": "f8d72e520eb718d003032e06fd1f117ebfed707490f86edae5eada45bf4aebba"
+      },
+      "status": "passed"
+    },
+    "research-modeling": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "synthetic-modeling-desktop.png": "27b61822cacf4b8fac63bd202eae050234dff55f524514627c5e91667e5eb5a2",
+        "synthetic-modeling-mobile.png": "6c929ad4953860af42f3265dfabd5f0607e93b0d29e37a0e3a385c51a9cfb1db"
+      },
+      "status": "passed"
+    },
+    "research-modeling-execution": {
+      "console_errors": [],
+      "page_errors": [],
+      "screenshot_sha256": {
+        "synthetic-modeling-desktop.png": "8f9b6a8651d1143f25352bd9b32b598c0b3a36765d415d04f3699169f29bd54e",
+        "synthetic-modeling-mobile.png": "dc750eed3e114fe269049444704f0049a9bb2d794a0e68f27af32d0e7a43b841"
+      },
+      "status": "passed"
+    }
+  },
+  "paper_eligible": false,
+  "scope": "Milestone C software acceptance; no authentic edge, paper or live promotion",
+  "submission_enabled": false,
+  "synthetic_fills": {
+    "base": 43,
+    "conservative": 0,
+    "optimistic": 43
+  },
+  "verification": {
+    "canonical_write_guard": {
+      "passed": 78,
+      "scope": "Pre-write canonical layouts, symlink aliases, lazy collector startup, modeling/research regressions and existing local-chain tests",
+      "seconds": 24.81
+    },
+    "final_frozen_core": {
+      "passed": 83,
+      "seconds": 31.43
+    },
+    "final_local_acquisition": {
+      "passed": 30
+    },
+    "frontend_node": {
+      "passed": 38
+    },
+    "full_pytest": {
+      "passed": 1623,
+      "scope": "Broad regression before final targeted local-ingestion and settlement hardening",
+      "seconds": 808.01
+    },
+    "github_ci_core": {
+      "commit": "1fafe68300ffccefc8f8a5e15a82adfeacf0934d",
+      "status": "passed",
+      "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/43800216934"
+    },
+    "independent_integration": {
+      "passed": 50
+    },
+    "research_scoped": {
+      "passed": 152,
+      "seconds": 106.4
+    },
+    "ruff": "passed",
+    "strict_mypy": {
+      "files": 613,
+      "passed": true
+    }
+  }
+}

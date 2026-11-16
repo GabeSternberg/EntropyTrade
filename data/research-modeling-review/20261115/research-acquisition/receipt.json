@@ -1,0 +1,15 @@
+{
+  "browser": "141.0.7390.37",
+  "console_errors": [],
+  "page_errors": [],
+  "screenshots": [
+    "acquisition-awaiting-approval.png",
+    "acquisition-completed.png",
+    "acquisition-features.png",
+    "acquisition-sources.png",
+    "acquisition-hypotheses.png",
+    "acquisition-modeling-refusals.png"
+  ],
+  "status": "passed",
+  "transport": "controlled_replay"
+}

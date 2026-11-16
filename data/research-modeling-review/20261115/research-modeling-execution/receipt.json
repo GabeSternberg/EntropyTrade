@@ -1,0 +1,21 @@
+{
+  "browser": "141.0.7390.37",
+  "console_errors": [],
+  "data_kind": "synthetic",
+  "downloads": [
+    {
+      "file": "synthetic-research-report.json",
+      "sha256": "1d0763327ab187d434370131a7249305d09dd657fc6eed8d829cff20e2a4dbde"
+    },
+    {
+      "file": "synthetic-research-report-after-restart.json",
+      "sha256": "1d0763327ab187d434370131a7249305d09dd657fc6eed8d829cff20e2a4dbde"
+    }
+  ],
+  "page_errors": [],
+  "screenshots": [
+    "synthetic-modeling-desktop.png",
+    "synthetic-modeling-mobile.png"
+  ],
+  "status": "passed"
+}

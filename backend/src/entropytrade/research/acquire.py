@@ -11,13 +11,13 @@ import re
 import shutil
 import time
 from collections import defaultdict
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Mapping
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime, timedelta, timezone
 from decimal import Decimal
 from hashlib import sha256
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 from urllib.parse import urlencode, urlsplit
 from uuid import uuid4
 
@@ -777,6 +777,7 @@ def publish(
     failures: list[dict[str, str]],
     *,
     created_at: datetime,
+    fidelity_by_kind: Mapping[DataKind, Literal["any", "quote", "order_book"]] | None = None,
 ) -> dict[str, Any]:
     """Write a dataset directory atomically; identical content resolves to the same ID."""
     from entropytrade.data.sources import file_hash
@@ -799,6 +800,15 @@ def publish(
                     "adapter": adapter.adapter_id,
                     "version": adapter.version,
                     "params": params,
+                    **(
+                        {
+                            "fidelity_by_kind": {
+                                kind.value: fidelity for kind, fidelity in fidelity_by_kind.items()
+                            }
+                        }
+                        if fidelity_by_kind
+                        else {}
+                    ),
                 },
                 sort_keys=True,
             )
@@ -820,7 +830,7 @@ def publish(
                 "family": "weather" if "weather" in source.families else source.families[0],
                 "source_id": source_id,
                 "clock": clock,
-                "fidelity": "any",
+                "fidelity": (fidelity_by_kind or {}).get(kind, "any"),
                 "coverage": {e: sorted(d) for e, d in coverage.items()},
                 "created_at": created_at.isoformat(),
                 "content_hash": content_hash,

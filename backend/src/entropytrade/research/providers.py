@@ -7,6 +7,12 @@ provider needs its own API key in the server environment.
 import os
 from typing import Any
 
+from entropytrade.agents.provider import (
+    PROVIDER_KEY_VARIABLES,
+    ResearchCredentialError,
+    local_endpoint,
+)
+
 PROVIDERS: tuple[dict[str, Any], ...] = (
     {
         "provider": "local_templates",
@@ -30,7 +36,8 @@ PROVIDERS: tuple[dict[str, Any], ...] = (
     {
         "provider": "anthropic",
         "label": "Anthropic Claude API",
-        "requires": ["ENTROPYTRADE_RESEARCH_API_KEY"],
+        "requires": ["ENTROPYTRADE_RESEARCH_ANTHROPIC_API_KEY"],
+        "legacy_credential": "ENTROPYTRADE_RESEARCH_API_KEY",
         "billing": "metered",
         "output": "tool_call",
         "suggested_models": ["claude-haiku-5-5", "claude-sonnet-5-5"],
@@ -39,7 +46,8 @@ PROVIDERS: tuple[dict[str, Any], ...] = (
     {
         "provider": "openai",
         "label": "OpenAI API",
-        "requires": ["ENTROPYTRADE_RESEARCH_API_KEY"],
+        "requires": ["ENTROPYTRADE_RESEARCH_OPENAI_API_KEY"],
+        "legacy_credential": "ENTROPYTRADE_RESEARCH_API_KEY",
         "billing": "metered",
         "output": "tool_call",
         "suggested_models": [],
@@ -59,10 +67,20 @@ PROVIDERS: tuple[dict[str, Any], ...] = (
 
 
 def provider_catalog() -> list[dict[str, Any]]:
-    return [
-        {
-            **item,
-            "configured": all(os.environ.get(name, "").strip() for name in item["requires"]),
-        }
-        for item in PROVIDERS
-    ]
+    result = []
+    for item in PROVIDERS:
+        provider = item["provider"]
+        if provider == "openai_compatible":
+            try:
+                local_endpoint()
+                configured = True
+            except ResearchCredentialError:
+                configured = False
+        elif provider in PROVIDER_KEY_VARIABLES:
+            configured = any(
+                os.environ.get(name, "").strip() for name in PROVIDER_KEY_VARIABLES[provider]
+            )
+        else:
+            configured = provider == "local_templates"
+        result.append({**item, "configured": configured, "live_verified": False})
+    return result

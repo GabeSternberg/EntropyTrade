@@ -40,6 +40,11 @@ Offline workspace recovery preserves original receipts and model/holdout boundar
 see [forward operator](docs/forward-operator.md). Production trading
 is disabled; the Kalshi gateway refuses orders.
 
+The Autonomous Research page now connects persistent acquired-feature jobs to weather-model
+fitting, temporal validation and deterministic contract replay with inspectable experiment
+reports. [Milestone C scope and external gates](docs/research-modeling.md) distinguish
+controlled software acceptance from unavailable authentic trading evidence. No empirical edge is claimed.
+
 ## Setup and checks
 
 Requires Python 3.12+, [uv](https://docs.astral.sh/uv/), and Make.

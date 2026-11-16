@@ -84,6 +84,13 @@ CREATE TABLE IF NOT EXISTS research_features (
 CREATE TABLE IF NOT EXISTS research_feature_links (
     job_id TEXT NOT NULL, artifact_id TEXT NOT NULL, hypothesis_ids TEXT NOT NULL,
     PRIMARY KEY(job_id, artifact_id));
+CREATE TABLE IF NOT EXISTS research_experiments (
+    job_id TEXT NOT NULL, id TEXT NOT NULL, hypothesis_id TEXT NOT NULL,
+    status TEXT NOT NULL, config TEXT NOT NULL, result TEXT, error TEXT,
+    attempts INTEGER NOT NULL DEFAULT 0, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+    PRIMARY KEY(job_id, id));
+CREATE TABLE IF NOT EXISTS research_validation_boundaries (
+    scope TEXT PRIMARY KEY, boundaries TEXT NOT NULL, created_at TEXT NOT NULL);
 """
 
 _ZERO_USAGE = {
@@ -103,11 +110,23 @@ def job_identifier(value: str) -> str:
     return value
 
 
+def reject_collector_chain(root: Path) -> None:
+    """Refuse research writes anywhere inside a canonical collector store, before mkdir."""
+    if any(path.is_symlink() for path in (root, *root.parents)):
+        raise ValueError("research workspace paths cannot traverse symlinks")
+    for path in (root, *root.parents):
+        if (
+            path.name in {"chain", ".chain"}
+            or (path / ".chain").exists()
+            or ((path / "HEAD").is_file() and (path / "links").is_dir())
+        ):
+            raise ValueError("research cannot write inside a canonical collector chain")
+
+
 class ResearchStore:
     def __init__(self, root: Path) -> None:
         self.root = root
-        if any(p.is_symlink() for p in (root, *root.parents)):
-            raise ValueError("research workspace paths cannot traverse symlinks")
+        reject_collector_chain(root)
         root.mkdir(parents=True, exist_ok=True)
         self.path = root / "research.sqlite"
         self.lock = threading.RLock()
@@ -269,6 +288,12 @@ class ResearchStore:
                 "INSERT INTO research_events(job_id, at, stage, detail) VALUES (?, ?, ?, ?)",
                 (job_id, stamp, target.value, detail),
             )
+            if target in TERMINAL:
+                db.execute(
+                    "UPDATE research_experiments SET status='cancelled', updated_at=? "
+                    "WHERE job_id=? AND status IN ('queued', 'running')",
+                    (stamp, job_id),
+                )
             return True
 
     def event(self, job_id: str, stage: str, detail: str, *, now: datetime) -> None:
@@ -466,6 +491,142 @@ class ResearchStore:
             ):
                 result.setdefault(str(row[0]), []).append(Resolution.model_validate_json(row[1]))
         return result
+
+    # ------------------------------------------------------ C: experiments
+    def freeze_boundaries(self, scope: str, boundaries: list[str], *, now: datetime) -> list[str]:
+        """Shared market-family outcome protection survives new jobs and changing features."""
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            if boundaries:
+                if len(boundaries) != 3 or not boundaries[0] < boundaries[1] < boundaries[2]:
+                    raise ValueError("three ordered validation boundaries required")
+                db.execute(
+                    "INSERT OR IGNORE INTO research_validation_boundaries VALUES (?, ?, ?)",
+                    (scope, json.dumps(boundaries), now.isoformat()),
+                )
+            row = db.execute(
+                "SELECT boundaries FROM research_validation_boundaries WHERE scope=?", (scope,)
+            ).fetchone()
+            return list(json.loads(row[0])) if row else []
+
+    def plan_experiment(
+        self,
+        job_id: str,
+        experiment_id: str,
+        hypothesis_id: str,
+        config: dict[str, Any],
+        *,
+        now: datetime,
+    ) -> None:
+        """Persist the frozen input identity before any fitting; repeats reuse this row."""
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO research_experiments "
+                "(job_id, id, hypothesis_id, status, config, created_at, updated_at) "
+                "SELECT ?, ?, ?, 'queued', ?, ?, ? WHERE EXISTS "
+                "(SELECT 1 FROM research_jobs WHERE id=? AND status=?)",
+                (
+                    job_identifier(job_id),
+                    experiment_id,
+                    hypothesis_id,
+                    json.dumps(config, sort_keys=True),
+                    now.isoformat(),
+                    now.isoformat(),
+                    job_id,
+                    JobStatus.MODELING.value,
+                ),
+            )
+
+    def experiments(self, job_id: str) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT * FROM research_experiments WHERE job_id=? ORDER BY created_at, rowid",
+                (job_identifier(job_id),),
+            ).fetchall()
+        result = []
+        for row in rows:
+            value = dict(row)
+            for field in ("config", "result", "error"):
+                value[field] = json.loads(value[field]) if value[field] else None
+            result.append(value)
+        return result
+
+    def start_experiment(self, job_id: str, experiment_id: str, *, now: datetime) -> bool:
+        """A cancelled job cannot start work even if selected before cancellation."""
+        with self.connect() as db:
+            changed = db.execute(
+                "UPDATE research_experiments SET status='running', attempts=attempts+1, "
+                "updated_at=?, error=NULL WHERE job_id=? AND id=? "
+                "AND status IN ('queued', 'failed') AND EXISTS "
+                "(SELECT 1 FROM research_jobs WHERE id=? AND status=?)",
+                (
+                    now.isoformat(),
+                    job_identifier(job_id),
+                    experiment_id,
+                    job_id,
+                    JobStatus.MODELING.value,
+                ),
+            )
+            return changed.rowcount == 1
+
+    def finish_experiment(
+        self,
+        job_id: str,
+        experiment_id: str,
+        *,
+        status: str,
+        result: dict[str, Any] | None = None,
+        error: dict[str, Any] | None = None,
+        now: datetime,
+    ) -> bool:
+        if status not in {"completed", "refused", "failed", "cancelled"}:
+            raise ValueError("invalid experiment completion status")
+        with self.connect() as db:
+            changed = db.execute(
+                "UPDATE research_experiments SET status=?, result=?, error=?, updated_at=? "
+                "WHERE job_id=? AND id=? AND status='running' AND EXISTS "
+                "(SELECT 1 FROM research_jobs WHERE id=? AND status=?)",
+                (
+                    status,
+                    json.dumps(result, sort_keys=True) if result is not None else None,
+                    json.dumps(error) if error else None,
+                    now.isoformat(),
+                    job_identifier(job_id),
+                    experiment_id,
+                    job_id,
+                    JobStatus.MODELING.value,
+                ),
+            )
+            return changed.rowcount == 1
+
+    def recover_experiments(self, *, now: datetime) -> int:
+        with self.connect() as db:
+            changed = db.execute(
+                "UPDATE research_experiments SET status='queued', updated_at=? "
+                "WHERE status='running' AND job_id IN "
+                "(SELECT id FROM research_jobs WHERE status IN (?, ?))",
+                (now.isoformat(), JobStatus.MODELING.value, JobStatus.RECOVERABLE_ERROR.value),
+            )
+            return changed.rowcount
+
+    def invalidate_experiment(self, job_id: str, experiment_id: str, *, now: datetime) -> None:
+        """Keep the historical report but revoke its status if frozen files fail verification."""
+        with self.connect() as db:
+            db.execute(
+                "UPDATE research_experiments SET status='failed', error=?, updated_at=? "
+                "WHERE job_id=? AND id=? AND status IN ('completed', 'refused')",
+                (
+                    json.dumps(
+                        {
+                            "type": "ArtifactIntegrityError",
+                            "reason": "Frozen experiment evidence or artifacts failed verification",
+                        }
+                    ),
+                    now.isoformat(),
+                    job_identifier(job_id),
+                    experiment_id,
+                ),
+            )
 
     def save_assessments(self, job_id: str, assessments: list[Assessment]) -> None:
         with self.connect() as db:

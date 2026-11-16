@@ -11,7 +11,7 @@ order. Production submission stays disabled.
 | --- | --- | --- |
 | A. Durable research and data requirements | Persistent jobs, typed hypotheses, machine-readable requirements, dataset inventory, missing-data reports, provider selection and budgets, website | Implemented |
 | B. Acquisition and feature registration | Source catalog and evaluation, read-only acquisition, immutable datasets, feature materialization, forward-collection requests, automatic reevaluation | Implemented; verified live for KXHIGHPHIL |
-| C. Modeling, backtesting and validation | Deterministic model fitting and realistic backtests on acquired features | Not started |
+| C. Modeling, backtesting and validation | Durable acquired-feature fitting, temporal validation, verified local evidence, contract replay and reports | Implemented; authentic validation and prospective evidence remain gated |
 | D. Paper-trading lifecycle | Validated strategies in persistent paper accounts | Not started |
 | E. Approval and live-readiness | Approval artifacts, promotion gates, degradation investigations | Not started; live trading stays disabled |
 | F. Complete frontend workflow | End-to-end observation and management on the website | Partial (each milestone ships its own pages) |
@@ -35,7 +35,7 @@ report with a content hash.
 Each job is a row in `research/research.sqlite` inside the workspace. It moves through a fixed
 state machine (`entropytrade.research.model.TRANSITIONS`):
 
-`queued → generating_hypotheses → planning_data → (acquiring_data → registering_features) →
+`queued → generating_hypotheses → planning_data → (acquiring_data → registering_features → modeling) →
 evaluated | awaiting_observations | awaiting_authorization`, with `recoverable_error`,
 `failed` and `cancelled`.
 
@@ -138,10 +138,17 @@ them.
 | Provider | Server variable |
 | --- | --- |
 | Gemini | `GEMINI_API_KEY` |
-| Anthropic or OpenAI | `ENTROPYTRADE_RESEARCH_API_KEY` |
+| Anthropic | `ENTROPYTRADE_RESEARCH_ANTHROPIC_API_KEY` |
+| OpenAI | `ENTROPYTRADE_RESEARCH_OPENAI_API_KEY` |
 | Local OpenAI-compatible | `ENTROPYTRADE_LOCAL_LLM_URL` (loopback only), optional `ENTROPYTRADE_LOCAL_LLM_KEY` |
 
 A Claude Code, ChatGPT or Codex subscription does not provide API credits.
+The original `ENTROPYTRADE_RESEARCH_API_KEY` remains a fallback for OpenAI or Anthropic;
+provider-specific keys take precedence, allowing both to be configured on one server.
+Ambient SDK variables (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) remain ignored. Only the
+selected provider's research keys enter its isolated worker. A configured credential is
+not proof of an authenticated call; the catalog reports live verification as outstanding.
+Invalid local endpoint URLs are reported as unconfigured and never contacted.
 
 ## Sources and evaluation (Milestone B)
 
@@ -215,6 +222,13 @@ observations exist, the requirement becomes satisfied and the job continues.
 
 The website never starts a collector or a second canonical chain.
 
+Forward requests expose a separate `operational_status`. `planned` means a checked-in
+configuration covers the need; it is not evidence of installation. `blocked` requires a
+reviewed collector change or operator action. `failed`/`stalled` retain recorded errors.
+`sufficient` uses the current job's requirement assessment, independent of shared request
+counts. `deployed` and `collecting` are deliberately not asserted without verified installed
+configuration and recent original receipts. Sanitized status summaries supply neither proof.
+
 ### Canonical collector coordination
 
 The canonical collector runs on the Windows/WSL machine, and this repository cannot read it.
@@ -276,3 +290,12 @@ A live run against the public sources, in scratch workspace
 - Contract rules acquired after settlement do not certify the rules known at decision time.
 - No model, backtest, validation or paper trading runs here (Milestones C–E). Backtest
   eligibility is not evidence of an edge.
+
+
+## Modeling integration (Milestone C)
+
+After registering features the same worker advances `modeling`, one frozen hypothesis
+experiment per step. Missing, unsupported, late or insufficient inputs produce persistent
+scientific refusals. Experiments and their complete history appear in the **Modeling &
+validation** tab and JSON report. Successful predictive analysis does not imply executable
+profitability or deployment eligibility. See [modeling scope and acceptance](research-modeling.md).

@@ -17,15 +17,26 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from entropytrade.agents.provider import PROVIDER_KEY_VARIABLES
 from entropytrade.research.model import ResearchRequest
 
 KEY_VARIABLES = {
-    "gemini": ("GEMINI_API_KEY",),
-    "openai": ("ENTROPYTRADE_RESEARCH_API_KEY",),
-    "anthropic": ("ENTROPYTRADE_RESEARCH_API_KEY",),
+    **PROVIDER_KEY_VARIABLES,
     "openai_compatible": ("ENTROPYTRADE_LOCAL_LLM_URL", "ENTROPYTRADE_LOCAL_LLM_KEY"),
 }
 _PROXY = ("HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY", "SSL_CERT_FILE", "SSL_CERT_DIR")
+
+
+def provider_environment(repo: Path, workspace: Path, provider: str) -> dict[str, str]:
+    """Forward only the selected provider's research credentials to its worker."""
+    from entropytrade.api.runner import worker_environment
+
+    environment = worker_environment(repo, workspace)
+    proxy_variables = () if provider == "openai_compatible" else _PROXY
+    for name in (*KEY_VARIABLES.get(provider, ()), *proxy_variables):
+        if os.environ.get(name):
+            environment[name] = os.environ[name]
+    return environment
 
 
 def atomic_json(path: Path, value: object) -> None:
@@ -93,17 +104,12 @@ class SubprocessProposer:
         timeout: float,
         cancelled: Callable[[], bool],
     ) -> dict[str, Any]:
-        from entropytrade.api.runner import worker_environment
-
         directory = self.workspace / "research" / "jobs" / job_id
         atomic_json(directory / f"context-{attempt}.json", context)
         output = directory / f"proposals-{attempt}.json"
         if output.is_file():
             return dict(json.loads(output.read_text()))
-        environment = worker_environment(self.repo, self.workspace)
-        for name in (*KEY_VARIABLES.get(provider, ()), *_PROXY):
-            if os.environ.get(name):
-                environment[name] = os.environ[name]
+        environment = provider_environment(self.repo, self.workspace, provider)
         command = [
             sys.executable,
             "-m",

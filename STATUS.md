@@ -1,5 +1,39 @@
 # EntropyTrade — current status
 
+## Autonomous research, Milestone C — integrated modeling and replay (November 15, 2026)
+
+The persistent A/B job lifecycle now invokes deterministic acquired-feature modeling,
+contract-probability construction, realistic replay and independent temporal diagnostics.
+**V1 and the later research-to-paper/live deployment milestones remain incomplete.**
+See [scope, acceptance and external gates](docs/research-modeling.md).
+
+- SQLite records frozen experiment identities, model/version lineage, attempts, failures,
+  cancellation, restart recovery and results. Verified offline restore preserves model bytes.
+- Registered scalar weather features feed existing baselines, regularized/weather models and
+  calibration. Source/label clocks, missingness, independent station/dates, shared protected
+  windows, walk-forward evaluation, scores, uncertainty and sensitivities remain explicit.
+- Actual fitted distributions are converted to acquired contract strikes and passed through
+  the existing replay/fees/risk engine. Missing books, uncertified fees, unverified terms,
+  incomplete outcomes and invalid versions refuse. Delayed outcomes remain unresolved;
+  future publication times never select trades. Protected outcomes are not opened for scoring.
+- A bounded local adapter consumes verified weather snapshots **inside the research workspace**
+  and publishes immutable research datasets with original raw bytes, receipt clocks and source
+  protections. It refuses direct canonical-chain paths and never changes source snapshots.
+- The website shows model/baseline scores, validation, full experiment history, execution
+  fidelity and simulated accounting. JSON exports include frozen provenance. No paper/live
+  promotion is authorized by completing a research pipeline.
+- Dedicated research credentials, missing-key failures, local-model proxy/redirect isolation
+  and truthful collection statuses are tested. No provider credentials exist here; authenticated
+  live inference remains unverified. No paid provider call or Windows collector access occurred.
+- Controlled synthetic job-to-replay acceptance produces 43 base fills; conservative fills
+  remain zero with single-snapshot evidence. Authentic Philadelphia source replay enters
+  modeling and correctly refuses insufficient timely observations. Neither establishes an edge.
+
+Remaining gates: sufficient authentic point-in-time history, human-certified applicable fees,
+provider live verification, genuine prospective validation, research-to-paper feature/model
+compatibility, milestones D/E/F and private Windows deployment readiness. No real-money path
+or canonical collector change was added.
+
 ## PR backlog reconciliation — November 6, 2026
 
 This revision consolidates the existing A (#1 → #2), B (#4 → #8), and C (#5 through #24)
