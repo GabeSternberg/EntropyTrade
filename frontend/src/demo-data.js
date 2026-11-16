@@ -252,9 +252,69 @@
     { name: "OpenAI research provider", status: "not configured", detail: "No server configuration" },
   ];
 
+  // A fictional autonomous-research job with the same shape as a real job detail.
+  const research = (() => {
+    const iso = (ms) => new Date(ms).toISOString();
+    const scope = "Demo data. Research eligibility only; no hypothesis is an established edge and no order path exists.";
+    const facets = (p, pt, e, et) => ({ predictive: { satisfied: p, total: pt, ready: p === pt }, execution: { satisfied: e, total: et, ready: e === et }, unregistered_features: [], unimplemented_features: [] });
+    const hyp = (id, title, status, rationale, features, f, reasons) => ({
+      hypothesis_id: id, status, reasons, facets: f, searches: 1, spec: {
+        title, rationale, version: 1, features: features.map((name) => ({ name, role: "feature" })), label: { name: "settlement_high_f", role: "label" },
+        provenance: { generator: "local_templates", template_id: "demo" }, universe: ["KXHIGHPHIL"],
+        decision_schedule: [{ day_offset: -1, local_time: "18:00:00" }, { day_offset: 0, local_time: "10:00:00" }], candidate_models: ["market_baseline", "gaussian_error"],
+        rules: [], timestamp_semantics: "Demo: forecasts count only when issued before the decision time.", validation_plan: "Demo: time-ordered partitions with an embargo.",
+        leakage_risks: ["Demo: a day's own report is published after it ends."], invalidation: ["Demo: no improvement over the market-implied baseline."],
+      } });
+    const req = (kind, variable, entity, status, available, required, predictive, reason) => ({ requirement_id: `r-demo-${kind}`, kind, variable, entity, clock: kind.includes("forecast") || kind === "reference_observations" ? "issuance" : "receipt", predictive_for: predictive ? ["h-demo00000001"] : [], hypotheses: ["h-demo00000001", "h-demo00000002"], assessment: { status, events_available: available, events_required: required, reasons: [`${available} of ${required} independent dates available`, reason].filter(Boolean) } });
+    const job = {
+      id: "00000000-0000-4000-8000-00000000d3m0", family: "weather", universe: ["KXHIGHPHIL"], status: "awaiting_observations",
+      detail: "Demo: predictive evidence acquired; awaiting decision-time quotes from the collector",
+      request: { objective: "Find profitable strategies for Kalshi daily temperature markets using weather forecasts. (Demo)", provider: { provider: "local_templates", model_name: "" } },
+      created_at: iso(NOW - 3 * HOUR), updated_at: iso(NOW - 40 * 60e3), checkpoint: {}, error: null, scope,
+      usage: { ai_usd: "0", ai_requests: 0, input_tokens: 0, output_tokens: 0, http_requests: 96, bytes: 7_400_000, runtime_seconds: 212 },
+      hypothesis_counts: { awaiting_new_observations: 4, needs_more_data: 1 },
+      hypotheses: [
+        hyp("h-demo00000001", "NWS forecast bias against the settlement high", "awaiting_new_observations", "Demo rationale: a bias-corrected official forecast may price threshold contracts differently from the market.", ["nws_pfm_max_f", "nws_cli_bias_f"], facets(4, 4, 0, 3), ["Demo: decision quotes (yes_quotes) with receipt clocks: 9 of 60 independent dates available"]),
+        hyp("h-demo00000002", "Delayed market adjustment after forecast revisions", "awaiting_new_observations", "Demo rationale: prices may adjust gradually after a forecast revision.", ["nws_pfm_revision_f", "market_implied_probability"], facets(2, 3, 0, 3), ["Demo: market quotes are collected prospectively"]),
+        hyp("h-demo00000003", "Mispricing during elevated forecast uncertainty", "needs_more_data", "Demo rationale: prices may understate ensemble spread.", ["ensemble_std_f", "market_implied_probability"], facets(1, 3, 0, 3), ["Demo: ensemble members are not captured by the collector; a configuration change needs a human."]),
+      ],
+      requirements: [
+        req("forecast_vintages", "daytime_max_f", "CLIPHL", "satisfied", 64, 60, true),
+        req("reference_observations", "daily_high_f", "CLIPHL", "satisfied", 64, 60, true),
+        req("settlement_labels", "daily_high_f", "CLIPHL", "satisfied", 62, 60, true),
+        req("decision_quotes", "yes_quotes", "KXHIGHPHIL", "awaiting_observations", 9, 60, false, "Demo: historical quotes are not available from any approved source"),
+        req("forecast_vintages", "ensemble_member_f", "CLIPHL", "unobtainable", 0, 60, true, "Demo: no approved historical source with issuance clocks"),
+      ],
+      resolutions: {},
+      sources: [
+        { source_id: "iem-nws-pfm", name: "NWS Point Forecast Matrix archive (demo)", kind: "forecast_vintages", entity: "CLIPHL", decision: "acquire", reasons: ["Demo: issuance clocks from product headers"] },
+        { source_id: "open-meteo-previous-runs", name: "Open-Meteo previous runs (demo)", kind: "forecast_vintages", entity: "CLIPHL", decision: "reject", reasons: ["Demo: values carry no issuance clock"] },
+        { source_id: "kalshi-orderbook-forward", name: "Kalshi order books (forward, demo)", kind: "decision_quotes", entity: "KXHIGHPHIL", decision: "forward_collect", reasons: ["Demo: prospective only"] },
+      ],
+      acquisitions: [
+        { source_id: "iem-nws-pfm", params: { entity: "CLIPHL", start: "2026-09-12", end: "2026-11-12" }, status: "completed", requests: 9, bytes: 6_100_000, dataset_id: "sha256:demo-pfm", detail: "Demo: 268 products parsed" },
+        { source_id: "weather-company-labels", params: { entity: "CLIPHL", start: "2026-09-12", end: "2026-11-12" }, status: "completed", requests: 62, bytes: 1_200_000, dataset_id: "sha256:demo-labels", detail: "Demo: 62 official highs" },
+      ],
+      features: [
+        { feature_id: "nws_pfm_max_f", version: "1", unit: "degF", entity: "CLIPHL", rows: 128, non_null: 126, events: 64, artifact_id: "sha256:demo-feature-1", inputs: ["sha256:demo-pfm"] },
+        { feature_id: "nws_cli_bias_f", version: "1", unit: "degF", entity: "CLIPHL", rows: 128, non_null: 110, events: 55, artifact_id: "sha256:demo-feature-2", inputs: ["sha256:demo-pfm", "sha256:demo-cli"] },
+      ],
+      forward_requests: [
+        { kind: "decision_quotes", variable: "yes_quotes", entity: "KXHIGHPHIL", collector: "canonical_local_chain", status: "awaiting_observations", events_observed: 9, events_required: 60, next_check_at: iso(NOW + 20 * HOUR), detail: "Demo: covered by the canonical collector configuration" },
+      ],
+      events: [
+        { sequence: 1, at: iso(NOW - 3 * HOUR), stage: "queued", detail: "Demo: request saved" },
+        { sequence: 2, at: iso(NOW - 3 * HOUR + 2e3), stage: "planning_data", detail: "Demo: 5 hypotheses recorded" },
+        { sequence: 3, at: iso(NOW - 2.9 * HOUR), stage: "acquiring_data", detail: "Demo: acquiring NWS products and labels" },
+        { sequence: 4, at: iso(NOW - 40 * 60e3), stage: "awaiting_observations", detail: "Demo: awaiting decision-time quotes" },
+      ],
+    };
+    return { jobs: [job] };
+  })();
+
   function deepFreeze(value) { if (value && typeof value === "object" && !Object.isFrozen(value)) { Object.freeze(value); Object.values(value).forEach(deepFreeze); } return value; }
   ET.demoData = deepFreeze({
-    data_kind: DATA_KIND, now: NOW, markets, strategies, experiments, models, paper, collectors, collection_history, coverage, quality_alerts, snapshots, storage, alerts, gates, providers,
+    data_kind: DATA_KIND, now: NOW, markets, strategies, experiments, models, paper, collectors, collection_history, coverage, quality_alerts, snapshots, storage, alerts, gates, providers, research,
   });
   // Pure, deterministic helpers (no I/O).
   ET.demoTools = Object.freeze({ priceHistory, walkForward, feeGrid, sufficiency, drawdown, NOW, DAY, HOUR });

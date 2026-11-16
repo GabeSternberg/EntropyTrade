@@ -50,6 +50,44 @@ def research_key(config: ResearchProviderConfig) -> str:
     return key
 
 
+LOCAL_URL_VARIABLE = "ENTROPYTRADE_LOCAL_LLM_URL"
+LOCAL_KEY_VARIABLE = "ENTROPYTRADE_LOCAL_LLM_KEY"
+
+
+def local_endpoint() -> str:
+    """A server-configured OpenAI-compatible endpoint (for example Ollama or vLLM).
+
+    Loopback only: retrieved prompts must not leave the machine through this path.
+    """
+    from urllib.parse import urlsplit
+
+    url = os.environ.get(LOCAL_URL_VARIABLE, "").strip().rstrip("/")
+    parts = urlsplit(url)
+    if (
+        not url
+        or parts.scheme not in {"http", "https"}
+        or parts.hostname not in {"127.0.0.1", "localhost", "::1"}
+        or parts.username
+        or parts.password
+        or parts.query
+        or parts.fragment
+    ):
+        raise ResearchCredentialError(
+            f"set {LOCAL_URL_VARIABLE} to a loopback OpenAI-compatible base URL"
+        )
+    return url
+
+
+def local_model(model_name: str) -> Model:
+    """Construct a model for a local endpoint; no request is sent here."""
+    selected = OpenAIProvider(
+        api_key=os.environ.get(LOCAL_KEY_VARIABLE, "").strip() or "local",
+        base_url=local_endpoint(),
+    )
+    selected.client.max_retries = 0
+    return OpenAIChatModel(model_name, provider=selected)
+
+
 def research_model(config: ResearchProviderConfig) -> Model:
     """Construct a provider model using only the dedicated research key.
 

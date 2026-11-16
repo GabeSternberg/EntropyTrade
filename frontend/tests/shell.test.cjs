@@ -86,3 +86,15 @@ test("demo data is deterministic across loads and internally consistent", () => 
     assert.equal(tools.feeGrid(st).values[2][0], st.metrics.total_return);
   }
 });
+
+test("demo research jobs are frozen, labeled and never claim an edge", () => {
+  const data = load({ stored: "demo" }).ET.demo();
+  const job = data.research.jobs[0];
+  assert.ok(Object.isFrozen(job) && Object.isFrozen(job.hypotheses));
+  assert.match(job.request.objective, /\(Demo\)/);
+  assert.match(job.scope, /^Demo data\./);
+  for (const h of job.hypotheses) {
+    assert.ok(!["paper_trading_active", "live_active", "live_approval_requested"].includes(h.status));
+  }
+});
+

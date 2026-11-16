@@ -17,6 +17,30 @@ code consolidation from authentic history/validation, certified fees, provider a
 the user-approved second family, sustained operation, storage runway and final acceptance.
 Production submissions remain disabled. No new feature phase or real-money order is authorized.
 
+## Autonomous research, Milestone A (2026-11-15): durable research jobs and data requirements
+
+Branch `feature/research-milestone-a`. **V1 remains incomplete; no order path was added and
+production submission stays disabled.** See [autonomous research](docs/autonomous-research.md).
+
+- New `entropytrade.research` package:
+  - a persistent job state machine in `research/research.sqlite`, with checkpoints, bounded
+    retries, cancellation, idempotent submission, per-job budgets and restart recovery;
+  - typed, versioned hypotheses from local templates or a provider. Providers are Gemini,
+    Anthropic, OpenAI or a loopback OpenAI-compatible endpoint, called once per job in an
+    isolated worker process;
+  - machine-readable data requirements from a family-neutral feature registry;
+  - an inventory of every existing evidence store;
+  - deterministic hypothesis statuses. Validation and deployment statuses are refused.
+- Website: **Autonomous Research** page with submission, provider and model, budget,
+  permissions, live progress, hypotheses, requirements, activity, export, cancel and
+  reevaluate. Demo Mode shows one labeled fictional job and makes no API calls.
+- Backup/restore now includes `research/`. The directory is created only when research is
+  first used, so collector workspaces that never run research are unchanged.
+- Evidence: Ruff and format pass; strict mypy passes (592 files). Full pytest: 1,547 passed.
+  Node tests pass. Managed Chromium passes the research, redesign and CIS 1990 specs.
+- Not verified: no live provider call was made (no key). Provider behavior is tested with
+  scripted models at the PydanticAI boundary.
+
 ## Current milestone (2026-11-07): durable local chain driver
 
 Branch `claude/exciting-mayer-16gxu4` from main `d82ae5d`. **V1 remains incomplete.** No open

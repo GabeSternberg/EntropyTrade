@@ -46,6 +46,8 @@ TABLES = {
     "shadow_alerts": "id monitor_id kind opened_at acknowledged_at resolved_at evidence",
     "shadow_alert_events": "sequence alert_id at action evidence",
 }
+# Durable top-level directories. ``research`` exists only once a research job was saved.
+WORKSPACE_DIRECTORIES = frozenset({"runs", "shadow", "research"})
 RUNTIME = {
     ".writer.lock",
     "jobs.sqlite-wal",
@@ -390,10 +392,17 @@ def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[
                 raise ValueError("workspace contains a symlink")
             if child.name in RUNTIME or child.name in {"jobs.sqlite", "registry.sqlite"}:
                 continue
-            if child.name not in {"runs", "shadow"} or not child.is_dir():
+            if child.name not in WORKSPACE_DIRECTORIES or not child.is_dir():
                 raise ValueError("unexpected workspace entry: " + child.name)
             inventory(child)  # reject nested links/special files before copying
-            shutil.copytree(child, payload / child.name)
+            shutil.copytree(
+                child,
+                payload / child.name,
+                ignore=shutil.ignore_patterns("research.sqlite", "research.sqlite-*"),
+            )
+            if child.name == "research" and (child / "research.sqlite").is_file():
+                # Research jobs use WAL; copy a consistent database like jobs.sqlite.
+                backup_database(child / "research.sqlite", payload / "research/research.sqlite")
         backup_database(root / "jobs.sqlite", payload / "jobs.sqlite")
         if (root / "registry.sqlite").is_file():
             backup_database(root / "registry.sqlite", payload / "registry.sqlite")
@@ -471,7 +480,7 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
         for item in files:
             parts = PurePosixPath(relative(item["path"])).parts
             if parts not in {("jobs.sqlite",), ("registry.sqlite",)} and (
-                len(parts) < 2 or parts[0] not in {"runs", "shadow"}
+                len(parts) < 2 or parts[0] not in WORKSPACE_DIRECTORIES
             ):
                 raise ValueError("unexpected snapshot workspace entry")
 
@@ -509,7 +518,7 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
         if not isinstance(directories, list) or len(directories) > MAX_FILES:
             raise ValueError("snapshot exceeds directory budget")
         for directory in directories:
-            if PurePosixPath(relative(directory)).parts[0] not in {"runs", "shadow"}:
+            if PurePosixPath(relative(directory)).parts[0] not in WORKSPACE_DIRECTORIES:
                 raise ValueError("unexpected snapshot directory")
             (stage / relative(directory)).mkdir(parents=True, exist_ok=True)
         for item in files:
