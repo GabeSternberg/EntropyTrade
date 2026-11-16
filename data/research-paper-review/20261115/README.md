@@ -4,6 +4,9 @@ Research experiments now reach the existing persistent paper engine through dete
 promotion gates, exact data-only model bindings and approved PFM/CLI forward adapters.
 Independent review accepts the final source. Fresh complete Python regression and PR CI
 must pass before integration; `acceptance.json` records the scoped checks at source freeze.
+The complete local run passes **1,780 tests in 768.78 seconds** on Python 3.12.14.
+The Python 3.13 paper compatibility run passes all sixty model/promotion/store/recovery
+cases after explicitly closing test connections without changing transaction behavior.
 
 The current two real Chromium procedures pass with no page/console errors. The controlled
 procedure uses actual acquisition, scoring, risk, simulated execution and account commits
@@ -26,6 +29,13 @@ and completed test scratch were removed without changing evidence. The next run 
 1,766 cases and exposed the old read-only dashboard assertion, now replaced by a shared
 guarded transport plus behavioral isolation tests. Neither attempt is represented as a
 complete pass. Fresh complete regression/CI provide the final integration gate.
+
+The first GitHub Python 3.13 run exposed those test connection lifetimes and a diagnostic
+calibration hash difference. Running the actual pre-D engine under the matching BLAS CPU
+mode reproduces the exact CI hash: only three calibration diagnostic values differ at
+about 1e-16. Execution, financial accounting and source references match exactly. The
+regression retains the full static pre-D report and checks every field, allowing bounded
+numerical tolerance only for those three diagnostic values. No trading gate was relaxed.
 
 No authentic strategy is currently promotable. The existing exact-touch limit cannot fill
 the adverse conservative scenario, and that gate remains unchanged. Human fee certification,

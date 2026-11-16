@@ -2,6 +2,7 @@
 
 import json
 import sqlite3
+from contextlib import closing
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -42,7 +43,7 @@ def previous_layout(store: TrackingStore) -> None:
 
 
 def dump(path: Path) -> list[str]:
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db:
         return list(db.iterdump())
 
 
@@ -243,14 +244,14 @@ def test_corrupt_research_origin_is_refused_after_restore(
     destination = repo / ("data/cache/corrupt-" + damage)
     restore(repo, archive, destination)
     if damage == "source_database":
-        with sqlite3.connect(destination / "research/research.sqlite") as db:
+        with closing(sqlite3.connect(destination / "research/research.sqlite")) as db, db:
             db.execute("UPDATE research_experiments SET result='{}'")
     elif damage == "portable_model":
         experiment_id = original["experiment_id"].replace("sha256:", "sha256-")
         model = destination / "research/experiments" / experiment_id / "ridge.paper.json"
         model.write_bytes(model.read_bytes() + b" ")
     else:
-        with sqlite3.connect(destination / "jobs.sqlite") as db:
+        with closing(sqlite3.connect(destination / "jobs.sqlite")) as db, db:
             db.execute("UPDATE monitors SET source_ref='{}' WHERE id=?", (monitor_id,))
     with pytest.raises(ValueError, match=r"reference|hash|report|checksum|experiment"):
         validate_database(destination)

@@ -77,6 +77,11 @@
     "unexpected": 0
   },
   "full_regression": {
+    "first_github_ci": {
+      "scope": "Python3.13 test-fixture connection lifetimes and platform-dependent diagnostic calibration golden; no execution/accounting difference in actual pre-D baseline",
+      "status": "failed",
+      "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/43810540338"
+    },
     "prior_broad_failed": 1,
     "prior_broad_passed": 1766,
     "prior_failure": "Old read-only dashboard source assertion; fixed with guarded shared transport and behavioral Demo isolation coverage. A fresh complete run and PR CI are required.",
@@ -91,11 +96,22 @@
   "scope": "Milestone D software acceptance; no authentic deployable strategy or live authorization",
   "submission_enabled": false,
   "verification": {
+    "complete_local_pytest": {
+      "passed": 1780,
+      "python": "3.12.14",
+      "seconds": 768.78
+    },
     "daily_and_legacy_alerts": 18,
     "execution_inputs": 23,
     "format_files": 627,
     "frontend_node": 56,
     "policy_promotion_store_recovery": 41,
+    "python313_paper_compatibility": {
+      "passed": 60,
+      "python": "3.13.5",
+      "scope": "Explicit connection close fixes; all paper model/promotion/store/recovery tests",
+      "seconds": 27.94
+    },
     "ruff": "passed",
     "strict_mypy_files": 627,
     "worker_source_status": 3

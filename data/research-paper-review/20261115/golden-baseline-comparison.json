@@ -1,0 +1,26 @@
+{
+  "cpu_kernel_comparison": {
+    "c31314": "sha256:8a2bd11b719adc7d6b1a154ed0ecca7f0fd710fee2e279632fa69c119b1438e8",
+    "c31314-Haswell": "sha256:93cf6cd915e7a180e7a55973cef222188202dfdfb210415282da100f8f15192f",
+    "c31314-Prescott": "sha256:cb81cda837915fc2c19649221725d734afbfd232682689585e655d4f08ab944d",
+    "c31314-Sandybridge": "sha256:93cf6cd915e7a180e7a55973cef222188202dfdfb210415282da100f8f15192f",
+    "c31314-Zen": "sha256:93cf6cd915e7a180e7a55973cef222188202dfdfb210415282da100f8f15192f",
+    "d31314": "sha256:8a2bd11b719adc7d6b1a154ed0ecca7f0fd710fee2e279632fa69c119b1438e8",
+    "d31314-Haswell": "sha256:93cf6cd915e7a180e7a55973cef222188202dfdfb210415282da100f8f15192f"
+  },
+  "full_capture_directory": "/tmp/entropytrade-d-golden-compare",
+  "only_cross_kernel_changed_paths": [
+    "[0].forecast_metrics.calibration_intercept",
+    "[0].forecast_metrics.calibration_slope",
+    "[0].benchmark.calibration_slope"
+  ],
+  "packages": {
+    "numpy": "2.5.3",
+    "pydantic": "2.13.5",
+    "scikit-learn": "1.9.1"
+  },
+  "pre_d_source_commit": "8ed8246",
+  "python": "3.13.14 (main, Aug  5 2026, 15:44:26) [Clang 22.1.3 ]",
+  "same_kernel_c_d_full_reports_equal": true,
+  "test_change": "Static complete C JSON still hashes 8a2bd11b719adc7d6b1a154ed0ecca7f0fd710fee2e279632fa69c119b1438e8. All fields compare exactly except these three floating calibration leaves (abs/rel 1e-12)."
+}

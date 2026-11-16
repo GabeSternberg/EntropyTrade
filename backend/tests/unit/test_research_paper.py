@@ -2,6 +2,7 @@
 
 import json
 import shutil
+from contextlib import closing
 from datetime import timedelta
 from pathlib import Path
 from typing import Any
@@ -83,7 +84,7 @@ def test_preference_never_prevents_promotion(controlled: PaperFixture) -> None:
     import sqlite3
 
     path = controlled.jobs.root / "research/research.sqlite"
-    with sqlite3.connect(path) as db:
+    with closing(sqlite3.connect(path)) as db, db:
         request = json.loads(
             db.execute(
                 "SELECT request FROM research_jobs WHERE id=?", (controlled.job_id,)
@@ -203,7 +204,7 @@ def test_replay_status_alone_cannot_bypass_execution_gates(
     checksums = json.loads((root / "checksums.json").read_text())
     checksums["results.json"] = file_hash(root / "results.json")
     (root / "checksums.json").write_text(json.dumps(checksums))
-    with sqlite3.connect(controlled.jobs.root / "research/research.sqlite") as db:
+    with closing(sqlite3.connect(controlled.jobs.root / "research/research.sqlite")) as db, db:
         db.execute(
             "UPDATE research_experiments SET result=? WHERE job_id=? AND id=?",
             (json.dumps(report), controlled.job_id, controlled.experiment_id),
