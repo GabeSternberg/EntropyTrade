@@ -108,8 +108,8 @@ canonical compatibility correction; focused 28-case coverage checks that differe
 15 monitoring and 16 service cases passed in that broader run.
 [Final-source GitHub CI run 43947708763](https://github.com/GabeSternberg/EntropyTrade/actions/runs/43947708763)
 passes all **1,952 cases**, including four new canonical legacy compatibility tests.
-That complete final-source CI run satisfies the regression integration gate. No complete local
-or CI pass is claimed by this packet yet.
+That complete final-source CI run satisfies the regression integration gate. The failed
+local attempt remains preserved alongside the final passing CI result.
 
 The monitoring cases use actual retained forward observations and account commits. They
 cover fixed post-reference degradation windows, incomplete-tail preservation, raw/model
