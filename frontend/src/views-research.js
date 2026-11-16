@@ -23,6 +23,7 @@
     permanently_unsupported: "neg", insufficient_evidence: "neg",
   };
   const REQ_TONE = { satisfied: "pos", partial: "warn", acquiring: "warn", awaiting_observations: "warn", awaiting_authorization: "warn", missing: "neg", unobtainable: "neg" };
+  const digest = (value) => (value ? String(value).replace(/^sha256:/, "").slice(0, 12) : "—");
   const words = (value) => fmt.words(String(value || "").replace(/_/g, " "));
   const tonePill = (value, tones) => pill(words(value), `status ${tones[value] || ""}`.trim(), { "data-status": value });
 
@@ -245,6 +246,7 @@
     }
     root.append(ET.pageHeader(job.request.objective, `${words(job.family)} · ${job.universe.join(", ")} · created ${fmt.dateTime(job.created_at)}`, h("div", { class: "row-actions" }, ...actions)));
     if (options.demo) root.append(callout("Demo Mode: this research job is a fictional example and never reached the local server.", "demo"));
+    if (!options.demo && job.transport && job.transport !== "live") root.append(callout("Controlled replay: this server answers acquisitions with recorded public responses, not live requests. Datasets are real captured bytes, but nothing was fetched now.", "warn"));
     root.append(h("div", { class: "research-status-row" }, statusPill(job.status), h("span", { class: "research-detail", id: "research-detail" }, job.detail)));
     if (job.error) root.append(callout(`${job.error.type} during ${words(job.error.stage)}: ${job.error.reason}`, job.status === "failed" ? "error" : "warn"));
     root.append(card({ title: "Lifecycle" }, stepper(job)));
@@ -261,6 +263,8 @@
     ];
     if (job.sources) panels.push({ key: "sources", label: "Sources", count: job.sources.length, render: () => sourcesPanel(job) });
     if (job.acquisitions) panels.push({ key: "acquisitions", label: "Acquisitions", count: job.acquisitions.length, render: () => acquisitionsPanel(job, options) });
+    const pending = (job.acquisitions || []).filter((a) => a.status === "awaiting_approval").length;
+    if (pending && !options.demo) root.append(callout(`${pending} acquisition${pending === 1 ? "" : "s"} await your approval in the Acquisitions tab. Other work continued.`, "warn"));
     if (job.features) panels.push({ key: "features", label: "Features", count: job.features.length, render: () => featuresPanel(job) });
     if (job.forward_requests) panels.push({ key: "forward", label: "Forward collection", count: job.forward_requests.length, render: () => forwardPanel(job) });
     panels.push({ key: "events", label: "Activity", count: job.events.length, render: () => eventsPanel(job) });
@@ -338,15 +342,24 @@
     return dataTable({ columns, rows: job.sources, sortKey: "decision", sortDir: "asc", dense: true });
   }
 
-  function acquisitionsPanel(job) {
+  function acquisitionsPanel(job, options = {}) {
+    const decide = async (row, decision) => {
+      try { await post(options.csrf, `/api/research/jobs/${job.id}/approve`, { acquisition_id: row.id, decision }); options.refresh(); ET.route(); }
+      catch (error) { ET.toast(error.message, "error"); }
+    };
     const columns = [
       { key: "source_id", label: "Source", render: (a) => h("span", { class: "mono" }, a.source_id) },
       { key: "params", label: "Scope", sortable: false, render: (a) => h("span", { class: "mono" }, `${a.params.entity} · ${a.params.start} → ${a.params.end}`) },
       { key: "status", label: "Status", render: (a) => statusPill(a.status) },
       { key: "requests", label: "Requests", align: "num", render: (a) => String(a.requests) },
       { key: "bytes", label: "Bytes", align: "num", render: (a) => fmt.bytes(a.bytes) },
-      { key: "dataset_id", label: "Dataset", sortable: false, render: (a) => a.dataset_id ? h("span", { class: "mono", title: a.dataset_id }, fmt.short(a.dataset_id)) : "—" },
+      { key: "dataset_id", label: "Dataset", sortable: false, render: (a) => a.dataset_id ? h("span", { class: "mono", title: a.dataset_id }, digest(a.dataset_id)) : "—" },
       { key: "detail", label: "Detail", sortable: false, render: (a) => h("div", { class: "cell-title research-reasons" }, a.detail) },
+      { key: "actions", label: "", sortable: false, render: (a) => a.status === "awaiting_approval" && !options.demo
+        ? h("div", { class: "row-actions" },
+          button("Approve", { variant: "sm", "data-approve": a.source_id, onclick: () => decide(a, "approve") }, "check"),
+          button("Deny", { variant: "ghost sm", "data-deny": a.source_id, onclick: () => decide(a, "deny") }, "x"))
+        : null },
     ];
     return dataTable({ columns, rows: job.acquisitions, sortKey: "status", dense: true,
       empty: ET.emptyState({ iconName: "globe", title: "No acquisitions", body: "Nothing needed acquiring, or acquisition is disabled for this job." }) });
@@ -358,8 +371,9 @@
       { key: "entity", label: "Entity", render: (f) => h("span", { class: "mono" }, f.entity) },
       { key: "rows", label: "Rows", align: "num", render: (f) => `${f.non_null} / ${f.rows}` },
       { key: "events", label: "Events", align: "num", render: (f) => String(f.events) },
-      { key: "artifact_id", label: "Artifact", sortable: false, render: (f) => h("span", { class: "mono", title: f.artifact_id }, fmt.short(f.artifact_id)) },
-      { key: "inputs", label: "Lineage", sortable: false, render: (f) => h("div", { class: "cell-title research-reasons" }, f.inputs.map((x) => fmt.short(x)).join(", ")) },
+      { key: "artifact_id", label: "Artifact", sortable: false, render: (f) => h("div", { class: "cell-title" }, h("span", { class: "mono", title: f.artifact_id }, digest(f.artifact_id)),
+        f.supersedes?.length ? h("div", { class: "muted" }, `supersedes ${f.supersedes.length} earlier artifact${f.supersedes.length === 1 ? "" : "s"}`) : null) },
+      { key: "inputs", label: "Lineage", sortable: false, render: (f) => h("div", { class: "cell-title research-reasons" }, f.inputs.map((x) => digest(x)).join(", ")) },
     ];
     return dataTable({ columns, rows: job.features, sortKey: "feature_id", sortDir: "asc", dense: true,
       empty: ET.emptyState({ iconName: "layers", title: "No features registered", body: "Features are materialized once their input evidence exists." }) });

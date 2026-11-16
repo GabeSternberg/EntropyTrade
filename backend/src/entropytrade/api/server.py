@@ -158,6 +158,17 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/research/inventory":
             self.document(200, research.inventory_summary())
             return
+        if path == "/api/research/forward":
+            self.document(
+                200,
+                {
+                    "forward_requests": research.store.forward_requests()
+                    if research.started()
+                    else [],
+                    "submission_enabled": False,
+                },
+            )
+            return
         parts = path.strip("/").split("/")
         if len(parts) in {4, 5} and parts[:3] == ["api", "research", "jobs"]:
             try:
@@ -554,6 +565,10 @@ class Handler(BaseHTTPRequestHandler):
                 self.document(202, self.server.research.submit(value))
                 return
             research_route = self.research_route()
+            if research_route and research_route[1] == "approve":
+                changed = self.server.research.approve(research_route[0], value)
+                self.document(200, {"id": research_route[0], "changed": changed})
+                return
             if research_route and research_route[1] in {"cancel", "resume"} and value == {}:
                 action = (
                     self.server.research.cancel

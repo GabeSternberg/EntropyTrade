@@ -63,6 +63,7 @@ TRANSITIONS: dict[JobStatus, frozenset[JobStatus]] = {
     JobStatus.ACQUIRING: frozenset({JobStatus.PLANNING, *_ANY_ACTIVE}),
     JobStatus.FEATURIZING: frozenset(
         {
+            JobStatus.PLANNING,
             JobStatus.AWAITING_AUTHORIZATION,
             JobStatus.AWAITING_OBSERVATIONS,
             JobStatus.EVALUATED,

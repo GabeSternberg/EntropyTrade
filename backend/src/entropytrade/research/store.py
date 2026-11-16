@@ -28,6 +28,7 @@ from entropytrade.research.model import (
     check_transition,
 )
 from entropytrade.research.registry import Resolution
+from entropytrade.research.sources import SourceDecision
 
 SCHEMA = """
 PRAGMA journal_mode=WAL;
@@ -55,6 +56,34 @@ CREATE TABLE IF NOT EXISTS research_requirements (
 CREATE TABLE IF NOT EXISTS research_resolutions (
     job_id TEXT NOT NULL, hypothesis_id TEXT NOT NULL, requested TEXT NOT NULL,
     resolution TEXT NOT NULL, PRIMARY KEY(job_id, hypothesis_id, requested));
+CREATE TABLE IF NOT EXISTS research_sources (
+    job_id TEXT NOT NULL, requirement_id TEXT NOT NULL, source_id TEXT NOT NULL,
+    decision TEXT NOT NULL, PRIMARY KEY(job_id, requirement_id, source_id));
+CREATE TABLE IF NOT EXISTS research_acquisitions (
+    id TEXT PRIMARY KEY, acquisition_key TEXT NOT NULL UNIQUE, source_id TEXT NOT NULL,
+    params TEXT NOT NULL, status TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0,
+    requests INTEGER NOT NULL DEFAULT 0, bytes INTEGER NOT NULL DEFAULT 0,
+    dataset_id TEXT, detail TEXT NOT NULL, error TEXT, created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL, next_attempt_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS research_acquisition_links (
+    job_id TEXT NOT NULL, acquisition_id TEXT NOT NULL, requirement_id TEXT NOT NULL,
+    approval TEXT NOT NULL, PRIMARY KEY(job_id, acquisition_id, requirement_id));
+CREATE TABLE IF NOT EXISTS research_forward (
+    id TEXT PRIMARY KEY, coverage_key TEXT NOT NULL UNIQUE, spec TEXT NOT NULL,
+    source_id TEXT NOT NULL, collector TEXT NOT NULL, collector_status TEXT NOT NULL,
+    events_required INTEGER NOT NULL, events_observed INTEGER NOT NULL, status TEXT NOT NULL,
+    detail TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+    next_check_at TEXT NOT NULL, estimated_ready_at TEXT);
+CREATE TABLE IF NOT EXISTS research_forward_links (
+    job_id TEXT NOT NULL, forward_id TEXT NOT NULL, requirement_id TEXT NOT NULL,
+    PRIMARY KEY(job_id, forward_id, requirement_id));
+CREATE TABLE IF NOT EXISTS research_features (
+    artifact_id TEXT PRIMARY KEY, feature_id TEXT NOT NULL, version TEXT NOT NULL,
+    definition_hash TEXT NOT NULL, entity TEXT NOT NULL, manifest TEXT NOT NULL,
+    created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS research_feature_links (
+    job_id TEXT NOT NULL, artifact_id TEXT NOT NULL, hypothesis_ids TEXT NOT NULL,
+    PRIMARY KEY(job_id, artifact_id));
 """
 
 _ZERO_USAGE = {
@@ -458,3 +487,373 @@ class ResearchStore:
                     (job_identifier(job_id),),
                 )
             }
+
+    # ------------------------------------------------------- B: sources
+    def save_source_decisions(
+        self, job_id: str, requirement_id: str, decisions: list[SourceDecision]
+    ) -> None:
+        with self.connect() as db:
+            for item in decisions:
+                db.execute(
+                    "INSERT OR REPLACE INTO research_sources VALUES (?, ?, ?, ?)",
+                    (job_id, requirement_id, item.source_id, item.model_dump_json()),
+                )
+
+    def source_decisions(
+        self, job_id: str, requirement_id: str | None = None
+    ) -> list[SourceDecision]:
+        query = "SELECT decision FROM research_sources WHERE job_id=?"
+        args: tuple[str, ...] = (job_identifier(job_id),)
+        if requirement_id is not None:
+            query += " AND requirement_id=?"
+            args += (requirement_id,)
+        with self.connect() as db:
+            return [
+                SourceDecision.model_validate_json(r[0])
+                for r in db.execute(query + " ORDER BY rowid", args)
+            ]
+
+    # -------------------------------------------------- B: acquisitions
+    @staticmethod
+    def _acquisition(row: sqlite3.Row) -> dict[str, Any]:
+        value = dict(row)
+        value["params"] = json.loads(value["params"])
+        return value
+
+    def plan_acquisition(
+        self, key: str, source_id: str, params: dict[str, str], *, status: str, now: datetime
+    ) -> str:
+        """Idempotent by content key: an equivalent acquisition is reused, never repeated."""
+        stamp = now.isoformat()
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute(
+                "SELECT id FROM research_acquisitions WHERE acquisition_key=?", (key,)
+            ).fetchone()
+            if row:
+                return str(row[0])
+            acquisition_id = str(uuid4())
+            db.execute(
+                "INSERT INTO research_acquisitions(id, acquisition_key, source_id, params, status, "
+                "detail, created_at, updated_at, next_attempt_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    acquisition_id,
+                    key,
+                    source_id,
+                    json.dumps(params, sort_keys=True),
+                    status,
+                    "Waiting for approval" if status == "awaiting_approval" else "Queued",
+                    stamp,
+                    stamp,
+                    stamp,
+                ),
+            )
+            return acquisition_id
+
+    def link_acquisition(
+        self, job_id: str, acquisition_id: str, requirement_id: str, approval: str
+    ) -> None:
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO research_acquisition_links VALUES (?, ?, ?, ?)",
+                (job_id, acquisition_id, requirement_id, approval),
+            )
+
+    def acquisitions_for(self, source_id: str, entity: str) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT * FROM research_acquisitions WHERE source_id=? AND "
+                "json_extract(params, '$.entity')=? ORDER BY created_at",
+                (source_id, entity),
+            ).fetchall()
+        return [self._acquisition(r) for r in rows]
+
+    def job_acquisitions(
+        self, job_id: str, *, statuses: tuple[str, ...] | None = None
+    ) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT a.* FROM research_acquisitions a WHERE a.id IN ("
+                "SELECT acquisition_id FROM research_acquisition_links WHERE job_id=?) "
+                "ORDER BY a.next_attempt_at, a.created_at, a.rowid",
+                (job_identifier(job_id),),
+            ).fetchall()
+        result = [self._acquisition(r) for r in rows]
+        return [r for r in result if statuses is None or r["status"] in statuses]
+
+    def requirement_acquisitions(self, job_id: str, requirement_id: str) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT a.* FROM research_acquisitions a JOIN research_acquisition_links l "
+                "ON l.acquisition_id=a.id WHERE l.job_id=? AND l.requirement_id=?",
+                (job_identifier(job_id), requirement_id),
+            ).fetchall()
+        return [self._acquisition(r) for r in rows]
+
+    def start_acquisition(self, acquisition_id: str, *, now: datetime) -> None:
+        with self.connect() as db:
+            db.execute(
+                "UPDATE research_acquisitions SET status='running', attempts=attempts+1, "
+                "detail='Fetching', updated_at=? WHERE id=?",
+                (now.isoformat(), acquisition_id),
+            )
+
+    def finish_acquisition(
+        self,
+        acquisition_id: str,
+        status: str,
+        detail: str,
+        *,
+        now: datetime,
+        requests: int = 0,
+        size: int = 0,
+        dataset_id: str | None = None,
+        next_attempt_at: datetime | None = None,
+    ) -> None:
+        if status not in {"queued", "completed", "failed", "denied"}:
+            raise ValueError("invalid acquisition status")
+        with self.connect() as db:
+            db.execute(
+                "UPDATE research_acquisitions SET status=?, detail=?, updated_at=?, "
+                "requests=requests+?, bytes=bytes+?, dataset_id=COALESCE(?, dataset_id), "
+                "next_attempt_at=? WHERE id=?",
+                (
+                    status,
+                    detail[:600],
+                    now.isoformat(),
+                    requests,
+                    size,
+                    dataset_id,
+                    (next_attempt_at or now).isoformat(),
+                    acquisition_id,
+                ),
+            )
+
+    def decide_acquisition(
+        self, job_id: str, acquisition_id: str, *, approve: bool, now: datetime
+    ) -> bool:
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute(
+                "SELECT a.status FROM research_acquisitions a JOIN research_acquisition_links l "
+                "ON l.acquisition_id=a.id WHERE l.job_id=? AND a.id=?",
+                (job_identifier(job_id), job_identifier(acquisition_id)),
+            ).fetchone()
+            if row is None:
+                raise KeyError("acquisition not found for this job")
+            if row[0] != "awaiting_approval":
+                return False
+            db.execute(
+                "UPDATE research_acquisitions SET status=?, detail=?, updated_at=? WHERE id=?",
+                (
+                    "queued" if approve else "denied",
+                    "Approved by user" if approve else "Denied by user",
+                    now.isoformat(),
+                    acquisition_id,
+                ),
+            )
+            db.execute(
+                "UPDATE research_acquisition_links SET approval=? "
+                "WHERE job_id=? AND acquisition_id=?",
+                ("approved" if approve else "denied", job_id, acquisition_id),
+            )
+            return True
+
+    def recover_acquisitions(self, *, now: datetime) -> int:
+        """A fetch interrupted by a restart is retried; its preserved bytes are reused by key."""
+        with self.connect() as db:
+            return db.execute(
+                "UPDATE research_acquisitions SET status='queued', detail='Interrupted by restart; "
+                "queued again', updated_at=? WHERE status='running'",
+                (now.isoformat(),),
+            ).rowcount
+
+    # ------------------------------------------------------- B: forward
+    def plan_forward(
+        self,
+        requirement: DataRequirement,
+        *,
+        source_id: str,
+        collector: str,
+        collector_status: str,
+        events_observed: int,
+        detail: str,
+        now: datetime,
+        next_check_at: datetime,
+    ) -> None:
+        key = requirement.coverage_key
+        stamp = now.isoformat()
+        spec = json.dumps(
+            {
+                "kind": requirement.kind.value,
+                "variable": requirement.variable,
+                "entity": requirement.entity,
+                "series": requirement.series,
+                "family": requirement.family,
+                "clock": requirement.clock,
+                "fidelity": requirement.fidelity,
+                "min_sources": requirement.min_sources,
+            },
+            sort_keys=True,
+        )
+        status = (
+            "satisfied"
+            if events_observed >= requirement.min_events
+            else "awaiting_observations"
+            if collector_status == "covered"
+            else "blocked_collector_change"
+        )
+        with self.connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            row = db.execute(
+                "SELECT events_required FROM research_forward WHERE coverage_key=?", (key,)
+            ).fetchone()
+            if row is None:
+                db.execute(
+                    "INSERT INTO research_forward "
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    (
+                        str(uuid4()),
+                        key,
+                        spec,
+                        source_id,
+                        collector,
+                        collector_status,
+                        requirement.min_events,
+                        events_observed,
+                        status,
+                        detail,
+                        stamp,
+                        stamp,
+                        next_check_at.isoformat(),
+                        None,
+                    ),
+                )
+            else:
+                required = max(int(row[0]), requirement.min_events)
+                status = (
+                    "satisfied"
+                    if events_observed >= required
+                    else "awaiting_observations"
+                    if collector_status == "covered"
+                    else "blocked_collector_change"
+                )
+                db.execute(
+                    "UPDATE research_forward SET events_required=?, events_observed=?, status=?, "
+                    "collector=?, collector_status=?, detail=?, updated_at=?, next_check_at=? "
+                    "WHERE coverage_key=?",
+                    (
+                        required,
+                        events_observed,
+                        status,
+                        collector,
+                        collector_status,
+                        detail,
+                        stamp,
+                        next_check_at.isoformat(),
+                        key,
+                    ),
+                )
+
+    def forward_id(self, coverage_key: str) -> str:
+        with self.connect() as db:
+            return str(
+                db.execute(
+                    "SELECT id FROM research_forward WHERE coverage_key=?", (coverage_key,)
+                ).fetchone()[0]
+            )
+
+    def link_forward(self, job_id: str, forward_id: str, requirement_id: str) -> None:
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO research_forward_links VALUES (?, ?, ?)",
+                (job_id, forward_id, requirement_id),
+            )
+
+    @staticmethod
+    def _forward(row: sqlite3.Row) -> dict[str, Any]:
+        value = dict(row)
+        value.update(json.loads(value.pop("spec")))
+        return value
+
+    def job_forward(self, job_id: str) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT DISTINCT f.* FROM research_forward f JOIN research_forward_links l "
+                "ON l.forward_id=f.id WHERE l.job_id=? ORDER BY f.created_at",
+                (job_identifier(job_id),),
+            ).fetchall()
+        return [self._forward(r) for r in rows]
+
+    def requirement_forward(self, job_id: str, requirement_id: str) -> dict[str, Any] | None:
+        with self.connect() as db:
+            row = db.execute(
+                "SELECT f.* FROM research_forward f "
+                "JOIN research_forward_links l ON l.forward_id=f.id "
+                "WHERE l.job_id=? AND l.requirement_id=?",
+                (job_identifier(job_id), requirement_id),
+            ).fetchone()
+        return self._forward(row) if row else None
+
+    def forward_requests(self) -> list[dict[str, Any]]:
+        with self.connect() as db:
+            rows = db.execute("SELECT * FROM research_forward ORDER BY created_at").fetchall()
+            result = []
+            for row in rows:
+                value = self._forward(row)
+                value["jobs"] = [
+                    str(r[0])
+                    for r in db.execute(
+                        "SELECT DISTINCT job_id FROM research_forward_links WHERE forward_id=?",
+                        (value["id"],),
+                    )
+                ]
+                result.append(value)
+            return result
+
+    # ------------------------------------------------------ B: features
+    def register_feature(
+        self, job_id: str, manifest: dict[str, Any], hypotheses: list[str], *, now: datetime
+    ) -> None:
+        with self.connect() as db:
+            db.execute(
+                "INSERT OR IGNORE INTO research_features VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    manifest["artifact_id"],
+                    manifest["feature_id"],
+                    manifest["version"],
+                    manifest["definition_hash"],
+                    manifest["entity"],
+                    json.dumps(manifest, sort_keys=True),
+                    now.isoformat(),
+                ),
+            )
+            db.execute(
+                "INSERT OR REPLACE INTO research_feature_links VALUES (?, ?, ?)",
+                (job_id, manifest["artifact_id"], json.dumps(hypotheses)),
+            )
+
+    def job_features(self, job_id: str, *, history: bool = False) -> list[dict[str, Any]]:
+        """Current artifact per feature and entity; earlier immutable artifacts on request."""
+        with self.connect() as db:
+            rows = db.execute(
+                "SELECT f.manifest, l.hypothesis_ids FROM research_features f JOIN "
+                "research_feature_links l ON l.artifact_id=f.artifact_id WHERE l.job_id=? "
+                "ORDER BY f.feature_id, f.entity, f.created_at, f.rowid",
+                (job_identifier(job_id),),
+            ).fetchall()
+        result: list[dict[str, Any]] = []
+        for manifest, hypotheses in rows:
+            value = json.loads(manifest)
+            value["hypotheses"] = json.loads(hypotheses)
+            value["inputs"] = value.pop("input_datasets")
+            if result and (result[-1]["feature_id"], result[-1]["entity"]) == (
+                value["feature_id"],
+                value["entity"],
+            ):
+                value["supersedes"] = [*result[-1].get("supersedes", []), result[-1]["artifact_id"]]
+                if not history:
+                    result.pop()
+            result.append(value)
+        return result

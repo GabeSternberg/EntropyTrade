@@ -1,0 +1,431 @@
+{
+  "schema": "entropytrade-research-sources-v1",
+  "sources": [
+    {
+      "source_id": "iem-nws-pfm",
+      "name": "NWS Point Forecast Matrices (IEM AFOS archive)",
+      "operator": "Iowa Environmental Mesonet, archiving National Weather Service text products",
+      "documentation": "https://mesonet.agron.iastate.edu/cgi-bin/afos/retrieve.py?help",
+      "access": "public_anonymous",
+      "authorization": "Anonymous public archive of NWS products; no key or account.",
+      "license": "NWS products are US government works; IEM asks for reasonable request rates.",
+      "hosts": [
+        {
+          "host": "mesonet.agron.iastate.edu",
+          "paths": [
+            "/cgi-bin/afos/retrieve.py"
+          ]
+        }
+      ],
+      "provides": [
+        {
+          "kind": "forecast_vintages",
+          "variable": "daytime_max_f"
+        },
+        {
+          "kind": "forecast_revisions",
+          "variable": "daytime_max_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "archive",
+      "clock": "issuance",
+      "clock_basis": "WMO header day/hour/minute cross-checked against the product's own issuance line; the product text is unchanged from dissemination.",
+      "timezone": "Issuance line in WFO local standard/daylight time; columns in local hours with a UTC row.",
+      "corrections": "Each reissued product is a separate vintage with its own issuance clock.",
+      "cost": "free",
+      "rate_limit_seconds": 1.0,
+      "settlement_authority": [],
+      "adapter": "iem_afos_pfm",
+      "point_in_time": "Eligible: the archived text is the product as issued, with its issuance clock.",
+      "entities": {
+        "CLIPHL": {
+          "pil": "PFMPHI",
+          "point": "Philadelphia-Philadelphia PA",
+          "lat": "39.87",
+          "lon": "75.24"
+        }
+      },
+      "unverified_entities_note": "Point mappings for other stations have not been verified against a retained product."
+    },
+    {
+      "source_id": "iem-nws-cli",
+      "name": "NWS Daily Climate Reports (IEM AFOS archive)",
+      "operator": "Iowa Environmental Mesonet, archiving National Weather Service text products",
+      "documentation": "https://mesonet.agron.iastate.edu/cgi-bin/afos/retrieve.py?help",
+      "access": "public_anonymous",
+      "authorization": "Anonymous public archive of NWS products; no key or account.",
+      "license": "NWS products are US government works; IEM asks for reasonable request rates.",
+      "hosts": [
+        {
+          "host": "mesonet.agron.iastate.edu",
+          "paths": [
+            "/cgi-bin/afos/retrieve.py"
+          ]
+        }
+      ],
+      "provides": [
+        {
+          "kind": "reference_observations",
+          "variable": "daily_high_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "archive",
+      "clock": "issuance",
+      "clock_basis": "WMO header of the final report, issued after the observation day ends; same-day reports are rejected as preliminary.",
+      "timezone": "Climate day in local standard time.",
+      "corrections": "Corrected reports are separate products with later issuance clocks.",
+      "cost": "free",
+      "rate_limit_seconds": 1.0,
+      "settlement_authority": [],
+      "authority_note": "KXHIGH contract text names The Weather Company, so CLI is a reference observation, never the settlement label.",
+      "adapter": "iem_afos_cli",
+      "point_in_time": "Eligible as a reference observation available at its issuance clock.",
+      "entities": {
+        "CLIPHL": {
+          "pil": "CLIPHL"
+        },
+        "CLIMDW": {
+          "pil": "CLIMDW"
+        },
+        "CLINYC": {
+          "pil": "CLINYC"
+        },
+        "CLIDFW": {
+          "pil": "CLIDFW"
+        }
+      }
+    },
+    {
+      "source_id": "weather-company-labels",
+      "name": "The Weather Company climate portal for Kalshi",
+      "operator": "The Weather Company",
+      "documentation": "https://weather.com/kalshi",
+      "access": "public_anonymous",
+      "authorization": "Public portal named in the contract rules; anonymous GET by date, the same endpoint as the existing label service.",
+      "license": "Public portal referenced by Kalshi contract rules; bounded research use.",
+      "hosts": [
+        {
+          "host": "weather.com",
+          "paths": [
+            "/kalshi/api/climate/primary"
+          ]
+        }
+      ],
+      "provides": [
+        {
+          "kind": "settlement_labels",
+          "variable": "daily_high_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "archive",
+      "clock": "receipt",
+      "clock_basis": "Provider issue clocks are often empty, so availability begins at this collection's receipt.",
+      "timezone": "Report date is the station's local calendar date.",
+      "corrections": "Status official or revised only; preliminary reports are refused.",
+      "cost": "free",
+      "rate_limit_seconds": 0.5,
+      "settlement_authority": [
+        "KXHIGHPHIL",
+        "KXHIGHCHI",
+        "KXHIGHNY",
+        "KXHIGHTDAL"
+      ],
+      "authority_note": "Retained KXHIGH contract text names The Weather Company as the settlement source.",
+      "adapter": "weather_company_labels",
+      "point_in_time": "Labels are outcomes and are never used as decision-time features.",
+      "entities": {
+        "CLIPHL": {},
+        "CLIMDW": {},
+        "CLINYC": {},
+        "CLIDFW": {}
+      }
+    },
+    {
+      "source_id": "kalshi-settled-markets",
+      "name": "Kalshi public market listings (settled contracts)",
+      "operator": "Kalshi",
+      "documentation": "https://docs.kalshi.com",
+      "access": "public_anonymous",
+      "authorization": "Public read-only market endpoint; no exchange credentials are used or permitted.",
+      "license": "Kalshi public API terms; read-only research use.",
+      "hosts": [
+        {
+          "host": "api.elections.kalshi.com",
+          "paths": [
+            "/trade-api/v2/markets"
+          ]
+        }
+      ],
+      "provides": [
+        {
+          "kind": "market_contracts",
+          "variable": "contract_terms"
+        },
+        {
+          "kind": "settlement_labels",
+          "variable": "binary_result"
+        }
+      ],
+      "families": [
+        "weather",
+        "bitcoin"
+      ],
+      "historical": "archive",
+      "clock": "receipt",
+      "clock_basis": "Contract terms and rules are as retrieved after settlement, not certified as known at decision time.",
+      "timezone": "Close and expiration times in UTC.",
+      "corrections": "Finalized results only.",
+      "cost": "free",
+      "rate_limit_seconds": 0.5,
+      "settlement_authority": [],
+      "adapter": "kalshi_settled_markets",
+      "point_in_time": "Contract structure only; retrieved rules do not certify decision-time rules.",
+      "entities": {
+        "KXHIGHPHIL": {},
+        "KXHIGHCHI": {},
+        "KXHIGHNY": {},
+        "KXHIGHTDAL": {}
+      }
+    },
+    {
+      "source_id": "kalshi-orderbook-forward",
+      "name": "Kalshi order books captured going forward",
+      "operator": "Kalshi, captured by the canonical local collector",
+      "documentation": "docs/forward-operator.md",
+      "access": "public_anonymous",
+      "authorization": "Captured by the existing canonical collector; this website never starts a second chain.",
+      "license": "Kalshi public API terms; read-only research use.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "decision_quotes",
+          "variable": "yes_quotes"
+        },
+        {
+          "kind": "order_book_depth",
+          "variable": "yes_book"
+        }
+      ],
+      "families": [
+        "weather",
+        "bitcoin"
+      ],
+      "historical": "prospective_only",
+      "clock": "receipt",
+      "clock_basis": "Collector receipt clocks.",
+      "timezone": "UTC receipt clocks.",
+      "corrections": "Immutable hash-linked snapshots.",
+      "cost": "free",
+      "rate_limit_seconds": 0,
+      "settlement_authority": [],
+      "adapter": null,
+      "collector": "canonical_local_chain",
+      "point_in_time": "No approved source provides historical decision-time books; they accrue only prospectively.",
+      "entities": {
+        "KXHIGHPHIL": {},
+        "KXHIGHCHI": {},
+        "KXHIGHNY": {},
+        "KXHIGHTDAL": {},
+        "KXBTCD": {}
+      }
+    },
+    {
+      "source_id": "nws-hourly-forward",
+      "name": "NWS and Open-Meteo hourly forecasts captured going forward",
+      "operator": "NWS and Open-Meteo, captured by the canonical local collector",
+      "documentation": "docs/forward-operator.md",
+      "access": "public_anonymous",
+      "authorization": "Captured by the existing canonical collector.",
+      "license": "NWS public domain; Open-Meteo free non-commercial terms.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "forecast_vintages",
+          "variable": "hourly_temperature_f"
+        },
+        {
+          "kind": "forecast_revisions",
+          "variable": "hourly_temperature_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "prospective_only",
+      "clock": "receipt",
+      "clock_basis": "Collector receipt clocks; api.weather.gov serves current forecasts only.",
+      "timezone": "UTC valid times.",
+      "corrections": "Each poll is a separate vintage.",
+      "cost": "free",
+      "rate_limit_seconds": 0,
+      "settlement_authority": [],
+      "adapter": null,
+      "collector": "canonical_local_chain",
+      "point_in_time": "Current-only API; history exists only as collected receipts.",
+      "entities": {
+        "CLIPHL": {},
+        "CLIMDW": {},
+        "CLINYC": {},
+        "CLIDFW": {}
+      }
+    },
+    {
+      "source_id": "open-meteo-previous-runs",
+      "name": "Open-Meteo previous-day forecast fields",
+      "operator": "Open-Meteo",
+      "documentation": "https://open-meteo.com/en/docs/previous-runs-api",
+      "access": "public_anonymous",
+      "authorization": "Anonymous API.",
+      "license": "Open-Meteo free non-commercial terms.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "forecast_vintages",
+          "variable": "hourly_temperature_f"
+        },
+        {
+          "kind": "forecast_vintages",
+          "variable": "daytime_max_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "archive",
+      "clock": "unknown",
+      "clock_basis": "previous_day fields carry no issue or publication timestamp.",
+      "timezone": "Configurable; UTC in retained captures.",
+      "corrections": "Unknown.",
+      "cost": "free",
+      "rate_limit_seconds": 1.0,
+      "settlement_authority": [],
+      "adapter": null,
+      "point_in_time": "Ineligible: historical values without availability clocks would be hindsight.",
+      "entities": {
+        "CLIPHL": {},
+        "CLIMDW": {},
+        "CLINYC": {},
+        "CLIDFW": {}
+      }
+    },
+    {
+      "source_id": "kalshi-fee-schedule",
+      "name": "Kalshi fee schedule evidence",
+      "operator": "Kalshi, via the existing fee-evidence capture",
+      "documentation": "docs/fee-evidence.md",
+      "access": "public_anonymous",
+      "authorization": "Captured by the existing fee administration command; certification is a human review.",
+      "license": "Public exchange documentation.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "fee_schedule",
+          "variable": "fee_schedule"
+        }
+      ],
+      "families": [
+        "weather",
+        "bitcoin"
+      ],
+      "historical": "archive",
+      "clock": "receipt",
+      "clock_basis": "Receipt clocks of the captured schedule.",
+      "timezone": "Not applicable.",
+      "corrections": "New versions are new evidence.",
+      "cost": "free",
+      "rate_limit_seconds": 0,
+      "settlement_authority": [],
+      "adapter": null,
+      "human_action": "Run entropytrade.execution.fee_admin to capture, then certify the version in review.",
+      "point_in_time": "Usable only after a human certifies the version.",
+      "entities": {
+        "KXHIGHPHIL": {},
+        "KXHIGHCHI": {},
+        "KXHIGHNY": {},
+        "KXHIGHTDAL": {},
+        "KXBTCD": {}
+      }
+    },
+    {
+      "source_id": "open-meteo-ensemble",
+      "name": "Open-Meteo ensemble forecasts",
+      "operator": "Open-Meteo",
+      "documentation": "https://open-meteo.com/en/docs/ensemble-api",
+      "access": "public_anonymous",
+      "authorization": "Anonymous API; not captured by the canonical collector configuration.",
+      "license": "Open-Meteo free non-commercial terms.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "forecast_vintages",
+          "variable": "ensemble_member_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "prospective_only",
+      "clock": "receipt",
+      "clock_basis": "Would need collector receipt clocks.",
+      "timezone": "UTC.",
+      "corrections": "Each poll is a vintage.",
+      "cost": "free",
+      "rate_limit_seconds": 0,
+      "settlement_authority": [],
+      "adapter": null,
+      "collector": "requires_collector_change",
+      "point_in_time": "Ensemble members are not archived with issuance clocks; collection would be prospective after a reviewed collector change.",
+      "entities": {
+        "CLIPHL": {},
+        "CLIMDW": {},
+        "CLINYC": {},
+        "CLIDFW": {}
+      }
+    },
+    {
+      "source_id": "nws-station-observations",
+      "name": "NWS station observations (api.weather.gov)",
+      "operator": "National Weather Service",
+      "documentation": "https://www.weather.gov/documentation/services-web-api",
+      "access": "public_anonymous",
+      "authorization": "Anonymous API; not captured by the canonical collector configuration.",
+      "license": "US government work.",
+      "hosts": [],
+      "provides": [
+        {
+          "kind": "intraday_observations",
+          "variable": "temperature_f"
+        }
+      ],
+      "families": [
+        "weather"
+      ],
+      "historical": "prospective_only",
+      "clock": "receipt",
+      "clock_basis": "Only about a week is retained and retrieval now cannot show when a value was first available; collection must be prospective.",
+      "timezone": "UTC observation times.",
+      "corrections": "Quality-controlled values can change after first publication.",
+      "cost": "free",
+      "rate_limit_seconds": 0,
+      "settlement_authority": [],
+      "adapter": null,
+      "collector": "requires_collector_change",
+      "point_in_time": "Retrieving past observations later would backdate their availability; prospective receipts only.",
+      "entities": {
+        "CLIPHL": {},
+        "CLIMDW": {},
+        "CLINYC": {},
+        "CLIDFW": {}
+      }
+    }
+  ]
+}

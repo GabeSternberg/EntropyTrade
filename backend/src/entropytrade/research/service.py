@@ -7,15 +7,27 @@ propose; deterministic code derives requirements, inspects evidence and sets sta
 
 import threading
 import time
+from collections import Counter, defaultdict
 from collections.abc import Callable
 from datetime import date, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from entropytrade.domain.time import Clock, SystemClock
 from entropytrade.features.registry import scientific_hash
+from entropytrade.research.acquire import (
+    AcquisitionError,
+    BudgetExceededError,
+    Fetcher,
+    RawStore,
+    acquisition_key,
+    adapter_params,
+    load_records,
+    run_acquisition,
+)
 from entropytrade.research.families import Entity, Family, load_families
+from entropytrade.research.forward import CHECK_INTERVAL, CollectorConfig
 from entropytrade.research.hypotheses import (
     HypothesisProposalBatch,
     deduplicate,
@@ -25,8 +37,10 @@ from entropytrade.research.hypotheses import (
     requirements,
 )
 from entropytrade.research.inventory import assess, inventory, summary
+from entropytrade.research.materialize import materialize, publish_feature
 from entropytrade.research.model import (
     RUNNABLE,
+    Assessment,
     AssessmentStatus,
     DataKind,
     DataRequirement,
@@ -36,8 +50,12 @@ from entropytrade.research.model import (
     Provenance,
     ResearchRequest,
 )
-from entropytrade.research.registry import FeatureRegistry
+from entropytrade.research.registry import FeatureDefinition, FeatureRegistry
+from entropytrade.research.sources import SourceDescriptor, discover, load_catalog
 from entropytrade.research.store import ResearchStore, job_identifier
+
+if TYPE_CHECKING:
+    import httpx
 
 Proposer = Callable[..., dict[str, Any]]
 SCOPE = (
@@ -64,14 +82,22 @@ class ResearchService:
         proposer: Proposer | None = None,
         lease_fd: int | None = None,
         poll_seconds: float = 0.5,
+        transport: "httpx.BaseTransport | None" = None,
+        transport_label: str = "live",
+        sleep: Callable[[float], None] = time.sleep,
     ) -> None:
         from entropytrade.research.worker import SubprocessProposer
 
         self.workspace, self.repo = workspace, repo
         self.clock = clock or SystemClock()
         self._store: ResearchStore | None = None
+        self._store_lock = threading.Lock()
         self.families = load_families(repo)
         self.registry = FeatureRegistry()
+        self.sources = load_catalog(repo)
+        self.collector = CollectorConfig(repo)
+        # Tests and the controlled browser server replay recorded responses; live otherwise.
+        self.transport, self.transport_label, self.sleep = transport, transport_label, sleep
         self.proposer = proposer or SubprocessProposer(repo, workspace, lease_fd=lease_fd)
         self.poll_seconds = poll_seconds
         self.stop = threading.Event()
@@ -83,9 +109,10 @@ class ResearchService:
     @property
     def store(self) -> ResearchStore:
         """Created on first use, so a workspace that never runs research is unchanged."""
-        if self._store is None:
-            self._store = ResearchStore(self.workspace / "research")
-        return self._store
+        with self._store_lock:
+            if self._store is None:
+                self._store = ResearchStore(self.workspace / "research")
+            return self._store
 
     def started(self) -> bool:
         return self._store is not None or (self.workspace / "research/research.sqlite").is_file()
@@ -110,10 +137,15 @@ class ResearchService:
         """Jobs mid-step simply re-run their idempotent step; record that it happened."""
         if not self.started():
             return
+        requeued = self.store.recover_acquisitions(now=self.now())
         for job in self.store.list_jobs(limit=500):
             if JobStatus(job["status"]) in RUNNABLE - {JobStatus.QUEUED}:
                 self.store.event(
-                    job["id"], "recovered", "Resumed from the last checkpoint", now=self.now()
+                    job["id"],
+                    "recovered",
+                    "Resumed from the last checkpoint"
+                    + (f"; {requeued} interrupted acquisitions queued again" if requeued else ""),
+                    now=self.now(),
                 )
 
     def loop(self) -> None:
@@ -200,7 +232,8 @@ class ResearchService:
         started = time.monotonic()
         stage = status
         try:
-            if job["usage"]["runtime_seconds"] >= request.budget.max_runtime_seconds:
+            spent = job["usage"]["runtime_seconds"] - job["checkpoint"].get("runtime_base", 0)
+            if spent >= request.budget.max_runtime_seconds:
                 raise StepError("The job's runtime budget is exhausted.", transient=False)
             if status is JobStatus.RECOVERABLE_ERROR:
                 stage = JobStatus(job["checkpoint"].get("stage", JobStatus.PLANNING.value))
@@ -216,11 +249,16 @@ class ResearchService:
                 self._generate(job, request)
             elif status in {JobStatus.PLANNING, JobStatus.AWAITING_OBSERVATIONS}:
                 if status is JobStatus.AWAITING_OBSERVATIONS:
+                    # Each reevaluation gets its own runtime allowance; waiting is not work.
                     self.store.transition(
                         job_id,
                         JobStatus.PLANNING,
                         "Scheduled reevaluation of awaited evidence",
                         now=self.now(),
+                        checkpoint={
+                            **job["checkpoint"],
+                            "runtime_base": job["usage"]["runtime_seconds"],
+                        },
                     )
                 self._plan(job, request)
             else:
@@ -240,11 +278,6 @@ class ResearchService:
             )
         finally:
             self.store.add_usage(job_id, runtime_seconds=time.monotonic() - started)
-
-    def extra_step(self, job: dict[str, Any], request: ResearchRequest, status: JobStatus) -> None:
-        """Later milestones add acquisition and feature steps here."""
-        del job, request
-        raise StepError(f"no handler for {status.value}", transient=False)
 
     def _fail(
         self, job: dict[str, Any], request: ResearchRequest, stage: JobStatus, failure: StepError
@@ -438,6 +471,7 @@ class ResearchService:
         self.store.event(job_id, "inventory", detail, now=now)
         self.after_inventory(job, request, merged, records)
 
+    # ------------------------------------------------- discovery and acquisition
     def after_inventory(
         self,
         job: dict[str, Any],
@@ -445,12 +479,439 @@ class ResearchService:
         merged: list[DataRequirement],
         records: list[Any],
     ) -> None:
-        """Milestone A evaluates immediately. Acquisition planning extends this hook."""
-        del request, merged, records
-        self.evaluate(job["id"])
-        self.store.transition(
-            job["id"], JobStatus.EVALUATED, self.outcome_detail(job["id"]), now=self.now()
+        """Discover sources for unmet requirements, plan acquisitions and forward requests."""
+        del records
+        job_id = job["id"]
+        now = self.now()
+        assessments = self.store.assessments(job_id)
+        decisions = []
+        for requirement in merged:
+            assessment = assessments.get(requirement.requirement_id)
+            if assessment is None:
+                continue
+            if assessment.status is AssessmentStatus.SATISFIED:
+                # Awaited evidence arrived: record it on the shared forward request.
+                forward = self.store.requirement_forward(job_id, requirement.requirement_id)
+                if forward is not None:
+                    self.store.plan_forward(
+                        requirement,
+                        source_id=forward["source_id"],
+                        collector=forward["collector"],
+                        collector_status=forward["collector_status"],
+                        events_observed=assessment.events_available,
+                        detail=forward["detail"],
+                        now=now,
+                        next_check_at=now + CHECK_INTERVAL,
+                    )
+                continue
+            found = discover(self.sources, requirement, today=now.date())
+            decisions.extend(found)
+            self.store.save_source_decisions(job_id, requirement.requirement_id, found)
+            for decision in found:
+                source = self.sources[decision.source_id]
+                if decision.decision == "acquire":
+                    self._plan_acquisition(job_id, request, requirement, source)
+                elif decision.decision == "forward_collect":
+                    self._plan_forward(job_id, requirement, source, assessment.events_available)
+        self.store.event(
+            job_id,
+            "discovery",
+            f"Evaluated {len(decisions)} source options: "
+            + ", ".join(
+                f"{n} {d}" for d, n in sorted(Counter(x.decision for x in decisions).items())
+            ),
+            now=now,
         )
+        queued = self.store.job_acquisitions(job_id, statuses=("queued", "running"))
+        if queued and min(self.budget_left(job, request)) > 0:
+            self.store.transition(
+                job_id,
+                JobStatus.ACQUIRING,
+                f"{len(queued)} read-only acquisitions queued",
+                now=self.now(),
+            )
+        else:
+            self.store.transition(
+                job_id, JobStatus.FEATURIZING, "Registering point-in-time features", now=self.now()
+            )
+
+    def _missing_span(
+        self, source_id: str, entity: str, requirement: DataRequirement
+    ) -> tuple[date, date] | None:
+        """Dates not yet attempted from this source, so nothing identical is fetched twice."""
+        attempted: set[date] = set()
+        for row in self.store.acquisitions_for(source_id, entity):
+            if row["status"] in {"completed", "failed", "queued", "running", "awaiting_approval"}:
+                start = date.fromisoformat(row["params"]["start"])
+                end = date.fromisoformat(row["params"]["end"])
+                attempted.update(start + timedelta(days=i) for i in range((end - start).days + 1))
+        days = [
+            requirement.start + timedelta(days=i)
+            for i in range((requirement.end - requirement.start).days + 1)
+        ]
+        missing = [d for d in days if d not in attempted]
+        return (missing[0], missing[-1]) if missing else None
+
+    def _plan_acquisition(
+        self,
+        job_id: str,
+        request: ResearchRequest,
+        requirement: DataRequirement,
+        source: SourceDescriptor,
+    ) -> None:
+        if request.acquisition == "none":
+            return
+        entity = (
+            requirement.series
+            if source.source_id == "kalshi-settled-markets"
+            else requirement.entity
+        )
+        span = self._missing_span(source.source_id, entity, requirement)
+        if span is None:
+            existing = self.store.acquisitions_for(source.source_id, entity)
+            for row in existing:
+                self.store.link_acquisition(
+                    job_id, row["id"], requirement.requirement_id, "inherited"
+                )
+                if request.acquisition == "approved_sources":
+                    # Pre-approved here; another job's pending ask cannot block this job.
+                    self.store.decide_acquisition(job_id, row["id"], approve=True, now=self.now())
+            return
+        params = adapter_params(
+            source, entity=entity, series=requirement.series, start=span[0], end=span[1]
+        )
+        key = acquisition_key(source, params)
+        approval = "automatic" if request.acquisition == "approved_sources" else "pending"
+        acquisition_id = self.store.plan_acquisition(
+            key,
+            source.source_id,
+            params,
+            status="queued" if approval == "automatic" else "awaiting_approval",
+            now=self.now(),
+        )
+        self.store.link_acquisition(job_id, acquisition_id, requirement.requirement_id, approval)
+        if approval == "automatic":
+            # This job's user pre-approved the source; another job's pending ask can't block it.
+            self.store.decide_acquisition(job_id, acquisition_id, approve=True, now=self.now())
+
+    def _plan_forward(
+        self,
+        job_id: str,
+        requirement: DataRequirement,
+        source: SourceDescriptor,
+        observed: int,
+    ) -> None:
+        status, detail = self.collector.coverage(source, requirement)
+        self.store.plan_forward(
+            requirement,
+            source_id=source.source_id,
+            collector="canonical_local_chain"
+            if status == "covered"
+            else "requires_collector_change",
+            collector_status=status,
+            events_observed=observed,
+            detail=detail,
+            now=self.now(),
+            next_check_at=self.now() + CHECK_INTERVAL,
+        )
+        forward_id = self.store.forward_id(requirement.coverage_key)
+        self.store.link_forward(job_id, forward_id, requirement.requirement_id)
+
+    def extra_step(self, job: dict[str, Any], request: ResearchRequest, status: JobStatus) -> None:
+        if status is JobStatus.ACQUIRING:
+            self._acquire(job, request)
+        elif status is JobStatus.FEATURIZING:
+            self._featurize(job, request)
+        else:
+            raise StepError(f"no handler for {status.value}", transient=False)
+
+    def budget_left(self, job: dict[str, Any], request: ResearchRequest) -> tuple[int, int]:
+        usage = self.store.get_job(job["id"])["usage"]  # type: ignore[index]
+        return (
+            request.budget.max_http_requests - int(usage["http_requests"]),
+            request.budget.max_bytes - int(usage["bytes"]),
+        )
+
+    def _acquire(self, job: dict[str, Any], request: ResearchRequest) -> None:
+        """Run one queued acquisition, then continue or return to planning."""
+        job_id = job["id"]
+        queued = self.store.job_acquisitions(job_id, statuses=("queued", "running"))
+        if not queued:
+            self.store.transition(
+                job_id,
+                JobStatus.PLANNING,
+                "Acquisitions finished; reassessing evidence",
+                now=self.now(),
+            )
+            return
+        row = queued[0]
+        due = datetime.fromisoformat(row["next_attempt_at"])
+        if due > self.now():
+            self.store.transition(
+                job_id,
+                JobStatus.ACQUIRING,
+                "Waiting to retry a transient source failure",
+                now=self.now(),
+                next_run_at=due,
+            )
+            return
+        source = self.sources[row["source_id"]]
+        remaining_requests, remaining_bytes = self.budget_left(job, request)
+        if remaining_requests <= 0 or remaining_bytes <= 0:
+            self.store.transition(
+                job_id,
+                JobStatus.PLANNING,
+                "The job's HTTP or byte budget is exhausted; remaining acquisitions skipped",
+                now=self.now(),
+            )
+            return
+        self.store.start_acquisition(row["id"], now=self.now())
+        self.store.event(
+            job_id,
+            "acquisition",
+            f"Fetching {source.name} for {row['params']['entity']} "
+            f"{row['params']['start']}..{row['params']['end']}",
+            now=self.now(),
+        )
+        fetcher = Fetcher(
+            source=source,
+            raw=RawStore(self.store.root),
+            clock=self.now,
+            budget_requests=remaining_requests,
+            budget_bytes=remaining_bytes,
+            cancelled=lambda: job_id in self.cancelled,
+            transport=self.transport,
+            sleep=self.sleep,
+        )
+        try:
+            manifest = run_acquisition(
+                self.store.root, source, row["params"], fetcher, now=self.now
+            )
+        except (OSError, ValueError, TypeError, KeyError):
+            # Never leave a shared acquisition stuck in "running"; the job step retries.
+            self.store.finish_acquisition(
+                row["id"], "queued", "Interrupted by an internal error", now=self.now()
+            )
+            raise
+        except AcquisitionError as exc:
+            self.store.add_usage(job_id, http_requests=fetcher.requests, bytes=fetcher.bytes)
+            if exc.reason == "cancelled" or isinstance(exc, BudgetExceededError):
+                # Shared acquisitions stay available to other jobs; preserved bytes are reused.
+                self.store.finish_acquisition(
+                    row["id"],
+                    "queued",
+                    "Stopped: " + exc.reason,
+                    now=self.now(),
+                    requests=fetcher.requests,
+                    size=fetcher.bytes,
+                )
+                self.store.event(job_id, "acquisition", "Stopped: " + exc.reason, now=self.now())
+                return
+            attempts = int(row["attempts"]) + 1
+            retry = exc.transient and attempts < 3 and exc.reason != "cancelled"
+            self.store.finish_acquisition(
+                row["id"],
+                "queued" if retry else "failed",
+                exc.reason,
+                now=self.now(),
+                requests=fetcher.requests,
+                size=fetcher.bytes,
+                next_attempt_at=self.now() + timedelta(minutes=5 * attempts) if retry else None,
+            )
+            self.store.event(
+                job_id,
+                "acquisition",
+                f"{source.source_id}: {exc.reason}" + (" (will retry)" if retry else ""),
+                now=self.now(),
+            )
+            return
+        self.store.add_usage(job_id, http_requests=fetcher.requests, bytes=fetcher.bytes)
+        detail = (
+            f"{manifest['record_count']} records from {manifest['responses']} responses; "
+            f"{manifest['refused']} refused"
+        )
+        self.store.finish_acquisition(
+            row["id"],
+            "completed",
+            detail,
+            now=self.now(),
+            requests=fetcher.requests,
+            size=fetcher.bytes,
+            dataset_id=manifest["dataset_id"],
+        )
+        self.store.event(job_id, "acquisition", f"{source.source_id}: {detail}", now=self.now())
+
+    # ----------------------------------------------------------- features
+    def _featurize(self, job: dict[str, Any], request: ResearchRequest) -> None:
+        """Materialize research features whose inputs are satisfied, then evaluate."""
+        job_id = job["id"]
+        family = self.family(request.family)
+        entities = {e.entity: e for e in self.entities(job, family)}
+        requirements = self.store.requirements(job_id)
+        assessments = self.store.assessments(job_id)
+        resolutions = self.store.resolutions(job_id)
+        wanted: dict[str, set[str]] = defaultdict(set)
+        for hypothesis_id, items in resolutions.items():
+            for resolution in items:
+                if resolution.feature_id:
+                    wanted[resolution.feature_id].add(hypothesis_id)
+        built = 0
+        for feature_id, hypotheses in sorted(wanted.items()):
+            definition = self.registry.get(feature_id)
+            if definition.materializer != "research":
+                continue
+            for entity, info in entities.items():
+                inputs = self._feature_inputs(definition, entity, requirements, assessments)
+                if inputs is None:
+                    continue
+                datasets, records = inputs
+                window = (requirements[0].start, requirements[0].end)
+                rows = materialize(
+                    definition,
+                    entity=entity,
+                    timezone=info.timezone,
+                    schedule=family.schedule,
+                    window=window,
+                    inputs=records,
+                )
+                manifest = publish_feature(
+                    self.store.root,
+                    definition,
+                    entity=entity,
+                    schedule=family.schedule,
+                    window=window,
+                    input_datasets=datasets,
+                    rows=rows,
+                    created_at=self.now(),
+                )
+                self.store.register_feature(job_id, manifest, sorted(hypotheses), now=self.now())
+                built += 1
+        self.store.event(
+            job_id, "features", f"{built} feature artifacts registered", now=self.now()
+        )
+        self.evaluate(job_id)
+        approved = self.store.job_acquisitions(job_id, statuses=("queued",))
+        if approved and min(self.budget_left(job, request)) > 0:
+            # Approved while features were being built: acquire before settling.
+            self.store.transition(
+                job_id, JobStatus.PLANNING, "Approved acquisitions are queued", now=self.now()
+            )
+            return
+        pending = self.store.job_acquisitions(job_id, statuses=("awaiting_approval",))
+        waiting = [f for f in self.store.job_forward(job_id) if f["status"] != "satisfied"]
+        covered = [f for f in waiting if f["collector_status"] == "covered"]
+        if pending:
+            target, detail = (
+                JobStatus.AWAITING_AUTHORIZATION,
+                (f"{len(pending)} acquisitions await your approval; other work continued"),
+            )
+            next_run = None
+        elif covered:
+            target = JobStatus.AWAITING_OBSERVATIONS
+            # Never schedule into the past: that would re-plan in a hot loop.
+            next_run = max(
+                min(datetime.fromisoformat(f["next_check_at"]) for f in covered),
+                self.now() + timedelta(minutes=1),
+            )
+            detail = (
+                f"Awaiting prospective evidence for {len(covered)} requirements; next "
+                f"reevaluation {next_run.isoformat(timespec='minutes')}"
+            )
+        else:
+            target, detail, next_run = JobStatus.EVALUATED, self.outcome_detail(job_id), None
+        self.store.transition(job_id, target, detail, now=self.now(), next_run_at=next_run)
+
+    def _feature_inputs(
+        self,
+        definition: FeatureDefinition,
+        entity: str,
+        requirements: list[DataRequirement],
+        assessments: dict[str, Assessment],
+    ) -> tuple[list[str], dict[str, list[dict[str, Any]]]] | None:
+        """Records from verified research datasets for each input, or None if unmet."""
+        names = (
+            ["label"]
+            if definition.transform == "label_value"
+            else ["forecast", "observation"][: len(definition.inputs)]
+        )
+        datasets: list[str] = []
+        records: dict[str, list[dict[str, Any]]] = {}
+        for name, item in zip(names, definition.inputs, strict=True):
+            match = next(
+                (
+                    r
+                    for r in requirements
+                    if r.kind is item.kind and r.variable == item.variable and r.entity == entity
+                ),
+                None,
+            )
+            assessment = assessments.get(match.requirement_id) if match else None
+            if assessment is None or assessment.status is not AssessmentStatus.SATISFIED:
+                return None
+            ids = [d for d in assessment.datasets if d.startswith("sha256:")]
+            loaded = []
+            for dataset_id in ids:
+                try:
+                    loaded.extend(load_records(self.store.root, dataset_id))
+                except FileNotFoundError:
+                    continue
+            if not loaded:
+                return None
+            datasets.extend(ids)
+            records[name] = loaded
+        return sorted(set(datasets)), records
+
+    def requirement_state(
+        self, job_id: str, requirement: DataRequirement, assessment: Assessment | None
+    ) -> tuple[AssessmentStatus, str]:
+        """Assessment status refined by discovery: acquiring, awaiting, or unobtainable."""
+        if assessment is None:
+            return AssessmentStatus.MISSING, "not yet assessed"
+        if assessment.status is AssessmentStatus.SATISFIED:
+            return assessment.status, assessment.reasons[0]
+        links = self.store.requirement_acquisitions(job_id, requirement.requirement_id)
+        if any(a["status"] in {"queued", "running"} for a in links):
+            job = self.store.get_job(job_id)
+            if (
+                job
+                and min(self.budget_left(job, ResearchRequest.model_validate(job["request"]))) <= 0
+            ):
+                return (
+                    AssessmentStatus.MISSING,
+                    "the job's acquisition budget ran out; resubmit with a larger budget",
+                )
+            return AssessmentStatus.ACQUIRING, "acquisition in progress"
+        if any(a["status"] == "awaiting_approval" for a in links):
+            return AssessmentStatus.AWAITING_AUTHORIZATION, "acquisition awaits your approval"
+        forward = self.store.requirement_forward(job_id, requirement.requirement_id)
+        if forward is not None:
+            if forward["collector_status"] == "covered":
+                return (
+                    AssessmentStatus.AWAITING_OBSERVATIONS,
+                    f"awaiting prospective collection ({forward['events_observed']} of "
+                    f"{forward['events_required']} events); {forward['detail']}",
+                )
+            return AssessmentStatus.AWAITING_AUTHORIZATION, forward["detail"]
+        decisions = self.store.source_decisions(job_id, requirement.requirement_id)
+        if not links and any(d.decision == "acquire" for d in decisions):
+            job = self.store.get_job(job_id)
+            if job and job["request"].get("acquisition") == "none":
+                return (
+                    AssessmentStatus.MISSING,
+                    "acquirable, but acquisition is disabled for this job",
+                )
+        if any(d.decision == "authorization_required" for d in decisions):
+            reason = next(d for d in decisions if d.decision == "authorization_required").reasons
+            return AssessmentStatus.AWAITING_AUTHORIZATION, "; ".join(reason)
+        if any(a["status"] == "completed" for a in links):
+            return assessment.status, assessment.reasons[0] + " after acquisition"
+        failed = [a for a in links if a["status"] == "failed"]
+        if failed:
+            return AssessmentStatus.UNOBTAINABLE, "acquisition failed: " + failed[0]["detail"]
+        if not decisions:
+            return AssessmentStatus.UNOBTAINABLE, "no approved source provides this evidence"
+        rejected = "; ".join(f"{d.source_id}: {', '.join(d.reasons)}" for d in decisions)
+        return AssessmentStatus.UNOBTAINABLE, "no eligible source: " + rejected
 
     # ------------------------------------------------------------ evaluation
     def evaluate(self, job_id: str) -> None:
@@ -465,7 +926,7 @@ class ResearchService:
             hypothesis_id = row["hypothesis_id"]
             mine = [r for r in requirements_by_id.values() if hypothesis_id in r.hypotheses]
             status, reasons, facets = self.classify(
-                hypothesis_id, mine, assessments, resolutions.get(hypothesis_id, [])
+                job_id, hypothesis_id, mine, assessments, resolutions.get(hypothesis_id, [])
             )
             self.store.set_hypothesis_status(
                 job_id, hypothesis_id, status, reasons, facets, now=now
@@ -473,6 +934,7 @@ class ResearchService:
 
     def classify(
         self,
+        job_id: str,
         hypothesis_id: str,
         mine: list[DataRequirement],
         assessments: dict[str, Any],
@@ -516,13 +978,73 @@ class ResearchService:
                 "them: " + ", ".join(unregistered) + ". Their declared data needs were recorded.",
             )
             return HypothesisStatus.UNSUPPORTED, reasons, facets
-        if facets["predictive"]["ready"] and facets["execution"]["ready"] and not unimplemented:
-            return HypothesisStatus.BACKTEST_ELIGIBLE, reasons, facets
-        if unimplemented:
+        states = {
+            r.requirement_id: self.requirement_state(job_id, r, assessments.get(r.requirement_id))
+            for r in mine
+        }
+        reasons = [
+            f"{r.purpose}: {states[r.requirement_id][1]}"
+            for r in mine
+            if states[r.requirement_id][0] is not AssessmentStatus.SATISFIED
+        ]
+        features = self.store.job_features(job_id)
+        built = {
+            f["feature_id"] for f in features if hypothesis_id in f["hypotheses"] and f["non_null"]
+        }
+        research_features = [
+            r.feature_id
+            for r in resolutions
+            if r.feature_id and self.registry.get(r.feature_id).materializer == "research"
+        ]
+        facets["features_registered"] = sorted(built)
+        facets["features_expected"] = sorted(research_features)
+        kinds = {s for s, _ in states.values()}
+        if AssessmentStatus.UNOBTAINABLE in kinds:
+            result = HypothesisStatus.INSUFFICIENT_EVIDENCE
+        elif AssessmentStatus.AWAITING_AUTHORIZATION in kinds:
+            result = HypothesisStatus.AWAITING_AUTHORIZATION
+        elif kinds & {AssessmentStatus.ACQUIRING, AssessmentStatus.MISSING}:
+            result = HypothesisStatus.NEEDS_DATA
+        elif AssessmentStatus.AWAITING_OBSERVATIONS in kinds:
+            result = HypothesisStatus.AWAITING_OBSERVATIONS
+        elif AssessmentStatus.PARTIAL in kinds:
+            result = HypothesisStatus.INSUFFICIENT_EVIDENCE
+            reasons.append("Extend the lookback or wait for more completed days, then reevaluate.")
+        elif facets["unimplemented_features"] or set(research_features) - built:
+            result = HypothesisStatus.NEEDS_DATA
+        else:
+            result = HypothesisStatus.BACKTEST_ELIGIBLE
+        if facets["unimplemented_features"]:
             reasons.append(
-                "Features without an implemented materializer: " + ", ".join(unimplemented)
+                "Features without an implemented materializer: "
+                + ", ".join(facets["unimplemented_features"])
             )
-        return HypothesisStatus.NEEDS_DATA, reasons, facets
+        return result, reasons, facets
+
+    # ----------------------------------------------------------- approvals
+    def approve(self, job_id: str, value: object) -> bool:
+        if (
+            not isinstance(value, dict)
+            or set(value) != {"acquisition_id", "decision"}
+            or value["decision"] not in {"approve", "deny"}
+            or not isinstance(value["acquisition_id"], str)
+        ):
+            raise ValueError("provide acquisition_id and decision approve or deny")
+        if not self.started():
+            raise KeyError("research job not found")
+        changed = self.store.decide_acquisition(
+            job_id, value["acquisition_id"], approve=value["decision"] == "approve", now=self.now()
+        )
+        job = self.store.get_job(job_id)
+        if changed and job and JobStatus(job["status"]) is JobStatus.AWAITING_AUTHORIZATION:
+            self.store.transition(
+                job_id,
+                JobStatus.PLANNING,
+                f"Acquisition {value['decision']}d by user",
+                now=self.now(),
+            )
+        self.wake.set()
+        return changed
 
     def outcome_detail(self, job_id: str) -> str:
         counts: dict[str, int] = {}
@@ -540,6 +1062,18 @@ class ResearchService:
             "providers": provider_catalog(),
             "features": self.registry.catalog(),
             "data_kinds": [k.value for k in DataKind],
+            "sources": [
+                {
+                    "source_id": s.source_id,
+                    "name": s.name,
+                    "historical": s.historical,
+                    "clock": s.clock,
+                    "adapter": s.adapter is not None,
+                    "point_in_time": s.point_in_time,
+                }
+                for s in self.sources.values()
+            ],
+            "transport": self.transport_label,
             "defaults": ResearchRequest(
                 objective="placeholder objective", family="weather"
             ).model_dump(mode="json", exclude={"objective", "family"}),
@@ -575,7 +1109,28 @@ class ResearchService:
         return job
 
     def extend_detail(self, job: dict[str, Any]) -> None:
-        """Later milestones attach acquisitions, sources, features and forward requests."""
+        """Sources, acquisitions, features and forward requests, with refined states."""
+        job_id = job["id"]
+        assessments = self.store.assessments(job_id)
+        for row in job["requirements"]:
+            requirement = DataRequirement.model_validate(
+                {k: v for k, v in row.items() if k != "assessment"}
+            )
+            state, reason = self.requirement_state(
+                job_id, requirement, assessments.get(requirement.requirement_id)
+            )
+            if row["assessment"] is not None:
+                row["assessment"]["status"] = state.value
+                if reason not in row["assessment"]["reasons"]:
+                    row["assessment"]["reasons"] = [reason, *row["assessment"]["reasons"]]
+        job["sources"] = [d.model_dump(mode="json") for d in self.store.source_decisions(job_id)]
+        job["acquisitions"] = [
+            {k: v for k, v in a.items() if k != "acquisition_key"}
+            for a in self.store.job_acquisitions(job_id)
+        ]
+        job["features"] = self.store.job_features(job_id)
+        job["forward_requests"] = self.store.job_forward(job_id)
+        job["transport"] = self.transport_label
 
     def report(self, job_id: str) -> dict[str, Any] | None:
         detail = self.detail(job_id)

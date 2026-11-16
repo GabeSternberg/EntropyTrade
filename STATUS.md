@@ -17,6 +17,36 @@ code consolidation from authentic history/validation, certified fees, provider a
 the user-approved second family, sustained operation, storage runway and final acceptance.
 Production submissions remain disabled. No new feature phase or real-money order is authorized.
 
+## Autonomous research, Milestone B (2026-11-16): acquisition and feature registration
+
+Branch `feature/research-milestone-b`. **V1 remains incomplete; no order path, collector change
+or canonical-chain access was added.** See [autonomous research](docs/autonomous-research.md).
+
+- **Source catalog.** `configs/research/sources.json` lists approved sources. Each is evaluated
+  deterministically per requirement: clocks, authority, coverage, authorization, cost, adapter.
+- **Acquisition.** Four allowlisted read-only adapters: NWS PFM and CLI via the IEM archive,
+  Weather Company labels, Kalshi settled markets. Each preserves raw bytes, publishes immutable
+  datasets and skips repeat downloads. Permissions, approvals, budgets, retries, cancellation
+  and restart recovery all apply.
+- **Features.** Point-in-time materialization with lineage and supersession.
+- **Forward collection.** Requests against the existing collector configuration, with automatic
+  reevaluation every six hours. A sanitized collector-status export and import exists for the
+  Windows chain.
+- **Website.** Sources, Acquisitions (approve or deny), Features and Forward collection tabs,
+  plus a replay banner.
+- **Live evidence.** Job `6601d1be` acquired 845 PFM vintages, 30 CLI reports, 30 authority
+  labels and 180 contracts for KXHIGHPHIL (39 GETs) and registered four features.
+  Reevaluation made no new requests. The forecast-bias hypothesis is predictively complete; it
+  awaits fee certification and collector quotes.
+- **Defects found live and fixed.** Compressed responses were not decoded, and a parse error
+  could leave an acquisition running.
+- **Review fixes.** An independent review found five correctness issues, all now fixed: a
+  stale shared forward status, a mismatched reevaluation window, runtime accounting while
+  waiting, cross-job approval blocking, and a lazy-store race.
+- **Checks.** Ruff and format pass; strict mypy passes (600 files). Full pytest: 1,561 passed.
+  Node tests: 32 passed. Managed Chromium passes the research (2 scenarios), redesign and
+  CIS 1990 specs.
+
 ## Autonomous research, Milestone A (2026-11-15): durable research jobs and data requirements
 
 Branch `feature/research-milestone-a`. **V1 remains incomplete; no order path was added and
