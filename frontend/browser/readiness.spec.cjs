@@ -102,7 +102,7 @@ for (const controlled of [false, true]) {
       const governance = page.locator("#paper-governance");
       await governance.getByLabel("Proposed capital in dollars").fill(capital);
       await governance.getByLabel("Proposed maximum loss in dollars").fill(loss);
-      const response = page.waitForResponse((item) => item.request().method() === "POST" && new URL(item.url()).pathname === `/api/monitors/${monitorId}/readiness`);
+      const response = page.waitForResponse((item) => item.request().method() === "POST" && new URL(item.url()).pathname === `/api/monitors/${monitorId}/readiness`, { timeout: 90_000 });
       await governance.getByRole("button", { name: "Save readiness proposal", exact: true }).click();
       const saved = await response;
       const value = await saved.json();
@@ -120,6 +120,20 @@ for (const controlled of [false, true]) {
       const bytes = fs.readFileSync(path.join(evidence, file));
       receipt.downloads.push({ file, sha256: createHash("sha256").update(bytes).digest("hex") }); save();
       return JSON.parse(bytes);
+    }
+    async function reviewProposal(id, decision) {
+      // Confirm the privileged request before asking a separate, expensive evidence
+      // projection for its current state. A concurrent read can pin the pre-review row.
+      const response = page.waitForResponse((item) => item.request().method() === "POST" && decodeURIComponent(new URL(item.url()).pathname) === `/api/readiness/${id}/review`, { timeout: 90_000 });
+      await page.locator("#paper-governance").getByRole("button", { name: `${decision === "approve" ? "Approve" : "Reject"} readiness review`, exact: true }).click();
+      const reviewed = await response;
+      const record = await reviewed.json();
+      if (reviewed.status() !== 200) { receipt.api_error = record; save(); }
+      assert.equal(reviewed.status(), 200, JSON.stringify(record));
+      assert.equal(record.status, decision === "approve" ? "approved" : "rejected");
+      assert.equal(record.payload.execution_authorized, false);
+      assert.equal(record.payload.submission_enabled, false);
+      return record;
     }
     try {
       await start(); await open();
@@ -149,14 +163,14 @@ for (const controlled of [false, true]) {
         await signIn();
         const first = await saveProposal("100.00", "10.00");
         await governance.getByLabel("Readiness review note").fill("Reviewed actual retained synthetic wires and bounded capital");
-        await governance.getByRole("button", { name: "Approve readiness review", exact: true }).click();
+        await reviewProposal(first, "approve");
         await expect.poll(async () => (await get(`/api/readiness/${encodeURIComponent(first)}`)).status, { timeout: 90_000 }).toBe("approved");
         const approved = await get(`/api/readiness/${encodeURIComponent(first)}`);
         assert.equal(approved.payload.execution_authorized, false);
         assert.equal(approved.payload.submission_enabled, false);
         receipt.evidence = { cycles: approved.payload.facts.paper_prefix.length, independent_events: approved.payload.facts.scores.independent_events, evidence_hash: approved.payload.facts.evidence_hash };
         await expect(governance.locator('.readiness-record [data-status="approved"]')).toBeVisible({ timeout: 90_000 });
-        const monitoringResponse = page.waitForResponse((item) => item.request().method() === "GET" && new URL(item.url()).pathname === `/api/monitors/${monitorId}/monitoring`);
+        const monitoringResponse = page.waitForResponse((item) => item.request().method() === "GET" && new URL(item.url()).pathname === `/api/monitors/${monitorId}/monitoring`, { timeout: 90_000 });
         await governance.getByRole("tab", { name: "Monitoring", exact: true }).click();
         const observed = await monitoringResponse;
         assert.equal(observed.status(), 200);
@@ -171,17 +185,20 @@ for (const controlled of [false, true]) {
         await governance.getByRole("tab", { name: "Readiness", exact: true }).click();
         const second = await saveProposal("200.00", "15.00");
         await governance.getByLabel("Readiness review note").fill("Reject this larger proposed envelope for controlled review coverage");
-        await governance.getByRole("button", { name: "Reject readiness review", exact: true }).click();
+        await reviewProposal(second, "reject");
         await expect.poll(async () => (await get(`/api/readiness/${encodeURIComponent(second)}`)).status, { timeout: 90_000 }).toBe("rejected");
         await expect(governance.locator('.readiness-record [data-status="rejected"]')).toBeVisible({ timeout: 90_000 });
         await governance.getByText("Rollback from a prior server proposal", { exact: true }).click();
         await governance.getByRole("combobox", { name: "Prior readiness proposal", exact: true }).selectOption(first);
         await governance.getByLabel("Rollback proposal reason").fill("Review prior server references without replacing the deployed model");
-        const rollbackResponse = page.waitForResponse((item) => item.request().method() === "POST" && new URL(item.url()).pathname.endsWith("/rollback"));
+        const rollbackResponse = page.waitForResponse((item) => item.request().method() === "POST" && new URL(item.url()).pathname.endsWith("/rollback"), { timeout: 90_000 });
         await governance.getByRole("button", { name: "Create pending rollback proposal", exact: true }).click();
         const rolled = await rollbackResponse; assert.equal(rolled.status(), 201);
         const rollback = await rolled.json(); const third = rollback.id || rollback.proposal?.id;
         assert(third && third !== first && third !== second);
+        assert.equal(rollback.proposal.status, "proposed");
+        assert.equal(rollback.proposal.payload.execution_authorized, false);
+        assert.equal(rollback.proposal.payload.submission_enabled, false);
         await expect(governance.locator(".readiness-record")).toContainText(third, { timeout: 90_000 });
         assert.equal((await get(`/api/readiness/${encodeURIComponent(third)}`)).status, "proposed");
         await page.locator("#owner-access").click();
@@ -190,7 +207,11 @@ for (const controlled of [false, true]) {
         await expect(owner.getByLabel("Owner passphrase")).toBeVisible({ timeout: 90_000 });
         await owner.getByRole("button", { name: "Close", exact: true }).click();
         await governance.getByLabel("Readiness revocation reason").fill("Withdraw pending controlled proposal");
+        const revokeResponse = page.waitForResponse((item) => item.request().method() === "POST" && decodeURIComponent(new URL(item.url()).pathname) === `/api/readiness/${third}/revoke`);
         await governance.getByRole("button", { name: "Revoke readiness proposal", exact: true }).click();
+        const revoked = await revokeResponse;
+        assert.equal(revoked.status(), 200);
+        assert.equal((await revoked.json()).status, "revoked");
         await expect.poll(async () => (await get(`/api/readiness/${encodeURIComponent(third)}`)).status, { timeout: 90_000 }).toBe("revoked");
         await page.locator("#global-halt").click();
         let halt = page.getByRole("dialog", { name: "Global paper halt", exact: true });
