@@ -30,7 +30,11 @@ from tests.fee_support import controlled_fee
 
 
 def execution_fixture(
-    root: Path, spec: HypothesisSpec, artifacts: list[dict[str, Any]]
+    root: Path,
+    spec: HypothesisSpec,
+    artifacts: list[dict[str, Any]],
+    *,
+    execution_delay_seconds: float | None = None,
 ) -> tuple[str, tuple[FeeVersion, ...]]:
     """Retain full typed synthetic market/rule/book/outcome evidence alongside features."""
     features: dict[str, dict[str, Any]] = {}
@@ -131,6 +135,23 @@ def execution_fixture(
             raw_hash=raw_hash,
         )
         records.append({"record_type": "market_state", **state.model_dump(mode="json")})
+        if execution_delay_seconds is not None:
+            execution_at = decision + timedelta(seconds=execution_delay_seconds)
+            if execution_at <= decision or execution_at >= market.close_time:
+                raise ValueError("controlled execution receipt must follow decision before close")
+            execution_book = book.revalidated(received_at=execution_at)
+            raw_ref, raw_hash = retain(execution_book.model_dump(mode="json"), execution_at)
+            execution_state = state.revalidated(
+                event_time=execution_at,
+                available_at=execution_at,
+                received_at=execution_at,
+                payload=execution_book.model_dump(mode="json"),
+                raw_ref=raw_ref,
+                raw_hash=raw_hash,
+            )
+            records.append(
+                {"record_type": "market_state", **execution_state.model_dump(mode="json")}
+            )
     staging = root / ".synthetic-execution-dataset"
     staging.mkdir()
     (staging / "records.jsonl").write_text(

@@ -19,16 +19,22 @@ from entropytrade.domain.time import Clock, SystemClock
 from entropytrade.exchange.gateway import GatewayError
 from entropytrade.exchange.kalshi.gateway import KalshiGateway
 from entropytrade.exchange.kalshi.transport import RawCapture
+from entropytrade.exchange.settlement import ticker_target_date
 from entropytrade.execution.fee_evidence import FeeEvidenceStore, FeeVersion
 from entropytrade.families.bitcoin_history import OutcomeTransport
 from entropytrade.families.weather_capture import capture_public
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.research.paper_models import PortableResearchModel, paper_window
 from entropytrade.tracking.accounting import account_hash
 from entropytrade.tracking.accounting import reproduce as reproduce_paper
 from entropytrade.tracking.evaluate import evaluate, shadow_limits
 from entropytrade.tracking.market_data import capture_execution
 from entropytrade.tracking.models import score
 from entropytrade.tracking.replay import decision_inputs
+from entropytrade.tracking.research_features import (
+    acquire_research_features,
+    materialize_research_features,
+)
 from entropytrade.tracking.store import TrackingStore
 from entropytrade.weather.collection import WeatherConfig
 
@@ -37,12 +43,48 @@ def terms(market: Market) -> dict[str, Any]:
     return {
         "ticker": market.ticker,
         "event": market.event_ticker,
+        # Individual-market responses omit series_ticker; the frozen full ticker still
+        # carries its venue series prefix. An explicit contradictory series remains distinct.
+        "series": market.series_ticker or market.ticker.split("-", 1)[0],
+        "market_type": market.market_type.value,
+        "settlement_basis": market.rules.settlement_basis,
+        "settlement_target_date": market.rules.settlement_target_date.isoformat()
+        if market.rules.settlement_target_date is not None
+        else None,
+        "settlement_sources": [
+            source.model_dump(mode="json") for source in market.rules.settlement_sources
+        ],
         "close": market.close_time.isoformat(),
         "strike": market.strike.model_dump(mode="json") if market.strike else None,
         "primary": market.rules.rules_primary,
         "secondary": market.rules.rules_secondary,
         "early_close": market.rules.early_close_condition,
     }
+
+
+def same_frozen_terms(current: Market, frozen: Market) -> bool:
+    """Compare payout terms while retaining the frozen context of optional parsed dates.
+
+    Calendar metadata is deliberately cleared by the unsupported Bitcoin adapter. Its
+    official binary result may still be observed without upgrading those unverified rules.
+    An opaque legacy contract may retain its originally supplied calendar when the final
+    decoder cannot derive one. Neither case permits a change to text, payout type, source,
+    basis, ticker/event/series, close or strike, or an explicit conflicting verified date.
+    """
+    observed, original = terms(current), terms(frozen)
+    observed_date = observed.pop("settlement_target_date")
+    frozen_date = original.pop("settlement_target_date")
+    if observed != original:
+        return False
+    if observed_date == frozen_date:
+        return True
+    if current.rules.settlement_basis == "unresolved":
+        return True
+    return (
+        observed_date is None
+        and frozen_date is not None
+        and ticker_target_date(current.ticker) is None
+    )
 
 
 async def outcomes(
@@ -106,7 +148,7 @@ async def outcomes(
                             raise
                         market = await gateway.get_archived_market(ticker)
                     original = Market.model_validate(contract["market"]["market"])
-                    if terms(market) != terms(original):
+                    if not same_frozen_terms(market, original):
                         raise ValueError("FrozenContractTermsChanged")
                     raw = gateway.last_capture
                     if raw is None:
@@ -171,6 +213,7 @@ async def collect(
     source_transport: httpx.AsyncBaseTransport | None = None,
     execution_transport: httpx.AsyncBaseTransport | None = None,
     outcome_transport: httpx.AsyncBaseTransport | None = None,
+    research_transport: httpx.AsyncBaseTransport | None = None,
     clock: Clock | None = None,
     fee_versions: tuple[FeeVersion, ...] = (),
 ) -> dict[str, Any]:
@@ -186,6 +229,12 @@ async def collect(
             "backend/src/entropytrade/tracking/worker.py",
             "backend/src/entropytrade/tracking/replay.py",
             "backend/src/entropytrade/tracking/models.py",
+            "backend/src/entropytrade/tracking/research_features.py",
+            "backend/src/entropytrade/research/paper_models.py",
+            "backend/src/entropytrade/research/materialize.py",
+            "backend/src/entropytrade/research/registry.py",
+            "backend/src/entropytrade/research/acquire.py",
+            "configs/research/sources.json",
             "backend/src/entropytrade/tracking/market_data.py",
             "backend/src/entropytrade/tracking/accounting.py",
             "backend/src/entropytrade/execution/paper.py",
@@ -214,13 +263,37 @@ async def collect(
     protected = set(data.protected_events)
     if binding and binding.get("snapshot"):
         # Invalid frozen metadata is a failed cycle, never a reason to discard its boundary.
-        protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
+        if binding.get("kind") == "research_weather_v1":
+            portable = PortableResearchModel.model_validate(binding["snapshot"])
+            protected.update(portable.protected_events)
+            protected.update(
+                sample.event_id
+                for sample in data.samples
+                if sample.family in portable.series_locations
+                and f"{portable.series_locations[sample.family]['entity']}:{sample.target_date}"
+                in portable.protected_events
+            )
+        else:
+            protected.update(FrozenWeather.model_validate(binding["snapshot"]).protected_events)
+    research_binding = binding is not None and binding.get("kind") == "research_weather_v1"
+    window_targets = {}
+    research_window_at = None
+    if research_binding and binding is not None:
+        at = (clock or SystemClock()).now()
+        research_window_at = at.isoformat()
+        window_targets = {
+            series: paper_window(binding, at, series) for series in binding["snapshot"]["series"]
+        }
+        data = data.revalidated(
+            provenance=data.provenance | {"deployment_created_at": monitor.get("created_at")}
+        )
     data = data.revalidated(
         protected_events=frozenset(protected),
         samples=tuple(
             s
             for s in data.samples
             if s.event_id not in protected
+            and (not research_binding or window_targets.get(s.family) == s.target_date)
             and (
                 s.ticker in universe.market_tickers
                 or s.event_id in universe.event_tickers
@@ -228,12 +301,15 @@ async def collect(
             )
         ),
     )
+    target_tickers = {sample.ticker for sample in data.samples}
     contracts: list[dict[str, Any]] = []
     quotes: list[dict[str, Any]] = []
     for line in (root / "public/markets.jsonl").read_text().splitlines():
         evidence = MarketEvidence.model_validate_json(line)
         market = evidence.market
-        if market.event_ticker in protected:
+        if market.event_ticker in protected or (
+            research_binding and market.ticker not in target_tickers
+        ):
             continue
         if not (
             market.ticker in universe.market_tickers
@@ -266,8 +342,10 @@ async def collect(
         c["ticker"]
         for c in contracts
         if c["ticker"] in known
-        and terms(Market.model_validate(c["market"]))
-        != terms(Market.model_validate(known[c["ticker"]]["market"]["market"]))
+        and not same_frozen_terms(
+            Market.model_validate(c["market"]),
+            Market.model_validate(known[c["ticker"]]["market"]["market"]),
+        )
     }
     if len(set(known) | {c["ticker"] for c in contracts}) > 128:
         raise ValueError("128-contract monitor budget reached; start a separately reviewed monitor")
@@ -281,14 +359,29 @@ async def collect(
         root / "outcomes", monitor["contracts"], transport=outcome_transport, clock=clock
     )
     market_map = {c["ticker"]: Market.model_validate(c["market"]) for c in contracts}
+    research_evidence = None
+    if research_binding and binding is not None:
+        research_evidence = await acquire_research_features(
+            root / "research-features",
+            repo,
+            data,
+            binding,
+            transport=research_transport,
+            clock=clock,
+        )
     data, execution = await capture_execution(
         root / "execution", data, market_map, transport=execution_transport, clock=clock
     )
+    if research_evidence is not None and binding is not None:
+        data = materialize_research_features(data, research_evidence, market_map, binding)
     bundle = score(spec, data, binding, market_map)
     capture = data.provenance["capture"]
     held = reservations(monitor)
     complete = (
-        not capture["failures"] and capture["universe_complete"] and not execution["failures"]
+        not capture["failures"]
+        and capture["universe_complete"]
+        and not execution["failures"]
+        and (research_evidence is None or not research_evidence.failures)
     )
     inputs = decision_inputs(
         spec,
@@ -362,6 +455,15 @@ async def collect(
         "execution": execution,
         "fee_versions": [v.summary() for v in fee_versions],
         "model_binding": binding,
+        **(
+            {
+                "research_features": research_evidence.summary,
+                "deployment_created_at": monitor.get("created_at"),
+                "research_window_at": research_window_at,
+            }
+            if research_evidence is not None
+            else {}
+        ),
         "decisions": decisions,
         "paper": paper,
         "paper_inputs": paper_inputs,
@@ -404,6 +506,7 @@ def execute(store: TrackingStore, repo: Path, monitor_id: str, cycle_id: str) ->
             or result["outcome_failures"]
             or result.get("execution", {}).get("failures")
             or (result.get("paper_execution") or {}).get("failures")
+            or (result.get("research_features") or {}).get("failures")
         )
     except Exception as exc:  # noqa: BLE001 - worker records a fail-closed bounded cycle
         result = {

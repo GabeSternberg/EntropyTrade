@@ -1,7 +1,7 @@
 "use strict";
-// Application shell: data-source mode, read-only API access, routing, navigation and the
+// Application shell: data-source mode, guarded API access, routing, navigation and the
 // command palette. Demo data is reachable only through ET.demo(), which refuses outside
-// Demo Mode; real data is reachable only through ET.api(), which performs same-origin GETs.
+// Demo Mode; API reads and explicit writes both refuse dispatch outside Real Mode.
 (function () {
   const ET = window.ET;
   const { h, icon, logo, fmt, pill, button, segmented, dialog, toast } = ET;
@@ -51,6 +51,22 @@
     cache.set(path, { at: Date.now(), promise });
     promise.catch(() => cache.delete(path));
     return promise;
+  };
+  // One write boundary for modern views. Check the current mode at dispatch time so a
+  // handler rendered earlier cannot write after navigation switches to Demo Mode.
+  ET.mutate = async (path, body, csrf) => {
+    if (typeof path !== "string" || !path.startsWith("/api/")) throw new Error("ET.mutate writes same-origin /api/ resources only");
+    if (mode !== "real") throw new Error("Real API writes are disabled in Demo Mode");
+    if (typeof csrf !== "string" || !csrf.trim()) throw new Error("A current CSRF token is required");
+    const response = await fetch(path, {
+      method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": csrf },
+      body: JSON.stringify(body ?? {}),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw Object.assign(new Error(result.error || `Request failed (${response.status})`), { status: response.status });
+    cache.clear();
+    return result;
   };
   // Settle several reads independently so one unavailable resource does not blank a page.
   ET.apiAll = async (paths) => {

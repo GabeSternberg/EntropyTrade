@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "executable": "/workspace/EntropyTrade-paper/frontend/browser/.browsers/chromium-1194/chrome-linux/chrome",
+  "authentic": false,
+  "operations": [
+    {
+      "start": 1
+    },
+    {
+      "start": 2
+    }
+  ],
+  "downloads": [
+    {
+      "file": "account.json",
+      "sha256": "0b46e53ebd5575fcb93de8a208279829f3e8e49cb3f8df3ca0883ded5a32d2eb"
+    },
+    {
+      "file": "shadow.json",
+      "sha256": "2d3e294a53d4f00f87fbe8650e75f7cdbb8d659230a5aa1460a82edfc13d8421"
+    },
+    {
+      "file": "restarted-account.json",
+      "sha256": "0b46e53ebd5575fcb93de8a208279829f3e8e49cb3f8df3ca0883ded5a32d2eb"
+    },
+    {
+      "file": "restarted-shadow.json",
+      "sha256": "2d3e294a53d4f00f87fbe8650e75f7cdbb8d659230a5aa1460a82edfc13d8421"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "paper-account.png"
+    },
+    {
+      "file": "restarted.png"
+    }
+  ],
+  "page_errors": [],
+  "limitation": "CONTROLLED SYNTHETIC accounting only; never empirical performance",
+  "submission_enabled": false,
+  "offline": {
+    "limitation": "Accounting replay, not source certification",
+    "paper_cycles": 5,
+    "state_hash": "sha256:101ccad45b162b39c38f544d86aac8280fe4d925a7e6ae95e3146c2f91b4b473",
+    "submission_enabled": false,
+    "verified": true
+  }
+}

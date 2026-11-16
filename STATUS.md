@@ -1,10 +1,31 @@
 # EntropyTrade — current status
 
+## Autonomous research, Milestone D — paper lifecycle (November 15, 2026)
+
+Implementation connects verified research experiments to existing persistent paper accounts,
+with deterministic production eligibility, data-only models and exact PFM/CLI forward inputs.
+Independent review and actual browser acceptance pass; complete regressions gate integration.
+No actual strategy is deployed. See [executed acceptance](data/research-paper-review/20261115/README.md).
+See [research-to-paper operations and limits](docs/research-paper.md).
+
+- Immutable experiment/model/strategy/fee/risk proof, idempotent promotion, terminal controls,
+  transactional recovery and verified offline restore; no fake legacy research job rows.
+- Exact trained decision horizons and actual deployment/publication clocks, approved bounded
+  source acquisition and original receipts, existing later-book paper fills/accounting.
+- Strict recorded execution coverage for new real backtests, with old frozen replay preserved.
+- Dashboard source lineage, positions, cash/fees, realized P&L and current drawdown at cost.
+- Daily trained schedules drive freshness alerts, required-source failures remain failures,
+  policy/risk drift suspends pending work, and Demo Mode blocks writes at dispatch time.
+- Controlled source-to-account acceptance produces simulated fills; production rejects synthetic
+  evidence. Existing exact-touch candidates fail conservative stress and cannot promote.
+- No live submission, Windows configuration or canonical collector access. Open positions
+  remain visible after terminal cancellation; settlement-only continuation remains future work.
+
 ## Autonomous research, Milestone C — integrated modeling and replay (November 15, 2026)
 
 The persistent A/B job lifecycle now invokes deterministic acquired-feature modeling,
 contract-probability construction, realistic replay and independent temporal diagnostics.
-**V1 and the later research-to-paper/live deployment milestones remain incomplete.**
+**V1, live-readiness and private deployment remain incomplete.**
 See [scope, acceptance and external gates](docs/research-modeling.md).
 
 - SQLite records frozen experiment identities, model/version lineage, attempts, failures,
@@ -30,8 +51,8 @@ See [scope, acceptance and external gates](docs/research-modeling.md).
   modeling and correctly refuses insufficient timely observations. Neither establishes an edge.
 
 Remaining gates: sufficient authentic point-in-time history, human-certified applicable fees,
-provider live verification, genuine prospective validation, research-to-paper feature/model
-compatibility, milestones D/E/F and private Windows deployment readiness. No real-money path
+provider live verification, genuine prospective validation, broader forward feature/model
+compatibility, milestones E/F and private Windows deployment readiness. No real-money path
 or canonical collector change was added.
 
 ## PR backlog reconciliation — November 6, 2026

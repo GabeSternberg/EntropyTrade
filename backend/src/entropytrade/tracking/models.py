@@ -77,6 +77,10 @@ def score(
     binding: dict[str, Any] | None,
     markets: dict[str, Market],
 ) -> PredictionBundle:
+    if binding is not None and binding.get("kind") == "research_weather_v1":
+        from entropytrade.research.paper_models import score_research_model
+
+        return score_research_model(spec, data, binding, markets)
     records = []
     refusals: dict[str, str] = {}
     metadata: dict[str, Any] = {"data_kind": "real", "status": "blocked"}

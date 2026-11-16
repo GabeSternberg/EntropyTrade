@@ -230,3 +230,29 @@ mobile layout, protected event identities and identical report downloads after l
 The predictive-only case refuses missing execution evidence. The executable case retains typed synthetic books, rules, outcomes and controlled fee certificates as an acquired dataset, then invokes the actual risk and replay engine. It verifies simulated performance and the same persistent restart boundary.
 Synthetic scores verify software behavior, never empirical accuracy, profitability or trading
 eligibility. Live-provider verification and the private Windows collector are separate gates.
+
+
+## Research-to-paper acceptance
+
+Select `--grep 'research paper lifecycle'` with new workspace/evidence paths to execute
+`research-paper.spec.cjs`. Both procedures start with actual C fitting, calibrated data-only
+model exports and deterministic replay on explicitly synthetic evidence. The default
+production policy refuses promotion of that source, and a direct POST cannot bypass it.
+
+The positive procedure injects the synthetic policy only through
+`tests.integration.research_paper_fixture`. An explicit page click creates a persistent
+research deployment with frozen model/strategy/source references. The test then runs the
+actual collection, feature materialization, scoring, risk and paper accounting path using
+MockTransport responses and monotonic simulated clocks. Weather products carry a
+CONTROLLED SYNTHETIC label and shifted dates; original retained source bytes remain unchanged.
+No decision, fill, account balance or return is inserted as a substitute for computation.
+
+The browser checks committed incoming fills/positions and displayed accounting against API
+exports (including current cost-basis drawdown), idempotent creation, pause/resume,
+terminal suspension/cancellation, mobile controls and layout
+and disabled live controls. Actual listener restart and verified offline snapshot/restore
+must preserve identical account and execution downloads, including research lineage and
+terminal status. The test-only source classification context also wraps archive verification;
+production classifiers and fee/clock/feature/risk gates remain unchanged. All HTTP source
+responses are controlled; this proves software behavior, not empirical performance,
+authentic fee certification, private collector access or real prospective validation.

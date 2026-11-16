@@ -97,36 +97,178 @@
   async function paperReal(root, ctx) {
     const host = h("div", { class: "stack" }, skeleton(5));
     root.append(host);
-    const list = await ET.api("/api/monitors").catch((error) => ({ error }));
-    if (!ctx.isCurrent()) return;
-    if (list.error) { host.replaceChildren(errorState(list.error.message, () => ET.route())); return; }
-    if (!list.length) {
-      host.replaceChildren(card({ title: "Paper accounts", source: "real" }, unavailable("No simulated paper accounts in this workspace", "Each shadow monitor started from a completed real research candidate keeps its own simulated paper account, fills and settlements. None exist yet, so there is no portfolio to show.", h("div", { class: "row-actions" }, h("a", { class: "btn primary sm", href: "#/workbench" }, "Start from a research run"), button("Preview in Demo Mode", { variant: "ghost sm", onclick: () => ET.setMode("demo") }, "eye")))), executionPanel(true));
-      return;
+    const known = new Map();
+    let shown = null;
+    let token = null;
+    async function refresh() {
+      try {
+        const [list, catalog] = await Promise.all([
+          ET.api("/api/monitors", { fresh: true }).catch((error) => ({ error })),
+          ET.api("/api/catalog", { fresh: true }).catch((error) => ({ error })),
+        ]);
+        if (!ctx.isCurrent()) return;
+        if (list.error) { shown = null; host.replaceChildren(errorState(list.error.message, () => ET.route())); return; }
+        if (token !== catalog.csrf_token) { known.clear(); token = catalog.csrf_token; }
+        if (!list.length) {
+          shown = null;
+          host.replaceChildren(card({ title: "Paper accounts", source: "real" }, unavailable("No simulated paper accounts in this workspace", "A paper deployment keeps its own simulated account, fills and settlements. None exist yet. Review a research experiment for deterministic paper eligibility or inspect existing research runs.", h("div", { class: "row-actions" }, h("a", { class: "btn primary sm", href: "#/research" }, "Review autonomous research"), h("a", { class: "btn ghost sm", href: "#/workbench" }, "Research workbench"), button("Preview in Demo Mode", { variant: "ghost sm", onclick: () => ET.setMode("demo") }, "eye")))), executionPanel(true));
+          return;
+        }
+        const monitors = await Promise.all(list.map(async (m) => {
+          const prior = known.get(m.id);
+          if (prior?.ok && m.status !== "active" && m.id !== ctx.params?.[0] && prior.m.status === m.status && prior.m.failures === m.failures) return prior;
+          const next = await ET.api(`/api/monitors/${m.id}`, { fresh: true }).then((value) => ({ ok: true, m: value })).catch((error) => ({ ok: false, m, error }));
+          known.set(m.id, next);
+          return next;
+        }));
+        if (!ctx.isCurrent()) return;
+        const stamp = JSON.stringify([monitors, token || null]);
+        if (stamp === shown) return;
+        shown = stamp;
+        const expanded = new Set([...host.querySelectorAll("details")].filter((details) => details.open).map((details) => details.querySelector("summary")?.textContent));
+        const simulated = monitors.filter((x) => x.ok && x.m.paper_summary?.status === "simulated");
+        const synthetic = simulated.filter((x) => x.m.paper_summary.data_kind === "synthetic").length;
+        const sum = (k) => simulated.reduce((a, x) => a + Number(x.m.paper_summary[k] || 0), 0);
+        const parts = [callout("Simulated paper accounting on retained evidence. Eligibility can remain blocked by missing models, fees or depth; no fill here was observed on an exchange.", "info"),
+          h("div", { class: "kpi-strip" },
+            kpi({ label: "Accounts", value: String(monitors.length), sub: `${simulated.length} with simulated activity`, iconName: "paper" }),
+            kpi({ label: "Cash", value: simulated.length ? fmt.usd(sum("cash")) : "—", iconName: "database" }),
+            kpi({ label: "Realized simulated P&L", value: simulated.length ? fmt.signedUsd(sum("realized_pnl")) : "—", iconName: "check" }),
+            kpi({ label: "Fees", value: simulated.length ? fmt.usd(sum("fees")) : "—", iconName: "file" }),
+            kpi({ label: "Fills / settlements", value: simulated.length ? `${sum("fill_count")} / ${sum("settlement_count")}` : "—", iconName: "activity" }))];
+        if (synthetic) parts.splice(1, 0, callout(synthetic === simulated.length
+          ? "CONTROLLED SYNTHETIC accounting totals verify software behavior. They do not establish empirical trading performance."
+          : "Mixed accounting totals include CONTROLLED SYNTHETIC accounts. Inspect each account's Data field before interpreting these figures.", synthetic === simulated.length ? "demo" : "warn"));
+        parts.push(card({ title: "Paper accounts by monitor", flush: true, source: "real" }, dataTable({ columns: [
+          { key: "id", label: "Monitor", sort: (x) => x.m.id, render: (x) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, `${x.m.family} · ${x.m.candidate_id}`), h("span", { class: "cell-sub mono" }, fmt.short(x.m.id, 12))) },
+          { key: "status", label: "Deployment", sort: (x) => x.m.status, render: (x) => statusPill(x.m.status) },
+          { key: "source", label: "Research lineage", sortable: false, render: (x) => x.m.source_kind === "autonomous_research"
+            ? h("div", { class: "cell-title" }, h("a", { class: "link", href: `#/research/${encodeURIComponent(x.m.research_job_id)}` }, `Research ${fmt.short(x.m.research_job_id, 12)}`), h("div", { class: "mono muted" }, `experiment ${fmt.short(x.m.experiment_id?.replace(/^sha256:/, ""), 12)}`))
+            : h("span", { class: "muted" }, "Legacy research run") },
+          { key: "account", label: "Account", sort: (x) => x.m.paper_summary?.status, render: (x) => (x.ok ? statusPill(x.m.paper_summary?.status || "none") : statusPill("refused")) },
+          { key: "kind", label: "Data", render: (x) => (x.m.paper_summary?.data_kind ? statusPill(x.m.paper_summary.data_kind) : "—") },
+          { key: "cash", label: "Cash", align: "num", sort: (x) => Number(x.m.paper_summary?.cash ?? 0), render: (x) => fmt.usd(x.m.paper_summary?.cash) },
+          { key: "pnl", label: "Realized", align: "num", sort: (x) => Number(x.m.paper_summary?.realized_pnl ?? 0), render: (x) => fmt.signedUsd(x.m.paper_summary?.realized_pnl) },
+          { key: "fills", label: "Fills", align: "num", sort: (x) => x.m.paper_summary?.fill_count ?? 0, render: (x) => fmt.num(x.m.paper_summary?.fill_count) },
+          { key: "drawdown", label: "Current drawdown at cost", align: "num", sort: (x) => Number(x.m.paper_summary?.drawdown_at_cost ?? -1), render: (x) => fmt.usd(x.m.paper_summary?.drawdown_at_cost) },
+          { key: "note", label: "Note", sortable: false, render: (x) => h("span", { class: "muted clamp" }, x.ok ? (x.m.paper_summary?.reason || x.m.paper_summary?.limitation || "—") : x.error.message) },
+        ], rows: monitors, sortKey: "id", onRow: (x) => ET.go(`#/paper/${encodeURIComponent(x.m.id)}`) })));
+        const selected = ctx.params?.[0];
+        if (selected) {
+          const found = monitors.find((x) => x.m.id === selected);
+          parts.push(found?.ok ? paperDeployment(found.m, catalog.error ? null : catalog.csrf_token) : errorState(found?.error?.message || "Paper deployment not found", () => ET.go("#/paper")));
+        } else parts.push(callout("Select an account to inspect frozen research lineage, positions, execution decisions and deployment controls.", "info"));
+        parts.push(executionPanel(true));
+        host.replaceChildren(...parts);
+        host.querySelectorAll("details").forEach((details) => {
+          if (expanded.has(details.querySelector("summary")?.textContent)) details.setAttribute("open", "");
+        });
+      } finally {
+        if (ctx.isCurrent()) setTimeout(() => {
+          if (ctx.isCurrent()) refresh().catch((error) => {
+            if (ctx.isCurrent()) { shown = null; host.replaceChildren(errorState(error.message, () => ET.route())); }
+          });
+        }, 5000);
+      }
     }
-    const monitors = (await Promise.all(list.map((m) => ET.api(`/api/monitors/${m.id}`).then((x) => ({ ok: true, m: x })).catch((error) => ({ ok: false, m, error }))))).filter(Boolean);
-    if (!ctx.isCurrent()) return;
-    const simulated = monitors.filter((x) => x.ok && x.m.paper_summary?.status === "simulated");
-    const sum = (k) => simulated.reduce((a, x) => a + Number(x.m.paper_summary[k] || 0), 0);
-    const parts = [callout("Simulated paper accounting on retained evidence. Eligibility can remain blocked by missing models, fees or depth; no fill here was observed on an exchange.", "info"),
-      h("div", { class: "kpi-strip" },
-        kpi({ label: "Accounts", value: String(monitors.length), sub: `${simulated.length} with simulated activity`, iconName: "paper" }),
-        kpi({ label: "Cash", value: simulated.length ? fmt.usd(sum("cash")) : "—", iconName: "database" }),
-        kpi({ label: "Realized simulated P&L", value: simulated.length ? fmt.signedUsd(sum("realized_pnl")) : "—", iconName: "check" }),
-        kpi({ label: "Fees", value: simulated.length ? fmt.usd(sum("fees")) : "—", iconName: "file" }),
-        kpi({ label: "Fills / settlements", value: simulated.length ? `${sum("fill_count")} / ${sum("settlement_count")}` : "—", iconName: "activity" }))];
-    parts.push(card({ title: "Paper accounts by monitor", flush: true, source: "real" }, dataTable({ columns: [
-      { key: "id", label: "Monitor", sort: (x) => x.m.id, render: (x) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, `${x.m.family} · ${x.m.candidate_id}`), h("span", { class: "cell-sub mono" }, fmt.short(x.m.id, 12))) },
-      { key: "status", label: "Monitor", sort: (x) => x.m.status, render: (x) => statusPill(x.m.status) },
-      { key: "account", label: "Account", sort: (x) => x.m.paper_summary?.status, render: (x) => (x.ok ? statusPill(x.m.paper_summary?.status || "none") : statusPill("refused")) },
-      { key: "kind", label: "Data", render: (x) => (x.m.paper_summary?.data_kind ? statusPill(x.m.paper_summary.data_kind) : "—") },
-      { key: "cash", label: "Cash", align: "num", sort: (x) => Number(x.m.paper_summary?.cash ?? 0), render: (x) => fmt.usd(x.m.paper_summary?.cash) },
-      { key: "pnl", label: "Realized", align: "num", sort: (x) => Number(x.m.paper_summary?.realized_pnl ?? 0), render: (x) => fmt.signedUsd(x.m.paper_summary?.realized_pnl) },
-      { key: "fills", label: "Fills", align: "num", sort: (x) => x.m.paper_summary?.fill_count ?? 0, render: (x) => fmt.num(x.m.paper_summary?.fill_count) },
-      { key: "note", label: "Note", sortable: false, render: (x) => h("span", { class: "muted clamp" }, x.ok ? (x.m.paper_summary?.reason || x.m.paper_summary?.limitation || "—") : x.error.message) },
-    ], rows: monitors, sortKey: "id", onRow: (x) => { ET.go("#/workbench"); if (typeof window.selectMonitor === "function") window.selectMonitor(x.m.id, true).catch(() => {}); } })));
-    parts.push(executionPanel(true));
-    host.replaceChildren(...parts);
+    await refresh();
+  }
+
+  function paperDeployment(monitor, csrf) {
+    const research = monitor.source_kind === "autonomous_research";
+    const source = monitor.source_ref || {};
+    const binding = monitor.model_binding || {};
+    const model = binding.model_ref || monitor.spec?.model_ref || {};
+    const account = monitor.paper_summary || {};
+    const issue = h("div", { class: "research-issue" });
+    const controls = h("div", { class: "row-actions" });
+    const actions = monitor.status === "active" ? ["pause"] : monitor.status === "paused" ? ["resume"] : [];
+    if (research && ["active", "paused"].includes(monitor.status)) actions.push("suspend");
+    if (research && monitor.status !== "cancelled") actions.push("cancel");
+    const names = { pause: "Pause deployment", resume: "Resume deployment", suspend: "Suspend deployment", cancel: "Cancel deployment" };
+    const run = async (action) => {
+      issue.replaceChildren();
+      const buttons = [...controls.querySelectorAll("button")];
+      buttons.forEach((b) => { b.disabled = true; });
+      try {
+        await ET.mutate(`/api/monitors/${encodeURIComponent(monitor.id)}/${action}`, {}, csrf);
+        ET.route();
+      } catch (error) {
+        issue.append(callout(error.message, "error"));
+        buttons.forEach((b) => { b.disabled = !csrf; });
+      }
+    };
+    controls.append(...actions.map((action) => button(names[action], { variant: "ghost sm", disabled: !csrf, "data-paper-action": action, onclick: () => run(action) }, action === "resume" ? "play" : action === "pause" ? "pause" : "x")));
+    const cycles = monitor.cycles || [];
+    const executions = cycles.flatMap((cycle) => [
+      ...(cycle.result?.paper?.decisions || []).map((decision) => ({ cycle: cycle.sequence, kind: "Decision / risk", ticker: decision.ticker, status: decision.status, reason: (decision.reasons || []).join(" · "), quantity: null })),
+      ...(cycle.result?.paper?.executions || []).map((execution) => ({ cycle: cycle.sequence, kind: "Execution", ticker: execution.ticker, status: execution.status, reason: execution.reason || "—", quantity: execution.order?.filled_quantity })),
+    ]);
+    const metadata = [
+      ["Source", research ? "Autonomous research experiment" : "Legacy research run"],
+      research ? ["Research job", h("a", { class: "link mono", href: `#/research/${encodeURIComponent(monitor.research_job_id)}` }, monitor.research_job_id)] : null,
+      research ? ["Experiment version", h("span", { class: "mono" }, monitor.experiment_id)] : null,
+      ["Strategy version", h("span", { class: "mono" }, monitor.spec_hash)],
+      ["Model version", h("span", { class: "mono" }, model.version || binding.model_hash || "No frozen model binding")],
+      source.source_hash ? ["Deployment source version", h("span", { class: "mono" }, source.source_hash)] : null,
+      research ? ["Trained decision time", fmt.decisionPoint(binding.snapshot?.selected_schedule)] : ["Poll interval", `${monitor.interval_seconds} seconds`],
+      research && binding.snapshot?.series_locations ? ["Decision timezone", [...new Set(Object.values(binding.snapshot.series_locations).map((location) => location.timezone).filter(Boolean))].join(", ") || "No recorded timezone"] : null,
+      research ? ["Next scheduled decision", `${fmt.dateTime(monitor.next_at)}${monitor.status === "active" ? "" : " (stopped)"}`] : ["Next eligible poll", monitor.status === "active" ? fmt.dateTime(monitor.next_at) : "Collection is stopped"],
+      ["Durable cycles", fmt.num(monitor.cycle_count)],
+      ["Consecutive failures", fmt.num(monitor.failures)],
+    ];
+    return card({ title: "Paper deployment", subtitle: monitor.id, className: "paper-deployment", id: "paper-deployment", actions: controls },
+      h("div", { "data-paper-monitor": monitor.id, "data-paper-status": monitor.status }, statusPill(monitor.status)), issue,
+      [account.data_kind, binding.snapshot?.data_kind, source.eligibility?.data_kind].includes("synthetic") ? callout("CONTROLLED SYNTHETIC: this account verifies software behavior. Its simulated fills and P&L are not empirical trading evidence.", "demo") : null,
+      kv(metadata),
+      monitor.status === "suspended" || monitor.status === "cancelled" ? callout("This deployment is stopped permanently. Its account, evidence and event history remain available for inspection.", "info") : null,
+      h("div", { class: "row-actions" },
+        h("a", { class: "btn ghost sm", href: `/api/monitors/${encodeURIComponent(monitor.id)}/paper`, download: `paper-${monitor.id}.json` }, "Paper account JSON"),
+        h("a", { class: "btn ghost sm", href: `/api/monitors/${encodeURIComponent(monitor.id)}/export`, download: `shadow-${monitor.id}.json` }, "Execution evidence JSON"),
+        button("Open workbench execution log", { variant: "ghost sm", onclick: () => { ET.go("#/workbench"); if (typeof window.selectMonitor === "function") window.selectMonitor(monitor.id, true).catch(() => {}); } }, "external")),
+      account.status === "simulated" ? h("div", { class: "stack" },
+        kv([
+          ["Account as of", fmt.dateTime(account.as_of)],
+          ["Cash", fmt.usd(account.cash)], ["Available cash", fmt.usd(account.available_cash)],
+          ["Equity at cost", fmt.usd(account.equity_at_cost)], ["Realized simulated P&L", fmt.signedUsd(account.realized_pnl)],
+          ["Fees paid", fmt.usd(account.fees)], ["Fills / settlements", `${account.fill_count} / ${account.settlement_count}`],
+          account.drawdown_at_cost !== undefined ? ["Current drawdown at cost", fmt.usd(account.drawdown_at_cost)] : null,
+          account.peak_equity_at_cost !== undefined ? ["Peak equity at cost", fmt.usd(account.peak_equity_at_cost)] : null,
+        ]),
+        h("p", { class: "hint" }, account.limitation),
+        h("h4", { class: "section-label" }, "Open simulated positions"),
+        dataTable({ columns: [
+          { key: "ticker", label: "Contract", render: (position) => h("span", { class: "mono" }, position.contract?.market_ticker || "—") },
+          { key: "side", label: "Side", render: (position) => statusPill(position.contract?.side || "—") },
+          { key: "quantity", label: "Quantity", align: "num", render: (position) => fmt.num(position.quantity, 2) },
+          { key: "total_cost", label: "Cost", align: "num", render: (position) => fmt.usd(position.total_cost) },
+          { key: "fees_paid", label: "Fees", align: "num", render: (position) => fmt.usd(position.fees_paid) },
+        ], rows: account.positions || [], sortKey: "total_cost", dense: true, empty: emptyState({ title: "No open simulated positions" }) })) : callout(account.reason || "No committed paper cycle; no retrospective fills have been added.", "info"),
+      h("h4", { class: "section-label" }, "Execution and risk events"),
+      dataTable({ columns: [
+        { key: "cycle", label: "Cycle", align: "num" }, { key: "kind", label: "Kind" },
+        { key: "ticker", label: "Contract", render: (event) => h("span", { class: "mono" }, event.ticker) },
+        { key: "status", label: "Status", render: (event) => statusPill(event.status) },
+        { key: "quantity", label: "Filled", align: "num", render: (event) => fmt.num(event.quantity, 2) },
+        { key: "reason", label: "Reason", sortable: false, render: (event) => h("span", { class: "research-reasons" }, event.reason) },
+      ], rows: executions, sortKey: "cycle", dense: true, pageSize: 20, empty: emptyState({ title: "No execution or risk events yet", body: "Only committed incoming-data cycles produce decisions and simulated fills." }) }),
+      h("details", { class: "hyp-more" }, h("summary", `Collection cycles (${cycles.length} shown)`), dataTable({ columns: [
+        { key: "sequence", label: "Cycle", align: "num" },
+        { key: "status", label: "Status", render: (cycle) => statusPill(cycle.status) },
+        { key: "finished_at", label: "Finished", render: (cycle) => fmt.dateTime(cycle.finished_at) },
+        { key: "detail", label: "Detail", sortable: false },
+      ], rows: cycles, sortKey: "sequence", dense: true })),
+      h("details", { class: "hyp-more" }, h("summary", "Deployment event history"), dataTable({ columns: [
+        { key: "at", label: "Time", render: (event) => fmt.dateTime(event.at) },
+        { key: "action", label: "Event", sortable: false },
+      ], rows: monitor.events || [], sortKey: "at", dense: true })),
+      h("details", { class: "hyp-more" }, h("summary", "Frozen strategy, risk and model references"), kv([
+        ["Feature binding", binding.kind || "—"],
+        ["Binding version", binding.binding_hash || "—"],
+        ["Position sizing", JSON.stringify(monitor.spec?.position_sizing || monitor.spec?.sizing || {})],
+        ["Risk limits", JSON.stringify(source.eligibility?.risk_limits || cycles[0]?.result?.risk_limits || "No recorded risk policy")],
+        ["Risk overrides", monitor.spec?.risk_overrides_allowed || "Not available"],
+      ])));
   }
 
   // ============================================================ OPERATIONS

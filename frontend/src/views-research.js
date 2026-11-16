@@ -28,15 +28,8 @@
   const words = (value) => fmt.words(String(value || "").replace(/_/g, " "));
   const tonePill = (value, tones) => pill(words(value), `status ${tones[value] || ""}`.trim(), { "data-status": value });
 
-  async function post(csrf, path, body = {}) {
-    const response = await fetch(path, {
-      method: "POST", credentials: "same-origin",
-      headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": csrf },
-      body: JSON.stringify(body),
-    });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
-    return result;
+  function post(csrf, path, body = {}) {
+    return ET.mutate(path, body, csrf);
   }
 
   ET.views.research = async (root, ctx) => {
@@ -214,7 +207,7 @@
       if (stamp !== shown) {
         shown = stamp;
         root.replaceChildren();
-        render(root, job, { csrf, tab, refresh: () => { shown = null; } });
+        render(root, job, { csrf, tab, isCurrent: ctx.isCurrent, refresh: () => { shown = null; } });
       }
       if (!ACTIVE.has(job.status)) return;
       await new Promise((resolve) => setTimeout(resolve, 1200));
@@ -276,6 +269,7 @@
     if (job.features) panels.push({ key: "features", label: "Features", count: job.features.length, render: () => featuresPanel(job) });
     if (job.experiments) panels.push({ key: "experiments", label: "Modeling & validation", count: job.experiments.length, render: () => experimentsPanel(job) });
     if (job.forward_requests) panels.push({ key: "forward", label: "Forward collection", count: job.forward_requests.length, render: () => forwardPanel(job) });
+    panels.push({ key: "paper", label: "Paper eligibility", render: () => paperPanel(job, options) });
     panels.push({ key: "events", label: "Activity", count: job.events.length, render: () => eventsPanel(job) });
     const body = h("div", { class: "research-panel" });
     const selected = options.tab && panels.some((p) => p.key === options.tab.key) ? options.tab.key : "hypotheses";
@@ -520,6 +514,78 @@
     ];
     return dataTable({ columns, rows: job.forward_requests, sortKey: "status", dense: true,
       empty: ET.emptyState({ iconName: "clock", title: "No forward collection needed", body: "Every requirement was historical or unobtainable." }) });
+  }
+
+  function paperPanel(job, options) {
+    if (options.demo) return callout("Demo Mode: paper proposals and deployment requests are disabled. Eligibility comes from verified research evidence in the real workspace.", "demo");
+    const body = h("div", { class: "stack" }, ET.skeleton(3));
+    const issue = h("div", { class: "research-issue" });
+    const refresh = button("Recheck paper eligibility", { variant: "ghost sm", onclick: () => load() }, "refresh");
+    const host = h("div", { class: "stack", id: "research-paper" },
+      callout("A paper deployment freezes the reviewed strategy, model and evidence versions. Every simulated intent still passes source, fee, liquidity and risk checks.", "info"),
+      h("div", { class: "row-actions end" }, refresh), issue, body);
+    let generation = 0;
+    const current = () => !options.isCurrent || options.isCurrent();
+    const uri = `/api/research/jobs/${encodeURIComponent(job.id)}/paper`;
+    async function load() {
+      const request = ++generation;
+      refresh.disabled = true;
+      try {
+        const report = await ET.api(uri, { fresh: true });
+        if (!current() || request !== generation) return;
+        const proposals = report.proposals || [];
+        body.replaceChildren(...(proposals.length ? proposals.map(proposalCard) : [ET.emptyState({ iconName: "paper", title: "No fitted paper proposals", body: "A proposal requires a fitted model and an executed typed strategy. Inspect Modeling & validation for the precise evidence gaps." })]));
+      } catch (error) {
+        if (current() && request === generation) body.replaceChildren(ET.errorState(error.message, load));
+      } finally { if (current() && request === generation) refresh.disabled = false; }
+    }
+    function proposalCard(proposal) {
+      const deployment = proposal.existing_deployment;
+      const eligible = proposal.eligible === true;
+      const start = button("Start paper deployment", { variant: "primary sm", disabled: !eligible || Boolean(deployment), "data-paper-start": proposal.model_family }, "paper");
+      start.addEventListener("click", async () => {
+        issue.replaceChildren();
+        start.disabled = true;
+        try {
+          const result = await post(options.csrf, uri, { experiment_id: proposal.experiment_id, model_family: proposal.model_family, interval_seconds: 300 });
+          if (!current()) return;
+          ET.toast(result.created ? "Paper deployment saved" : "Existing paper deployment opened", "info");
+          ET.go(`#/paper/${encodeURIComponent(result.id)}`);
+        } catch (error) {
+          if (!current()) return;
+          issue.append(callout(error.message, "error"));
+          await load();
+        }
+      });
+      const summary = (value) => value !== null && typeof value === "object" ? JSON.stringify(value) : String(value ?? "—");
+      const checks = Array.isArray(proposal.checks) ? proposal.checks : [];
+      return h("article", { class: "hyp-card", "data-paper-proposal": proposal.experiment_id, "data-paper-model": proposal.model_family },
+        h("header", { class: "hyp-head" },
+          h("div", { class: "hyp-titles" }, h("h4", words(proposal.model_family)), h("p", { class: "mono muted" }, `${digest(proposal.experiment_id)} · ${proposal.hypothesis_id}`)),
+          pill(eligible ? "Paper eligible" : "Paper blocked", `status ${eligible ? "pos" : "warn"}`, { "data-paper-eligible": String(eligible) })),
+        proposal.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC: this proposal verifies software behavior. Production paper deployments require authentic evidence.", "demo") : null,
+        (proposal.reasons || []).length ? h("ul", { class: "hyp-reasons" }, proposal.reasons.map((reason) => h("li", reason))) : null,
+        kv([
+          ["Model version", h("span", { class: "mono", title: proposal.model_hash }, digest(proposal.model_hash))],
+          ["Strategy version", h("span", { class: "mono", title: proposal.strategy_hash }, digest(proposal.strategy_hash))],
+          ["Proposal version", h("span", { class: "mono", title: proposal.proposal_hash }, digest(proposal.proposal_hash))],
+          proposal.binding_summary ? ["Forward feature binding", words(proposal.binding_summary.kind)] : null,
+          proposal.binding_summary?.selected_schedule ? ["Trained decision time", fmt.decisionPoint(proposal.binding_summary.selected_schedule)] : null,
+          deployment ? ["Existing deployment", h("a", { class: "link", href: `#/paper/${encodeURIComponent(deployment.id)}` }, `${words(deployment.status)} · ${digest(deployment.id)}`)] : null,
+        ]),
+        checks.length ? dataTable({ columns: [
+          { key: "name", label: "Eligibility check", render: (check) => words(check.name) },
+          { key: "passed", label: "Status", render: (check) => pill(check.passed === true ? "Passed" : "Blocked", `status ${check.passed === true ? "pos" : "warn"}`) },
+          { key: "reason", label: "Evidence", sortable: false, render: (check) => h("span", { class: "research-reasons" }, check.reason || "—") },
+        ], rows: checks, sortKey: "name", sortDir: "asc", dense: true }) : null,
+        h("details", { class: "hyp-more" }, h("summary", "Frozen validation and source binding"),
+          kv(Object.entries(proposal.validation_summary || {}).map(([key, value]) => [words(key), summary(value)])),
+          proposal.binding_summary ? kv(Object.entries(proposal.binding_summary).map(([key, value]) => [words(key), summary(value)])) : null),
+        deployment ? h("a", { class: "btn ghost sm", href: `#/paper/${encodeURIComponent(deployment.id)}` }, "Open paper deployment") :
+          h("div", { class: "row-actions" }, start));
+    }
+    load();
+    return host;
   }
 
   function eventsPanel(job) {

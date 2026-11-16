@@ -1,0 +1,293 @@
+{
+  "hash": "sha256:8a2bd11b719adc7d6b1a154ed0ecca7f0fd710fee2e279632fa69c119b1438e8",
+  "packages": {
+    "numpy": "2.5.3",
+    "pydantic": "2.13.5",
+    "scikit-learn": "1.9.1"
+  },
+  "python": "3.13.14 (main, Aug  5 2026, 15:44:26) [Clang 22.1.3 ]",
+  "result": [
+    {
+      "benchmark": {
+        "basis": "available quoted midpoint else registered training-only baseline; not executable fills",
+        "brier": 0.2775,
+        "calibration_intercept": 1.0558496559665023,
+        "calibration_slope": -0.21177253452598077,
+        "contracts": 20,
+        "independent_date_blocks": 20,
+        "independent_events": 20,
+        "log_loss": 0.7483400223522338,
+        "predictions": 20,
+        "reliability_bins": [
+          {
+            "lower": 0.4,
+            "observed": 0.75,
+            "predicted": 0.4499999999999999,
+            "predictions": 20
+          }
+        ],
+        "status": "evaluated"
+      },
+      "brier_improvement_interval": {
+        "blocks": 20,
+        "lower": -0.045749999999999964,
+        "method": "fixed-seed date-block bootstrap mean",
+        "nominal_coverage": 0.95,
+        "upper": 0.18000000000000008
+      },
+      "candidate_id": "mentions",
+      "coverage": {
+        "books": 70,
+        "eligible_events": 70,
+        "events": 70
+      },
+      "data_kind": "real",
+      "executed_spec": {
+        "assumptions": [
+          "The ask is the fill price and the position is held to settlement."
+        ],
+        "calibration": "none",
+        "citations": [],
+        "created_at": "2026-10-02T16:00:00Z",
+        "description": "Buy YES when the fixture model probability clears a threshold.",
+        "entry_rules": {
+          "all_of": [
+            {
+              "feature": "model_yes_probability",
+              "op": "gt",
+              "threshold": "0.6"
+            }
+          ],
+          "description": "model-driven entry"
+        },
+        "entry_window": {
+          "end": null,
+          "start": null,
+          "target_end": null,
+          "target_start": null
+        },
+        "evidence": [],
+        "execution": {
+          "max_spread": null,
+          "post_only": false,
+          "time_in_force": "fill_or_kill"
+        },
+        "exit_mode": "hold_to_settlement",
+        "exit_rules": {
+          "all_of": [
+            {
+              "feature": "settlement",
+              "op": "eq",
+              "threshold": "1"
+            }
+          ],
+          "description": "hold to settlement"
+        },
+        "features": [
+          {
+            "description": "available transcript count",
+            "name": "mention_count",
+            "version": "1"
+          }
+        ],
+        "generated_by": {
+          "actor_id": "quant",
+          "kind": "agent"
+        },
+        "generation_run_id": "00000000-0000-0000-0000-000000000fa0",
+        "hedging_rules": "",
+        "hypothesis": "Known transcript prefixes may predict a binary mention outcome.",
+        "invalidation_conditions": [
+          "The fixture probability is replaced by a live model."
+        ],
+        "market_universe": {
+          "description": "Philadelphia daily highs",
+          "event_tickers": [],
+          "market_tickers": [],
+          "series_tickers": [
+            "MENTIONS"
+          ],
+          "venue": "kalshi"
+        },
+        "max_entry_price": null,
+        "maximum_holding_period_seconds": null,
+        "min_displayed_quantity": null,
+        "minimum_edge": "0.03",
+        "model_kind": "none",
+        "model_ref": {
+          "family": "provided-frequency",
+          "version": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "name": "phl-probability-055",
+        "position_sizing": {
+          "contracts": "1.00",
+          "dollars": null,
+          "kelly_fraction": null,
+          "max_contracts": "1.00",
+          "method": "fixed_contracts"
+        },
+        "probability_feature": null,
+        "required_sources": [
+          "fixture-transcript"
+        ],
+        "risk_overrides_allowed": "none",
+        "side": "yes",
+        "slippage_allowance": "0",
+        "strategy_family": "informational",
+        "strategy_id": "mention-strategy",
+        "uncertainty_allowance": "0",
+        "version": 1
+      },
+      "executed_spec_hash": "sha256:c018fea89a1e7b35d00a0a8de683d6d4e61da6498a693f3da1e0da437079a1a3",
+      "forecast_metrics": {
+        "brier": 0.1875,
+        "calibration_intercept": 0.49795049783987066,
+        "calibration_slope": 0.5468420610057605,
+        "contracts": 20,
+        "independent_date_blocks": 20,
+        "independent_events": 20,
+        "log_loss": 0.5623351446188084,
+        "predictions": 20,
+        "reliability_bins": [
+          {
+            "lower": 0.7,
+            "observed": 0.75,
+            "predicted": 0.75,
+            "predictions": 20
+          }
+        ],
+        "status": "evaluated"
+      },
+      "model_lineage": {
+        "metadata": {
+          "data_kind": "real",
+          "split": {
+            "holdout": [
+              "MENTIONS-E70",
+              "MENTIONS-E71",
+              "MENTIONS-E72",
+              "MENTIONS-E73",
+              "MENTIONS-E74",
+              "MENTIONS-E75",
+              "MENTIONS-E76",
+              "MENTIONS-E77",
+              "MENTIONS-E78",
+              "MENTIONS-E79"
+            ]
+          }
+        },
+        "refusals": {},
+        "source_hash": "sha256:93867eb9f6bed88b5e108d71df3d08c810eda076091acca8150ee22b4769c2c4"
+      },
+      "original_spec_hash": "sha256:e6e540c024be90e26ba1294636098a1707611985d6898f656b6e64b4b2f672de",
+      "prediction_ids": [
+        "prediction-50",
+        "prediction-51",
+        "prediction-52",
+        "prediction-53",
+        "prediction-54",
+        "prediction-55",
+        "prediction-56",
+        "prediction-57",
+        "prediction-58",
+        "prediction-59",
+        "prediction-60",
+        "prediction-61",
+        "prediction-62",
+        "prediction-63",
+        "prediction-64",
+        "prediction-65",
+        "prediction-66",
+        "prediction-67",
+        "prediction-68",
+        "prediction-69"
+      ],
+      "rank": null,
+      "reasons": [
+        "too few modeled fills for trading evidence"
+      ],
+      "scenarios": [
+        {
+          "audit": [],
+          "drawdown_at_cost": "0",
+          "equity_curve": [
+            {
+              "equity": "1000.000000",
+              "time": "2025-02-20T12:00:00+00:00"
+            }
+          ],
+          "events_traded": 0,
+          "execution_fidelity": "sized_snapshot_taker_simulation",
+          "fee_bindings": [],
+          "fee_policy": {
+            "available_at": "2024-01-01T00:00:00Z",
+            "certified": true,
+            "effective_from": "2024-01-01T00:00:00Z",
+            "effective_to": null,
+            "evidence": "Synthetic configured schedule; not a historical Kalshi fee claim",
+            "evidence_hash": "sha256:69a5dce09472e5e92c139142014b4fa64a36efc9b681f55c9f5f7c1c4ae7431d",
+            "schedule": {
+              "fee_multiplier": "1",
+              "fee_type": "quadratic",
+              "maker_fraction": "1",
+              "maker_pays": false,
+              "quadratic_coefficient": "0.07"
+            },
+            "version": "synthetic-illustrative-v1"
+          },
+          "fee_schedule_used": {
+            "fee_multiplier": "1",
+            "fee_type": "quadratic",
+            "maker_fraction": "1",
+            "maker_pays": false,
+            "quadratic_coefficient": "0.07"
+          },
+          "fees_paid": "0.000000",
+          "fill_count": 0,
+          "filled_orders": 0,
+          "ledger": {
+            "as_of": "2025-02-20T12:00:00+00:00",
+            "cash": "1000.000000",
+            "collateral": {},
+            "fees_paid": "0.000000",
+            "fills": [],
+            "orders": [],
+            "peak_equity": "1000.000000",
+            "positions": [],
+            "realized_pnl": "0.000000",
+            "settlements": [],
+            "starting_cash": "1000.000000"
+          },
+          "mark_basis": "cost-basis equity between settlements, not market marks",
+          "mean_date_pnl_interval": {
+            "blocks": 20,
+            "lower": 0.0,
+            "method": "fixed-seed date-block bootstrap mean",
+            "nominal_coverage": 0.95,
+            "upper": 0.0
+          },
+          "net_pnl": "0.000000",
+          "realized_pnl": "0.000000",
+          "scenario": "base",
+          "unsettled_positions": 0
+        }
+      ],
+      "status": "REJECTED",
+      "tested": true,
+      "walk_forward": []
+    },
+    {
+      "candidate_id": "unsupported",
+      "data_kind": "real",
+      "forecast_metrics": null,
+      "rank": null,
+      "reasons": [
+        "hedging is not implemented"
+      ],
+      "scenarios": [],
+      "status": "UNSUPPORTED",
+      "tested": false
+    }
+  ],
+  "source": "/workspace/EntropyTrade/backend/src/entropytrade/experiments/fee_replay.py"
+}

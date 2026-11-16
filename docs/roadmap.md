@@ -1,5 +1,13 @@
 # Capability roadmap
 
+## Autonomous research Milestone D — November 15, 2026
+
+[Research-to-paper lifecycle](research-paper.md) reuses existing monitor/accounting machinery,
+exact source features and immutable promotion proofs. Production remains evidence-gated;
+current exact-touch strategies fail conservative stress. E approval/monitoring, F unification
+and authenticated private Windows deployment readiness remain the subsequent milestones.
+
+
 ## Autonomous research Milestone C — November 15, 2026
 
 The [integrated predictive increment](research-modeling.md) connects durable jobs to verified

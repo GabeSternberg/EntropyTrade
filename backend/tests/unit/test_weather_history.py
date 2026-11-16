@@ -447,7 +447,9 @@ def test_shadow_discovery_checks_committed_receipts_before_snapshot(
     at = result["capture"]["decision_time"]
     with jobs.connect() as db:
         db.execute(
-            "INSERT INTO monitors VALUES (?, ?, 'controlled', 'weather', '{}', 'unused', "
+            "INSERT INTO monitors (id,job_id,candidate_id,family,spec,spec_hash,status,"
+            "interval_seconds,next_at,created_at,failures,model_binding) "
+            "VALUES (?, ?, 'controlled', 'weather', '{}', 'unused', "
             "'paused', 300, ?, ?, 0, NULL)",
             (monitor_id, job_id, at, at),
         )

@@ -136,6 +136,7 @@ def plan_hypothesis(
             name: file_hash(package / name)
             for name in (
                 "research/modeling.py",
+                "research/paper_models.py",
                 "research/materialize.py",
                 "research/registry.py",
                 "research/backtesting.py",
@@ -145,6 +146,7 @@ def plan_hypothesis(
                 "ml/evaluation.py",
                 "ml/probability.py",
                 "experiments/engine.py",
+                "experiments/data.py",
                 "backtest/replay.py",
                 "domain/strategy.py",
                 "domain/market.py",
@@ -917,6 +919,37 @@ def _evaluate(
             "calibration_events": list(model.calibration.event_ids),
             "metrics": scored,
         }
+        from entropytrade.research.execution_inputs import execution_locations
+        from entropytrade.research.paper_models import freeze_research_model
+
+        try:
+            portable = freeze_research_model(
+                model,
+                model_hash=digest,
+                data_kind=data_kind,
+                series=tuple(
+                    series
+                    for series, location in execution_locations().items()
+                    if series in spec.universe and location["entity"] in {e.station for e in train}
+                ),
+                protected=plan.holdout,
+                features=tuple(d for d in definitions if d.role == "feature"),
+                feature_artifacts=tuple(a["artifact_id"] for a in artifacts),
+                dataset_versions=tuple(result["provenance"]["dataset_versions"]),
+                created_at=now,
+                selected_schedule=min(
+                    spec.decision_schedule, key=lambda p: (p.day_offset, p.local_time)
+                ),
+            )
+        except ValueError as exc:
+            result["models"][kind]["portable_refusal"] = str(exc)
+        else:
+            filename = kind + ".paper.json"
+            (staging / filename).write_text(portable.model_dump_json(indent=2))
+            result["models"][kind]["portable"] = {
+                "file": filename,
+                "sha256": file_hash(staging / filename),
+            }
         fitted_thresholds = {}
         for rule in spec.rules:
             if rule.threshold is not None:

@@ -36,6 +36,11 @@ class ContractSample(DomainModel):
     outcome: MarketResult | None = None
     outcome_available_at: UtcDatetime | None = None
     book: OrderBook | None = None
+    # Post-decision receipts are execution evidence only. Omitting the empty extension
+    # preserves exact serialization of previously frozen experiment/replay inputs.
+    execution_books: tuple[OrderBook, ...] = Field(
+        default=(), max_length=1024, exclude_if=lambda value: not value
+    )
     fidelity: str = "missing"
 
     @model_validator(mode="after")
@@ -48,6 +53,23 @@ class ContractSample(DomainModel):
             raise ValueError("sample book must be for this contract and received by decision")
         if self.outcome is not None and self.outcome_available_at is None:
             raise ValueError("resolved targets need availability timestamps")
+        seen: dict[datetime, OrderBook] = {}
+        for execution in self.execution_books:
+            if (
+                execution.market_ticker != self.ticker
+                or not self.decision_time < execution.received_at < self.close_time
+                or (
+                    execution.exchange_ts is not None
+                    and execution.exchange_ts > execution.received_at
+                )
+            ):
+                raise ValueError(
+                    "execution books require matching post-decision pre-close receipts"
+                )
+            previous = seen.get(execution.received_at)
+            if previous is not None and previous != execution:
+                raise ValueError("conflicting execution books at one receipt clock")
+            seen[execution.received_at] = execution
         return self
 
 
