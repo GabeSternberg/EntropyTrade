@@ -210,3 +210,23 @@ and compare downloads. The authentic flow submits ordinary research and download
 experiment fees plus its insufficient-data review. See [the guide](../../docs/fee-evidence.md)
 and [executed evidence](../../data/fee-evidence-review/20261030/README.md). These are actual
 managed-Chromium checks; controlled success does not establish empirical data or returns.
+
+## Autonomous Research modeling acceptance
+
+Select `--grep 'autonomous research'` with new workspace/evidence paths to run four real
+browser procedures. The ordinary server exercises inventory-only durable modeling refusals,
+export, cancellation and Demo isolation. The recorded-source server exercises acquisition
+approvals, genuine captured Philadelphia bytes, feature registration and precise predictive
+or execution refusals. Each feature-version change can create another experiment; the page
+shows the complete persistent history rather than collapsing it into one latest result.
+
+The final two procedures use `tests.integration.research_modeling_fixture`, a **test-only synthetic**
+server. Its source manifests and page are explicitly labeled synthetic; no production setting
+can select it. Controlled hypothesis/data setup passes through the actual research-job state
+machine and model fitting, calibration, heldout protection, frozen baselines, reports and
+restart recovery. Both plan and execution use the same explicit synthetic experiment identity.
+The browser verifies recorded Brier scores against exported results, baseline deduplication,
+mobile layout, protected event identities and identical report downloads after listener restart.
+The predictive-only case refuses missing execution evidence. The executable case retains typed synthetic books, rules, outcomes and controlled fee certificates as an acquired dataset, then invokes the actual risk and replay engine. It verifies simulated performance and the same persistent restart boundary.
+Synthetic scores verify software behavior, never empirical accuracy, profitability or trading
+eligibility. Live-provider verification and the private Windows collector are separate gates.

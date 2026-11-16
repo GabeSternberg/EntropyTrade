@@ -319,7 +319,15 @@ def _collector(workspace: Path) -> list[DatasetRecord]:
         value: dict[str, Any] = json.loads(path.read_text())
         if value.get("schema") != COLLECTOR_STATUS_SCHEMA:
             raise ValueError("unknown collector status schema")
-        generated = datetime.fromisoformat(value["generated_at"]).astimezone(UTC)
+        if (
+            scientific_hash({"slices": value["slices"], "problems": value["problems"]})
+            != value["chain_head"]
+        ):
+            raise ValueError("collector status checksum mismatch")
+        generated = datetime.fromisoformat(value["generated_at"])
+        if generated.tzinfo is None or generated.utcoffset() is None:
+            raise ValueError("collector status timestamp must have a timezone")
+        generated = generated.astimezone(UTC)
         for item in value["slices"]:
             coverage = {str(k): set(map(str, v)) for k, v in item["coverage"].items()}
             result += _records(

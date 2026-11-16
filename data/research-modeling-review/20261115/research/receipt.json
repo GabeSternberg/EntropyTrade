@@ -1,0 +1,25 @@
+{
+  "browser": "141.0.7390.37",
+  "console_errors": [],
+  "demo_requests": [
+    "http://127.0.0.1:43165/api/research",
+    "http://127.0.0.1:43165/api/research/jobs"
+  ],
+  "page_errors": [],
+  "posts": [
+    "/api/research/jobs",
+    "/api/research/jobs/2b000e09-4fd5-40d3-8cb6-094c2f81ce05/resume",
+    "/api/research/jobs/2b000e09-4fd5-40d3-8cb6-094c2f81ce05/cancel"
+  ],
+  "screenshots": [
+    "research-real-empty.png",
+    "research-real-detail.png",
+    "research-real-requirements.png",
+    "research-real-forward.png",
+    "research-real-modeling-refusals.png",
+    "research-real-list.png",
+    "research-mobile-detail.png",
+    "research-demo-detail.png"
+  ],
+  "status": "passed"
+}

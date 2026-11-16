@@ -1,5 +1,15 @@
 # Capability roadmap
 
+## Autonomous research Milestone C — November 15, 2026
+
+The [integrated predictive increment](research-modeling.md) connects durable jobs to verified
+acquired features, existing weather models, temporal validation, immutable artifacts and
+website results. The acquired-job lifecycle now constructs contract probabilities, consumes verified copied
+snapshots and invokes shared replay. Controlled acceptance and authentic refusals are
+separate. Proceed through deterministic evidence gates for D (paper deployment), E (approval/monitoring),
+F (unified lifecycle) and Windows deployment readiness. Preserve the canonical collector.
+
+
 ## Authentic forward collection off-container — November 5, 2026
 
 Scheduled cloud sessions cannot reach public sources (issue #3), but GitHub-hosted runners can.

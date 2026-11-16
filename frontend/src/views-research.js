@@ -11,10 +11,11 @@
     ["planning_data", "Requirements & inventory"],
     ["acquiring_data", "Acquisition"],
     ["registering_features", "Features"],
+    ["modeling", "Modeling & validation"],
     ["awaiting_observations", "Awaiting evidence"],
     ["evaluated", "Evaluated"],
   ];
-  const ACTIVE = new Set(["queued", "generating_hypotheses", "planning_data", "acquiring_data", "registering_features", "recoverable_error"]);
+  const ACTIVE = new Set(["queued", "generating_hypotheses", "planning_data", "acquiring_data", "registering_features", "modeling", "recoverable_error"]);
   const RESUMABLE = new Set(["evaluated", "awaiting_observations", "awaiting_authorization", "recoverable_error"]);
   const TERMINAL = new Set(["failed", "cancelled"]);
   const HYP_TONE = {
@@ -46,7 +47,7 @@
   // ----------------------------------------------------------------- list
   async function listView(root, ctx) {
     root.append(ET.pageHeader("Autonomous Research",
-      "Describe an objective. EntropyTrade formulates hypotheses, inventories evidence, records what is missing and keeps the job until it can continue."));
+      "Describe an objective. EntropyTrade formulates hypotheses, acquires evidence, fits eligible models and retains validation results and precise evidence gaps."));
     if (ET.mode() === "demo") {
       const demo = ET.demo().research;
       root.append(callout("Demo Mode: these research jobs are fictional examples. Submitting is disabled; switch to Real Mode to run research on this workspace.", "demo"));
@@ -73,7 +74,8 @@
         h("li", "Hypotheses come from local templates or a configured AI provider. They are proposals, never established edges."),
         h("li", "Each hypothesis becomes machine-readable data requirements: kind, entity, clock, fidelity and minimum independent events."),
         h("li", "Existing datasets are inventoried first. Values without the required clocks do not count."),
-        h("li", "Missing evidence is acquired from approved read-only sources or planned for forward collection, then reevaluated.")),
+        h("li", "Missing evidence is acquired from approved read-only sources or planned for forward collection, then reevaluated."),
+        h("li", "Registered point-in-time features enter reproducible model fitting and independent validation. Executable backtests also require verified prices, depth, rules and fees.")),
       kv([
         ["AI providers configured", configured.length ? configured.map((p) => p.label).join(", ") : "None (local templates only)"],
         ["Registered features", String(catalog.features.length)],
@@ -101,7 +103,7 @@
     const model = h("input", { class: "input", id: "research-model", list: listId, autocomplete: "off", placeholder: "Model name" });
     const providerNote = h("p", { class: "hint" });
     const budget = h("input", { class: "input", id: "research-budget", type: "number", min: "0", max: "5", step: "0.05", value: defaults.budget.ai_usd });
-    const lookback = h("input", { class: "input", id: "research-lookback", type: "number", min: "7", max: "180", value: String(defaults.lookback_days) });
+    const lookback = h("input", { class: "input", id: "research-lookback", type: "number", min: "7", max: "365", value: String(defaults.lookback_days) });
     const depth = h("select", { class: "input", id: "research-depth" },
       [["quick", "Quick (20 events)"], ["standard", "Standard (60 events)"], ["thorough", "Thorough (120 events)"]].map(([v, l]) => h("option", { value: v, selected: v === defaults.validation_depth }, l)));
     const acquisition = h("select", { class: "input", id: "research-acquisition" },
@@ -159,7 +161,7 @@
       field("Contract universe", universe, "Leave empty to use the series named in the objective, or the first configured series."),
       h("div", { class: "grid g-1-1" }, field("AI provider", provider), field("Model", h("div", model, models))),
       providerNote,
-      h("div", { class: "grid g-3" }, field("AI budget (USD)", budget), field("Lookback (days)", lookback), field("Paper trading", paper)),
+      h("div", { class: "grid g-3" }, field("AI budget (USD)", budget), field("Lookback (days)", lookback, "Separate training, calibration and validation periods may require a longer window (up to 365 days)."), field("Paper trading", paper)),
       field("Data acquisition", acquisition, "Read-only public sources from the approved catalog. Nothing is ever fetched from a URL a model proposes."),
       issue,
       h("div", { class: "row-actions end" }, submit));
@@ -188,6 +190,11 @@
       const job = ET.demo().research.jobs.find((j) => j.id === id);
       if (!job) { root.append(ET.emptyState({ title: "Demo job not found", body: "Return to the research list." })); return; }
       render(root, job, { demo: true });
+      return;
+    }
+    // Demo identifiers do not name persisted jobs when switching back to Real Mode.
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)) {
+      ET.go("#/research");
       return;
     }
     root.append(ET.skeleton(5));
@@ -246,7 +253,8 @@
     }
     root.append(ET.pageHeader(job.request.objective, `${words(job.family)} · ${job.universe.join(", ")} · created ${fmt.dateTime(job.created_at)}`, h("div", { class: "row-actions" }, ...actions)));
     if (options.demo) root.append(callout("Demo Mode: this research job is a fictional example and never reached the local server.", "demo"));
-    if (!options.demo && job.transport && job.transport !== "live") root.append(callout("Controlled replay: this server answers acquisitions with recorded public responses, not live requests. Datasets are real captured bytes, but nothing was fetched now.", "warn"));
+    if (!options.demo && job.transport === "controlled_synthetic") root.append(callout("CONTROLLED SYNTHETIC: this test server uses synthetic datasets to verify the research pipeline. Results are software evidence only.", "demo"));
+    else if (!options.demo && job.transport && job.transport !== "live") root.append(callout("Controlled replay: this server answers acquisitions with recorded public responses, not live requests. Datasets are real captured bytes, but nothing was fetched now.", "warn"));
     root.append(h("div", { class: "research-status-row" }, statusPill(job.status), h("span", { class: "research-detail", id: "research-detail" }, job.detail)));
     if (job.error) root.append(callout(`${job.error.type} during ${words(job.error.stage)}: ${job.error.reason}`, job.status === "failed" ? "error" : "warn"));
     root.append(card({ title: "Lifecycle" }, stepper(job)));
@@ -266,6 +274,7 @@
     const pending = (job.acquisitions || []).filter((a) => a.status === "awaiting_approval").length;
     if (pending && !options.demo) root.append(callout(`${pending} acquisition${pending === 1 ? "" : "s"} await your approval in the Acquisitions tab. Other work continued.`, "warn"));
     if (job.features) panels.push({ key: "features", label: "Features", count: job.features.length, render: () => featuresPanel(job) });
+    if (job.experiments) panels.push({ key: "experiments", label: "Modeling & validation", count: job.experiments.length, render: () => experimentsPanel(job) });
     if (job.forward_requests) panels.push({ key: "forward", label: "Forward collection", count: job.forward_requests.length, render: () => forwardPanel(job) });
     panels.push({ key: "events", label: "Activity", count: job.events.length, render: () => eventsPanel(job) });
     const body = h("div", { class: "research-panel" });
@@ -379,14 +388,135 @@
       empty: ET.emptyState({ iconName: "layers", title: "No features registered", body: "Features are materialized once their input evidence exists." }) });
   }
 
+  // The server supplies frozen experiment evidence. Missing metrics stay absent; completing
+  // a pipeline never creates a profitability or prospective-validation claim.
+  function experimentsPanel(job) {
+    const rows = job.experiments || [];
+    if (!rows.length) return ET.emptyState({ iconName: "analytics", title: "No experiments recorded", body: "Modeling eligibility is assessed after feature registration. Missing evidence remains a durable refusal." });
+    const hypotheses = Object.fromEntries(job.hypotheses.map((row) => [row.hypothesis_id, row.spec.title]));
+    const reasons = (items) => items?.length ? h("ul", { class: "hyp-reasons" }, items.map((item) => h("li", String(item)))) : null;
+    const metricsTable = (models, baselines) => {
+      const entries = [
+        ...Object.entries(baselines || {}).map(([name, value]) => ({ ...(models || {})[name], name, group: "Baseline", metrics: value.metrics || value })),
+        ...Object.entries(models || {}).filter(([name]) => !(name in (baselines || {}))).map(([name, value]) => ({ name, group: "Model", ...value })),
+      ];
+      if (!entries.length) return null;
+      return dataTable({ columns: [
+        { key: "name", label: "Model", render: (row) => h("div", { class: "cell-title" }, words(row.name), h("div", { class: "muted" }, row.group)) },
+        { key: "brier", label: "Brier score", align: "num", sort: (row) => row.metrics?.brier, render: (row) => fmt.num(row.metrics?.brier, 4) },
+        { key: "log_loss", label: "Log loss", align: "num", sort: (row) => row.metrics?.log_loss, render: (row) => fmt.num(row.metrics?.log_loss, 4) },
+        { key: "calibration", label: "Calibration", render: (row) => typeof row.calibration === "string" ? words(row.calibration) : words(row.calibration?.method) },
+        { key: "training_events", label: "Training events", align: "num", render: (row) => Array.isArray(row.training_events) ? String(row.training_events.length) : fmt.num(row.training_events) },
+        { key: "artifact_hash", label: "Artifact", sortable: false, render: (row) => row.artifact_hash ? h("span", { class: "mono", title: row.artifact_hash }, digest(row.artifact_hash)) : "—" },
+      ], rows: entries, sortKey: "name", sortDir: "asc", dense: true });
+    };
+    const section = (title, ...children) => h("section", { class: "research-experiment-section" }, h("h5", title), ...children);
+    const formatted = (value) => typeof value === "object" && value !== null ? JSON.stringify(value) : String(value ?? "—");
+    return h("div", { class: "stack", id: "research-experiments" },
+      callout("Historical predictive diagnostics do not establish executable profitability. Paper and live promotion require separate deterministic gates.", "lock"),
+      rows.map((row) => {
+        const result = row.result || {};
+        const eligibility = result.eligibility || {};
+        const validation = result.validation || {};
+        const backtest = result.backtest || {};
+        const config = result.config || row.config || {};
+        const provenance = result.provenance || {};
+        const partitions = validation.partitions || {};
+        const modelTable = metricsTable(result.models, result.baselines);
+        const partitionSummary = (value) => {
+          if (Array.isArray(value)) return `${value.length} event identities`;
+          if (value && typeof value === "object") return [
+            value.events !== undefined ? `${Array.isArray(value.events) ? value.events.length : value.events} events` : null,
+            value.dates !== undefined ? `${Array.isArray(value.dates) ? value.dates.length : value.dates} dates` : null,
+            value.start && value.end ? `${value.start} → ${value.end}` : null,
+          ].filter(Boolean).join(" · ") || "See frozen partition identities in export";
+          return formatted(value);
+        };
+        const partitionRows = ["fit", "calibration", "validation", "holdout"].filter((key) => partitions[key] !== undefined).map((key) => [words(key), partitionSummary(partitions[key])]);
+        const uncertainty = Object.entries(validation.uncertainty || {}).filter(([, value]) => value).map(([name, value]) => ({ name, ...value }));
+        const folds = validation.walk_forward || [];
+        return h("article", { class: "hyp-card research-experiment", "data-experiment": row.id, "data-experiment-status": row.status },
+          h("header", { class: "hyp-head" },
+            h("div", { class: "hyp-titles" }, h("h4", hypotheses[row.hypothesis_id] || row.hypothesis_id),
+              h("p", { class: "muted mono" }, `${digest(row.id)} · updated ${fmt.dateTime(row.updated_at)}`)),
+            tonePill(row.status, { evaluated: "", completed: "", refused: "warn", awaiting_data: "warn", invalid: "neg", unsupported: "neg", failed: "neg", running: "warn", queued: "warn" })),
+          result.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC: these results verify software behavior and are not empirical trading evidence.", "demo") : null,
+          row.error ? callout(`${row.error.type || "Experiment error"}: ${row.error.reason || row.error.message || formatted(row.error)}`, "error") : null,
+          section("Modeling eligibility",
+            h("div", { class: "chip-row" }, eligibility.eligible === true ? pill("Predictive modeling eligible", "status pos") : eligibility.eligible === false ? pill("Modeling refused", "status warn") : pill("Eligibility pending")),
+            reasons(eligibility.reasons),
+            kv([
+              ["Independent events / dates", `${fmt.num(eligibility.independent_events)} / ${fmt.num(eligibility.independent_dates)}`],
+              ["Complete events", fmt.num(eligibility.complete_events)],
+              eligibility.train_eligible_events !== undefined ? ["Training events with timely labels", fmt.num(eligibility.train_eligible_events)] : null,
+              eligibility.training_late_labels !== undefined ? ["Training labels received too late", fmt.num(eligibility.training_late_labels)] : null,
+              eligibility.calibration_eligible_events !== undefined ? ["Calibration events with timely labels", fmt.num(eligibility.calibration_eligible_events)] : null,
+              config.min_train_events !== undefined ? ["Minimum training events", fmt.num(config.min_train_events)] : null,
+              ...Object.entries(eligibility.missingness || {}).map(([name, count]) => [`Missing ${words(name)}`, fmt.num(count)]),
+            ])),
+          Object.keys(config).length ? h("details", { class: "hyp-more" }, h("summary", "Frozen model configuration"), kv(Object.entries(config).map(([key, value]) => [words(key), formatted(value)]))) : null,
+          modelTable ? section("Validation metrics and baselines", validation.threshold_definition?.exchange_contract === false ? callout("Scores measure a temperature threshold defined from training data. This is predictive analysis; these are not exchange-contract returns.", "info") : null, h("div", { class: "research-model-metrics" }, modelTable)) : callout("No fitted validation metrics are available for this experiment.", "info"),
+          result.model_refusals && Object.keys(result.model_refusals).length ? section("Model refusals", reasons(Object.entries(result.model_refusals).map(([name, reason]) => `${words(name)}: ${reason}`))) : null,
+          section("Independent validation",
+            kv([
+              ["Validation status", words(validation.status)],
+              eligibility.training_cutoff || partitions.fit_asof ? ["Training cutoff", fmt.dateTime(eligibility.training_cutoff || partitions.fit_asof)] : null,
+              eligibility.calibration_cutoff || partitions.calibration_asof ? ["Calibration cutoff", fmt.dateTime(eligibility.calibration_cutoff || partitions.calibration_asof)] : null,
+              ["Protected holdout", validation.holdout_evaluated === false ? "Not evaluated" : validation.holdout_evaluated === true ? "Evaluated (see frozen report)" : "Not yet established"],
+              ["Prospective validation", validation.prospective === false ? "Pending; historical predictions are not prospective" : validation.prospective === true ? "See prospective evidence in report" : "Not established"],
+              validation.partition_hash ? ["Partition version", h("span", { class: "mono", title: validation.partition_hash }, digest(validation.partition_hash))] : null,
+              ...partitionRows,
+              validation.walk_forward ? ["Walk-forward evaluations", String(validation.walk_forward.length)] : null,
+            ]), reasons([...(validation.warnings || []), ...(result.warnings || [])])),
+          folds.length ? section("Walk-forward diagnostics", dataTable({ columns: [
+            { key: "fold", label: "Fold", render: (fold) => String(fold.fold) },
+            { key: "brier", label: "Brier score", align: "num", render: (fold) => fmt.num(fold.metrics?.brier, 4) },
+            { key: "log_loss", label: "Log loss", align: "num", render: (fold) => fmt.num(fold.metrics?.log_loss, 4) },
+            { key: "refusal", label: "Assessment", sortable: false, render: (fold) => fold.refusal || words(fold.metrics?.status) },
+          ], rows: folds, sortKey: "fold", sortDir: "asc", dense: true })) : null,
+          uncertainty.length ? section("Uncertainty in Brier score", dataTable({ columns: [
+            { key: "name", label: "Model", render: (interval) => words(interval.name) },
+            { key: "lower", label: "Lower", align: "num", render: (interval) => fmt.num(interval.lower, 4) },
+            { key: "upper", label: "Upper", align: "num", render: (interval) => fmt.num(interval.upper, 4) },
+            { key: "date_blocks", label: "Dates", align: "num", render: (interval) => fmt.num(interval.date_blocks) },
+          ], rows: uncertainty, sortKey: "name", sortDir: "asc", dense: true }), h("p", { class: "hint" }, "95% date-block bootstrap intervals are descriptive and are not adjusted for model selection. See the export for the fixed seed and method.")) : null,
+          section("Executable backtest",
+            kv([
+              ["Backtest status", words(backtest.status)],
+              ["Execution fidelity", words(backtest.execution_fidelity)],
+              ["Real-money submission", "Disabled"],
+            ]), reasons(backtest.reasons),
+            backtest.performance?.scenarios?.length ? h("div", { class: "research-backtest-performance" },
+              h("h5", "Recorded backtest performance"),
+              callout("These are modeled snapshot fills with fees and risk limits. Research results do not authorize deployment.", "info"),
+              dataTable({ columns: [
+                { key: "scenario", label: "Scenario", render: (scenario) => words(scenario.scenario) },
+                { key: "fill_count", label: "Simulated fills", align: "num", render: (scenario) => fmt.num(scenario.fill_count) },
+                { key: "events_traded", label: "Events traded", align: "num", render: (scenario) => fmt.num(scenario.events_traded) },
+                { key: "net_pnl", label: "Net P&L", align: "num", render: (scenario) => fmt.usd(scenario.net_pnl) },
+                { key: "fees_paid", label: "Fees", align: "num", render: (scenario) => fmt.usd(scenario.fees_paid) },
+                { key: "drawdown_at_cost", label: "Drawdown at cost", align: "num", render: (scenario) => fmt.usd(scenario.drawdown_at_cost) },
+                { key: "unsettled_positions", label: "Unsettled positions", align: "num", render: (scenario) => fmt.num(scenario.unsettled_positions) },
+              ], rows: backtest.performance.scenarios, sortKey: "scenario", sortDir: "asc", dense: true }),
+              h("p", { class: "hint" }, "Drawdown uses cost-basis equity between settlements. The export retains scenario assumptions, risk decisions and the complete simulated ledger.")) : null),
+          h("details", { class: "hyp-more" }, h("summary", "Frozen evidence and reproducibility"), kv([
+            ["Feature artifacts", formatted(provenance.feature_artifacts)],
+            ["Dataset versions", formatted(provenance.dataset_versions)],
+            ["Feature definitions", formatted(provenance.feature_definitions)],
+            result.report?.hash ? ["Report hash", result.report.hash] : null,
+            ["Export", "The job's Export report includes persistent experiment history and evidence references."],
+          ])));
+      }));
+  }
+
   function forwardPanel(job) {
     const columns = [
       { key: "kind", label: "Evidence", render: (f) => h("div", { class: "cell-title" }, words(f.kind), h("div", { class: "muted mono" }, `${f.variable} · ${f.entity}`)) },
       { key: "collector", label: "Collector", render: (f) => words(f.collector) },
-      { key: "status", label: "Status", render: (f) => statusPill(f.status) },
+      { key: "status", label: "Collection status", sort: (f) => f.operational_status || f.status, render: (f) => statusPill(f.operational_status || f.status) },
       { key: "progress", label: "Observed", align: "num", sort: (f) => f.events_observed, render: (f) => `${f.events_observed} / ${f.events_required}` },
       { key: "next_check_at", label: "Next check", align: "num", render: (f) => f.next_check_at ? fmt.dateTime(f.next_check_at) : "—" },
-      { key: "detail", label: "Detail", sortable: false, render: (f) => h("div", { class: "cell-title research-reasons" }, f.detail) },
+      { key: "detail", label: "Detail", sortable: false, render: (f) => h("div", { class: "cell-title research-reasons" }, f.operational_detail || f.detail, f.operational_detail && f.detail ? h("div", { class: "muted" }, f.detail) : null) },
     ];
     return dataTable({ columns, rows: job.forward_requests, sortKey: "status", dense: true,
       empty: ET.emptyState({ iconName: "clock", title: "No forward collection needed", body: "Every requirement was historical or unobtainable." }) });

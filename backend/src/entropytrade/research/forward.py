@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Literal
 
-from entropytrade.research.model import DataKind, DataRequirement
+from entropytrade.research.model import Assessment, AssessmentStatus, DataKind, DataRequirement
 from entropytrade.research.sources import SourceDescriptor
 
 CHECK_INTERVAL = timedelta(hours=6)
@@ -84,3 +84,51 @@ def estimate(observed: int, required: int, now: datetime) -> datetime | None:
     if observed >= required:
         return now
     return now + timedelta(days=required - observed)
+
+
+def decorate_forward(
+    requests: list[dict[str, Any]],
+    requirements: list[DataRequirement],
+    assessments: dict[str, Assessment],
+    now: datetime,
+) -> list[dict[str, Any]]:
+    """Describe operational evidence separately from a checked-in collection plan.
+
+    The existing integration has no installed-configuration attestation or authenticated
+    recent receipt feed. Consequently it cannot claim ``deployed`` or ``collecting``.
+    Counts in a sanitized collector summary never alter these states. Sufficiency comes
+    only from the job's current evidence assessment, not a shared request's cached count.
+    """
+    result = []
+    for request in requests:
+        related = [r for r in requirements if r.coverage_key == request["coverage_key"]]
+        checked = [assessments.get(r.requirement_id) for r in related]
+        sufficient = bool(checked) and all(
+            a is not None and a.status is AssessmentStatus.SATISFIED for a in checked
+        )
+        if sufficient:
+            state = "sufficient"
+            detail = "This job's evidence assessment meets its requirement; model and "
+            detail += "execution gates independently verify the retained data before use."
+        elif request.get("last_error"):
+            state = "failed" if request.get("status") == "failed" else "stalled"
+            detail = "Collection has a recorded error; no active collection is verified."
+        elif request.get("collector_status") != "covered":
+            state = "blocked"
+            detail = "A reviewed collector change and installation on the collector host "
+            detail += "are required. The website has not deployed collection."
+        else:
+            state = "planned"
+            detail = "Repository configuration covers this request. Installation and recent "
+            detail += "original collector receipts have not been verified in this workspace."
+        result.append(
+            {
+                **request,
+                "operational_status": state,
+                "operational_detail": detail,
+                "operational_assessed_at": now.isoformat(),
+                "deployment_verified": False,
+                "recent_receipts_verified": False,
+            }
+        )
+    return result

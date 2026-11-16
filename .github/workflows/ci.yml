@@ -56,7 +56,7 @@ jobs:
         run: uv run mypy
 
       - name: Frontend DOM tests
-        run: node --test frontend/tests/acquisition.test.cjs
+        run: node --test frontend/tests/*.test.cjs
 
       - name: Pytest (complete offline suite)
         run: >-

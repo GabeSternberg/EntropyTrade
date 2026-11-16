@@ -26,6 +26,7 @@ class JobStatus(StrEnum):
     PLANNING = "planning_data"
     ACQUIRING = "acquiring_data"
     FEATURIZING = "registering_features"
+    MODELING = "modeling"
     AWAITING_AUTHORIZATION = "awaiting_authorization"
     AWAITING_OBSERVATIONS = "awaiting_observations"
     EVALUATED = "evaluated"
@@ -42,6 +43,7 @@ RUNNABLE = frozenset(
         JobStatus.PLANNING,
         JobStatus.ACQUIRING,
         JobStatus.FEATURIZING,
+        JobStatus.MODELING,
         JobStatus.RECOVERABLE_ERROR,
     }
 )
@@ -63,6 +65,16 @@ TRANSITIONS: dict[JobStatus, frozenset[JobStatus]] = {
     JobStatus.ACQUIRING: frozenset({JobStatus.PLANNING, *_ANY_ACTIVE}),
     JobStatus.FEATURIZING: frozenset(
         {
+            JobStatus.MODELING,
+            JobStatus.PLANNING,
+            JobStatus.AWAITING_AUTHORIZATION,
+            JobStatus.AWAITING_OBSERVATIONS,
+            JobStatus.EVALUATED,
+            *_ANY_ACTIVE,
+        }
+    ),
+    JobStatus.MODELING: frozenset(
+        {
             JobStatus.PLANNING,
             JobStatus.AWAITING_AUTHORIZATION,
             JobStatus.AWAITING_OBSERVATIONS,
@@ -83,6 +95,7 @@ TRANSITIONS: dict[JobStatus, frozenset[JobStatus]] = {
             JobStatus.PLANNING,
             JobStatus.ACQUIRING,
             JobStatus.FEATURIZING,
+            JobStatus.MODELING,
             JobStatus.FAILED,
             JobStatus.CANCELLED,
         }
@@ -184,7 +197,7 @@ class ResearchRequest(DomainModel):
     provider: ProviderChoice = ProviderChoice(provider="local_templates")
     budget: ResearchBudget = ResearchBudget()
     acquisition: Literal["none", "approved_sources", "ask"] = "approved_sources"
-    lookback_days: int = Field(default=60, ge=7, le=180)
+    lookback_days: int = Field(default=240, ge=7, le=365)
     validation_depth: Literal["quick", "standard", "thorough"] = "standard"
     paper_preference: Literal["never", "recommend", "paper_when_authorized"] = "recommend"
 

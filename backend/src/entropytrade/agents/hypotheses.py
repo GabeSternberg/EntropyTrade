@@ -46,12 +46,12 @@ CAPABILITIES: dict[str, dict[str, Any]] = {
     "openai": {
         "output": "tool_call",
         "billing": "metered",
-        "requires": "ENTROPYTRADE_RESEARCH_API_KEY",
+        "requires": "ENTROPYTRADE_RESEARCH_OPENAI_API_KEY",
     },
     "anthropic": {
         "output": "tool_call",
         "billing": "metered",
-        "requires": "ENTROPYTRADE_RESEARCH_API_KEY",
+        "requires": "ENTROPYTRADE_RESEARCH_ANTHROPIC_API_KEY",
     },
     "openai_compatible": {
         "output": "prompted_json",

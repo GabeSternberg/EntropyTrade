@@ -3,6 +3,7 @@
 import os
 from typing import Literal
 
+import httpx2 as httpx
 from google.genai.types import HttpRetryOptions
 from pydantic import Field
 from pydantic_ai.models import Model
@@ -17,6 +18,11 @@ from entropytrade.domain.base import DomainModel
 
 RESEARCH_KEY_VARIABLE = "ENTROPYTRADE_RESEARCH_API_KEY"
 GEMINI_KEY_VARIABLE = "GEMINI_API_KEY"
+PROVIDER_KEY_VARIABLES: dict[str, tuple[str, ...]] = {
+    "gemini": (GEMINI_KEY_VARIABLE,),
+    "openai": ("ENTROPYTRADE_RESEARCH_OPENAI_API_KEY", RESEARCH_KEY_VARIABLE),
+    "anthropic": ("ENTROPYTRADE_RESEARCH_ANTHROPIC_API_KEY", RESEARCH_KEY_VARIABLE),
+}
 
 
 class ResearchCredentialError(ValueError):
@@ -43,11 +49,15 @@ def gemini_bad_request_reason(body: object) -> str:
 
 
 def research_key(config: ResearchProviderConfig) -> str:
-    variable = GEMINI_KEY_VARIABLE if config.provider == "gemini" else RESEARCH_KEY_VARIABLE
-    key = os.environ.get(variable, "").strip()
-    if not key:
-        raise ResearchCredentialError(f"set {variable} for provider-backed research")
-    return key
+    # Dedicated provider keys let one server support several providers without sharing
+    # the wrong credential. The original research-only key remains a compatibility
+    # fallback; ambient SDK/exchange keys are never read.
+    variables = PROVIDER_KEY_VARIABLES[config.provider]
+    for variable in variables:
+        key = os.environ.get(variable, "").strip()
+        if key:
+            return key
+    raise ResearchCredentialError(f"set {' or '.join(variables)} for provider-backed research")
 
 
 LOCAL_URL_VARIABLE = "ENTROPYTRADE_LOCAL_LLM_URL"
@@ -83,6 +93,7 @@ def local_model(model_name: str) -> Model:
     selected = OpenAIProvider(
         api_key=os.environ.get(LOCAL_KEY_VARIABLE, "").strip() or "local",
         base_url=local_endpoint(),
+        http_client=httpx.AsyncClient(timeout=60, trust_env=False, follow_redirects=False),
     )
     selected.client.max_retries = 0
     return OpenAIChatModel(model_name, provider=selected)

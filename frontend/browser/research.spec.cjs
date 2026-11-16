@@ -67,12 +67,23 @@ test("autonomous research: submit, follow, inspect, export, cancel and demo isol
     await shot("research-real-requirements.png");
     await page.getByRole("tab", { name: /Forward collection/ }).click();
     await expect(view.getByText(/configs\/data\/collector.json captures KXHIGHPHIL/)).toBeVisible();
-    await expect(view.locator("[data-status=blocked_collector_change]").first()).toBeVisible();
+    await expect(view.locator("[data-status=blocked]").first()).toBeVisible();
+    await expect(view.locator("[data-status=planned]").first()).toBeVisible();
     await shot("research-real-forward.png");
+    await page.getByRole("tab", { name: /Modeling & validation/ }).click();
+    await expect(view.locator(".research-experiment")).toHaveCount(5);
+    await expect(view.getByText("No fitted validation metrics are available for this experiment.").first()).toBeVisible();
+    await expect(view.getByText("Real-money submission").first()).toBeVisible();
+    await expect(view.getByText("Recorded backtest performance")).toHaveCount(0);
+    await expect(page.locator("[data-step=modeling]")).toHaveAttribute("data-state", "done");
+    await shot("research-real-modeling-refusals.png", true);
     const href = await page.locator("#research-export").getAttribute("href");
     const report = await (await fetch(origin + href, { headers: { Host: new URL(origin).host } })).json();
     assert.equal(report.schema, "entropytrade-research-report-v1");
     assert.equal(report.job.hypotheses.length, 5);
+    assert.equal(report.job.experiments.length, 5);
+    assert(report.job.experiments.every((e) => e.result?.eligibility?.eligible === false));
+    assert(report.job.experiments.every((e) => e.result?.backtest?.submission_enabled === false));
     await page.locator("#research-resume").click();
     await expect(page.locator("#research-detail")).toContainText("Awaiting prospective evidence", { timeout: 30_000 });
     await page.locator("#research-cancel").click();
@@ -111,6 +122,7 @@ test("autonomous research: submit, follow, inspect, export, cancel and demo isol
     assert.deepEqual(receipt.console_errors, []);
     receipt.status = "passed";
   } finally {
+    if (!page.isClosed()) await page.goto("about:blank");
     server.kill("SIGINT");
     await new Promise((resolve) => server.exitCode !== null ? resolve() : server.once("exit", resolve));
     save();
@@ -182,6 +194,14 @@ test("autonomous research acquisition: ask, approve, acquire, register features 
     await expect(bias).toContainText("NWS forecast bias against the settlement high");
     await expect(bias.locator(".facet").first()).toContainText("3/3");
     await shot("acquisition-hypotheses.png", true);
+    await page.getByRole("tab", { name: /Modeling & validation/ }).click();
+    const history = await (await fetch(`${origin}/api/research/jobs/${new URL(page.url()).hash.split("/").at(-1)}`)).json();
+    assert.equal(new Set(history.experiments.map((row) => row.hypothesis_id)).size, 5);
+    assert(history.experiments.every((row) => row.result?.eligibility?.eligible === false));
+    await expect(view.locator(".research-experiment")).toHaveCount(history.experiments.length);
+    await expect(view.getByText("No fitted validation metrics are available for this experiment.").first()).toBeVisible();
+    await expect(view.getByText("Recorded backtest performance")).toHaveCount(0);
+    await shot("acquisition-modeling-refusals.png", true);
     const id = new URL(page.url()).hash.split("/").at(-1);
     const job = await (await fetch(`${origin}/api/research/jobs/${id}`)).json();
     assert.equal(job.transport, "controlled_replay");
@@ -191,8 +211,136 @@ test("autonomous research acquisition: ask, approve, acquire, register features 
     assert.deepEqual(receipt.console_errors, []);
     receipt.status = "passed";
   } finally {
+    if (!page.isClosed()) await page.goto("about:blank");
     server.kill("SIGINT");
     await new Promise((resolve) => server.exitCode !== null ? resolve() : server.once("exit", resolve));
     save();
   }
 });
+
+for (const executable of [false, true]) {
+  test(`autonomous research modeling: synthetic ${executable ? "executable backtest" : "predictive analysis"}, baselines, heldout protection and restart`, async ({ page, browser }) => {
+    const repo = path.resolve(__dirname, "../..");
+    const evidence = path.join(process.env.ENTROPYTRADE_BROWSER_EVIDENCE, executable ? "research-modeling-execution" : "research-modeling");
+    const workspace = process.env.ENTROPYTRADE_BROWSER_WORKSPACE + (executable ? "-research-modeling-execution" : "-research-modeling");
+    const python = process.env.ENTROPYTRADE_BROWSER_PYTHON || path.join(repo, ".venv/bin/python");
+    const origin = `http://127.0.0.1:${Number(process.env.ENTROPYTRADE_BROWSER_PORT || 43165) + 2 + Number(executable)}`;
+    assert(path.isAbsolute(workspace) && workspace.startsWith(path.join(repo, "data/cache/")));
+    assert(!fs.existsSync(workspace), "workspace must be new");
+    fs.mkdirSync(evidence, { recursive: true });
+    const env = { PATH: "/usr/bin:/bin", TZ: "UTC", PYTHONNOUSERSITE: "1", PYTHONDONTWRITEBYTECODE: "1", PYTHONPATH: `${repo}/backend:${repo}/backend/src` };
+    const receipt = { status: "running", browser: browser.version(), screenshots: [], page_errors: [], console_errors: [], data_kind: "synthetic", downloads: [] };
+    const save = () => fs.writeFileSync(path.join(evidence, "receipt.json"), JSON.stringify(receipt, null, 2));
+    const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    page.on("pageerror", (error) => { receipt.page_errors.push(error.message); save(); });
+    page.on("console", (message) => { if (message.type() === "error") { receipt.console_errors.push(message.text()); save(); } });
+    async function shot(file) { await page.screenshot({ path: path.join(evidence, file), fullPage: true }); receipt.screenshots.push(file); save(); }
+    let server;
+    async function start() {
+      const log = fs.openSync(path.join(evidence, "server.log"), "a");
+      server = spawn(python, ["-m", "tests.integration.research_modeling_fixture", "--workspace", workspace, "--port", origin.split(":").at(-1), ...(executable ? ["--with-execution"] : [])], { cwd: repo, env, stdio: ["ignore", log, log] });
+      fs.closeSync(log);
+      for (let n = 0; n < 150; n++) {
+        if (server.exitCode !== null) throw new Error(`Listener exited ${server.exitCode}`);
+        if ((await fetch(origin + "/api/research").catch(() => null))?.ok) return;
+        await pause(100);
+      }
+      throw new Error("Synthetic research server did not start");
+    }
+    async function stop() {
+      if (!server || server.exitCode !== null) return;
+      server.kill("SIGINT");
+      await new Promise((resolve) => server.exitCode !== null ? resolve() : server.once("exit", resolve));
+    }
+    async function download(file) {
+      const waiting = page.waitForEvent("download");
+      await page.locator("#research-export").click();
+      const result = await waiting;
+      const target = path.join(evidence, file);
+      await result.saveAs(target);
+      const bytes = fs.readFileSync(target);
+      receipt.downloads.push({ file, sha256: require("node:crypto").createHash("sha256").update(bytes).digest("hex") });
+      save();
+      return JSON.parse(bytes);
+    }
+    assert(!await fetch(origin + "/api/catalog").catch(() => null), "Port occupied");
+    try {
+      await start();
+      await page.goto(origin + "/#/research");
+      await page.locator("#research-objective").fill("CONTROLLED SYNTHETIC study of NWS forecast bias against Philadelphia settlement highs");
+      await page.locator("#research-lookback").fill("220");
+      await page.locator("#research-acquisition").selectOption("none");
+      await page.getByRole("button", { name: "Start research" }).click();
+      await expect(page.locator("#research-detail")).toContainText("Awaiting prospective evidence", { timeout: 60_000 });
+      const url = page.url();
+      await page.getByRole("tab", { name: /Modeling & validation/ }).click();
+      const view = page.locator("#view");
+      await expect(view.locator(".research-experiment")).toHaveCount(1);
+      await expect(view.locator('[data-experiment-status="completed"]')).toBeVisible();
+      await expect(view.getByText(/CONTROLLED SYNTHETIC/).first()).toBeVisible();
+      await expect(view.getByText("Brier score", { exact: true }).first()).toBeVisible();
+      await expect(view.getByText("Log loss", { exact: true }).first()).toBeVisible();
+      if (executable) await expect(view.getByText("Recorded backtest performance", { exact: true })).toBeVisible();
+      else await expect(view.getByText("Recorded backtest performance")).toHaveCount(0);
+      await expect(view.getByText("Not evaluated", { exact: true })).toBeVisible();
+      await expect(view.getByText(/historical predictions are not prospective/)).toBeVisible();
+      const report = await download("synthetic-research-report.json");
+      assert.equal(report.job.experiments.length, 1);
+      const result = report.job.experiments[0].result;
+      assert.equal(result.data_kind, "synthetic");
+      assert.equal(result.status, "evaluated");
+      assert.equal(result.eligibility.eligible, true);
+      assert.equal(result.validation.prospective, false);
+      assert.equal(result.validation.holdout_evaluated, false);
+      assert.equal(result.backtest.submission_enabled, false);
+      assert.equal(result.backtest.paper_eligible, false);
+      if (executable) {
+        assert.equal(result.backtest.execution_fidelity, "order_book_simulation");
+        assert.equal(result.backtest.eligible, true);
+        assert(result.backtest.performance.scenarios.length > 0);
+        assert(result.backtest.performance.scenarios.some((scenario) => scenario.fill_count > 0));
+        await expect(view.locator(".research-backtest-performance .data-table tbody tr")).toHaveCount(result.backtest.performance.scenarios.length);
+        await expect(view.getByText("Net P&L", { exact: true })).toBeVisible();
+        await expect(view.getByText("Drawdown at cost", { exact: true })).toBeVisible();
+        for (const scenario of result.backtest.performance.scenarios) {
+          const row = view.locator(".research-backtest-performance tbody tr").filter({ has: page.getByText(scenario.scenario, { exact: true }) });
+          await expect(row.locator("td").nth(1)).toHaveText(String(scenario.fill_count));
+          for (const [column, key] of [[3, "net_pnl"], [4, "fees_paid"], [5, "drawdown_at_cost"]]) {
+            const displayed = (await row.locator("td").nth(column).textContent()).replace("−", "-").replace(/[$,]/g, "");
+            assert.equal(Number(displayed), Number(Number(scenario[key]).toFixed(2)), `Displayed ${key} must match the simulated ledger`);
+          }
+        }
+        assert.equal(report.job.acquisitions.length, 1);
+        assert.equal(report.job.acquisitions[0].status, "completed");
+        assert.equal(report.job.request.lookback_days, 220);
+      } else assert.equal(result.backtest.execution_fidelity, "predictive_only");
+      const protectedEvents = new Set(result.validation.partitions.holdout);
+      for (const model of Object.values(result.models)) {
+        assert(model.training_events.every((id) => !protectedEvents.has(id)));
+        assert(model.calibration_events.every((id) => !protectedEvents.has(id)));
+        assert(Number.isFinite(model.metrics.brier));
+        assert(Number.isFinite(model.metrics.log_loss));
+        await expect(view.getByText(model.metrics.brier.toFixed(4), { exact: true }).first()).toBeVisible();
+      }
+      await expect(view.locator(".research-model-metrics .data-table tbody tr")).toHaveCount(Object.keys(result.models).length);
+      await shot("synthetic-modeling-desktop.png");
+      await page.setViewportSize({ width: 375, height: 900 });
+      assert(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth) <= 1);
+      await shot("synthetic-modeling-mobile.png");
+      // Leave the polling shell before deliberately stopping its listener.
+      await page.goto("about:blank");
+      await stop();
+      await start();
+      await page.goto(url);
+      await page.getByRole("tab", { name: /Modeling & validation/ }).click();
+      await expect(view.locator('[data-experiment-status="completed"]')).toBeVisible();
+      const restored = await download("synthetic-research-report-after-restart.json");
+      assert.deepEqual(restored.job.experiments, report.job.experiments);
+      assert.equal(receipt.downloads[0].sha256, receipt.downloads[1].sha256);
+      assert.deepEqual(receipt.page_errors, []);
+      assert.deepEqual(receipt.console_errors, []);
+      receipt.status = "passed";
+    } finally { if (!page.isClosed()) await page.goto("about:blank"); await stop(); save(); }
+  });
+
+}
