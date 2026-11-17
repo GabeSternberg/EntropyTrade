@@ -1,0 +1,98 @@
+{
+  "attempts": [
+    {
+      "attempt": "20261117-final",
+      "classification": "application_navigation_bug",
+      "failed_or_unrun_cases": [
+        {
+          "errors": [
+            {
+              "location": {
+                "column": 45,
+                "file": "/workspace/EntropyTrade-paper/frontend/browser/lifecycle.spec.cjs",
+                "line": 259
+              },
+              "message": "Error: expect(page).toHaveURL(expected) failed\n\nExpected: \"http://127.0.0.1:43233/#/ops?tab=alerts&monitor=84fd0ca0-b4ee-4f02-852d-9097fb19f091&alert=8d19c0ef-a763-4124-b073-f4297c221061\"\nReceived: \"http://127.0.0.1:43233/#/paper/84fd0ca0-b4ee-4f02-852d-9097fb19f091?tab=monitoring&proposal=sha256%3Ad6f3f4e43adbaa0efae95d611a7f54118fa26a7c10f02d8e2c5b812010a58b4c\"\nTimeout:  10000ms\n\nCall log:\n  - Expect \"toHaveURL\" with timeout 10000ms\n    4 \u00d7 unexpected value \"http://127.0.0.1:43233/#/paper/84fd0ca0-b4ee-4f02-852d-9097fb19f091?tab=monitoring\"\n    10 \u00d7 unexpected value \"http://127.0.0.1:43233/#/paper/84fd0ca0-b4ee-4f02-852d-9097fb19f091?tab=monitoring&proposal=sha256%3Ad6f3f4e43adbaa0efae95d611a7f54118fa26a7c10f02d8e2c5b812010a58b4c\"\n\n\n  257 |     await expect(page).toHaveURL(run.origin + `/#/paper/${meta.monitor_id}?tab=monitoring`);\n  258 |     await expect(governance.getByText(\"Observed signals\", { exact: true })).toBeVisible({ timeout: 90_000 });\n> 259 |     await page.goBack(); await expect(page).toHaveURL(run.origin + \"/\" + alertHash);\n      |                                             ^\n  260 |\n  261 |     // Explicit palette entry starts a durable, ordinary inventory-only job.\n  262 |     await page.getByRole(\"button\", { name: \"Search (Command K)\", exact: true }).click();\n    at /workspace/EntropyTrade-paper/frontend/browser/lifecycle.spec.cjs:259:45"
+            }
+          ],
+          "status": "failed",
+          "title": "unified lifecycle: actual persisted research, exact evidence links, Demo isolation and legacy handoff"
+        }
+      ],
+      "report_sha256": "0b0620114a10b47323f51ad7a7a8fc3ebf196020174f62a3516f9fb37aee631a",
+      "resolution": "Automatic proposal restoration pushed an extra history entry and trapped Back. The production fix replaces automatic restoration entries; explicit user selections still push. The regression was verified to fail under the old semantics.",
+      "source_report": "data/lifecycle-review/20261117-final/browser/playwright-results.json",
+      "stats": {
+        "duration": 47008.669,
+        "expected": 2,
+        "flaky": 0,
+        "skipped": 1,
+        "startTime": "2026-11-17T06:16:11.547Z",
+        "unexpected": 1
+      }
+    },
+    {
+      "attempt": "20261117-final-2",
+      "classification": "acceptance_harness_assumption",
+      "failed_or_unrun_cases": [
+        {
+          "errors": [
+            {
+              "location": {
+                "column": 12,
+                "file": "/workspace/EntropyTrade-paper/frontend/browser/lifecycle.spec.cjs",
+                "line": 346
+              },
+              "message": "AssertionError: Expected values to be strictly equal:\n\n60 !== 58\n\n\n  344 |     await expect(view.getByText(/Selected experiment.*not found|Experiment not found/i)).toBeVisible();\n  345 |     run.receipt.summary_after = await run.get(\"/api/workspace/summary\");\n> 346 |     assert.equal(run.receipt.summary_after.components.research_jobs.counts.total, meta.expected_totals.research_jobs + 1);\n      |            ^\n  347 |     run.receipt.status = \"passed\";\n  348 |   } catch (error) { run.receipt.status = \"failed\"; run.receipt.error = error.stack || error.message; throw error; }\n  349 |   finally { await run.finish(); }\n    at /workspace/EntropyTrade-paper/frontend/browser/lifecycle.spec.cjs:346:12"
+            }
+          ],
+          "status": "failed",
+          "title": "unified lifecycle: actual persisted research, exact evidence links, Demo isolation and legacy handoff"
+        }
+      ],
+      "report_sha256": "23a04f5c09f9912443953f114ba397f97db5bb819d7f8b76eb929f15cda4b554",
+      "resolution": "The harness expected one added research job, while the actual monitoring refresh correctly created two bounded Milestone E diagnostic investigations as well as the submitted job. Harness count checks now verify those exact job references and zero-acquisition budgets; application behavior was unchanged by this correction.",
+      "source_report": "data/lifecycle-review/20261117-final-2/browser/playwright-results.json",
+      "stats": {
+        "duration": 47393.985,
+        "expected": 2,
+        "flaky": 0,
+        "skipped": 1,
+        "startTime": "2026-11-17T06:19:52.860Z",
+        "unexpected": 1
+      }
+    },
+    {
+      "attempt": "20261117-final-3",
+      "classification": "acceptance_harness_labels",
+      "failed_or_unrun_cases": [
+        {
+          "errors": [
+            {
+              "location": {
+                "column": 72,
+                "file": "/workspace/EntropyTrade-paper/frontend/browser/redesign.spec.cjs",
+                "line": 71
+              },
+              "message": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('#view').getByText('No live market feed in the website')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 10000ms\n  - waiting for locator('#view').getByText('No live market feed in the website')\n\n\n  69 |     }\n  70 |     await go(\"markets\");\n> 71 |     await expect(view.getByText(\"No live market feed in the website\")).toBeVisible();\n     |                                                                        ^\n  72 |     await go(\"settings\");\n  73 |     await page.getByRole(\"link\", { name: \"Risk & approvals\" }).click();\n  74 |     await expect(view.getByText(/of 8 gates are not attested/)).toBeVisible();\n    at /workspace/EntropyTrade-paper/frontend/browser/redesign.spec.cjs:71:72"
+            }
+          ],
+          "status": "failed",
+          "title": "redesigned shell: real and demo modes, interactions, isolation and responsive layout"
+        }
+      ],
+      "report_sha256": "8462886dd31f21a0475ce0cde327761b39f489508f4a8ad996844e7d70ce0fb1",
+      "resolution": "The lifecycle procedures passed, then redesign assertions used old market/settings labels. The final harness assertions match the existing implemented copy and read-only V1 gates. Application and CI-executed tests were unchanged by this correction.",
+      "source_report": "data/lifecycle-review/20261117-final-3/browser/playwright-results.json",
+      "stats": {
+        "duration": 65426.64200000001,
+        "expected": 3,
+        "flaky": 0,
+        "skipped": 0,
+        "startTime": "2026-11-17T06:22:01.942Z",
+        "unexpected": 1
+      }
+    }
+  ],
+  "policy": "Original failed reports, traces and screenshots are retained locally; this is a compact extracted proof, not a replacement pass report."
+}

@@ -26,24 +26,52 @@ class Element {
 function application(alerts = []) {
   const elements = new Map();
   const document = {
+    visibilityState: "visible", addEventListener() {},
     getElementById: (id) => {
-      if (!elements.has(id)) elements.set(id, new Element("div"));
+      if (!elements.has(id)) { const element = new Element("div"); element.removeEventListener = () => {}; element.selectedOptions = []; elements.set(id, element); }
       return elements.get(id);
     },
     createElement: (tag) => new Element(tag),
     querySelectorAll: () => [],
   };
   document.getElementById("mode").value = "recorded";
+  document.getElementById("workbench-view").hidden = false;
+  for (const element of elements.values()) element.removeEventListener = () => {};
+  const window = { ET: { mode: () => "real", workbenchActive: () => true } };
+  const startupFetch = async (url) => ({ ok: true, json: async () =>
+    url === "/api/alerts" ? { alerts } :
+    ["/api/jobs", "/api/monitors", "/api/weather/datasets", "/api/weather/schedules", "/api/weather/label-partitions"].includes(url) ? [] :
+    url === "/api/weather/partitions" ? { partitions: [], total_inputs: 0, partition_size: 128 } :
+    url === "/api/fees" ? { versions: [] } :
+    url === "/api/v1-gates" ? { v1_complete: false, open: [], gates: [] } : { csrf_token: "test" } });
+  let readiness;
   const context = vm.createContext({
-    document, setInterval: () => 0,
-    fetch: async (url) => ({ ok: true, json: async () =>
-      url === "/api/alerts" ? { alerts } :
-      ["/api/jobs", "/api/monitors", "/api/weather/datasets"].includes(url) ? [] : { csrf_token: "test" } }),
+    document, window, setInterval: () => 0, clearInterval() {}, AbortController,
+    fetch: startupFetch,
+    // Presentation tests explicitly activate a visible Real workbench before API-backed
+    // helpers run. Keep initialization fixtures separate from the response under test.
+    runWhenReady: async (action) => {
+      if (!readiness) {
+        const selectedFetch = context.fetch;
+        context.fetch = startupFetch;
+        readiness = window.ET.legacyWorkbench.activate().finally(() => { context.fetch = selectedFetch; });
+      }
+      await readiness;
+      return action();
+    },
   });
-  vm.runInContext(fs.readFileSync(path.join(__dirname, "../src/app.js"), "utf8") +
-    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); }; globalThis.showAlerts = shadowAlerts; globalThis.showProspective = prospectiveEvaluation; globalThis.showGates = v1Gates;", context);
+  // Keep implementation functions scoped so exported test adapters cannot replace the
+  // functions initialize() itself calls.
+  vm.runInContext("(() => {\n" + fs.readFileSync(path.join(__dirname, "../src/app.js"), "utf8") +
+    "\nglobalThis.show = (result, tab) => { state.job = { result }; state.tab = tab; renderResult(); };" +
+    "globalThis.showAlerts = () => runWhenReady(() => shadowAlerts());" +
+    "globalThis.showProspective = (...args) => runWhenReady(() => prospectiveEvaluation(...args));" +
+    "globalThis.showGates = () => runWhenReady(() => v1Gates());" +
+    "globalThis.weatherLabels = () => runWhenReady(() => weatherLabels());" +
+    "globalThis.selectMonitor = (...args) => runWhenReady(() => selectMonitor(...args)); })();", context);
   return { context, content: document.getElementById("result-content"), alerts: document.getElementById("shadow-alerts") };
 }
+
 test("label partitions: an older overlapping refresh cannot overwrite the selected partition", async () => {
   const { context } = application();
   await new Promise((resolve) => setTimeout(resolve, 10)); // let initialize() settle

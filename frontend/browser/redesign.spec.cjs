@@ -29,7 +29,12 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
   page.on("pageerror", (error) => { receipt.page_errors.push(error.message); save(); });
   page.on("console", (message) => { if (message.type() === "error") { receipt.console_errors.push(message.text()); save(); } });
   async function shot(file, fullPage = false) { await expect(page.locator(".toast")).toHaveCount(0, { timeout: 8000 }); if (!file.includes("detail")) await page.evaluate(() => window.scrollTo(0, 0)); await page.screenshot({ path: path.join(evidence, file), fullPage }); receipt.screenshots.push(file); save(); }
-  async function go(key) { await page.locator(`.nav-item[data-key="${key}"]`).click(); await expect(page.locator(key === "workbench" ? "#workbench-title" : ".page-head h1").first()).toBeVisible(); }
+  async function expectSection(key) {
+    if (key === "workbench" && await page.locator("body").evaluate((body) => body.classList.contains("mode-demo"))) {
+      await expect(page.getByRole("heading", { name: "Research workbench disabled in Demo Mode" })).toBeVisible();
+    } else await expect(page.locator(key === "workbench" ? "#workbench-title" : ".page-head h1").first()).toBeVisible();
+  }
+  async function go(key) { await page.locator(`.nav-item[data-key="${key}"]`).click(); await expectSection(key); }
   const log = fs.openSync(path.join(evidence, "server.log"), "a");
   assert(!await fetch(origin + "/api/catalog").catch(() => null), "Port occupied");
   const server = spawn(python, ["-m", "entropytrade.api.server", "--workspace", workspace, "--port", origin.split(":").at(-1)], { cwd: repo, env, stdio: ["ignore", log, log] });
@@ -49,42 +54,63 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
     await expect(page.locator("#mode-banner")).toBeHidden();
     await expect(page.getByRole("heading", { name: "Overview", level: 1 })).toBeVisible();
     const view = page.locator("#view");
-    await expect(view.getByText("Real data · local workspace")).toBeVisible();
-    await expect(view.getByText("No research runs yet")).toBeVisible();
-    await expect(view.getByText("No live market feed in the website")).toBeVisible();
-    await expect(view.getByText(/of 8 gates are not attested/)).toBeVisible();
+    await expect(view.getByText("Workspace data · persisted")).toBeVisible();
+    for (const component of ["research_jobs", "experiments", "paper_accounts", "alerts", "legacy_jobs", "course_jobs"]) {
+      await expect(view.locator(`[data-summary-component="${component}"] .kpi-value`)).toHaveText("0");
+    }
+    await expect(view.locator('[data-summary-records="research_jobs"]')).toContainText(/No records stored|Not started/);
+    await expect(view.locator('[data-summary-records="experiments"]')).toContainText(/No records stored|Not started/);
+    await expect(view.getByText(/does not prove current scientific validity, paper eligibility or trading profitability/)).toBeVisible();
+    await expect(view.locator(".summary-ref")).toHaveCount(0);
     await shot("real-overview.png");
     for (const [key, title] of SECTIONS) {
       await go(key);
       await expect(page).toHaveTitle(new RegExp(`${key === "analytics" ? "Backtesting" : title.replace("&", "&")} · EntropyTrade`));
     }
+    await go("markets");
+    await expect(view.getByText("No market data retained in this workspace")).toBeVisible();
+    await go("settings");
+    await page.getByRole("link", { name: "Risk & approvals" }).click();
+    await expect(view.getByRole("heading", { name: "V1 acceptance gates" })).toBeVisible();
+    await expect(view.getByText("0 of 8 attested · read-only")).toBeVisible();
+    await expect(view.getByText(/This page never attests gates, certifies fees or enables trading/)).toBeVisible();
     await go("paper");
     await expect(view.getByText("No simulated paper accounts in this workspace")).toBeVisible();
     await expect(page.getByRole("switch", { name: "Live trading (disabled)" })).toBeDisabled();
     await shot("real-paper.png");
     await go("analytics");
-    await expect(view.getByText("No authentic backtest has passed the evidence gates")).toBeVisible();
+    await expect(view.getByText("Recorded backtests, models & validation")).toBeVisible();
+    await expect(view.locator('[data-summary-records="experiments"]')).toContainText(/No records stored|Not started/);
+    await expect(view.getByText(/does not prove current scientific validity, paper eligibility or trading profitability/)).toBeVisible();
     await go("ops");
     await expect(view.getByText("Collector status is not exposed to the website")).toBeVisible();
     await shot("real-operations.png");
-    // Real "New hypothesis" hands off to the workbench with the idea prefilled; nothing is submitted.
+    // Real research starts with an objective route. The legacy workbench remains a
+    // secondary, usable destination; neither form is submitted by this navigation check.
     await go("lab");
-    await page.getByRole("button", { name: "New hypothesis" }).click();
-    await page.getByRole("dialog").getByRole("textbox", { name: "Hypothesis" }).fill("revision_f >= 1.25 and hours_to_close < 8");
-    await page.getByRole("button", { name: "Continue in workbench" }).click();
+    await page.getByRole("link", { name: "New research", exact: true }).click();
+    await expect(page).toHaveURL(/#\/research\?new=1$/);
+    await expect(page.locator("#research-objective")).toBeVisible();
+    await page.locator("#research-objective").fill("Inspect retained forecast revisions without inventing historical evidence");
+    await go("lab");
+    await page.getByRole("link", { name: "Legacy hypothesis workbench" }).click();
     await expect(page.locator("#workbench-view")).toBeVisible();
+    await page.getByLabel("Research idea", { exact: true }).fill("revision_f >= 1.25 and hours_to_close < 8");
     await expect(page.getByLabel("Research idea", { exact: true })).toHaveValue("revision_f >= 1.25 and hours_to_close < 8");
     await expect(page.locator("#submit")).toBeEnabled();
     await expect(page.locator("#history")).toContainText("Your research history will appear here.");
     await shot("real-workbench.png");
 
-    // ---- Demo Mode: clearly labeled, browser-only sample data; no writes leave the page.
+    // ---- Demo Mode: clearly labeled, browser-only sample data; no API I/O leaves the page.
     const writes = [];
+    let demoActive = false;
     page.on("request", (request) => {
+      if (!demoActive) return;
       if (request.method() !== "GET" || /demo/i.test(request.url())) writes.push(`${request.method()} ${request.url()}`);
       if (request.url().includes("/api/")) receipt.demo_requests.push(request.url());
     });
     await go("overview");
+    demoActive = true;
     await page.getByRole("group", { name: "Data mode" }).getByRole("button", { name: "Demo" }).click();
     await expect(page.locator("body")).toHaveClass(/mode-demo/);
     await expect(page.locator("#mode-banner")).toBeVisible();
@@ -160,10 +186,12 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
     await expect(page.getByRole("heading", { name: "V1 acceptance gates" })).toBeVisible();
     await shot("demo-settings.png");
 
-    // The workbench stays real in Demo Mode.
+    // Legacy controls and polling obey the same Demo boundary as modern views.
     await go("workbench");
-    await expect(page.getByText("Research only · execution disabled", { exact: true })).toBeVisible();
-    await expect(page.locator("#submit")).toBeEnabled();
+    await expect(page.locator("#workbench-view")).toBeHidden();
+    await expect(page.locator("#submit")).toBeDisabled();
+    await pause(1700);
+    assert.deepEqual(receipt.demo_requests, [], "Demo Mode must not dispatch legacy polling or API requests");
 
     // Command palette.
     await page.keyboard.press("Control+k");
@@ -175,7 +203,7 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
     await page.setViewportSize({ width: 375, height: 812 });
     for (const [key] of SECTIONS) {
       await page.goto(`${origin}/#/${key}`);
-      await expect(page.locator(key === "workbench" ? "#workbench-title" : ".page-head h1").first()).toBeVisible();
+      await expectSection(key);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       assert.ok(overflow <= 1, `${key} overflows horizontally by ${overflow}px`);
     }
@@ -192,11 +220,13 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
 
     // Back to Real Mode: demo figures disappear.
     await page.setViewportSize({ width: 1440, height: 900 });
+    demoActive = false;
     await page.getByRole("button", { name: "Switch to Real Mode" }).click();
     await expect(page.locator("#mode-banner")).toBeHidden();
     await expect(view.getByText("$10,784.00")).toHaveCount(0);
 
     assert.deepEqual(writes, [], "Demo Mode must not send writes or demo data");
+    assert.deepEqual(receipt.demo_requests, [], "Demo Mode must not send API reads");
     assert.deepEqual(receipt.page_errors, []);
     assert.deepEqual(receipt.console_errors, []);
     receipt.status = "passed"; save();

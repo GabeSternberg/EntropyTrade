@@ -273,8 +273,9 @@
   },
   "integration": {
     "branch": "feature/research-milestone-e",
+    "main_commit": "6bee33420e88d8c2bf44b490f6143ab585bfc7b3",
     "pull_request": "https://github.com/GabeSternberg/EntropyTrade/pull/32",
-    "status": "accepted_ready_for_merge"
+    "status": "merged"
   },
   "interrupted_attempts": [
     {

@@ -1,0 +1,170 @@
+{
+  "acceptance_status": "passed_software_acceptance",
+  "authentic_strategy_eligible": false,
+  "authenticated_provider_verified": false,
+  "browser": {
+    "browser": "Chromium 141.0.7390.37",
+    "console_errors": [],
+    "demo_api_requests": [],
+    "downloads": [
+      {
+        "bytes": 3947945,
+        "file": "actual-synthetic-research.json",
+        "retained_in_packet": false,
+        "sha256": "75ef5ade59283a5e7cb2e388a4f1fcf81d2b4ef6ddf02a1ba8b0ea425785eeac"
+      },
+      {
+        "bytes": 86126,
+        "file": "actual-paper-export.json",
+        "retained_in_packet": false,
+        "sha256": "95b939ba83bbae463565942fe3c850094a5e02af9e6c4ddb5e9a9c17069e56ec"
+      },
+      {
+        "bytes": 2705,
+        "file": "actual-paper-account.json",
+        "retained_in_packet": true,
+        "sha256": "ac1d65f1024ee0b395986b7aa685b50db6777cdce60f8d3c470cb0b088441524"
+      },
+      {
+        "bytes": 15216,
+        "file": "blocked-readiness.json",
+        "retained_in_packet": true,
+        "sha256": "36213c90b176e12bc67e4a3a9101147ddd1ceb27dbd32b3bbdf9773df212ee00"
+      }
+    ],
+    "failed_attempts": "browser/failed-attempts.json",
+    "page_errors": [],
+    "procedures": 4,
+    "receipt_directory": "browser",
+    "report": "browser/playwright-results.json",
+    "retained_originals_unchanged": true,
+    "screenshots": "browser/screenshot-hashes.json",
+    "source_frozen_all_three_lifecycle_procedures": true,
+    "stats": {
+      "duration": 74906.609,
+      "expected": 4,
+      "flaky": 0,
+      "skipped": 0,
+      "startTime": "2026-11-17T06:25:04.881Z",
+      "unexpected": 0
+    },
+    "status": "passed"
+  },
+  "canonical_collector_accessed": false,
+  "complete_ci": {
+    "artifact_metadata": "github-ci-artifacts.json",
+    "complete_offline_pytest_step": "success",
+    "completed_at": "2026-11-17T06:42:05Z",
+    "head_sha": "e03f56b9ec79e2d8c003adfdd03b8da42065e445",
+    "job_name": "lint, types, frontend, pytest",
+    "numeric_pytest_count": null,
+    "provenance": "github-ci-run.json: GitHub API reports every quality step successful, including complete offline pytest. Direct raw job log and pytest artifact downloads returned Forbidden, so no numeric pytest count is asserted.",
+    "run_id": 44030745318,
+    "status": "success",
+    "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/44030745318"
+  },
+  "controlled_lineage": {
+    "account_export": "exports/actual-paper-account.json",
+    "added_jobs": {
+      "bounded_monitoring_investigations": [
+        "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+        "e869e9c2-ea9b-5308-8147-e8a4cde73872"
+      ],
+      "submitted_persistent_job": "99d2a119-0466-4b50-83b2-835802558f80"
+    },
+    "blocked_readiness_export": "exports/blocked-readiness.json",
+    "computed_positive_examples": "One actual synthetic C fit/replay and D paper cycle.",
+    "experiments_after": 68,
+    "experiments_before": 57,
+    "limits": [
+      "Stored real labels on count probes and refused/awaiting experiments do not establish authentic evidence.",
+      "The submitted local-template job reached recorded evaluated status; its refusal/awaiting records are not a successful scientific validation.",
+      "Paper account is synthetic with one simulated fill, no settlement and positions valued at cost; no observed fill or profitability claim.",
+      "Readiness remains ineligible and execution/submission remain disabled."
+    ],
+    "metadata_only_rows": {
+      "course_jobs": 3,
+      "experiments": 56,
+      "legacy_jobs": 54,
+      "research_jobs": 56
+    },
+    "research_jobs_after": 60,
+    "research_jobs_before": 57,
+    "summary_counts": "browser/summary-counts.json"
+  },
+  "execution_authorized": false,
+  "external_deployment_gate": "Physical Windows/private remote access/offsite installation is not configured by this milestone.",
+  "independent_review": {
+    "checks": [
+      "122-case prior Node suite; final 36 lifecycle tests including Back trap mutation check",
+      "23 final summary cases; full-count/corruption/current-WAL independent matrix",
+      "held stale POST/deactivation/reactivation initialization race; no stale writes or UI state",
+      "automatic proposal restoration replaces history; explicit choices push; exact missing selections retained"
+    ],
+    "status": "accepted_final_diff"
+  },
+  "integration": {
+    "base_main": "6bee33420e88d8c2bf44b490f6143ab585bfc7b3",
+    "branch": "feature/research-milestone-f",
+    "status": "not_yet_integrated"
+  },
+  "quality": {
+    "focused_summary_sqlite": {
+      "passed": 25,
+      "provenance": "Implementation agent tool result: 23 new summary cases and two SQLite URI architecture cases.",
+      "python": "3.13.14",
+      "seconds": 4.19
+    },
+    "format_files": 648,
+    "format_log": "format.log",
+    "local_collection": {
+      "execution_claim": false,
+      "log": "collection-summary.log",
+      "raw_source_sha256": "cbf0d8da7d0607d653932107f120a033f7496973aad763e05fe7bb805f37cb5c",
+      "seconds": 8.01,
+      "source": "data/cache/milestone-f-checks/collected-final.txt",
+      "tests_collected": 1975
+    },
+    "mypy_log": "mypy.log",
+    "node": {
+      "log": "node-final.log",
+      "passed": 123,
+      "status": "passed"
+    },
+    "ruff": "passed",
+    "ruff_log": "ruff.log",
+    "strict_mypy_files": 648
+  },
+  "raw_evidence": {
+    "all_file_hashes_equal_after_move": true,
+    "current_archive_base": "data/cache/milestone-f-raw/lifecycle-review",
+    "original_execution_base": "data/lifecycle-review",
+    "relocation": "raw-relocation.json"
+  },
+  "scientific_limits": [
+    "All computed positive account examples are synthetic.",
+    "History count probes are metadata only; recorded real labels are not authentic evidence.",
+    "Certified fees, provider live verification, genuine prospective evidence and unchanged adverse-execution gate remain separate."
+  ],
+  "scope": "Milestone F software acceptance; stored metadata is not verified scientific eligibility",
+  "source": {
+    "application_and_ci_head": "e03f56b9ec79e2d8c003adfdd03b8da42065e445",
+    "browser_source_fingerprint": {
+      "files": 699,
+      "sha256": "24d26cf36565329b60ebfe1824127d8bf8af5fac5b868ad56ea071350d8fce3a"
+    },
+    "browser_source_scope": [
+      "backend/src",
+      "backend/tests",
+      "frontend/src",
+      "frontend/tests",
+      "frontend/browser/*.cjs"
+    ],
+    "harness_after_ci": "Only frontend/browser/redesign.spec.cjs label assertions changed after the CI head; application code and CI-executed tests are unchanged.",
+    "lifecycle_spec_sha256": "2690c1b19a4247f5d1ae05f66b254e185f98589116f418d31a5207fdab1affc8",
+    "redesign_spec_sha256": "ef24987b5111865c3528a66090000ac372dc48bacf47cd7beb94c84dade55fbd",
+    "source_before_equals_after": true
+  },
+  "submission_enabled": false,
+  "windows_configured": false
+}

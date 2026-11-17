@@ -13,8 +13,8 @@
   // ============================================================ STRATEGY LAB
   ET.views.lab = async (root, ctx) => {
     if (ctx.params[0]) return strategyDetail(root, ctx.params[0], ctx);
-    const newBtn = button("New hypothesis", { variant: "primary" }, "plus");
-    newBtn.addEventListener("click", () => newHypothesis());
+    const newBtn = ET.mode() === "demo" ? button("New hypothesis", { variant: "primary", onclick: () => newHypothesis() }, "plus")
+      : h("a", { class: "btn primary", href: "#/research?new=1" }, icon("sparkles", 15), "New research");
     root.append(ET.pageHeader("Strategy Lab", "Formulate hypotheses, review typed specifications and track every experiment's evidence.", newBtn));
     if (ET.mode() === "demo") return labDemo(root, ctx);
     return labReal(root, ctx);
@@ -36,7 +36,7 @@
     const go = button(demo ? "Create simulated draft" : "Continue in workbench", { variant: "primary" }, demo ? "sparkles" : "workbench");
     const dlg = dialog({ title: "New hypothesis", body, footer: [button("Cancel", { variant: "ghost", onclick: () => dlg.close() }), go] });
     idea.focus();
-    go.addEventListener("click", () => {
+    go.addEventListener("click", async () => {
       const text = idea.value.trim();
       if (!text) { idea.focus(); idea.classList.add("invalid"); return; }
       dlg.close();
@@ -46,7 +46,7 @@
         toast("Simulated draft created for this session", "ok");
         ET.route();
       } else {
-        ET.go("#/workbench");
+        try { await ET.activateWorkbench(); } catch (error) { toast(error.message, "error"); return; }
         const target = document.getElementById("idea"); const fam = document.getElementById("family");
         if (target) { target.value = text; target.focus(); }
         if (fam) { fam.value = family.value; fam.dispatchEvent(new Event("change")); }
@@ -180,48 +180,22 @@
   async function labReal(root, ctx) {
     const host = h("div", { class: "stack" }, skeleton(5));
     root.append(host);
-    const jobs = await ET.api("/api/jobs").catch((error) => ({ error }));
+    let summary;
+    try { summary = await ET.api("/api/workspace/summary"); }
+    catch (error) { if (ctx.isCurrent()) host.replaceChildren(errorState(error.message, () => ET.route())); return; }
     if (!ctx.isCurrent()) return;
-    if (jobs.error) { host.replaceChildren(errorState(jobs.error.message, () => ET.route())); return; }
-    const completed = jobs.filter((j) => j.status === "completed").slice(0, 12);
-    const details = await Promise.all(completed.map((j) => ET.api(`/api/jobs/${j.id}`).catch(() => null)));
-    if (!ctx.isCurrent()) return;
-    const proposals = details.filter(Boolean).flatMap((job) => (job.result?.proposals || []).map((p) => ({ job, p })));
-    const parts = [h("div", { class: "kpi-strip" },
-      kpi({ label: "Research runs", value: String(jobs.length), sub: `${completed.length} completed`, iconName: "beaker" }),
-      kpi({ label: "Typed candidates", value: String(proposals.filter((x) => x.p.spec).length), sub: "from recent completed runs", iconName: "lab" }),
-      kpi({ label: "Non-executable", value: String(proposals.filter((x) => !x.p.spec).length), sub: "proposals with reasons", iconName: "alert" }),
-      kpi({ label: "Failed / cancelled", value: String(jobs.filter((j) => ["failed", "cancelled", "interrupted"].includes(j.status)).length), iconName: "x" }))];
-    const key = ctx.query.get("tab") || "experiments";
-    const panel = h("div");
-    const tabBar = tabs([{ key: "experiments", label: "Research runs", count: jobs.length }, { key: "strategies", label: "Candidates", count: proposals.length }, { key: "models", label: "Model comparison" }], key, render);
-    function render(k) {
-      if (k === "experiments") {
-        panel.replaceChildren(card({ title: "Research runs", subtitle: "Durable queue · open a run to inspect its review, probabilities and lineage", flush: jobs.length > 0, source: "real" }, jobs.length ? dataTable({
-          columns: [
-            { key: "idea", label: "Idea", sort: (j) => j.request.idea, render: (j) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, j.request.idea), h("span", { class: "cell-sub" }, `${j.request.family} · ${fmt.words(j.request.mode)}`)) },
-            { key: "id", label: "Run ID", render: (j) => h("span", { class: "mono muted" }, fmt.short(j.id, 12)) },
-            { key: "status", label: "Status", render: (j) => statusPill(j.status) },
-            { key: "detail", label: "Detail", render: (j) => h("span", { class: "muted clamp" }, j.detail || "—") },
-            { key: "created_at", label: "Created", align: "num", render: (j) => fmt.dateTime(j.created_at) },
-          ], rows: jobs, sortKey: "created_at", pageSize: 15, onRow: (j) => ET.openRun(j.id),
-        }) : emptyState({ iconName: "beaker", title: "No research runs yet", body: "Use “New hypothesis” or the Research Workbench to start a run. Results and their evidence appear here.", action: h("a", { class: "btn primary sm", href: "#/workbench" }, "Open workbench") })));
-      } else if (k === "strategies") {
-        panel.replaceChildren(card({ title: "Candidates from completed runs", subtitle: "Typed specifications are executable in shadow; others list why they were refused", flush: proposals.length > 0, source: "real" }, proposals.length ? dataTable({
-          columns: [
-            { key: "name", label: "Candidate", sort: (x) => x.p.spec?.name || x.p.candidate_id, render: (x) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, x.p.spec?.name || x.p.title || x.p.candidate_id || "Proposal"), h("span", { class: "cell-sub" }, x.job.request.idea)) },
-            { key: "typed", label: "Specification", sort: (x) => (x.p.spec ? 1 : 0), render: (x) => (x.p.spec ? statusPill("typed") : statusPill("refused")) },
-            { key: "kind", label: "Data", render: (x) => statusPill(x.job.result?.data_kind || "—") },
-            { key: "created", label: "Run created", align: "num", sort: (x) => x.job.created_at, render: (x) => fmt.dateTime(x.job.created_at) },
-          ], rows: proposals, sortKey: "created", onRow: (x) => ET.openRun(x.job.id),
-        }) : emptyState({ iconName: "lab", title: "No candidates yet", body: "Completed research runs list their typed hypotheses and refusals here." })));
-      } else {
-        panel.replaceChildren(card({ title: "Model comparison" }, unavailable("No authentic model comparison is available", "Model metrics require enough independent real events to pass the evidence gates. Current authentic evidence is insufficient; synthetic runs prove software behavior only. Per-run forecast metrics are in each run's review.")));
-      }
+    const panel = h("div", { class: "stack" });
+    const selected = ctx.query.get("tab") || "experiments";
+    const bar = tabs([{ key: "experiments", label: "Persistent experiments" }, { key: "strategies", label: "Research jobs" }, { key: "models", label: "Recorded models & validation" }], selected, (key) => { ET.updateQuery({ tab: key }); draw(key); });
+    function draw(key) {
+      const groups = key === "strategies"
+        ? [["research_jobs", "Autonomous research jobs", "#/research"], ["legacy_jobs", "Legacy research runs", "#/workbench"], ["course_jobs", "CIS course runs", "#/cis1990"]]
+        : [["experiments", key === "models" ? "Recorded models & validation" : "Persistent experiments", "#/research"]];
+      panel.replaceChildren(...groups.map(([component, title, href]) => card({ title, source: "real", actions: link("Open", href) }, ET.summaryRecords(summary, component))));
     }
-    render(key);
-    parts.push(tabBar.el, panel);
-    host.replaceChildren(...parts);
+    draw(selected);
+    host.replaceChildren(ET.summaryKpis(summary, ["research_jobs", "experiments", "legacy_jobs", "course_jobs"]), ET.summaryNotice(),
+      h("div", { class: "row-actions" }, link("New research objective", "#/research?new=1"), link("Paper deployments", "#/paper"), link("Legacy hypothesis workbench", "#/workbench")), bar.el, panel);
   }
   function strategyReal(root, id, ctx) {
     void ctx;
@@ -312,27 +286,17 @@
   }
 
   async function analyticsReal(root, ctx) {
-    root.append(ET.pageHeader("Backtesting & Analytics", "Walk-forward performance, risk, calibration, cost sensitivity and data sufficiency."));
+    root.append(ET.pageHeader("Backtesting & Analytics", "Recorded experiments, validation and executable backtests. Inspect each frozen record for its precise evidence checks."));
     const host = h("div", { class: "stack" }, skeleton(5));
     root.append(host);
-    const r = await ET.apiAll({ jobs: "/api/jobs", datasets: "/api/weather/datasets" });
+    let summary;
+    try { summary = await ET.api("/api/workspace/summary"); }
+    catch (error) { if (ctx.isCurrent()) host.replaceChildren(errorState(error.message, () => ET.route())); return; }
     if (!ctx.isCurrent()) return;
-    const jobs = r.jobs.ok ? r.jobs.data : [];
-    const datasets = r.datasets.ok ? r.datasets.data : [];
-    const parts = [card({ title: "Backtest performance", source: "real" }, unavailable("No authentic backtest has passed the evidence gates", "Equity curves, drawdowns, trade distributions and fee sensitivity are shown only for real runs with sufficient independent events, certified fees and executable depth. This workspace has none yet, so no performance figures are displayed. Synthetic runs verify software only and are not shown as results.", h("div", { class: "row-actions" }, h("a", { class: "btn primary sm", href: "#/workbench" }, "Open workbench"), button("Preview in Demo Mode", { variant: "ghost sm", onclick: () => ET.setMode("demo") }, "eye"))))];
-    parts.push(card({ title: "Data sufficiency", subtitle: "Frozen weather datasets and their modeling readiness", flush: datasets.length > 0, source: "real" }, datasets.length ? dataTable({ columns: [
-      { key: "dataset_id", label: "Dataset", render: (x) => h("span", { class: "mono" }, fmt.short(x.dataset_id?.replace("sha256:", ""), 16)) },
-      { key: "status", label: "Readiness", sort: (x) => x.readiness?.status, render: (x) => statusPill(x.readiness?.status || "unknown") },
-      { key: "events", label: "Independent events", align: "num", sort: (x) => x.readiness?.independent_events ?? 0, render: (x) => fmt.num(x.readiness?.independent_events) },
-      { key: "captures", label: "Captures", align: "num", sort: (x) => x.capture_count ?? 0, render: (x) => fmt.num(x.capture_count) },
-      { key: "observations", label: "Observations", align: "num", sort: (x) => x.observation_count ?? 0, render: (x) => fmt.num(x.observation_count) },
-    ], rows: datasets, sortKey: "events" }) : r.datasets.ok ? emptyState({ iconName: "database", title: "No frozen datasets", body: "Freeze retained weather inputs in the Research Workbench to see evidence shortages here." }) : errorState(r.datasets.error.message)));
-    const completed = jobs.filter((j) => j.status === "completed");
-    parts.push(card({ title: "Completed research reviews", subtitle: "Each review carries its own forecast metrics, refusals and simulated execution scenarios", flush: completed.length > 0 }, completed.length ? dataTable({ columns: [
-      { key: "idea", label: "Idea", sort: (j) => j.request.idea, render: (j) => h("span", { class: "cell-title" }, j.request.idea) },
-      { key: "mode", label: "Data", sort: (j) => j.request.mode, render: (j) => statusPill(j.request.mode === "synthetic" ? "synthetic" : j.request.mode) },
-      { key: "created_at", label: "Created", align: "num", render: (j) => fmt.dateTime(j.created_at) },
-    ], rows: completed, sortKey: "created_at", onRow: (j) => ET.openRun(j.id), pageSize: 10 }) : emptyState({ iconName: "beaker", title: "No completed reviews" })));
-    host.replaceChildren(...parts);
+    host.replaceChildren(ET.summaryKpis(summary, ["research_jobs", "experiments", "legacy_jobs", "course_jobs"]), ET.summaryNotice(),
+      card({ title: "Recorded backtests, models & validation", subtitle: "Recent exact experiment references; full counts above", source: "real", actions: link("Autonomous Research", "#/research") }, ET.summaryRecords(summary, "experiments")),
+      h("div", { class: "grid g-1-1" }, card({ title: "Legacy research reviews", actions: link("Workbench", "#/workbench") }, ET.summaryRecords(summary, "legacy_jobs")),
+        card({ title: "CIS course reviews", actions: link("CIS 1990", "#/cis1990") }, ET.summaryRecords(summary, "course_jobs"))));
   }
+
 })();

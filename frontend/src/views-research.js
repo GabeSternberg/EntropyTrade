@@ -57,6 +57,7 @@
     }
     const catalog = loaded.catalog.data;
     root.append(h("div", { class: "grid g-2-1 research-top" }, submitCard(catalog), scopeCard(catalog)));
+    if (ctx.query?.get("new") === "1") document.getElementById("research-objective")?.focus();
     root.append(loaded.jobs.ok ? jobsCard(loaded.jobs.data.jobs, "real") : ET.errorState(loaded.jobs.error.message, ET.route));
   }
 
@@ -182,22 +183,23 @@
     if (demo) {
       const job = ET.demo().research.jobs.find((j) => j.id === id);
       if (!job) { root.append(ET.emptyState({ title: "Demo job not found", body: "Return to the research list." })); return; }
-      render(root, job, { demo: true });
+      render(root, job, { demo: true, tab: { key: ctx.query?.get("tab") || "hypotheses" }, experiment: ctx.query?.get("experiment") });
       return;
     }
     // Demo identifiers do not name persisted jobs when switching back to Real Mode.
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(id)) {
-      ET.go("#/research");
+      root.append(ET.unavailable("Research job cannot be selected", "This link does not identify a persisted research job."));
       return;
     }
     root.append(ET.skeleton(5));
     let shown = null;
-    const tab = { key: "hypotheses" };
+    const tab = { key: ctx.query?.get("tab") || (ctx.query?.get("experiment") ? "experiments" : "hypotheses") };
     while (ctx.isCurrent()) {
       let job;
       try {
         if (!csrf) csrf = (await ET.api("/api/research")).csrf_token;
         job = await ET.api(`/api/research/jobs/${encodeURIComponent(id)}`, { fresh: true });
+        if (job.id !== id) throw new Error("Selected research job does not match the requested identifier");
       } catch (error) {
         if (ctx.isCurrent()) root.replaceChildren(ET.errorState(error.message, ET.route));
         return;
@@ -207,7 +209,7 @@
       if (stamp !== shown) {
         shown = stamp;
         root.replaceChildren();
-        render(root, job, { csrf, tab, isCurrent: ctx.isCurrent, refresh: () => { shown = null; } });
+        render(root, job, { csrf, tab, experiment: ctx.query?.get("experiment"), isCurrent: () => ET.mode() === "real" && ctx.isCurrent(), refresh: () => { shown = null; } });
       }
       if (!ACTIVE.has(job.status)) return;
       await new Promise((resolve) => setTimeout(resolve, 1200));
@@ -267,14 +269,19 @@
     const pending = (job.acquisitions || []).filter((a) => a.status === "awaiting_approval").length;
     if (pending && !options.demo) root.append(callout(`${pending} acquisition${pending === 1 ? "" : "s"} await your approval in the Acquisitions tab. Other work continued.`, "warn"));
     if (job.features) panels.push({ key: "features", label: "Features", count: job.features.length, render: () => featuresPanel(job) });
-    if (job.experiments) panels.push({ key: "experiments", label: "Modeling & validation", count: job.experiments.length, render: () => experimentsPanel(job) });
+    if (job.experiments) panels.push({ key: "experiments", label: "Modeling & validation", count: job.experiments.length, render: () => experimentsPanel(job, options) });
     if (job.forward_requests) panels.push({ key: "forward", label: "Forward collection", count: job.forward_requests.length, render: () => forwardPanel(job) });
     panels.push({ key: "paper", label: "Paper eligibility", render: () => paperPanel(job, options) });
     panels.push({ key: "events", label: "Activity", count: job.events.length, render: () => eventsPanel(job) });
     const body = h("div", { class: "research-panel" });
-    const selected = options.tab && panels.some((p) => p.key === options.tab.key) ? options.tab.key : "hypotheses";
+    const selected = options.tab?.key || "hypotheses";
+    if (!panels.some((panel) => panel.key === selected)) {
+      root.append(ET.unavailable("Requested research tab is unavailable", "This job has no recorded evidence for the selected tab."));
+      return;
+    }
     const bar = tabs(panels.map(({ key, label, count }) => ({ key, label, count })), selected, (key) => {
       if (options.tab) options.tab.key = key;
+      ET.updateQuery?.({ tab: key });
       body.replaceChildren(panels.find((p) => p.key === key).render());
     });
     root.append(card({ flush: false, className: "research-tabs" }, bar.el, body));
@@ -384,8 +391,23 @@
 
   // The server supplies frozen experiment evidence. Missing metrics stay absent; completing
   // a pipeline never creates a profitability or prospective-validation claim.
-  function experimentsPanel(job) {
+  function experimentPicker(job, options) {
     const rows = job.experiments || [];
+    if (!rows.length) return null;
+    const select = h("select", { class: "input", "aria-label": "Recorded experiment" },
+      h("option", { value: "", selected: !options.experiment }, "All recorded experiments"),
+      rows.map((row) => h("option", { value: row.id, selected: row.id === options.experiment }, `${words(row.status)} · ${row.id}`)));
+    select.addEventListener("change", () => {
+      options.experiment = select.value || null;
+      ET.updateQuery?.({ experiment: options.experiment });
+      ET.route();
+    });
+    return field("Recorded experiment", select);
+  }
+  function experimentsPanel(job, options = {}) {
+    const all = job.experiments || [];
+    const rows = options.experiment ? all.filter((row) => row.id === options.experiment) : all;
+    if (options.experiment && !rows.length) return ET.unavailable("Selected experiment not found", "The requested experiment is not recorded in this research job. No other experiment has been selected.");
     if (!rows.length) return ET.emptyState({ iconName: "analytics", title: "No experiments recorded", body: "Modeling eligibility is assessed after feature registration. Missing evidence remains a durable refusal." });
     const hypotheses = Object.fromEntries(job.hypotheses.map((row) => [row.hypothesis_id, row.spec.title]));
     const reasons = (items) => items?.length ? h("ul", { class: "hyp-reasons" }, items.map((item) => h("li", String(item)))) : null;
@@ -407,6 +429,7 @@
     const section = (title, ...children) => h("section", { class: "research-experiment-section" }, h("h5", title), ...children);
     const formatted = (value) => typeof value === "object" && value !== null ? JSON.stringify(value) : String(value ?? "—");
     return h("div", { class: "stack", id: "research-experiments" },
+      experimentPicker(job, options),
       callout("Historical predictive diagnostics do not establish executable profitability. Paper and live promotion require separate deterministic gates.", "lock"),
       rows.map((row) => {
         const result = row.result || {};
@@ -432,7 +455,8 @@
         return h("article", { class: "hyp-card research-experiment", "data-experiment": row.id, "data-experiment-status": row.status },
           h("header", { class: "hyp-head" },
             h("div", { class: "hyp-titles" }, h("h4", hypotheses[row.hypothesis_id] || row.hypothesis_id),
-              h("p", { class: "muted mono" }, `${digest(row.id)} · updated ${fmt.dateTime(row.updated_at)}`)),
+              h("p", { class: "muted mono" }, `${digest(row.id)} · updated ${fmt.dateTime(row.updated_at)}`),
+              h("a", { class: "link", href: `#/research/${encodeURIComponent(job.id)}?tab=paper&experiment=${encodeURIComponent(row.id)}` }, "Exact paper eligibility")),
             tonePill(row.status, { evaluated: "", completed: "", refused: "warn", awaiting_data: "warn", invalid: "neg", unsupported: "neg", failed: "neg", running: "warn", queued: "warn" })),
           result.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC: these results verify software behavior and are not empirical trading evidence.", "demo") : null,
           row.error ? callout(`${row.error.type || "Experiment error"}: ${row.error.reason || row.error.message || formatted(row.error)}`, "error") : null,
@@ -525,7 +549,7 @@
       callout("A paper deployment freezes the reviewed strategy, model and evidence versions. Every simulated intent still passes source, fee, liquidity and risk checks.", "info"),
       h("div", { class: "row-actions end" }, refresh), issue, body);
     let generation = 0;
-    const current = () => !options.isCurrent || options.isCurrent();
+    const current = () => ET.mode() === "real" && (!options.isCurrent || options.isCurrent()) && (!options.tab || options.tab.key === "paper");
     const uri = `/api/research/jobs/${encodeURIComponent(job.id)}/paper`;
     async function load() {
       const request = ++generation;
@@ -533,8 +557,13 @@
       try {
         const report = await ET.api(uri, { fresh: true });
         if (!current() || request !== generation) return;
-        const proposals = report.proposals || [];
-        body.replaceChildren(...(proposals.length ? proposals.map(proposalCard) : [ET.emptyState({ iconName: "paper", title: "No fitted paper proposals", body: "A proposal requires a fitted model and an executed typed strategy. Inspect Modeling & validation for the precise evidence gaps." })]));
+        const all = report.proposals || [];
+        const proposals = options.experiment ? all.filter((proposal) => proposal.experiment_id === options.experiment) : all;
+        if (options.experiment && !proposals.length) {
+          body.replaceChildren(ET.unavailable("Selected paper experiment not found", "No paper proposal is recorded for this experiment in this job. No other experiment has been selected."));
+          return;
+        }
+        body.replaceChildren(...[experimentPicker(job, options), ...(proposals.length ? proposals.map(proposalCard) : [ET.emptyState({ iconName: "paper", title: "No fitted paper proposals", body: "A proposal requires a fitted model and an executed typed strategy. Inspect Modeling & validation for the precise evidence gaps." })])].filter(Boolean));
       } catch (error) {
         if (current() && request === generation) body.replaceChildren(ET.errorState(error.message, load));
       } finally { if (current() && request === generation) refresh.disabled = false; }
@@ -566,6 +595,7 @@
         proposal.data_kind === "synthetic" ? callout("CONTROLLED SYNTHETIC: this proposal verifies software behavior. Production paper deployments require authentic evidence.", "demo") : null,
         (proposal.reasons || []).length ? h("ul", { class: "hyp-reasons" }, proposal.reasons.map((reason) => h("li", reason))) : null,
         kv([
+          ["Experiment evidence", h("a", { class: "link mono", href: `#/research/${encodeURIComponent(job.id)}?tab=experiments&experiment=${encodeURIComponent(proposal.experiment_id)}` }, proposal.experiment_id)],
           ["Model version", h("span", { class: "mono", title: proposal.model_hash }, digest(proposal.model_hash))],
           ["Strategy version", h("span", { class: "mono", title: proposal.strategy_hash }, digest(proposal.strategy_hash))],
           ["Proposal version", h("span", { class: "mono", title: proposal.proposal_hash }, digest(proposal.proposal_hash))],

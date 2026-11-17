@@ -219,7 +219,7 @@ test("paper proposals: saved Real action cannot write after a switch to Demo Mod
   await saved();
   assert.equal(app.calls.length, 0);
   assert.equal(app.reads.length, reads);
-  assert.match(text(app.root), /Real API writes are disabled in Demo Mode/);
+  assert.doesNotMatch(text(app.root), /Paper deployment saved/);
 });
 
 test("paper dashboard: saved Real control cannot write after a switch to Demo Mode", async () => {
@@ -254,9 +254,9 @@ const controlState = (halted = false) => ({ halted, epoch: 4, reason: "Recorded 
 const readinessRecord = (overrides = {}) => ({ id: readinessId, monitor_id: monitorId, revision: 2, status: "proposed", source_fingerprint: "sha256:source", payload: { policy_hash: "sha256:policy", control_epoch: 4, source_fingerprint: "sha256:source", eligible: true, checks: [{ name: "evidence", passed: true, reason: "Bound evidence verified" }], capital_envelope: { max_dollars: "100.00", max_contracts: 10 }, risk_limits: { max_loss_dollars: "10.00" }, execution_authorized: false, submission_enabled: false }, current_checks: { eligible: true, checks: [{ name: "current_evidence", passed: true, reason: "Still current" }] }, events: [], ...overrides });
 function readinessApp({ owner = ownerState(), report, record = readinessRecord(), submit } = {}) {
   const value = report || { preview: { ...record.payload, proposal_hash: readinessId }, proposals: [{ id: readinessId, status: record.status }, { id: priorId, status: "rejected" }], control: controlState() };
-  return application({ responses: { "/api/owner": owner, "/api/controls": controlState(), "/api/monitors": [{ id: monitorId }], [`/api/monitors/${monitorId}`]: monitor(), [`/api/monitors/${monitorId}/readiness`]: value, [`/api/readiness/${encodeURIComponent(readinessId)}`]: record, [`/api/readiness/${encodeURIComponent(priorId)}`]: record }, submit });
+  return application({ responses: { "/api/owner": owner, "/api/controls": controlState(), "/api/monitors": [{ id: monitorId }], [`/api/monitors/${monitorId}`]: monitor(), [`/api/monitors/${monitorId}/readiness`]: value, [`/api/readiness/${encodeURIComponent(readinessId)}`]: record, [`/api/readiness/${encodeURIComponent(priorId)}`]: { ...record, id: priorId } }, submit });
 }
-async function oversight(app) { await app.ET.views.paper(app.root, { params: [monitorId], isCurrent: () => true }); await new Promise((resolve) => setImmediate(resolve)); }
+async function oversight(app) { await app.ET.views.paper(app.root, { params: [monitorId], query: new URLSearchParams("tab=readiness"), isCurrent: () => true }); await new Promise((resolve) => setImmediate(resolve)); }
 const find = (root, key, value) => descendants(root).find((node) => node.attrs[key] === value);
 
 test("readiness: changing proposal hides the previous export and review controls until matching evidence arrives", async () => {
@@ -409,7 +409,7 @@ test("readiness: unauthenticated revocation and owner rollback use bounded refer
   const rollbackId = "sha256:" + "a".repeat(64);
   const owner = readinessApp({ owner: ownerState(true), submit: async () => ({ ok: true, json: async () => ({ id: rollbackId }) }) });
   const original = owner.ET.api;
-  owner.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(rollbackId)}` ? Promise.resolve(readinessRecord({ id: rollbackId })) : original(url, options);
+  owner.ET.api = (url, options) => url === `/api/readiness/${encodeURIComponent(rollbackId)}` ? Promise.resolve(readinessRecord({ id: rollbackId })) : url === `/api/monitors/${monitorId}/readiness` ? original(url, options).then((report) => owner.calls.length ? { ...report, proposals: [...report.proposals, { id: rollbackId, status: "proposed" }] } : report) : original(url, options);
   await oversight(owner);
   find(owner.root, "aria-label", "Prior readiness proposal").value = priorId;
   find(owner.root, "aria-label", "Rollback proposal reason").value = "Compare prior bounded configuration";
@@ -457,7 +457,7 @@ test("owner access: logout carries no actor and a saved login handler cannot sen
 test("readiness audit: recorded owner and reason remain text, with no automatic approval", async () => {
   const record = readinessRecord({ events: [{ at: "2026-11-15T23:00:00Z", action: "approved", actor: { kind: "human", actor_id: "local-owner" }, reason: "<script>reviewed evidence</script>" }] });
   const app = readinessApp({ record }); await oversight(app);
-  descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === "Audit").handlers.click();
+  descendants(app.root).find((node) => node.attrs.role === "tab" && text(node).trim() === "Evidence & audit").handlers.click();
   assert.match(text(app.root), /local-owner/);
   assert.match(text(app.root), /<script>reviewed evidence<\/script>/);
   assert.equal(descendants(app.root).filter((node) => node.tag === "script").length, 0);
@@ -529,7 +529,7 @@ test("paper timeline: settlement-only reconciliation is explicit and nullable pr
   const value = monitor("cancelled");
   value.cycles = [{ sequence: 2, status: "completed", finished_at: "2026-11-15T23:05:00Z", detail: "Official outcome reconciled", result: { schema: "shadow-reconciliation-cycle-v1", cycle_mode: "reconcile_only", capture: null, model_binding: null, execution: null, paper_execution: null, decisions: [], quotes: [], contracts: [], paper: { settlements: [{ settlement: { market_ticker: "KXHIGHPHIL-26NOV15-T55", result: "yes", settled_at: "2026-11-15T23:04:00Z" }, observed_outcome: { retrieved_at: "2026-11-15T23:05:00Z" } }] } } }];
   const app = application({ responses: { "/api/monitors": [{ id: monitorId }], [`/api/monitors/${monitorId}`]: value } });
-  await oversight(app);
+  await app.ET.views.paper(app.root, { params: [monitorId], isCurrent: () => true });
   assert.match(text(app.root), /Settlement-only reconciliation/);
   assert.match(text(app.root), /Official settlement/);
   assert.match(text(app.root), /KXHIGHPHIL-26NOV15-T55/);

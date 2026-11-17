@@ -302,12 +302,28 @@ def test_demo_mode_data_is_isolated_at_the_presentation_boundary() -> None:
         assert "demoData" not in script, name
         if name.startswith("views-"):
             assert "fetch(" not in script, name
-    # The independent legacy workbench may reuse pure formatting, never shell data or
-    # mutation access. All modern view writes use the guarded transport above.
+    # The legacy transport shares only the shell's formatting and activation boundary.
+    # It cannot read Demo data or call the modern transport. Behavioral Node/browser
+    # tests cover dispatch, saved handlers, pending responses and reactivation.
     for name in ("views-ops.js", "views-research.js"):
         assert "ET.mutate(" in (source / name).read_text(), name
     workbench = (source / "app.js").read_text()
-    assert set(re.findall(r"ET\.(\w+)", workbench)) <= {"fmt"}
+    assert set(re.findall(r"ET\.(\w+)", workbench)) <= {"fmt", "legacyWorkbench"}
+    assert 'shell?.mode?.() === "real"' in workbench
+    assert "shell.workbenchActive?.() === true" in workbench
+    assert '$("workbench-view")?.hidden === false' in workbench
+    assert 'document.visibilityState !== "hidden"' in workbench
+    assert "window.ET.legacyWorkbench = {" in workbench
+    for hook in (
+        "activate: activateWorkbench",
+        "deactivate: deactivateWorkbench",
+        "selectJob:",
+        "selectMonitor:",
+    ):
+        assert hook in workbench
+    assert "legacy.controller?.abort()" in workbench
+    assert "clearInterval(legacy.timer)" in workbench
+    assert "initialize();" not in workbench
     assert "demoData" not in workbench
 
 

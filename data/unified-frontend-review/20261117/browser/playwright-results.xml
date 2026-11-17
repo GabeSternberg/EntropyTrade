@@ -1,0 +1,34 @@
+<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="74.906609">
+<testsuite name="lifecycle.spec.cjs" timestamp="2026-11-17T06:25:04.931Z" hostname="" tests="3" failures="0" skipped="0" time="45.39" errors="0">
+<testcase name="unified lifecycle summary: actual empty workspace" classname="lifecycle.spec.cjs" time="5.995">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/lifecycle-unified-lifecycle-summary-actual-empty-workspace/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="unified lifecycle summary: actual unavailable workspace" classname="lifecycle.spec.cjs" time="4.78">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/lifecycle-unified-lifecycl-6183f-ctual-unavailable-workspace/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="unified lifecycle: actual persisted research, exact evidence links, Demo isolation and legacy handoff" classname="lifecycle.spec.cjs" time="34.615">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/lifecycle-unified-lifecycl-e971e-solation-and-legacy-handoff/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="redesign.spec.cjs" timestamp="2026-11-17T06:25:04.931Z" hostname="" tests="1" failures="0" skipped="0" time="25.21" errors="0">
+<testcase name="redesigned shell: real and demo modes, interactions, isolation and responsive layout" classname="redesign.spec.cjs" time="25.21">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/redesign-redesigned-shell--609de-ation-and-responsive-layout/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

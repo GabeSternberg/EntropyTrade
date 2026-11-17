@@ -85,11 +85,12 @@ test("research modeling: interrupted training error stays visible with no result
 test("research route: returning from a demo job cannot request a fictional real job", async () => {
   const root = new Element("main");
   const routes = [];
-  const window = { ET: { views: {}, mode: () => "real", go: (route) => routes.push(route), api: () => { throw new Error("Fictional IDs must not reach the real API"); } } };
+  const window = { ET: { views: {}, mode: () => "real", go: (route) => routes.push(route), unavailable: (title, body) => new Element("p", title + " " + body), api: () => { throw new Error("Fictional IDs must not reach the real API"); } } };
   const context = vm.createContext({ window });
   vm.runInContext(fs.readFileSync(path.join(__dirname, "../src/views-research.js"), "utf8"), context);
   await window.ET.views.research(root, { params: ["demo-weather-job"] });
-  assert.deepEqual(routes, ["#/research"]);
+  assert.deepEqual(routes, []);
+  assert.match(content(root), /cannot be selected/);
 });
 
 

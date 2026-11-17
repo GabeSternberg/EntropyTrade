@@ -1,0 +1,1708 @@
+{
+  "status": "passed",
+  "scenario": "mixed",
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "24d26cf36565329b60ebfe1824127d8bf8af5fac5b868ad56ea071350d8fce3a",
+    "files": 699
+  },
+  "screenshots": [
+    "mixed-full-counts-overview.png",
+    "exact-model-validation-backtest.png",
+    "exact-research-paper-proposal.png",
+    "exact-paper-account.png",
+    "exact-blocked-readiness.png",
+    "exact-stale-collection-alert.png",
+    "actual-new-persistent-research-status.png",
+    "real-legacy-course-handoff.png",
+    "demo-workbench-zero-api.png",
+    "mobile-375-exact-experiment.png",
+    "mobile-375-exact-readiness.png"
+  ],
+  "downloads": [
+    {
+      "file": "actual-synthetic-research.json",
+      "sha256": "75ef5ade59283a5e7cb2e388a4f1fcf81d2b4ef6ddf02a1ba8b0ea425785eeac"
+    },
+    {
+      "file": "actual-paper-export.json",
+      "sha256": "95b939ba83bbae463565942fe3c850094a5e02af9e6c4ddb5e9a9c17069e56ec"
+    },
+    {
+      "file": "actual-paper-account.json",
+      "sha256": "ac1d65f1024ee0b395986b7aa685b50db6777cdce60f8d3c470cb0b088441524"
+    },
+    {
+      "file": "blocked-readiness.json",
+      "sha256": "36213c90b176e12bc67e4a3a9101147ddd1ceb27dbd32b3bbdf9773df212ee00"
+    }
+  ],
+  "api_requests": [
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81/paper",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81/paper",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+      "method": "GET"
+    },
+    {
+      "path": "/api/alerts",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/schedules",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/datasets",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/fees",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/alerts",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/schedules",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/datasets",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/fees",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/monitoring",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/monitoring",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs",
+      "method": "POST"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/99d2a119-0466-4b50-83b2-835802558f80",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/alerts",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/datasets",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions/00000000",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/schedules",
+      "method": "GET"
+    },
+    {
+      "path": "/api/fees",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1-gates",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs/e9f16bdc-b926-5b4d-9b3f-0c90c212954e",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/cis1990",
+      "method": "GET"
+    },
+    {
+      "path": "/api/cis1990",
+      "method": "GET"
+    },
+    {
+      "path": "/api/cis1990/082a5b7f-2e5c-5e89-9208-6757300af79e",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/alerts",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/datasets",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/label-partitions/00000000",
+      "method": "GET"
+    },
+    {
+      "path": "/api/weather/schedules",
+      "method": "GET"
+    },
+    {
+      "path": "/api/fees",
+      "method": "GET"
+    },
+    {
+      "path": "/api/v1-gates",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs/e9f16bdc-b926-5b4d-9b3f-0c90c212954e",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs/e9f16bdc-b926-5b4d-9b3f-0c90c212954e",
+      "method": "GET"
+    },
+    {
+      "path": "/api/jobs",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors",
+      "method": "GET"
+    },
+    {
+      "path": "/api/catalog",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    },
+    {
+      "path": "/api/research/jobs/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+      "method": "GET"
+    }
+  ],
+  "posts": [
+    {
+      "path": "/api/monitors/5458d350-4b9f-4cb3-b023-714bf0e95f22/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/research/jobs",
+      "body": {
+        "objective": "CONTROLLED browser lifecycle: investigate Bitcoin daily threshold outcomes with point in time source evidence.",
+        "family": "bitcoin",
+        "universe": [],
+        "provider": {
+          "provider": "local_templates"
+        },
+        "budget": {
+          "ai_usd": "0",
+          "max_http_requests": 240,
+          "max_bytes": 96000000,
+          "max_runtime_seconds": 1800,
+          "max_retries": 3
+        },
+        "acquisition": "none",
+        "lookback_days": 240,
+        "validation_depth": "standard",
+        "paper_preference": "recommend"
+      }
+    }
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "submission_enabled": false,
+  "summary_before": {
+    "schema": "workspace-summary-v1",
+    "recorded_metadata_only": true,
+    "recent_limit": 10,
+    "components": {
+      "research_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 57,
+          "by_status": {
+            "cancelled": 28,
+            "evaluated": 1,
+            "failed": 28
+          }
+        },
+        "recent": [
+          {
+            "id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+            "job_id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+            "family": "weather",
+            "status": "evaluated",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/research/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81"
+          },
+          {
+            "id": "d4654598-8a17-595b-afad-67c5c051c68a",
+            "job_id": "d4654598-8a17-595b-afad-67c5c051c68a",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:59+00:00",
+            "updated_at": "2026-11-14T14:59:59+00:00",
+            "href": "#/research/d4654598-8a17-595b-afad-67c5c051c68a"
+          },
+          {
+            "id": "8624a672-b9a9-56aa-abac-e283b9c8b611",
+            "job_id": "8624a672-b9a9-56aa-abac-e283b9c8b611",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:58+00:00",
+            "updated_at": "2026-11-14T14:59:58+00:00",
+            "href": "#/research/8624a672-b9a9-56aa-abac-e283b9c8b611"
+          },
+          {
+            "id": "b523e86d-42cf-53be-bf35-d425ae673978",
+            "job_id": "b523e86d-42cf-53be-bf35-d425ae673978",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:57+00:00",
+            "updated_at": "2026-11-14T14:59:57+00:00",
+            "href": "#/research/b523e86d-42cf-53be-bf35-d425ae673978"
+          },
+          {
+            "id": "402f37ad-b086-5730-9a87-64a0e191d8ee",
+            "job_id": "402f37ad-b086-5730-9a87-64a0e191d8ee",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:56+00:00",
+            "updated_at": "2026-11-14T14:59:56+00:00",
+            "href": "#/research/402f37ad-b086-5730-9a87-64a0e191d8ee"
+          },
+          {
+            "id": "c0bc55ec-857b-5a62-8e81-bfbdef89d096",
+            "job_id": "c0bc55ec-857b-5a62-8e81-bfbdef89d096",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:55+00:00",
+            "updated_at": "2026-11-14T14:59:55+00:00",
+            "href": "#/research/c0bc55ec-857b-5a62-8e81-bfbdef89d096"
+          },
+          {
+            "id": "da2b4cbd-22ac-5cbe-9666-2085590100d9",
+            "job_id": "da2b4cbd-22ac-5cbe-9666-2085590100d9",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:54+00:00",
+            "updated_at": "2026-11-14T14:59:54+00:00",
+            "href": "#/research/da2b4cbd-22ac-5cbe-9666-2085590100d9"
+          },
+          {
+            "id": "88776e50-5a7e-5a2c-9a79-bbc46eb85751",
+            "job_id": "88776e50-5a7e-5a2c-9a79-bbc46eb85751",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:53+00:00",
+            "updated_at": "2026-11-14T14:59:53+00:00",
+            "href": "#/research/88776e50-5a7e-5a2c-9a79-bbc46eb85751"
+          },
+          {
+            "id": "c22020b7-890a-5af3-a9fe-bcf8b91fba53",
+            "job_id": "c22020b7-890a-5af3-a9fe-bcf8b91fba53",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:52+00:00",
+            "updated_at": "2026-11-14T14:59:52+00:00",
+            "href": "#/research/c22020b7-890a-5af3-a9fe-bcf8b91fba53"
+          },
+          {
+            "id": "7e373943-dd8f-543a-bd9a-77b766d8a0e1",
+            "job_id": "7e373943-dd8f-543a-bd9a-77b766d8a0e1",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:51+00:00",
+            "updated_at": "2026-11-14T14:59:51+00:00",
+            "href": "#/research/7e373943-dd8f-543a-bd9a-77b766d8a0e1"
+          }
+        ]
+      },
+      "experiments": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 57,
+          "with_recorded_result": 57,
+          "with_recorded_validation": 57,
+          "with_recorded_backtest": 57,
+          "with_recorded_model": 1,
+          "by_status": {
+            "completed": 57
+          },
+          "by_result_status": {
+            "evaluated": 1,
+            "insufficient_evidence": 56
+          },
+          "by_validation_status": {
+            "evaluated": 1,
+            "not_run": 56
+          },
+          "by_backtest_status": {
+            "backtested": 1,
+            "blocked": 56
+          },
+          "by_data_kind": {
+            "real": 28,
+            "synthetic": 29
+          }
+        },
+        "recent": [
+          {
+            "job_id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+            "experiment_id": "sha256:3eb0eddf545bca91fe93ebaffaebc87b502f697028691fb87883feda346558dc",
+            "status": "completed",
+            "result_status": "evaluated",
+            "validation_status": "evaluated",
+            "backtest_status": "backtested",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/research/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81?tab=experiments&experiment=sha256%3A3eb0eddf545bca91fe93ebaffaebc87b502f697028691fb87883feda346558dc"
+          },
+          {
+            "job_id": "d4654598-8a17-595b-afad-67c5c051c68a",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T14:59:59+00:00",
+            "href": "#/research/d4654598-8a17-595b-afad-67c5c051c68a?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000001"
+          },
+          {
+            "job_id": "8624a672-b9a9-56aa-abac-e283b9c8b611",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "real",
+            "updated_at": "2026-11-14T14:59:58+00:00",
+            "href": "#/research/8624a672-b9a9-56aa-abac-e283b9c8b611?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000002"
+          },
+          {
+            "job_id": "b523e86d-42cf-53be-bf35-d425ae673978",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000003",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T14:59:57+00:00",
+            "href": "#/research/b523e86d-42cf-53be-bf35-d425ae673978?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000003"
+          },
+          {
+            "job_id": "402f37ad-b086-5730-9a87-64a0e191d8ee",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000004",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "real",
+            "updated_at": "2026-11-14T14:59:56+00:00",
+            "href": "#/research/402f37ad-b086-5730-9a87-64a0e191d8ee?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000004"
+          },
+          {
+            "job_id": "c0bc55ec-857b-5a62-8e81-bfbdef89d096",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000005",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T14:59:55+00:00",
+            "href": "#/research/c0bc55ec-857b-5a62-8e81-bfbdef89d096?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000005"
+          },
+          {
+            "job_id": "da2b4cbd-22ac-5cbe-9666-2085590100d9",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000006",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "real",
+            "updated_at": "2026-11-14T14:59:54+00:00",
+            "href": "#/research/da2b4cbd-22ac-5cbe-9666-2085590100d9?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000006"
+          },
+          {
+            "job_id": "88776e50-5a7e-5a2c-9a79-bbc46eb85751",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000007",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T14:59:53+00:00",
+            "href": "#/research/88776e50-5a7e-5a2c-9a79-bbc46eb85751?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000007"
+          },
+          {
+            "job_id": "c22020b7-890a-5af3-a9fe-bcf8b91fba53",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000008",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "real",
+            "updated_at": "2026-11-14T14:59:52+00:00",
+            "href": "#/research/c22020b7-890a-5af3-a9fe-bcf8b91fba53?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000008"
+          },
+          {
+            "job_id": "7e373943-dd8f-543a-bd9a-77b766d8a0e1",
+            "experiment_id": "sha256:0000000000000000000000000000000000000000000000000000000000000009",
+            "status": "completed",
+            "result_status": "insufficient_evidence",
+            "validation_status": "not_run",
+            "backtest_status": "blocked",
+            "data_kind": "synthetic",
+            "updated_at": "2026-11-14T14:59:51+00:00",
+            "href": "#/research/7e373943-dd8f-543a-bd9a-77b766d8a0e1?tab=experiments&experiment=sha256%3A0000000000000000000000000000000000000000000000000000000000000009"
+          }
+        ]
+      },
+      "legacy_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 54,
+          "by_status": {
+            "cancelled": 54
+          }
+        },
+        "recent": [
+          {
+            "id": "01c86719-55cc-5a2b-893b-d1b3b28aa90c",
+            "job_id": "01c86719-55cc-5a2b-893b-d1b3b28aa90c",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=01c86719-55cc-5a2b-893b-d1b3b28aa90c"
+          },
+          {
+            "id": "02577cee-6d0e-55ff-b32e-db31f281788c",
+            "job_id": "02577cee-6d0e-55ff-b32e-db31f281788c",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=02577cee-6d0e-55ff-b32e-db31f281788c"
+          },
+          {
+            "id": "09fe27da-122b-5421-bbe9-55e54d188cc4",
+            "job_id": "09fe27da-122b-5421-bbe9-55e54d188cc4",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=09fe27da-122b-5421-bbe9-55e54d188cc4"
+          },
+          {
+            "id": "0f221294-3a80-505e-a2d6-e325d5cf3ef5",
+            "job_id": "0f221294-3a80-505e-a2d6-e325d5cf3ef5",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=0f221294-3a80-505e-a2d6-e325d5cf3ef5"
+          },
+          {
+            "id": "1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa",
+            "job_id": "1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa"
+          },
+          {
+            "id": "1ee8daf5-83d2-5397-b9d7-b3382f42a896",
+            "job_id": "1ee8daf5-83d2-5397-b9d7-b3382f42a896",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=1ee8daf5-83d2-5397-b9d7-b3382f42a896"
+          },
+          {
+            "id": "20c0f614-c43a-558f-9f82-6f6cdf581cb9",
+            "job_id": "20c0f614-c43a-558f-9f82-6f6cdf581cb9",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=20c0f614-c43a-558f-9f82-6f6cdf581cb9"
+          },
+          {
+            "id": "21115f55-ae5c-5c12-ad20-b05e031ce55a",
+            "job_id": "21115f55-ae5c-5c12-ad20-b05e031ce55a",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=21115f55-ae5c-5c12-ad20-b05e031ce55a"
+          },
+          {
+            "id": "216a57e6-eb91-5324-be3f-05b76f10be0e",
+            "job_id": "216a57e6-eb91-5324-be3f-05b76f10be0e",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=216a57e6-eb91-5324-be3f-05b76f10be0e"
+          },
+          {
+            "id": "23d6f8e1-605e-5603-a78a-c3c20da4ec5f",
+            "job_id": "23d6f8e1-605e-5603-a78a-c3c20da4ec5f",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=23d6f8e1-605e-5603-a78a-c3c20da4ec5f"
+          }
+        ]
+      },
+      "course_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 3,
+          "by_status": {
+            "cancelled": 3
+          }
+        },
+        "recent": [
+          {
+            "id": "082a5b7f-2e5c-5e89-9208-6757300af79e",
+            "job_id": "082a5b7f-2e5c-5e89-9208-6757300af79e",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/082a5b7f-2e5c-5e89-9208-6757300af79e"
+          },
+          {
+            "id": "154041c7-8980-5cdd-9627-bd04e65c11eb",
+            "job_id": "154041c7-8980-5cdd-9627-bd04e65c11eb",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/154041c7-8980-5cdd-9627-bd04e65c11eb"
+          },
+          {
+            "id": "1da21119-27e4-5507-8f0d-1ed03d0d9c33",
+            "job_id": "1da21119-27e4-5507-8f0d-1ed03d0d9c33",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/1da21119-27e4-5507-8f0d-1ed03d0d9c33"
+          }
+        ]
+      },
+      "monitors": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "by_status": {
+            "active": 1
+          },
+          "by_source_kind": {
+            "autonomous_research": 1
+          }
+        },
+        "recent": [
+          {
+            "id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "status": "active",
+            "family": "weather",
+            "source_kind": "autonomous_research",
+            "created_at": "2026-11-14T15:01:00+00:00",
+            "href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=monitoring"
+          }
+        ]
+      },
+      "paper_accounts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "by_data_kind": {
+            "synthetic": 1
+          },
+          "monitors_without_account": 0
+        },
+        "recent": [
+          {
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "data_kind": "synthetic",
+            "created_at": "2026-11-14T15:01:00+00:00",
+            "href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=account"
+          }
+        ]
+      },
+      "alerts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "unresolved": 1,
+          "unacknowledged": 1,
+          "unresolved_unacknowledged": 1
+        },
+        "recent": [
+          {
+            "id": "a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "alert_id": "a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "kind": "stale_collection",
+            "opened_at": "2026-11-15T23:10:17+00:00",
+            "acknowledged_at": null,
+            "resolved_at": null,
+            "href": "#/ops?tab=alerts&monitor=5458d350-4b9f-4cb3-b023-714bf0e95f22&alert=a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "monitor_href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=monitoring"
+          }
+        ]
+      },
+      "readiness": {
+        "available": true,
+        "initialized": false,
+        "counts": {
+          "total": 0,
+          "by_status": {}
+        },
+        "recent": []
+      }
+    }
+  },
+  "paper": {
+    "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+    "cycles": 1,
+    "source_kind": "autonomous_research",
+    "data_kind": "synthetic"
+  },
+  "monitoring": {
+    "evaluation": "blocked",
+    "investigation_job_ids": [
+      "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+      "e869e9c2-ea9b-5308-8147-e8a4cde73872"
+    ]
+  },
+  "new_job": {
+    "id": "99d2a119-0466-4b50-83b2-835802558f80",
+    "status": "evaluated",
+    "provider": "local_templates",
+    "events": [
+      "queued",
+      "generating_hypotheses",
+      "planning_data",
+      "inventory",
+      "discovery",
+      "registering_features",
+      "features",
+      "modeling",
+      "experiment",
+      "experiment",
+      "evaluated"
+    ]
+  },
+  "demo_api_requests": [],
+  "summary_after": {
+    "schema": "workspace-summary-v1",
+    "recorded_metadata_only": true,
+    "recent_limit": 10,
+    "components": {
+      "research_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 60,
+          "by_status": {
+            "awaiting_observations": 2,
+            "cancelled": 28,
+            "evaluated": 2,
+            "failed": 28
+          }
+        },
+        "recent": [
+          {
+            "id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "family": "weather",
+            "status": "awaiting_observations",
+            "created_at": "2026-11-15T23:10:17+00:00",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc"
+          },
+          {
+            "id": "99d2a119-0466-4b50-83b2-835802558f80",
+            "job_id": "99d2a119-0466-4b50-83b2-835802558f80",
+            "family": "bitcoin",
+            "status": "evaluated",
+            "created_at": "2026-11-15T23:10:17+00:00",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/99d2a119-0466-4b50-83b2-835802558f80"
+          },
+          {
+            "id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "job_id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "family": "weather",
+            "status": "awaiting_observations",
+            "created_at": "2026-11-15T23:10:17+00:00",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/e869e9c2-ea9b-5308-8147-e8a4cde73872"
+          },
+          {
+            "id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+            "job_id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+            "family": "weather",
+            "status": "evaluated",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/research/0d5966f9-45e3-4c7c-bc66-d4fc12be6c81"
+          },
+          {
+            "id": "d4654598-8a17-595b-afad-67c5c051c68a",
+            "job_id": "d4654598-8a17-595b-afad-67c5c051c68a",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:59+00:00",
+            "updated_at": "2026-11-14T14:59:59+00:00",
+            "href": "#/research/d4654598-8a17-595b-afad-67c5c051c68a"
+          },
+          {
+            "id": "8624a672-b9a9-56aa-abac-e283b9c8b611",
+            "job_id": "8624a672-b9a9-56aa-abac-e283b9c8b611",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:58+00:00",
+            "updated_at": "2026-11-14T14:59:58+00:00",
+            "href": "#/research/8624a672-b9a9-56aa-abac-e283b9c8b611"
+          },
+          {
+            "id": "b523e86d-42cf-53be-bf35-d425ae673978",
+            "job_id": "b523e86d-42cf-53be-bf35-d425ae673978",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:57+00:00",
+            "updated_at": "2026-11-14T14:59:57+00:00",
+            "href": "#/research/b523e86d-42cf-53be-bf35-d425ae673978"
+          },
+          {
+            "id": "402f37ad-b086-5730-9a87-64a0e191d8ee",
+            "job_id": "402f37ad-b086-5730-9a87-64a0e191d8ee",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:56+00:00",
+            "updated_at": "2026-11-14T14:59:56+00:00",
+            "href": "#/research/402f37ad-b086-5730-9a87-64a0e191d8ee"
+          },
+          {
+            "id": "c0bc55ec-857b-5a62-8e81-bfbdef89d096",
+            "job_id": "c0bc55ec-857b-5a62-8e81-bfbdef89d096",
+            "family": "weather",
+            "status": "failed",
+            "created_at": "2026-11-14T14:59:55+00:00",
+            "updated_at": "2026-11-14T14:59:55+00:00",
+            "href": "#/research/c0bc55ec-857b-5a62-8e81-bfbdef89d096"
+          },
+          {
+            "id": "da2b4cbd-22ac-5cbe-9666-2085590100d9",
+            "job_id": "da2b4cbd-22ac-5cbe-9666-2085590100d9",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T14:59:54+00:00",
+            "updated_at": "2026-11-14T14:59:54+00:00",
+            "href": "#/research/da2b4cbd-22ac-5cbe-9666-2085590100d9"
+          }
+        ]
+      },
+      "experiments": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 68,
+          "with_recorded_result": 68,
+          "with_recorded_validation": 68,
+          "with_recorded_backtest": 68,
+          "with_recorded_model": 1,
+          "by_status": {
+            "completed": 57,
+            "refused": 11
+          },
+          "by_result_status": {
+            "awaiting_data": 2,
+            "evaluated": 1,
+            "insufficient_evidence": 56,
+            "unsupported": 9
+          },
+          "by_validation_status": {
+            "awaiting_data": 11,
+            "evaluated": 1,
+            "not_run": 56
+          },
+          "by_backtest_status": {
+            "awaiting_execution_evidence": 11,
+            "backtested": 1,
+            "blocked": 56
+          },
+          "by_data_kind": {
+            "real": 39,
+            "synthetic": 29
+          }
+        },
+        "recent": [
+          {
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "experiment_id": "sha256:28b43856b3f2caf4eb216e6fab0315769afcfc352d22597e561883007e7f251e",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc?tab=experiments&experiment=sha256%3A28b43856b3f2caf4eb216e6fab0315769afcfc352d22597e561883007e7f251e"
+          },
+          {
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "experiment_id": "sha256:37b61fad38e0990fe7d844e75d3f93baf17d6a7f8d241f51d75c2007cad58eab",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc?tab=experiments&experiment=sha256%3A37b61fad38e0990fe7d844e75d3f93baf17d6a7f8d241f51d75c2007cad58eab"
+          },
+          {
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "experiment_id": "sha256:c464d28d4f59a791768da220bdb7d65df4c20dd117232f771dda06851a906ce9",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc?tab=experiments&experiment=sha256%3Ac464d28d4f59a791768da220bdb7d65df4c20dd117232f771dda06851a906ce9"
+          },
+          {
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "experiment_id": "sha256:d70af323317613f7d69742a1c3b16bbb9ea6fac45ece08dbfa3cd7619d41b2ae",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc?tab=experiments&experiment=sha256%3Ad70af323317613f7d69742a1c3b16bbb9ea6fac45ece08dbfa3cd7619d41b2ae"
+          },
+          {
+            "job_id": "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+            "experiment_id": "sha256:dfe562ad2a253d58eaa9ddb1cf2289c87df9951546e2eb524a64312ec0a15bcc",
+            "status": "refused",
+            "result_status": "awaiting_data",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/78e8a3eb-afcd-5a77-8300-660ae983b2fc?tab=experiments&experiment=sha256%3Adfe562ad2a253d58eaa9ddb1cf2289c87df9951546e2eb524a64312ec0a15bcc"
+          },
+          {
+            "job_id": "99d2a119-0466-4b50-83b2-835802558f80",
+            "experiment_id": "sha256:4736eb4d863c2b172b42dd871ea8de5d5487be260d9e7c52fd95607ef651d1e3",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/99d2a119-0466-4b50-83b2-835802558f80?tab=experiments&experiment=sha256%3A4736eb4d863c2b172b42dd871ea8de5d5487be260d9e7c52fd95607ef651d1e3"
+          },
+          {
+            "job_id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "experiment_id": "sha256:0ffa9e60b3a89df93a708cbcd14b3de2b95b5d6ed4fdd4714b3b24cf5d974c63",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/e869e9c2-ea9b-5308-8147-e8a4cde73872?tab=experiments&experiment=sha256%3A0ffa9e60b3a89df93a708cbcd14b3de2b95b5d6ed4fdd4714b3b24cf5d974c63"
+          },
+          {
+            "job_id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "experiment_id": "sha256:32727b7e4a9a42e9faf4ea354930a64da5d1c19af0074034dfbe475669a94231",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/e869e9c2-ea9b-5308-8147-e8a4cde73872?tab=experiments&experiment=sha256%3A32727b7e4a9a42e9faf4ea354930a64da5d1c19af0074034dfbe475669a94231"
+          },
+          {
+            "job_id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "experiment_id": "sha256:39e9f63c52c2c3a56a525668aced1dfbd7dda5031b57f7ef983922877dcb13dc",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/e869e9c2-ea9b-5308-8147-e8a4cde73872?tab=experiments&experiment=sha256%3A39e9f63c52c2c3a56a525668aced1dfbd7dda5031b57f7ef983922877dcb13dc"
+          },
+          {
+            "job_id": "e869e9c2-ea9b-5308-8147-e8a4cde73872",
+            "experiment_id": "sha256:43f653df5ba008f907c4bffd6fdd8baea5d6fafe1a2079d34fe0938bbf975a5f",
+            "status": "refused",
+            "result_status": "unsupported",
+            "validation_status": "awaiting_data",
+            "backtest_status": "awaiting_execution_evidence",
+            "data_kind": "real",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/research/e869e9c2-ea9b-5308-8147-e8a4cde73872?tab=experiments&experiment=sha256%3A43f653df5ba008f907c4bffd6fdd8baea5d6fafe1a2079d34fe0938bbf975a5f"
+          }
+        ]
+      },
+      "legacy_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 54,
+          "by_status": {
+            "cancelled": 54
+          }
+        },
+        "recent": [
+          {
+            "id": "01c86719-55cc-5a2b-893b-d1b3b28aa90c",
+            "job_id": "01c86719-55cc-5a2b-893b-d1b3b28aa90c",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=01c86719-55cc-5a2b-893b-d1b3b28aa90c"
+          },
+          {
+            "id": "02577cee-6d0e-55ff-b32e-db31f281788c",
+            "job_id": "02577cee-6d0e-55ff-b32e-db31f281788c",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=02577cee-6d0e-55ff-b32e-db31f281788c"
+          },
+          {
+            "id": "09fe27da-122b-5421-bbe9-55e54d188cc4",
+            "job_id": "09fe27da-122b-5421-bbe9-55e54d188cc4",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=09fe27da-122b-5421-bbe9-55e54d188cc4"
+          },
+          {
+            "id": "0f221294-3a80-505e-a2d6-e325d5cf3ef5",
+            "job_id": "0f221294-3a80-505e-a2d6-e325d5cf3ef5",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=0f221294-3a80-505e-a2d6-e325d5cf3ef5"
+          },
+          {
+            "id": "1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa",
+            "job_id": "1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=1da44b5a-6dbb-5671-9ad2-afe1e2c1c5aa"
+          },
+          {
+            "id": "1ee8daf5-83d2-5397-b9d7-b3382f42a896",
+            "job_id": "1ee8daf5-83d2-5397-b9d7-b3382f42a896",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=1ee8daf5-83d2-5397-b9d7-b3382f42a896"
+          },
+          {
+            "id": "20c0f614-c43a-558f-9f82-6f6cdf581cb9",
+            "job_id": "20c0f614-c43a-558f-9f82-6f6cdf581cb9",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=20c0f614-c43a-558f-9f82-6f6cdf581cb9"
+          },
+          {
+            "id": "21115f55-ae5c-5c12-ad20-b05e031ce55a",
+            "job_id": "21115f55-ae5c-5c12-ad20-b05e031ce55a",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=21115f55-ae5c-5c12-ad20-b05e031ce55a"
+          },
+          {
+            "id": "216a57e6-eb91-5324-be3f-05b76f10be0e",
+            "job_id": "216a57e6-eb91-5324-be3f-05b76f10be0e",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=216a57e6-eb91-5324-be3f-05b76f10be0e"
+          },
+          {
+            "id": "23d6f8e1-605e-5603-a78a-c3c20da4ec5f",
+            "job_id": "23d6f8e1-605e-5603-a78a-c3c20da4ec5f",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/workbench?job=23d6f8e1-605e-5603-a78a-c3c20da4ec5f"
+          }
+        ]
+      },
+      "course_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 3,
+          "by_status": {
+            "cancelled": 3
+          }
+        },
+        "recent": [
+          {
+            "id": "082a5b7f-2e5c-5e89-9208-6757300af79e",
+            "job_id": "082a5b7f-2e5c-5e89-9208-6757300af79e",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/082a5b7f-2e5c-5e89-9208-6757300af79e"
+          },
+          {
+            "id": "154041c7-8980-5cdd-9627-bd04e65c11eb",
+            "job_id": "154041c7-8980-5cdd-9627-bd04e65c11eb",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/154041c7-8980-5cdd-9627-bd04e65c11eb"
+          },
+          {
+            "id": "1da21119-27e4-5507-8f0d-1ed03d0d9c33",
+            "job_id": "1da21119-27e4-5507-8f0d-1ed03d0d9c33",
+            "family": "weather",
+            "status": "cancelled",
+            "created_at": "2026-11-14T15:00:00+00:00",
+            "updated_at": "2026-11-14T15:00:00+00:00",
+            "href": "#/cis1990/1da21119-27e4-5507-8f0d-1ed03d0d9c33"
+          }
+        ]
+      },
+      "monitors": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "by_status": {
+            "suspended": 1
+          },
+          "by_source_kind": {
+            "autonomous_research": 1
+          }
+        },
+        "recent": [
+          {
+            "id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "status": "suspended",
+            "family": "weather",
+            "source_kind": "autonomous_research",
+            "created_at": "2026-11-14T15:01:00+00:00",
+            "href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=monitoring"
+          }
+        ]
+      },
+      "paper_accounts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "by_data_kind": {
+            "synthetic": 1
+          },
+          "monitors_without_account": 0
+        },
+        "recent": [
+          {
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "data_kind": "synthetic",
+            "created_at": "2026-11-14T15:01:00+00:00",
+            "href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=account"
+          }
+        ]
+      },
+      "alerts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 2,
+          "unresolved": 2,
+          "unacknowledged": 2,
+          "unresolved_unacknowledged": 2
+        },
+        "recent": [
+          {
+            "id": "a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "alert_id": "a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "kind": "stale_collection",
+            "opened_at": "2026-11-15T23:10:17+00:00",
+            "acknowledged_at": null,
+            "resolved_at": null,
+            "href": "#/ops?tab=alerts&monitor=5458d350-4b9f-4cb3-b023-714bf0e95f22&alert=a9f9345e-8c48-4bea-b8f0-dc5f1184f36e",
+            "monitor_href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=monitoring"
+          },
+          {
+            "id": "e23371f6-19d4-4f84-b4d2-26b7cb2b9cfc",
+            "alert_id": "e23371f6-19d4-4f84-b4d2-26b7cb2b9cfc",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "kind": "readiness_integrity",
+            "opened_at": "2026-11-15T23:10:17+00:00",
+            "acknowledged_at": null,
+            "resolved_at": null,
+            "href": "#/ops?tab=alerts&monitor=5458d350-4b9f-4cb3-b023-714bf0e95f22&alert=e23371f6-19d4-4f84-b4d2-26b7cb2b9cfc",
+            "monitor_href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=monitoring"
+          }
+        ]
+      },
+      "readiness": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 1,
+          "by_status": {
+            "invalidated": 1
+          }
+        },
+        "recent": [
+          {
+            "id": "sha256:f9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+            "proposal_id": "sha256:f9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54",
+            "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+            "status": "invalidated",
+            "created_at": "2026-11-15T23:10:17+00:00",
+            "updated_at": "2026-11-15T23:10:17+00:00",
+            "href": "#/paper/5458d350-4b9f-4cb3-b023-714bf0e95f22?tab=readiness&proposal=sha256%3Af9a41967a30db3c006dc9057dbd09734bca6c41d635a3ef9d395446eb4846c54"
+          }
+        ]
+      }
+    }
+  },
+  "source_after": {
+    "sha256": "24d26cf36565329b60ebfe1824127d8bf8af5fac5b868ad56ea071350d8fce3a",
+    "files": 699
+  },
+  "retained_originals_unchanged": true
+}

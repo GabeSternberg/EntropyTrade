@@ -1,5 +1,27 @@
 # EntropyTrade — current status
 
+## Unified frontend, Milestone F — November 17, 2026
+
+The website now links the persistent research lifecycle through exact saved experiment,
+paper, readiness and alert selections. Overview, Strategy Lab and Backtesting use full SQL
+counts with bounded recent references; recorded completion remains separate from verified
+scientific eligibility. Readable empty stores and unavailable data have distinct states.
+See [operations](docs/unified-frontend.md) and
+[executed acceptance](data/unified-frontend-review/20261117/README.md).
+
+- Existing databases supply metadata without training, source acquisition, alert refresh,
+  schema creation or application-state changes. Real/synthetic records, legacy runs and
+  CIS 1990 course runs remain distinguishable.
+- Tabs, pickers and selected records survive reload and Back/Forward. Invalid or missing
+  references refuse explicitly; automatic proposal restoration does not trap browser history.
+- Legacy workbench requests require visible Real mode, initialize lazily and discard stale
+  handlers/responses. Demo prevents new interface API dispatch; server jobs continue.
+- Independent review, 123 frontend tests, focused backend checks, all four native browser
+  procedures and complete CI pass. The final source collects 1,975 tests locally; CI's
+  completed offline-suite step is independently verified through GitHub run metadata.
+- Authentic evidence, certified fees, provider verification and private Windows installation
+  remain separate gates. Production submission remains disabled.
+
 ## Autonomous research, Milestone E — readiness and monitoring (November 16, 2026)
 
 Implementation adds immutable evidence-backed proposals, local owner authentication,
