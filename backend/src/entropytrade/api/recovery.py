@@ -16,12 +16,17 @@ from typing import Any
 from zipfile import ZIP_DEFLATED, ZIP_STORED, BadZipFile, ZipFile, ZipInfo
 
 from entropytrade.api.jobs import identifier, timestamp, validate_request
-from entropytrade.api.workspace import workspace_lease, workspace_path
+from entropytrade.api.workspace import (
+    publish_directory_no_replace,
+    workspace_lease,
+    workspace_path,
+)
 from entropytrade.data.sources import file_hash
 from entropytrade.domain.lifecycle import Actor
 from entropytrade.domain.strategy import StrategySpec
 from entropytrade.features.registry import scientific_hash
 from entropytrade.ml.forward import FrozenWeather
+from entropytrade.research.recovery import validate_research
 from entropytrade.tracking.readiness_store import (
     EMPTY_HASH,
     MAX_CAPITAL_CENTS,
@@ -507,6 +512,7 @@ def check_artifacts(root: Path, artifacts: list[dict[str, Any]]) -> None:
 
 def validate_database(root: Path) -> dict[str, int]:
     """Read-only schema, references and content validation; no migration or clock changes."""
+    validate_research(root)
     db = sqlite3.connect((root / "jobs.sqlite").as_uri() + "?mode=ro", uri=True)
     db.row_factory = sqlite3.Row
     try:
@@ -819,6 +825,25 @@ def snapshot_lease(repo: Path, workspace: Path, archive: Path) -> Iterator[dict[
     confined(repo, root / "jobs.sqlite")
     archive.parent.mkdir(parents=True, exist_ok=True)
     with workspace_lease(root), TemporaryDirectory(prefix=".snapshot-", dir=archive.parent) as name:
+        # Inspect capacity only while holding the existing writer lease. Allow room for
+        # staged source, its ZIP, and encryption without silently omitting evidence.
+        source_bytes = 0
+        for source_entries, source_path in enumerate(root.rglob("*"), 1):
+            details = source_path.lstat()
+            if source_entries > 2 * MAX_FILES or not (
+                stat.S_ISDIR(details.st_mode) or stat.S_ISREG(details.st_mode)
+            ):
+                raise ValueError(
+                    "workspace exceeds snapshot inventory budget or contains a symlink/special file"
+                )
+            if stat.S_ISREG(details.st_mode):
+                if details.st_size > MAX_FILE_BYTES:
+                    raise ValueError("workspace exceeds snapshot file budget")
+                source_bytes += details.st_size
+                if source_bytes > MAX_EXPANDED_BYTES:
+                    raise ValueError("workspace exceeds snapshot size budget")
+        if shutil.disk_usage(archive.parent).free < 3 * source_bytes + 32 * 1024**2:
+            raise ValueError("insufficient disk space for snapshot and encryption staging")
         stage = Path(name)
         payload = stage / "payload"
         payload.mkdir()
@@ -954,6 +979,8 @@ def unpack(repo: Path, archive: Path, stage: Path) -> dict[str, Any]:
                 or total > (MAX_BYTES if legacy else MAX_EXPANDED_BYTES)
             ):
                 raise ValueError("snapshot exceeds size budget or has invalid sizes")
+        if shutil.disk_usage(stage).free < total + 32 * 1024 * 1024:
+            raise ValueError("insufficient free space for expanded workspace restore")
         directories = manifest["directories"]
         if not isinstance(directories, list) or len(directories) > MAX_FILES:
             raise ValueError("snapshot exceeds directory budget")
@@ -995,7 +1022,7 @@ def restore(repo: Path, archive: Path, workspace: Path) -> dict[str, Any]:
         # every original timestamp remain untouched. Never fit/promote on restore.
         if destination.exists():
             raise ValueError("restore destination appeared during verification")
-        stage.rename(destination)
+        publish_directory_no_replace(stage, destination)
     return {
         "workspace": str(destination),
         "archive_sha256": file_hash(archive),

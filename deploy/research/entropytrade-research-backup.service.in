@@ -1,0 +1,36 @@
+[Unit]
+Description=Stop only research, verified encrypted backup, restart if previously active
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=@CHECKOUT@
+ExecStart=@PYTHON@ -m entropytrade.operations.research_server backup --config @CONFIG@
+Environment=PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+Environment=XDG_RUNTIME_DIR=/run/user/@UID@
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/@UID@/bus
+UMask=0077
+TimeoutStartSec=20min
+TimeoutStopSec=330
+KillSignal=SIGINT
+KillMode=mixed
+SendSIGKILL=yes
+NoNewPrivileges=yes
+PrivateUsers=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=@WORKSPACE@ @BACKUPS@ @RECOVERY@
+InaccessiblePaths=@COLLECTOR@
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+RestrictAddressFamilies=AF_UNIX
+CapabilityBoundingSet=
+StandardOutput=journal
+StandardError=journal

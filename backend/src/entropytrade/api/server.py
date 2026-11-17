@@ -14,6 +14,7 @@ from urllib.parse import unquote, urlsplit
 
 from entropytrade.api.jobs import COURSE_MODE, Jobs, identifier, provider_config
 from entropytrade.api.owner import OwnerAuth, OwnerAuthError, OwnerRateError
+from entropytrade.api.private_access import PrivateAccess
 from entropytrade.api.runner import COURSE_KEY_VARIABLE, Runner
 from entropytrade.api.workspace import acquire_workspace
 from entropytrade.api.workspace import workspace_path as workspace_path
@@ -54,7 +55,14 @@ class WorkbenchServer(ThreadingHTTPServer):
         port: int = 43128,
         research_provider: dict[str, str] | None = None,
         owner_file: Path | None = None,
+        private_origin: str | None = None,
+        tailscale_owner: str | None = None,
     ) -> None:
+        self.private_access = PrivateAccess.configure(private_origin, tailscale_owner, owner_file)
+        if self.private_access is not None:
+            from entropytrade.operations.research_server import validate_research_layout
+
+            validate_research_layout(repo, workspace)
         self.repo = repo.resolve()
         self.owner = OwnerAuth(self.repo, owner_file)
         self.research_provider = provider_config(research_provider) if research_provider else None
@@ -63,6 +71,8 @@ class WorkbenchServer(ThreadingHTTPServer):
         try:
             reject_collector_chain(workspace)
         except CollectorChainError:
+            if self.private_access is not None:
+                raise  # private research must never initialize the canonical collector
             # The existing collector serves its legacy API from chain/.work-*.
             # Keep that collection path usable without activating research or E writes.
             collector_workspace = True
@@ -134,6 +144,9 @@ class Handler(BaseHTTPRequestHandler):
         del format, args
 
     def safe_origin(self) -> bool:
+        private: PrivateAccess | None = getattr(self.server, "private_access", None)
+        if private is not None:
+            return self.path.startswith("/") and private.accepts(self.headers, method=self.command)
         host = self.headers.get("Host", "")
         port = self.server.server_port
         if host not in {f"127.0.0.1:{port}", f"localhost:{port}"}:
@@ -172,7 +185,36 @@ class Handler(BaseHTTPRequestHandler):
         self.send(status, json.dumps(value, allow_nan=False).encode(), cookie=cookie)
 
     def owner_audience(self) -> str:
+        private: PrivateAccess | None = getattr(self.server, "private_access", None)
+        if private is not None:
+            return private.origin
         return "http://" + self.headers.get("Host", "")
+
+    def private_session(self, path: str) -> bool:
+        """Gate every private API route, including downloads and unknown future APIs."""
+        if getattr(self.server, "private_access", None) is None or not (
+            path == "/api" or path.startswith("/api/")
+        ):
+            return True
+        if (self.command == "GET" and path == "/api/owner") or (
+            self.command == "POST" and path in {"/api/owner/login", "/api/owner/logout"}
+        ):
+            return True
+        try:
+            with self.server.owner.authorize(self.headers.get("Cookie"), self.owner_audience()):
+                return True
+        except (OwnerAuthError, OSError, ValueError):
+            self.document(401, {"error": "An authenticated owner session is required"})
+            return False
+
+    def send_error(self, code: int, message: str | None = None, explain: str | None = None) -> None:
+        if code == 501 and getattr(self.server, "private_access", None) is not None:
+            if not self.safe_origin():
+                self.document(403, {"error": "verified same-origin access required"})
+            elif self.private_session(urlsplit(self.path).path):
+                self.document(405, {"error": "method not allowed"})
+            return
+        super().send_error(code, message, explain)
 
     def readiness_route(self) -> tuple[str, str] | None:
         from entropytrade.research.readiness import proposal_identifier
@@ -251,12 +293,20 @@ class Handler(BaseHTTPRequestHandler):
             self.document(
                 200,
                 auth.status(auth.cookie_name + "=" + token, audience),
-                cookie=auth.set_cookie(token),
+                cookie=auth.set_cookie(
+                    token, secure=getattr(self.server, "private_access", None) is not None
+                ),
             )
             return True
         if path == "/api/owner/logout" and value == {}:
             auth.logout(cookies)
-            self.document(200, auth.status(None, audience), cookie=auth.set_cookie(None))
+            self.document(
+                200,
+                auth.status(None, audience),
+                cookie=auth.set_cookie(
+                    None, secure=getattr(self.server, "private_access", None) is not None
+                ),
+            )
             return True
         if path == "/api/controls/halt":
             if (
@@ -397,9 +447,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         if not self.safe_origin():
-            self.document(403, {"error": "localhost same-origin access required"})
+            self.document(403, {"error": "verified same-origin access required"})
             return
         path = urlsplit(self.path).path
+        if not self.private_session(path):
+            return
         try:
             if self.governance_get(path):
                 return
@@ -677,6 +729,8 @@ class Handler(BaseHTTPRequestHandler):
         ):
             self.document(403, {"error": "same-origin token required"})
             return
+        if not self.private_session(urlsplit(self.path).path):
+            return
         if self.headers.get("Content-Type") != "application/json" or self.headers.get(
             "Transfer-Encoding"
         ):
@@ -872,6 +926,8 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=43128)
     parser.add_argument("--workspace", type=Path, default=Path("data/cache/workbench"))
     parser.add_argument("--owner-file", type=Path)
+    parser.add_argument("--private-origin")
+    parser.add_argument("--tailscale-owner")
     parser.add_argument("--research-provider", choices=("openai", "anthropic"))
     parser.add_argument("--research-model")
     args = parser.parse_args()
@@ -890,6 +946,8 @@ def main() -> None:
         port=args.port,
         research_provider=configured,
         owner_file=args.owner_file.expanduser() if args.owner_file else None,
+        private_origin=args.private_origin,
+        tailscale_owner=args.tailscale_owner,
     )
     server.runner.start()
     server.shadow.start()

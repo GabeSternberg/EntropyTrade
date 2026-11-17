@@ -5,7 +5,8 @@ Milestone F software acceptance passed. All four final browser procedures passed
 [CI run 44030745318](https://github.com/GabeSternberg/EntropyTrade/actions/runs/44030745318)
 completed successfully at 06:42:05 UTC against application commit
 `e03f56b9ec79e2d8c003adfdd03b8da42065e445`, including the complete offline pytest step.
-The feature branch is awaiting integration into main.
+[PR #33](https://github.com/GabeSternberg/EntropyTrade/pull/33) is merged into main at
+`6690990503a926c822f8f25afe33bd9563768b56`.
 
 Final-source Ruff/format and strict mypy pass on 648 files. All 123 frontend tests pass.
 Focused summary/SQLite checks passed 25 cases in 4.19 seconds (23 summary cases and two
