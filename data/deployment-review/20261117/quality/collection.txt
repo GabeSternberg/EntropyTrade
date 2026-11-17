@@ -1490,6 +1490,8 @@ backend/tests/unit/test_research_recovery.py::test_rewritten_artifact_checksum_c
 backend/tests/unit/test_research_recovery.py::test_rewritten_artifact_checksum_cannot_disagree_with_frozen_model_reference[*.paper.json]
 backend/tests/unit/test_research_recovery.py::test_unfinished_bytes_and_historical_identities_survive_restore_without_resume
 backend/tests/unit/test_research_recovery.py::test_restore_revalidates_staged_evidence_before_atomic_publication
+backend/tests/unit/test_research_recovery.py::test_multi_source_policy_change_cannot_reuse_an_old_requirement_identity
+backend/tests/unit/test_research_recovery.py::test_registered_feature_metadata_must_equal_its_frozen_manifest
 backend/tests/unit/test_research_server.py::test_layout_refuses_before_writes[collector]
 backend/tests/unit/test_research_server.py::test_layout_refuses_before_writes[overlap]
 backend/tests/unit/test_research_server.py::test_layout_refuses_before_writes[chain]
@@ -2120,4 +2122,4 @@ backend/tests/unit/test_zero_bids.py::test_zero_bids_are_not_a_fill
 backend/tests/unit/test_zero_volumes.py::test_the_loader_does_not_open_a_socket
 backend/tests/unit/test_zero_volumes.py::test_zero_volumes_are_not_missing
 
-2121 tests collected in 5.57s
+2123 tests collected in 5.68s

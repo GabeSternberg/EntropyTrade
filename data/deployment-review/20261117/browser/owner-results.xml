@@ -1,0 +1,18 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="332.46324699999997">
+<testsuite name="readiness.spec.cjs" timestamp="2026-11-17T20:49:08.462Z" hostname="" tests="2" failures="0" skipped="0" time="327.06" errors="0">
+<testcase name="readiness oversight: production evidence and unconfigured owner refusal" classname="readiness.spec.cjs" time="15.496">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="readiness oversight: CONTROLLED owner review and audit recovery" classname="readiness.spec.cjs" time="311.564">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

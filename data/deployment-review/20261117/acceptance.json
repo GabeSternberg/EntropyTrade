@@ -1,0 +1,109 @@
+{
+  "browser": {
+    "console_errors": [],
+    "lifecycle": {
+      "duration": 82299.24500000001,
+      "expected": 4,
+      "flaky": 0,
+      "skipped": 0,
+      "startTime": "2026-11-17T20:56:42.943Z",
+      "unexpected": 0
+    },
+    "lifecycle_source": {
+      "files": 711,
+      "sha256": "56038ccab84068955ac0e71378b67466140205142bd0072d54d0bb15d9970d90"
+    },
+    "native_mode": "actual localhost HTTP services with controlled synthetic research/paper inputs; not actual private TLS or Tailscale",
+    "owner_recovery": {
+      "duration": 332463.247,
+      "expected": 2,
+      "flaky": 0,
+      "skipped": 0,
+      "startTime": "2026-11-17T20:49:08.429Z",
+      "unexpected": 0
+    },
+    "owner_source": {
+      "files": 681,
+      "sha256": "d66ce2ac5f8f7de0f3aabcf75653c62c951f50d306126b5e8a8bdbfadd21b485"
+    },
+    "page_errors": [],
+    "raw_lifecycle": "data/cache/deployment-browser-final-3",
+    "raw_owner": "data/cache/deployment-owner-browser-final-4",
+    "source_scope": "Fingerprints use each native harness documented file scope; all before/after pairs agree. Application/CI source also matches the accepted Git commit.",
+    "three_restart_restore_exports_sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+  },
+  "date": "2026-11-17",
+  "external_gates": {
+    "actual_mac_and_phone_access": "not_executed",
+    "actual_offsite_upload_download_and_offline_user_key_restore": "not_executed",
+    "authenticated_live_ai_provider": "credentials_unavailable",
+    "physical_windows_wsl_units_and_namespaces": "not_executed",
+    "sufficient_authentic_strategy_evidence_and_certified_fees": "still_required",
+    "tailscale_https_acl_and_identity": "not_executed",
+    "windows_task_scheduler_and_reboot": "not_executed"
+  },
+  "manual_protected_key_drill": {
+    "actual_interactive_pinentry_tested": false,
+    "ciphertext_hash_checked_before_unlock": true,
+    "collector_accessed": false,
+    "controlled_stdin_unlock_then_production_noninteractive_cache_reuse": true,
+    "counts": {
+      "datasets": 2,
+      "experiments": 1,
+      "features": 3,
+      "jobs": 1
+    },
+    "data_kind": "synthetic",
+    "generation_agent_stopped_before_unlock": true,
+    "gpg": "gpg (GnuPG) 2.4.7",
+    "immutable_hashes_equal": true,
+    "offsite_transfer_tested": false,
+    "passphrase_protected_key": true,
+    "status": "passed",
+    "submission_enabled": false,
+    "windows_configured": false
+  },
+  "offsite_backup_configured": false,
+  "physical_collector_accessed": false,
+  "physical_collector_modified": false,
+  "quality": {
+    "complete_ci": {
+      "decoded_log_sha256": "410c22116b37fb4433f98585336363076a831a4fbc49504f491f197b73989f86",
+      "job_id": 134357586562,
+      "log": "quality/ci-44173222729.log.gz",
+      "pytest_passed": 2123,
+      "pytest_seconds": 1652.33,
+      "run_id": 44173222729,
+      "status": "passed",
+      "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/44173222729"
+    },
+    "earlier_incremental_checks": "Historical logs, including corrected failures, are retained and are not represented as final-source full-suite runs.",
+    "format": "passed",
+    "local_research_orchestration": {
+      "log": "quality/orchestration-recovery-56.log",
+      "passed": 56,
+      "seconds": 27.11
+    },
+    "node_passed": 125,
+    "ruff": "passed",
+    "strict_mypy_files": 660
+  },
+  "review": "review.md",
+  "runbook": "docs/windows-research-server.md",
+  "schema": "entropytrade-deployment-acceptance-v1",
+  "scientific_limits": [
+    "Positive fitted/paper/crypto fixtures are controlled synthetic software evidence.",
+    "Metadata count probes labelled real do not establish authentic data or profitability.",
+    "Current adverse-execution eligibility gate remains unchanged; owner review cannot authorize live orders."
+  ],
+  "source": {
+    "application_and_ci_head": "76add54535908bb996cb30183f6663f2883b45cf",
+    "base_main": "6690990503a926c822f8f25afe33bd9563768b56",
+    "branch": "feature/windows-research-deployment",
+    "completion_changes": "documentation and retained evidence only; application, tests, templates and CI configuration unchanged from accepted source",
+    "pull_request": "https://github.com/GabeSternberg/EntropyTrade/pull/34"
+  },
+  "status": "software_accepted",
+  "submission_enabled": false,
+  "windows_configured": false
+}

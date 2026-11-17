@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "scenario": "unavailable",
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "56038ccab84068955ac0e71378b67466140205142bd0072d54d0bb15d9970d90",
+    "files": 711
+  },
+  "screenshots": [
+    "unavailable-overview.png"
+  ],
+  "downloads": [],
+  "api_requests": [
+    {
+      "path": "/api/workspace/summary",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    }
+  ],
+  "posts": [],
+  "page_errors": [],
+  "console_errors": [],
+  "submission_enabled": false,
+  "summary": {
+    "schema": "workspace-summary-v1",
+    "recorded_metadata_only": true,
+    "recent_limit": 10,
+    "components": {
+      "research_jobs": {
+        "available": false,
+        "initialized": null,
+        "counts": null,
+        "recent": []
+      },
+      "experiments": {
+        "available": false,
+        "initialized": null,
+        "counts": null,
+        "recent": []
+      },
+      "legacy_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 0,
+          "by_status": {}
+        },
+        "recent": []
+      },
+      "course_jobs": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 0,
+          "by_status": {}
+        },
+        "recent": []
+      },
+      "monitors": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 0,
+          "by_status": {},
+          "by_source_kind": {}
+        },
+        "recent": []
+      },
+      "paper_accounts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 0,
+          "by_data_kind": {},
+          "monitors_without_account": 0
+        },
+        "recent": []
+      },
+      "alerts": {
+        "available": true,
+        "initialized": true,
+        "counts": {
+          "total": 0,
+          "unresolved": 0,
+          "unacknowledged": 0,
+          "unresolved_unacknowledged": 0
+        },
+        "recent": []
+      },
+      "readiness": {
+        "available": true,
+        "initialized": false,
+        "counts": {
+          "total": 0,
+          "by_status": {}
+        },
+        "recent": []
+      }
+    }
+  },
+  "source_after": {
+    "sha256": "56038ccab84068955ac0e71378b67466140205142bd0072d54d0bb15d9970d90",
+    "files": 711
+  },
+  "retained_originals_unchanged": true
+}

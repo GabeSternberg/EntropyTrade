@@ -1,0 +1,122 @@
+{
+  "status": "passed",
+  "data_kind": "synthetic",
+  "controlled_readiness": false,
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "d66ce2ac5f8f7de0f3aabcf75653c62c951f50d306126b5e8a8bdbfadd21b485",
+    "files": 681
+  },
+  "posts": [
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/controls/halt",
+      "body": {
+        "reason": "Controlled refusal acceptance"
+      }
+    }
+  ],
+  "sensitive_requests": [
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A607b3b5dc137aa0ff9ae9b334dda7e6a008e59df73d029e35d36ce45a67a7ed3",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A607b3b5dc137aa0ff9ae9b334dda7e6a008e59df73d029e35d36ce45a67a7ed3",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/halt",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/9932093d-c6c8-477c-8681-f7979102cf3a/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A607b3b5dc137aa0ff9ae9b334dda7e6a008e59df73d029e35d36ce45a67a7ed3",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    }
+  ],
+  "screenshots": [
+    "production-blocked-readiness.png",
+    "demo-oversight-disabled.png"
+  ],
+  "downloads": [],
+  "page_errors": [],
+  "console_errors": [],
+  "source_after": {
+    "sha256": "d66ce2ac5f8f7de0f3aabcf75653c62c951f50d306126b5e8a8bdbfadd21b485",
+    "files": 681
+  }
+}

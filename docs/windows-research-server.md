@@ -203,10 +203,11 @@ $ResearchTaskName = 'EntropyTrade research WSL lifetime'
 $ResearchWindowsUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 if (Get-ScheduledTask -TaskName $ResearchTaskName -ErrorAction SilentlyContinue) { throw 'Task already exists; inspect it first' }
 $ResearchCredential = Get-Credential -UserName $ResearchWindowsUser -Message 'Account owning this WSL distribution'
-$ResearchAction = New-ScheduledTaskAction -Execute "$env:WINDIR\System32\wsl.exe" -Argument "--distribution $ResearchDistro --user $ResearchLinuxUser --exec /usr/bin/sleep infinity"
+$ResearchArguments = '--distribution "{0}" --user "{1}" --exec /usr/bin/sleep infinity' -f $ResearchDistro, $ResearchLinuxUser
+$ResearchAction = New-ScheduledTaskAction -Execute "$env:WINDIR\System32\wsl.exe" -Argument $ResearchArguments
 $ResearchTrigger = New-ScheduledTaskTrigger -AtStartup
 $ResearchSettings = New-ScheduledTaskSettingsSet -StartWhenAvailable -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit ([TimeSpan]::Zero) -MultipleInstances IgnoreNew -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
-Register-ScheduledTask -TaskName $ResearchTaskName -Action $ResearchAction -Trigger $ResearchTrigger -Settings $ResearchSettings -User $ResearchCredential.UserName -Password $ResearchCredential.GetNetworkCredential().Password -RunLevel Limited
+Register-ScheduledTask -TaskName $ResearchTaskName -Action $ResearchAction -Trigger $ResearchTrigger -Settings $ResearchSettings -User $ResearchCredential.UserName -Password ($ResearchCredential.GetNetworkCredential().Password) -RunLevel Limited
 Remove-Variable ResearchCredential
 Start-ScheduledTask -TaskName $ResearchTaskName
 Get-ScheduledTaskInfo -TaskName $ResearchTaskName

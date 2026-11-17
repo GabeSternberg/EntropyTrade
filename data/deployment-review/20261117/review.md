@@ -57,3 +57,16 @@ The runbook requires trusted physical HTTPS and allowed/denied identities before
 
 No empirical edge, authentic strategy eligibility, paid-provider verification, offsite copy,
 Windows installation or live-money readiness follows from these controlled software tests.
+
+A separate real GnuPG drill used an ephemeral passphrase-protected key and actual synthetic
+application artifacts. It stopped the key-generation agent, unlocked via controlled stdin,
+then used the unchanged production noninteractive restore through the new agent cache.
+Every immutable file hash and research count matched. This proves cached-key reuse; it does
+not claim interactive pinentry, an actual remote download or the user's offline key was tested.
+The exact executed driver and receipt are retained under quality/protected-key-drill.*.
+
+Final acceptance: application commit 76add54535908bb996cb30183f6663f2883b45cf passes the
+complete CI suite (2,123 tests in 1,652.33 seconds), Ruff/format, strict mypy and 125 frontend
+tests. All six current-source native cases pass, including byte-identical restart/restore
+exports. Review accepts this software increment. Physical Windows/Tailscale/device/reboot
+and genuine offsite/user-key acceptance remain unexecuted gates.

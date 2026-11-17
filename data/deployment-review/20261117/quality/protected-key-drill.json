@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "data_kind": "synthetic",
+  "gpg": "gpg (GnuPG) 2.4.7",
+  "passphrase_protected_key": true,
+  "generation_agent_stopped_before_unlock": true,
+  "controlled_stdin_unlock_then_production_noninteractive_cache_reuse": true,
+  "actual_interactive_pinentry_tested": false,
+  "counts": {
+    "jobs": 1,
+    "datasets": 2,
+    "features": 3,
+    "experiments": 1
+  },
+  "immutable_hashes_equal": true,
+  "ciphertext_hash_checked_before_unlock": true,
+  "offsite_transfer_tested": false,
+  "windows_configured": false,
+  "collector_accessed": false,
+  "submission_enabled": false
+}

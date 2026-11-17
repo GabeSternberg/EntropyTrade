@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "browser": "141.0.7390.37",
+  "screenshots": [
+    "real-overview.png",
+    "real-paper.png",
+    "real-operations.png",
+    "real-workbench.png",
+    "demo-overview.png",
+    "demo-markets.png",
+    "demo-market-detail.png",
+    "demo-strategy-lab.png",
+    "demo-strategy-detail.png",
+    "demo-analytics-costs.png",
+    "demo-analytics.png",
+    "demo-paper.png",
+    "demo-operations.png",
+    "demo-settings.png",
+    "demo-mobile-markets.png",
+    "demo-tablet-overview.png"
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "demo_requests": [],
+  "submission_enabled": false
+}

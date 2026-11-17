@@ -1,0 +1,668 @@
+{
+  "status": "passed",
+  "data_kind": "synthetic",
+  "controlled_readiness": true,
+  "browser": "141.0.7390.37",
+  "source_before": {
+    "sha256": "d66ce2ac5f8f7de0f3aabcf75653c62c951f50d306126b5e8a8bdbfadd21b485",
+    "files": 681
+  },
+  "posts": [
+    {
+      "path": "/api/owner/login",
+      "body": {
+        "password": "[REDACTED CONTROLLED TEST INPUT]"
+      }
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "body": {
+        "capital_dollars": "100.00",
+        "max_loss_dollars": "10.00"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a/review",
+      "body": {
+        "decision": "approve",
+        "expected_revision": 0,
+        "note": "Reviewed actual retained synthetic wires and bounded capital"
+      }
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "body": {
+        "capital_dollars": "200.00",
+        "max_loss_dollars": "15.00"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce/review",
+      "body": {
+        "decision": "reject",
+        "expected_revision": 0,
+        "note": "Reject this larger proposed envelope for controlled review coverage"
+      }
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce/rollback",
+      "body": {
+        "target_proposal_id": "sha256:42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+        "reason": "Review prior server references without replacing the deployed model"
+      }
+    },
+    {
+      "path": "/api/owner/logout",
+      "body": {}
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4/revoke",
+      "body": {
+        "reason": "Withdraw pending controlled proposal"
+      }
+    },
+    {
+      "path": "/api/controls/halt",
+      "body": {
+        "reason": "Check the persistent global barrier"
+      }
+    },
+    {
+      "path": "/api/owner/login",
+      "body": {
+        "password": "[REDACTED CONTROLLED TEST INPUT]"
+      }
+    },
+    {
+      "path": "/api/controls/release",
+      "body": {
+        "reason": "Owner reviewed the barrier state",
+        "expected_epoch": 1
+      }
+    }
+  ],
+  "sensitive_requests": [
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/login",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a/review",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/monitoring",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce/review",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A4bce1b201dc24eb149f2ae35d985477c608daee2b64e6532458f267307e699ce/rollback",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/logout",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4/revoke",
+      "method": "POST"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/halt",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner/login",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls/release",
+      "method": "POST"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A42934b5882c4c112d6b150f855a758d48e6b2e9051cee682ac792506d5f60f1a",
+      "method": "GET"
+    },
+    {
+      "path": "/api/monitors/2305060e-bfda-422b-bceb-b9d66f4170f8/readiness",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/readiness/sha256%3A7c34a1285799cd64117f3a7de24d5fffdef6822b939b5e998f6ab5f57ff7a7c4",
+      "method": "GET"
+    },
+    {
+      "path": "/api/owner",
+      "method": "GET"
+    },
+    {
+      "path": "/api/controls",
+      "method": "GET"
+    }
+  ],
+  "screenshots": [
+    "actual-readiness-monitoring.png",
+    "owner-readiness-audit.png",
+    "readiness-mobile.png",
+    "restored-readiness.png",
+    "demo-oversight-disabled.png"
+  ],
+  "downloads": [
+    {
+      "file": "revoked-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    },
+    {
+      "file": "restarted-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    },
+    {
+      "file": "restored-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    }
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "evidence": {
+    "cycles": 23,
+    "independent_events": 21,
+    "evidence_hash": "sha256:e2b8505cca9133bba4fefa851c869276278fa07a4237e5fca74b04ae28cbcb9e"
+  },
+  "monitoring": {
+    "status": "pending",
+    "evidence_as_of": "2026-12-06T23:00:27+00:00",
+    "signal_kinds": [],
+    "incident_ids": []
+  },
+  "snapshot": {
+    "archive": "/workspace/EntropyTrade-paper/data/cache/deployment-owner-browser-final-4/controlled-readiness/workspace.zip",
+    "sha256": "sha256:9fbb07d0618902039a014ba1860f695c2754394c32791f4db3d5784c9970015c",
+    "jobs": 0,
+    "monitors": 1,
+    "cycles": 23,
+    "submission_enabled": false
+  },
+  "restore": {
+    "workspace": "/workspace/EntropyTrade-paper/data/cache/deployment-owner-workspace-final-4-controlled-readiness-restored",
+    "archive_sha256": "sha256:9fbb07d0618902039a014ba1860f695c2754394c32791f4db3d5784c9970015c",
+    "jobs": 0,
+    "monitors": 1,
+    "cycles": 23,
+    "submission_enabled": false
+  },
+  "source_after": {
+    "sha256": "d66ce2ac5f8f7de0f3aabcf75653c62c951f50d306126b5e8a8bdbfadd21b485",
+    "files": 681
+  }
+}

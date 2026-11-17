@@ -1,5 +1,22 @@
 # EntropyTrade — current status
 
+## Private Windows deployment readiness — November 17, 2026
+
+The research-only deployment software passes acceptance: private HTTPS audience/owner-session
+enforcement, pinned user services, verified encrypted workspace recovery and read-only
+collector-history export. [PR #34](https://github.com/GabeSternberg/EntropyTrade/pull/34)
+contains this increment. Complete CI passes **2,123 Python tests**, Ruff/format, strict mypy
+(660 files) and 125 frontend tests; all six final native browser cases pass. Restart/restore
+exports are byte-identical, and a protected-key application restore drill preserves immutable
+hashes. See [executed evidence](data/deployment-review/20261117/README.md).
+
+Actual Windows/WSL installation, Tailscale HTTPS/policy, Mac/phone access, reboot and offsite
+upload/download/offline-key restore still require the physical machines and accounts.
+The [exact operating guide](docs/windows-research-server.md) provides those steps. No physical
+collector was accessed or modified; live submission remains disabled. Positive fixtures are
+synthetic. Authentic strategy evidence, certified fees and live-provider verification remain
+external gates.
+
 ## Unified frontend, Milestone F — November 17, 2026
 
 The website now links the persistent research lifecycle through exact saved experiment,

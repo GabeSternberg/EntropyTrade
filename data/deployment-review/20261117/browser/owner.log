@@ -1,0 +1,13 @@
+
+Running 2 tests using 1 worker
+
+(node:9246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9246) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: production evidence and unconfigured owner refusal (15.5s)
+  ✓  2 frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: CONTROLLED owner review and audit recovery (5.2m)
+
+  Slow test file: frontend/browser/readiness.spec.cjs (5.5m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  2 passed (5.5m)
