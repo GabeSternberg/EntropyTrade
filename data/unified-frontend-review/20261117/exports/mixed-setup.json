@@ -1,0 +1,26 @@
+{
+  "scenario": "mixed",
+  "data_kind": "synthetic",
+  "legacy_job_id": "e9f16bdc-b926-5b4d-9b3f-0c90c212954e",
+  "course_job_id": "082a5b7f-2e5c-5e89-9208-6757300af79e",
+  "metadata_only_rows": {
+    "research_jobs": 56,
+    "experiments": 56,
+    "legacy_jobs": 54,
+    "course_jobs": 3
+  },
+  "expected_totals": {
+    "research_jobs": 57,
+    "experiments": 57,
+    "legacy_jobs": 54,
+    "course_jobs": 3,
+    "monitors": 1,
+    "paper_accounts": 1
+  },
+  "metadata_warning": "Count probes are stored metadata only; real/synthetic labels do not establish evidence authenticity or performance.",
+  "job_id": "0d5966f9-45e3-4c7c-bc66-d4fc12be6c81",
+  "experiment_id": "sha256:3eb0eddf545bca91fe93ebaffaebc87b502f697028691fb87883feda346558dc",
+  "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+  "computed_paper_cycles": 1,
+  "alert_id": "a9f9345e-8c48-4bea-b8f0-dc5f1184f36e"
+}

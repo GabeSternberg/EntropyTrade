@@ -1,0 +1,197 @@
+{
+  "after": {
+    "alerts": {
+      "total": 2,
+      "unacknowledged": 2,
+      "unresolved": 2,
+      "unresolved_unacknowledged": 2
+    },
+    "course_jobs": {
+      "by_status": {
+        "cancelled": 3
+      },
+      "total": 3
+    },
+    "experiments": {
+      "by_backtest_status": {
+        "awaiting_execution_evidence": 11,
+        "backtested": 1,
+        "blocked": 56
+      },
+      "by_data_kind": {
+        "real": 39,
+        "synthetic": 29
+      },
+      "by_result_status": {
+        "awaiting_data": 2,
+        "evaluated": 1,
+        "insufficient_evidence": 56,
+        "unsupported": 9
+      },
+      "by_status": {
+        "completed": 57,
+        "refused": 11
+      },
+      "by_validation_status": {
+        "awaiting_data": 11,
+        "evaluated": 1,
+        "not_run": 56
+      },
+      "total": 68,
+      "with_recorded_backtest": 68,
+      "with_recorded_model": 1,
+      "with_recorded_result": 68,
+      "with_recorded_validation": 68
+    },
+    "legacy_jobs": {
+      "by_status": {
+        "cancelled": 54
+      },
+      "total": 54
+    },
+    "monitors": {
+      "by_source_kind": {
+        "autonomous_research": 1
+      },
+      "by_status": {
+        "suspended": 1
+      },
+      "total": 1
+    },
+    "paper_accounts": {
+      "by_data_kind": {
+        "synthetic": 1
+      },
+      "monitors_without_account": 0,
+      "total": 1
+    },
+    "readiness": {
+      "by_status": {
+        "invalidated": 1
+      },
+      "total": 1
+    },
+    "research_jobs": {
+      "by_status": {
+        "awaiting_observations": 2,
+        "cancelled": 28,
+        "evaluated": 2,
+        "failed": 28
+      },
+      "total": 60
+    }
+  },
+  "before": {
+    "alerts": {
+      "total": 1,
+      "unacknowledged": 1,
+      "unresolved": 1,
+      "unresolved_unacknowledged": 1
+    },
+    "course_jobs": {
+      "by_status": {
+        "cancelled": 3
+      },
+      "total": 3
+    },
+    "experiments": {
+      "by_backtest_status": {
+        "backtested": 1,
+        "blocked": 56
+      },
+      "by_data_kind": {
+        "real": 28,
+        "synthetic": 29
+      },
+      "by_result_status": {
+        "evaluated": 1,
+        "insufficient_evidence": 56
+      },
+      "by_status": {
+        "completed": 57
+      },
+      "by_validation_status": {
+        "evaluated": 1,
+        "not_run": 56
+      },
+      "total": 57,
+      "with_recorded_backtest": 57,
+      "with_recorded_model": 1,
+      "with_recorded_result": 57,
+      "with_recorded_validation": 57
+    },
+    "legacy_jobs": {
+      "by_status": {
+        "cancelled": 54
+      },
+      "total": 54
+    },
+    "monitors": {
+      "by_source_kind": {
+        "autonomous_research": 1
+      },
+      "by_status": {
+        "active": 1
+      },
+      "total": 1
+    },
+    "paper_accounts": {
+      "by_data_kind": {
+        "synthetic": 1
+      },
+      "monitors_without_account": 0,
+      "total": 1
+    },
+    "readiness": {
+      "by_status": {},
+      "total": 0
+    },
+    "research_jobs": {
+      "by_status": {
+        "cancelled": 28,
+        "evaluated": 1,
+        "failed": 28
+      },
+      "total": 57
+    }
+  },
+  "metadata_only_rows": {
+    "course_jobs": 3,
+    "experiments": 56,
+    "legacy_jobs": 54,
+    "research_jobs": 56
+  },
+  "monitoring": {
+    "evaluation": "blocked",
+    "investigation_job_ids": [
+      "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+      "e869e9c2-ea9b-5308-8147-e8a4cde73872"
+    ]
+  },
+  "new_job": {
+    "events": [
+      "queued",
+      "generating_hypotheses",
+      "planning_data",
+      "inventory",
+      "discovery",
+      "registering_features",
+      "features",
+      "modeling",
+      "experiment",
+      "experiment",
+      "evaluated"
+    ],
+    "id": "99d2a119-0466-4b50-83b2-835802558f80",
+    "provider": "local_templates",
+    "status": "evaluated"
+  },
+  "paper": {
+    "cycles": 1,
+    "data_kind": "synthetic",
+    "monitor_id": "5458d350-4b9f-4cb3-b023-714bf0e95f22",
+    "source_kind": "autonomous_research"
+  },
+  "recorded_metadata_only": true,
+  "warning": "Count probes are stored metadata only; real/synthetic labels do not establish evidence authenticity or performance."
+}

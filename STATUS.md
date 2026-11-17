@@ -16,8 +16,9 @@ See [operations](docs/unified-frontend.md) and
   references refuse explicitly; automatic proposal restoration does not trap browser history.
 - Legacy workbench requests require visible Real mode, initialize lazily and discard stale
   handlers/responses. Demo prevents new interface API dispatch; server jobs continue.
-- Independent review, 123 frontend tests and focused backend checks pass. Final native
-  browser acceptance and complete CI are the integration gates still being recorded.
+- Independent review, 123 frontend tests, focused backend checks, all four native browser
+  procedures and complete CI pass. The final source collects 1,975 tests locally; CI's
+  completed offline-suite step is independently verified through GitHub run metadata.
 - Authentic evidence, certified fees, provider verification and private Windows installation
   remain separate gates. Production submission remains disabled.
 

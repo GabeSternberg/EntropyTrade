@@ -1,0 +1,19 @@
+{
+  "counted_in_research_jobs": true,
+  "investigation_job_ids": [
+    "78e8a3eb-afcd-5a77-8300-660ae983b2fc",
+    "e869e9c2-ea9b-5308-8147-e8a4cde73872"
+  ],
+  "scientific_eligibility_established": false,
+  "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/actual-monitoring-investigations.json",
+  "source_sha256": "96872e3e8fc91757cfa2213b00c1e68ef5dc3748811a3569062003123862637a",
+  "verified_bounded_controls": {
+    "acquisition": "none",
+    "ai_usd": "0",
+    "max_bytes": 0,
+    "max_http_requests": 0,
+    "max_retries": 0,
+    "max_runtime_seconds": 120,
+    "paper_preference": "never"
+  }
+}

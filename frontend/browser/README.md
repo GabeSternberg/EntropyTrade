@@ -313,14 +313,18 @@ Existing provider/CIS acceptance remains separate.
 Receipts retain browser errors, request/write logs, screenshots, checksummed exports,
 original workspace file hashes and start/end application/test/browser source fingerprints.
 Existing retained evidence bytes and all source fingerprints must remain unchanged.
-Run all selected browser cases serially after source freeze, then run the full suite.
+Run all selected browser cases serially after source freeze. Complete CI must cover the
+final application and test source; serialize heavy local checks on small machines.
 Discovery or a blocked Chromium launch is not an executed browser pass.
 
 ```bash
-ENTROPYTRADE_BROWSER_EVIDENCE="$PWD/data/lifecycle-review/NEW-STAMP/browser" \
+ENTROPYTRADE_BROWSER_EVIDENCE="$PWD/data/cache/lifecycle-review/NEW-STAMP/browser" \
 ENTROPYTRADE_BROWSER_WORKSPACE="$PWD/data/cache/lifecycle-NEW-STAMP" \
 ENTROPYTRADE_BROWSER_PYTHON=/absolute/path/to/pinned/python \
 PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers" \
 node frontend/browser/node_modules/@playwright/test/cli.js test \
   -c frontend/browser/playwright.config.cjs lifecycle.spec.cjs redesign.spec.cjs --max-failures=1
 ```
+
+Keep generated traces, screenshots and raw downloads under ignored `data/cache`. Retain
+small verified receipts and hashes in a separate reviewed evidence packet when integrating.

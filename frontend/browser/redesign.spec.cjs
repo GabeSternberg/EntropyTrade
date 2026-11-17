@@ -68,10 +68,12 @@ test("redesigned shell: real and demo modes, interactions, isolation and respons
       await expect(page).toHaveTitle(new RegExp(`${key === "analytics" ? "Backtesting" : title.replace("&", "&")} · EntropyTrade`));
     }
     await go("markets");
-    await expect(view.getByText("No live market feed in the website")).toBeVisible();
+    await expect(view.getByText("No market data retained in this workspace")).toBeVisible();
     await go("settings");
     await page.getByRole("link", { name: "Risk & approvals" }).click();
-    await expect(view.getByText(/of 8 gates are not attested/)).toBeVisible();
+    await expect(view.getByRole("heading", { name: "V1 acceptance gates" })).toBeVisible();
+    await expect(view.getByText("0 of 8 attested · read-only")).toBeVisible();
+    await expect(view.getByText(/This page never attests gates, certifies fees or enables trading/)).toBeVisible();
     await go("paper");
     await expect(view.getByText("No simulated paper accounts in this workspace")).toBeVisible();
     await expect(page.getByRole("switch", { name: "Live trading (disabled)" })).toBeDisabled();

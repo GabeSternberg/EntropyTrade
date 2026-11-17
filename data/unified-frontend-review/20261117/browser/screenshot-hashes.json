@@ -1,0 +1,150 @@
+{
+  "policy": "Only image hashes are included in this packet; raw images remain in the local evidence archive.",
+  "screenshots": [
+    {
+      "bytes": 205911,
+      "sha256": "53a8d572a16651f25dd61eb3eb655af6455069938d6f07a4a793efc72f31cf30",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-empty/empty-overview.png"
+    },
+    {
+      "bytes": 305857,
+      "sha256": "9bbaceb6d030e996842b74a951220be7db3bf2de0b0cca837df167391ad68b51",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/actual-new-persistent-research-status.png"
+    },
+    {
+      "bytes": 118358,
+      "sha256": "c86401229ca7bb0bc563008bc7fcc3c4a2f91bc60fbffa3cb9f3ec2ae545d916",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/demo-workbench-zero-api.png"
+    },
+    {
+      "bytes": 599154,
+      "sha256": "f7675a6fd0ee68dcd13a77d8ae1e44f0b5785bb71211877a3570138033da7c50",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/exact-blocked-readiness.png"
+    },
+    {
+      "bytes": 405083,
+      "sha256": "f6d132b7adc88ceefcc9a881e5a066bf653f8ab58dbc7d1a6477cc77d6cd5f81",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/exact-model-validation-backtest.png"
+    },
+    {
+      "bytes": 355307,
+      "sha256": "6f2d817a11b900973288aa1bd77da79cbf818fab10326cdac0f19d99a8c6a4ca",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/exact-paper-account.png"
+    },
+    {
+      "bytes": 791964,
+      "sha256": "fb96fc1b60409e9cc513f93d7744f298ed9bf5e7ff202660dfb84f9394bb9ac0",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/exact-research-paper-proposal.png"
+    },
+    {
+      "bytes": 185261,
+      "sha256": "9e0da84e51cbab95fcd68094934b1a8258760b67046894c0f1a41412a6176189",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/exact-stale-collection-alert.png"
+    },
+    {
+      "bytes": 394161,
+      "sha256": "6e978fc9f9fe824bf53dc59611f2fd3f295344842fc6383e22e7a8a40a849896",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/mixed-full-counts-overview.png"
+    },
+    {
+      "bytes": 298106,
+      "sha256": "8d15d9103c40a9fe85a2719692b1d023aa3b9f0974efb2b45b61d66e22a66a25",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/mobile-375-exact-experiment.png"
+    },
+    {
+      "bytes": 522757,
+      "sha256": "57d08ff1833b00ca28a15f2d2189ad5d2337cb4bb4bd03b7a14c45956eb75bb6",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/mobile-375-exact-readiness.png"
+    },
+    {
+      "bytes": 104706,
+      "sha256": "35f9e394156f6a85ea7176cfe4aa4f288988aef03c1af130fe6801874e30ae3c",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-mixed/real-legacy-course-handoff.png"
+    },
+    {
+      "bytes": 188805,
+      "sha256": "72d06724988f52e8c6398416b4f7ee7cf29158001881053547d0671e34ea79ab",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/lifecycle-unavailable/unavailable-overview.png"
+    },
+    {
+      "bytes": 202351,
+      "sha256": "ae8b8276f6e4482eabe6863590b4572cf1354ee5293d9bc9d346601e5718bd9e",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-analytics-costs.png"
+    },
+    {
+      "bytes": 210719,
+      "sha256": "beb31e83215ecb9ebddec0804a9e400a4fe708884275f98c4e777d7ec5898ebf",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-analytics.png"
+    },
+    {
+      "bytes": 205586,
+      "sha256": "c4ca7082d4bc2a0a74efdc539ce055b8ed38853d9264dacf190a0cedddbf412e",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-market-detail.png"
+    },
+    {
+      "bytes": 265148,
+      "sha256": "22ce8f61e45a7a9a49ad8afeffca8a034d9c84beaad2a7ed84cbbcd783825a50",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-markets.png"
+    },
+    {
+      "bytes": 72668,
+      "sha256": "f428cef3ed5ae379819273e4e38a33d5dc5c333d857923bd5924c563d0de0d93",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-mobile-markets.png"
+    },
+    {
+      "bytes": 192653,
+      "sha256": "74bd4f919a93fa167bc3c7af694a63d204926f3b15a101671f0079186e94b039",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-operations.png"
+    },
+    {
+      "bytes": 222666,
+      "sha256": "cbfa332c4b9a925035f1001fc06e2d4e86b3dde696e0cd591ee6a05a36e3ee00",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-overview.png"
+    },
+    {
+      "bytes": 205281,
+      "sha256": "6fda47aa423f65b0f12b107fe3ffc27c080248bb153e51689e49716a86d7c317",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-paper.png"
+    },
+    {
+      "bytes": 157771,
+      "sha256": "3ce29ad338d8b933d85aa674c2bf8358f30139edc0cb812c129dfb25cc3b4694",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-settings.png"
+    },
+    {
+      "bytes": 206477,
+      "sha256": "cd917ebbe3f7965866093dd25b15156c1b6219443a93884c8331c335285d2e8e",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-strategy-detail.png"
+    },
+    {
+      "bytes": 197019,
+      "sha256": "13b90f0df0ec00a5da38c97a86bd92e3e46775592ef190f0439777cf14aade11",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-strategy-lab.png"
+    },
+    {
+      "bytes": 125527,
+      "sha256": "43661e3b0656be7a5e895241ef290e578e1d7ab848bb06375a8033e96871441e",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/demo-tablet-overview.png"
+    },
+    {
+      "bytes": 141183,
+      "sha256": "4c52442b543edfda5503c9aea6910420be0df761df4645be3f36bc912beea73d",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/real-operations.png"
+    },
+    {
+      "bytes": 144071,
+      "sha256": "35efcd7c5aa731a14372dabbdd59ca04acfd3dc7ed8b2a68774c7396b1880a2e",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/real-overview.png"
+    },
+    {
+      "bytes": 130856,
+      "sha256": "8b17f9c748bda7ba14b342c128f4f88ce571b64d7c836ba5792314e5f5d544a7",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/real-paper.png"
+    },
+    {
+      "bytes": 185968,
+      "sha256": "c939b875945b3161df34312845a551a06737c9c234f076d190fcde4d30f867ab",
+      "source_path": "data/lifecycle-review/20261117-final-4/browser/redesign/real-workbench.png"
+    }
+  ]
+}
