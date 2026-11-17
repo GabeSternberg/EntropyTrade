@@ -1,0 +1,62 @@
+.....F................................                                   [100%]
+=================================== FAILURES ===================================
+_________________ test_load_and_render_private_research_units __________________
+
+deployment = Deployment(config_file=PosixPath('/tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0/private/dep...1269dbdef6941d1ed9e5fce9e89ea0d9eab8cf9b540cc6a31b759c60290a', uv=PosixPath('/usr/bin/true'), python_version='3.13.14')
+tmp_path = PosixPath('/tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0')
+
+    def test_load_and_render_private_research_units(
+        deployment: runtime.Deployment, tmp_path: Path
+    ) -> None:
+        config = runtime.Deployment.load(deployment.config_file)
+        output = tmp_path / "rendered"
+        paths = runtime.render(config, output)
+        server = paths[0].read_text()
+        backup = paths[1].read_text()
+        timer = paths[2].read_text()
+        assert "KillSignal=SIGINT" in server
+        assert "KillMode=mixed" in server
+        assert "TimeoutStopSec=330" in server
+        assert "SendSIGKILL=yes" in server
+        assert "UMask=0077" in server
+        assert "PrivateUsers=yes" in server
+        assert "ProtectSystem=strict" in server
+        assert f'InaccessiblePaths="-{config.collector_checkout}"' in server
+        assert "User=" not in server
+        assert f'ExecStart="{config.python}"' in server
+        assert "research_server backup" in backup
+        assert "TimeoutStartSec=20min" in backup
+        assert "SendSIGKILL=yes" in backup
+        assert "Persistent=true" in timer
+        assert "03:15:00 America/New_York" in timer
+        assert not any("@" in path.read_text() for path in paths)
+        assert all(path.stat().st_mode & 0o777 == 0o600 for path in paths)
+        with pytest.raises(FileExistsError):
+            runtime.render(config, output)
+        executable = shutil.which("systemd-analyze")
+        if executable is not None:
+            # Verification reads files only; it neither installs nor starts the units.
+            user_runtime = tmp_path / "user-runtime"
+            user_runtime.mkdir(mode=0o700)
+            result = subprocess.run(  # noqa: S603 - generated static unit paths
+                [executable, "--user", "verify", *map(str, paths)],
+                capture_output=True,
+                text=True,
+                check=False,
+                env=os.environ | {"XDG_RUNTIME_DIR": str(user_runtime)},
+            )
+>           assert result.returncode == 0, result.stderr
+E           AssertionError: /tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0/rendered/entropytrade-research.service:10: WorkingDirectory= path is not absolute: "/tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0/EntropyTrade-research"
+E             entropytrade-research.service: Unit configuration has fatal error, unit will not be started.
+E             Unit entropytrade-research.service has a bad unit file setting.
+E             /tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0/rendered/entropytrade-research-backup.service:8: WorkingDirectory= path is not absolute: "/tmp/entropytrade-deploy-runtime-current/test_load_and_render_private_r0/EntropyTrade-research"
+E             entropytrade-research-backup.service: Unit configuration has fatal error, unit will not be started.
+E             Unit entropytrade-research-backup.service has a bad unit file setting.
+E             
+E           assert 1 == 0
+E            +  where 1 = CompletedProcess(args=['/usr/bin/systemd-analyze', '--user', 'verify', '/tmp/entropytrade-deploy-runtime-current/test_... has fatal error, unit will not be started.\nUnit entropytrade-research-backup.service has a bad unit file setting.\n').returncode
+
+backend/tests/unit/test_research_server.py:133: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_research_server.py::test_load_and_render_private_research_units
+1 failed, 37 passed in 3.72s

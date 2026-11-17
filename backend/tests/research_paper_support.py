@@ -9,7 +9,7 @@ from entropytrade.api.jobs import Jobs
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.execution.fee_evidence import FeeEvidenceStore
 from entropytrade.research.model import HypothesisStatus, JobStatus, ResearchRequest
-from entropytrade.research.modeling import run_hypothesis
+from entropytrade.research.modeling import plan_hypothesis, run_hypothesis
 from entropytrade.research.paper import ResearchPaperService
 from entropytrade.research.registry import FeatureRegistry
 from entropytrade.research.store import ResearchStore
@@ -36,6 +36,21 @@ def paper_fixture(workspace: Path) -> PaperFixture:
     spec, artifacts = modeling_fixture(store.root)
     spec = spec.revalidated(rules=())
     execution, fees = execution_fixture(store.root, spec, artifacts)
+    planned = plan_hypothesis(
+        root=store.root,
+        registry=FeatureRegistry(),
+        spec=spec,
+        artifacts=artifacts,
+        data_kind="synthetic",
+        execution_datasets=(execution,),
+        fee_versions=fees,
+    )
+    if planned["freeze_ready"]:
+        from entropytrade.features.registry import scientific_hash
+
+        store.freeze_boundaries(
+            scientific_hash({"family": spec.family}), planned["boundaries"], now=MODEL_NOW
+        )
     result = run_hypothesis(
         root=store.root,
         registry=FeatureRegistry(),
@@ -56,7 +71,9 @@ def paper_fixture(workspace: Path) -> PaperFixture:
         JobStatus.MODELING,
     ):
         store.transition(job_id, status, "Controlled paper lifecycle fixture", now=MODEL_NOW)
-    store.plan_experiment(job_id, result["experiment_id"], spec.hypothesis_id, {}, now=MODEL_NOW)
+    store.plan_experiment(
+        job_id, result["experiment_id"], spec.hypothesis_id, planned, now=MODEL_NOW
+    )
     store.start_experiment(job_id, result["experiment_id"], now=MODEL_NOW)
     store.finish_experiment(
         job_id, result["experiment_id"], status="completed", result=result, now=MODEL_NOW

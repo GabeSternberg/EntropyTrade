@@ -1,0 +1,13 @@
+
+Running 4 tests using 1 worker
+
+(node:9974) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:9974) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 frontend/browser/lifecycle.spec.cjs:117:3 › unified lifecycle summary: actual empty workspace (6.8s)
+  ✓  2 frontend/browser/lifecycle.spec.cjs:117:3 › unified lifecycle summary: actual unavailable workspace (6.6s)
+  ✓  3 frontend/browser/lifecycle.spec.cjs:148:1 › unified lifecycle: actual persisted research, exact evidence links, Demo isolation and legacy handoff (37.2s)
+  ✓  4 frontend/browser/redesign.spec.cjs:15:1 › redesigned shell: real and demo modes, interactions, isolation and responsive layout (27.1s)
+
+  4 passed (1.4m)

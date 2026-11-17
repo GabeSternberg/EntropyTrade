@@ -171,6 +171,7 @@ def execution_fixture(
     (staging / "manifest.json").write_text(
         json.dumps(
             {
+                "schema": "entropytrade-research-dataset-v1",
                 "dataset_id": identifier,
                 "checksums": hashes,
                 "data_kind": "synthetic",

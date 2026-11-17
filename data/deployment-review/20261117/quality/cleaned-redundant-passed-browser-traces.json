@@ -1,0 +1,65 @@
+{
+  "scope": "redundant earlier successful controlled F browser trace directories only; receipts, screenshots, downloads and logs retained; final current-source trace is retained",
+  "removed": [
+    {
+      "path": "data/cache/deployment-browser-final-1/playwright-artifacts",
+      "files": [
+        {
+          "path": ".last-run.json",
+          "bytes": 45,
+          "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+        },
+        {
+          "path": "redesign-redesigned-shell--609de-ation-and-responsive-layout/trace.zip",
+          "bytes": 26676430,
+          "sha256": "627c8060d62dc478649f52edba4e260d29897ef513986c90aa9e098ef471021d"
+        },
+        {
+          "path": "lifecycle-unified-lifecycl-6183f-ctual-unavailable-workspace/trace.zip",
+          "bytes": 671580,
+          "sha256": "04ae942dd0d0796fabdb297d40a3c94c0fd4796e9c11997f0e51ac3fa333b07c"
+        },
+        {
+          "path": "lifecycle-unified-lifecycl-e971e-solation-and-legacy-handoff/trace.zip",
+          "bytes": 28290319,
+          "sha256": "cc50076c26cc56b47f9ee610852ce430d47c261d0186bf0ec524b73ab0795312"
+        },
+        {
+          "path": "lifecycle-unified-lifecycle-summary-actual-empty-workspace/trace.zip",
+          "bytes": 539522,
+          "sha256": "5d58b10116f3f2a2003a9c9737a9771cc77b756ba5db9621b1f7cef420feeacd"
+        }
+      ]
+    },
+    {
+      "path": "data/cache/deployment-browser-final-2/playwright-artifacts",
+      "files": [
+        {
+          "path": ".last-run.json",
+          "bytes": 45,
+          "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+        },
+        {
+          "path": "redesign-redesigned-shell--609de-ation-and-responsive-layout/trace.zip",
+          "bytes": 28040047,
+          "sha256": "e314729d6a63a32e497999ac386fbcce876e16540dd43887773a336263634452"
+        },
+        {
+          "path": "lifecycle-unified-lifecycl-6183f-ctual-unavailable-workspace/trace.zip",
+          "bytes": 516253,
+          "sha256": "da610b413b5232ec86ea69b47a05a664218de5839cfb83d54c97e1ea65a2b78f"
+        },
+        {
+          "path": "lifecycle-unified-lifecycl-e971e-solation-and-legacy-handoff/trace.zip",
+          "bytes": 26895595,
+          "sha256": "0e64ced6a18fdbddebb47172faee5b572ccc520709ff0cb83096c72416060763"
+        },
+        {
+          "path": "lifecycle-unified-lifecycle-summary-actual-empty-workspace/trace.zip",
+          "bytes": 974477,
+          "sha256": "5030128916fccb9c9d09c7f31cb3ef313afe1ea0143d4d04410eeaf12698c4d0"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "scope": "completed controlled synthetic browser fixtures; receipts, downloads, screenshots and traces retained separately; no canonical/authentic evidence",
+  "removed": [
+    {
+      "path": "data/cache/deployment-workspace-final-1-lifecycle-empty",
+      "bytes": 86016
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-1-lifecycle-unavailable",
+      "bytes": 86060
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-1-lifecycle-mixed",
+      "bytes": 19143811
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-1-redesign",
+      "bytes": 86016
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-2-lifecycle-empty",
+      "bytes": 86016
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-2-lifecycle-unavailable",
+      "bytes": 86060
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-2-lifecycle-mixed",
+      "bytes": 19143811
+    },
+    {
+      "path": "data/cache/deployment-workspace-final-2-redesign",
+      "bytes": 86016
+    },
+    {
+      "path": "data/cache/deployment-owner-workspace-final-3-production-refusal",
+      "bytes": 18377525
+    },
+    {
+      "path": "data/cache/deployment-owner-workspace-final-3-controlled-readiness",
+      "bytes": 58590811
+    },
+    {
+      "path": "data/cache/deployment-owner-workspace-final-3-controlled-readiness-restored",
+      "bytes": 58525275
+    }
+  ]
+}

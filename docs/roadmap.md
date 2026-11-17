@@ -1,5 +1,16 @@
 # Capability roadmap
 
+## Private Windows deployment readiness — November 17, 2026
+
+[Deployment software and acceptance](../data/deployment-review/20261117/README.md) now cover
+private owner-authenticated access, isolated pinned research user services, full dormant
+research validation, encrypted backup/restore and inactive read-only collector-history
+inspection. Complete CI (2,123 Python tests), 125 frontend tests and six native browser cases
+pass. The [physical operating guide](windows-research-server.md) gives exact Windows/WSL,
+Tailscale, startup and offsite recovery commands. Actual physical/device/reboot/offsite
+acceptance remains pending access; the canonical collector and live-order refusal remain
+unchanged. Authentic evidence, certified fees and provider live verification remain separate.
+
 ## Unified frontend Milestone F — November 17, 2026
 
 [Unified frontend operations](unified-frontend.md) covers exact lifecycle navigation,

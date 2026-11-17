@@ -22,3 +22,9 @@ data/cache/**
 *.sqlite-shm
 *.sqlite.lock
 **/.writer.lock
+
+# Operator backup ciphertext and private temporary plaintext are not source artifacts.
+data/backups/**
+data/recovery/.encrypted-*/
+.encrypted-*
+*.gpg

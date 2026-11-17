@@ -1,0 +1,253 @@
+{
+  "application_ci_head": "76add54535908bb996cb30183f6663f2883b45cf",
+  "files": [
+    {
+      "bytes": 7300,
+      "path": "README.md",
+      "sha256": "a8959abec3043343c1d754993a0721f48f5b57890b8d14260c72d8436385d498"
+    },
+    {
+      "bytes": 4367,
+      "path": "acceptance.json",
+      "sha256": "3799c631b47c3a858c3c9cf717778cdc72cdc8c03c30d8c31a994304abb48792"
+    },
+    {
+      "bytes": 15673,
+      "path": "browser/controlled-readiness-receipt.json",
+      "sha256": "3a8d6b8f2028b8249ee8bc6d4ae50daa8b89cc5402edfc942520f8276eaf81b2"
+    },
+    {
+      "bytes": 2839,
+      "path": "browser/lifecycle-empty-receipt.json",
+      "sha256": "96a08c979ba1c018b80f5338639f9082b22cf2d0a46f17fd685622e2e3903e63"
+    },
+    {
+      "bytes": 56328,
+      "path": "browser/lifecycle-mixed-receipt.json",
+      "sha256": "0de1ec9e3c9bb066df297982d8cabea4eaae7f7df7da116507951376ac2dd366"
+    },
+    {
+      "bytes": 8366,
+      "path": "browser/lifecycle-results.json",
+      "sha256": "763f263c06627bf973948ec3d6cc44dcab3c69a4265ff65ea198208a5ab583b8"
+    },
+    {
+      "bytes": 1610,
+      "path": "browser/lifecycle-results.xml",
+      "sha256": "dcc1e0ec782c707a50e2eeaa9a80217556d162210e39ae346e4abb4158393a62"
+    },
+    {
+      "bytes": 2450,
+      "path": "browser/lifecycle-unavailable-receipt.json",
+      "sha256": "189409773f2d97f88cb27a9da85765ee88ad2b544adda1ab9a956e29c021f52c"
+    },
+    {
+      "bytes": 919,
+      "path": "browser/lifecycle.log",
+      "sha256": "7143b6d8ae9ed5c1d977a3baf09e1e265c0dec8aa09a0fefa1cb6b7f2820302a"
+    },
+    {
+      "bytes": 395064,
+      "path": "browser/mixed-full-counts-overview.png",
+      "sha256": "555f487226a4308d5a38708fd29b8dd01d4f9431e9931e803b5a6a2a1cd10375"
+    },
+    {
+      "bytes": 230697,
+      "path": "browser/owner-readiness-audit.png",
+      "sha256": "a8ac969362f9517eb82de9b186f838e04715b3d189e7636f213cc7d032dc22cd"
+    },
+    {
+      "bytes": 5415,
+      "path": "browser/owner-results.json",
+      "sha256": "95c9cb11003435d632ed72a4d1d11f8b4301318c0f09dd211668d2f383fde17c"
+    },
+    {
+      "bytes": 855,
+      "path": "browser/owner-results.xml",
+      "sha256": "a1b1488dd7dcbcf4f5991605532ee514b51096c2fe69a8b447c06e5b51c31728"
+    },
+    {
+      "bytes": 799,
+      "path": "browser/owner.log",
+      "sha256": "a4de9f3253f50a9765b784f72c273f11326cd57d5f65bca13f8d31f87522b578"
+    },
+    {
+      "bytes": 2713,
+      "path": "browser/production-refusal-receipt.json",
+      "sha256": "b352a8dc641a5cb1659e846f5a72a7aee05f11b99fa79412873f81ef26ba4fba"
+    },
+    {
+      "bytes": 611,
+      "path": "browser/redesign-receipt.json",
+      "sha256": "537c49dc9e19ab1d42d14f4326096f3b5d1c35bde6392692171c296c98f8e604"
+    },
+    {
+      "bytes": 30218,
+      "path": "browser/restarted-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    },
+    {
+      "bytes": 30218,
+      "path": "browser/restored-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    },
+    {
+      "bytes": 523343,
+      "path": "browser/restored-readiness.png",
+      "sha256": "0e3dbfb5fd0f7293341cd2f8ae13381e88566e7b0c60ae9a0608382446b52896"
+    },
+    {
+      "bytes": 30218,
+      "path": "browser/revoked-readiness.json",
+      "sha256": "16d11e19205d0c52506bd3a57c6a1bbb0e01c5040c0e772d97a18f4c4f1cdd32"
+    },
+    {
+      "bytes": 130062,
+      "path": "failed-attempts/ci-44169131925.log",
+      "sha256": "c1d178834e5d6b287b4944be200a9f043f35ba93c8f46114ea11d43e2779e351"
+    },
+    {
+      "bytes": 539,
+      "path": "failed-attempts/cleaned-controlled-scratch.json",
+      "sha256": "59ed5a0310b982d31c3546dd4c51eae722e62e7312d3a434d34471246bed895e"
+    },
+    {
+      "bytes": 856933,
+      "path": "failed-attempts/disk-exhaustion.log",
+      "sha256": "64d145d23350556709741e4b574c4b9a4728a1b92784dcda6c4de44adb37ab43"
+    },
+    {
+      "bytes": 1001,
+      "path": "failed-attempts/expired-key-recovery.log",
+      "sha256": "095793ae1a933aca55091f5fea33760b5da42396af57b4b9f0196f47bebda437"
+    },
+    {
+      "bytes": 3144,
+      "path": "failed-attempts/initial-focused.log",
+      "sha256": "3fb5912ae3e961fdc0738b8a07374a4deac82fab4bf273c17591f74e9016e39d"
+    },
+    {
+      "bytes": 3396,
+      "path": "failed-attempts/old-audit-label-interrupted.log",
+      "sha256": "1027f66be3070095e229f23a706ea3adcf4e9498f5a6594e2c09f2b7b46a983a"
+    },
+    {
+      "bytes": 3579,
+      "path": "failed-attempts/old-readiness-route.log",
+      "sha256": "d350aeaf883101a939c565261d884ffddada8f5cfe8ece3bec3b7d9bb9d1548e"
+    },
+    {
+      "bytes": 4106,
+      "path": "failed-attempts/runtime-unit-parser.log",
+      "sha256": "3c7c9a846f9d33cb550b064294d70f5a4e39862597030e383b49b099937ee87e"
+    },
+    {
+      "bytes": 12306,
+      "path": "failed-attempts/test-connection-cleanup.log",
+      "sha256": "00505ae27287feb4b7a9a02e0f1663780faf0e4f9d4296d252ee6d212e705e01"
+    },
+    {
+      "bytes": 25197,
+      "path": "quality/ci-44173222729.log.gz",
+      "sha256": "7ba2722ee322524f458413b6e9b2c805525251eb57d50592947f78cd4736bd06"
+    },
+    {
+      "bytes": 98,
+      "path": "quality/ci-recovery-cases-fixed.log",
+      "sha256": "c55014379a2c508a3694162f1c057a172d52ad6ac527ad275b0cd58fc84d62f2"
+    },
+    {
+      "bytes": 1412,
+      "path": "quality/cleaned-accepted-controlled-workspaces.json",
+      "sha256": "beb8a5dd2bec72ae718c6df31df42d44461ff623991d8e1b9a5c9660519791f5"
+    },
+    {
+      "bytes": 2581,
+      "path": "quality/cleaned-redundant-passed-browser-traces.json",
+      "sha256": "81d1d1889d24c453c0387a5d10d67ce959abf7f0c133acfad09136ece691106d"
+    },
+    {
+      "bytes": 231596,
+      "path": "quality/collection.txt",
+      "sha256": "d09b1a44e02ec425697e74867345b86c6ec3f727190cd0701bba76307de2b04d"
+    },
+    {
+      "bytes": 426,
+      "path": "quality/doctor-cloud-refusal.json",
+      "sha256": "4b538ad6dd37d9785f7847136af4ce029f98891fcbf7708250df44363e71e1fb"
+    },
+    {
+      "bytes": 1029,
+      "path": "quality/expanded-recovery.log",
+      "sha256": "0c7e080f1a8d33e43811e3939939d2a248f994e57b48d6398d1f5d913e20537c"
+    },
+    {
+      "bytes": 98,
+      "path": "quality/fixed-symlink-case.log",
+      "sha256": "c8fc450c1479616b2dad338360e8b8cd31b9cd294f7831c3f0b00403fde4f6ae"
+    },
+    {
+      "bytes": 2554,
+      "path": "quality/github-ci-jobs.json",
+      "sha256": "3426a0023b028f2dce488e9fa0a6f543d65b0a860300723005d5685e7dcee0d8"
+    },
+    {
+      "bytes": 404,
+      "path": "quality/github-ci-run.json",
+      "sha256": "b852f74cf090607e6d4c553b31d0ca3d368bc6fb977b26a1b9b10a71fa5138da"
+    },
+    {
+      "bytes": 261,
+      "path": "quality/initial-focused-145.log",
+      "sha256": "b138856a20f258480fc156bfea201b25ff7dce721040a904508fe08fe91d43df"
+    },
+    {
+      "bytes": 45,
+      "path": "quality/mypy.log",
+      "sha256": "3b60097c2bd2e3455efd6b1b7cf94526eae3756ad939281addb4608f23ead4b8"
+    },
+    {
+      "bytes": 12001,
+      "path": "quality/node.log",
+      "sha256": "662b159b96cf27b77e38d3d3ccc3989ec40bc581fe26395d574c82a7834804b0"
+    },
+    {
+      "bytes": 100,
+      "path": "quality/orchestration-recovery-56.log",
+      "sha256": "403d82c9c672bb0a054e480a38cff791739ea66c394887325d3904a5d452fe29"
+    },
+    {
+      "bytes": 599,
+      "path": "quality/protected-key-drill.json",
+      "sha256": "1e577cb700c16d20690aca63d002add2cb296eb9136016f683fd3c1f4a45eae0"
+    },
+    {
+      "bytes": 549,
+      "path": "quality/protected-key-drill.log",
+      "sha256": "ce5af02bf5bf9f8fc973b94a77e1d3e035d4ab3e3f80eda45c0184029c364892"
+    },
+    {
+      "bytes": 5109,
+      "path": "quality/protected-key-drill.py",
+      "sha256": "1a3fcb339664dd5266de8e1c7bd7455536eb51c578303597d70a99e6e20f4878"
+    },
+    {
+      "bytes": 47,
+      "path": "quality/ruff.log",
+      "sha256": "3dbd9c141458f0f32ac53b718f8855d550c99b06c1486c218ebc720087f07840"
+    },
+    {
+      "bytes": 105,
+      "path": "quality/runbook-syntax.log",
+      "sha256": "104f4879067a109d0d266dbef92989e3c709bb46ee316025358ad343106ac560"
+    },
+    {
+      "bytes": 5310,
+      "path": "review.md",
+      "sha256": "c9e0389adfa9088d1bc089f47b2fcfb72b98bd5d598fdf56a578e6873befde38"
+    }
+  ],
+  "physical_windows_configured": false,
+  "schema": "entropytrade-deployment-review-manifest-v1",
+  "submission_enabled": false
+}

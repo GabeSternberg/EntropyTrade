@@ -82,7 +82,7 @@ for (const controlled of [false, true]) {
     }
     async function shot(file) { await page.evaluate(() => window.scrollTo(0, 0)); await page.screenshot({ path: path.join(evidence, file), fullPage: true }); receipt.screenshots.push(file); save(); }
     async function open() {
-      await page.goto(origin + `/#/paper/${monitorId}`);
+      await page.goto(origin + `/#/paper/${monitorId}?tab=readiness`);
       await expect(page.locator("#paper-governance").getByRole("button", { name: "Save readiness proposal", exact: true })).toBeVisible({ timeout: 90_000 });
     }
     async function signIn() {
@@ -236,7 +236,7 @@ for (const controlled of [false, true]) {
         assert.equal(releasedMonitor.status, haltedMonitor.status, "release does not resume a deployment");
         assert.deepEqual(releasedMonitor.model_binding, haltedMonitor.model_binding);
         const before = await recordDownload("revoked-readiness.json", third);
-        await governance.getByRole("tab", { name: "Audit", exact: true }).click();
+        await governance.getByRole("tab", { name: "Evidence & audit", exact: true }).click({ timeout: 90_000 });
         await expect(governance).toContainText("browser-owner");
         await shot("owner-readiness-audit.png");
         await page.setViewportSize({ width: 375, height: 900 });

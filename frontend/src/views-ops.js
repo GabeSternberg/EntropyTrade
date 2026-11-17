@@ -333,6 +333,16 @@
       } },
     ], rows: incidents, sortKey: "opened_at", dense: true });
   }
+  async function refreshOwnerView() {
+    ET.refreshSafety?.();
+    // Authentication changes apply to every API view, including an earlier 401.
+    // ET.mutate already clears the shared cache. Reset the legacy activation too.
+    if (ET.workbenchActive?.()) {
+      ET.legacyWorkbench?.deactivate();
+      try { await ET.legacyWorkbench?.activate(); }
+      catch { /* The legacy view renders its own connection/authentication error. */ }
+    } else await ET.route();
+  }
   ET.ownerAccess = async () => {
     if (ET.mode() !== "real") return;
     const body = h("div", { class: "stack" }, skeleton(3));
@@ -346,7 +356,7 @@
         const issue = h("div", { role: "status" });
         if (owner.authenticated) {
           const out = button("Sign out", { variant: "ghost", "data-owner-logout": true, onclick: async () => {
-            try { await ET.mutate("/api/owner/logout", {}, owner.csrf_token); ET.refreshSafety?.(); await ET.refreshPaperReview?.(); await load(); }
+            try { await ET.mutate("/api/owner/logout", {}, owner.csrf_token); await refreshOwnerView(); await load(); }
             catch (error) { issue.replaceChildren(callout(error.message, "error")); }
           } });
           replaceContent(body, callout("Signed in for readiness review and halt release. This session cannot authorize trading.", "info"), kv([["Authenticated owner", evidenceValue(owner.principal)]]), issue, out);
@@ -359,7 +369,7 @@
           password.value = "";
           if (!value) { issue.replaceChildren(callout("Enter the locally configured owner passphrase.", "warn")); return; }
           signIn.disabled = true;
-          try { await ET.mutate("/api/owner/login", { password: value }, owner.csrf_token); ET.refreshSafety?.(); await ET.refreshPaperReview?.(); await load(); }
+          try { await ET.mutate("/api/owner/login", { password: value }, owner.csrf_token); await refreshOwnerView(); await load(); }
           catch (error) { issue.replaceChildren(callout(error.message, "error")); signIn.disabled = false; }
         };
         signIn.addEventListener("click", submit);

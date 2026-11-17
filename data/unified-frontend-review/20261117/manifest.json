@@ -3,14 +3,14 @@
   "current_raw_archive_base": "data/cache/milestone-f-raw/lifecycle-review",
   "files": [
     {
-      "bytes": 5465,
+      "bytes": 5542,
       "path": "README.md",
-      "sha256": "9299c9bc9367d954409cec778a621488a07626512d2fca13a7a75f83a013873b"
+      "sha256": "35a744a38868df7b499517814e7ce514591e4545100354da5d4c0e336402537d"
     },
     {
-      "bytes": 6855,
+      "bytes": 6984,
       "path": "acceptance.json",
-      "sha256": "f3e358e2cc7ad19f5e00b66274101287cdf20e2d1b5f1e1955291eab6925e339"
+      "sha256": "69171c0d4597d395a46211332724c4769b60a3b50c778f44460eb2d9fcba5779"
     },
     {
       "bytes": 6993,

@@ -106,7 +106,9 @@
   "integration": {
     "base_main": "6bee33420e88d8c2bf44b490f6143ab585bfc7b3",
     "branch": "feature/research-milestone-f",
-    "status": "not_yet_integrated"
+    "merge_commit": "6690990503a926c822f8f25afe33bd9563768b56",
+    "pull_request": "https://github.com/GabeSternberg/EntropyTrade/pull/33",
+    "status": "merged"
   },
   "quality": {
     "focused_summary_sqlite": {

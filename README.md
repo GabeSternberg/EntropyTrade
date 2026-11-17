@@ -49,6 +49,9 @@ Verified experiments feed [persistent paper deployments](docs/research-paper.md)
 emergency halt and bounded deterioration investigations while production orders remain disabled.
 The [unified frontend](docs/unified-frontend.md) links exact jobs, experiments, paper
 accounts, alerts and readiness records, with full workspace counts and explicit unavailable states.
+The [Windows research-server guide](docs/windows-research-server.md) provides isolated private
+HTTPS deployment, pinned user services and verified encrypted backup/restore procedures;
+physical installation and offsite acceptance require the actual machines.
 
 ## Setup and checks
 

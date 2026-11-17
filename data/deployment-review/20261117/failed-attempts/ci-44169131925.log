@@ -1,0 +1,1729 @@
+﻿2026-11-17T20:25:26.9778107Z Current runner version: '2.338.2'
+2026-11-17T20:25:26.9794242Z ##[group]Runner Image Provisioner
+2026-11-17T20:25:26.9794877Z Hosted Compute Agent
+2026-11-17T20:25:26.9795316Z Version: 20261103.629
+2026-11-17T20:25:26.9795773Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T20:25:26.9796290Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T20:25:26.9796779Z Worker ID: {b49eb912-c301-49e8-82bd-77287ea67e32}
+2026-11-17T20:25:26.9797595Z Region: us-west-2
+2026-11-17T20:25:26.9798016Z Cloud: AWS
+2026-11-17T20:25:26.9798397Z ##[endgroup]
+2026-11-17T20:25:26.9799361Z ##[group]Operating System
+2026-11-17T20:25:26.9799797Z Ubuntu
+2026-11-17T20:25:26.9800177Z 24.04.5
+2026-11-17T20:25:26.9800515Z LTS
+2026-11-17T20:25:26.9800898Z ##[endgroup]
+2026-11-17T20:25:26.9801273Z ##[group]Runner Image
+2026-11-17T20:25:26.9801683Z Image: ubuntu-24.04
+2026-11-17T20:25:26.9802155Z Version: 20261111.127.1
+2026-11-17T20:25:26.9803086Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.127/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-17T20:25:26.9804169Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.127
+2026-11-17T20:25:26.9804841Z ##[endgroup]
+2026-11-17T20:25:26.9805772Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T20:25:26.9807658Z Contents: read
+2026-11-17T20:25:26.9808071Z Metadata: read
+2026-11-17T20:25:26.9808464Z ##[endgroup]
+2026-11-17T20:25:26.9809970Z Secret source: Actions
+2026-11-17T20:25:26.9810602Z Cache mode: write
+2026-11-17T20:25:26.9811134Z Prepare workflow directory
+2026-11-17T20:25:27.0069112Z Prepare all required actions
+2026-11-17T20:25:27.0104315Z Getting action download info
+2026-11-17T20:25:27.4189290Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-17T20:25:29.3969453Z Download action repository 'astral-sh/setup-uv@v6' (SHA:d0cc045d04ccac9d8b7881df0226f9e82c39688e)
+2026-11-17T20:25:29.8435563Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-17T20:25:30.0581697Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-17T20:25:30.4491484Z Complete job name: lint, types, frontend, pytest
+2026-11-17T20:25:30.5218183Z ##[group]Run actions/checkout@v4
+2026-11-17T20:25:30.5219278Z with:
+2026-11-17T20:25:30.5219963Z   persist-credentials: false
+2026-11-17T20:25:30.5220833Z   repository: GabeSternberg/EntropyTrade
+2026-11-17T20:25:30.5227826Z   token: ***
+2026-11-17T20:25:30.5228528Z   ssh-strict: true
+2026-11-17T20:25:30.5229264Z   ssh-user: git
+2026-11-17T20:25:30.5229937Z   clean: true
+2026-11-17T20:25:30.5230663Z   sparse-checkout-cone-mode: true
+2026-11-17T20:25:30.5231528Z   fetch-depth: 1
+2026-11-17T20:25:30.5232247Z   fetch-tags: false
+2026-11-17T20:25:30.5233012Z   show-progress: true
+2026-11-17T20:25:30.5233722Z   lfs: false
+2026-11-17T20:25:30.5234397Z   submodules: false
+2026-11-17T20:25:30.5235142Z   set-safe-directory: true
+2026-11-17T20:25:30.5235973Z   allow-unsafe-pr-checkout: false
+2026-11-17T20:25:30.5237132Z env:
+2026-11-17T20:25:30.5237834Z   UV_LOCKED: 1
+2026-11-17T20:25:30.5238542Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:30.5239398Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:30.5240199Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:30.5240971Z ##[endgroup]
+2026-11-17T20:25:33.1332476Z Syncing repository: GabeSternberg/EntropyTrade
+2026-11-17T20:25:33.1333619Z ##[group]Getting Git version info
+2026-11-17T20:25:33.1334025Z Working directory is '/home/runner/work/EntropyTrade/EntropyTrade'
+2026-11-17T20:25:33.1334625Z [command]/usr/bin/git version
+2026-11-17T20:25:33.4799360Z git version 2.56.1
+2026-11-17T20:25:33.4817829Z ##[endgroup]
+2026-11-17T20:25:33.4829407Z Temporarily overriding HOME='/home/runner/work/_temp/1e21ba19-5e0f-487f-9de8-50ddecccd907' before making global git config changes
+2026-11-17T20:25:33.4830275Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T20:25:33.4832834Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:25:33.5256560Z Deleting the contents of '/home/runner/work/EntropyTrade/EntropyTrade'
+2026-11-17T20:25:33.5259399Z ##[group]Initializing the repository
+2026-11-17T20:25:33.5262073Z [command]/usr/bin/git init /home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:25:33.5769948Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T20:25:33.5770459Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T20:25:33.5770850Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T20:25:33.5771218Z hint: call:
+2026-11-17T20:25:33.5771449Z hint:
+2026-11-17T20:25:33.5771728Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T20:25:33.5772013Z hint:
+2026-11-17T20:25:33.5772291Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T20:25:33.5772684Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T20:25:33.5773021Z hint:
+2026-11-17T20:25:33.5773314Z hint: 	git branch -m <name>
+2026-11-17T20:25:33.5773571Z hint:
+2026-11-17T20:25:33.5773861Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T20:25:33.5784081Z Initialized empty Git repository in /home/runner/work/EntropyTrade/EntropyTrade/.git/
+2026-11-17T20:25:33.5791491Z [command]/usr/bin/git remote add origin https://github.com/GabeSternberg/EntropyTrade
+2026-11-17T20:25:33.5840498Z ##[endgroup]
+2026-11-17T20:25:33.5841119Z ##[group]Disabling automatic garbage collection
+2026-11-17T20:25:33.5843721Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T20:25:33.5865035Z ##[endgroup]
+2026-11-17T20:25:33.5865547Z ##[group]Setting up auth
+2026-11-17T20:25:33.5870244Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T20:25:33.5897801Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T20:25:34.0320231Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T20:25:34.0344879Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T20:25:34.0492162Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T20:25:34.0515294Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T20:25:34.0661003Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T20:25:34.0685672Z ##[endgroup]
+2026-11-17T20:25:34.0686137Z ##[group]Fetching the repository
+2026-11-17T20:25:34.0700162Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2212897444083750dbbed298976c73b2582031cf:refs/remotes/pull/34/merge
+2026-11-17T20:25:39.5959817Z From https://github.com/GabeSternberg/EntropyTrade
+2026-11-17T20:25:39.5960397Z  * [new ref]         2212897444083750dbbed298976c73b2582031cf -> pull/34/merge
+2026-11-17T20:25:39.5964326Z ##[endgroup]
+2026-11-17T20:25:39.5964824Z ##[group]Determining the checkout info
+2026-11-17T20:25:39.5967796Z ##[endgroup]
+2026-11-17T20:25:39.5971729Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T20:25:39.6041972Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T20:25:39.6065027Z ##[group]Checking out the ref
+2026-11-17T20:25:39.6069569Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/34/merge
+2026-11-17T20:25:40.6654781Z Updating files:  78% (6920/8790)
+2026-11-17T20:25:40.6749690Z Updating files:  79% (6945/8790)
+2026-11-17T20:25:40.6804250Z Updating files:  80% (7032/8790)
+2026-11-17T20:25:40.7098386Z Updating files:  81% (7120/8790)
+2026-11-17T20:25:40.7150550Z Updating files:  82% (7208/8790)
+2026-11-17T20:25:40.7201710Z Updating files:  83% (7296/8790)
+2026-11-17T20:25:40.7222839Z Updating files:  84% (7384/8790)
+2026-11-17T20:25:40.7417253Z Updating files:  85% (7472/8790)
+2026-11-17T20:25:40.7997787Z Updating files:  86% (7560/8790)
+2026-11-17T20:25:40.8663834Z Updating files:  87% (7648/8790)
+2026-11-17T20:25:40.8749459Z Updating files:  88% (7736/8790)
+2026-11-17T20:25:40.8801149Z Updating files:  89% (7824/8790)
+2026-11-17T20:25:40.8847500Z Updating files:  90% (7911/8790)
+2026-11-17T20:25:40.9016289Z Updating files:  91% (7999/8790)
+2026-11-17T20:25:40.9361495Z Updating files:  92% (8087/8790)
+2026-11-17T20:25:40.9511002Z Updating files:  93% (8175/8790)
+2026-11-17T20:25:41.0201188Z Updating files:  94% (8263/8790)
+2026-11-17T20:25:41.0271606Z Updating files:  95% (8351/8790)
+2026-11-17T20:25:41.0284320Z Updating files:  96% (8439/8790)
+2026-11-17T20:25:41.0302621Z Updating files:  97% (8527/8790)
+2026-11-17T20:25:41.0327307Z Updating files:  98% (8615/8790)
+2026-11-17T20:25:41.0524431Z Updating files:  99% (8703/8790)
+2026-11-17T20:25:41.0524729Z Updating files: 100% (8790/8790)
+2026-11-17T20:25:41.0524924Z Updating files: 100% (8790/8790), done.
+2026-11-17T20:25:41.0604554Z Note: switching to 'refs/remotes/pull/34/merge'.
+2026-11-17T20:25:41.0604801Z 
+2026-11-17T20:25:41.0604992Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-17T20:25:41.0605475Z changes and commit them, and you can discard any commits you make in this
+2026-11-17T20:25:41.0605842Z state without impacting any branches by switching back to a branch.
+2026-11-17T20:25:41.0606113Z 
+2026-11-17T20:25:41.0606288Z If you want to create a new branch to retain commits you create, you may
+2026-11-17T20:25:41.0606695Z do so (now or later) by using -c with the switch command. Example:
+2026-11-17T20:25:41.0607060Z 
+2026-11-17T20:25:41.0607180Z   git switch -c <new-branch-name>
+2026-11-17T20:25:41.0607343Z 
+2026-11-17T20:25:41.0607444Z Or undo this operation with:
+2026-11-17T20:25:41.0607618Z 
+2026-11-17T20:25:41.0607706Z   git switch -
+2026-11-17T20:25:41.0607838Z 
+2026-11-17T20:25:41.0608250Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-17T20:25:41.0608560Z 
+2026-11-17T20:25:41.0608889Z HEAD is now at 2212897 Merge 13726197919b3e0d78aab66a155eec0f3e616379 into 6690990503a926c822f8f25afe33bd9563768b56
+2026-11-17T20:25:41.0669753Z ##[endgroup]
+2026-11-17T20:25:41.0711216Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T20:25:41.0731611Z 2212897444083750dbbed298976c73b2582031cf
+2026-11-17T20:25:41.0738756Z ##[group]Removing auth
+2026-11-17T20:25:41.0742012Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T20:25:41.0764937Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T20:25:41.0931115Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T20:25:41.0953347Z http.https://github.com/.extraheader
+2026-11-17T20:25:41.0963187Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-17T20:25:41.0981861Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T20:25:41.1136797Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T20:25:41.1157709Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T20:25:41.1308659Z ##[endgroup]
+2026-11-17T20:25:41.1496013Z ##[group]Run astral-sh/setup-uv@v6
+2026-11-17T20:25:41.1496221Z with:
+2026-11-17T20:25:41.1496371Z   version: 0.11.32
+2026-11-17T20:25:41.1496625Z   python-version: 3.13
+2026-11-17T20:25:41.1496796Z   enable-cache: true
+2026-11-17T20:25:41.1497174Z   activate-environment: false
+2026-11-17T20:25:41.1497437Z   working-directory: /home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:25:41.1497716Z   server-url: https://github.com
+2026-11-17T20:25:41.1499585Z   github-token: ***
+2026-11-17T20:25:41.1499998Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-11-17T20:25:41.1500465Z   restore-cache: true
+2026-11-17T20:25:41.1500665Z   save-cache: true
+2026-11-17T20:25:41.1500876Z   prune-cache: true
+2026-11-17T20:25:41.1501089Z   ignore-nothing-to-cache: false
+2026-11-17T20:25:41.1501344Z   ignore-empty-workdir: false
+2026-11-17T20:25:41.1501533Z   add-problem-matchers: true
+2026-11-17T20:25:41.1501744Z env:
+2026-11-17T20:25:41.1501878Z   UV_LOCKED: 1
+2026-11-17T20:25:41.1502041Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:41.1502224Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:41.1502390Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:41.1502555Z ##[endgroup]
+2026-11-17T20:25:41.3364100Z (node:2255) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T20:25:41.3364850Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T20:25:41.3478132Z manifest-file not provided, reading from local file.
+2026-11-17T20:25:41.3505080Z manifest-file does not contain version 0.11.32, arch x86_64, platform unknown-linux-gnu. Falling back to GitHub releases.
+2026-11-17T20:25:41.3506462Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.11.32/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-11-17T20:25:41.8078410Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/6eab9c1d-c54b-4e64-9f15-0a7d524014ec -f /home/runner/work/_temp/828f7d99-3c20-46e2-93ea-1df9e3ddbac3
+2026-11-17T20:25:42.2595696Z Added /home/runner/.local/bin to the path
+2026-11-17T20:25:42.2597314Z Added /opt/hostedtoolcache/uv/0.11.32/x86_64 to the path
+2026-11-17T20:25:42.2597942Z Set UV_PYTHON to 3.13
+2026-11-17T20:25:42.2614359Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:42.2614715Z Successfully installed uv version 0.11.32
+2026-11-17T20:25:42.2616070Z Searching files using cache dependency glob: /home/runner/work/EntropyTrade/EntropyTrade/**/*requirements*.txt,/home/runner/work/EntropyTrade/EntropyTrade/**/*requirements*.in,/home/runner/work/EntropyTrade/EntropyTrade/**/*constraints*.txt,/home/runner/work/EntropyTrade/EntropyTrade/**/*constraints*.in,/home/runner/work/EntropyTrade/EntropyTrade/**/pyproject.toml,/home/runner/work/EntropyTrade/EntropyTrade/**/uv.lock,/home/runner/work/EntropyTrade/EntropyTrade/**/*.py.lock
+2026-11-17T20:25:43.1321457Z /home/runner/work/EntropyTrade/EntropyTrade/pyproject.toml
+2026-11-17T20:25:43.1344533Z /home/runner/work/EntropyTrade/EntropyTrade/uv.lock
+2026-11-17T20:25:43.1361269Z Found 2 files to hash.
+2026-11-17T20:25:43.1421681Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+2026-11-17T20:25:43.4199497Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+2026-11-17T20:25:43.4273530Z (node:2255) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T20:25:43.8920951Z Received 7049 of 7049 (100.0%), 0.1 MBs/sec
+2026-11-17T20:25:43.8921362Z Cache Size: ~0 MB (7049 B)
+2026-11-17T20:25:43.8938755Z [command]/usr/bin/tar -xf /home/runner/work/_temp/90b1149f-d47a-4aee-8ab0-1b36ec1e23eb/cache.tzst -P -C /home/runner/work/EntropyTrade/EntropyTrade --use-compress-program unzstd
+2026-11-17T20:25:43.8983322Z Cache restored successfully
+2026-11-17T20:25:43.8986127Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.13-pruned-40f3d5cae722e16346811333d204a33de4b1501212fc810e0fad327f0be14ff6
+2026-11-17T20:25:43.9125142Z ##[group]Run actions/setup-node@v4
+2026-11-17T20:25:43.9125492Z with:
+2026-11-17T20:25:43.9125669Z   node-version: 22
+2026-11-17T20:25:43.9125843Z   always-auth: false
+2026-11-17T20:25:43.9126028Z   check-latest: false
+2026-11-17T20:25:43.9128395Z   token: ***
+2026-11-17T20:25:43.9128546Z env:
+2026-11-17T20:25:43.9128682Z   UV_LOCKED: 1
+2026-11-17T20:25:43.9128845Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:43.9129028Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:43.9129198Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:43.9129365Z   UV_PYTHON: 3.13
+2026-11-17T20:25:43.9129553Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:43.9129771Z ##[endgroup]
+2026-11-17T20:25:44.0551933Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+2026-11-17T20:25:44.0555519Z (node:2277) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T20:25:44.0556060Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T20:25:44.0557483Z ##[group]Environment details
+2026-11-17T20:25:47.3045824Z node: v22.23.4
+2026-11-17T20:25:47.3046145Z npm: 10.9.9
+2026-11-17T20:25:47.3046324Z yarn: 1.22.22
+2026-11-17T20:25:47.3046767Z ##[endgroup]
+2026-11-17T20:25:47.3136577Z ##[group]Run uv sync
+2026-11-17T20:25:47.3137076Z [36;1muv sync[0m
+2026-11-17T20:25:47.6971434Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:25:47.6971647Z env:
+2026-11-17T20:25:47.6971798Z   UV_LOCKED: 1
+2026-11-17T20:25:47.6971977Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:47.6972164Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:47.6972345Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:47.6972516Z   UV_PYTHON: 3.13
+2026-11-17T20:25:47.6972711Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:47.6972945Z ##[endgroup]
+2026-11-17T20:25:47.8633471Z Downloading cpython-3.13.14-linux-x86_64-gnu (download) (33.2MiB)
+2026-11-17T20:25:48.4296517Z  Downloaded cpython-3.13.14-linux-x86_64-gnu (download)
+2026-11-17T20:25:48.5486286Z Using CPython 3.13.14
+2026-11-17T20:25:48.5486747Z Creating virtual environment at: .venv
+2026-11-17T20:25:48.5568388Z Resolved 124 packages in 0.59ms
+2026-11-17T20:25:48.5647927Z    Building entropytrade @ file:///home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:25:48.5655922Z       Built entropytrade @ file:///home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:25:48.5919593Z Downloading pydantic-ai-slim (2.0MiB)
+2026-11-17T20:25:48.5920228Z Downloading ast-serialize (1.3MiB)
+2026-11-17T20:25:48.6054152Z Downloading mypy (14.7MiB)
+2026-11-17T20:25:48.6054569Z Downloading tiktoken (1.1MiB)
+2026-11-17T20:25:48.6055222Z Downloading ruff (9.9MiB)
+2026-11-17T20:25:48.6058009Z Downloading cryptography (4.5MiB)
+2026-11-17T20:25:48.6058368Z Downloading matplotlib (9.4MiB)
+2026-11-17T20:25:48.6062061Z Downloading pygments (1.2MiB)
+2026-11-17T20:25:48.6063115Z Downloading numpy (15.9MiB)
+2026-11-17T20:25:48.6064254Z Downloading pillow (6.6MiB)
+2026-11-17T20:25:48.6065619Z Downloading sqlalchemy (4.4MiB)
+2026-11-17T20:25:48.6067767Z Downloading scipy (33.7MiB)
+2026-11-17T20:25:48.6068471Z Downloading pandas (11.7MiB)
+2026-11-17T20:25:48.6069486Z Downloading pydantic-core (2.0MiB)
+2026-11-17T20:25:48.6070742Z Downloading google-genai (1.1MiB)
+2026-11-17T20:25:48.6071350Z Downloading kiwisolver (1.4MiB)
+2026-11-17T20:25:48.6072355Z Downloading hypothesis (1.1MiB)
+2026-11-17T20:25:48.6074457Z Downloading anthropic (1.6MiB)
+2026-11-17T20:25:48.6075255Z Downloading mlflow-skinny (6.0MiB)
+2026-11-17T20:25:48.6076267Z Downloading virtualenv (5.2MiB)
+2026-11-17T20:25:48.6077470Z Downloading scikit-learn (8.7MiB)
+2026-11-17T20:25:48.6078504Z Downloading mlflow (27.7MiB)
+2026-11-17T20:25:48.6079580Z Downloading openai (2.0MiB)
+2026-11-17T20:25:48.6148168Z Downloading databricks-sdk (1.0MiB)
+2026-11-17T20:25:48.6148751Z Downloading pyarrow (40.1MiB)
+2026-11-17T20:25:48.6149356Z Downloading fonttools (5.1MiB)
+2026-11-17T20:25:49.0647901Z  Downloaded databricks-sdk
+2026-11-17T20:25:49.0932160Z  Downloaded tiktoken
+2026-11-17T20:25:49.1033938Z  Downloaded ast-serialize
+2026-11-17T20:25:49.1693411Z  Downloaded hypothesis
+2026-11-17T20:25:49.1739203Z  Downloaded kiwisolver
+2026-11-17T20:25:49.2818317Z  Downloaded pydantic-core
+2026-11-17T20:25:49.2834405Z  Downloaded pygments
+2026-11-17T20:25:49.4377592Z  Downloaded pydantic-ai-slim
+2026-11-17T20:25:49.6248603Z  Downloaded sqlalchemy
+2026-11-17T20:25:49.6490270Z  Downloaded google-genai
+2026-11-17T20:25:49.7012262Z  Downloaded cryptography
+2026-11-17T20:25:49.7279856Z  Downloaded fonttools
+2026-11-17T20:25:49.7842154Z  Downloaded virtualenv
+2026-11-17T20:25:49.9260309Z  Downloaded pillow
+2026-11-17T20:25:50.0751464Z  Downloaded mlflow-skinny
+2026-11-17T20:25:50.1293030Z  Downloaded scikit-learn
+2026-11-17T20:25:50.1784176Z  Downloaded ruff
+2026-11-17T20:25:50.2649992Z  Downloaded matplotlib
+2026-11-17T20:25:50.4905979Z  Downloaded anthropic
+2026-11-17T20:25:50.5224763Z  Downloaded openai
+2026-11-17T20:25:50.6068472Z  Downloaded numpy
+2026-11-17T20:25:50.9734387Z  Downloaded scipy
+2026-11-17T20:25:50.9867445Z  Downloaded pandas
+2026-11-17T20:25:50.9946588Z  Downloaded mlflow
+2026-11-17T20:25:51.0364676Z  Downloaded mypy
+2026-11-17T20:25:51.1785572Z  Downloaded pyarrow
+2026-11-17T20:25:51.1795648Z Prepared 120 packages in 2.62s
+2026-11-17T20:25:51.2727395Z Installed 120 packages in 93ms
+2026-11-17T20:25:51.2733242Z  + alembic==1.20.0
+2026-11-17T20:25:51.2733601Z  + annotated-doc==0.0.5
+2026-11-17T20:25:51.2733868Z  + annotated-types==0.8.0
+2026-11-17T20:25:51.2734117Z  + anthropic==1.11.0
+2026-11-17T20:25:51.2734340Z  + anyio==4.15.1
+2026-11-17T20:25:51.2734563Z  + ast-serialize==0.11.2
+2026-11-17T20:25:51.2734803Z  + blinker==1.9.0
+2026-11-17T20:25:51.2735018Z  + cachetools==5.5.2
+2026-11-17T20:25:51.2735238Z  + certifi==2026.7.22
+2026-11-17T20:25:51.2735462Z  + cffi==2.1.1
+2026-11-17T20:25:51.2735714Z  + cfgv==3.5.0
+2026-11-17T20:25:51.2735960Z  + charset-normalizer==3.5.2
+2026-11-17T20:25:51.2736238Z  + click==8.5.0
+2026-11-17T20:25:51.2736456Z  + cloudpickle==3.1.2
+2026-11-17T20:25:51.2736689Z  + contourpy==1.4.0
+2026-11-17T20:25:51.2737152Z  + coverage==7.16.2
+2026-11-17T20:25:51.2737370Z  + cryptography==50.0.2
+2026-11-17T20:25:51.2737626Z  + cycler==0.12.1
+2026-11-17T20:25:51.2737875Z  + databricks-sdk==0.146.0
+2026-11-17T20:25:51.2738154Z  + distlib==0.4.3
+2026-11-17T20:25:51.2738391Z  + distro==1.9.0
+2026-11-17T20:25:51.2738623Z  + docker==7.2.0
+2026-11-17T20:25:51.2738881Z  + docstring-parser==0.18.0
+2026-11-17T20:25:51.2739373Z  + entropytrade==0.0.0 (from file:///home/runner/work/EntropyTrade/EntropyTrade)
+2026-11-17T20:25:51.2739829Z  + fastapi==0.142.2
+2026-11-17T20:25:51.2740059Z  + filelock==4.0.9
+2026-11-17T20:25:51.2740284Z  + flask==3.1.3
+2026-11-17T20:25:51.2740510Z  + fonttools==4.66.1
+2026-11-17T20:25:51.2740758Z  + genai-prices==0.1.9
+2026-11-17T20:25:51.2741011Z  + gitdb==4.0.12
+2026-11-17T20:25:51.2741246Z  + gitpython==3.2.0
+2026-11-17T20:25:51.2741476Z  + google-auth==2.59.1
+2026-11-17T20:25:51.2741744Z  + google-genai==2.29.0
+2026-11-17T20:25:51.2741998Z  + graphene==3.4.3
+2026-11-17T20:25:51.2742233Z  + graphql-core==3.2.13
+2026-11-17T20:25:51.2742479Z  + graphql-relay==3.2.0
+2026-11-17T20:25:51.2742738Z  + griffelib==2.3.0
+2026-11-17T20:25:51.2742984Z  + gunicorn==23.0.0
+2026-11-17T20:25:51.2743238Z  + h11==0.16.0
+2026-11-17T20:25:51.2743464Z  + httpcore==1.0.9
+2026-11-17T20:25:51.2743696Z  + httpcore2==2.13.1
+2026-11-17T20:25:51.2743940Z  + httpx==0.28.1
+2026-11-17T20:25:51.2744173Z  + httpx2==2.13.1
+2026-11-17T20:25:51.2744411Z  + hypothesis==6.168.3
+2026-11-17T20:25:51.2744655Z  + identify==2.6.20
+2026-11-17T20:25:51.2744882Z  + idna==3.20
+2026-11-17T20:25:51.2745128Z  + importlib-metadata==8.9.0
+2026-11-17T20:25:51.2745399Z  + iniconfig==2.3.0
+2026-11-17T20:25:51.2745666Z  + itsdangerous==2.2.0
+2026-11-17T20:25:51.2745914Z  + jinja2==3.1.6
+2026-11-17T20:25:51.2746415Z  + jiter==0.17.0
+2026-11-17T20:25:51.2746644Z  + joblib==1.6.0
+2026-11-17T20:25:51.2747250Z  + kalshi-sdk==17.1.0
+2026-11-17T20:25:51.2747515Z  + kiwisolver==1.5.1
+2026-11-17T20:25:51.2747739Z  + librt==0.16.0
+2026-11-17T20:25:51.2747961Z  + logfire-api==5.1.1
+2026-11-17T20:25:51.2748198Z  + mako==1.4.3
+2026-11-17T20:25:51.2748414Z  + markdown==3.11
+2026-11-17T20:25:51.2748637Z  + markupsafe==3.0.3
+2026-11-17T20:25:51.2748866Z  + matplotlib==3.11.2
+2026-11-17T20:25:51.2749094Z  + mlflow==2.22.5
+2026-11-17T20:25:51.2751368Z  + mlflow-skinny==2.22.5
+2026-11-17T20:25:51.2752160Z  + mypy==2.4.0
+2026-11-17T20:25:51.2752399Z  + mypy-extensions==1.1.0
+2026-11-17T20:25:51.2752621Z  + narwhals==2.26.0
+2026-11-17T20:25:51.2752839Z  + nodeenv==1.11.0
+2026-11-17T20:25:51.2753030Z  + numpy==2.5.3
+2026-11-17T20:25:51.2753192Z  + openai==3.23.0
+2026-11-17T20:25:51.2753375Z  + opentelemetry-api==1.45.0
+2026-11-17T20:25:51.2753574Z  + opentelemetry-sdk==1.45.0
+2026-11-17T20:25:51.2753817Z  + opentelemetry-semantic-conventions==0.66b0
+2026-11-17T20:25:51.2754067Z  + packaging==24.2
+2026-11-17T20:25:51.2754226Z  + pandas==2.3.3
+2026-11-17T20:25:51.2754386Z  + pathspec==1.1.1
+2026-11-17T20:25:51.2754663Z  + pillow==12.3.0
+2026-11-17T20:25:51.2754880Z  + platformdirs==4.12.2
+2026-11-17T20:25:51.2755113Z  + pluggy==1.6.0
+2026-11-17T20:25:51.2755337Z  + pre-commit==4.6.2
+2026-11-17T20:25:51.2755581Z  + protobuf==6.33.6
+2026-11-17T20:25:51.2756039Z  + pyarrow==19.0.1
+2026-11-17T20:25:51.2756251Z  + pyasn1==0.6.4
+2026-11-17T20:25:51.2756455Z  + pyasn1-modules==0.4.2
+2026-11-17T20:25:51.2756637Z  + pycparser==3.0
+2026-11-17T20:25:51.2756795Z  + pydantic==2.13.5
+2026-11-17T20:25:51.2757257Z  + pydantic-ai-slim==2.53.0
+2026-11-17T20:25:51.2757488Z  + pydantic-core==2.46.5
+2026-11-17T20:25:51.2757701Z  + pydantic-graph==2.53.0
+2026-11-17T20:25:51.2757894Z  + pygments==2.21.0
+2026-11-17T20:25:51.2758063Z  + pyparsing==3.3.3
+2026-11-17T20:25:51.2758227Z  + pytest==9.1.1
+2026-11-17T20:25:51.2758389Z  + pytest-cov==7.1.0
+2026-11-17T20:25:51.2758602Z  + python-dateutil==2.9.0.post0
+2026-11-17T20:25:51.2758808Z  + python-discovery==1.6.1
+2026-11-17T20:25:51.2758990Z  + pytz==2026.4
+2026-11-17T20:25:51.2759151Z  + pyyaml==6.0.3
+2026-11-17T20:25:51.2759310Z  + regex==2026.9.29
+2026-11-17T20:25:51.2759476Z  + requests==2.34.2
+2026-11-17T20:25:51.2759642Z  + ruff==0.16.10
+2026-11-17T20:25:51.2759813Z  + scikit-learn==1.9.1
+2026-11-17T20:25:51.2759993Z  + scipy==1.18.1
+2026-11-17T20:25:51.2760159Z  + six==1.17.0
+2026-11-17T20:25:51.2760327Z  + smmap==5.0.3
+2026-11-17T20:25:51.2760492Z  + sniffio==1.3.1
+2026-11-17T20:25:51.2760679Z  + sortedcontainers==2.4.0
+2026-11-17T20:25:51.2760873Z  + sqlalchemy==2.1.2
+2026-11-17T20:25:51.2761087Z  + sqlparse==0.6.0
+2026-11-17T20:25:51.2761321Z  + starlette==1.7.0
+2026-11-17T20:25:51.2761501Z  + tenacity==9.1.4
+2026-11-17T20:25:51.2761689Z  + threadpoolctl==3.7.0
+2026-11-17T20:25:51.2761871Z  + tiktoken==0.14.0
+2026-11-17T20:25:51.2762051Z  + truststore==0.10.4
+2026-11-17T20:25:51.2762236Z  + typing-extensions==4.16.0
+2026-11-17T20:25:51.2762441Z  + typing-inspection==0.4.4
+2026-11-17T20:25:51.2762624Z  + tzdata==2026.4
+2026-11-17T20:25:51.2762791Z  + urllib3==2.8.0
+2026-11-17T20:25:51.2762960Z  + uvicorn==0.54.0
+2026-11-17T20:25:51.2763131Z  + virtualenv==21.14.3
+2026-11-17T20:25:51.2763310Z  + websockets==16.1.1
+2026-11-17T20:25:51.2763483Z  + werkzeug==3.1.9
+2026-11-17T20:25:51.2763646Z  + zipp==4.1.0
+2026-11-17T20:25:51.2804608Z ##[group]Run uv run ruff check backend
+2026-11-17T20:25:51.2804872Z [36;1muv run ruff check backend[0m
+2026-11-17T20:25:51.2830731Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:25:51.2830931Z env:
+2026-11-17T20:25:51.2831096Z   UV_LOCKED: 1
+2026-11-17T20:25:51.2831272Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:51.2831460Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:51.2831642Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:51.2831820Z   UV_PYTHON: 3.13
+2026-11-17T20:25:51.2832022Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:51.2832253Z ##[endgroup]
+2026-11-17T20:25:51.5334084Z All checks passed!
+2026-11-17T20:25:51.5378468Z ##[group]Run uv run ruff format --check backend
+2026-11-17T20:25:51.5378744Z [36;1muv run ruff format --check backend[0m
+2026-11-17T20:25:51.5400784Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:25:51.5400994Z env:
+2026-11-17T20:25:51.5401145Z   UV_LOCKED: 1
+2026-11-17T20:25:51.5401317Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:51.5401503Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:51.5401711Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:51.5401883Z   UV_PYTHON: 3.13
+2026-11-17T20:25:51.5402075Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:51.5402294Z ##[endgroup]
+2026-11-17T20:25:51.6387382Z 660 files already formatted
+2026-11-17T20:25:51.6429074Z ##[group]Run uv run mypy
+2026-11-17T20:25:51.6429340Z [36;1muv run mypy[0m
+2026-11-17T20:25:51.6448749Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:25:51.6449073Z env:
+2026-11-17T20:25:51.6449291Z   UV_LOCKED: 1
+2026-11-17T20:25:51.6449591Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:25:51.6449861Z   OMP_NUM_THREADS: 1
+2026-11-17T20:25:51.6450093Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:25:51.6450327Z   UV_PYTHON: 3.13
+2026-11-17T20:25:51.6450607Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:25:51.6450937Z ##[endgroup]
+2026-11-17T20:26:21.1310164Z Success: no issues found in 660 source files
+2026-11-17T20:26:21.1769948Z ##[group]Run node --test frontend/tests/*.test.cjs
+2026-11-17T20:26:21.1770343Z [36;1mnode --test frontend/tests/*.test.cjs[0m
+2026-11-17T20:26:21.1796639Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:26:21.1797067Z env:
+2026-11-17T20:26:21.1797383Z   UV_LOCKED: 1
+2026-11-17T20:26:21.1797619Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:26:21.1797903Z   OMP_NUM_THREADS: 1
+2026-11-17T20:26:21.1798129Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:26:21.1798392Z   UV_PYTHON: 3.13
+2026-11-17T20:26:21.1798658Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:26:21.1798943Z ##[endgroup]
+2026-11-17T20:26:21.2588274Z TAP version 13
+2026-11-17T20:26:21.3438416Z # Subtest: label partitions: an older overlapping refresh cannot overwrite the selected partition
+2026-11-17T20:26:21.3469192Z ok 1 - label partitions: an older overlapping refresh cannot overwrite the selected partition
+2026-11-17T20:26:21.3487777Z   ---
+2026-11-17T20:26:21.3494896Z   duration_ms: 16.962756
+2026-11-17T20:26:21.3495630Z   type: 'test'
+2026-11-17T20:26:21.3496052Z   ...
+2026-11-17T20:26:21.3496788Z # Subtest: prospective evaluation: authentic insufficiency has no invented metrics
+2026-11-17T20:26:21.3497728Z ok 2 - prospective evaluation: authentic insufficiency has no invented metrics
+2026-11-17T20:26:21.3498288Z   ---
+2026-11-17T20:26:21.3498606Z   duration_ms: 2.802281
+2026-11-17T20:26:21.3498994Z   type: 'test'
+2026-11-17T20:26:21.3499289Z   ...
+2026-11-17T20:26:21.3499709Z # Subtest: prospective evaluation: synthetic diagnostics are labeled
+2026-11-17T20:26:21.3500290Z ok 3 - prospective evaluation: synthetic diagnostics are labeled
+2026-11-17T20:26:21.3500615Z   ---
+2026-11-17T20:26:21.3500861Z   duration_ms: 1.296205
+2026-11-17T20:26:21.3501091Z   type: 'test'
+2026-11-17T20:26:21.3501304Z   ...
+2026-11-17T20:26:21.3501743Z # Subtest: operator alerts keep acknowledged incidents open and resolved history inspectable
+2026-11-17T20:26:21.3502276Z ok 4 - operator alerts keep acknowledged incidents open and resolved history inspectable
+2026-11-17T20:26:21.3502644Z   ---
+2026-11-17T20:26:21.3502875Z   duration_ms: 1.466756
+2026-11-17T20:26:21.3503109Z   type: 'test'
+2026-11-17T20:26:21.3503333Z   ...
+2026-11-17T20:26:21.3503690Z # Subtest: review: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3504131Z ok 5 - review: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3504442Z   ---
+2026-11-17T20:26:21.3504712Z   duration_ms: 1.623979
+2026-11-17T20:26:21.3504936Z   type: 'test'
+2026-11-17T20:26:21.3505141Z   ...
+2026-11-17T20:26:21.3505507Z # Subtest: review: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3506130Z ok 6 - review: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3506480Z   ---
+2026-11-17T20:26:21.3506715Z   duration_ms: 0.731347
+2026-11-17T20:26:21.3507313Z   type: 'test'
+2026-11-17T20:26:21.3507554Z   ...
+2026-11-17T20:26:21.3507908Z # Subtest: review: synthetic banner stays visible
+2026-11-17T20:26:21.3508341Z ok 7 - review: synthetic banner stays visible
+2026-11-17T20:26:21.3508631Z   ---
+2026-11-17T20:26:21.3508900Z   duration_ms: 0.834909
+2026-11-17T20:26:21.3509151Z   type: 'test'
+2026-11-17T20:26:21.3509424Z   ...
+2026-11-17T20:26:21.3509998Z # Subtest: review: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3510664Z ok 8 - review: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3511068Z   ---
+2026-11-17T20:26:21.3511321Z   duration_ms: 0.982195
+2026-11-17T20:26:21.3511572Z   type: 'test'
+2026-11-17T20:26:21.3511800Z   ...
+2026-11-17T20:26:21.3512292Z # Subtest: probabilities: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3512928Z ok 9 - probabilities: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3513403Z   ---
+2026-11-17T20:26:21.3513709Z   duration_ms: 1.050823
+2026-11-17T20:26:21.3514026Z   type: 'test'
+2026-11-17T20:26:21.3514301Z   ...
+2026-11-17T20:26:21.3515039Z # Subtest: probabilities: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3516166Z ok 10 - probabilities: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3516634Z   ---
+2026-11-17T20:26:21.3517134Z   duration_ms: 1.371044
+2026-11-17T20:26:21.3517451Z   type: 'test'
+2026-11-17T20:26:21.3517722Z   ...
+2026-11-17T20:26:21.3518157Z # Subtest: probabilities: synthetic banner stays visible
+2026-11-17T20:26:21.3518639Z ok 11 - probabilities: synthetic banner stays visible
+2026-11-17T20:26:21.3519010Z   ---
+2026-11-17T20:26:21.3519322Z   duration_ms: 0.670107
+2026-11-17T20:26:21.3519650Z   type: 'test'
+2026-11-17T20:26:21.3519954Z   ...
+2026-11-17T20:26:21.3520491Z # Subtest: probabilities: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3521291Z ok 12 - probabilities: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3521783Z   ---
+2026-11-17T20:26:21.3522127Z   duration_ms: 0.683667
+2026-11-17T20:26:21.3522433Z   type: 'test'
+2026-11-17T20:26:21.3522692Z   ...
+2026-11-17T20:26:21.3523244Z # Subtest: lineage: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3523945Z ok 13 - lineage: failed acquisition is visible without expanding details
+2026-11-17T20:26:21.3524411Z   ---
+2026-11-17T20:26:21.3524699Z   duration_ms: 0.880433
+2026-11-17T20:26:21.3525052Z   type: 'test'
+2026-11-17T20:26:21.3525347Z   ...
+2026-11-17T20:26:21.3526023Z # Subtest: lineage: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3526785Z ok 14 - lineage: partial acquisition is visible without expanding details
+2026-11-17T20:26:21.3527480Z   ---
+2026-11-17T20:26:21.3527781Z   duration_ms: 2.584152
+2026-11-17T20:26:21.3528164Z   type: 'test'
+2026-11-17T20:26:21.3528433Z   ...
+2026-11-17T20:26:21.3528844Z # Subtest: lineage: synthetic banner stays visible
+2026-11-17T20:26:21.3529347Z ok 15 - lineage: synthetic banner stays visible
+2026-11-17T20:26:21.3529729Z   ---
+2026-11-17T20:26:21.3530026Z   duration_ms: 0.955552
+2026-11-17T20:26:21.3530349Z   type: 'test'
+2026-11-17T20:26:21.3530618Z   ...
+2026-11-17T20:26:21.3531095Z # Subtest: lineage: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3531817Z ok 16 - lineage: retained Bitcoin gaps and reconciliation failures are visible
+2026-11-17T20:26:21.3532298Z   ---
+2026-11-17T20:26:21.3532738Z   duration_ms: 1.003525
+2026-11-17T20:26:21.3533070Z   type: 'test'
+2026-11-17T20:26:21.3533327Z   ...
+2026-11-17T20:26:21.3533853Z # Subtest: review: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3534625Z ok 17 - review: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3535348Z   ---
+2026-11-17T20:26:21.3535619Z   duration_ms: 1.14654
+2026-11-17T20:26:21.3535959Z   type: 'test'
+2026-11-17T20:26:21.3536273Z   ...
+2026-11-17T20:26:21.3537078Z # Subtest: probabilities: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3537901Z ok 18 - probabilities: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3538383Z   ---
+2026-11-17T20:26:21.3538666Z   duration_ms: 1.644138
+2026-11-17T20:26:21.3539005Z   type: 'test'
+2026-11-17T20:26:21.3539300Z   ...
+2026-11-17T20:26:21.3539850Z # Subtest: lineage: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3540596Z ok 19 - lineage: provider failure and limits are visible with zero experiment success
+2026-11-17T20:26:21.3541157Z   ---
+2026-11-17T20:26:21.3541437Z   duration_ms: 1.060987
+2026-11-17T20:26:21.3541745Z   type: 'test'
+2026-11-17T20:26:21.3542087Z   ...
+2026-11-17T20:26:21.3542537Z # Subtest: review: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3543171Z ok 20 - review: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3543605Z   ---
+2026-11-17T20:26:21.3587779Z   duration_ms: 1.268214
+2026-11-17T20:26:21.3588363Z   type: 'test'
+2026-11-17T20:26:21.3588729Z   ...
+2026-11-17T20:26:21.3589256Z # Subtest: probabilities: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3589953Z ok 21 - probabilities: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3590467Z   ---
+2026-11-17T20:26:21.3590763Z   duration_ms: 0.988712
+2026-11-17T20:26:21.3591121Z   type: 'test'
+2026-11-17T20:26:21.3591463Z   ...
+2026-11-17T20:26:21.3591918Z # Subtest: lineage: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3592590Z ok 22 - lineage: retained weather counts and shortages stay visible
+2026-11-17T20:26:21.3593065Z   ---
+2026-11-17T20:26:21.3593398Z   duration_ms: 1.437179
+2026-11-17T20:26:21.3593716Z   type: 'test'
+2026-11-17T20:26:21.3594043Z   ...
+2026-11-17T20:26:21.3594564Z # Subtest: review: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3595244Z ok 23 - review: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3595762Z   ---
+2026-11-17T20:26:21.3596066Z   duration_ms: 0.781704
+2026-11-17T20:26:21.3596393Z   type: 'test'
+2026-11-17T20:26:21.3596735Z   ...
+2026-11-17T20:26:21.3608927Z # Subtest: probabilities: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3609576Z ok 24 - probabilities: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3609952Z   ---
+2026-11-17T20:26:21.3610179Z   duration_ms: 0.610108
+2026-11-17T20:26:21.3610415Z   type: 'test'
+2026-11-17T20:26:21.3610673Z   ...
+2026-11-17T20:26:21.3611022Z # Subtest: lineage: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3611478Z ok 25 - lineage: shadow history clocks, depth and fee blockers stay visible
+2026-11-17T20:26:21.3611837Z   ---
+2026-11-17T20:26:21.3612060Z   duration_ms: 0.636386
+2026-11-17T20:26:21.3612289Z   type: 'test'
+2026-11-17T20:26:21.3612506Z   ...
+2026-11-17T20:26:21.3613211Z # Subtest: V1 gates panel shows open and invalid gates as text and never claims completion
+2026-11-17T20:26:21.3613753Z ok 26 - V1 gates panel shows open and invalid gates as text and never claims completion
+2026-11-17T20:26:21.3614145Z   ---
+2026-11-17T20:26:21.3614361Z   duration_ms: 12.221657
+2026-11-17T20:26:21.3614597Z   type: 'test'
+2026-11-17T20:26:21.3614788Z   ...
+2026-11-17T20:26:21.3637459Z # Subtest: workbench settlement-only cycles render without prediction or execution fields
+2026-11-17T20:26:21.3638106Z ok 27 - workbench settlement-only cycles render without prediction or execution fields
+2026-11-17T20:26:21.3638586Z   ---
+2026-11-17T20:26:21.3638808Z   duration_ms: 3.382277
+2026-11-17T20:26:21.3639049Z   type: 'test'
+2026-11-17T20:26:21.3639549Z   ...
+2026-11-17T20:26:21.5982639Z # Subtest: legacy script load, hidden workbench and Demo dispatch no reads or writes
+2026-11-17T20:26:21.5983677Z ok 28 - legacy script load, hidden workbench and Demo dispatch no reads or writes
+2026-11-17T20:26:21.5984614Z   ---
+2026-11-17T20:26:21.5985078Z   duration_ms: 8.15746
+2026-11-17T20:26:21.5985624Z   type: 'test'
+2026-11-17T20:26:21.5986064Z   ...
+2026-11-17T20:26:21.5986752Z # Subtest: activation is lazy, concurrent readiness is shared, and writes use Real CSRF
+2026-11-17T20:26:21.5987715Z ok 29 - activation is lazy, concurrent readiness is shared, and writes use Real CSRF
+2026-11-17T20:26:21.5988135Z   ---
+2026-11-17T20:26:21.5988439Z   duration_ms: 303.397128
+2026-11-17T20:26:21.5988790Z   type: 'test'
+2026-11-17T20:26:21.5989069Z   ...
+2026-11-17T20:26:21.5989596Z # Subtest: hidden and Demo navigation stop timers and saved static handlers stay stale after reactivation
+2026-11-17T20:26:21.5990238Z ok 30 - hidden and Demo navigation stop timers and saved static handlers stay stale after reactivation
+2026-11-17T20:26:21.5990717Z   ---
+2026-11-17T20:26:21.5991047Z   duration_ms: 2.977843
+2026-11-17T20:26:21.5991360Z   type: 'test'
+2026-11-17T20:26:21.5991637Z   ...
+2026-11-17T20:26:21.6030648Z # Subtest: background visibility aborts work and resumes only a visible Real workbench
+2026-11-17T20:26:21.6031508Z ok 31 - background visibility aborts work and resumes only a visible Real workbench
+2026-11-17T20:26:21.6031926Z   ---
+2026-11-17T20:26:21.6032265Z   duration_ms: 3.843613
+2026-11-17T20:26:21.6032579Z   type: 'test'
+2026-11-17T20:26:21.6032838Z   ...
+2026-11-17T20:26:21.6094893Z # Subtest: aborted initialization and pending writes reject without undefined results or stale UI
+2026-11-17T20:26:21.6096065Z ok 32 - aborted initialization and pending writes reject without undefined results or stale UI
+2026-11-17T20:26:21.6097015Z   ---
+2026-11-17T20:26:21.6097631Z   duration_ms: 3.585632
+2026-11-17T20:26:21.6098093Z   type: 'test'
+2026-11-17T20:26:21.6098522Z   ...
+2026-11-17T20:26:21.6099221Z # Subtest: awaited selection survives lazy initialization and reentry rebuilds dynamic controls
+2026-11-17T20:26:21.6100128Z ok 33 - awaited selection survives lazy initialization and reentry rebuilds dynamic controls
+2026-11-17T20:26:21.6100768Z   ---
+2026-11-17T20:26:21.6101192Z   duration_ms: 3.009464
+2026-11-17T20:26:21.6101615Z   type: 'test'
+2026-11-17T20:26:21.6101995Z   ...
+2026-11-17T20:26:21.6151952Z # Subtest: late same-ID job responses from selection, polling and older activation never repaint
+2026-11-17T20:26:21.6153151Z ok 34 - late same-ID job responses from selection, polling and older activation never repaint
+2026-11-17T20:26:21.6153903Z   ---
+2026-11-17T20:26:21.6154297Z   duration_ms: 4.456437
+2026-11-17T20:26:21.6154751Z   type: 'test'
+2026-11-17T20:26:21.6156551Z   ...
+2026-11-17T20:26:21.6188150Z # Subtest: same-ID monitor selection discards older responses and old monitor actions
+2026-11-17T20:26:21.6189235Z ok 35 - same-ID monitor selection discards older responses and old monitor actions
+2026-11-17T20:26:21.6189998Z   ---
+2026-11-17T20:26:21.6190421Z   duration_ms: 6.292629
+2026-11-17T20:26:21.6190850Z   type: 'test'
+2026-11-17T20:26:21.6191360Z   ...
+2026-11-17T20:26:21.7493781Z # Subtest: overview uses full stored counts above fifty while recent references stay bounded
+2026-11-17T20:26:21.7518041Z ok 36 - overview uses full stored counts above fifty while recent references stay bounded
+2026-11-17T20:26:21.7518804Z   ---
+2026-11-17T20:26:21.7528825Z   duration_ms: 448.154083
+2026-11-17T20:26:21.7529354Z   type: 'test'
+2026-11-17T20:26:21.7529805Z   ...
+2026-11-17T20:26:21.7581037Z # Subtest: overview separates legacy and course sources, real and synthetic data, and actual accounts
+2026-11-17T20:26:21.7588268Z ok 37 - overview separates legacy and course sources, real and synthetic data, and actual accounts
+2026-11-17T20:26:21.7589194Z   ---
+2026-11-17T20:26:21.7589583Z   duration_ms: 10.83112
+2026-11-17T20:26:21.7590001Z   type: 'test'
+2026-11-17T20:26:21.7590623Z   ...
+2026-11-17T20:26:21.7668022Z # Subtest: unavailable components show an unknown dash while initialized-empty components show zero
+2026-11-17T20:26:21.7674930Z ok 38 - unavailable components show an unknown dash while initialized-empty components show zero
+2026-11-17T20:26:21.7708646Z   ---
+2026-11-17T20:26:21.7717754Z   duration_ms: 8.571294
+2026-11-17T20:26:21.7718234Z   type: 'test'
+2026-11-17T20:26:21.7718735Z   ...
+2026-11-17T20:26:21.7719460Z # Subtest: a summary request failure displays an error without fabricated zero counts
+2026-11-17T20:26:21.7720334Z ok 39 - a summary request failure displays an error without fabricated zero counts
+2026-11-17T20:26:21.7720936Z   ---
+2026-11-17T20:26:21.7721319Z   duration_ms: 3.638907
+2026-11-17T20:26:21.7721763Z   type: 'test'
+2026-11-17T20:26:21.7722116Z   ...
+2026-11-17T20:26:21.7819855Z # Subtest: \#/lab uses autonomous metadata and preserves exact experiment evidence links
+2026-11-17T20:26:21.7828107Z ok 40 - \#/lab uses autonomous metadata and preserves exact experiment evidence links
+2026-11-17T20:26:21.7834635Z   ---
+2026-11-17T20:26:21.7835187Z   duration_ms: 10.384022
+2026-11-17T20:26:21.7835651Z   type: 'test'
+2026-11-17T20:26:21.7836058Z   ...
+2026-11-17T20:26:21.7912891Z # Subtest: \#/analytics uses autonomous metadata and preserves exact experiment evidence links
+2026-11-17T20:26:21.7914347Z ok 41 - \#/analytics uses autonomous metadata and preserves exact experiment evidence links
+2026-11-17T20:26:21.7937630Z   ---
+2026-11-17T20:26:21.7967644Z   duration_ms: 7.662133
+2026-11-17T20:26:21.7968383Z   type: 'test'
+2026-11-17T20:26:21.7995912Z   ...
+2026-11-17T20:26:21.7997120Z # Subtest: overview keeps canonical experiment, readiness proposal and alert references
+2026-11-17T20:26:21.7998081Z ok 42 - overview keeps canonical experiment, readiness proposal and alert references
+2026-11-17T20:26:21.7998743Z   ---
+2026-11-17T20:26:21.7999147Z   duration_ms: 6.564508
+2026-11-17T20:26:21.7999543Z   type: 'test'
+2026-11-17T20:26:21.8000008Z   ...
+2026-11-17T20:26:21.8000624Z # Subtest: route parsing retains allowed selections and drops unrelated query keys
+2026-11-17T20:26:21.8001800Z ok 43 - route parsing retains allowed selections and drops unrelated query keys
+2026-11-17T20:26:21.8010725Z   ---
+2026-11-17T20:26:21.8011271Z   duration_ms: 2.246405
+2026-11-17T20:26:21.8011731Z   type: 'test'
+2026-11-17T20:26:21.8012127Z   ...
+2026-11-17T20:26:21.8223946Z # Subtest: new research reload focuses the real objective form and submits the chosen provider
+2026-11-17T20:26:21.8247951Z ok 44 - new research reload focuses the real objective form and submits the chosen provider
+2026-11-17T20:26:21.8348152Z   ---
+2026-11-17T20:26:21.8358729Z   duration_ms: 22.610063
+2026-11-17T20:26:21.8361129Z   type: 'test'
+2026-11-17T20:26:21.8361598Z   ...
+2026-11-17T20:26:21.8362518Z # Subtest: invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=bogus
+2026-11-17T20:26:21.8363731Z ok 45 - invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=bogus
+2026-11-17T20:26:21.8364473Z   ---
+2026-11-17T20:26:21.8364923Z   duration_ms: 7.382558
+2026-11-17T20:26:21.8365346Z   type: 'test'
+2026-11-17T20:26:21.8365869Z   ...
+2026-11-17T20:26:21.8408162Z # Subtest: invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=experiments&experiment=not-a-hash
+2026-11-17T20:26:21.8409690Z ok 46 - invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=experiments&experiment=not-a-hash
+2026-11-17T20:26:21.8410683Z   ---
+2026-11-17T20:26:21.8411114Z   duration_ms: 14.470474
+2026-11-17T20:26:21.8411546Z   type: 'test'
+2026-11-17T20:26:21.8411950Z   ...
+2026-11-17T20:26:21.8427897Z # Subtest: invalid selection is visibly refused before reads: \#/paper/22222222-2222-4222-8222-222222222222?tab=readiness&proposal=bad
+2026-11-17T20:26:21.8428831Z ok 47 - invalid selection is visibly refused before reads: \#/paper/22222222-2222-4222-8222-222222222222?tab=readiness&proposal=bad
+2026-11-17T20:26:21.8429512Z   ---
+2026-11-17T20:26:21.8429820Z   duration_ms: 1.953786
+2026-11-17T20:26:21.8430113Z   type: 'test'
+2026-11-17T20:26:21.8430393Z   ...
+2026-11-17T20:26:21.8458019Z # Subtest: invalid selection is visibly refused before reads: \#/paper/not-a-uuid?tab=account
+2026-11-17T20:26:21.8458811Z ok 48 - invalid selection is visibly refused before reads: \#/paper/not-a-uuid?tab=account
+2026-11-17T20:26:21.8459300Z   ---
+2026-11-17T20:26:21.8459543Z   duration_ms: 1.87959
+2026-11-17T20:26:21.8459789Z   type: 'test'
+2026-11-17T20:26:21.8460024Z   ...
+2026-11-17T20:26:21.8487921Z # Subtest: invalid selection is visibly refused before reads: \#/ops?tab=alerts&monitor=bad
+2026-11-17T20:26:21.8488606Z ok 49 - invalid selection is visibly refused before reads: \#/ops?tab=alerts&monitor=bad
+2026-11-17T20:26:21.8489034Z   ---
+2026-11-17T20:26:21.8489382Z   duration_ms: 2.051236
+2026-11-17T20:26:21.8489715Z   type: 'test'
+2026-11-17T20:26:21.8489997Z   ...
+2026-11-17T20:26:21.8515480Z # Subtest: invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=paper&tab=experiments
+2026-11-17T20:26:21.8516590Z ok 50 - invalid selection is visibly refused before reads: \#/research/11111111-1111-4111-8111-111111111111?tab=paper&tab=experiments
+2026-11-17T20:26:21.8517611Z   ---
+2026-11-17T20:26:21.8517828Z   duration_ms: 2.065852
+2026-11-17T20:26:21.8518103Z   type: 'test'
+2026-11-17T20:26:21.8518339Z   ...
+2026-11-17T20:26:21.8658238Z # Subtest: research reload restores the exact experiment and its recorded refusal
+2026-11-17T20:26:21.8677732Z ok 51 - research reload restores the exact experiment and its recorded refusal
+2026-11-17T20:26:21.8678344Z   ---
+2026-11-17T20:26:21.8678676Z   duration_ms: 8.360284
+2026-11-17T20:26:21.8678996Z   type: 'test'
+2026-11-17T20:26:21.8679330Z   ...
+2026-11-17T20:26:21.8797087Z # Subtest: research tab changes persist the selected experiment and restore on back and forward
+2026-11-17T20:26:21.8828160Z ok 52 - research tab changes persist the selected experiment and restore on back and forward
+2026-11-17T20:26:21.8857547Z   ---
+2026-11-17T20:26:21.8874534Z   duration_ms: 19.815989
+2026-11-17T20:26:21.8875137Z   type: 'test'
+2026-11-17T20:26:21.8875496Z   ...
+2026-11-17T20:26:21.9023833Z # Subtest: recorded experiment picker persists its exact choice and restores the earlier choice on back
+2026-11-17T20:26:21.9037979Z ok 53 - recorded experiment picker persists its exact choice and restores the earlier choice on back
+2026-11-17T20:26:21.9038509Z   ---
+2026-11-17T20:26:21.9038894Z   duration_ms: 24.202946
+2026-11-17T20:26:21.9039240Z   type: 'test'
+2026-11-17T20:26:21.9039528Z   ...
+2026-11-17T20:26:21.9097914Z # Subtest: unknown selected research experiment is refused in experiments
+2026-11-17T20:26:21.9127939Z ok 54 - unknown selected research experiment is refused in experiments
+2026-11-17T20:26:21.9147594Z   ---
+2026-11-17T20:26:21.9158703Z   duration_ms: 4.126369
+2026-11-17T20:26:21.9185562Z   type: 'test'
+2026-11-17T20:26:21.9188557Z   ...
+2026-11-17T20:26:21.9218075Z # Subtest: unknown selected research experiment is refused in paper
+2026-11-17T20:26:21.9277775Z ok 55 - unknown selected research experiment is refused in paper
+2026-11-17T20:26:21.9307791Z   ---
+2026-11-17T20:26:21.9308273Z   duration_ms: 3.358624
+2026-11-17T20:26:21.9337837Z   type: 'test'
+2026-11-17T20:26:21.9367599Z   ...
+2026-11-17T20:26:21.9397923Z # Subtest: paper readiness reload selects the exact frozen proposal and exact research lineage
+2026-11-17T20:26:21.9448026Z ok 56 - paper readiness reload selects the exact frozen proposal and exact research lineage
+2026-11-17T20:26:21.9448678Z   ---
+2026-11-17T20:26:21.9449075Z   duration_ms: 14.740757
+2026-11-17T20:26:21.9449416Z   type: 'test'
+2026-11-17T20:26:21.9449754Z   ...
+2026-11-17T20:26:21.9702151Z # Subtest: paper tabs retain proposal selection through monitoring, evidence, back and reload
+2026-11-17T20:26:21.9703130Z ok 57 - paper tabs retain proposal selection through monitoring, evidence, back and reload
+2026-11-17T20:26:21.9704074Z   ---
+2026-11-17T20:26:21.9704400Z   duration_ms: 42.81975
+2026-11-17T20:26:21.9704724Z   type: 'test'
+2026-11-17T20:26:21.9704999Z   ...
+2026-11-17T20:26:21.9785110Z # Subtest: an unknown readiness proposal never silently selects the first frozen record
+2026-11-17T20:26:21.9786401Z ok 58 - an unknown readiness proposal never silently selects the first frozen record
+2026-11-17T20:26:21.9787250Z   ---
+2026-11-17T20:26:21.9787760Z   duration_ms: 6.666377
+2026-11-17T20:26:21.9788168Z   type: 'test'
+2026-11-17T20:26:21.9788575Z   ...
+2026-11-17T20:26:21.9828032Z # Subtest: a selected missing paper deployment is explicit with 1 stored monitors
+2026-11-17T20:26:21.9829221Z ok 59 - a selected missing paper deployment is explicit with 1 stored monitors
+2026-11-17T20:26:21.9829831Z   ---
+2026-11-17T20:26:21.9830226Z   duration_ms: 6.5151
+2026-11-17T20:26:21.9830684Z   type: 'test'
+2026-11-17T20:26:21.9831021Z   ...
+2026-11-17T20:26:21.9894706Z # Subtest: a selected missing paper deployment is explicit with 0 stored monitors
+2026-11-17T20:26:21.9895565Z ok 60 - a selected missing paper deployment is explicit with 0 stored monitors
+2026-11-17T20:26:21.9896040Z   ---
+2026-11-17T20:26:21.9896506Z   duration_ms: 4.421352
+2026-11-17T20:26:21.9896970Z   type: 'test'
+2026-11-17T20:26:21.9897466Z   ...
+2026-11-17T20:26:22.0035245Z # Subtest: a returned readiness record must match both requested proposal and selected monitor
+2026-11-17T20:26:22.0050289Z ok 61 - a returned readiness record must match both requested proposal and selected monitor
+2026-11-17T20:26:22.0051139Z   ---
+2026-11-17T20:26:22.0051516Z   duration_ms: 14.637568
+2026-11-17T20:26:22.0051977Z   type: 'test'
+2026-11-17T20:26:22.0052410Z   ...
+2026-11-17T20:26:22.0125926Z # Subtest: readiness proposal changes persist immediately and discard an older async completion
+2026-11-17T20:26:22.0126701Z ok 62 - readiness proposal changes persist immediately and discard an older async completion
+2026-11-17T20:26:22.0127370Z   ---
+2026-11-17T20:26:22.0127738Z   duration_ms: 13.631317
+2026-11-17T20:26:22.0128053Z   type: 'test'
+2026-11-17T20:26:22.0128388Z   ...
+2026-11-17T20:26:22.0215063Z # Subtest: a late summary or research response cannot paint after navigation
+2026-11-17T20:26:22.0218113Z ok 63 - a late summary or research response cannot paint after navigation
+2026-11-17T20:26:22.0218730Z   ---
+2026-11-17T20:26:22.0219103Z   duration_ms: 5.694274
+2026-11-17T20:26:22.0219629Z   type: 'test'
+2026-11-17T20:26:22.0220001Z   ...
+2026-11-17T20:26:22.0272330Z # Subtest: late monitoring evidence cannot replace the currently selected readiness tab
+2026-11-17T20:26:22.0273222Z ok 64 - late monitoring evidence cannot replace the currently selected readiness tab
+2026-11-17T20:26:22.0296672Z   ---
+2026-11-17T20:26:22.0297502Z   duration_ms: 8.050297
+2026-11-17T20:26:22.0297989Z   type: 'test'
+2026-11-17T20:26:22.0298403Z   ...
+2026-11-17T20:26:22.0381005Z # Subtest: alert routes retain monitor and alert filters and link directly to monitoring evidence
+2026-11-17T20:26:22.0382219Z ok 65 - alert routes retain monitor and alert filters and link directly to monitoring evidence
+2026-11-17T20:26:22.0382871Z   ---
+2026-11-17T20:26:22.0383220Z   duration_ms: 10.460949
+2026-11-17T20:26:22.0383591Z   type: 'test'
+2026-11-17T20:26:22.0383893Z   ...
+2026-11-17T20:26:22.0603277Z # Subtest: automatic saved proposal restoration preserves one-step Back from paper monitoring to the exact alert
+2026-11-17T20:26:22.0604526Z ok 66 - automatic saved proposal restoration preserves one-step Back from paper monitoring to the exact alert
+2026-11-17T20:26:22.0605357Z   ---
+2026-11-17T20:26:22.0605906Z   duration_ms: 22.662649
+2026-11-17T20:26:22.0606318Z   type: 'test'
+2026-11-17T20:26:22.0606798Z   ...
+2026-11-17T20:26:22.0634968Z # Subtest: an unknown selected alert is visibly refused without substituting another monitor
+2026-11-17T20:26:22.0636102Z ok 67 - an unknown selected alert is visibly refused without substituting another monitor
+2026-11-17T20:26:22.0637287Z   ---
+2026-11-17T20:26:22.0637756Z   duration_ms: 3.629353
+2026-11-17T20:26:22.0638201Z   type: 'test'
+2026-11-17T20:26:22.0638585Z   ...
+2026-11-17T20:26:22.0659794Z # Subtest: saved course route opens the exact retained run instead of config.latest
+2026-11-17T20:26:22.0660729Z ok 68 - saved course route opens the exact retained run instead of config.latest
+2026-11-17T20:26:22.0661508Z   ---
+2026-11-17T20:26:22.0661895Z   duration_ms: 2.493631
+2026-11-17T20:26:22.0662282Z   type: 'test'
+2026-11-17T20:26:22.0662748Z   ...
+2026-11-17T20:26:22.0679289Z # Subtest: missing saved course run gives a selected-record refusal without falling back to latest
+2026-11-17T20:26:22.0680448Z ok 69 - missing saved course run gives a selected-record refusal without falling back to latest
+2026-11-17T20:26:22.0681086Z   ---
+2026-11-17T20:26:22.0681520Z   duration_ms: 2.40558
+2026-11-17T20:26:22.0681968Z   type: 'test'
+2026-11-17T20:26:22.0682350Z   ...
+2026-11-17T20:26:22.0724275Z # Subtest: a saved course response with another record id is visibly refused
+2026-11-17T20:26:22.0728528Z ok 70 - a saved course response with another record id is visibly refused
+2026-11-17T20:26:22.0729308Z   ---
+2026-11-17T20:26:22.0729705Z   duration_ms: 2.057721
+2026-11-17T20:26:22.0730214Z   type: 'test'
+2026-11-17T20:26:22.0730600Z   ...
+2026-11-17T20:26:22.0731503Z # Subtest: command palette exposes persistent research, deployments, alerts and readiness routes
+2026-11-17T20:26:22.0732572Z ok 71 - command palette exposes persistent research, deployments, alerts and readiness routes
+2026-11-17T20:26:22.0733212Z   ---
+2026-11-17T20:26:22.0733606Z   duration_ms: 2.512099
+2026-11-17T20:26:22.0734053Z   type: 'test'
+2026-11-17T20:26:22.0734433Z   ...
+2026-11-17T20:26:22.0861821Z # Subtest: owner login reloads a previously refused API view and logout removes its data
+2026-11-17T20:26:22.0865833Z ok 72 - owner login reloads a previously refused API view and logout removes its data
+2026-11-17T20:26:22.0866640Z   ---
+2026-11-17T20:26:22.0867265Z   duration_ms: 13.289399
+2026-11-17T20:26:22.0867723Z   type: 'test'
+2026-11-17T20:26:22.0868170Z   ...
+2026-11-17T20:26:22.0868790Z # Subtest: owner authentication resets and awaits an active legacy connection
+2026-11-17T20:26:22.0869613Z ok 73 - owner authentication resets and awaits an active legacy connection
+2026-11-17T20:26:22.0870216Z   ---
+2026-11-17T20:26:22.0870655Z   duration_ms: 2.282949
+2026-11-17T20:26:22.0871067Z   type: 'test'
+2026-11-17T20:26:22.0871495Z   ...
+2026-11-17T20:26:22.0962077Z # Subtest: paper proposals: precise evidence refusals keep deployment disabled and make no POST
+2026-11-17T20:26:22.0963085Z ok 74 - paper proposals: precise evidence refusals keep deployment disabled and make no POST
+2026-11-17T20:26:22.0963899Z   ---
+2026-11-17T20:26:22.0964297Z   duration_ms: 212.339352
+2026-11-17T20:26:22.0964777Z   type: 'test'
+2026-11-17T20:26:22.0965161Z   ...
+2026-11-17T20:26:22.0965950Z # Subtest: paper proposals: explicit eligible action sends references and interval only with CSRF
+2026-11-17T20:26:22.0967242Z ok 75 - paper proposals: explicit eligible action sends references and interval only with CSRF
+2026-11-17T20:26:22.0983962Z   ---
+2026-11-17T20:26:22.0984537Z   duration_ms: 7.986254
+2026-11-17T20:26:22.0985001Z   type: 'test'
+2026-11-17T20:26:22.0985442Z   ...
+2026-11-17T20:26:22.0986205Z # Subtest: paper proposals: server rejection refreshes authoritative refusal without retrying create
+2026-11-17T20:26:22.0987601Z ok 76 - paper proposals: server rejection refreshes authoritative refusal without retrying create
+2026-11-17T20:26:22.0988289Z   ---
+2026-11-17T20:26:22.0988679Z   duration_ms: 5.253792
+2026-11-17T20:26:22.0989162Z   type: 'test'
+2026-11-17T20:26:22.0989541Z   ...
+2026-11-17T20:26:22.0990289Z # Subtest: paper proposals: existing cancelled deployment stays inspectable without creating another
+2026-11-17T20:26:22.0991301Z ok 77 - paper proposals: existing cancelled deployment stays inspectable without creating another
+2026-11-17T20:26:22.0992204Z   ---
+2026-11-17T20:26:22.0992661Z   duration_ms: 4.564087
+2026-11-17T20:26:22.0993075Z   type: 'test'
+2026-11-17T20:26:22.0993471Z   ...
+2026-11-17T20:26:22.0994154Z # Subtest: paper proposals: Demo Mode has no eligibility reads or deployment writes
+2026-11-17T20:26:22.0995056Z ok 78 - paper proposals: Demo Mode has no eligibility reads or deployment writes
+2026-11-17T20:26:22.0995666Z   ---
+2026-11-17T20:26:22.0996045Z   duration_ms: 3.630932
+2026-11-17T20:26:22.0996468Z   type: 'test'
+2026-11-17T20:26:22.0997051Z   ...
+2026-11-17T20:26:22.0997715Z # Subtest: paper dashboard: active exposes only permitted lifecycle controls
+2026-11-17T20:26:22.0998515Z ok 79 - paper dashboard: active exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1002521Z   ---
+2026-11-17T20:26:22.1002963Z   duration_ms: 14.074502
+2026-11-17T20:26:22.1003379Z   type: 'test'
+2026-11-17T20:26:22.1003827Z   ...
+2026-11-17T20:26:22.1004431Z # Subtest: paper dashboard: paused exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1005269Z ok 80 - paper dashboard: paused exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1006038Z   ---
+2026-11-17T20:26:22.1006450Z   duration_ms: 9.716138
+2026-11-17T20:26:22.1007098Z   type: 'test'
+2026-11-17T20:26:22.1007493Z   ...
+2026-11-17T20:26:22.1008395Z # Subtest: paper dashboard: suspended exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1009247Z ok 81 - paper dashboard: suspended exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1009826Z   ---
+2026-11-17T20:26:22.1010204Z   duration_ms: 8.378913
+2026-11-17T20:26:22.1010634Z   type: 'test'
+2026-11-17T20:26:22.1011041Z   ...
+2026-11-17T20:26:22.1011644Z # Subtest: paper dashboard: cancelled exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1012499Z ok 82 - paper dashboard: cancelled exposes only permitted lifecycle controls
+2026-11-17T20:26:22.1013063Z   ---
+2026-11-17T20:26:22.1013506Z   duration_ms: 9.248628
+2026-11-17T20:26:22.1013907Z   type: 'test'
+2026-11-17T20:26:22.1014274Z   ...
+2026-11-17T20:26:22.1014965Z # Subtest: paper dashboard: control requests carry CSRF and no risk or model overrides
+2026-11-17T20:26:22.1015830Z ok 83 - paper dashboard: control requests carry CSRF and no risk or model overrides
+2026-11-17T20:26:22.1016456Z   ---
+2026-11-17T20:26:22.1017069Z   duration_ms: 5.462774
+2026-11-17T20:26:22.1017533Z   type: 'test'
+2026-11-17T20:26:22.1017911Z   ...
+2026-11-17T20:26:22.1018607Z # Subtest: paper dashboard: cancellation preserves real recorded accounting and risk refusals
+2026-11-17T20:26:22.1019606Z ok 84 - paper dashboard: cancellation preserves real recorded accounting and risk refusals
+2026-11-17T20:26:22.1020229Z   ---
+2026-11-17T20:26:22.1020653Z   duration_ms: 13.845442
+2026-11-17T20:26:22.1021058Z   type: 'test'
+2026-11-17T20:26:22.1021482Z   ...
+2026-11-17T20:26:22.1022149Z # Subtest: paper dashboard: polling shows committed changes and recovers after an API outage
+2026-11-17T20:26:22.1023059Z ok 85 - paper dashboard: polling shows committed changes and recovers after an API outage
+2026-11-17T20:26:22.1023719Z   ---
+2026-11-17T20:26:22.1024085Z   duration_ms: 28.194646
+2026-11-17T20:26:22.1024518Z   type: 'test'
+2026-11-17T20:26:22.1024928Z   ...
+2026-11-17T20:26:22.1025473Z # Subtest: paper dashboard: leaving the page stops subsequent polling
+2026-11-17T20:26:22.1026274Z ok 86 - paper dashboard: leaving the page stops subsequent polling
+2026-11-17T20:26:22.1027005Z   ---
+2026-11-17T20:26:22.1027440Z   duration_ms: 12.207626
+2026-11-17T20:26:22.1027869Z   type: 'test'
+2026-11-17T20:26:22.1028255Z   ...
+2026-11-17T20:26:22.1028886Z # Subtest: paper dashboard: mixed evidence headline totals disclose synthetic accounts
+2026-11-17T20:26:22.1029804Z ok 87 - paper dashboard: mixed evidence headline totals disclose synthetic accounts
+2026-11-17T20:26:22.1030404Z   ---
+2026-11-17T20:26:22.1030762Z   duration_ms: 6.573474
+2026-11-17T20:26:22.1031212Z   type: 'test'
+2026-11-17T20:26:22.1031583Z   ...
+2026-11-17T20:26:22.1032231Z # Subtest: paper proposals: saved Real action cannot write after a switch to Demo Mode
+2026-11-17T20:26:22.1033274Z ok 88 - paper proposals: saved Real action cannot write after a switch to Demo Mode
+2026-11-17T20:26:22.1033844Z   ---
+2026-11-17T20:26:22.1034281Z   duration_ms: 6.333799
+2026-11-17T20:26:22.1034714Z   type: 'test'
+2026-11-17T20:26:22.1035101Z   ...
+2026-11-17T20:26:22.1035786Z # Subtest: paper dashboard: saved Real control cannot write after a switch to Demo Mode
+2026-11-17T20:26:22.1036649Z ok 89 - paper dashboard: saved Real control cannot write after a switch to Demo Mode
+2026-11-17T20:26:22.1037422Z   ---
+2026-11-17T20:26:22.1037835Z   duration_ms: 7.861899
+2026-11-17T20:26:22.1038260Z   type: 'test'
+2026-11-17T20:26:22.1038611Z   ...
+2026-11-17T20:26:22.1039333Z # Subtest: paper dashboard: switching Demo while a CSRF read is pending cannot expose a writer
+2026-11-17T20:26:22.1040291Z ok 90 - paper dashboard: switching Demo while a CSRF read is pending cannot expose a writer
+2026-11-17T20:26:22.1040942Z   ---
+2026-11-17T20:26:22.1041330Z   duration_ms: 2.173776
+2026-11-17T20:26:22.1041730Z   type: 'test'
+2026-11-17T20:26:22.1042142Z   ...
+2026-11-17T20:26:22.1042946Z # Subtest: readiness: changing proposal hides the previous export and review controls until matching evidence arrives
+2026-11-17T20:26:22.1044193Z ok 91 - readiness: changing proposal hides the previous export and review controls until matching evidence arrives
+2026-11-17T20:26:22.1044946Z   ---
+2026-11-17T20:26:22.1045307Z   duration_ms: 19.573863
+2026-11-17T20:26:22.1045914Z   type: 'test'
+2026-11-17T20:26:22.1046322Z   ...
+2026-11-17T20:26:22.1047222Z # Subtest: owner access: unconfigured state gives local CLI guidance and no credential setup form
+2026-11-17T20:26:22.1048266Z ok 92 - owner access: unconfigured state gives local CLI guidance and no credential setup form
+2026-11-17T20:26:22.1048921Z   ---
+2026-11-17T20:26:22.1049333Z   duration_ms: 2.26671
+2026-11-17T20:26:22.1049766Z   type: 'test'
+2026-11-17T20:26:22.1050165Z   ...
+2026-11-17T20:26:22.1050845Z # Subtest: owner access: manual sign-in clears passphrase before dispatch and sends no principal
+2026-11-17T20:26:22.1051979Z ok 93 - owner access: manual sign-in clears passphrase before dispatch and sends no principal
+2026-11-17T20:26:22.1052604Z   ---
+2026-11-17T20:26:22.1052957Z   duration_ms: 2.127081
+2026-11-17T20:26:22.1053426Z   type: 'test'
+2026-11-17T20:26:22.1053804Z   ...
+2026-11-17T20:26:22.1054548Z # Subtest: global halt: local risk reduction does not need an owner and cannot resume deployments
+2026-11-17T20:26:22.1055538Z ok 94 - global halt: local risk reduction does not need an owner and cannot resume deployments
+2026-11-17T20:26:22.1056184Z   ---
+2026-11-17T20:26:22.1056585Z   duration_ms: 3.079041
+2026-11-17T20:26:22.1057197Z   type: 'test'
+2026-11-17T20:26:22.1057611Z   ...
+2026-11-17T20:26:22.1058211Z # Subtest: global halt: release is owner-only and binds the observed epoch
+2026-11-17T20:26:22.1059008Z ok 95 - global halt: release is owner-only and binds the observed epoch
+2026-11-17T20:26:22.1059557Z   ---
+2026-11-17T20:26:22.1059999Z   duration_ms: 4.558976
+2026-11-17T20:26:22.1060406Z   type: 'test'
+2026-11-17T20:26:22.1060819Z   ...
+2026-11-17T20:26:22.1061520Z # Subtest: global halt: a local HALT file keeps owner release disabled with local recovery guidance
+2026-11-17T20:26:22.1062480Z ok 96 - global halt: a local HALT file keeps owner release disabled with local recovery guidance
+2026-11-17T20:26:22.1063085Z   ---
+2026-11-17T20:26:22.1063430Z   duration_ms: 5.139582
+2026-11-17T20:26:22.1063822Z   type: 'test'
+2026-11-17T20:26:22.1064226Z   ...
+2026-11-17T20:26:22.1064900Z # Subtest: global halt: a refused stale release refreshes the barrier without retrying the mutation
+2026-11-17T20:26:22.1065890Z ok 97 - global halt: a refused stale release refreshes the barrier without retrying the mutation
+2026-11-17T20:26:22.1066551Z   ---
+2026-11-17T20:26:22.1067170Z   duration_ms: 2.310737
+2026-11-17T20:26:22.1067655Z   type: 'test'
+2026-11-17T20:26:22.1068042Z   ...
+2026-11-17T20:26:22.1069189Z # Subtest: readiness: precise missing evidence and unconfigured owner remain blocked without fake metrics
+2026-11-17T20:26:22.1070255Z ok 98 - readiness: precise missing evidence and unconfigured owner remain blocked without fake metrics
+2026-11-17T20:26:22.1070921Z   ---
+2026-11-17T20:26:22.1071329Z   duration_ms: 9.565373
+2026-11-17T20:26:22.1071805Z   type: 'test'
+2026-11-17T20:26:22.1072242Z   ...
+2026-11-17T20:26:22.1072819Z # Subtest: readiness: freeze sends only future capital and loss fields
+2026-11-17T20:26:22.1073631Z ok 99 - readiness: freeze sends only future capital and loss fields
+2026-11-17T20:26:22.1074148Z   ---
+2026-11-17T20:26:22.1074605Z   duration_ms: 13.768824
+2026-11-17T20:26:22.1075028Z   type: 'test'
+2026-11-17T20:26:22.1195314Z   ...
+2026-11-17T20:26:22.1196282Z # Subtest: readiness: approval requires owner and current checks and sends revision, never actor or execution
+2026-11-17T20:26:22.1216580Z ok 100 - readiness: approval requires owner and current checks and sends revision, never actor or execution
+2026-11-17T20:26:22.1217579Z   ---
+2026-11-17T20:26:22.1217822Z   duration_ms: 21.081115
+2026-11-17T20:26:22.1218099Z   type: 'test'
+2026-11-17T20:26:22.1218325Z   ...
+2026-11-17T20:26:22.1218852Z # Subtest: readiness: server stale revision remains authoritative and does not retry approval
+2026-11-17T20:26:22.1219824Z ok 101 - readiness: server stale revision remains authoritative and does not retry approval
+2026-11-17T20:26:22.1220301Z   ---
+2026-11-17T20:26:22.1220529Z   duration_ms: 12.229666
+2026-11-17T20:26:22.1220797Z   type: 'test'
+2026-11-17T20:26:22.1221012Z   ...
+2026-11-17T20:26:22.1221543Z # Subtest: readiness: unauthenticated revocation and owner rollback use bounded references only
+2026-11-17T20:26:22.1222333Z ok 102 - readiness: unauthenticated revocation and owner rollback use bounded references only
+2026-11-17T20:26:22.1222815Z   ---
+2026-11-17T20:26:22.1223023Z   duration_ms: 15.388329
+2026-11-17T20:26:22.1223268Z   type: 'test'
+2026-11-17T20:26:22.1223486Z   ...
+2026-11-17T20:26:22.1223980Z # Subtest: owner and governance: saved Real handlers dispatch nothing after switching Demo
+2026-11-17T20:26:22.1224643Z ok 103 - owner and governance: saved Real handlers dispatch nothing after switching Demo
+2026-11-17T20:26:22.1225097Z   ---
+2026-11-17T20:26:22.1225311Z   duration_ms: 15.716711
+2026-11-17T20:26:22.1225564Z   type: 'test'
+2026-11-17T20:26:22.1225784Z   ...
+2026-11-17T20:26:22.1226321Z # Subtest: owner access: logout carries no actor and a saved login handler cannot send a secret in Demo
+2026-11-17T20:26:22.1227380Z ok 104 - owner access: logout carries no actor and a saved login handler cannot send a secret in Demo
+2026-11-17T20:26:22.1227877Z   ---
+2026-11-17T20:26:22.1228094Z   duration_ms: 3.592229
+2026-11-17T20:26:22.1228329Z   type: 'test'
+2026-11-17T20:26:22.1228529Z   ...
+2026-11-17T20:26:22.1229028Z # Subtest: readiness audit: recorded owner and reason remain text, with no automatic approval
+2026-11-17T20:26:22.1229781Z ok 105 - readiness audit: recorded owner and reason remain text, with no automatic approval
+2026-11-17T20:26:22.1230234Z   ---
+2026-11-17T20:26:22.1230437Z   duration_ms: 6.313132
+2026-11-17T20:26:22.1230665Z   type: 'test'
+2026-11-17T20:26:22.1230870Z   ...
+2026-11-17T20:26:22.1231423Z # Subtest: readiness monitoring: pending evidence is explicit and incident research links are canonical
+2026-11-17T20:26:22.1232280Z ok 106 - readiness monitoring: pending evidence is explicit and incident research links are canonical
+2026-11-17T20:26:22.1232778Z   ---
+2026-11-17T20:26:22.1232982Z   duration_ms: 7.395884
+2026-11-17T20:26:22.1233219Z   type: 'test'
+2026-11-17T20:26:22.1233422Z   ...
+2026-11-17T20:26:22.1233947Z # Subtest: readiness monitoring: durable incidents show recorded reasons and open or resolved state
+2026-11-17T20:26:22.1234771Z ok 107 - readiness monitoring: durable incidents show recorded reasons and open or resolved state
+2026-11-17T20:26:22.1235246Z   ---
+2026-11-17T20:26:22.1235450Z   duration_ms: 8.470655
+2026-11-17T20:26:22.1235793Z   type: 'test'
+2026-11-17T20:26:22.1235999Z   ...
+2026-11-17T20:26:22.1236483Z # Subtest: readiness monitoring: an earlier request cannot overwrite the latest assessment
+2026-11-17T20:26:22.1237383Z ok 108 - readiness monitoring: an earlier request cannot overwrite the latest assessment
+2026-11-17T20:26:22.1237829Z   ---
+2026-11-17T20:26:22.1238047Z   duration_ms: 15.327949
+2026-11-17T20:26:22.1238287Z   type: 'test'
+2026-11-17T20:26:22.1238496Z   ...
+2026-11-17T20:26:22.1238988Z # Subtest: readiness: expired owner session refreshes sign-in state without retrying approval
+2026-11-17T20:26:22.1239738Z ok 109 - readiness: expired owner session refreshes sign-in state without retrying approval
+2026-11-17T20:26:22.1240192Z   ---
+2026-11-17T20:26:22.1240392Z   duration_ms: 6.631002
+2026-11-17T20:26:22.1240621Z   type: 'test'
+2026-11-17T20:26:22.1240824Z   ...
+2026-11-17T20:26:22.1241241Z # Subtest: readiness: an unknown current eligibility cannot become an approval
+2026-11-17T20:26:22.1241871Z ok 110 - readiness: an unknown current eligibility cannot become an approval
+2026-11-17T20:26:22.1242277Z   ---
+2026-11-17T20:26:22.1242479Z   duration_ms: 5.176666
+2026-11-17T20:26:22.1242710Z   type: 'test'
+2026-11-17T20:26:22.1242908Z   ...
+2026-11-17T20:26:22.1243575Z # Subtest: paper timeline: settlement-only reconciliation is explicit and nullable prediction fields stay safe
+2026-11-17T20:26:22.1244498Z ok 111 - paper timeline: settlement-only reconciliation is explicit and nullable prediction fields stay safe
+2026-11-17T20:26:22.1245032Z   ---
+2026-11-17T20:26:22.1245234Z   duration_ms: 5.227135
+2026-11-17T20:26:22.1245549Z   type: 'test'
+2026-11-17T20:26:22.1245781Z   ...
+2026-11-17T20:26:22.1246214Z # Subtest: readiness: approve and reject require an audit reason before dispatch
+2026-11-17T20:26:22.1247018Z ok 112 - readiness: approve and reject require an audit reason before dispatch
+2026-11-17T20:26:22.1247450Z   ---
+2026-11-17T20:26:22.1247663Z   duration_ms: 9.571638
+2026-11-17T20:26:22.1247900Z   type: 'test'
+2026-11-17T20:26:22.1248112Z   ...
+2026-11-17T20:26:22.1248508Z # Subtest: research modeling: empty history has no invented metrics
+2026-11-17T20:26:22.1249066Z ok 113 - research modeling: empty history has no invented metrics
+2026-11-17T20:26:22.1249437Z   ---
+2026-11-17T20:26:22.1249642Z   duration_ms: 19.173163
+2026-11-17T20:26:22.1249893Z   type: 'test'
+2026-11-17T20:26:22.1250100Z   ...
+2026-11-17T20:26:22.1250554Z # Subtest: research modeling: precise refusals, no fabricated zero scores or returns
+2026-11-17T20:26:22.1251246Z ok 114 - research modeling: precise refusals, no fabricated zero scores or returns
+2026-11-17T20:26:22.1251660Z   ---
+2026-11-17T20:26:22.1251861Z   duration_ms: 6.140256
+2026-11-17T20:26:22.1252096Z   type: 'test'
+2026-11-17T20:26:22.1252301Z   ...
+2026-11-17T20:26:22.1252812Z # Subtest: research modeling: frozen metrics and baselines retain synthetic label and provenance
+2026-11-17T20:26:22.1253598Z ok 115 - research modeling: frozen metrics and baselines retain synthetic label and provenance
+2026-11-17T20:26:22.1254069Z   ---
+2026-11-17T20:26:22.1254276Z   duration_ms: 40.644874
+2026-11-17T20:26:22.1254517Z   type: 'test'
+2026-11-17T20:26:22.1254717Z   ...
+2026-11-17T20:26:22.1255175Z # Subtest: research modeling: interrupted training error stays visible with no results
+2026-11-17T20:26:22.1255872Z ok 116 - research modeling: interrupted training error stays visible with no results
+2026-11-17T20:26:22.1256312Z   ---
+2026-11-17T20:26:22.1256521Z   duration_ms: 3.630434
+2026-11-17T20:26:22.1256754Z   type: 'test'
+2026-11-17T20:26:22.1257105Z   ...
+2026-11-17T20:26:22.1257575Z # Subtest: research route: returning from a demo job cannot request a fictional real job
+2026-11-17T20:26:22.1258278Z ok 117 - research route: returning from a demo job cannot request a fictional real job
+2026-11-17T20:26:22.1258706Z   ---
+2026-11-17T20:26:22.1258905Z   duration_ms: 1.588173
+2026-11-17T20:26:22.1259136Z   type: 'test'
+2026-11-17T20:26:22.1259346Z   ...
+2026-11-17T20:26:22.1259794Z # Subtest: research backtests: recorded scenarios display simulated accounting only
+2026-11-17T20:26:22.1260617Z ok 118 - research backtests: recorded scenarios display simulated accounting only
+2026-11-17T20:26:22.1261039Z   ---
+2026-11-17T20:26:22.1261245Z   duration_ms: 5.16387
+2026-11-17T20:26:22.1261483Z   type: 'test'
+2026-11-17T20:26:22.1261687Z   ...
+2026-11-17T20:26:22.3117895Z # Subtest: real mode is the default and demo data is refused outside Demo Mode
+2026-11-17T20:26:22.3131437Z ok 119 - real mode is the default and demo data is refused outside Demo Mode
+2026-11-17T20:26:22.3131981Z   ---
+2026-11-17T20:26:22.3132320Z   duration_ms: 100.466851
+2026-11-17T20:26:22.3132561Z   type: 'test'
+2026-11-17T20:26:22.3132749Z   ...
+2026-11-17T20:26:22.3133079Z # Subtest: demo mode serves frozen data and disables every API read
+2026-11-17T20:26:22.3133438Z ok 120 - demo mode serves frozen data and disables every API read
+2026-11-17T20:26:22.3133667Z   ---
+2026-11-17T20:26:22.3133819Z   duration_ms: 70.330228
+2026-11-17T20:26:22.3134009Z   type: 'test'
+2026-11-17T20:26:22.3134158Z   ...
+2026-11-17T20:26:22.3134398Z # Subtest: real API reads are same-origin GETs under /api/ only
+2026-11-17T20:26:22.3134719Z ok 121 - real API reads are same-origin GETs under /api/ only
+2026-11-17T20:26:22.3134934Z   ---
+2026-11-17T20:26:22.3135075Z   duration_ms: 58.805262
+2026-11-17T20:26:22.3135410Z   type: 'test'
+2026-11-17T20:26:22.3135568Z   ...
+2026-11-17T20:26:22.3135799Z # Subtest: an unreachable resource does not blank the others
+2026-11-17T20:26:22.3136111Z ok 122 - an unreachable resource does not blank the others
+2026-11-17T20:26:22.3136324Z   ---
+2026-11-17T20:26:22.3136463Z   duration_ms: 51.55376
+2026-11-17T20:26:22.3136621Z   type: 'test'
+2026-11-17T20:26:22.3136758Z   ...
+2026-11-17T20:26:22.3137227Z # Subtest: demo data is deterministic across loads and internally consistent
+2026-11-17T20:26:22.3137610Z ok 123 - demo data is deterministic across loads and internally consistent
+2026-11-17T20:26:22.3137862Z   ---
+2026-11-17T20:26:22.3138008Z   duration_ms: 129.85796
+2026-11-17T20:26:22.3138164Z   type: 'test'
+2026-11-17T20:26:22.3138301Z   ...
+2026-11-17T20:26:22.3138567Z # Subtest: demo research jobs are frozen, labeled and never claim an edge
+2026-11-17T20:26:22.3138925Z ok 124 - demo research jobs are frozen, labeled and never claim an edge
+2026-11-17T20:26:22.3139158Z   ---
+2026-11-17T20:26:22.3139302Z   duration_ms: 36.483617
+2026-11-17T20:26:22.3139466Z   type: 'test'
+2026-11-17T20:26:22.3139597Z   ...
+2026-11-17T20:26:22.3139898Z # Subtest: modern API writes require Real Mode, a same-origin path and a current CSRF token
+2026-11-17T20:26:22.3140349Z ok 125 - modern API writes require Real Mode, a same-origin path and a current CSRF token
+2026-11-17T20:26:22.3140626Z   ---
+2026-11-17T20:26:22.3140765Z   duration_ms: 75.672399
+2026-11-17T20:26:22.3140926Z   type: 'test'
+2026-11-17T20:26:22.3141060Z   ...
+2026-11-17T20:26:22.3297579Z 1..125
+2026-11-17T20:26:22.3297818Z # tests 125
+2026-11-17T20:26:22.3298015Z # suites 0
+2026-11-17T20:26:22.3298184Z # pass 125
+2026-11-17T20:26:22.3298326Z # fail 0
+2026-11-17T20:26:22.3298468Z # cancelled 0
+2026-11-17T20:26:22.3298622Z # skipped 0
+2026-11-17T20:26:22.3298757Z # todo 0
+2026-11-17T20:26:22.3298926Z # duration_ms 1119.998981
+2026-11-17T20:26:22.3367466Z ##[group]Run uv run pytest -p no:cacheprovider -o faulthandler_timeout=600 --junitxml=pytest-results.xml
+2026-11-17T20:26:22.3368250Z [36;1muv run pytest -p no:cacheprovider -o faulthandler_timeout=600 --junitxml=pytest-results.xml[0m
+2026-11-17T20:26:22.3406199Z shell: /usr/bin/bash -e {0}
+2026-11-17T20:26:22.3406493Z env:
+2026-11-17T20:26:22.3406711Z   UV_LOCKED: 1
+2026-11-17T20:26:22.3407187Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:26:22.3407476Z   OMP_NUM_THREADS: 1
+2026-11-17T20:26:22.3407728Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:26:22.3407967Z   UV_PYTHON: 3.13
+2026-11-17T20:26:22.3408271Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:26:22.3408632Z ##[endgroup]
+2026-11-17T20:26:34.3462819Z ============================= test session starts ==============================
+2026-11-17T20:26:34.3463696Z platform linux -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
+2026-11-17T20:26:34.3464037Z rootdir: /home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:26:34.3464345Z configfile: pyproject.toml
+2026-11-17T20:26:34.3464542Z testpaths: backend/tests
+2026-11-17T20:26:34.3464851Z plugins: platformdirs-4.12.2, anyio-4.15.1, cov-7.1.0, hypothesis-6.168.3
+2026-11-17T20:26:34.3465138Z collected 2121 items
+2026-11-17T20:26:34.3465242Z 
+2026-11-17T20:26:35.0230198Z backend/tests/architecture/test_boundaries.py ..                         [  0%]
+2026-11-17T20:26:35.5070663Z backend/tests/architecture/test_sqlite_uri.py ..                         [  0%]
+2026-11-17T20:26:37.8653935Z backend/tests/exchange/test_collector_service.py .......                 [  0%]
+2026-11-17T20:26:37.8806720Z backend/tests/exchange/test_feed_recorder.py ........                    [  0%]
+2026-11-17T20:26:38.1812560Z backend/tests/exchange/test_gateway_http.py .....                        [  1%]
+2026-11-17T20:26:38.7748469Z backend/tests/exchange/test_recording_v2.py .........                    [  1%]
+2026-11-17T20:26:38.7763864Z backend/tests/exchange/test_wire_session.py ..                           [  1%]
+2026-11-17T20:26:55.7873132Z backend/tests/integration/test_bitcoin_history_listener.py .             [  1%]
+2026-11-17T20:27:13.3233757Z backend/tests/integration/test_cis1990_listener.py ...                   [  1%]
+2026-11-17T20:27:13.5300556Z backend/tests/integration/test_collector_workbench_compatibility.py .... [  2%]
+2026-11-17T20:27:13.5304831Z                                                                          [  2%]
+2026-11-17T20:27:13.7159046Z backend/tests/integration/test_forward_operator_listener.py .            [  2%]
+2026-11-17T20:27:16.4517882Z backend/tests/integration/test_forward_validation_listener.py .          [  2%]
+2026-11-17T20:27:17.7189529Z backend/tests/integration/test_private_listener.py ......                [  2%]
+2026-11-17T20:27:18.0701433Z backend/tests/integration/test_prospective_listener.py .                 [  2%]
+2026-11-17T20:27:19.0621013Z backend/tests/integration/test_prospective_offline.py ..                 [  2%]
+2026-11-17T20:27:51.0857190Z backend/tests/integration/test_recovery_listener.py .                    [  2%]
+2026-11-17T20:27:51.3876722Z backend/tests/integration/test_shadow_accounting.py ..                   [  2%]
+2026-11-17T20:28:16.3335649Z backend/tests/integration/test_shadow_history_listener.py .              [  2%]
+2026-11-17T20:28:16.4577047Z backend/tests/integration/test_shadow_tracking.py ...                    [  2%]
+2026-11-17T20:28:30.5286422Z backend/tests/integration/test_weather_cohorts_listener.py .             [  2%]
+2026-11-17T20:28:39.6444276Z backend/tests/integration/test_weather_history_listener.py .             [  2%]
+2026-11-17T20:28:40.7863694Z backend/tests/integration/test_weather_labels_listener.py .              [  3%]
+2026-11-17T20:29:10.7499318Z backend/tests/integration/test_workbench_listener.py ...                 [  3%]
+2026-11-17T20:29:59.9263559Z backend/tests/integration/test_workbench_process.py ......               [  3%]
+2026-11-17T20:30:00.2019245Z backend/tests/property/test_accounting.py ....                           [  3%]
+2026-11-17T20:30:00.6240325Z backend/tests/property/test_invariants.py .........                      [  4%]
+2026-11-17T20:30:00.6248596Z backend/tests/unit/test_amsterdam_listing.py .                           [  4%]
+2026-11-17T20:30:00.6614675Z backend/tests/unit/test_ask_values.py ..                                 [  4%]
+2026-11-17T20:30:00.6717386Z backend/tests/unit/test_atomic_workspace_publication.py ..........       [  4%]
+2026-11-17T20:30:01.6332462Z backend/tests/unit/test_austin_rules.py ..                               [  4%]
+2026-11-17T20:30:03.2503576Z backend/tests/unit/test_before_close.py ..                               [  4%]
+2026-11-17T20:30:03.8174214Z backend/tests/unit/test_before_occurrence.py ..                          [  4%]
+2026-11-17T20:30:03.8516263Z backend/tests/unit/test_bid_values.py ..                                 [  5%]
+2026-11-17T20:30:06.1701238Z backend/tests/unit/test_bitcoin_history.py ...................           [  5%]
+2026-11-17T20:30:06.1726446Z backend/tests/unit/test_book_imbalance.py ..                             [  6%]
+2026-11-17T20:30:07.5341632Z backend/tests/unit/test_calibration_gap.py .                             [  6%]
+2026-11-17T20:30:07.5631303Z backend/tests/unit/test_candle_activity.py ..                            [  6%]
+2026-11-17T20:30:07.5967050Z backend/tests/unit/test_candle_change.py ..                              [  6%]
+2026-11-17T20:30:07.6254947Z backend/tests/unit/test_candle_price.py ..                               [  6%]
+2026-11-17T20:30:07.6543652Z backend/tests/unit/test_candle_quotes.py ..                              [  6%]
+2026-11-17T20:30:07.6893289Z backend/tests/unit/test_candle_spread.py ..                              [  6%]
+2026-11-17T20:30:07.7220014Z backend/tests/unit/test_change_values.py ..                              [  6%]
+2026-11-17T20:30:07.7701116Z backend/tests/unit/test_checkpoint_verifier.py ....                      [  6%]
+2026-11-17T20:30:07.8127800Z backend/tests/unit/test_chicago_expiration_cli.py .                      [  6%]
+2026-11-17T20:30:08.1163232Z backend/tests/unit/test_chicago_fold_equity.py .                         [  6%]
+2026-11-17T20:30:08.1582529Z backend/tests/unit/test_chicago_forecast_error.py .                      [  6%]
+2026-11-17T20:30:08.8698271Z backend/tests/unit/test_chicago_guess_walk.py .                          [  7%]
+2026-11-17T20:30:11.1295864Z backend/tests/unit/test_chicago_manifest_gap.py .                        [  7%]
+2026-11-17T20:30:11.2449410Z backend/tests/unit/test_chicago_note.py .                                [  7%]
+2026-11-17T20:30:12.1262071Z backend/tests/unit/test_chicago_print_guess.py .                         [  7%]
+2026-11-17T20:30:12.8271760Z backend/tests/unit/test_chicago_print_miss.py .                          [  7%]
+2026-11-17T20:30:12.8700640Z backend/tests/unit/test_chicago_results.py .                             [  7%]
+2026-11-17T20:30:13.7792580Z backend/tests/unit/test_chicago_rules.py ..                              [  7%]
+2026-11-17T20:30:13.7802301Z backend/tests/unit/test_chicago_settlement.py .                          [  7%]
+2026-11-17T20:30:14.5170914Z backend/tests/unit/test_chicago_walk_forward.py .                        [  7%]
+2026-11-17T20:30:14.8523756Z backend/tests/unit/test_cis1990_demo.py ........                         [  7%]
+2026-11-17T20:30:14.8705753Z backend/tests/unit/test_cli_observations.py ...                          [  7%]
+2026-11-17T20:30:15.5587866Z backend/tests/unit/test_cli_print_guess.py ..                            [  8%]
+2026-11-17T20:30:15.5838612Z backend/tests/unit/test_cli_window.py ..                                 [  8%]
+2026-11-17T20:30:15.6164598Z backend/tests/unit/test_close_values.py ..                               [  8%]
+2026-11-17T20:30:15.6192194Z backend/tests/unit/test_cloud_cover.py ..                                [  8%]
+2026-11-17T20:30:15.7672608Z backend/tests/unit/test_collector_export.py ............................ [  9%]
+2026-11-17T20:30:15.8142770Z .........                                                                [ 10%]
+2026-11-17T20:30:16.8566696Z backend/tests/unit/test_dallas_rules.py ..                               [ 10%]
+2026-11-17T20:30:16.9447788Z backend/tests/unit/test_dataset_pipeline.py .........                    [ 10%]
+2026-11-17T20:30:16.9483245Z backend/tests/unit/test_decay.py ......                                  [ 10%]
+2026-11-17T20:30:16.9512856Z backend/tests/unit/test_dew_point.py ..                                  [ 10%]
+2026-11-17T20:30:16.9529048Z backend/tests/unit/test_ecmwf_ifs.py ..                                  [ 11%]
+2026-11-17T20:30:16.9544429Z backend/tests/unit/test_ecmwf_ifs_previous.py ..                         [ 11%]
+2026-11-17T20:30:19.4588221Z backend/tests/unit/test_encrypted_backup.py ............................ [ 12%]
+2026-11-17T20:30:19.5241889Z ..                                                                       [ 12%]
+2026-11-17T20:30:19.5268142Z backend/tests/unit/test_ensemble_ecmwf_gap.py ..                         [ 12%]
+2026-11-17T20:30:19.5294117Z backend/tests/unit/test_ensemble_hrrr_gap.py ..                          [ 12%]
+2026-11-17T20:30:19.5321147Z backend/tests/unit/test_ensemble_rank.py ..                              [ 12%]
+2026-11-17T20:30:19.8438058Z backend/tests/unit/test_execution_book_routing.py ....................   [ 13%]
+2026-11-17T20:30:19.8808769Z backend/tests/unit/test_execution_r4.py .............                    [ 14%]
+2026-11-17T20:30:35.2067982Z backend/tests/unit/test_experiments_r4.py ..................             [ 15%]
+2026-11-17T20:30:35.2714750Z backend/tests/unit/test_expiration_check.py ..                           [ 15%]
+2026-11-17T20:30:37.8588040Z backend/tests/unit/test_family_discovery.py ..............               [ 16%]
+2026-11-17T20:30:37.9044731Z backend/tests/unit/test_family_screening.py ............................ [ 17%]
+2026-11-17T20:30:40.6291678Z ...                                                                      [ 17%]
+2026-11-17T20:30:43.2412884Z backend/tests/unit/test_feature_coverage.py .                            [ 17%]
+2026-11-17T20:30:45.4305796Z backend/tests/unit/test_feature_hash_gap.py .                            [ 17%]
+2026-11-17T20:30:45.4443486Z backend/tests/unit/test_fee_capture_due.py .....                         [ 17%]
+2026-11-17T20:30:46.0147806Z backend/tests/unit/test_fee_evidence.py ..........................       [ 19%]
+2026-11-17T20:30:46.0368843Z backend/tests/unit/test_fee_manual_import.py .............               [ 19%]
+2026-11-17T20:30:46.0395323Z backend/tests/unit/test_forecast_dispersion.py ..                        [ 19%]
+2026-11-17T20:30:46.0422667Z backend/tests/unit/test_forecast_mean.py ..                              [ 19%]
+2026-11-17T20:31:01.0103556Z backend/tests/unit/test_forward_operator.py ............................ [ 21%]
+2026-11-17T20:31:01.6713613Z ........                                                                 [ 21%]
+2026-11-17T20:31:01.6815192Z backend/tests/unit/test_forward_station_bindings.py ......               [ 21%]
+2026-11-17T20:31:02.4902923Z backend/tests/unit/test_forward_workflow_chain.py ...................... [ 22%]
+2026-11-17T20:31:02.5610418Z ..                                                                       [ 22%]
+2026-11-17T20:31:02.5645673Z backend/tests/unit/test_gateway.py .....                                 [ 23%]
+2026-11-17T20:31:02.5665370Z backend/tests/unit/test_gfs_ecmwf_gap.py ..                              [ 23%]
+2026-11-17T20:31:02.5688802Z backend/tests/unit/test_gfs_ensemble.py ..                               [ 23%]
+2026-11-17T20:31:02.5707992Z backend/tests/unit/test_gfs_hrrr_gap.py ..                               [ 23%]
+2026-11-17T20:31:02.5722778Z backend/tests/unit/test_gfs_seamless_previous.py ..                      [ 23%]
+2026-11-17T20:31:02.6178962Z backend/tests/unit/test_historical_trades.py ..                          [ 23%]
+2026-11-17T20:31:02.6209051Z backend/tests/unit/test_hour_of_day.py ..                                [ 23%]
+2026-11-17T20:31:02.6376792Z backend/tests/unit/test_hours_until_resolution.py ..                     [ 23%]
+2026-11-17T20:31:02.6385267Z backend/tests/unit/test_houston_listing.py .                             [ 23%]
+2026-11-17T20:31:02.6399186Z backend/tests/unit/test_hrrr_archive.py ..                               [ 23%]
+2026-11-17T20:31:02.6426714Z backend/tests/unit/test_humidity.py ..                                   [ 24%]
+2026-11-17T20:31:04.0337974Z backend/tests/unit/test_informational_rules.py ....                      [ 24%]
+2026-11-17T20:31:04.0694640Z backend/tests/unit/test_interest_values.py ..                            [ 24%]
+2026-11-17T20:31:04.0756510Z backend/tests/unit/test_interpret.py ......                              [ 24%]
+2026-11-17T20:31:10.8292298Z backend/tests/unit/test_kxhigh_scan.py ..                                [ 24%]
+2026-11-17T20:31:11.2365073Z backend/tests/unit/test_label_acquisition_errors.py .....                [ 24%]
+2026-11-17T20:31:11.6878666Z backend/tests/unit/test_label_lifecycle.py ......                        [ 25%]
+2026-11-17T20:32:15.0244509Z backend/tests/unit/test_label_partitions.py ..........                   [ 25%]
+2026-11-17T20:32:20.5966058Z backend/tests/unit/test_label_schedule.py ..................             [ 26%]
+2026-11-17T20:32:21.2788151Z backend/tests/unit/test_last_print.py ..                                 [ 26%]
+2026-11-17T20:32:21.2982067Z backend/tests/unit/test_live_trades_short.py ..                          [ 26%]
+2026-11-17T20:32:21.4060805Z backend/tests/unit/test_local_acceptance.py ............................ [ 28%]
+2026-11-17T20:32:21.6144116Z .........................                                                [ 29%]
+2026-11-17T20:32:23.4210055Z backend/tests/unit/test_local_chain.py ....................              [ 30%]
+2026-11-17T20:32:23.4390574Z backend/tests/unit/test_local_templates.py ............................. [ 31%]
+2026-11-17T20:32:23.4570599Z ...........................                                              [ 32%]
+2026-11-17T20:32:23.4626549Z backend/tests/unit/test_markets_books_accounting.py .........            [ 33%]
+2026-11-17T20:32:23.4663524Z backend/tests/unit/test_mean_control_gap.py ..                           [ 33%]
+2026-11-17T20:32:23.4699747Z backend/tests/unit/test_mean_ecmwf_gap.py ..                             [ 33%]
+2026-11-17T20:32:23.4735479Z backend/tests/unit/test_mean_hrrr_gap.py ..                              [ 33%]
+2026-11-17T20:32:23.4744113Z backend/tests/unit/test_mexicocity_listing.py .                          [ 33%]
+2026-11-17T20:32:23.4763521Z backend/tests/unit/test_model_gap.py ..                                  [ 33%]
+2026-11-17T20:32:55.0634965Z backend/tests/unit/test_model_workflow_r2.py ....                        [ 33%]
+2026-11-17T20:32:55.0652202Z backend/tests/unit/test_ncep_hrrr.py ..                                  [ 33%]
+2026-11-17T20:32:55.0667366Z backend/tests/unit/test_ncep_hrrr_previous.py ..                         [ 34%]
+2026-11-17T20:32:56.0973356Z backend/tests/unit/test_newyork_rules.py ..                              [ 34%]
+2026-11-17T20:32:56.1050639Z backend/tests/unit/test_numeric_time_ids.py ..............               [ 34%]
+2026-11-17T20:32:56.1109534Z backend/tests/unit/test_nws_control_gap.py ..                            [ 34%]
+2026-11-17T20:32:56.1147471Z backend/tests/unit/test_nws_daytime.py ..                                [ 35%]
+2026-11-17T20:32:56.1187710Z backend/tests/unit/test_nws_detailed_forecast.py ..                      [ 35%]
+2026-11-17T20:32:56.1229875Z backend/tests/unit/test_nws_dew_point.py ..                              [ 35%]
+2026-11-17T20:32:56.1280195Z backend/tests/unit/test_nws_ecmwf_gap.py ..                              [ 35%]
+2026-11-17T20:32:56.1319748Z backend/tests/unit/test_nws_end_time.py ..                               [ 35%]
+2026-11-17T20:32:56.1335150Z backend/tests/unit/test_nws_forecast.py ..                               [ 35%]
+2026-11-17T20:32:56.1352014Z backend/tests/unit/test_nws_forecast_context.py ..                       [ 35%]
+2026-11-17T20:32:56.1368654Z backend/tests/unit/test_nws_forecast_coordinate_count.py ..              [ 35%]
+2026-11-17T20:32:56.1385142Z backend/tests/unit/test_nws_forecast_daytime.py ..                       [ 35%]
+2026-11-17T20:32:56.1402594Z backend/tests/unit/test_nws_forecast_detailed.py ..                      [ 35%]
+2026-11-17T20:32:56.1419667Z backend/tests/unit/test_nws_forecast_elevation.py ..                     [ 35%]
+2026-11-17T20:32:56.1436461Z backend/tests/unit/test_nws_forecast_end_time.py ..                      [ 36%]
+2026-11-17T20:32:56.1448283Z backend/tests/unit/test_nws_forecast_generated_at.py .                   [ 36%]
+2026-11-17T20:32:56.1459242Z backend/tests/unit/test_nws_forecast_generator.py .                      [ 36%]
+2026-11-17T20:32:56.1475382Z backend/tests/unit/test_nws_forecast_geometry_type.py ..                 [ 36%]
+2026-11-17T20:32:56.1497031Z backend/tests/unit/test_nws_forecast_hrrr_gap.py ..                      [ 36%]
+2026-11-17T20:32:56.1514251Z backend/tests/unit/test_nws_forecast_icon.py ..                          [ 36%]
+2026-11-17T20:32:56.1531696Z backend/tests/unit/test_nws_forecast_name.py ..                          [ 36%]
+2026-11-17T20:32:56.1548568Z backend/tests/unit/test_nws_forecast_number.py ..                        [ 36%]
+2026-11-17T20:32:56.1566090Z backend/tests/unit/test_nws_forecast_precipitation.py ..                 [ 36%]
+2026-11-17T20:32:56.1583110Z backend/tests/unit/test_nws_forecast_short.py ..                         [ 36%]
+2026-11-17T20:32:56.1600226Z backend/tests/unit/test_nws_forecast_start_time.py ..                    [ 36%]
+2026-11-17T20:32:56.1617538Z backend/tests/unit/test_nws_forecast_temperature_trend.py ..             [ 37%]
+2026-11-17T20:32:56.1635735Z backend/tests/unit/test_nws_forecast_temperature_unit.py ..              [ 37%]
+2026-11-17T20:32:56.1653657Z backend/tests/unit/test_nws_forecast_temperatures.py ..                  [ 37%]
+2026-11-17T20:32:56.1670334Z backend/tests/unit/test_nws_forecast_type.py ..                          [ 37%]
+2026-11-17T20:32:56.1681946Z backend/tests/unit/test_nws_forecast_units.py .                          [ 37%]
+2026-11-17T20:32:56.1693695Z backend/tests/unit/test_nws_forecast_update_time.py .                    [ 37%]
+2026-11-17T20:32:56.1705294Z backend/tests/unit/test_nws_forecast_valid_times.py .                    [ 37%]
+2026-11-17T20:32:56.1723159Z backend/tests/unit/test_nws_forecast_wind_direction.py ..                [ 37%]
+2026-11-17T20:32:56.1740711Z backend/tests/unit/test_nws_forecast_wind_speed.py ..                    [ 37%]
+2026-11-17T20:32:56.1769790Z backend/tests/unit/test_nws_hourly.py ..                                 [ 37%]
+2026-11-17T20:32:56.1806361Z backend/tests/unit/test_nws_hourly_context.py ..                         [ 37%]
+2026-11-17T20:32:56.1843071Z backend/tests/unit/test_nws_hourly_coordinate_count.py ..                [ 37%]
+2026-11-17T20:32:56.1879589Z backend/tests/unit/test_nws_hourly_elevation.py ..                       [ 38%]
+2026-11-17T20:32:56.1910331Z backend/tests/unit/test_nws_hourly_generated_at.py .                     [ 38%]
+2026-11-17T20:32:56.1941303Z backend/tests/unit/test_nws_hourly_generator.py .                        [ 38%]
+2026-11-17T20:32:56.1977857Z backend/tests/unit/test_nws_hourly_geometry_type.py ..                   [ 38%]
+2026-11-17T20:32:56.2014043Z backend/tests/unit/test_nws_hourly_type.py ..                            [ 38%]
+2026-11-17T20:32:56.2044374Z backend/tests/unit/test_nws_hourly_units.py .                            [ 38%]
+2026-11-17T20:32:56.2074996Z backend/tests/unit/test_nws_hourly_update_time.py .                      [ 38%]
+2026-11-17T20:32:56.2105798Z backend/tests/unit/test_nws_hourly_valid_times.py .                      [ 38%]
+2026-11-17T20:32:56.2156337Z backend/tests/unit/test_nws_hrrr_gap.py ..                               [ 38%]
+2026-11-17T20:32:56.2196479Z backend/tests/unit/test_nws_icon.py ..                                   [ 38%]
+2026-11-17T20:32:56.2263924Z backend/tests/unit/test_nws_mean_gap.py ..                               [ 38%]
+2026-11-17T20:32:56.2322297Z backend/tests/unit/test_nws_member_gap.py ..                             [ 38%]
+2026-11-17T20:32:56.2969140Z backend/tests/unit/test_nws_metadata.py ......                           [ 39%]
+2026-11-17T20:32:56.3009021Z backend/tests/unit/test_nws_period_name.py ..                            [ 39%]
+2026-11-17T20:32:56.3048591Z backend/tests/unit/test_nws_period_number.py ..                          [ 39%]
+2026-11-17T20:32:56.3062407Z backend/tests/unit/test_nws_points_astronomical.py ..                    [ 39%]
+2026-11-17T20:32:56.3075903Z backend/tests/unit/test_nws_points_context.py ..                         [ 39%]
+2026-11-17T20:32:56.3089839Z backend/tests/unit/test_nws_points_coordinate_count.py ..                [ 39%]
+2026-11-17T20:32:56.3103350Z backend/tests/unit/test_nws_points_geometry_type.py ..                   [ 39%]
+2026-11-17T20:32:56.3116303Z backend/tests/unit/test_nws_points_id.py ..                              [ 39%]
+2026-11-17T20:32:56.3129736Z backend/tests/unit/test_nws_points_property_id.py ..                     [ 39%]
+2026-11-17T20:32:56.3143165Z backend/tests/unit/test_nws_points_property_type.py ..                   [ 39%]
+2026-11-17T20:32:56.3156534Z backend/tests/unit/test_nws_points_twilight_begin.py ..                  [ 40%]
+2026-11-17T20:32:56.3169840Z backend/tests/unit/test_nws_points_type.py ..                            [ 40%]
+2026-11-17T20:32:56.3210988Z backend/tests/unit/test_nws_precipitation_probability.py ..              [ 40%]
+2026-11-17T20:32:56.3252553Z backend/tests/unit/test_nws_relative_humidity.py ..                      [ 40%]
+2026-11-17T20:32:56.3291892Z backend/tests/unit/test_nws_short_forecast.py ..                         [ 40%]
+2026-11-17T20:32:56.3331595Z backend/tests/unit/test_nws_start_time.py ..                             [ 40%]
+2026-11-17T20:32:56.3371215Z backend/tests/unit/test_nws_temperature_trend.py ..                      [ 40%]
+2026-11-17T20:32:56.3410723Z backend/tests/unit/test_nws_temperature_unit.py ..                       [ 40%]
+2026-11-17T20:32:56.3451700Z backend/tests/unit/test_nws_temperature_values.py ..                     [ 40%]
+2026-11-17T20:32:56.3491621Z backend/tests/unit/test_nws_wind_direction.py ..                         [ 40%]
+2026-11-17T20:32:56.3530086Z backend/tests/unit/test_nws_wind_speed.py ..                             [ 40%]
+2026-11-17T20:32:56.3558718Z backend/tests/unit/test_observed_temperature.py ..                       [ 41%]
+2026-11-17T20:32:57.2240816Z backend/tests/unit/test_oklahomacity_rules.py ..                         [ 41%]
+2026-11-17T20:32:57.6214110Z backend/tests/unit/test_operational_research.py ........................ [ 42%]
+2026-11-17T20:32:57.6526550Z ....                                                                     [ 42%]
+2026-11-17T20:32:57.6593513Z backend/tests/unit/test_orders_risk_lifecycle.py ..........              [ 42%]
+2026-11-17T20:33:00.8693286Z backend/tests/unit/test_owner_auth.py ...............                    [ 43%]
+2026-11-17T20:33:08.9708247Z backend/tests/unit/test_paper_reconciliation.py ....................     [ 44%]
+2026-11-17T20:33:11.8724775Z backend/tests/unit/test_paper_research_collection.py .........           [ 45%]
+2026-11-17T20:33:12.2057043Z backend/tests/unit/test_paper_research_features.py ...............       [ 45%]
+2026-11-17T20:33:12.2251463Z backend/tests/unit/test_paper_risk.py .....................              [ 46%]
+2026-11-17T20:33:13.6568555Z backend/tests/unit/test_philadelphia_note.py .                           [ 46%]
+2026-11-17T20:33:13.6599313Z backend/tests/unit/test_precipitation.py ..                              [ 46%]
+2026-11-17T20:33:16.0411238Z backend/tests/unit/test_prediction_coverage.py .                         [ 46%]
+2026-11-17T20:33:17.4762121Z backend/tests/unit/test_prediction_strategy.py .                         [ 46%]
+2026-11-17T20:33:17.4810562Z backend/tests/unit/test_previous_day_error.py ..                         [ 47%]
+2026-11-17T20:33:17.4829616Z backend/tests/unit/test_previous_model_gap.py ..                         [ 47%]
+2026-11-17T20:33:17.5094711Z backend/tests/unit/test_private_access.py ......................         [ 48%]
+2026-11-17T20:33:17.6566714Z backend/tests/unit/test_probability_models_r2.py ........                [ 48%]
+2026-11-17T20:33:19.2874714Z backend/tests/unit/test_prospective.py .......................           [ 49%]
+2026-11-17T20:33:24.8134213Z backend/tests/unit/test_provenance.py ...                                [ 49%]
+2026-11-17T20:33:24.8439460Z backend/tests/unit/test_public_dataset.py ...                            [ 49%]
+2026-11-17T20:33:25.0013571Z backend/tests/unit/test_public_families.py ......................        [ 50%]
+2026-11-17T20:33:25.0109603Z backend/tests/unit/test_public_tape.py ...                               [ 51%]
+2026-11-17T20:34:02.7106154Z backend/tests/unit/test_readiness_evidence.py .....................      [ 52%]
+2026-11-17T20:34:03.7083406Z backend/tests/unit/test_readiness_http.py ........                       [ 52%]
+2026-11-17T20:34:09.5078232Z backend/tests/unit/test_readiness_recovery.py ...............            [ 53%]
+2026-11-17T20:34:10.0080281Z backend/tests/unit/test_readiness_store.py ............................. [ 54%]
+2026-11-17T20:34:10.1331757Z .......                                                                  [ 54%]
+2026-11-17T20:34:10.2068553Z backend/tests/unit/test_recovery_proof.py .........                      [ 55%]
+2026-11-17T20:34:11.3206381Z backend/tests/unit/test_registry.py ......                               [ 55%]
+2026-11-17T20:34:11.3472010Z backend/tests/unit/test_related_strikes.py ..                            [ 55%]
+2026-11-17T20:34:11.3527807Z backend/tests/unit/test_replay.py ......                                 [ 55%]
+2026-11-17T20:34:15.2502237Z backend/tests/unit/test_research_acquisition.py ..............           [ 56%]
+2026-11-17T20:34:17.5557048Z backend/tests/unit/test_research_alert_schedule.py ......                [ 56%]
+2026-11-17T20:34:17.6826171Z backend/tests/unit/test_research_backtesting.py ..............           [ 57%]
+2026-11-17T20:34:20.6266328Z backend/tests/unit/test_research_execution_inputs.py ................... [ 58%]
+2026-11-17T20:34:21.7296129Z ....                                                                     [ 58%]
+2026-11-17T20:34:21.7417125Z backend/tests/unit/test_research_forward_status.py .......               [ 58%]
+2026-11-17T20:34:21.7634971Z backend/tests/unit/test_research_hypothesis_provider.py ................ [ 59%]
+2026-11-17T20:34:30.8718351Z ......                                                                   [ 60%]
+2026-11-17T20:34:31.3824336Z backend/tests/unit/test_research_investigations.py ..................... [ 61%]
+2026-11-17T20:34:31.4059286Z .                                                                        [ 61%]
+2026-11-17T20:34:33.5025201Z backend/tests/unit/test_research_jobs.py ...................F            [ 61%]
+2026-11-17T20:34:38.6368038Z backend/tests/unit/test_research_local_evidence.py ................      [ 62%]
+2026-11-17T20:34:40.6604878Z backend/tests/unit/test_research_modeling.py .................           [ 63%]
+2026-11-17T20:34:47.1999123Z backend/tests/unit/test_research_modeling_jobs.py ...........F.........  [ 64%]
+2026-11-17T20:39:39.3797209Z backend/tests/unit/test_research_monitoring.py ...............           [ 65%]
+2026-11-17T20:39:42.8449237Z backend/tests/unit/test_research_paper.py ...............                [ 65%]
+2026-11-17T20:39:44.2737964Z backend/tests/unit/test_research_paper_models.py ...................     [ 66%]
+2026-11-17T20:39:47.8256646Z backend/tests/unit/test_research_paper_recovery.py ............          [ 67%]
+2026-11-17T20:39:50.2393747Z backend/tests/unit/test_research_paper_store.py ..............           [ 68%]
+2026-11-17T20:39:50.2738162Z backend/tests/unit/test_research_pipeline.py ....                        [ 68%]
+2026-11-17T20:39:50.2867249Z backend/tests/unit/test_research_pricing.py .......                      [ 68%]
+2026-11-17T20:39:50.2945191Z backend/tests/unit/test_research_provider.py ........                    [ 68%]
+2026-11-17T20:42:02.1044452Z backend/tests/unit/test_research_readiness.py ................           [ 69%]
+2026-11-17T20:42:06.2770026Z backend/tests/unit/test_research_recovery.py .............               [ 70%]
+2026-11-17T20:42:08.1566403Z backend/tests/unit/test_research_server.py ............................  [ 71%]
+2026-11-17T20:42:08.2447167Z backend/tests/unit/test_research_transport.py ..                         [ 71%]
+2026-11-17T20:42:08.2906797Z backend/tests/unit/test_review_artifacts.py .............                [ 72%]
+2026-11-17T20:42:16.2320249Z backend/tests/unit/test_revision_bracket.py ....................         [ 73%]
+2026-11-17T20:42:18.6414090Z backend/tests/unit/test_revision_down.py .....                           [ 73%]
+2026-11-17T20:42:40.3462582Z backend/tests/unit/test_revision_records.py .......                      [ 73%]
+2026-11-17T20:42:42.9031744Z backend/tests/unit/test_revision_rule.py ...                             [ 74%]
+2026-11-17T20:42:42.9081412Z backend/tests/unit/test_scanner.py .......                               [ 74%]
+2026-11-17T20:42:42.9110681Z backend/tests/unit/test_seasonality.py ..                                [ 74%]
+2026-11-17T20:42:42.9158455Z backend/tests/unit/test_series_fees.py .....                             [ 74%]
+2026-11-17T20:42:42.9310563Z backend/tests/unit/test_settlement_score.py ..                           [ 74%]
+2026-11-17T20:42:42.9835548Z backend/tests/unit/test_settlement_value.py ..                           [ 74%]
+2026-11-17T20:42:42.9880994Z backend/tests/unit/test_shadow.py ......                                 [ 75%]
+2026-11-17T20:42:43.5058291Z backend/tests/unit/test_shadow_accounting.py ........................... [ 76%]
+2026-11-17T20:42:43.9080906Z ......                                                                   [ 76%]
+2026-11-17T20:43:09.5907509Z backend/tests/unit/test_shadow_history.py ...............                [ 77%]
+2026-11-17T20:43:09.8557482Z backend/tests/unit/test_short_refresh.py ..                              [ 77%]
+2026-11-17T20:43:09.8928213Z backend/tests/unit/test_spread_values.py ..                              [ 77%]
+2026-11-17T20:43:09.8974387Z backend/tests/unit/test_station_bias.py ..                               [ 77%]
+2026-11-17T20:43:09.9053902Z backend/tests/unit/test_strategy_and_pit.py .........                    [ 78%]
+2026-11-17T20:43:09.9177025Z backend/tests/unit/test_structure.py ..                                  [ 78%]
+2026-11-17T20:43:09.9195236Z backend/tests/unit/test_submit_gate.py ...                               [ 78%]
+2026-11-17T20:43:09.9546590Z backend/tests/unit/test_tape_score.py ..                                 [ 78%]
+2026-11-17T20:43:10.1334198Z backend/tests/unit/test_tracking.py .................................... [ 80%]
+2026-11-17T20:43:10.4687526Z ........................................................................ [ 83%]
+2026-11-17T20:43:10.8623279Z .......................................................                  [ 86%]
+2026-11-17T20:43:11.1719967Z backend/tests/unit/test_tracking_alerts.py ............                  [ 86%]
+2026-11-17T20:43:11.4126489Z backend/tests/unit/test_tracking_models.py ............................. [ 88%]
+2026-11-17T20:43:11.5064005Z .................                                                        [ 88%]
+2026-11-17T20:43:12.9203993Z backend/tests/unit/test_trade_prints.py ....                             [ 89%]
+2026-11-17T20:43:12.9502147Z backend/tests/unit/test_unit_asks.py ..                                  [ 89%]
+2026-11-17T20:43:12.9819312Z backend/tests/unit/test_unit_interest.py ..                              [ 89%]
+2026-11-17T20:43:13.0011167Z backend/tests/unit/test_v1_gates.py ...........                          [ 89%]
+2026-11-17T20:43:13.2658779Z backend/tests/unit/test_volume_check.py ..                               [ 89%]
+2026-11-17T20:43:13.5154148Z backend/tests/unit/test_volume_values.py ..                              [ 89%]
+2026-11-17T20:43:15.0128626Z backend/tests/unit/test_walk_forward.py ....                             [ 90%]
+2026-11-17T20:43:16.4012433Z backend/tests/unit/test_weather_archive_r2.py ...........                [ 90%]
+2026-11-17T20:43:16.4043595Z backend/tests/unit/test_weather_baseline.py ....                         [ 90%]
+2026-11-17T20:43:42.2098029Z backend/tests/unit/test_weather_cohorts.py .........                     [ 91%]
+2026-11-17T20:43:42.2212944Z backend/tests/unit/test_weather_features_r2.py ...........               [ 91%]
+2026-11-17T20:43:51.2641101Z backend/tests/unit/test_weather_history.py ..........                    [ 92%]
+2026-11-17T20:43:56.9536472Z backend/tests/unit/test_weather_labels.py .............................. [ 93%]
+2026-11-17T20:43:56.9570856Z ...                                                                      [ 93%]
+2026-11-17T20:43:56.9643045Z backend/tests/unit/test_weather_recorded.py ...........                  [ 94%]
+2026-11-17T20:43:56.9673764Z backend/tests/unit/test_wind.py ..                                       [ 94%]
+2026-11-17T20:43:57.0454589Z backend/tests/unit/test_workbench_http.py ...............                [ 95%]
+2026-11-17T20:43:57.8921906Z backend/tests/unit/test_workbench_provider.py .......................... [ 96%]
+2026-11-17T20:43:57.9397505Z .                                                                        [ 96%]
+2026-11-17T20:44:11.9367305Z backend/tests/unit/test_workbench_workflow.py ........                   [ 96%]
+2026-11-17T20:44:13.3029909Z backend/tests/unit/test_workspace_recovery.py .......................... [ 98%]
+2026-11-17T20:44:26.3350341Z ...............                                                          [ 98%]
+2026-11-17T20:44:26.5986465Z backend/tests/unit/test_workspace_summary.py .......................     [ 99%]
+2026-11-17T20:44:26.6294457Z backend/tests/unit/test_zero_bids.py ..                                  [ 99%]
+2026-11-17T20:44:27.1700877Z backend/tests/unit/test_zero_volumes.py ..                               [100%]
+2026-11-17T20:44:27.1702066Z 
+2026-11-17T20:44:27.1702854Z =================================== FAILURES ===================================
+2026-11-17T20:44:27.1703444Z ________ test_research_state_survives_snapshot_and_restore_and_is_lazy _________
+2026-11-17T20:44:27.1703744Z 
+2026-11-17T20:44:27.1704077Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_research_state_survives_s0')
+2026-11-17T20:44:27.1704404Z 
+2026-11-17T20:44:27.1704735Z     def test_research_state_survives_snapshot_and_restore_and_is_lazy(tmp_path: Path) -> None:
+2026-11-17T20:44:27.1705201Z         from entropytrade.api.jobs import Jobs
+2026-11-17T20:44:27.1705616Z         from entropytrade.api.recovery import restore, snapshot
+2026-11-17T20:44:27.1706032Z         from entropytrade.tracking.store import TrackingStore
+2026-11-17T20:44:27.1706295Z     
+2026-11-17T20:44:27.1706470Z         cache = REPO / "data/cache"
+2026-11-17T20:44:27.1706726Z         base = cache / f"pytest-research-{uuid4().hex}"
+2026-11-17T20:44:27.1707201Z         try:
+2026-11-17T20:44:27.1707449Z             TrackingStore(Jobs(base))  # an ordinary workspace database
+2026-11-17T20:44:27.1707792Z             svc = ResearchService(base, REPO, clock=SimulatedClock(NOW))
+2026-11-17T20:44:27.1708065Z             assert not svc.started()
+2026-11-17T20:44:27.1708284Z             assert svc.list_jobs() == []
+2026-11-17T20:44:27.1708597Z             assert not (base / "research").exists()  # untouched until research is used
+2026-11-17T20:44:27.1708888Z             job_id = submit(svc)
+2026-11-17T20:44:27.1709087Z             svc.run_until_idle()
+2026-11-17T20:44:27.1709357Z             archive = cache / f"pytest-research-{uuid4().hex}.zip"
+2026-11-17T20:44:27.1709640Z >           snapshot(REPO, base, archive)
+2026-11-17T20:44:27.1709778Z 
+2026-11-17T20:44:27.1710204Z backend/tests/unit/test_research_jobs.py:494: 
+2026-11-17T20:44:27.1710525Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-11-17T20:44:27.1710852Z backend/src/entropytrade/api/recovery.py:911: in snapshot
+2026-11-17T20:44:27.1711162Z     with snapshot_lease(repo, workspace, archive) as receipt:
+2026-11-17T20:44:27.1711438Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1711862Z ../../../.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/contextlib.py:141: in __enter__
+2026-11-17T20:44:27.1712205Z     return next(self.gen)
+2026-11-17T20:44:27.1712390Z            ^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1712660Z backend/src/entropytrade/api/recovery.py:874: in snapshot_lease
+2026-11-17T20:44:27.1712931Z     counts = validate_database(payload)
+2026-11-17T20:44:27.1713237Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1713528Z backend/src/entropytrade/api/recovery.py:515: in validate_database
+2026-11-17T20:44:27.1713792Z     validate_research(root)
+2026-11-17T20:44:27.1714104Z backend/src/entropytrade/research/recovery.py:803: in validate_research
+2026-11-17T20:44:27.1714435Z     return _database(path, features, datasets, experiments)
+2026-11-17T20:44:27.1714701Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1715007Z backend/src/entropytrade/research/recovery.py:608: in _database
+2026-11-17T20:44:27.1715252Z     _require(
+2026-11-17T20:44:27.1715496Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-11-17T20:44:27.1715664Z 
+2026-11-17T20:44:27.1715846Z condition = False, message = 'requirement identity/reference mismatch'
+2026-11-17T20:44:27.1716029Z 
+2026-11-17T20:44:27.1716248Z     def _require(condition: bool, message: str) -> None:  # noqa: FBT001 - validation predicate
+2026-11-17T20:44:27.1716557Z         if not condition:
+2026-11-17T20:44:27.1716957Z >           raise ValueError("research recovery: " + message)
+2026-11-17T20:44:27.1717343Z E           ValueError: research recovery: requirement identity/reference mismatch
+2026-11-17T20:44:27.1717555Z 
+2026-11-17T20:44:27.1717716Z backend/src/entropytrade/research/recovery.py:83: ValueError
+2026-11-17T20:44:27.1718103Z _ test_model_artifacts_and_frozen_partitions_survive_verified_offline_restore __
+2026-11-17T20:44:27.1718316Z 
+2026-11-17T20:44:27.1718526Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fa10f4858d0>
+2026-11-17T20:44:27.1718738Z 
+2026-11-17T20:44:27.1718931Z     def test_model_artifacts_and_frozen_partitions_survive_verified_offline_restore(
+2026-11-17T20:44:27.1719244Z         monkeypatch: pytest.MonkeyPatch,
+2026-11-17T20:44:27.1719442Z     ) -> None:
+2026-11-17T20:44:27.1719602Z         import shutil
+2026-11-17T20:44:27.1719784Z         from uuid import uuid4
+2026-11-17T20:44:27.1719957Z     
+2026-11-17T20:44:27.1720138Z         from entropytrade.api.jobs import Jobs
+2026-11-17T20:44:27.1720434Z         from entropytrade.api.recovery import restore, snapshot
+2026-11-17T20:44:27.1720734Z         from entropytrade.data.sources import file_hash
+2026-11-17T20:44:27.1721018Z         from entropytrade.domain.time import SimulatedClock
+2026-11-17T20:44:27.1721320Z         from entropytrade.tracking.store import TrackingStore
+2026-11-17T20:44:27.1721615Z         from tests.research_modeling_support import MODEL_NOW
+2026-11-17T20:44:27.1721893Z         from tests.unit.test_research_jobs import REPO
+2026-11-17T20:44:27.1722112Z     
+2026-11-17T20:44:27.1722350Z         base = REPO / "data/cache" / ("pytest-model-restore-" + uuid4().hex)
+2026-11-17T20:44:27.1722602Z         try:
+2026-11-17T20:44:27.1722818Z             svc, job_id = synthetic_job(base, monkeypatch)
+2026-11-17T20:44:27.1723075Z             TrackingStore(Jobs(svc.workspace))
+2026-11-17T20:44:27.1723303Z             svc.run_until_idle()
+2026-11-17T20:44:27.1723530Z             row = svc.store.experiments(job_id)[0]
+2026-11-17T20:44:27.1723772Z             assert row["status"] == "completed"
+2026-11-17T20:44:27.1723975Z             before = {
+2026-11-17T20:44:27.1724281Z                 str(p.relative_to(svc.store.root)): file_hash(p)
+2026-11-17T20:44:27.1724586Z                 for p in (svc.store.root / "experiments").rglob("*")
+2026-11-17T20:44:27.1724837Z                 if p.is_file()
+2026-11-17T20:44:27.1725023Z             }
+2026-11-17T20:44:27.1725206Z             archive = base / "backup.zip"
+2026-11-17T20:44:27.1725567Z >           snapshot(REPO, svc.workspace, archive)
+2026-11-17T20:44:27.1725725Z 
+2026-11-17T20:44:27.1725885Z backend/tests/unit/test_research_modeling_jobs.py:307: 
+2026-11-17T20:44:27.1726210Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-11-17T20:44:27.1726533Z backend/src/entropytrade/api/recovery.py:911: in snapshot
+2026-11-17T20:44:27.1726981Z     with snapshot_lease(repo, workspace, archive) as receipt:
+2026-11-17T20:44:27.1727337Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1727765Z ../../../.local/share/uv/python/cpython-3.13.14-linux-x86_64-gnu/lib/python3.13/contextlib.py:141: in __enter__
+2026-11-17T20:44:27.1728124Z     return next(self.gen)
+2026-11-17T20:44:27.1728302Z            ^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1728576Z backend/src/entropytrade/api/recovery.py:874: in snapshot_lease
+2026-11-17T20:44:27.1728862Z     counts = validate_database(payload)
+2026-11-17T20:44:27.1729103Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1729394Z backend/src/entropytrade/api/recovery.py:515: in validate_database
+2026-11-17T20:44:27.1729652Z     validate_research(root)
+2026-11-17T20:44:27.1729953Z backend/src/entropytrade/research/recovery.py:803: in validate_research
+2026-11-17T20:44:27.1730276Z     return _database(path, features, datasets, experiments)
+2026-11-17T20:44:27.1730539Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-17T20:44:27.1730847Z backend/src/entropytrade/research/recovery.py:714: in _database
+2026-11-17T20:44:27.1731083Z     _require(
+2026-11-17T20:44:27.1731317Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-11-17T20:44:27.1731484Z 
+2026-11-17T20:44:27.1731663Z condition = False, message = 'registered feature reference mismatch'
+2026-11-17T20:44:27.1731850Z 
+2026-11-17T20:44:27.1732057Z     def _require(condition: bool, message: str) -> None:  # noqa: FBT001 - validation predicate
+2026-11-17T20:44:27.1732586Z         if not condition:
+2026-11-17T20:44:27.1732844Z >           raise ValueError("research recovery: " + message)
+2026-11-17T20:44:27.1733199Z E           ValueError: research recovery: registered feature reference mismatch
+2026-11-17T20:44:27.1733401Z 
+2026-11-17T20:44:27.1733569Z backend/src/entropytrade/research/recovery.py:83: ValueError
+2026-11-17T20:44:27.1733974Z - generated xml file: /home/runner/work/EntropyTrade/EntropyTrade/pytest-results.xml -
+2026-11-17T20:44:27.1734373Z =========================== short test summary info ============================
+2026-11-17T20:44:27.1735080Z FAILED backend/tests/unit/test_research_jobs.py::test_research_state_survives_snapshot_and_restore_and_is_lazy - ValueError: research recovery: requirement identity/reference mismatch
+2026-11-17T20:44:27.1736050Z FAILED backend/tests/unit/test_research_modeling_jobs.py::test_model_artifacts_and_frozen_partitions_survive_verified_offline_restore - ValueError: research recovery: registered feature reference mismatch
+2026-11-17T20:44:27.1736700Z ================= 2 failed, 2119 passed in 1083.57s (0:18:03) ==================
+2026-11-17T20:44:28.1933630Z ##[error]Process completed with exit code 1.
+2026-11-17T20:44:28.1982062Z ##[group]Run actions/upload-artifact@v4
+2026-11-17T20:44:28.1982273Z with:
+2026-11-17T20:44:28.1982422Z   name: pytest-results
+2026-11-17T20:44:28.1982599Z   path: pytest-results.xml
+2026-11-17T20:44:28.1982780Z   if-no-files-found: ignore
+2026-11-17T20:44:28.1982967Z   retention-days: 14
+2026-11-17T20:44:28.1983130Z   compression-level: 6
+2026-11-17T20:44:28.1983298Z   overwrite: false
+2026-11-17T20:44:28.1983464Z   include-hidden-files: false
+2026-11-17T20:44:28.1983638Z env:
+2026-11-17T20:44:28.1983774Z   UV_LOCKED: 1
+2026-11-17T20:44:28.1983937Z   PYTHONDONTWRITEBYTECODE: 1
+2026-11-17T20:44:28.1984129Z   OMP_NUM_THREADS: 1
+2026-11-17T20:44:28.1984289Z   OPENBLAS_NUM_THREADS: 1
+2026-11-17T20:44:28.1984453Z   UV_PYTHON: 3.13
+2026-11-17T20:44:28.1984642Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-11-17T20:44:28.1984868Z ##[endgroup]
+2026-11-17T20:44:28.3205608Z (node:6895) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T20:44:28.3206342Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T20:44:28.3241585Z With the provided path, there will be 1 file uploaded
+2026-11-17T20:44:28.3244545Z Artifact name is valid!
+2026-11-17T20:44:28.3245314Z Root directory input is valid!
+2026-11-17T20:44:28.8467949Z Beginning upload of artifact content to blob storage
+2026-11-17T20:44:28.8647674Z (node:6895) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T20:44:29.3509329Z Uploaded bytes 43666
+2026-11-17T20:44:29.4378220Z Finished uploading artifact content to blob storage!
+2026-11-17T20:44:29.4378737Z SHA256 digest of uploaded artifact zip is 88bd0b82f155f36f0a2d61b9eecbc1f54450697921ce831860982ea3388ffaa3
+2026-11-17T20:44:29.4379764Z Finalizing artifact upload
+2026-11-17T20:44:29.8364320Z Artifact pytest-results.zip successfully finalized. Artifact ID 14368053133
+2026-11-17T20:44:29.8364867Z Artifact pytest-results has been successfully uploaded! Final size is 43666 bytes. Artifact ID is 14368053133
+2026-11-17T20:44:29.8371616Z Artifact download URL: https://github.com/GabeSternberg/EntropyTrade/actions/runs/44169131925/artifacts/14368053133
+2026-11-17T20:44:29.8536201Z Post job cleanup.
+2026-11-17T20:44:29.9175210Z [command]/usr/bin/git version
+2026-11-17T20:44:29.9209383Z git version 2.56.1
+2026-11-17T20:44:29.9239217Z Temporarily overriding HOME='/home/runner/work/_temp/3514dd4a-8247-43b0-9415-7a1baf793b01' before making global git config changes
+2026-11-17T20:44:29.9240098Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T20:44:29.9243319Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/EntropyTrade/EntropyTrade
+2026-11-17T20:44:29.9272310Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T20:44:29.9296591Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T20:44:29.9488542Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T20:44:29.9511597Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T20:44:29.9679018Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T20:44:29.9709622Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T20:44:30.0007707Z Cleaning up orphan processes
+2026-11-17T20:44:30.0229055Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4, astral-sh/setup-uv@v6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

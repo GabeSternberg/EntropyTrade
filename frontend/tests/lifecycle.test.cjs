@@ -532,3 +532,43 @@ test("command palette exposes persistent research, deployments, alerts and readi
   assert.ok(links(palette).includes("#/cis1990"));
   assert.equal(app.requests.length, 0);
 });
+
+test("owner login reloads a previously refused API view and logout removes its data", async () => {
+  let authenticated = false;
+  const app = application({ overrides: {
+    "/api/workspace/summary": () => authenticated ? summary() : new Error("An authenticated owner session is required"),
+    "/api/owner": () => ({ configured: true, authenticated, csrf_token: "owner-csrf" }),
+    "/api/owner/login": () => { authenticated = true; return {}; },
+    "/api/owner/logout": () => { authenticated = false; return {}; },
+  } });
+  await app.route();
+  assert.match(content(app.root), /authenticated owner session/);
+  await app.ET.ownerAccess();
+  find(app.body, "[data-owner-password]").value = "CONTROLLED test passphrase";
+  await find(app.body, "[data-owner-login]").handlers.click();
+  await settle();
+  assert.equal(kpiValue(app.root, "Autonomous research jobs"), "67");
+  await find(app.body, "[data-owner-logout]").handlers.click();
+  await settle();
+  assert.match(content(app.root), /authenticated owner session/);
+  assert.equal(find(app.root, ".kpi"), null);
+});
+
+test("owner authentication resets and awaits an active legacy connection", async () => {
+  const app = application({ overrides: { "/api/owner/login": {} } });
+  const transitions = [];
+  const pending = defer();
+  app.ET.workbenchActive = () => true;
+  app.ET.legacyWorkbench = {
+    deactivate: () => transitions.push("deactivate"),
+    activate: async () => { transitions.push("activate"); await pending.promise; transitions.push("ready"); },
+  };
+  await app.ET.ownerAccess();
+  find(app.body, "[data-owner-password]").value = "CONTROLLED test passphrase";
+  const signingIn = find(app.body, "[data-owner-login]").handlers.click();
+  await settle();
+  assert.deepEqual(transitions, ["deactivate", "activate"]);
+  pending.resolve();
+  await signingIn;
+  assert.deepEqual(transitions, ["deactivate", "activate", "ready"]);
+});

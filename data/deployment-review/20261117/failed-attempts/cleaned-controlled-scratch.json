@@ -1,0 +1,17 @@
+{
+  "reason": "completed/explicitly interrupted controlled test fixtures only; logs, receipts and traces retained; no canonical or authentic evidence removed",
+  "removed": [
+    {
+      "path": "data/cache/deployment-owner-workspace-final-1-production-refusal",
+      "bytes": 18307893
+    },
+    {
+      "path": "data/cache/deployment-owner-workspace-final-2-production-refusal",
+      "bytes": 18377525
+    },
+    {
+      "path": "data/cache/deployment-owner-workspace-final-2-controlled-readiness",
+      "bytes": 58558043
+    }
+  ]
+}
