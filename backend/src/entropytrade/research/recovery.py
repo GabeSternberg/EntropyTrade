@@ -605,6 +605,8 @@ def _database(
             clock=requirement.clock,
             fidelity=requirement.fidelity,
         )
+        if requirement.min_sources > 1:
+            expected += f"-s{requirement.min_sources}"
         _require(
             requirement.requirement_id == row["requirement_id"] == expected
             and requirement.family == jobs[row["job_id"]]["family"]

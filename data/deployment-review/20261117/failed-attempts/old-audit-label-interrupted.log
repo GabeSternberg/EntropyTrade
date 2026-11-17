@@ -1,0 +1,46 @@
+
+Running 2 tests using 1 worker
+
+(node:6267) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:6267) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: production evidence and unconfigured owner refusal (16.2s)
+  ✘  2 frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: CONTROLLED owner review and audit recovery (6.9m)
+
+
+  1) frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: CONTROLLED owner review and audit recovery 
+
+    Test was interrupted.
+
+    Error: locator.click: Test ended.
+    Call log:
+    [2m  - waiting for locator('#paper-governance').getByRole('tab', { name: 'Audit', exact: true })[22m
+
+
+      237 |         assert.deepEqual(releasedMonitor.model_binding, haltedMonitor.model_binding);
+      238 |         const before = await recordDownload("revoked-readiness.json", third);
+    > 239 |         await governance.getByRole("tab", { name: "Audit", exact: true }).click();
+          |                                                                           ^
+      240 |         await expect(governance).toContainText("browser-owner");
+      241 |         await shot("owner-readiness-audit.png");
+      242 |         await page.setViewportSize({ width: 375, height: 900 });
+        at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:239:75
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    data/cache/deployment-owner-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    data/cache/deployment-owner-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip
+    Usage:
+
+        npx playwright show-trace data/cache/deployment-owner-browser-final-2/playwright-artifacts/readiness-readiness-oversi-ae47f-r-review-and-audit-recovery/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Slow test file: frontend/browser/readiness.spec.cjs (7.2m)
+  Consider running tests from slow files in parallel. See: https://playwright.dev/docs/test-parallel
+  1 interrupted
+    frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: CONTROLLED owner review and audit recovery 
+  1 passed (7.3m)

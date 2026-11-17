@@ -1,0 +1,13 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_old_ciphertext_can_be_recovered_after_recipient_expiry __________
+backend/tests/unit/test_encrypted_backup.py:130: in test_old_ciphertext_can_be_recovered_after_recipient_expiry
+    backup.decrypt_archive(cipher, target, key.home)
+backend/src/entropytrade/operations/backup.py:371: in decrypt_archive
+    _check_status(status, "DECRYPTION_OKAY")
+backend/src/entropytrade/operations/backup.py:308: in _check_status
+    raise BackupError("GnuPG did not confirm complete authenticated processing")
+E   entropytrade.operations.backup.BackupError: GnuPG did not confirm complete authenticated processing
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_encrypted_backup.py::test_old_ciphertext_can_be_recovered_after_recipient_expiry
+1 failed, 29 deselected in 5.04s

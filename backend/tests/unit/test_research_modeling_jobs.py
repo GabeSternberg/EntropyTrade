@@ -184,7 +184,10 @@ def synthetic_job(
     spec, artifacts = modeling_fixture(svc.store.root, days=days)
     svc.store.save_hypotheses(job_id, [(spec, HypothesisStatus.PROPOSED, (), "")], now=MODEL_NOW)
     for manifest in artifacts:
-        svc.store.register_feature(job_id, manifest, [spec.hypothesis_id], now=MODEL_NOW)
+        # The helper annotates artifacts with job links; the registry stores the
+        # frozen file manifest and its hypothesis links in separate columns.
+        frozen = {key: value for key, value in manifest.items() if key != "hypotheses"}
+        svc.store.register_feature(job_id, frozen, [spec.hypothesis_id], now=MODEL_NOW)
     for status in (
         JobStatus.GENERATING,
         JobStatus.PLANNING,
@@ -236,7 +239,8 @@ def test_insufficient_data_does_not_freeze_unusable_boundaries(
     # New verified evidence can make this same durable job eligible.
     spec, artifacts = modeling_fixture(svc.store.root, days=220)
     for manifest in artifacts:
-        svc.store.register_feature(job_id, manifest, [spec.hypothesis_id], now=MODEL_NOW)
+        frozen = {key: value for key, value in manifest.items() if key != "hypotheses"}
+        svc.store.register_feature(job_id, frozen, [spec.hypothesis_id], now=MODEL_NOW)
     svc.store.transition(job_id, JobStatus.PLANNING, "New synthetic evidence", now=MODEL_NOW)
     svc.store.transition(job_id, JobStatus.FEATURIZING, "New synthetic features", now=MODEL_NOW)
     svc.store.transition(job_id, JobStatus.MODELING, "Reevaluate synthetic evidence", now=MODEL_NOW)

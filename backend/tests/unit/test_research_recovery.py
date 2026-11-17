@@ -12,6 +12,8 @@ import pytest
 from entropytrade.api import recovery
 from entropytrade.data.sources import file_hash
 from entropytrade.research.recovery import validate_research
+from entropytrade.research.store import ResearchStore
+from tests.research_modeling_support import MODEL_NOW
 from tests.research_paper_support import paper_fixture
 
 
@@ -162,3 +164,45 @@ def test_restore_revalidates_staged_evidence_before_atomic_publication(
         recovery.restore(specimen, archive, destination)
     assert not destination.exists()
     assert not list(destination.parent.glob(".restore-*"))
+
+
+def test_multi_source_policy_change_cannot_reuse_an_old_requirement_identity(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from tests.unit.test_research_jobs import service, submit
+
+    def forbidden(*args: Any, **kwargs: Any) -> Any:
+        raise AssertionError("inventory-only recovery test must remain offline")
+
+    monkeypatch.setattr("httpx.HTTPTransport.handle_request", forbidden)
+    svc = service(tmp_path)
+    job_id = submit(svc)
+    svc.run_until_idle()
+    validate_research(svc.workspace)
+    requirement = next(r for r in svc.store.requirements(job_id) if r.min_sources == 2)
+    changed = requirement.revalidated(min_sources=3)
+    with svc.store.connect() as db:
+        db.execute(
+            "UPDATE research_requirements SET spec=? WHERE job_id=? AND requirement_id=?",
+            (changed.model_dump_json(), job_id, requirement.requirement_id),
+        )
+    with pytest.raises(ValueError, match="requirement identity/reference"):
+        validate_research(svc.workspace)
+
+
+def test_registered_feature_metadata_must_equal_its_frozen_manifest(specimen: Path) -> None:
+    workspace = specimen / "data/cache/source"
+    store = ResearchStore(workspace / "research")
+    with store.connect() as db:
+        job_id, hypothesis_id = db.execute(
+            "SELECT job_id,hypothesis_id FROM research_hypotheses"
+        ).fetchone()
+    path = next((store.root / "features").glob("sha256-*/manifest.json"))
+    manifest = json.loads(path.read_text())
+    store.register_feature(job_id, manifest, [hypothesis_id], now=MODEL_NOW)
+    validate_research(workspace)
+    manifest["version"] = "forged"
+    with store.connect() as db:
+        db.execute("UPDATE research_features SET manifest=?", (json.dumps(manifest),))
+    with pytest.raises(ValueError, match="registered feature reference"):
+        validate_research(workspace)

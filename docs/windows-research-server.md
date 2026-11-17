@@ -77,9 +77,12 @@ key and its passphrase off the server; retain two offline copies and record the 
 primary fingerprint independently. For example, in an isolated private GPG home:
 
 ```bash
+umask 077
 gpg --full-generate-key
 gpg --with-colons --fingerprint RECOVERY_KEY_ID
 gpg --armor --export FULL_PRIMARY_FINGERPRINT > recipient.asc
+# A NEW path on offline media; never transfer this secret export to the server.
+(set -o noclobber; gpg --armor --export-secret-keys FULL_PRIMARY_FINGERPRINT > /PRIVATE/OFFLINE-MEDIA/secret-UNIQUE.asc)
 ```
 
 Choose an encryption-capable key (or encryption subkey), an expiry you will maintain and a
@@ -95,7 +98,7 @@ returned by `command -v uv`; its path must not traverse symlinks. The Python int
 may be uv's normal symlink, but `.venv` and its directories must belong to this checkout.
 
 ```bash
-: > "$HOME/.config/entropytrade-research/provider.env"
+(set -o noclobber; : > "$HOME/.config/entropytrade-research/provider.env")
 chmod 600 "$HOME/.config/entropytrade-research/"{provider.env,recipient.asc}
 git rev-parse HEAD
 sha256sum uv.lock
@@ -120,6 +123,7 @@ command -v uv
 }
 ```
 
+Use a lowercase FQDN without a trailing dot, port or slash in `private_origin`.
 Save as `~/.config/entropytrade-research/deployment.json`, mode 0600. These four distinct
 configuration files need a 0700, user-owned parent and cannot be symlinks. Pins verify HEAD,
 tracked changes, untracked application source, lock hash, interpreter and installed frozen
@@ -269,9 +273,19 @@ Linux Python >=3.12 and `renameat2(RENAME_NOREPLACE)` support (for example recov
 Linux). Native macOS directory publication intentionally refuses; it is not claimed tested.
 Provision the secret key into an explicit private 0700 GPG home there. For a passphrase key,
 unlock its agent interactively after verifying the trusted ciphertext hash, without placing
-the passphrase in argv/env/files (`gpg --homedir /PRIVATE/RECOVERY-HOME --max-output 3221225472
---output /dev/null --decrypt /PATH/download.gpg`). The bounded noninteractive tool can then
-reuse that short-lived agent cache. No secret key is copied to the research server.
+the passphrase in argv/env/files. The bounded noninteractive tool can reuse that short-lived
+agent cache. Retain old decryption subkeys after renewal; expiry blocks new encryption,
+while historical authenticated ciphertext remains recoverable. No secret key is copied to
+the research server.
+
+```bash
+mkdir -m 700 /PRIVATE/RECOVERY-HOME
+gpg --homedir /PRIVATE/RECOVERY-HOME --import /PRIVATE/OFFLINE-MEDIA/secret-UNIQUE.asc
+gpg --homedir /PRIVATE/RECOVERY-HOME --fingerprint FULL_PRIMARY_FINGERPRINT
+export GPG_TTY="$(tty)"
+gpg --homedir /PRIVATE/RECOVERY-HOME --max-output 3221225472 \
+  --output /dev/null --decrypt /PATH/download.gpg
+```
 
 ```bash
 .venv/bin/python -m entropytrade.operations.backup workspace-restore \

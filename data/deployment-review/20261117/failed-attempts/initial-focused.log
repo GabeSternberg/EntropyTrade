@@ -1,0 +1,54 @@
+.................................F...................................... [ 57%]
+.....................................................                    [100%]
+=================================== FAILURES ===================================
+_________________ test_load_and_render_private_research_units __________________
+
+deployment = Deployment(config_file=PosixPath('/tmp/entropytrade-deploy-initial/test_load_and_render_private_r0/private/deployment....1269dbdef6941d1ed9e5fce9e89ea0d9eab8cf9b540cc6a31b759c60290a', uv=PosixPath('/usr/bin/true'), python_version='3.13.14')
+tmp_path = PosixPath('/tmp/entropytrade-deploy-initial/test_load_and_render_private_r0')
+
+    def test_load_and_render_private_research_units(
+        deployment: runtime.Deployment, tmp_path: Path
+    ) -> None:
+        config = runtime.Deployment.load(deployment.config_file)
+        output = tmp_path / "rendered"
+        paths = runtime.render(config, output)
+        server = paths[0].read_text()
+        backup = paths[1].read_text()
+        timer = paths[2].read_text()
+        assert "KillSignal=SIGINT" in server
+        assert "KillMode=mixed" in server
+        assert "TimeoutStopSec=330" in server
+        assert "SendSIGKILL=no" in server
+        assert "UMask=0077" in server
+        assert "PrivateUsers=yes" in server
+        assert "ProtectSystem=strict" in server
+        assert f'InaccessiblePaths="-{config.collector_checkout}"' in server
+        assert "User=" not in server
+        assert f'ExecStart="{config.python}"' in server
+        assert "research_server backup" in backup
+        assert "Persistent=true" in timer
+        assert not any("@" in path.read_text() for path in paths)
+        assert all(path.stat().st_mode & 0o777 == 0o600 for path in paths)
+        with pytest.raises(FileExistsError):
+            runtime.render(config, output)
+        if shutil.which("systemd-analyze"):
+            # Verification reads files only; it neither installs nor starts the units.
+            result = subprocess.run(  # noqa: S603 - generated static unit paths
+                ["systemd-analyze", "--user", "verify", *map(str, paths)],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            # Our test interpreter path is intentionally absent; no other parser error is accepted.
+            errors = [line for line in result.stderr.splitlines() if line]
+>           assert all("is not executable: No such file or directory" in line for line in errors), (
+                errors
+            )
+E           AssertionError: ['Failed to lookup RuntimeDirectory path: No such device or address', 'Failed to initialize manager: No such device or address']
+E           assert False
+E            +  where False = all(<generator object test_load_and_render_private_research_units.<locals>.<genexpr> at 0x7fe3083b69b0>)
+
+backend/tests/unit/test_research_server.py:123: AssertionError
+=========================== short test summary info ============================
+FAILED backend/tests/unit/test_research_server.py::test_load_and_render_private_research_units
+1 failed, 124 passed in 9.18s

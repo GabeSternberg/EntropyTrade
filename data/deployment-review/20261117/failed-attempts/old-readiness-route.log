@@ -1,0 +1,51 @@
+
+Running 2 tests using 1 worker
+
+(node:5961) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:5961) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: production evidence and unconfigured owner refusal (1.7m)
+[31mTesting stopped early after 1 maximum allowed failures.[39m
+
+
+  1) frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: production evidence and unconfigured owner refusal 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('#paper-governance').getByRole('button', { name: 'Save readiness proposal', exact: true })
+    Expected: visible
+    Timeout: 90000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for locator('#paper-governance').getByRole('button', { name: 'Save readiness proposal', exact: true })[22m
+
+
+      84 |     async function open() {
+      85 |       await page.goto(origin + `/#/paper/${monitorId}`);
+    > 86 |       await expect(page.locator("#paper-governance").getByRole("button", { name: "Save readiness proposal", exact: true })).toBeVisible({ timeout: 90_000 });
+         |                                                                                                                             ^
+      87 |     }
+      88 |     async function signIn() {
+      89 |       await page.locator("#owner-access").click();
+        at open (/workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:86:125)
+        at /workspace/EntropyTrade-paper/frontend/browser/readiness.spec.cjs:145:22
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    data/cache/deployment-owner-browser-final-1/playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    data/cache/deployment-owner-browser-final-1/playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/trace.zip
+    Usage:
+
+        npx playwright show-trace data/cache/deployment-owner-browser-final-1/playwright-artifacts/readiness-readiness-oversi-822ae--unconfigured-owner-refusal/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    frontend/browser/readiness.spec.cjs:13:3 › readiness oversight: production evidence and unconfigured owner refusal 
+  1 did not run
+  1 error was not a part of any test, see above for details

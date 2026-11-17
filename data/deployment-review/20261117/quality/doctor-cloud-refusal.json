@@ -1,0 +1,10 @@
+{
+  "scope": "CONTROLLED configuration, actual cloud CLI environment refusal; not a physical WSL doctor pass",
+  "platform_release": "6.18.57",
+  "returncode": 1,
+  "stderr": "Research deployment refused: physical WSL2 with systemd PID 1 is required; no global WSL changes are made\n",
+  "controlled_fixture_bytes_unchanged": true,
+  "windows_configured": false,
+  "collector_accessed": false,
+  "submission_enabled": false
+}
