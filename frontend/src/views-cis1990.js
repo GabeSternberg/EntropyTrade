@@ -131,6 +131,7 @@
   }
 
   ET.views.cis1990 = async (root, ctx) => {
+    const current = () => ET.mode() === "real" && ctx.isCurrent();
     const subtitle = "Research Philadelphia daily-high temperature with Kalshi, NWS and Gemini.";
     const header = h("header", { class: "page-head" },
       h("div", { class: "page-titles" }, h("h1", title), h("p", { class: "page-sub" }, subtitle)));
@@ -162,7 +163,7 @@
     header.append(h("div", { class: "page-actions" }, start));
     root.append(credential, message, issue, content);
     const config = await ET.api(endpoint, { fresh: true });
-    if (!ctx.isCurrent()) return;
+    if (!current()) return;
     if (config.configured) {
       keyHelp.textContent += " Leave blank to use the server’s configured key.";
     }
@@ -178,24 +179,18 @@
       if (event.key === "Enter") start.click();
     });
 
-    async function post(path, body = {}) {
-      const response = await fetch(path, {
-        method: "POST", credentials: "same-origin",
-        headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": config.csrf_token },
-        body: JSON.stringify(body),
-      });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || "Course request failed");
-      return result;
+    async function post(path, value = {}) {
+      if (!current()) throw new Error("This course view is no longer active in Real Mode");
+      return ET.mutate(path, value, config.csrf_token);
     }
     function render(job) {
       const result = job?.result;
       active = !!job && !terminal.has(job.status);
       updateStart();
       const cancel = active ? button("Cancel run", { variant: "ghost sm", onclick: async () => {
-        if (!ctx.isCurrent()) return;
+        if (!current()) return;
         try { await post(endpoint + "/" + job.id + "/cancel"); }
-        catch (error) { if (ctx.isCurrent()) issue.replaceChildren(callout(error.message, "error")); }
+        catch (error) { if (current()) issue.replaceChildren(callout(error.message, "error")); }
       } }) : null;
       message.replaceChildren(
         h("span", { class: "muted" }, "Runtime · Gemini / " + config.model_name),
@@ -218,24 +213,37 @@
     }
 
     async function watch(id) {
-      while (ctx.isCurrent()) {
+      while (current()) {
         try {
           const job = await ET.api(endpoint + "/" + id, { fresh: true });
-          if (!ctx.isCurrent()) return;
+          if (!current()) return;
+          if (job.id !== id) throw new Error("Selected course run does not match the requested identifier");
           if (job.updated_at !== displayed) render(job);
           if (terminal.has(job.status)) return;
         } catch (error) {
-          if (ctx.isCurrent()) issue.replaceChildren(ET.errorState(error.message, ET.route));
+          if (current()) issue.replaceChildren(ET.errorState(error.message, ET.route));
           return;
         }
         await new Promise(resolve => setTimeout(resolve, 850));
       }
     }
 
-    render(config.latest);
-    if (config.latest && !terminal.has(config.latest.status)) void watch(config.latest.id);
+    const selectedId = ctx.params?.[0];
+    let selected = config.latest;
+    if (selectedId) {
+      try {
+        selected = await ET.api(endpoint + "/" + encodeURIComponent(selectedId), { fresh: true });
+        if (!current()) return;
+        if (selected.id !== selectedId) throw new Error("The returned course run does not match this saved record link");
+      } catch (error) {
+        if (current()) { content.replaceChildren(ET.unavailable("Selected course run unavailable", error.message + ". No other saved run has been selected.")); message.replaceChildren(); }
+        return;
+      }
+    }
+    render(selected);
+    if (selected && !terminal.has(selected.status)) void watch(selected.id);
     start.addEventListener("click", async () => {
-      if (!ctx.isCurrent() || ET.mode() !== "real" || start.disabled) return;
+      if (!current() || ET.mode() !== "real" || start.disabled) return;
       setKeyVisible(false);
       submitting = true;
       keyInput.disabled = true;
@@ -247,11 +255,12 @@
       try {
         const result = await post(endpoint, { api_key: keyInput.value.trim() });
         keyInput.value = "";
+        if (!current()) return;
         active = true;
         displayed = null;
-        void watch(result.id);
+        ET.go("#/cis1990/" + encodeURIComponent(result.id));
       } catch (error) {
-        if (!ctx.isCurrent()) return;
+        if (!current()) return;
         issue.replaceChildren(callout(error.message, "error"));
         message.textContent = "Could not start the run.";
       } finally {

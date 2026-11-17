@@ -784,3 +784,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   .readiness-envelope { grid-template-columns: minmax(0, 1fr); }
   .readiness-checks li { flex-wrap: wrap; }
 }
+
+/* Persistent workspace references remain readable at narrow widths. */
+.summary-record-list .summary-ref, .summary-breakdown, .alerts-filter { overflow-wrap: anywhere; }
+.summary-record-list li { align-items: flex-start; flex-wrap: wrap; }
+.summary-record-list .mini-main { flex: 1 1 220px; }
+.summary-record-list .mini-sub { white-space: normal; }
+[data-summary-records], #paper-governance .input { min-width: 0; max-width: 100%; }
+.selected-alert { background: var(--accent-soft); }

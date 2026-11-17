@@ -7,7 +7,8 @@ An approved proposal still has `execution_authorized=false` and `submission_enab
 It neither allocates funds nor changes the model, broker, paper limits or production gateway.
 See [operations and policy](../../../docs/research-readiness.md).
 
-**Final software acceptance passes.** [GitHub CI](https://github.com/GabeSternberg/EntropyTrade/actions/runs/43947708763)
+**Final software acceptance passes.** [PR #32](https://github.com/GabeSternberg/EntropyTrade/pull/32)
+merged as `6bee33420e88d8c2bf44b490f6143ab585bfc7b3`. [GitHub CI](https://github.com/GabeSternberg/EntropyTrade/actions/runs/43947708763)
 passes all **1,952 tests in 1,121.19 seconds**, plus Ruff/format, strict mypy and Node.
 The checked source is `a2ea64cfc71404bc9458f26e55739d7dac27a8fa`; subsequent
 completion changes contain documentation and retained evidence only.

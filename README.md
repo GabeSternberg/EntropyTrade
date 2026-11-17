@@ -47,6 +47,8 @@ controlled software acceptance from unavailable authentic trading evidence. No e
 Verified experiments feed [persistent paper deployments](docs/research-paper.md);
 [readiness proposals and monitoring](docs/research-readiness.md) add owner review,
 emergency halt and bounded deterioration investigations while production orders remain disabled.
+The [unified frontend](docs/unified-frontend.md) links exact jobs, experiments, paper
+accounts, alerts and readiness records, with full workspace counts and explicit unavailable states.
 
 ## Setup and checks
 

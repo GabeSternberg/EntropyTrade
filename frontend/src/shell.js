@@ -98,17 +98,84 @@
   const TITLES = Object.fromEntries(NAV.flatMap((g) => g.items.map((i) => [i.key, i.label])));
   ET.views = ET.views || {};
 
-  function parse() {
-    const raw = (window.location.hash || "#/overview").replace(/^#\/?/, "");
-    const [pathPart, query = ""] = raw.split("?");
-    const parts = pathPart.split("/").filter(Boolean).map(decodeURIComponent);
-    return { name: parts[0] || "overview", params: parts.slice(1), query: new URLSearchParams(query) };
+  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  const HASH = /^sha256:[0-9a-f]{64}$/;
+  const ROUTE_QUERIES = {
+    research: { new: (v) => v === "1", tab: (v) => ["hypotheses", "requirements", "sources", "acquisitions", "features", "experiments", "forward", "paper", "events"].includes(v), experiment: (v) => HASH.test(v) },
+    paper: { tab: (v) => ["account", "monitoring", "readiness", "evidence"].includes(v), proposal: (v) => HASH.test(v) },
+    ops: { tab: (v) => v === "alerts", monitor: (v) => UUID.test(v), alert: (v) => /^[a-zA-Z0-9_:-]{1,128}$/.test(v) },
+    workbench: { job: (v) => UUID.test(v) },
+    lab: { tab: (v) => ["strategies", "experiments", "models"].includes(v) },
+    analytics: { tab: (v) => ["performance", "risk", "calibration", "costs", "walkforward"].includes(v), strategy: (v) => /^[a-zA-Z0-9_-]{1,128}$/.test(v) },
+  };
+  function parse(hash = window.location.hash) {
+    const raw = (hash || "#/overview").replace(/^#\/?/, "");
+    const split = raw.indexOf("?");
+    const pathPart = split < 0 ? raw : raw.slice(0, split);
+    const supplied = new URLSearchParams(split < 0 ? "" : raw.slice(split + 1));
+    let parts;
+    try { parts = pathPart.split("/").filter(Boolean).map(decodeURIComponent); }
+    catch { return { name: "overview", params: [], query: new URLSearchParams(), routeError: "Invalid route encoding" }; }
+    const name = parts[0] || "overview", query = new URLSearchParams();
+    let routeError = null;
+    for (const [key, value] of supplied) {
+      const validate = ROUTE_QUERIES[name]?.[key];
+      if (!validate) continue;
+      if (supplied.getAll(key).length !== 1 || !validate(value)) routeError = `Invalid ${key} selection in this link`;
+      else query.set(key, value);
+    }
+    if (["research", "paper", "cis1990"].includes(name) && parts.length > 2) routeError = "Invalid persisted record path in this link";
+    if (name === "research" && query.has("experiment") && !parts[1] || name === "paper" && query.has("proposal") && !parts[1]) routeError = "This evidence selection requires its parent record identifier";
+    if (["research", "paper", "cis1990"].includes(name) && parts[1] && !UUID.test(parts[1]) && mode === "real") routeError = "Invalid persisted record identifier in this link";
+    return { name, params: parts.slice(1), query, routeError };
   }
-  ET.go = (hash) => { if (window.location.hash === hash) route(); else window.location.hash = hash; };
+  ET.parseRoute = parse;
+  ET.routeLink = (name, id, values = {}) => {
+    const query = new URLSearchParams();
+    Object.entries(values).forEach(([key, value]) => { if (value != null && value !== "") query.set(key, value); });
+    return `#/${name}${id ? "/" + encodeURIComponent(id) : ""}${query.size ? "?" + query.toString() : ""}`;
+  };
+  // Tabs update the URL without tearing down their active selection/loading state.
+  // Browser back/forward is rendered through popstate/hashchange below.
+  ET.updateQuery = (values, { replace = false } = {}) => {
+    const current = parse();
+    Object.entries(values).forEach(([key, value]) => { if (value == null || value === "") current.query.delete(key); else current.query.set(key, value); });
+    const href = ET.routeLink(current.name, current.params[0], Object.fromEntries(current.query));
+    if (window.location.hash !== href) {
+      const method = replace ? "replaceState" : "pushState";
+      if (window.history?.[method]) window.history[method](null, "", href);
+      else if (!replace) window.location.hash = href;
+    }
+  };
+  ET.go = (hash) => { if (window.location.hash === hash) return route(); window.location.hash = hash; };
+  ET.workbenchActive = () => mode === "real" && parse().name === "workbench" && document.getElementById("workbench-view")?.hidden === false;
+  ET.activateWorkbench = async () => {
+    if (mode !== "real") throw new Error("The research workbench is disabled in Demo Mode");
+    if (parse().name !== "workbench") window.location.hash = "#/workbench";
+    await route();
+    if (!ET.workbenchActive()) throw new Error("The research workbench is no longer active");
+    if (!ET.legacyWorkbench) throw new Error("The research workbench failed to load");
+    return ET.legacyWorkbench;
+  };
+  ET.openRun = async (id) => { const legacy = await ET.activateWorkbench(); return legacy.selectJob(id); };
+  ET.selectMonitor = async (id) => { const legacy = await ET.activateWorkbench(); return legacy.selectMonitor(id, true); };
 
   let renderToken = 0;
+  let workbenchRoute = null;
   function route() {
-    const { name, params, query } = parse();
+    const selected = parse();
+    const key = `${mode}|${window.location.hash}`;
+    if (selected.name === "workbench") {
+      if (workbenchRoute?.key === key) return workbenchRoute.promise;
+      const promise = renderRoute();
+      workbenchRoute = { key, promise };
+      return promise;
+    }
+    workbenchRoute = null;
+    return renderRoute();
+  }
+  async function renderRoute() {
+    const { name, params, query, routeError } = parse();
     const known = name in TITLES;
     const key = known ? name : "overview";
     document.querySelectorAll(".nav-item").forEach((a) => a.setAttribute("aria-current", a.dataset.key === key ? "page" : "false"));
@@ -121,11 +188,26 @@
     const isWorkbench = key === "workbench";
     workbench.hidden = !isWorkbench;
     view.hidden = isWorkbench;
-    if (isWorkbench) { renderToken += 1; view.replaceChildren(); window.scrollTo(0, 0); return; }
+    if (!isWorkbench || mode !== "real") ET.legacyWorkbench?.deactivate();
+    if (isWorkbench) {
+      const token = ++renderToken; view.replaceChildren(); window.scrollTo(0, 0);
+      if (mode !== "real") {
+        workbench.hidden = true; view.hidden = false;
+        view.replaceChildren(ET.unavailable("Research workbench disabled in Demo Mode", "Switch to Real Mode to inspect or run persisted research. Demo Mode never sends workbench requests."));
+        return;
+      }
+      if (routeError) { workbench.hidden = true; view.hidden = false; view.replaceChildren(ET.errorState(routeError)); ET.legacyWorkbench?.deactivate(); return; }
+      try {
+        await ET.legacyWorkbench?.activate();
+        if (token === renderToken && ET.workbenchActive() && query.get("job")) await ET.legacyWorkbench?.selectJob(query.get("job"));
+      } catch (error) { if (ET.workbenchActive()) toast(error.message, "error"); }
+      return;
+    }
     const token = ++renderToken;
     const target = h("div", { class: "view-inner", "data-view": key });
     view.replaceChildren(target);
     window.scrollTo(0, 0);
+    if (routeError) { target.append(ET.unavailable("This link cannot select a record", routeError)); return; }
     const renderer = ET.views[key];
     if (!renderer) { target.append(ET.emptyState({ title: "This section is unavailable", body: "The view module failed to load." })); return; }
     Promise.resolve(renderer(target, { params, query, isCurrent: () => token === renderToken })).catch((error) => {
@@ -141,7 +223,37 @@
     h("div", { class: "page-actions" }, ET.sourceChip(), actions || null));
   ET.sourceChip = () => mode === "demo"
     ? h("span", { class: "source-chip demo", title: "Fictional sample data generated in this browser" }, h("span", { class: "dot demo" }), "Demo data · simulated")
-    : h("span", { class: "source-chip real", title: "Authentic data from this local workspace" }, h("span", { class: "dot pos" }), "Real data · local workspace");
+    : h("span", { class: "source-chip real", title: "Persisted workspace records; inspect each record's provenance" }, h("span", { class: "dot pos" }), "Workspace data · persisted");
+
+  const SUMMARY_LABELS = { research_jobs: "Autonomous research jobs", experiments: "Persistent experiments", legacy_jobs: "Legacy research runs", course_jobs: "CIS course runs", monitors: "Shadow monitors", paper_accounts: "Paper accounts", alerts: "Open alerts", readiness: "Readiness records" };
+  ET.summaryKpis = (summary, keys) => h("div", { class: "kpi-strip" }, keys.map((key) => {
+    const component = summary?.components?.[key];
+    const counts = component?.available ? component.counts : null;
+    const node = ET.kpi({ label: SUMMARY_LABELS[key], value: counts ? fmt.num(key === "alerts" ? counts.unresolved : counts.total) : "—", sub: !counts ? "unavailable" : component.initialized ? "stored metadata · full count" : "not started", iconName: key === "experiments" ? "analytics" : key === "paper_accounts" ? "paper" : "database" });
+    node.setAttribute("data-summary-component", key);
+    return node;
+  }));
+  ET.summaryRecords = (summary, key) => {
+    const component = summary?.components?.[key];
+    if (!component?.available || !component.counts) return ET.unavailable("Recorded metadata unavailable", "This component could not be read. Its count and recent references are unknown.");
+    const counts = component.counts;
+    const groups = ["by_status", "by_data_kind", "by_source_kind", "by_result_status", "by_validation_status", "by_backtest_status"].filter((field) => counts[field] && Object.keys(counts[field]).length);
+    const breakdown = groups.length ? h("div", { class: "summary-breakdown" }, groups.map((field) => h("p", { class: "hint" }, `${fmt.words(field.replace(/^by_/, ""))}: `, Object.entries(counts[field]).sort(([a], [b]) => a.localeCompare(b)).map(([value, count]) => `${value}: ${count}`).join(" · ")))) : null;
+    const recent = component.recent || [];
+    const evidenceCounts = key === "experiments" ? h("p", { class: "hint" }, [
+      ["with_recorded_result", "results"], ["with_recorded_validation", "validations"], ["with_recorded_model", "model artifacts"], ["with_recorded_backtest", "backtests"],
+    ].filter(([field]) => counts[field] != null).map(([field, label]) => `${counts[field]} recorded ${label}`).join(" · ")) : null;
+    return h("div", { class: "stack", "data-summary-records": key }, breakdown, evidenceCounts,
+      key === "paper_accounts" && counts.monitors_without_account != null ? h("p", { class: "hint" }, `${counts.monitors_without_account} monitors have no stored account. An unstarted monitor is not an account.`) : null,
+      recent.length ? h("ul", { class: "mini-list summary-record-list" }, recent.map((record) => {
+        const id = record.experiment_id || record.proposal_id || record.alert_id || record.id || record.job_id || record.monitor_id;
+        return h("li", h("div", { class: "mini-main" }, h("a", { class: "link mono summary-ref", href: record.href }, id),
+          h("span", { class: "mini-sub" }, [record.status, record.kind, record.source_kind ? `source: ${record.source_kind}` : null, record.data_kind ? `data: ${record.data_kind}` : null, record.result_status ? `result: ${record.result_status}` : null, record.validation_status ? `validation: ${record.validation_status}` : null, record.backtest_status ? `backtest: ${record.backtest_status}` : null].filter(Boolean).join(" · "))),
+          record.monitor_href ? h("a", { class: "link", href: record.monitor_href }, "Monitor evidence") : null);
+      })) : ET.emptyState({ title: counts.total > 0 ? "No recent references available" : component.initialized ? "No records stored" : "Not started", body: counts.total > 0 ? "Stored records were counted, but no valid navigable references are available in this recent window." : "No recent references are recorded for this component." }),
+      h("p", { class: "hint" }, `Showing at most ${summary?.recent_limit || 10} recent references. Counts include all stored records.`));
+  };
+  ET.summaryNotice = () => ET.callout("Counts and statuses describe stored metadata. A recorded result, validation, model or readiness review does not prove current scientific validity, paper eligibility or trading profitability. Open the exact evidence record to inspect its checks and refusals.", "info");
 
   // ------------------------------------------------------------ chrome
   function buildSidebar() {
@@ -169,7 +281,7 @@
     const search = h("button", { type: "button", class: "search-trigger", "aria-label": "Search (Command K)" }, icon("search", 15), h("span", "Search markets, strategies, pages…"), h("kbd", navigator.platform.includes("Mac") ? "⌘K" : "Ctrl K"));
     search.addEventListener("click", palette);
     const modeSwitch = segmented([{ key: "real", label: "Real" }, { key: "demo", label: "Demo" }], mode, (key) => ET.setMode(key), { class: "segmented mode-switch", "aria-label": "Data mode", id: "mode-switch" });
-    const bell = h("a", { class: "btn ghost icon bell", href: "#/ops", "aria-label": "Alerts", title: "Alerts" }, icon("bell", 17), h("span", { class: "bell-dot", id: "bell-dot", hidden: true }));
+    const bell = h("a", { class: "btn ghost icon bell", href: "#/ops?tab=alerts", "aria-label": "Alerts", title: "Alerts" }, icon("bell", 17), h("span", { class: "bell-dot", id: "bell-dot", hidden: true }));
     const owner = button("Owner access", { variant: "ghost sm", id: "owner-access", onclick: () => ET.ownerAccess?.() }, "lock");
     const halt = button("Paper halt", { variant: "ghost sm", id: "global-halt", onclick: () => ET.controlAccess?.() }, "shield");
     bar.replaceChildren(menu, h("div", { class: "crumb", id: "crumb" }), search,
@@ -213,14 +325,17 @@
   async function updateIndicators() {
     const badge = document.getElementById("nav-badge-ops");
     const dotEl = document.getElementById("bell-dot");
-    let count = 0;
+    const requestedMode = mode;
+    let count = null;
     if (mode === "demo") count = ET.demoData.quality_alerts.filter((a) => !a.resolved).length;
     else {
-      try { const { alerts } = await ET.api("/api/alerts"); count = alerts.filter((a) => !a.resolved_at).length; } catch { count = 0; }
+      try { const summary = await ET.api("/api/workspace/summary"); count = summary.components?.alerts?.counts?.unresolved ?? null; } catch { /* unavailable is not zero */ }
     }
-    if (badge) { badge.hidden = !count; badge.textContent = String(count); }
-    if (dotEl) dotEl.hidden = !count;
+    if (requestedMode !== mode) return;
+    if (badge) { badge.hidden = count == null || count === 0; badge.textContent = count == null ? "—" : String(count); badge.title = count == null ? "Alert count unavailable" : "Recorded unresolved alerts"; }
+    if (dotEl) dotEl.hidden = count == null || count === 0;
   }
+
   function tick() {
     const el = document.getElementById("clock");
     if (el) el.textContent = `${new Date().toISOString().slice(11, 19)} UTC · localhost`;
@@ -231,7 +346,13 @@
     if (document.querySelector("dialog.palette")) return;
     const input = h("input", { type: "search", class: "palette-input", placeholder: "Jump to a page, market or strategy…", "aria-label": "Search" });
     const results = h("div", { class: "palette-results", role: "listbox" });
-    const entries = NAV.flatMap((g) => g.items.map((i) => ({ label: i.label, hint: "Page", icon: i.icon, href: `#/${i.key}` })));
+    const entries = [
+      { label: "New research", hint: "Persistent research objective", icon: "sparkles", href: "#/research?new=1" },
+      { label: "Paper deployments", hint: "Accounts and evidence", icon: "paper", href: "#/paper" },
+      { label: "Alerts", hint: "Operator review", icon: "bell", href: "#/ops?tab=alerts" },
+      { label: "Readiness review", hint: "Select a paper deployment", icon: "shield", href: "#/paper?tab=readiness" },
+      ...NAV.flatMap((g) => g.items.map((i) => ({ label: i.label, hint: ["workbench", "cis1990"].includes(i.key) ? "Legacy / course" : "Page", icon: i.icon, href: `#/${i.key}` }))),
+    ];
     if (mode === "demo") {
       ET.demoData.markets.forEach((m) => entries.push({ label: m.title, hint: m.ticker, icon: "markets", href: `#/markets/${encodeURIComponent(m.ticker)}` }));
       ET.demoData.strategies.forEach((st) => entries.push({ label: st.name, hint: "Strategy", icon: "lab", href: `#/lab/${st.id}` }));
@@ -265,6 +386,7 @@
     setInterval(updateIndicators, 15000);
     setInterval(updateSafety, 15000);
     window.addEventListener("hashchange", route);
+    window.addEventListener("popstate", route);
     document.addEventListener("keydown", (event) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); palette(); }
     });

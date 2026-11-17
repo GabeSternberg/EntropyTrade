@@ -281,3 +281,46 @@ navigates away before stopping listeners and checks page/console errors after sh
 The controlled case also opens the actual monitoring assessment after owner approval and
 compares its rendered status and reasons with the API response. Start/end source fingerprints
 must match; source changes during an otherwise completed procedure mark its receipt failed.
+
+## Unified lifecycle acceptance
+
+Select `lifecycle.spec.cjs redesign.spec.cjs` with fresh absolute evidence and workspace
+paths. `lifecycle.spec.cjs` runs three actual listener/Chromium procedures: untouched
+empty workspace, an explicitly corrupt optional research store, and mixed persistent
+history with full counts beyond the existing 50-row list limits. Its new test-only
+`tests.integration.lifecycle_fixture` records every seeded row in `setup.json`.
+The 56 research jobs/experiments, 54 legacy runs and three course runs are explicitly
+**metadata-only count probes**. Their stored real/synthetic labels test rendering, not
+source authenticity; they contain no model, data acquisition, return, balance or fill.
+
+The same mixed workspace also contains one actual synthetic C model fit/backtest and
+one D incoming-data paper cycle computed by the accepted fixture. Advancing controlled
+time without a second cycle creates a genuine stale-collection alert. The browser
+opens the exact model/validation/backtest, paper, monitoring, alert and blocked readiness
+records; downloads the actual research and readiness reports; submits an ordinary local
+inventory-only research objective; and verifies saved status, query selection, reload,
+history navigation, palette and 375-pixel layout. A one-day synthetic source remains
+ineligible under the production readiness policy. No owner approval is claimed.
+Production monitoring may create bounded offline incident investigations; their exact
+server references and zero-acquisition budgets are inspected and included in final counts.
+
+Demo acceptance counts **all** page API requests, including polling, hidden legacy
+controls and saved Real-mode handlers; zero reads and writes are required. Real-mode
+legacy and exact course record handoffs are inspected separately. These cancelled
+metadata records prove navigation compatibility, not a fresh provider execution.
+Existing provider/CIS acceptance remains separate.
+
+Receipts retain browser errors, request/write logs, screenshots, checksummed exports,
+original workspace file hashes and start/end application/test/browser source fingerprints.
+Existing retained evidence bytes and all source fingerprints must remain unchanged.
+Run all selected browser cases serially after source freeze, then run the full suite.
+Discovery or a blocked Chromium launch is not an executed browser pass.
+
+```bash
+ENTROPYTRADE_BROWSER_EVIDENCE="$PWD/data/lifecycle-review/NEW-STAMP/browser" \
+ENTROPYTRADE_BROWSER_WORKSPACE="$PWD/data/cache/lifecycle-NEW-STAMP" \
+ENTROPYTRADE_BROWSER_PYTHON=/absolute/path/to/pinned/python \
+PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers" \
+node frontend/browser/node_modules/@playwright/test/cli.js test \
+  -c frontend/browser/playwright.config.cjs lifecycle.spec.cjs redesign.spec.cjs --max-failures=1
+```

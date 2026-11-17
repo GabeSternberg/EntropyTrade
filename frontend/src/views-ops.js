@@ -97,6 +97,7 @@
   async function paperReal(root, ctx) {
     const host = h("div", { class: "stack" }, skeleton(5));
     root.append(host);
+    const current = () => ET.mode() === "real" && ctx.isCurrent();
     const known = new Map();
     let shown = null;
     let token = null;
@@ -107,11 +108,12 @@
           ET.api("/api/monitors", { fresh: true }).catch((error) => ({ error })),
           ET.api("/api/catalog", { fresh: true }).catch((error) => ({ error })),
         ]);
-        if (!ctx.isCurrent()) return;
+        if (!current()) return;
         if (list.error) { shown = null; host.replaceChildren(errorState(list.error.message, () => ET.route())); return; }
         if (token !== catalog.csrf_token) { known.clear(); token = catalog.csrf_token; }
         if (!list.length) {
           shown = null;
+          if (ctx.params?.[0]) { host.replaceChildren(unavailable("Selected paper deployment not found", "The requested monitor is not recorded in this workspace. No other deployment has been selected.")); return; }
           host.replaceChildren(card({ title: "Paper accounts", source: "real" }, unavailable("No simulated paper accounts in this workspace", "A paper deployment keeps its own simulated account, fills and settlements. None exist yet. Review a research experiment for deterministic paper eligibility or inspect existing research runs.", h("div", { class: "row-actions" }, h("a", { class: "btn primary sm", href: "#/research" }, "Review autonomous research"), h("a", { class: "btn ghost sm", href: "#/workbench" }, "Research workbench"), button("Preview in Demo Mode", { variant: "ghost sm", onclick: () => ET.setMode("demo") }, "eye")))), executionPanel(true));
           return;
         }
@@ -122,21 +124,22 @@
           known.set(m.id, next);
           return next;
         }));
-        if (!ctx.isCurrent()) return;
+        if (!current()) return;
         const stamp = JSON.stringify([monitors, token || null]);
         if (stamp === shown) return;
         shown = stamp;
         const expanded = new Set([...host.querySelectorAll("details")].filter((details) => details.open).map((details) => details.querySelector("summary")?.textContent));
         const simulated = monitors.filter((x) => x.ok && x.m.paper_summary?.status === "simulated");
+        const accountsUnknown = monitors.some((entry) => !entry.ok);
         const synthetic = simulated.filter((x) => x.m.paper_summary.data_kind === "synthetic").length;
         const sum = (k) => simulated.reduce((a, x) => a + Number(x.m.paper_summary[k] || 0), 0);
         const parts = [callout("Simulated paper accounting on retained evidence. Eligibility can remain blocked by missing models, fees or depth; no fill here was observed on an exchange.", "info"),
           h("div", { class: "kpi-strip" },
-            kpi({ label: "Accounts", value: String(monitors.length), sub: `${simulated.length} with simulated activity`, iconName: "paper" }),
-            kpi({ label: "Cash", value: simulated.length ? fmt.usd(sum("cash")) : "—", iconName: "database" }),
-            kpi({ label: "Realized simulated P&L", value: simulated.length ? fmt.signedUsd(sum("realized_pnl")) : "—", iconName: "check" }),
-            kpi({ label: "Fees", value: simulated.length ? fmt.usd(sum("fees")) : "—", iconName: "file" }),
-            kpi({ label: "Fills / settlements", value: simulated.length ? `${sum("fill_count")} / ${sum("settlement_count")}` : "—", iconName: "activity" }))];
+            kpi({ label: "Paper accounts", value: accountsUnknown ? "—" : String(simulated.length), sub: accountsUnknown ? "Some monitor accounts unavailable" : `${monitors.length} monitors · ${monitors.length - simulated.length} without committed account activity`, iconName: "paper" }),
+            kpi({ label: "Cash", value: !accountsUnknown && simulated.length ? fmt.usd(sum("cash")) : "—", iconName: "database" }),
+            kpi({ label: "Realized simulated P&L", value: !accountsUnknown && simulated.length ? fmt.signedUsd(sum("realized_pnl")) : "—", iconName: "check" }),
+            kpi({ label: "Fees", value: !accountsUnknown && simulated.length ? fmt.usd(sum("fees")) : "—", iconName: "file" }),
+            kpi({ label: "Fills / settlements", value: !accountsUnknown && simulated.length ? `${sum("fill_count")} / ${sum("settlement_count")}` : "—", iconName: "activity" }))];
         if (synthetic) parts.splice(1, 0, callout(synthetic === simulated.length
           ? "CONTROLLED SYNTHETIC accounting totals verify software behavior. They do not establish empirical trading performance."
           : "Mixed accounting totals include CONTROLLED SYNTHETIC accounts. Inspect each account's Data field before interpreting these figures.", synthetic === simulated.length ? "demo" : "warn"));
@@ -144,7 +147,7 @@
           { key: "id", label: "Monitor", sort: (x) => x.m.id, render: (x) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, `${x.m.family} · ${x.m.candidate_id}`), h("span", { class: "cell-sub mono" }, fmt.short(x.m.id, 12))) },
           { key: "status", label: "Deployment", sort: (x) => x.m.status, render: (x) => statusPill(x.m.status) },
           { key: "source", label: "Research lineage", sortable: false, render: (x) => x.m.source_kind === "autonomous_research"
-            ? h("div", { class: "cell-title" }, h("a", { class: "link", href: `#/research/${encodeURIComponent(x.m.research_job_id)}` }, `Research ${fmt.short(x.m.research_job_id, 12)}`), h("div", { class: "mono muted" }, `experiment ${fmt.short(x.m.experiment_id?.replace(/^sha256:/, ""), 12)}`))
+            ? h("div", { class: "cell-title" }, h("a", { class: "link", href: `#/research/${encodeURIComponent(x.m.research_job_id)}?tab=experiments&experiment=${encodeURIComponent(x.m.experiment_id)}` }, `Research ${fmt.short(x.m.research_job_id, 12)}`), h("div", { class: "mono muted" }, `experiment ${fmt.short(x.m.experiment_id?.replace(/^sha256:/, ""), 12)}`))
             : h("span", { class: "muted" }, "Legacy research run") },
           { key: "account", label: "Account", sort: (x) => x.m.paper_summary?.status, render: (x) => (x.ok ? statusPill(x.m.paper_summary?.status || "none") : statusPill("refused")) },
           { key: "kind", label: "Data", render: (x) => (x.m.paper_summary?.data_kind ? statusPill(x.m.paper_summary.data_kind) : "—") },
@@ -157,11 +160,11 @@
         const selected = ctx.params?.[0];
         if (selected) {
           const found = monitors.find((x) => x.m.id === selected);
-          parts.push(found?.ok ? paperDeployment(found.m, catalog.error ? null : catalog.csrf_token) : errorState(found?.error?.message || "Paper deployment not found", () => ET.go("#/paper")));
           if (found?.ok) {
-            governance ||= paperGovernance(found.m, ctx);
+            governance ||= paperGovernance(found.m, ctx, paperDeployment(found.m, catalog.error ? null : catalog.csrf_token));
+            governance.updateAccount(paperDeployment(found.m, catalog.error ? null : catalog.csrf_token));
             parts.push(governance);
-          }
+          } else parts.push(unavailable("Selected paper deployment not found", found?.error?.message || "The requested monitor is not recorded in this workspace. No other deployment has been selected."));
         } else parts.push(callout("Select an account to inspect frozen research lineage, positions, execution decisions and deployment controls.", "info"));
         parts.push(executionPanel(true));
         host.replaceChildren(...parts);
@@ -169,9 +172,9 @@
           if (expanded.has(details.querySelector("summary")?.textContent)) details.setAttribute("open", "");
         });
       } finally {
-        if (ctx.isCurrent()) setTimeout(() => {
-          if (ctx.isCurrent()) refresh().catch((error) => {
-            if (ctx.isCurrent()) { shown = null; host.replaceChildren(errorState(error.message, () => ET.route())); }
+        if (current()) setTimeout(() => {
+          if (current()) refresh().catch((error) => {
+            if (current()) { shown = null; host.replaceChildren(errorState(error.message, () => ET.route())); }
           });
         }, 5000);
       }
@@ -212,8 +215,8 @@
     ]);
     const metadata = [
       ["Source", research ? "Autonomous research experiment" : "Legacy research run"],
-      research ? ["Research job", h("a", { class: "link mono", href: `#/research/${encodeURIComponent(monitor.research_job_id)}` }, monitor.research_job_id)] : null,
-      research ? ["Experiment version", h("span", { class: "mono" }, monitor.experiment_id)] : null,
+      research ? ["Research job", h("a", { class: "link mono", href: `#/research/${encodeURIComponent(monitor.research_job_id)}?tab=experiments&experiment=${encodeURIComponent(monitor.experiment_id)}` }, monitor.research_job_id)] : null,
+      research ? ["Experiment version", h("a", { class: "link mono", href: `#/research/${encodeURIComponent(monitor.research_job_id)}?tab=experiments&experiment=${encodeURIComponent(monitor.experiment_id)}` }, monitor.experiment_id)] : null,
       ["Strategy version", h("span", { class: "mono" }, monitor.spec_hash)],
       ["Model version", h("span", { class: "mono" }, model.version || binding.model_hash || "No frozen model binding")],
       source.source_hash ? ["Deployment source version", h("span", { class: "mono" }, source.source_hash)] : null,
@@ -232,7 +235,7 @@
       h("div", { class: "row-actions" },
         h("a", { class: "btn ghost sm", href: `/api/monitors/${encodeURIComponent(monitor.id)}/paper`, download: `paper-${monitor.id}.json` }, "Paper account JSON"),
         h("a", { class: "btn ghost sm", href: `/api/monitors/${encodeURIComponent(monitor.id)}/export`, download: `shadow-${monitor.id}.json` }, "Execution evidence JSON"),
-        button("Open workbench execution log", { variant: "ghost sm", onclick: () => { ET.go("#/workbench"); if (typeof window.selectMonitor === "function") window.selectMonitor(monitor.id, true).catch(() => {}); } }, "external")),
+        button("Open workbench execution log", { variant: "ghost sm", onclick: () => ET.selectMonitor(monitor.id).catch((error) => toast(error.message, "error")) }, "external")),
       account.status === "simulated" ? h("div", { class: "stack" },
         kv([
           ["Account as of", fmt.dateTime(account.as_of)],
@@ -400,16 +403,16 @@
     await load();
   };
 
-  function paperGovernance(monitor, ctx) {
+  function paperGovernance(monitor, ctx, account) {
     const host = h("section", { class: "stack", id: "paper-governance" });
     const panel = h("div", { class: "stack" }, skeleton(3));
     const notice = h("div", { role: "status" });
-    const state = { report: null, owner: null, record: null, selectedId: null, loadingProposal: false, monitoring: null, tab: "readiness" };
+    const state = { report: null, owner: null, record: null, selectedId: ctx.query?.get("proposal") || null, loadingProposal: false, monitoring: null, tab: ctx.query?.get("tab") || "account", selectionError: null };
     const current = () => ET.mode() === "real" && ctx.isCurrent();
     const uri = `/api/monitors/${encodeURIComponent(monitor.id)}`;
     const ownerButton = button("Owner access", { variant: "ghost sm", onclick: async () => { await ET.ownerAccess(); } }, "lock");
     const refresh = button("Refresh review", { variant: "ghost sm", onclick: () => load() }, "refresh");
-    const tabBar = tabs([{ key: "readiness", label: "Readiness" }, { key: "monitoring", label: "Monitoring" }, { key: "audit", label: "Audit" }], state.tab, (key) => { state.tab = key; draw(); });
+    const tabBar = tabs([{ key: "account", label: "Account" }, { key: "monitoring", label: "Monitoring" }, { key: "readiness", label: "Readiness" }, { key: "evidence", label: "Evidence & audit" }], state.tab, (key) => { state.tab = key; ET.updateQuery?.({ tab: key }); draw(); });
     host.append(card({ title: "Readiness & oversight", subtitle: "Human review records only. Execution remains unauthorized.", actions: h("div", { class: "row-actions" }, ownerButton, refresh) },
       callout("Readiness approval is data only: execution_authorized=false and real-money submission stays disabled. No review, rollback or halt release changes a running model.", "lock"), notice, tabBar.el, panel));
     let generation = 0, monitoringGeneration = 0;
@@ -425,9 +428,23 @@
         const [report, owner] = await Promise.all([ET.api(uri + "/readiness", { fresh: true }), ET.api("/api/owner", { fresh: true })]);
         if (!current() || request !== generation) return;
         const selected = id || state.selectedId || state.record?.id || report.proposals?.[0]?.id;
+        state.report = report; state.owner = owner;
+        if (selected && !(report.proposals || []).some((proposal) => proposal.id === selected)) {
+          state.record = null; state.selectedId = selected; state.loadingProposal = false;
+          state.selectionError = "Selected readiness proposal not found for this monitor. No other proposal has been selected.";
+          notice.replaceChildren(); draw(); return;
+        }
         const record = selected ? await ET.api(`/api/readiness/${encodeURIComponent(selected)}`, { fresh: true }) : null;
         if (!current() || request !== generation) return;
-        state.report = report; state.owner = owner; state.record = record; state.selectedId = record?.id || null; state.loadingProposal = false;
+        if (record && (record.id !== selected || record.monitor_id !== monitor.id)) {
+          state.record = null; state.selectedId = selected; state.loadingProposal = false;
+          state.selectionError = "Selected readiness proposal does not match this monitor and proposal identifier. No other proposal has been selected.";
+          notice.replaceChildren(); draw(); return;
+        }
+        state.record = record; state.selectedId = selected || null; state.loadingProposal = false; state.selectionError = null;
+        // Defaulting a saved proposal enriches this history entry. Only an explicit
+        // selection creates a new entry, so Back can leave the deployment page.
+        if (selected) ET.updateQuery?.({ proposal: selected }, { replace: !id });
         notice.replaceChildren(); draw();
       } catch (error) { if (current() && request === generation) notice.replaceChildren(errorState(error.message, () => load(id))); }
       finally { if (request === generation) { state.loadingProposal = false; refresh.disabled = false; } }
@@ -437,7 +454,7 @@
       const proposals = state.report.proposals || [];
       if (!proposals.length) return null;
       const select = h("select", { class: "input", "aria-label": "Frozen readiness proposal" }, proposals.map((proposal) => h("option", { value: proposal.id, selected: proposal.id === state.selectedId }, `${fmt.words(proposal.status)} · ${proposal.id}`)));
-      select.addEventListener("change", () => load(select.value));
+      select.addEventListener("change", () => { ET.updateQuery?.({ proposal: select.value }); return load(select.value); });
       return h("label", { class: "field" }, h("span", { class: "field-label" }, "Frozen readiness proposal"), select);
     }
     async function mutation(path, body, id) {
@@ -448,10 +465,14 @@
       }
     }
     function draw() {
-      if (!state.report || !current()) return;
+      if (!current()) return;
+      if (state.selectionError) { replaceContent(panel, unavailable("Selected readiness proposal unavailable", state.selectionError)); return; }
+      if (state.tab === "account") { replaceContent(panel, account); return; }
+      if (state.tab === "monitoring") { drawMonitoring(); return; }
+      if (!state.report) return;
       if (state.loadingProposal) { replaceContent(panel, skeleton(3)); return; }
       if (state.tab === "monitoring") { drawMonitoring(); return; }
-      if (state.tab === "audit") {
+      if (state.tab === "evidence") {
         replaceContent(panel, proposalPicker(), state.record ? h("div", { class: "stack" }, kv([["Proposal", state.record.id], ["Revision", evidenceValue(state.record.revision)], ["State", fmt.words(state.record.status)]]), auditEvents(state.record.events)) : emptyState({ title: "No frozen readiness proposal" }),
           h("details", h("summary", "Global control audit"), auditEvents(state.report.control?.events)));
         return;
@@ -532,7 +553,8 @@
           h("h4", "Investigations"), (result.investigations || []).length ? h("ul", { class: "mini-list" }, result.investigations.map((investigation) => h("li", h("div", h("strong", investigation.objective || "Read-only investigation"), h("p", { class: "hint" }, fmt.words(investigation.status))), investigation.research_job_id ? h("a", { class: "link", href: `#/research/${encodeURIComponent(investigation.research_job_id)}` }, "Open investigation research") : h("span", "Research link pending")))) : emptyState({ title: "No investigation jobs", body: "Missing observations are not proof of model drift or profitability." }));
       } catch (error) { if (current() && state.tab === "monitoring" && request === monitoringGeneration) replaceContent(panel, errorState(error.message, drawMonitoring)); }
     }
-    load();
+    host.updateAccount = (next) => { account = next; if (state.tab === "account") draw(); };
+    draw(); load();
     return host;
   }
 
@@ -582,24 +604,31 @@
     root.append(host);
     const r = await ET.apiAll({ alerts: "/api/alerts", schedules: "/api/weather/schedules", datasets: "/api/weather/datasets", partitions: "/api/weather/label-partitions", fees: "/api/fees", monitors: "/api/monitors" });
     if (!ctx.isCurrent()) return;
-    const alerts = r.alerts.ok ? r.alerts.data.alerts : [];
+    const allAlerts = r.alerts.ok ? r.alerts.data.alerts || [] : [];
+    const monitorFilter = ctx.query?.get("monitor");
+    const selectedAlert = ctx.query?.get("alert");
+    const alerts = monitorFilter ? allAlerts.filter((alert) => alert.monitor_id === monitorFilter) : allAlerts;
+    const selected = selectedAlert ? alerts.find((alert) => alert.id === selectedAlert) : null;
     const schedules = r.schedules.ok ? r.schedules.data : [];
     const partitions = r.partitions.ok ? r.partitions.data : [];
     const fees = r.fees.ok ? r.fees.data.versions || [] : [];
     const parts = [h("div", { class: "kpi-strip" },
       kpi({ label: "Shadow monitors", value: r.monitors.ok ? String(r.monitors.data.length) : "—", sub: r.monitors.ok ? `${r.monitors.data.filter((m) => m.status === "active").length} active` : "unavailable", iconName: "eye" }),
-      kpi({ label: "Open alerts", value: String(alerts.filter((a) => !a.resolved_at).length), kind: alerts.some((a) => !a.resolved_at) ? "warn" : "", iconName: "alert" }),
-      kpi({ label: "Forward validation", value: schedules.length ? `${schedules.filter((s) => s.status === "active").length} active` : "Off", sub: "opt-in label collection", iconName: "clock" }),
+      kpi({ label: "Open alerts", value: r.alerts.ok ? String(allAlerts.filter((a) => !a.resolved_at).length) : "—", kind: alerts.some((a) => !a.resolved_at) ? "warn" : "", iconName: "alert" }),
+      kpi({ label: "Forward validation", value: r.schedules.ok ? `${schedules.filter((s) => s.status === "active").length} active` : "—", sub: "opt-in label collection", iconName: "clock" }),
       kpi({ label: "Weather datasets", value: r.datasets.ok ? String(r.datasets.data.length) : "—", sub: "immutable snapshots", iconName: "database" }),
-      kpi({ label: "Label partitions", value: String(partitions.length), sub: `${partitions.filter((p) => p.status === "sealed").length} sealed`, iconName: "layers" }),
-      kpi({ label: "Fee versions", value: String(fees.length), sub: fees.length ? "reviewed documents" : "missing evidence", iconName: "file", kind: fees.length ? "" : "warn" }))];
+      kpi({ label: "Label partitions", value: r.partitions.ok ? String(partitions.length) : "—", sub: `${partitions.filter((p) => p.status === "sealed").length} sealed`, iconName: "layers" }),
+      kpi({ label: "Fee versions", value: r.fees.ok ? String(fees.length) : "—", sub: fees.length ? "reviewed documents" : "missing evidence", iconName: "file", kind: fees.length ? "" : "warn" }))];
     parts.push(card({ title: "Collector health", source: "real" }, unavailable("Collector status is not exposed to the website", "Automated market and forecast collection runs as a separate process so the website can never affect it. Check it from a terminal (for example `uv run entropytrade health`). Forward-collection history under data/cache/chain is not read by this page.")));
-    const alertBody = alerts.length ? dataTable({ columns: [
-      { key: "kind", label: "Alert", render: (a) => fmt.words(a.kind) },
-      { key: "monitor_id", label: "Monitor", render: (a) => h("span", { class: "mono" }, fmt.short(a.monitor_id)) },
+    const alertFilter = h("div", { class: "row-actions alerts-filter" },
+      h("span", { class: "hint" }, monitorFilter ? `Monitor filter: ${monitorFilter}` : "All monitors"),
+      monitorFilter || selectedAlert ? h("a", { class: "link", href: "#/ops?tab=alerts" }, "Clear alert selection") : null);
+    const alertBody = selectedAlert && !selected && r.alerts.ok ? unavailable("Selected alert not found", "The requested alert is not recorded for this monitor filter. No other alert has been selected.") : alerts.length ? dataTable({ columns: [
+      { key: "kind", label: "Alert", render: (a) => h("a", { class: "link", "data-alert": a.id, href: `#/ops?tab=alerts&monitor=${encodeURIComponent(a.monitor_id)}&alert=${encodeURIComponent(a.id)}` }, fmt.words(a.kind)) },
+      { key: "monitor_id", label: "Monitor", render: (a) => h("a", { class: "link mono", href: `#/paper/${encodeURIComponent(a.monitor_id)}?tab=monitoring` }, fmt.short(a.monitor_id)) },
       { key: "state", label: "State", sort: (a) => (a.resolved_at ? 2 : a.acknowledged_at ? 1 : 0), render: (a) => statusPill(a.resolved_at ? "resolved" : a.acknowledged_at ? "acknowledged" : "open") },
       { key: "opened_at", label: "Detected", align: "num", render: (a) => fmt.dateTime(a.opened_at) },
-    ], rows: alerts, sortKey: "opened_at", dense: true, onRow: (a) => { ET.go("#/workbench"); if (typeof window.selectMonitor === "function") window.selectMonitor(a.monitor_id, true).catch(() => {}); } })
+    ], rows: alerts, sortKey: "opened_at", dense: true, rowClass: (alert) => alert.id === selectedAlert ? "selected-alert" : "", onRow: (a) => ET.go(`#/paper/${encodeURIComponent(a.monitor_id)}?tab=monitoring`) })
       : r.alerts.ok ? emptyState({ iconName: "check", title: "No operator alerts", body: "Stale collection, repeated failures and unresolved reconciliation alerts appear here. Acknowledge them in the workbench." }) : errorState(r.alerts.error.message);
     const schedBody = schedules.length ? dataTable({ columns: [
       { key: "id", label: "Schedule", render: (s) => h("span", { class: "mono" }, fmt.short(s.config?.id, 12)) },
@@ -608,7 +637,7 @@
       { key: "verified", label: "Verified", align: "num", render: (s) => fmt.num(s.counts?.verified || 0) },
       { key: "refused", label: "Refused", align: "num", render: (s) => fmt.num(s.counts?.refused || 0) },
     ], rows: schedules, sortKey: "status", dense: true }) : r.schedules.ok ? emptyState({ iconName: "clock", title: "Forward validation not enabled", body: "Label collection is opt-in. Enable it in the Research Workbench.", action: link("Workbench", "#/workbench") }) : errorState(r.schedules.error.message);
-    parts.push(h("div", { class: "grid g-1-1" }, card({ title: "Operator alerts", flush: alerts.length > 0, source: "real" }, alertBody), card({ title: "Settlement label coverage", subtitle: "Continuous forward validation", flush: schedules.length > 0 }, schedBody)));
+    parts.push(h("div", { class: "grid g-1-1" }, card({ title: "Operator alerts", flush: alerts.length > 0, source: "real" }, alertFilter, alertBody), card({ title: "Settlement label coverage", subtitle: "Continuous forward validation", flush: schedules.length > 0 }, schedBody)));
     const partBody = partitions.length ? dataTable({ columns: [
       { key: "partition_id", label: "Partition", render: (p) => h("span", { class: "mono" }, p.partition_id) },
       { key: "status", label: "Status", render: (p) => statusPill(p.status) },
@@ -644,7 +673,7 @@
         h("ul", { class: "check-list" }, [
           "Demo data is generated in the browser from a fixed seed and is labeled “Simulated” throughout.",
           "Demo data never leaves the browser: Demo Mode views make no API requests and offer no write actions.",
-          "The Research Workbench always uses the real workspace, regardless of this setting.",
+          "The Research Workbench is disabled in Demo Mode and sends no requests until opened in Real Mode.",
           "Real Mode shows honest empty, unavailable and error states when data is missing.",
         ].map((t) => h("li", icon("check", 13), h("span", t))))));
     } else if (current === "providers") {

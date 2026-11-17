@@ -26,7 +26,7 @@
       kpi({ label: "Today's P&L", value: fmt.signedUsd(p.today_pnl), kind: p.today_pnl >= 0 ? "pos" : "neg", sub: "simulated fills", iconName: "activity" }),
       kpi({ label: "Realized P&L", value: fmt.signedUsd(p.realized_pnl), kind: "pos", sub: `${fmt.usd(p.fees_paid)} fees`, iconName: "target" }),
       kpi({ label: "Win rate", value: fmt.pct(winRate), sub: `${p.by_strategy.reduce((a, s) => a + s.trades, 0)} settled trades`, iconName: "check" }),
-      kpi({ label: "Live strategies", value: `${active} / ${d.strategies.length}`, sub: "paper + shadow", iconName: "lab" }),
+      kpi({ label: "Active paper/shadow strategies", value: `${active} / ${d.strategies.length}`, sub: "paper + shadow", iconName: "lab" }),
       kpi({ label: "V1 readiness", value: `${attested} / ${d.gates.length}`, sub: "gates attested", iconName: "flag", kind: attested === d.gates.length ? "pos" : "warn" })));
 
     let range = "1M";
@@ -77,70 +77,21 @@
   }
 
   async function overviewReal(root, ctx) {
-    const kpiRow = h("div", { class: "kpi-strip" }, Array.from({ length: 6 }, () => h("div", { class: "kpi" }, skeleton(2))));
-    root.append(kpiRow);
-    const body = h("div", { class: "stack" }, skeleton(6, "tall"));
-    root.append(body);
-    const r = await ET.apiAll({ catalog: "/api/catalog", jobs: "/api/jobs", monitors: "/api/monitors", alerts: "/api/alerts", gates: "/api/v1-gates", datasets: "/api/weather/datasets", schedules: "/api/weather/schedules", fees: "/api/fees" });
-    if (!ctx.isCurrent()) return;
-    if (!r.catalog.ok) {
-      kpiRow.replaceChildren();
-      body.replaceChildren(errorState(`The local API is not reachable: ${r.catalog.error.message}. Start it with \`uv run entropytrade-web\` and reload.`, () => ET.route()));
-      return;
-    }
-    const jobs = r.jobs.ok ? r.jobs.data : [];
-    const monitors = r.monitors.ok ? r.monitors.data : [];
-    const alerts = r.alerts.ok ? r.alerts.data.alerts : [];
-    const gates = r.gates.ok ? r.gates.data : null;
-    const datasets = r.datasets.ok ? r.datasets.data : [];
-    const attested = gates ? gates.gates.filter((g) => g.status === "attested").length : null;
-    const completed = jobs.filter((j) => j.status === "completed").length;
-    const running = jobs.filter((j) => ["queued", "starting", "running"].includes(j.status)).length;
-    const openAlerts = alerts.filter((a) => !a.resolved_at);
-    kpiRow.replaceChildren(
-      kpi({ label: "Research runs", value: fmt.num(jobs.length), sub: jobs.length ? `${completed} completed · ${running} in progress` : "none yet", iconName: "beaker" }),
-      kpi({ label: "Monitors", value: fmt.num(monitors.length), sub: `${monitors.filter((m) => m.status === "active").length} active`, iconName: "eye" }),
-      kpi({ label: "Paper accounts", value: fmt.num(monitors.length), sub: "1 per shadow monitor", iconName: "paper" }),
-      kpi({ label: "Open alerts", value: fmt.num(openAlerts.length), sub: `${openAlerts.filter((a) => !a.acknowledged_at).length} need acknowledgement`, iconName: "bell", kind: openAlerts.length ? "warn" : "" }),
-      kpi({ label: "Datasets", value: fmt.num(datasets.length), sub: datasets.length ? `${datasets[0].readiness?.status ? fmt.words(datasets[0].readiness.status) : "latest"}` : "none frozen", iconName: "database" }),
-      kpi({ label: "V1 readiness", value: attested === null ? "—" : `${attested} / ${gates.gates.length}`, sub: "gates attested", iconName: "flag", kind: gates?.v1_complete ? "pos" : "warn" }));
-
-    const runsTable = jobs.length ? dataTable({
-      columns: [
-        { key: "idea", label: "Research idea", sort: (j) => j.request.idea, render: (j) => h("div", { class: "cell-market" }, h("span", { class: "cell-title" }, j.request.idea), h("span", { class: "cell-sub" }, `${j.request.family} · ${fmt.words(j.request.mode)}`)) },
-        { key: "status", label: "Status", render: (j) => statusPill(j.status) },
-        { key: "created_at", label: "Created", align: "num", render: (j) => fmt.dateTime(j.created_at) },
-      ], rows: jobs.slice(0, 8), sortKey: "created_at", dense: true, onRow: (j) => openRun(j.id),
-    }) : emptyState({ iconName: "beaker", title: "No research runs yet", body: "Start a run in the Research Workbench. Completed runs, their evidence and typed candidates appear here.", action: h("a", { class: "btn primary sm", href: "#/workbench" }, "Open workbench") });
-
-    const alertList = openAlerts.length ? h("ol", { class: "feed" }, openAlerts.slice(0, 6).map((a) => h("li", { class: "feed-item" },
-      h("span", { class: "feed-icon warning" }, icon("alert", 14)),
-      h("a", { class: "feed-body", href: "#/ops" }, h("span", { class: "feed-title" }, fmt.words(a.kind)), h("span", { class: "feed-detail" }, `Monitor ${fmt.short(a.monitor_id)} · ${a.acknowledged_at ? "acknowledged, still open" : "needs acknowledgement"}`)),
-      h("time", { class: "feed-time" }, fmt.ago(a.opened_at)))))
-      : r.alerts.ok ? emptyState({ iconName: "check", title: "No open operator alerts", body: "Stale collection, repeated failures and unresolved reconciliation alerts from shadow monitors appear here." }) : errorState(r.alerts.error.message);
-
-    const gateList = gates ? h("ul", { class: "gate-list" }, gates.gates.map((g) => h("li", { class: `gate ${g.status}`, title: g.detail }, icon(g.status === "attested" ? "check" : g.status === "invalid" ? "alert" : "clock", 14), h("span", g.title), g.reference ? h("span", { class: "gate-ref" }, g.reference) : null))) : errorState(r.gates.error.message);
-
-    const opp = unavailable("No live market feed in the website", "Kalshi listings are collected by the separate read-only collector and are not loaded into this page. Market data captured by research runs is under Workbench → Evidence & lineage.", link("Market Explorer", "#/markets"));
-    const paperBody = monitors.length ? h("ul", { class: "mini-list" }, monitors.slice(0, 6).map((m) => h("li", h("div", { class: "mini-main" }, h("span", { class: "mini-title" }, `${m.family} · ${m.candidate_id}`), h("span", { class: "mini-sub mono" }, fmt.short(m.id))), statusPill(m.status))))
-      : emptyState({ iconName: "paper", title: "No paper accounts", body: "A simulated paper account starts with each shadow monitor on a completed real research candidate.", action: link("Paper Trading", "#/paper") });
-    const sched = r.schedules.ok ? r.schedules.data : [];
-    const dataBody = h("div", kv([
-      ["Frozen weather datasets", fmt.num(datasets.length)],
-      ["Forward validation schedules", sched.length ? `${sched.length} (${sched.filter((x) => x.status === "active").length} active)` : "Not enabled (opt-in)"],
-      ["Fee evidence versions", r.fees.ok ? fmt.num(r.fees.data.versions?.length || 0) : "Unavailable"],
-      ["Collector process", h("span", { class: "muted" }, "Runs separately · not monitored here")],
-    ]));
-    body.replaceChildren(
-      grid("g-2-1", card({ title: "Recent research runs", subtitle: "Durable queue in this workspace", actions: link("Strategy Lab", "#/lab"), flush: jobs.length > 0, source: "real" }, runsTable), card({ title: "Operator alerts", actions: link("Operations", "#/ops") }, alertList)),
-      grid("g-3", card({ title: "Market opportunities" }, opp), card({ title: "Paper & shadow", actions: link("Paper Trading", "#/paper") }, paperBody), card({ title: "Data & evidence", actions: link("Operations", "#/ops") }, dataBody)),
-      card({ title: "V1 readiness", subtitle: gates ? (gates.v1_complete ? "Every gate is attested." : `${gates.open.length} of ${gates.gates.length} gates are not attested. Gates are attested only by human-written files under data/acceptance.`) : "" }, gateList));
+    const host = h("div", { class: "stack" }, skeleton(6));
+    root.append(host);
+    let summary;
+    try { summary = await ET.api("/api/workspace/summary"); }
+    catch (error) { if (ctx.isCurrent()) host.replaceChildren(errorState(error.message, ET.route)); return; }
+    if (!ctx.isCurrent() || ET.mode() !== "real") return;
+    const groups = [
+      ["research_jobs", "Autonomous research jobs", "#/research"], ["experiments", "Recorded experiments", "#/analytics"],
+      ["paper_accounts", "Paper accounts", "#/paper"], ["alerts", "Operator alerts", "#/ops?tab=alerts"],
+      ["legacy_jobs", "Legacy research runs", "#/workbench"], ["course_jobs", "CIS course runs", "#/cis1990"],
+      ["monitors", "Shadow monitors", "#/paper"], ["readiness", "Readiness records", "#/paper?tab=readiness"],
+    ];
+    host.replaceChildren(ET.summaryKpis(summary, ["research_jobs", "experiments", "paper_accounts", "alerts", "legacy_jobs", "course_jobs"]), ET.summaryNotice(),
+      grid("g-1-1", ...groups.map(([key, title, href]) => card({ title, source: "real", actions: link("Open", href) }, ET.summaryRecords(summary, key)))));
   }
-  function openRun(id) {
-    ET.go("#/workbench");
-    if (typeof window.selectJob === "function") window.selectJob(id).catch(() => {});
-  }
-  ET.openRun = openRun;
 
   // ========================================================== MARKET EXPLORER
   ET.views.markets = async (root, ctx) => {

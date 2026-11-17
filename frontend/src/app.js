@@ -1,11 +1,52 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
 const state = { token: null, job: null, tab: "review", updated: null, busy: false, monitor: null, provider: null, weatherDatasets: [] };
+// The legacy workbench has its own transport, but shares the shell's current mode and
+// route boundary. Every activation owns an epoch; leaving it invalidates reads, writes,
+// saved controls and responses even if this same workbench is opened again immediately.
+const legacy = { active: false, epoch: 0, ready: false, pending: null, timer: null, controller: null };
+function legacyVisible() {
+  const shell = globalThis.window?.ET;
+  return shell?.mode?.() === "real" && shell.workbenchActive?.() === true &&
+    $("workbench-view")?.hidden === false && document.visibilityState !== "hidden";
+}
+function inactiveError() { return Object.assign(new Error("The Real workbench is inactive"), { cancelled: true }); }
+function requireLegacy(epoch = legacy.epoch) {
+  if (!legacy.active || epoch !== legacy.epoch || !legacyVisible()) throw inactiveError();
+  return epoch;
+}
+function currentLegacy(epoch) { return legacy.active && epoch === legacy.epoch && legacyVisible(); }
+const staticListeners = [];
+function listen(element, type, handler) {
+  // Static form controls survive navigation. Controls rendered from saved records belong
+  // to the activation that rendered them, and can never act on a later activation.
+  const binding = { element, type, handler, wrapper: null };
+  bindListener(binding);
+  if (!legacy.active) staticListeners.push(binding);
+}
+function bindListener(binding) {
+  const { element, type, handler } = binding, epoch = legacy.epoch;
+  if (binding.wrapper) element.removeEventListener(type, binding.wrapper);
+  binding.wrapper = (event) => {
+    if (!legacy.ready || !currentLegacy(epoch)) {
+      event.preventDefault?.(); event.stopImmediatePropagation?.(); return;
+    }
+    try {
+      return Promise.resolve(handler(event, epoch)).catch((error) => {
+        if (!error.cancelled && currentLegacy(epoch)) $("connection").replaceChildren(notice(error.message, true));
+      });
+    } catch (error) {
+      if (!error.cancelled && currentLegacy(epoch)) $("connection").replaceChildren(notice(error.message, true));
+    }
+  };
+  element.addEventListener(type, binding.wrapper);
+}
 const terminal = new Set(["completed", "failed", "cancelled", "interrupted"]);
 function node(tag, text, className) {
   const element = document.createElement(tag);
   if (text !== undefined && text !== null) element.textContent = String(text);
   if (className) element.className = className;
+  if (tag === "a") listen(element, "click", () => {});
   return element;
 }
 function append(parent, ...children) { children.forEach((child) => parent.append(child)); return parent; }
@@ -28,13 +69,24 @@ function table(headers, rows) {
   append(tableNode, append(node("tbody"), ...rows.map((row) => append(node("tr"), ...row.map((value) => node("td", value ?? "—"))))));
   return append(node("div", null, "table-wrap"), tableNode);
 }
-async function api(path, body) {
-  const response = await fetch(path, body === undefined ? {} : {
-    method: "POST", headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": state.token }, body: JSON.stringify(body),
-  });
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
-  return result;
+async function api(path, body, epoch = requireLegacy()) {
+  requireLegacy(epoch);
+  try {
+    const response = await fetch(path, {
+      method: body === undefined ? "GET" : "POST", credentials: "same-origin", signal: legacy.controller?.signal,
+      ...(body === undefined ? {} : {
+        headers: { "Content-Type": "application/json", "X-EntropyTrade-CSRF": state.token }, body: JSON.stringify(body),
+      }),
+    });
+    requireLegacy(epoch);
+    const result = await response.json();
+    requireLegacy(epoch);
+    if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
+    return result;
+  } catch (error) {
+    requireLegacy(epoch); // An aborted/stale request is never a connection error in a newer view.
+    throw error;
+  }
 }
 function modeHelp() {
   const bitcoin = $("family").value === "bitcoin";
@@ -62,25 +114,29 @@ function reasoningHelp() {
   $("enable-provider").required = provider;
   $("provider-help").textContent = state.provider ? `Server configuration: ${state.provider.provider} / ${state.provider.model_name}. Missing credentials or provider errors produce a saved failure; no mock fallback.` : "Configure the research provider/model on the server to enable this option.";
 }
-async function history() {
-  const rows = await api("/api/jobs");
+async function history(epoch = requireLegacy()) {
+  const rows = await api("/api/jobs", undefined, epoch); requireLegacy(epoch);
   $("history").replaceChildren();
   if (!rows.length) $("history").append(node("p", "Your research history will appear here.", "hint"));
   rows.forEach((job) => {
     const button = append(node("button", null, `history-item${state.job?.id === job.id ? " selected" : ""}`),
       node("span", job.request.idea, "idea"), append(node("span", null, "meta"), badge(job.status), node("span", `${job.request.family} · ${job.request.mode}`)), node("span", dateText(job.created_at), "hint"));
     button.type = "button";
-    button.addEventListener("click", () => selectJob(job.id));
+    listen(button, "click", () => selectJob(job.id));
     $("history").append(button);
   });
 }
-async function selectJob(id) {
+let jobSelection = 0;
+async function selectJob(id, epoch = requireLegacy()) {
+  requireLegacy(epoch);
+  const selection = ++jobSelection;
   state.updated = null;
   state.tab = "review";
-  const job = await api(`/api/jobs/${id}`);
+  const job = await api(`/api/jobs/${id}`, undefined, epoch); requireLegacy(epoch);
+  if (selection !== jobSelection) return;
   state.job = job;
   renderJob();
-  await history();
+  await history(epoch);
 }
 function renderJob() {
   const job = state.job;
@@ -89,9 +145,9 @@ function renderJob() {
   const tools = node("div", null, "run-tools");
   if (!terminal.has(job.status)) {
     const cancel = node("button", "Cancel run"); cancel.type = "button";
-    cancel.addEventListener("click", async () => {
-      try { await api(`/api/jobs/${job.id}/cancel`, {}); await selectJob(job.id); }
-      catch (error) { $("connection").replaceChildren(notice(error.message, true)); }
+    listen(cancel, "click", async (_, epoch) => {
+      try { await api(`/api/jobs/${job.id}/cancel`, {}, epoch); requireLegacy(epoch); await selectJob(job.id, epoch); }
+      catch (error) { if (error.cancelled) return; $("connection").replaceChildren(notice(error.message, true)); }
     }); tools.append(cancel);
   }
   if (job.result) {
@@ -167,15 +223,16 @@ function renderWeatherHistory(content, snapshot) {
 // Refresh clicks and partition changes can overlap; only the newest request may render, so
 // rows never describe a partition other than the one selected. aria-busy marks completion.
 let weatherLabelsSequence = 0;
-async function weatherLabels() {
+async function weatherLabels(epoch = requireLegacy()) {
+  requireLegacy(epoch);
   const sequence = ++weatherLabelsSequence;
   const content = $("weather-labels");
   content.setAttribute("aria-busy", "true");
-  try { await renderWeatherLabels(sequence, content); }
-  finally { if (sequence === weatherLabelsSequence) content.setAttribute("aria-busy", "false"); }
+  try { await renderWeatherLabels(sequence, content, epoch); }
+  finally { if (currentLegacy(epoch) && sequence === weatherLabelsSequence) content.setAttribute("aria-busy", "false"); }
 }
-async function renderWeatherLabels(sequence, content) {
-  const partitions = await api("/api/weather/label-partitions");
+async function renderWeatherLabels(sequence, content, epoch) {
+  const partitions = await api("/api/weather/label-partitions", undefined, epoch); requireLegacy(epoch);
   if (sequence !== weatherLabelsSequence) return;
   const select = $("weather-label-partition");
   const previous = select.value;
@@ -192,7 +249,8 @@ async function renderWeatherLabels(sequence, content) {
   manifest.href = `/api/weather/label-partitions/${select.value}/manifest`;
   manifest.download = `label-partition-${select.value}.json`;
   const partition = select.value;
-  const rows = selected ? await api("/api/weather/label-partitions/" + partition) : [];
+  const rows = selected ? await api("/api/weather/label-partitions/" + partition, undefined, epoch) : [];
+  requireLegacy(epoch);
   if (sequence !== weatherLabelsSequence) return;
   content.replaceChildren(); content.dataset.partition = partition;
   for (const request of rows.slice().reverse()) {
@@ -209,21 +267,22 @@ async function renderWeatherLabels(sequence, content) {
     content.append(section);
   }
 }
-$("weather-label-partition").addEventListener("change", () => weatherLabels().catch(error => { $("weather-label-message").textContent = error.message; }));
-$("weather-label-refresh").addEventListener("click", () => weatherLabels().catch(error => { $("weather-label-message").textContent = error.message; }));
-$("weather-label-acquire").addEventListener("click", async () => {
+listen($("weather-label-partition"), "change", () => weatherLabels().catch(error => { if (error.cancelled) return; $("weather-label-message").textContent = error.message; }));
+listen($("weather-label-refresh"), "click", () => weatherLabels().catch(error => { if (error.cancelled) return; $("weather-label-message").textContent = error.message; }));
+listen($("weather-label-partition-download"), "click", () => {});
+listen($("weather-label-acquire"), "click", async (_, epoch) => {
   $("weather-label-acquire").disabled = true;
   try {
     const dataset_id = $("weather-dataset").value;
     if (!dataset_id) throw new Error("Freeze and select a retained weather dataset first.");
-    await api("/api/weather/labels", { id: crypto.randomUUID(), dataset_id });
+    await api("/api/weather/labels", { id: crypto.randomUUID(), dataset_id }, epoch); requireLegacy(epoch);
     $("weather-label-message").textContent = "Acquisition queued. Refresh to inspect receipts and refusals, then freeze a new dataset to include verified labels.";
-    await weatherLabels();
-  } catch (error) { $("weather-label-message").textContent = error.message; }
-  finally { $("weather-label-acquire").disabled = false; }
+    await weatherLabels(epoch);
+  } catch (error) { if (error.cancelled) return; $("weather-label-message").textContent = error.message; }
+  finally { if (currentLegacy(epoch)) $("weather-label-acquire").disabled = false; }
 });
-async function weatherSchedules() {
-  const rows = await api("/api/weather/schedules");
+async function weatherSchedules(epoch = requireLegacy()) {
+  const rows = await api("/api/weather/schedules", undefined, epoch); requireLegacy(epoch);
   const encoded = JSON.stringify(rows);
   if (state.scheduleJSON === encoded) return;
   state.scheduleJSON = encoded;
@@ -241,11 +300,11 @@ async function weatherSchedules() {
     const action = schedule.status === "active" ? "pause" : "resume";
     const control = node("button", action === "pause" ? "Pause forward validation" : "Resume forward validation");
     control.type = "button";
-    control.addEventListener("click", async () => {
+    listen(control, "click", async (_, epoch) => {
       control.disabled = true;
-      try { await api(`/api/weather/schedules/${schedule.config.id}/${action}`, {}); await weatherSchedules(); }
-      catch (error) { $("weather-schedule-message").textContent = error.message; }
-      finally { control.disabled = false; }
+      try { await api(`/api/weather/schedules/${schedule.config.id}/${action}`, {}, epoch); requireLegacy(epoch); await weatherSchedules(epoch); }
+      catch (error) { if (error.cancelled) return; $("weather-schedule-message").textContent = error.message; }
+      finally { if (currentLegacy(epoch)) control.disabled = false; }
     });
     const link = node("a", "Download forward validation state");
     link.href = "/api/weather/schedules/" + schedule.config.id;
@@ -254,8 +313,8 @@ async function weatherSchedules() {
     content.append(section);
   }
 }
-$("weather-schedule-refresh").addEventListener("click", () => weatherSchedules().catch(error => { $("weather-schedule-message").textContent = error.message; }));
-$("weather-schedule-create").addEventListener("click", async () => {
+listen($("weather-schedule-refresh"), "click", () => weatherSchedules().catch(error => { if (error.cancelled) return; $("weather-schedule-message").textContent = error.message; }));
+listen($("weather-schedule-create"), "click", async (_, epoch) => {
   const button = $("weather-schedule-create"); button.disabled = true;
   try {
     if (!$("weather-schedule-optin").checked) throw new Error("Explicit continuous validation opt-in is required.");
@@ -263,15 +322,15 @@ $("weather-schedule-create").addEventListener("click", async () => {
     if (!dataset_id) throw new Error("Freeze and select a retained weather dataset first.");
     await api("/api/weather/schedules", { id: crypto.randomUUID(), dataset_id, enabled: true,
       interval_seconds: Number($("weather-schedule-interval").value),
-      batch_dates: Number($("weather-schedule-batch").value), follow_retained: $("weather-schedule-follow").checked });
+      batch_dates: Number($("weather-schedule-batch").value), follow_retained: $("weather-schedule-follow").checked }, epoch); requireLegacy(epoch);
     $("weather-schedule-optin").checked = false;
     $("weather-schedule-message").textContent = "Forward validation enabled. Inspect the durable backlog below; pause at any time.";
-    await weatherSchedules();
-  } catch (error) { $("weather-schedule-message").textContent = error.message; }
-  finally { button.disabled = false; }
+    await weatherSchedules(epoch);
+  } catch (error) { if (error.cancelled) return; $("weather-schedule-message").textContent = error.message; }
+  finally { if (currentLegacy(epoch)) button.disabled = false; }
 });
-async function weatherPartitions() {
-  const catalog = await api("/api/weather/partitions");
+async function weatherPartitions(epoch = requireLegacy()) {
+  const catalog = await api("/api/weather/partitions", undefined, epoch); requireLegacy(epoch);
   for (const [id, placeholder] of [["weather-partition", "All retained inputs (up to 128)"], ["weather-outcomes", "Same partition as history"]]) {
     const select = $(id), previous = select.value;
     const empty = node("option", placeholder); empty.value = "";
@@ -290,9 +349,9 @@ async function weatherPartitions() {
   }
   $("weather-partition-counts").textContent = `${catalog.total_inputs} retained inputs across ${catalog.partitions.length} bounded partitions. Each selection processes at most ${catalog.partition_size} captures and ${catalog.partition_size} outcome cycles. Receipts are preserved; model calendar boundaries stay frozen. Later outcomes can come from a separate partition.`;
 }
-$("weather-partitions-refresh").addEventListener("click", () => weatherPartitions().catch(error => { $("weather-message").textContent = error.message; }));
-async function weatherDatasets(selected) {
-  const rows = await api("/api/weather/datasets");
+listen($("weather-partitions-refresh"), "click", () => weatherPartitions().catch(error => { if (error.cancelled) return; $("weather-message").textContent = error.message; }));
+async function weatherDatasets(selected, epoch = requireLegacy()) {
+  const rows = await api("/api/weather/datasets", undefined, epoch); requireLegacy(epoch);
   state.weatherDatasets = rows;
   const previous = selected || $("weather-dataset").value || globalThis.localStorage?.getItem("entropytrade-weather-dataset");
   $("weather-dataset").replaceChildren(...(rows.length ? rows.map((snapshot) => {
@@ -313,36 +372,36 @@ function showWeatherReadiness() {
     renderWeatherHistory($("weather-readiness"), snapshot);
   }
 }
-$("weather-dataset").addEventListener("change", () => {
+listen($("weather-dataset"), "change", () => {
   $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp(); showWeatherReadiness();
 });
-$("weather-cohort-freeze").addEventListener("click", async () => {
+listen($("weather-cohort-freeze"), "click", async (_, epoch) => {
   $("weather-cohort-freeze").disabled = true;
   $("weather-message").textContent = "Verifying cohort batches and rebuilding point-in-time features…";
   try {
     const partition_ids = Array.from($("weather-cohort").selectedOptions).map(o => o.value);
     const outcome_partition_ids = Array.from($("weather-cohort-outcomes").selectedOptions).map(o => o.value);
     const selection = { partition_ids, ...(outcome_partition_ids.length ? { outcome_partition_ids } : {}) };
-    const snapshot = await api("/api/weather/datasets", selection);
-    await weatherDatasets(snapshot.dataset_id.slice(7));
+    const snapshot = await api("/api/weather/datasets", selection, epoch); requireLegacy(epoch);
+    await weatherDatasets(snapshot.dataset_id.slice(7), epoch); requireLegacy(epoch);
     $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp();
     $("weather-message").textContent = "Immutable research cohort selected. Review its evidence gates, then start research.";
-  } catch (error) { $("weather-message").textContent = error.message; }
-  finally { $("weather-cohort-freeze").disabled = false; }
+  } catch (error) { if (error.cancelled) return; $("weather-message").textContent = error.message; }
+  finally { if (currentLegacy(epoch)) $("weather-cohort-freeze").disabled = false; }
 });
-$("weather-freeze").addEventListener("click", async () => {
+listen($("weather-freeze"), "click", async (_, epoch) => {
   $("weather-freeze").disabled = true;
   $("weather-message").textContent = "Verifying receipts and freezing dataset…";
   try {
     const selection = {};
     if ($("weather-partition").value) selection.partition_id = $("weather-partition").value;
     if ($("weather-outcomes").value) selection.outcome_partition_id = $("weather-outcomes").value;
-    const snapshot = await api("/api/weather/datasets", selection);
-    await weatherDatasets(snapshot.dataset_id.slice(7));
+    const snapshot = await api("/api/weather/datasets", selection, epoch); requireLegacy(epoch);
+    await weatherDatasets(snapshot.dataset_id.slice(7), epoch); requireLegacy(epoch);
     $("family").value = "weather"; $("mode").value = "weather_history"; modeHelp();
     $("weather-message").textContent = "Immutable dataset selected. Review its shortages, then start research.";
-  } catch (error) { $("weather-message").textContent = error.message; }
-  finally { $("weather-freeze").disabled = false; }
+  } catch (error) { if (error.cancelled) return; $("weather-message").textContent = error.message; }
+  finally { if (currentLegacy(epoch)) $("weather-freeze").disabled = false; }
 });
 function renderBitcoinHistory(content, history) {
   const section = panel("Retained Bitcoin history");
@@ -402,42 +461,42 @@ function renderLineage(content, result) {
   const artifacts = panel("Saved artifact checksums");
   append(artifacts, node("p", "Artifact paths are relative to this run's local workflow directory. Review downloads contain the protected result projection; the server does not expose arbitrary local files.", "small"), table(["Artifact", "SHA-256", "Bytes"], result.artifacts.map((a) => [a.path, a.sha256, a.bytes])), detail("Coverage and point-in-time boundaries", result.coverage)); content.append(artifacts);
 }
-$("family").addEventListener("change", modeHelp); $("mode").addEventListener("change", modeHelp);
-$("reasoning").addEventListener("change", reasoningHelp);
-document.querySelectorAll("[data-example]").forEach((button) => button.addEventListener("click", () => {
+listen($("family"), "change", modeHelp); listen($("mode"), "change", modeHelp);
+listen($("reasoning"), "change", reasoningHelp);
+document.querySelectorAll("[data-example]").forEach((button) => listen(button, "click", () => {
   const example = button.dataset.example;
   $("family").value = example === "bitcoin" ? "bitcoin" : "weather";
   $("mode").value = example === "synthetic" ? "synthetic" : example === "bitcoin" ? "public" : "recorded";
   $("idea").value = example === "bitcoin" ? "Does Bitcoin spot relative to the actual strike help estimate KXBTC probabilities?" : example === "synthetic" ? "Demonstrate temporal modeling and execution gates on explicitly synthetic weather data." : "Do upward forecast revisions improve weather contract probabilities?";
   modeHelp(); $("idea").focus();
 }));
-document.querySelectorAll("[data-tab]").forEach((button) => button.addEventListener("click", () => { state.tab = button.dataset.tab; renderResult(); }));
-$("refresh").addEventListener("click", () => history().catch((error) => $("connection").replaceChildren(notice(error.message, true))));
-$("research-form").addEventListener("submit", async (event) => {
+document.querySelectorAll("[data-tab]").forEach((button) => listen(button, "click", () => { state.tab = button.dataset.tab; renderResult(); }));
+listen($("refresh"), "click", () => history().catch((error) => { if (!error.cancelled) $("connection").replaceChildren(notice(error.message, true)); }));
+listen($("research-form"), "submit", async (event, epoch) => {
   event.preventDefault(); if (!state.token) return;
   $("submit").disabled = true; $("form-message").textContent = "Saving research request…";
   try {
     const reasoning = $("reasoning").value;
-    const response = await api("/api/jobs", { ...($("mode").value === "weather_history" ? { dataset_id: $("weather-dataset").value } : {}), idea: $("idea").value, family: $("family").value, mode: $("mode").value, reasoning, enable_provider: reasoning === "provider" && $("enable-provider").checked });
+    const response = await api("/api/jobs", { ...($("mode").value === "weather_history" ? { dataset_id: $("weather-dataset").value } : {}), idea: $("idea").value, family: $("family").value, mode: $("mode").value, reasoning, enable_provider: reasoning === "provider" && $("enable-provider").checked }, epoch); requireLegacy(epoch);
     $("enable-provider").checked = false;
-    await selectJob(response.id); $("form-message").textContent = "Request saved. Follow its progress on the right.";
-  } catch (error) { $("form-message").textContent = error.message; }
-  finally { $("submit").disabled = false; }
+    await selectJob(response.id, epoch); requireLegacy(epoch); $("form-message").textContent = "Request saved. Follow its progress on the right.";
+  } catch (error) { if (error.cancelled) return; $("form-message").textContent = error.message; }
+  finally { if (currentLegacy(epoch)) $("submit").disabled = false; }
 });
-async function v1Gates() {
+async function v1Gates(epoch = requireLegacy()) {
   const content = $("v1-gates");
   try {
-    const report = await api("/api/v1-gates");
+    const report = await api("/api/v1-gates", undefined, epoch); requireLegacy(epoch);
     content.replaceChildren(node("p", report.v1_complete ? "Every gate is attested." : `V1 incomplete: ${report.open.length} of ${report.gates.length} gates are not attested.`, "hint"));
     report.gates.forEach((gate) => content.append(append(node("section", null, `v1-gate v1-gate-${gate.status}`),
       node("h4", `${gate.title} · ${gate.status}`),
       node("p", `${gate.reference ? `${gate.reference} · ` : ""}${gate.detail}`, "small"))));
-  } catch (error) { content.replaceChildren(notice(`V1 gate report unavailable: ${error.message}`, true)); }
+  } catch (error) { if (error.cancelled) throw error; content.replaceChildren(notice(`V1 gate report unavailable: ${error.message}`, true)); }
 }
-async function feeEvidence() {
+async function feeEvidence(epoch = requireLegacy()) {
   const content = $("fee-evidence");
   try {
-    const catalog = await api("/api/fees"); content.replaceChildren();
+    const catalog = await api("/api/fees", undefined, epoch); requireLegacy(epoch); content.replaceChildren();
     if (!catalog.versions?.length) { content.append(notice("Missing fee evidence. Costed shadow intentions and real backtests refuse without applicable reviewed documents.")); return; }
     for (const version of catalog.versions) {
       const section = append(node("section"), node("h3", version.evidence_kind === "controlled" ? "CONTROLLED fee fixture · software evidence only" : "Authentic source receipt"),
@@ -453,7 +512,7 @@ async function feeEvidence() {
       });
       section.append(detail("Fee coefficients, scope, review and citations", version)); content.append(section);
     }
-  } catch (error) { content.replaceChildren(notice(`Fee evidence refused: ${error.message}`, true)); }
+  } catch (error) { if (error.cancelled) throw error; content.replaceChildren(notice(`Fee evidence refused: ${error.message}`, true)); }
 }
 
 function shadowCandidates() {
@@ -466,21 +525,21 @@ function shadowCandidates() {
   $("shadow-candidate").disabled = !proposals.length;
   $("shadow-start").disabled = !proposals.length || !state.token;
 }
-async function shadowHistory() {
-  await shadowAlerts();
-  const monitors = await api("/api/monitors");
+async function shadowHistory(epoch = requireLegacy()) {
+  await shadowAlerts(epoch); requireLegacy(epoch);
+  const monitors = await api("/api/monitors", undefined, epoch); requireLegacy(epoch);
   $("shadow-history").replaceChildren();
   if (!monitors.length) $("shadow-history").append(node("p", "No saved shadow monitors.", "hint"));
   monitors.forEach((monitor) => {
     const button = node("button", `${monitor.family} / ${monitor.candidate_id} · ${monitor.status} · ${monitor.id.slice(0, 8)}`);
-    button.addEventListener("click", () => selectMonitor(monitor.id).catch(shadowError));
+    listen(button, "click", () => selectMonitor(monitor.id).catch(shadowError));
     $("shadow-history").append(button);
   });
 }
 const alertNames = { stale_collection: "Stale collection", repeated_failures: "Repeated failures", unresolved_reconciliation: "Unresolved reconciliation" };
 let alertVersion;
-async function shadowAlerts() {
-  const { alerts } = await api("/api/alerts");
+async function shadowAlerts(epoch = requireLegacy()) {
+  const { alerts } = await api("/api/alerts", undefined, epoch); requireLegacy(epoch);
   const version = JSON.stringify(alerts);
   if (version === alertVersion) return;
   alertVersion = version;
@@ -493,25 +552,29 @@ async function shadowAlerts() {
       node("p", `${alert.monitor_id.slice(0, 8)} · detected ${alert.opened_at}`, "small"));
     panel.dataset.alertId = alert.id;
     const inspect = node("button", "Inspect monitor");
-    inspect.addEventListener("click", () => selectMonitor(alert.monitor_id, true).catch(shadowError));
+    listen(inspect, "click", () => selectMonitor(alert.monitor_id, true).catch(shadowError));
     panel.append(inspect);
     if (!alert.resolved_at && !alert.acknowledged_at) {
       const ack = node("button", "Acknowledge alert");
-      ack.addEventListener("click", async () => {
+      listen(ack, "click", async (_, epoch) => {
         ack.disabled = true;
         try {
-          await api(`/api/monitors/${alert.monitor_id}/acknowledge`, { alert_id: alert.id });
-          await shadowAlerts(); if (state.monitor) await selectMonitor(state.monitor.id, true);
-        } catch (error) { ack.disabled = false; shadowError(error); }
+          await api(`/api/monitors/${alert.monitor_id}/acknowledge`, { alert_id: alert.id }, epoch); requireLegacy(epoch);
+          await shadowAlerts(epoch); requireLegacy(epoch); if (state.monitor) await selectMonitor(state.monitor.id, true, epoch);
+        } catch (error) { if (error.cancelled) return; ack.disabled = false; shadowError(error); }
       });
       panel.append(ack);
     }
     panel.append(detail("Alert evidence and lifecycle", alert)); content.append(panel);
   });
 }
-function shadowError(error) { $("shadow-message").textContent = error.message; }
-async function selectMonitor(id, force = false) {
-  const monitor = await api(`/api/monitors/${id}`);
+function shadowError(error) { if (!error.cancelled) $("shadow-message").textContent = error.message; }
+let monitorSelection = 0;
+async function selectMonitor(id, force = false, epoch = requireLegacy()) {
+  requireLegacy(epoch);
+  const selection = ++monitorSelection;
+  const monitor = await api(`/api/monitors/${id}`, undefined, epoch); requireLegacy(epoch);
+  if (selection !== monitorSelection) return;
   const version = JSON.stringify([monitor.status, monitor.failures, monitor.next_at, monitor.cycle_count,
     monitor.cycles[0]?.status, monitor.cycles[0]?.finished_at, monitor.events.length, monitor.alerts]);
   if (!force && state.monitor?.id === id && state.monitor.version === version) return;
@@ -525,9 +588,9 @@ async function selectMonitor(id, force = false) {
   if (monitor.source_kind === "autonomous_research" && monitor.status !== "cancelled") actions.push("cancel");
   const controls = actions.map((action) => {
     const control = node("button", ({ pause: "Pause monitor", resume: "Resume monitor", suspend: "Suspend monitor", cancel: "Cancel monitor" })[action]);
-    control.addEventListener("click", async () => {
-      try { await api(`/api/monitors/${id}/${action}`, {}); await selectMonitor(id, true); await shadowHistory(); }
-      catch (error) { shadowError(error); }
+    listen(control, "click", async (_, epoch) => {
+      try { await api(`/api/monitors/${id}/${action}`, {}, epoch); requireLegacy(epoch); await selectMonitor(id, true, epoch); requireLegacy(epoch); await shadowHistory(epoch); }
+      catch (error) { if (error.cancelled) return; shadowError(error); }
     });
     return control;
   });
@@ -542,7 +605,7 @@ async function selectMonitor(id, force = false) {
   evaluationPanel.id = "shadow-evaluation";
   evaluationPanel.append(node("p", "Loading retained forecast evidence…", "hint"));
   content.append(evaluationPanel);
-  prospectiveEvaluation(id, evaluationPanel);
+  const evaluation = prospectiveEvaluation(id, evaluationPanel, epoch, selection);
   const account = monitor.paper_summary;
   if (account) {
     const panel = append(node("section"), node("h3", "Simulated paper account"));
@@ -581,10 +644,12 @@ async function selectMonitor(id, force = false) {
     }
     section.append(node("code", cycle.digest || "No committed result digest")); content.append(section);
   });
+  await evaluation; requireLegacy(epoch);
 }
-async function prospectiveEvaluation(id, panel) {
+async function prospectiveEvaluation(id, panel, epoch = requireLegacy(), selection = null) {
   try {
-    const report = await api(`/api/monitors/${id}/evaluation`);
+    const report = await api(`/api/monitors/${id}/evaluation`, undefined, epoch); requireLegacy(epoch);
+    if (selection !== null && selection !== monitorSelection) return;
     panel.replaceChildren(node("h3", "Prospective forecast evaluation"),
       notice("Monitoring diagnostics only · separate from historical validation and simulated paper accounting · no profitability claim."),
       node("p", `Status: ${report.status} · evidence cutoff: ${report.as_of || "No retained observations"}.`));
@@ -607,38 +672,104 @@ async function prospectiveEvaluation(id, panel) {
       detail("Forecast, source and outcome lineage", report.observations),
       detail("Excluded, failed and interrupted evidence", { excluded_protected_events: c.excluded_protected_events, cycle_statuses: report.cycle_statuses, failures: report.cycle_failures }),
       list(report.limitations), node("code", report.report_hash));
-  } catch (error) {
+  } catch (error) { if (error.cancelled) return;
+    if (selection !== null && selection !== monitorSelection) return;
     panel.replaceChildren(node("h3", "Prospective forecast evaluation"), notice(error.message, true));
   }
 }
-$("shadow-start").addEventListener("click", async () => {
+listen($("shadow-start"), "click", async (_, epoch) => {
   $("shadow-start").disabled = true;
   try {
-    const monitor = await api("/api/monitors", { job_id: state.job.id, candidate_id: $("shadow-candidate").value, interval_seconds: Number($("shadow-interval").value) });
+    const monitor = await api("/api/monitors", { job_id: state.job.id, candidate_id: $("shadow-candidate").value, interval_seconds: Number($("shadow-interval").value) }, epoch); requireLegacy(epoch);
     $("shadow-message").textContent = "Monitor saved. Fresh evidence will accrue while this server runs.";
-    await selectMonitor(monitor.id, true); await shadowHistory();
-  } catch (error) { shadowError(error); }
-  finally { shadowCandidates(); }
+    await selectMonitor(monitor.id, true, epoch); requireLegacy(epoch); await shadowHistory(epoch);
+  } catch (error) { if (error.cancelled) return; shadowError(error); }
+  finally { if (currentLegacy(epoch)) shadowCandidates(); }
 });
-async function initialize() {
+async function initialize(epoch) {
   modeHelp(); $("submit").disabled = true;
-  try { const catalog = await api("/api/catalog"); state.token = catalog.csrf_token; state.provider = catalog.provider_enabled ? catalog.research_provider : null; modeHelp(); await history(); await shadowHistory(); await weatherDatasets(); await weatherPartitions(); await weatherLabels(); await weatherSchedules(); await feeEvidence(); await v1Gates(); $("submit").disabled = false; }
-  catch (error) { $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true)); }
+  try {
+    const catalog = await api("/api/catalog", undefined, epoch); requireLegacy(epoch);
+    state.token = catalog.csrf_token;
+    state.provider = catalog.provider_enabled ? catalog.research_provider : null;
+    modeHelp();
+    for (const load of [history, shadowHistory, weatherDatasets, weatherPartitions, weatherLabels, weatherSchedules, feeEvidence, v1Gates]) {
+      await (load === weatherDatasets ? load(undefined, epoch) : load(epoch)); requireLegacy(epoch);
+    }
+    // Rebuild selected records and their controls in this activation, including terminal
+    // records that polling would otherwise never redraw.
+    if (state.job) { await selectJob(state.job.id, epoch); requireLegacy(epoch); }
+    if (state.monitor) { await selectMonitor(state.monitor.id, true, epoch); requireLegacy(epoch); }
+    for (const id of ["weather-label-acquire", "weather-schedule-create", "weather-cohort-freeze", "weather-freeze"]) $(id).disabled = false;
+    shadowCandidates(); $("submit").disabled = false;
+    $("connection").replaceChildren();
+  } catch (error) {
+    if (!error.cancelled) $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true));
+    throw error;
+  }
 }
-setInterval(async () => {
-  if (state.busy) return;
+async function poll(epoch) {
+  if (state.busy || !legacy.ready || !legacyVisible() || !legacy.active || epoch !== legacy.epoch) return;
   state.busy = true;
   try {
     if (state.job && !terminal.has(state.job.status)) {
       const requestedId = state.job.id;
-      const job = await api(`/api/jobs/${requestedId}`);
-      if (state.job.id === requestedId && job.updated_at !== state.updated) { state.job = job; renderJob(); await history(); }
+      const selection = jobSelection;
+      const job = await api(`/api/jobs/${requestedId}`, undefined, epoch); requireLegacy(epoch);
+      if (selection === jobSelection && state.job?.id === requestedId && job.updated_at !== state.updated) { state.job = job; renderJob(); await history(epoch); }
     }
-    await shadowHistory();
-    await weatherSchedules();
-    if (state.monitor) await selectMonitor(state.monitor.id);
-    $("connection").replaceChildren();
-  } catch (error) { $("connection").replaceChildren(notice(`Progress connection interrupted: ${error.message}. Retrying…`, true)); }
-  finally { state.busy = false; }
-}, 1500);
-initialize();
+    await shadowHistory(epoch);
+    await weatherSchedules(epoch);
+    if (state.monitor) await selectMonitor(state.monitor.id, false, epoch);
+    requireLegacy(epoch); $("connection").replaceChildren();
+  } catch (error) {
+    if (!error.cancelled) $("connection").replaceChildren(notice(`Progress connection interrupted: ${error.message}. Retrying…`, true));
+  } finally { if (epoch === legacy.epoch) state.busy = false; }
+}
+function deactivateWorkbench() {
+  legacy.active = false; legacy.ready = false; legacy.epoch += 1;
+  legacy.controller?.abort(); legacy.controller = null;
+  if (legacy.timer !== null) clearInterval(legacy.timer);
+  legacy.timer = null; legacy.pending = null; state.busy = false;
+  state.token = null; jobSelection += 1; monitorSelection += 1; weatherLabelsSequence += 1;
+  $("submit").disabled = true; $("shadow-start").disabled = true;
+}
+async function activateWorkbench() {
+  if (!legacyVisible()) { deactivateWorkbench(); throw inactiveError(); }
+  if (legacy.active && legacy.pending) return legacy.pending;
+  if (legacy.active && legacy.ready) return;
+  legacy.active = true;
+  const epoch = ++legacy.epoch;
+  alertVersion = undefined; state.scheduleJSON = null;
+  staticListeners.forEach(bindListener);
+  legacy.controller = typeof AbortController === "function" ? new AbortController() : null;
+  const pending = initialize(epoch).then(() => {
+    requireLegacy(epoch); legacy.ready = true;
+    legacy.timer = setInterval(() => poll(epoch), 1500);
+  });
+  legacy.pending = pending;
+  try { await pending; }
+  catch (error) {
+    if (epoch === legacy.epoch) { legacy.active = false; legacy.ready = false; legacy.controller?.abort(); state.token = null; }
+    throw error;
+  }
+  finally { if (epoch === legacy.epoch) legacy.pending = null; }
+}
+window.ET.legacyWorkbench = {
+  activate: activateWorkbench, deactivate: deactivateWorkbench,
+  selectJob: async (id) => {
+    const pending = activateWorkbench(), epoch = legacy.epoch;
+    await pending; requireLegacy(epoch); return selectJob(id, epoch);
+  },
+  selectMonitor: async (id, force = true) => {
+    const pending = activateWorkbench(), epoch = legacy.epoch;
+    await pending; requireLegacy(epoch); return selectMonitor(id, force, epoch);
+  },
+};
+// A background tab also stops work. Returning to an already visible Real workbench
+// resumes through the same readiness boundary as route navigation.
+document.addEventListener("visibilitychange", () => {
+  if (legacyVisible()) activateWorkbench().catch(() => {});
+  else deactivateWorkbench();
+});
+$("submit").disabled = true;

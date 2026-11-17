@@ -426,6 +426,10 @@ class Handler(BaseHTTPRequestHandler):
                     "limits": {"queued_jobs": 8, "worker_seconds": 600, "synthetic_days": 240},
                 },
             )
+        elif path == "/api/workspace/summary":
+            from entropytrade.api.workspace_summary import workspace_summary
+
+            self.document(200, workspace_summary(self.server.jobs.root))
         elif path == "/api/cis1990":
             from entropytrade.agents.course_demo import DEMO_MODEL
 

@@ -1,0 +1,53 @@
+{
+  "acceptance_status": "pending_browser_and_complete_ci",
+  "authentic_strategy_eligible": false,
+  "authenticated_provider_verified": false,
+  "browser": {
+    "procedures": 4,
+    "status": "running_fresh_final_3"
+  },
+  "canonical_collector_accessed": false,
+  "complete_ci": {
+    "status": "pending"
+  },
+  "execution_authorized": false,
+  "external_deployment_gate": "Physical Windows/private remote access/offsite installation is not configured by this milestone.",
+  "independent_review": {
+    "checks": [
+      "122-case prior Node suite; final 36 lifecycle tests including Back trap mutation check",
+      "23 final summary cases; full-count/corruption/current-WAL independent matrix",
+      "held stale POST/deactivation/reactivation initialization race; no stale writes or UI state",
+      "automatic proposal restoration replaces history; explicit choices push; exact missing selections retained"
+    ],
+    "status": "accepted_final_diff"
+  },
+  "integration": {
+    "base_main": "6bee33420e88d8c2bf44b490f6143ab585bfc7b3",
+    "branch": "feature/research-milestone-f",
+    "status": "not_yet_integrated"
+  },
+  "quality": {
+    "focused_summary_sqlite": {
+      "passed": 25,
+      "provenance": "Implementation agent tool result: 23 new summary cases and two SQLite URI architecture cases.",
+      "python": "3.13.14",
+      "seconds": 4.19
+    },
+    "format_files": 648,
+    "node": {
+      "log": "node-final.log",
+      "passed": 123,
+      "status": "passed"
+    },
+    "ruff": "passed",
+    "strict_mypy_files": 648
+  },
+  "scientific_limits": [
+    "All computed positive account examples are synthetic.",
+    "History count probes are metadata only; recorded real labels are not authentic evidence.",
+    "Certified fees, provider live verification, genuine prospective evidence and unchanged adverse-execution gate remain separate."
+  ],
+  "scope": "Milestone F software acceptance; stored metadata is not verified scientific eligibility",
+  "submission_enabled": false,
+  "windows_configured": false
+}

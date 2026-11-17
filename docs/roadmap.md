@@ -1,5 +1,13 @@
 # Capability roadmap
 
+## Unified frontend Milestone F — November 17, 2026
+
+[Unified frontend operations](unified-frontend.md) covers exact lifecycle navigation,
+full stored-metadata counts, truthful unavailable states and lazy legacy workbench isolation.
+Research, experiments, paper accounts, monitoring, owner review and saved course evidence
+share the website without turning completion into a performance claim. Browser and full CI
+acceptance gate integration; reproducible private Windows deployment follows.
+
 ## Autonomous research Milestone E — November 16, 2026
 
 [Readiness and monitoring](research-readiness.md) adds owner-reviewed immutable proposals,
