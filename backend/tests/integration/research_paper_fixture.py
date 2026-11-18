@@ -20,6 +20,7 @@ from entropytrade.api.recovery import restore, snapshot
 from entropytrade.api.server import WorkbenchServer, workspace_path
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.research.paper import ResearchPaperService
+from entropytrade.research.readiness import ResearchReadinessService
 from tests.research_modeling_support import MODEL_NOW
 from tests.research_paper_forward_support import (
     commit_controlled_cycle,
@@ -91,6 +92,14 @@ def main() -> None:
             return
         server = WorkbenchServer(repo, workspace, port=args.port)
         server.research.transport_label = "controlled_synthetic"
+        server.research.clock = clock
+        server.readiness = ResearchReadinessService(
+            workspace,
+            server.tracking,
+            server.research,
+            clock=clock,
+            expected_data_kind="synthetic" if args.controlled_promotion else "real",
+        )
         if args.controlled_promotion:
             server.paper = ResearchPaperService(
                 server.jobs.root,

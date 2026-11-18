@@ -2,8 +2,8 @@
 
 Milestone C connects durable acquired-feature jobs to modeling, contract probabilities,
 deterministic replay and independent validation reports. Controlled software acceptance
-and authentic empirical validation remain separate. No profitable strategy, paper eligibility
-or Windows deployment is established.
+and authentic empirical validation remain separate. Controlled paper promotion is implemented;
+no authentic candidate eligibility, profitable strategy or physical Windows deployment is established.
 
 ## What runs
 
@@ -64,7 +64,8 @@ inputs exercise sized books, fees, risk and simulated YES/NO fills. Real data re
 immutable applicable fee evidence; missing prices, books, decision-time rules, probabilities,
 unsupported/unfitted rules and version mismatches refuse.
 
-The worker freezes completed acquisition dataset IDs and exact fee versions into the
+The worker freezes completed acquisitions, verified inventory references to already published
+research execution datasets, and exact fee versions into the
 experiment identity. Existing typed `MarketEvidence` and `MarketState` records become
 contract samples; fitted distributions predict actual acquired strikes. Only decision-time
 contract rules, reviewed station/authority/unit semantics and genuine sized books are usable.
@@ -97,9 +98,10 @@ Other open gates:
   subscription access is not an API key. Explicit provider selection never uses templates
   after a failure. Dedicated variable names are in [credentials](autonomous-research.md#credentials).
 - Genuine prospective observations; historical scores remain retrospective.
-- Research-to-paper promotion, exact compatible forward feature/model bindings, milestones
-  D/E/F and private Windows deployment readiness. Existing legacy paper components are
-  preserved; this research workflow does not yet promote models into them.
+- Authentic research-to-paper eligibility and physical private Windows deployment. The
+  [paper lifecycle](research-paper.md), [readiness review](research-readiness.md) and unified
+  frontend are implemented, with controlled verification. They preserve all authentic
+  evidence and owner-review gates; see the [current integration report](research-integration-readiness.md).
 
 Collector configuration coverage means **planned**. It does not prove deployment or recent
 collection. Only verified data satisfying a job's own requirements can establish sufficiency;

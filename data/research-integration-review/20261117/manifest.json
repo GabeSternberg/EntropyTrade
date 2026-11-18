@@ -1,0 +1,4071 @@
+{
+ "schema": "entropytrade-readiness-evidence-manifest-v1",
+ "code_commit": "25cdeb1be70d045b5506495cfc21d5c74c1d16c7",
+ "files": [
+  {
+   "path": "CONTROLLED-synthetic-lifecycle-workspace.zip",
+   "bytes": 1871141,
+   "sha256": "9353842fce748d3f8036dcb53c7367f597c8620fd3e7f84df6a7c0e3afb4f3ad"
+  },
+  {
+   "path": "README.md",
+   "bytes": 7444,
+   "sha256": "5602076c499ef30cbf2da0232453411900c25993774cd0905c96ea08d3ae6682"
+  },
+  {
+   "path": "authentic-labels-browser.png",
+   "bytes": 739435,
+   "sha256": "81e55fcdaab4dd8967c3235fe7bf55be1e5d3ad23703151e7473f49ddd91ffc4"
+  },
+  {
+   "path": "authentic-local-verification.json",
+   "bytes": 7803,
+   "sha256": "e8970afc512dc4d99b4696df8df28ad012d137f6ec1b291a4e9593931ec6c0b9"
+  },
+  {
+   "path": "authentic-public-30day.zip",
+   "bytes": 508757,
+   "sha256": "9c2ccc39dacd0c449e4153a281084969f8a5435fdee103fe25f85757d57da568"
+  },
+  {
+   "path": "authentic-public-summary.json",
+   "bytes": 1805,
+   "sha256": "ca48a765d62612eedae252699b34f41479515f8fe7ad286322c43390073b6915"
+  },
+  {
+   "path": "browser/alerts/alerts/acknowledged.json.gz",
+   "bytes": 2539,
+   "sha256": "b04bad53f244ed143cd770d8d104366fcc3c9c75b9869b08649e63b3e4996bc7"
+  },
+  {
+   "path": "browser/alerts/alerts/final.json.gz",
+   "bytes": 3078,
+   "sha256": "f08e237eaf536c6cd6cadbe6f4b5380e64a6d7995c5ab35b7eedd3bc190aa0bb"
+  },
+  {
+   "path": "browser/alerts/alerts/receipt.json.gz",
+   "bytes": 608,
+   "sha256": "d3e7dc706d8dc1782221b8cb5e47907fa0cf8fd61a11b495a51dd87659c8dc54"
+  },
+  {
+   "path": "browser/alerts/alerts/recover.json.gz",
+   "bytes": 1068,
+   "sha256": "9c258635bb62504fa6a83c299cb8d47c735c1e2b84205b67adf3b3b5c7ef677b"
+  },
+  {
+   "path": "browser/alerts/alerts/recovered.json.gz",
+   "bytes": 2780,
+   "sha256": "6272d4bbea48ceec9c3402e329b03c872f90699e33757474db8f4231b7069d0a"
+  },
+  {
+   "path": "browser/alerts/alerts/recur.json.gz",
+   "bytes": 1220,
+   "sha256": "32e77c912a0d7691b64f0eb58819e99294c3d20df6f1568bc9e5e65bd66140ae"
+  },
+  {
+   "path": "browser/alerts/alerts/recurring.json.gz",
+   "bytes": 3082,
+   "sha256": "508fa7d98a1f31955613e4fa2c5641b5601937c487ba2d1299436064285260ec"
+  },
+  {
+   "path": "browser/alerts/alerts/restarted.json.gz",
+   "bytes": 2536,
+   "sha256": "038b4ce4df8b57841c067813e7b8c1669858207f0b928fa4dd639e73abfc865e"
+  },
+  {
+   "path": "browser/alerts/alerts/restored.json.gz",
+   "bytes": 3081,
+   "sha256": "99fba45680117682d81e285ee3b710d8a873e28585747480a15b3fe933eff977"
+  },
+  {
+   "path": "browser/alerts/alerts/seed.json.gz",
+   "bytes": 897,
+   "sha256": "c710a229a7487bd0b48fa2fef045a7ad60b2c20f5e69cb173e06362effb708e1"
+  },
+  {
+   "path": "browser/alerts/alerts/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/alerts/alerts/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/alerts/alerts/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/alerts/alerts/server-4.log.gz",
+   "bytes": 33,
+   "sha256": "d6b9a61de9c4c47b99945f2ed17b810afb9a89c400beafba9208eeabce60b0ed"
+  },
+  {
+   "path": "browser/alerts/alerts/server-5.log.gz",
+   "bytes": 33,
+   "sha256": "5adf5fc6eb33f439abb93985fe850486b96384d00a84e1733db09755ba87dfa0"
+  },
+  {
+   "path": "browser/alerts/playwright-results.json.gz",
+   "bytes": 1191,
+   "sha256": "83fb11aa4cf276b01247afc91a18694223414340ceed5fef0af256d6858c7ad0"
+  },
+  {
+   "path": "browser/alerts/playwright-results.xml.gz",
+   "bytes": 359,
+   "sha256": "a1c6dae3597faa27ccaa06a264389abc3dda7f1f84ff5012d5a4b7271f96b8fa"
+  },
+  {
+   "path": "browser/alerts/runner.log.gz",
+   "bytes": 301,
+   "sha256": "ca604f391535a8ad2ad6a73dafc8983e355cc035bfd4b8f5b537c54648fa6375"
+  },
+  {
+   "path": "browser/alerts/workspace-manifest.json.gz",
+   "bytes": 880,
+   "sha256": "c47bfb25b0e7e34c148b2aebad2a39a53ad505161aa473887cb2e880528eca97"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-after-entropytrade-9b3fb2cc-060b-4ca1-8e06-ec77f345a880.json.gz",
+   "bytes": 10754,
+   "sha256": "c65884292210a21370fed56cd3d970fc1318dcf4b4fef2f36f3aba54f02408c6"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-after-entropytrade-9b3fb2cc-060b-4ca1-8e06-ec77f345a880.txt.gz",
+   "bytes": 1414,
+   "sha256": "ac1e585903a68366f76056cfb0de76a2dd01eed44ed0272ab22f2201bb1f3a89"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-after-entropytrade-fef602bf-918b-4246-a60e-ea09ede83515.json.gz",
+   "bytes": 10742,
+   "sha256": "0ed9f59742f3cf98ff9cc32611ec24fe96905feff6cffb1df4d4eea660bcce6a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-after-entropytrade-fef602bf-918b-4246-a60e-ea09ede83515.txt.gz",
+   "bytes": 1414,
+   "sha256": "e2ae220d79fbdd44309497654d33cf7d3e473a520ef8e7368b3927a66f0ea636"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-before-entropytrade-9b3fb2cc-060b-4ca1-8e06-ec77f345a880.json.gz",
+   "bytes": 10755,
+   "sha256": "c7517c463036f7196dceb8f30b5041b3785fe3dcd98b269d110dd1fa0870efb8"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-before-entropytrade-9b3fb2cc-060b-4ca1-8e06-ec77f345a880.txt.gz",
+   "bytes": 1415,
+   "sha256": "922d7b7a208eee3a812a4ce51b26647e09f911797dbf393d8a80135993c21442"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-before-entropytrade-fef602bf-918b-4246-a60e-ea09ede83515.json.gz",
+   "bytes": 10743,
+   "sha256": "5d39fc77c90093deca117ad81d038b3b58c6807b88d26a665d0418492ad7725a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-before-entropytrade-fef602bf-918b-4246-a60e-ea09ede83515.txt.gz",
+   "bytes": 1415,
+   "sha256": "df747abf849a30c9bc4e8b44ab6ca9a4e019c7dc9ab6ff9fb277739762a9a27d"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-history-browser-receipt.json.gz",
+   "bytes": 1220,
+   "sha256": "44b0fe99bb88242707c540ca917c9a73f2d4873d35151e26676461b44b33c284"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-history-server-1.log.gz",
+   "bytes": 52,
+   "sha256": "c09dedcb21a6b7c5219774f9b645a7fc198a9763c6d571889c77db5e01b7f438"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-history-server-2.log.gz",
+   "bytes": 52,
+   "sha256": "47d847759289c49c5604ec910041a258d397c385a76584025a505e80df9c923a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-setup.log.gz",
+   "bytes": 41,
+   "sha256": "bae92f33fb4569728a9ee962fc3a35fe04b0a9faf94a61263e32ea5a187ced8e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/controlled-fixture.json.gz",
+   "bytes": 473,
+   "sha256": "0de41046b49975811f12a4f523fb1ca1589a79b3d9dd72cea62a953ee5d8ba5a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0000/capture.json.gz",
+   "bytes": 456,
+   "sha256": "dc74e35ed428cdf62453e22a0b147b348faf18f4fa36505a2e69c5aa02cda0cc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0000/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "7f55dd163821155a7cfcf4073821ad956208434151f0f0693e5eb746ab2b4dcc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0000/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "925b7922936bc12f7b30b26c21688672608cfd069d473ec58d0eb0d5140e672a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0000/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "56e2003e4501464cdf1bc334401d9c2b4418a3f68b576458aa20da57203a56f4"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0001/capture.json.gz",
+   "bytes": 455,
+   "sha256": "b7d45514536965533919a26493130581b1384b043e3003997fc9dc2b15b6363a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0001/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "a76c298d6fd171177f21cb585b1e85ceeb39779703b01e8104e3cbcd664241dc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0001/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "20b6621e6e005121827ebcde585d4701fb6bac6d32db2f33c167fe54da994d74"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0001/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "da7881a53e11776f32d47407a15d475ba1ae1ace61a10fbe5f9f17b464b1d323"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0002/capture.json.gz",
+   "bytes": 455,
+   "sha256": "d07966e49150bbc460bcff2272bba12cc9a271ad6b732fc18b7ae1446adab952"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0002/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "7ebfd148eec2875798b1290c8f6598e4ba9d48f28967a6fd2d3d38eac46095df"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0002/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "372a2e32637839395de7c77cc68b5c691ad405e61a548c6a66aabac53259ef18"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/captures/0002/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "7ba7e0014baf2b240cb8cd65bf83658f23c1aa04d772bf176995e7039cccf364"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/manifest.json.gz",
+   "bytes": 1227,
+   "sha256": "b03c1a9df390fa9e703adac22b7f354b164eff35ff577ec34083e2f30a369d50"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/outcomes/0000.json.gz",
+   "bytes": 908,
+   "sha256": "ed85bc80313da51096ef3cda2a39bd4d214966fe0032d8a9e6b884d3d2a3d523"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/outcomes/0001.json.gz",
+   "bytes": 910,
+   "sha256": "b371ac38eb2597c812e478e41f1ef6bd125de545cc8d999eb75aa5a995826db0"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/outcomes/0002.json.gz",
+   "bytes": 907,
+   "sha256": "54a825fc980f0c8db20198e3952b82d07e4cab0324e419bba9e99b6a716d1e90"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/0b31a145-f0fd-476f-a1fb-c25fc7a91f84/history/outcomes/receipts.json.gz",
+   "bytes": 459,
+   "sha256": "ac9b86373ec357fd7e475e337df4298c1ef54f51aa45b0165c88903745d63092"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/1d972f0e-7966-448d-90e6-afceb650b02d/public/capture.json.gz",
+   "bytes": 455,
+   "sha256": "d07966e49150bbc460bcff2272bba12cc9a271ad6b732fc18b7ae1446adab952"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/1d972f0e-7966-448d-90e6-afceb650b02d/public/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "7ebfd148eec2875798b1290c8f6598e4ba9d48f28967a6fd2d3d38eac46095df"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/1d972f0e-7966-448d-90e6-afceb650b02d/public/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "372a2e32637839395de7c77cc68b5c691ad405e61a548c6a66aabac53259ef18"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/1d972f0e-7966-448d-90e6-afceb650b02d/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "7ba7e0014baf2b240cb8cd65bf83658f23c1aa04d772bf176995e7039cccf364"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/21e56d87-b6c1-4746-9c22-d42aa43f8a96/public/capture.json.gz",
+   "bytes": 456,
+   "sha256": "0225f0f37f638590445bbaec6f360f30e9176406f15e49a3e30e885f6dff9a59"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/21e56d87-b6c1-4746-9c22-d42aa43f8a96/public/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "f8b9f4c266ddd025ad65b61a3fbdfc14fbc14916312f765d4c5a19b4651fbbc1"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/21e56d87-b6c1-4746-9c22-d42aa43f8a96/public/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "244cf200002caee47d0e242f26cefbaf0515df2c98c0ae2d6dcbd8e948bcf080"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/21e56d87-b6c1-4746-9c22-d42aa43f8a96/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "a72c31412fff5859bc261702848fab14c1b9dc38c167a11843092f9d913d4fae"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/83465319-d507-44b8-b9d0-3e6c89c37a15/public/capture.json.gz",
+   "bytes": 455,
+   "sha256": "b7d45514536965533919a26493130581b1384b043e3003997fc9dc2b15b6363a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/83465319-d507-44b8-b9d0-3e6c89c37a15/public/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "a76c298d6fd171177f21cb585b1e85ceeb39779703b01e8104e3cbcd664241dc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/83465319-d507-44b8-b9d0-3e6c89c37a15/public/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "20b6621e6e005121827ebcde585d4701fb6bac6d32db2f33c167fe54da994d74"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/83465319-d507-44b8-b9d0-3e6c89c37a15/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "da7881a53e11776f32d47407a15d475ba1ae1ace61a10fbe5f9f17b464b1d323"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/8bf44657-729f-4f19-a59f-75f4858cf41b/public/capture.json.gz",
+   "bytes": 455,
+   "sha256": "e3fbc0475bd810aaf276590ef496c820d9e67faddd53b4965e352fa0855c8de3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/8bf44657-729f-4f19-a59f-75f4858cf41b/public/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "c406d0ce4565700b0f04d226400b8d63f6fa86c7195622db1f8e79efa341092e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/8bf44657-729f-4f19-a59f-75f4858cf41b/public/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "1dacc3a940309bdeef35c4114abf18c3fa486fd4b13da15044ea7dcc33336d2c"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/8bf44657-729f-4f19-a59f-75f4858cf41b/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "61df53eb00a97b0b033d031e683525875f573c3b3142b48976c65804a4bb5864"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/97f7a3dc-df1d-4592-a1e2-3fce0886cea6/public/capture.json.gz",
+   "bytes": 456,
+   "sha256": "dc74e35ed428cdf62453e22a0b147b348faf18f4fa36505a2e69c5aa02cda0cc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/97f7a3dc-df1d-4592-a1e2-3fce0886cea6/public/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "7f55dd163821155a7cfcf4073821ad956208434151f0f0693e5eb746ab2b4dcc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/97f7a3dc-df1d-4592-a1e2-3fce0886cea6/public/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "925b7922936bc12f7b30b26c21688672608cfd069d473ec58d0eb0d5140e672a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/97f7a3dc-df1d-4592-a1e2-3fce0886cea6/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "56e2003e4501464cdf1bc334401d9c2b4418a3f68b576458aa20da57203a56f4"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/evidence.json.gz",
+   "bytes": 272,
+   "sha256": "3b4903e5d5e02000ec50dd948cf031a85d7fe1ca01254a442574390731939293"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0000/capture.json.gz",
+   "bytes": 456,
+   "sha256": "dc74e35ed428cdf62453e22a0b147b348faf18f4fa36505a2e69c5aa02cda0cc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0000/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "7f55dd163821155a7cfcf4073821ad956208434151f0f0693e5eb746ab2b4dcc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0000/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "925b7922936bc12f7b30b26c21688672608cfd069d473ec58d0eb0d5140e672a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0000/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "56e2003e4501464cdf1bc334401d9c2b4418a3f68b576458aa20da57203a56f4"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0001/capture.json.gz",
+   "bytes": 455,
+   "sha256": "b7d45514536965533919a26493130581b1384b043e3003997fc9dc2b15b6363a"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0001/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "a76c298d6fd171177f21cb585b1e85ceeb39779703b01e8104e3cbcd664241dc"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0001/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "20b6621e6e005121827ebcde585d4701fb6bac6d32db2f33c167fe54da994d74"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0001/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "da7881a53e11776f32d47407a15d475ba1ae1ace61a10fbe5f9f17b464b1d323"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0002/capture.json.gz",
+   "bytes": 455,
+   "sha256": "d07966e49150bbc460bcff2272bba12cc9a271ad6b732fc18b7ae1446adab952"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0002/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "7ebfd148eec2875798b1290c8f6598e4ba9d48f28967a6fd2d3d38eac46095df"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0002/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "372a2e32637839395de7c77cc68b5c691ad405e61a548c6a66aabac53259ef18"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/captures/0002/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "7ba7e0014baf2b240cb8cd65bf83658f23c1aa04d772bf176995e7039cccf364"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/manifest.json.gz",
+   "bytes": 1231,
+   "sha256": "21b842fb7cb0c7980d7aa5132f8ee1081403377e9f6f227c96b7f24b6958de97"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/outcomes/0000.json.gz",
+   "bytes": 908,
+   "sha256": "ed85bc80313da51096ef3cda2a39bd4d214966fe0032d8a9e6b884d3d2a3d523"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/outcomes/0001.json.gz",
+   "bytes": 910,
+   "sha256": "b371ac38eb2597c812e478e41f1ef6bd125de545cc8d999eb75aa5a995826db0"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/outcomes/0002.json.gz",
+   "bytes": 907,
+   "sha256": "54a825fc980f0c8db20198e3952b82d07e4cab0324e419bba9e99b6a716d1e90"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/history/outcomes/receipts.json.gz",
+   "bytes": 481,
+   "sha256": "10bf8183e6da7785be03a54d9568887db11707087468ceb0f2ebc81b8ec0be1b"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/mlflow/experiments/905186115243772255/a83d9836e0cc4de6913555954e47441d/artifacts/checksums.json.gz",
+   "bytes": 270,
+   "sha256": "934eed01f0abed3549b75ebac9dbf0e53aa7d985fcc1561d86ebac18312380b2"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/mlflow/experiments/905186115243772255/a83d9836e0cc4de6913555954e47441d/artifacts/replay-inputs.json.gz",
+   "bytes": 11272,
+   "sha256": "c2567b74e818f80f8daea0d3f9fc7bfeda4368d0dc7d6f015d41ff9883c32381"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/mlflow/experiments/905186115243772255/a83d9836e0cc4de6913555954e47441d/artifacts/results.json.gz",
+   "bytes": 2641,
+   "sha256": "4f900985caabc9160c2d9800290cfdb5d76941084695b127df3a09e1fbd26252"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/review.json.gz",
+   "bytes": 11554,
+   "sha256": "acd6bbe1815b823343b83fd9cec043504e8a630790e7fe595b654aaa9444b250"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/experiments/58ce6bb76f3266a52504cde3af87b9d4b44f985b0720e898dbfbc20595644aff/checksums.json.gz",
+   "bytes": 270,
+   "sha256": "934eed01f0abed3549b75ebac9dbf0e53aa7d985fcc1561d86ebac18312380b2"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/experiments/58ce6bb76f3266a52504cde3af87b9d4b44f985b0720e898dbfbc20595644aff/replay-inputs.json.gz",
+   "bytes": 11272,
+   "sha256": "c2567b74e818f80f8daea0d3f9fc7bfeda4368d0dc7d6f015d41ff9883c32381"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/experiments/58ce6bb76f3266a52504cde3af87b9d4b44f985b0720e898dbfbc20595644aff/results.json.gz",
+   "bytes": 2641,
+   "sha256": "4f900985caabc9160c2d9800290cfdb5d76941084695b127df3a09e1fbd26252"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "a000043272a39fb8e0358a79318c3a1caaeaa104c1be61089809969ec750dcc3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/models/8590d5852296d8ce0a3287c0d194ceea9c8f3d253761e39c4df64929207a75e7/results.json.gz",
+   "bytes": 765,
+   "sha256": "53024153dd435b8783f8eac8a62f866c61e068089a56936fad4655bc7edb5fb0"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/research/7dad3df5-5a2c-4be7-b7e0-e67b95600b9a/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "d6c9cb0413b2ae29dafc9a0347074b7433bcf33f77256e0373efd64e47fc84c5"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9b3fb2cc-060b-4ca1-8e06-ec77f345a880/workflow/research/7dad3df5-5a2c-4be7-b7e0-e67b95600b9a/run.json.gz",
+   "bytes": 7958,
+   "sha256": "27968475fca8fdcab9daf6e3d9d03358a528be93396583072d094d2c1d986066"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9bee479d-cea9-48e2-a184-ca732fc08c03/public/capture.json.gz",
+   "bytes": 455,
+   "sha256": "79f5bbd2abd30d32f08c22853cd6716e5550c7702d137ec7bec98e2ceef2bf50"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9bee479d-cea9-48e2-a184-ca732fc08c03/public/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "45e22cd8d567b9cb057c3d014aba024f1671b2cfd811cc5f7dc62ab65c61f541"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9bee479d-cea9-48e2-a184-ca732fc08c03/public/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "05676f5776258328a4a04e59eee9191587c42ad7625b1f9ab3e73ae813a91b3e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/9bee479d-cea9-48e2-a184-ca732fc08c03/public/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "55de05ff10eac04b27f03872d2c6fee5771dfe70c1e98183d6ba1788e48368e3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0000/capture.json.gz",
+   "bytes": 456,
+   "sha256": "0225f0f37f638590445bbaec6f360f30e9176406f15e49a3e30e885f6dff9a59"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0000/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "f8b9f4c266ddd025ad65b61a3fbdfc14fbc14916312f765d4c5a19b4651fbbc1"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0000/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "244cf200002caee47d0e242f26cefbaf0515df2c98c0ae2d6dcbd8e948bcf080"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0000/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "a72c31412fff5859bc261702848fab14c1b9dc38c167a11843092f9d913d4fae"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0001/capture.json.gz",
+   "bytes": 455,
+   "sha256": "e3fbc0475bd810aaf276590ef496c820d9e67faddd53b4965e352fa0855c8de3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0001/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "c406d0ce4565700b0f04d226400b8d63f6fa86c7195622db1f8e79efa341092e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0001/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "1dacc3a940309bdeef35c4114abf18c3fa486fd4b13da15044ea7dcc33336d2c"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0001/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "61df53eb00a97b0b033d031e683525875f573c3b3142b48976c65804a4bb5864"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0002/capture.json.gz",
+   "bytes": 455,
+   "sha256": "79f5bbd2abd30d32f08c22853cd6716e5550c7702d137ec7bec98e2ceef2bf50"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0002/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "45e22cd8d567b9cb057c3d014aba024f1671b2cfd811cc5f7dc62ab65c61f541"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0002/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "05676f5776258328a4a04e59eee9191587c42ad7625b1f9ab3e73ae813a91b3e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/captures/0002/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "55de05ff10eac04b27f03872d2c6fee5771dfe70c1e98183d6ba1788e48368e3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/manifest.json.gz",
+   "bytes": 1227,
+   "sha256": "53bdf265870598936a66b9b0eb1746a7a974918db971beddf27af07c34d41975"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/outcomes/0000.json.gz",
+   "bytes": 908,
+   "sha256": "eef929f7e922a5f62b8e66f2f9f0ec769275ef74b1b83f672d2c32830392e49b"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/outcomes/0001.json.gz",
+   "bytes": 910,
+   "sha256": "3223739899b1a6dc7f9e1a27d424f7bce9a5f11546098a75810884df9e7b1f33"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/outcomes/0002.json.gz",
+   "bytes": 907,
+   "sha256": "0c0dffbae306dff48170cceca340e490d5c6737a824f818b30b3aabd01245510"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/c6b97a99-1d45-4336-88b6-ff6916400b07/history/outcomes/receipts.json.gz",
+   "bytes": 459,
+   "sha256": "c3533c15f49ca49fcdddd5d976ba79b389c0921dc44861db3b3ffb1bf1a083b0"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/evidence.json.gz",
+   "bytes": 271,
+   "sha256": "c73825b4942d4a91291ab739bbadf5c55f578cf8f12be1db3cc88e32885d2dc6"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0000/capture.json.gz",
+   "bytes": 456,
+   "sha256": "0225f0f37f638590445bbaec6f360f30e9176406f15e49a3e30e885f6dff9a59"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0000/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "f8b9f4c266ddd025ad65b61a3fbdfc14fbc14916312f765d4c5a19b4651fbbc1"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0000/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "244cf200002caee47d0e242f26cefbaf0515df2c98c0ae2d6dcbd8e948bcf080"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0000/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "a72c31412fff5859bc261702848fab14c1b9dc38c167a11843092f9d913d4fae"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0001/capture.json.gz",
+   "bytes": 455,
+   "sha256": "e3fbc0475bd810aaf276590ef496c820d9e67faddd53b4965e352fa0855c8de3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0001/manifest.json.gz",
+   "bytes": 825,
+   "sha256": "c406d0ce4565700b0f04d226400b8d63f6fa86c7195622db1f8e79efa341092e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0001/raw/0001.json.gz",
+   "bytes": 898,
+   "sha256": "1dacc3a940309bdeef35c4114abf18c3fa486fd4b13da15044ea7dcc33336d2c"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0001/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "61df53eb00a97b0b033d031e683525875f573c3b3142b48976c65804a4bb5864"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0002/capture.json.gz",
+   "bytes": 455,
+   "sha256": "79f5bbd2abd30d32f08c22853cd6716e5550c7702d137ec7bec98e2ceef2bf50"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0002/manifest.json.gz",
+   "bytes": 826,
+   "sha256": "45e22cd8d567b9cb057c3d014aba024f1671b2cfd811cc5f7dc62ab65c61f541"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0002/raw/0001.json.gz",
+   "bytes": 899,
+   "sha256": "05676f5776258328a4a04e59eee9191587c42ad7625b1f9ab3e73ae813a91b3e"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/captures/0002/raw/0002.json.gz",
+   "bytes": 74,
+   "sha256": "55de05ff10eac04b27f03872d2c6fee5771dfe70c1e98183d6ba1788e48368e3"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/manifest.json.gz",
+   "bytes": 1224,
+   "sha256": "e5d46e9cb8465ef406de4453be3939bedd56f104d9091e8f99c2edc1f0990c46"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/outcomes/0000.json.gz",
+   "bytes": 908,
+   "sha256": "eef929f7e922a5f62b8e66f2f9f0ec769275ef74b1b83f672d2c32830392e49b"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/outcomes/0001.json.gz",
+   "bytes": 910,
+   "sha256": "3223739899b1a6dc7f9e1a27d424f7bce9a5f11546098a75810884df9e7b1f33"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/outcomes/0002.json.gz",
+   "bytes": 907,
+   "sha256": "0c0dffbae306dff48170cceca340e490d5c6737a824f818b30b3aabd01245510"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/history/outcomes/receipts.json.gz",
+   "bytes": 481,
+   "sha256": "703c52655d2382eebd410664a19b86398da2cc931317180843984accff5e76e7"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/mlflow/experiments/464584540075259867/62df920432694529a95c40c981b9d06d/artifacts/checksums.json.gz",
+   "bytes": 269,
+   "sha256": "87f904480b8e42fcbe133e2380255c1eff912b27a6a66ba10037ee53f38295fe"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/mlflow/experiments/464584540075259867/62df920432694529a95c40c981b9d06d/artifacts/replay-inputs.json.gz",
+   "bytes": 11268,
+   "sha256": "b2e415d3d862ee34b204d02cf36bf68536b5c25734003d7285e2b1d5db9e1691"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/mlflow/experiments/464584540075259867/62df920432694529a95c40c981b9d06d/artifacts/results.json.gz",
+   "bytes": 2633,
+   "sha256": "7b74228b7a21c17352fbc39a06985849d8de8e03f61d21b4ce3303b8850f2860"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/review.json.gz",
+   "bytes": 11546,
+   "sha256": "0443d98496f9c8abfb9ac547d847115068b4bdc6dc4cad5762398d12ba0c62e2"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/experiments/5a2e876b1fc23efc5a27afb7f7a5c78c41042e83da703f4a7fe6455e05b87ca5/checksums.json.gz",
+   "bytes": 269,
+   "sha256": "87f904480b8e42fcbe133e2380255c1eff912b27a6a66ba10037ee53f38295fe"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/experiments/5a2e876b1fc23efc5a27afb7f7a5c78c41042e83da703f4a7fe6455e05b87ca5/replay-inputs.json.gz",
+   "bytes": 11268,
+   "sha256": "b2e415d3d862ee34b204d02cf36bf68536b5c25734003d7285e2b1d5db9e1691"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/experiments/5a2e876b1fc23efc5a27afb7f7a5c78c41042e83da703f4a7fe6455e05b87ca5/results.json.gz",
+   "bytes": 2633,
+   "sha256": "7b74228b7a21c17352fbc39a06985849d8de8e03f61d21b4ce3303b8850f2860"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "78e0f37df5c5d56c72b721612cc50cc47b072470da0b42e54dc5dd6720a6076f"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/models/8590d5852296d8ce0a3287c0d194ceea9c8f3d253761e39c4df64929207a75e7/results.json.gz",
+   "bytes": 765,
+   "sha256": "2596bf1d71fc5b8f2ba12b65b9b58fea8ab835aaee7690d0e239a2359642f2f8"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/research/26c2ad50-88f4-43d4-94d7-de9603967104/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "a517bee71d56ce7b7679f4743de9d4328d49d1f630370b0fd2e4a20bbe487916"
+  },
+  {
+   "path": "browser/bitcoin-history/controlled-workspace/runs/fef602bf-918b-4246-a60e-ea09ede83515/workflow/research/26c2ad50-88f4-43d4-94d7-de9603967104/run.json.gz",
+   "bytes": 7957,
+   "sha256": "73b01d1fc754be9ddbef2b91acf5b4bec98bff25271b49352d5ad736f0e8b570"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-after-entropytrade-9dcbe42c-3d20-483c-9197-9fee8d663b58.json.gz",
+   "bytes": 7555,
+   "sha256": "6f32429cd7c909089c66ea69ae49840dba575a9fa2bcfdb0f9925a98186f0596"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-after-entropytrade-9dcbe42c-3d20-483c-9197-9fee8d663b58.txt.gz",
+   "bytes": 1061,
+   "sha256": "fd7c04f114bf58b4e4266b6f65610e2b28344d5b9b16d69e1051eb6f6ce7b233"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-after-entropytrade-ac4b869e-b9fd-425c-b884-c722b99f6419.json.gz",
+   "bytes": 7542,
+   "sha256": "4b24d66f0d9ea3ee98804f600a2b70ff37b33424b576ae001eaf116346734a36"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-after-entropytrade-ac4b869e-b9fd-425c-b884-c722b99f6419.txt.gz",
+   "bytes": 1058,
+   "sha256": "bccbe178757d17dd5a23408346c443336b722f52163ebed4466802d66af06003"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-before-entropytrade-9dcbe42c-3d20-483c-9197-9fee8d663b58.json.gz",
+   "bytes": 7556,
+   "sha256": "b0f98a883f1244ffbb2843331a1e08868e33d1e969fcf54fd14c6c6b5791ae72"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-before-entropytrade-9dcbe42c-3d20-483c-9197-9fee8d663b58.txt.gz",
+   "bytes": 1062,
+   "sha256": "924ad8fed2259c1ebfd6c62c2277c681ded706eb0d7eab22c589945ea9a355fb"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-before-entropytrade-ac4b869e-b9fd-425c-b884-c722b99f6419.json.gz",
+   "bytes": 7543,
+   "sha256": "ed53cbdefe5375d46b0d33ebb94b6e2c480fe52f4326650020ae80b5854cdf7d"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-before-entropytrade-ac4b869e-b9fd-425c-b884-c722b99f6419.txt.gz",
+   "bytes": 1059,
+   "sha256": "f146242589c7dae76d3f99f1baa8bc275a3cd695865a0662931db3a5a7d65226"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-history-browser-receipt.json.gz",
+   "bytes": 844,
+   "sha256": "750548573727496714c4e1987ca5beb4afcac62a310029110fcff3fe905e2a1d"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-history-server-1.log.gz",
+   "bytes": 47,
+   "sha256": "b6f4c3add1a2358b938830b36f432917f47fa012a02f5e8c1f32d518e2298713"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-history-server-2.log.gz",
+   "bytes": 47,
+   "sha256": "00cc0011e81dece5476937e4ff2398a5374a0f1ccd685a82e27d32561ddd4813"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/evidence.json.gz",
+   "bytes": 265,
+   "sha256": "199216c51465741c5b7ea765bb6804ff928102b57f25792b24e2d64bfaf26dc9"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/history/manifest.json.gz",
+   "bytes": 291,
+   "sha256": "364ff1c4d41e94b2cdd64dbfaf26914a617ffc6e417f6e12a6535a944b6091b3"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/history/outcomes/receipts.json.gz",
+   "bytes": 182,
+   "sha256": "bd6504e90c27841c97be00e3841239e9aeb7f53319bb2b1f73bc1dd8a26f5c50"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/mlflow/experiments/347550642679523218/2d9ed923bc5740b19926fa9b9d58e5a5/artifacts/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "ad95bc4f47faf8434946f039201619ef4553c27725690a8a70921e6682601a51"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/mlflow/experiments/347550642679523218/2d9ed923bc5740b19926fa9b9d58e5a5/artifacts/replay-inputs.json.gz",
+   "bytes": 7648,
+   "sha256": "cb53b395221792e172c0c5aa71af9cb2b775a55615c025443ed26e8633322f78"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/mlflow/experiments/347550642679523218/2d9ed923bc5740b19926fa9b9d58e5a5/artifacts/results.json.gz",
+   "bytes": 1625,
+   "sha256": "8bacd7192af9948d76e603ddfbacdccec0281989bde4029658c1df56e866cfb6"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/review.json.gz",
+   "bytes": 8246,
+   "sha256": "3fab4b3829843b60b724b8868778b7ceb6684263f2998fc7714c1613f8c06d0b"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/experiments/1440fd081bdcb6eeebb19533f7abba404be28218005699cf786bd1cf4c2c62a9/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "ad95bc4f47faf8434946f039201619ef4553c27725690a8a70921e6682601a51"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/experiments/1440fd081bdcb6eeebb19533f7abba404be28218005699cf786bd1cf4c2c62a9/replay-inputs.json.gz",
+   "bytes": 7648,
+   "sha256": "cb53b395221792e172c0c5aa71af9cb2b775a55615c025443ed26e8633322f78"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/experiments/1440fd081bdcb6eeebb19533f7abba404be28218005699cf786bd1cf4c2c62a9/results.json.gz",
+   "bytes": 1625,
+   "sha256": "8bacd7192af9948d76e603ddfbacdccec0281989bde4029658c1df56e866cfb6"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "78e0f37df5c5d56c72b721612cc50cc47b072470da0b42e54dc5dd6720a6076f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/research/b0f2075e-78d7-4d80-a957-fef68b5b5f43/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "63128bd3da3cf16af94eea310d887712d2c51c37e86330dfb7d9c75ca8bfd3e1"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/9dcbe42c-3d20-483c-9197-9fee8d663b58/workflow/research/b0f2075e-78d7-4d80-a957-fef68b5b5f43/run.json.gz",
+   "bytes": 6064,
+   "sha256": "09a3995b8e80cf3b174038681671c9baa199cd60e16b8a57732b93e07c7df8dc"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/evidence.json.gz",
+   "bytes": 266,
+   "sha256": "115382e0e021d76f7ee72c18ad0b9a2baa355b2b29fa7acd2a9a8a73f1510f9f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/history/manifest.json.gz",
+   "bytes": 290,
+   "sha256": "d25e19b5b4a5c7adf1eb3722b6cf75c36bfe42bf53ece866b040558981c0989b"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/history/outcomes/receipts.json.gz",
+   "bytes": 179,
+   "sha256": "86376e0cb336480cbfdf713d9bd67adc4a0b24d9083c6c2635118131704439b6"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/mlflow/experiments/640821310909199604/b7ec5340fa654cf0ba79fa7f9f73db50/artifacts/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "be7ce8e8786bdc8a877bc611732f5c318a2a56a0824efe9fc74eb2a63335156f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/mlflow/experiments/640821310909199604/b7ec5340fa654cf0ba79fa7f9f73db50/artifacts/replay-inputs.json.gz",
+   "bytes": 7636,
+   "sha256": "72f6700a94f31472e1f948a2508f6ac057ece0dbd200dd192a64a0fed6401085"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/mlflow/experiments/640821310909199604/b7ec5340fa654cf0ba79fa7f9f73db50/artifacts/results.json.gz",
+   "bytes": 1625,
+   "sha256": "f89767d5f90b6a009fcfde7cab9ef113ec4beac04e9118932114bd77f357323f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/review.json.gz",
+   "bytes": 8241,
+   "sha256": "e01198b40fdbe743db79fcb849c012b3bc24af410474a408a4c98a7b015ef5e0"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/experiments/dc62b5731e3dcc237162b9f606c4c1619e74c3c92dcfd228d5b47205a9203b01/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "be7ce8e8786bdc8a877bc611732f5c318a2a56a0824efe9fc74eb2a63335156f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/experiments/dc62b5731e3dcc237162b9f606c4c1619e74c3c92dcfd228d5b47205a9203b01/replay-inputs.json.gz",
+   "bytes": 7636,
+   "sha256": "72f6700a94f31472e1f948a2508f6ac057ece0dbd200dd192a64a0fed6401085"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/experiments/dc62b5731e3dcc237162b9f606c4c1619e74c3c92dcfd228d5b47205a9203b01/results.json.gz",
+   "bytes": 1625,
+   "sha256": "f89767d5f90b6a009fcfde7cab9ef113ec4beac04e9118932114bd77f357323f"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "a000043272a39fb8e0358a79318c3a1caaeaa104c1be61089809969ec750dcc3"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/research/f663c560-171a-436f-b02a-b8261109403d/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "10dd5a329666c8d1f8feef285bbd4a542c94698bbdd625c32441718a9c2d1b25"
+  },
+  {
+   "path": "browser/bitcoin-history/empty-workspace/runs/ac4b869e-b9fd-425c-b884-c722b99f6419/workflow/research/f663c560-171a-436f-b02a-b8261109403d/run.json.gz",
+   "bytes": 6053,
+   "sha256": "f590c8dab8befa9e266f9572c02c477a40ebdd4334ef33398dc611580501a41e"
+  },
+  {
+   "path": "browser/bitcoin-history/playwright-results.json.gz",
+   "bytes": 1257,
+   "sha256": "ba44f5a546ff89603c17d97fef98f587c7eb48a73c105404feadea8b1f56233c"
+  },
+  {
+   "path": "browser/bitcoin-history/playwright-results.xml.gz",
+   "bytes": 388,
+   "sha256": "eb0e8dfa8f44b29b2979888337ef4305490016271e07b7bfcd880bce1a588be5"
+  },
+  {
+   "path": "browser/bitcoin-history/runner.log.gz",
+   "bytes": 324,
+   "sha256": "badaf4410d72e50173a51f6b2d7f4c1ebd991c24794559b2e918d86227adfb22"
+  },
+  {
+   "path": "browser/bitcoin-history/workspace-manifest.json.gz",
+   "bytes": 4403,
+   "sha256": "c856ecd2a664c8c99ebfe11ebab7b7fdd474428e5b9fbc5221bd9c143fe2e8f8"
+  },
+  {
+   "path": "browser/cis1990/cis1990-controlled-server.log.gz",
+   "bytes": 50,
+   "sha256": "0c6c87cbdf538801dbf9d67a23f4bb7622e60d425ac590874fe9b21e47e22e61"
+  },
+  {
+   "path": "browser/cis1990/cis1990-controlled-trace.json.gz",
+   "bytes": 11476,
+   "sha256": "f0e867f90e009871f22923fa4d1428966b6f16d996a8d14efd3ad02c84b665f8"
+  },
+  {
+   "path": "browser/cis1990/cis1990-no-key-server.log.gz",
+   "bytes": 46,
+   "sha256": "239c93fae7fc394b994244b322fc2ace1c39dfcc9b0354a0d01d9d402ddb5a79"
+  },
+  {
+   "path": "browser/cis1990/cis1990-outage-server.log.gz",
+   "bytes": 46,
+   "sha256": "bd90fb39ae537399f89a42df2b78804d9bf81dcceef410124aa8f3c5f2c4fb45"
+  },
+  {
+   "path": "browser/cis1990/playwright-results.json.gz",
+   "bytes": 1398,
+   "sha256": "a9ced78dc76269ea1380288578f428a7ba01c6b73358c30fe049e9c2d00bb947"
+  },
+  {
+   "path": "browser/cis1990/playwright-results.xml.gz",
+   "bytes": 485,
+   "sha256": "f7aa6a497bf73812f1eb3fa6d3b93d5c10820b018862f242c21f27ac19ca6a19"
+  },
+  {
+   "path": "browser/cis1990/runner.log.gz",
+   "bytes": 381,
+   "sha256": "3c26603e671e851e290a059e93e0db9e8a4e7a9e212dec8767657071b8ba887c"
+  },
+  {
+   "path": "browser/cis1990/workspace-manifest.json.gz",
+   "bytes": 877,
+   "sha256": "6f343ef999538f0a56778843aad6b1cc26939315d0066d50b5aca5e6fb052ef6"
+  },
+  {
+   "path": "browser/fees/authentic/experiment-fees.json.gz",
+   "bytes": 19023,
+   "sha256": "345ec9e02efa20bed266d8c60a9ba4d38b78cff6b003648bd8c2cfe75e590acd"
+  },
+  {
+   "path": "browser/fees/authentic/fee-version.json.gz",
+   "bytes": 18949,
+   "sha256": "5ae7459895496813ae0fc9e381f0e6c26f57bd841e85f20d8968650fc4b0d84a"
+  },
+  {
+   "path": "browser/fees/authentic/receipt.json.gz",
+   "bytes": 646,
+   "sha256": "da0f43e3a18d62eb41ad6c01c954aa03214275b44dcfdbb355597a840894aece"
+  },
+  {
+   "path": "browser/fees/authentic/restarted-shadow.json.gz",
+   "bytes": 42633,
+   "sha256": "0ceb97cf7bb477ab3d1a23f0296616619ccc5c1ee4fd67fcb1a4dab9f9cb20a0"
+  },
+  {
+   "path": "browser/fees/authentic/restarted-version.json.gz",
+   "bytes": 18955,
+   "sha256": "29116dca430666050bcceb73c7fc9ef638258e37ebf172ac842b440e4b86ee40"
+  },
+  {
+   "path": "browser/fees/authentic/review.json.gz",
+   "bytes": 37125,
+   "sha256": "d31daaea1237eecb1dc1d8714b35dc4a1fa14ef8be1e25ef6c07f090727e711b"
+  },
+  {
+   "path": "browser/fees/authentic/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/fees/authentic/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/fees/authentic/setup.json.gz",
+   "bytes": 225,
+   "sha256": "632b7762dc1c1f535068fcc86fc16e07c2529043bd15ccab7178176f6487660e"
+  },
+  {
+   "path": "browser/fees/authentic/shadow.json.gz",
+   "bytes": 42623,
+   "sha256": "953ca72c68c8001061bda1e667703b46b3761b5aadfa5b6c218677173da15b91"
+  },
+  {
+   "path": "browser/fees/controlled/fee-version.json.gz",
+   "bytes": 783,
+   "sha256": "e1b26bae4ef295cfbc33e4a5288abd22a8f2c270917e81c6e6b15d2fa7860f10"
+  },
+  {
+   "path": "browser/fees/controlled/receipt.json.gz",
+   "bytes": 512,
+   "sha256": "9f34690d4ef424ba0f7c034089cfe048a4f6667bbcf0286e61415d1bbc5211d7"
+  },
+  {
+   "path": "browser/fees/controlled/restarted-shadow.json.gz",
+   "bytes": 4794,
+   "sha256": "b42f6b4ab94c5f4eb9ff2dc51afd6467f3f075b346802ebb0f04b546a37cde92"
+  },
+  {
+   "path": "browser/fees/controlled/restarted-version.json.gz",
+   "bytes": 789,
+   "sha256": "3a69f8f732231c137a1ab0bd2c3d650ed596c5d5081602ea3ffe2a639673aac4"
+  },
+  {
+   "path": "browser/fees/controlled/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/fees/controlled/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/fees/controlled/setup.json.gz",
+   "bytes": 240,
+   "sha256": "00b2a3c64cfcfc6bff03150d06e28c11e2c60f07ea87815cf60e16d49a53010b"
+  },
+  {
+   "path": "browser/fees/controlled/shadow.json.gz",
+   "bytes": 4784,
+   "sha256": "75781cf82533c619368d2084e616d6da958ba28234e2623ba3e767c66c35d672"
+  },
+  {
+   "path": "browser/fees/playwright-results.json.gz",
+   "bytes": 1263,
+   "sha256": "64bbe5b39a094bc085f1fe332861ab5725385ca6a69e604c76508aec74c163f7"
+  },
+  {
+   "path": "browser/fees/playwright-results.xml.gz",
+   "bytes": 388,
+   "sha256": "a630f38500f716d3bcaeaf668f6a8c671b14b7a2e895bc76c126047256ec4ec7"
+  },
+  {
+   "path": "browser/fees/runner.log.gz",
+   "bytes": 314,
+   "sha256": "7963719adec995dba5fd546a2349e33ab6967284a2c224b45e6aa8a8cf508b82"
+  },
+  {
+   "path": "browser/fees/workspace-manifest.json.gz",
+   "bytes": 6395,
+   "sha256": "6eb073dc771f298044194ac1867635f4beafcf7533f236075fefe9eb6a576714"
+  },
+  {
+   "path": "browser/forward-validation/authentic/authentic-inputs.json.gz",
+   "bytes": 445,
+   "sha256": "caaa84f7711e75c42e169e1ceccf9d9e540f3d3b7f81f5535bd9f8acb7a89400"
+  },
+  {
+   "path": "browser/forward-validation/authentic/browser-receipt.json.gz",
+   "bytes": 3679,
+   "sha256": "9ad3262e49e099253fea51274ed29349150b7194c9ae559e749b77eae20ce7c4"
+  },
+  {
+   "path": "browser/forward-validation/authentic/paused-state.json.gz",
+   "bytes": 1944,
+   "sha256": "3d61d17328058ff1f5acb7bf4acd536702755e2c0aacd6d476db4b58fc873086"
+  },
+  {
+   "path": "browser/forward-validation/authentic/restart-state.json.gz",
+   "bytes": 1945,
+   "sha256": "b5e849f85d5e8774e0f96b50d137d638a42d34601174bd82281e0b7c364fcecc"
+  },
+  {
+   "path": "browser/forward-validation/authentic/restore.log.gz",
+   "bytes": 241,
+   "sha256": "ef7aa61690af5f2153c69fa5b682e1bc3cc30627776979f2d8eef9b2e2ad6abc"
+  },
+  {
+   "path": "browser/forward-validation/authentic/restored-state.json.gz",
+   "bytes": 1946,
+   "sha256": "b4da5bccab1f64cf2669eb056b2fe2f9065e368deef30226e9bb166b49205e3d"
+  },
+  {
+   "path": "browser/forward-validation/authentic/seed-authentic.log.gz",
+   "bytes": 39,
+   "sha256": "ecd183f21f6c7a663f133b4dd3364e89f352bf5e017d9430088f817929249a85"
+  },
+  {
+   "path": "browser/forward-validation/authentic/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/forward-validation/authentic/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/forward-validation/authentic/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/forward-validation/authentic/snapshot.log.gz",
+   "bytes": 238,
+   "sha256": "4b3435e0c6923886e921d608a60227f1cbbe4ada8692293bf0df756ae539aeaa"
+  },
+  {
+   "path": "browser/forward-validation/controlled/browser-receipt.json.gz",
+   "bytes": 9856,
+   "sha256": "41b037c322b8c9148e139aaa7f280067b8130c4167ad42a93f606cf13f1b29be"
+  },
+  {
+   "path": "browser/forward-validation/controlled/paused-state.json.gz",
+   "bytes": 2228,
+   "sha256": "edfe11dade83572c3afb0fb9855694690ca44f72138a4c64e257dfc498f40d45"
+  },
+  {
+   "path": "browser/forward-validation/controlled/restart-state.json.gz",
+   "bytes": 2229,
+   "sha256": "ba50a10643c67fc93518d6f4dabf8faf75d84c0ff06ff75322c7bb7b4d0a54d3"
+  },
+  {
+   "path": "browser/forward-validation/controlled/restore.log.gz",
+   "bytes": 241,
+   "sha256": "a5a728c6762048b40bdc2fe976d52a477165f2011a3a84d34392b153181e90b4"
+  },
+  {
+   "path": "browser/forward-validation/controlled/restored-state.json.gz",
+   "bytes": 2230,
+   "sha256": "2dc05ac134b07c43d31abda680b7afbeba3e0a6a04a0294bc5751f159273c827"
+  },
+  {
+   "path": "browser/forward-validation/controlled/seed-controlled.log.gz",
+   "bytes": 40,
+   "sha256": "77f86b07840c931e5729de6ff8d8951ec11c447e81d71332abca2257336ac1ab"
+  },
+  {
+   "path": "browser/forward-validation/controlled/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/forward-validation/controlled/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/forward-validation/controlled/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/forward-validation/controlled/snapshot.log.gz",
+   "bytes": 236,
+   "sha256": "b277cc0f9d813718e14893b5b8a635ad4d21d48bc5535ffcacf22c0284f1a5b1"
+  },
+  {
+   "path": "browser/forward-validation/playwright-results.json.gz",
+   "bytes": 1281,
+   "sha256": "744dabd80c6b4e1fb5bba19c06e4db70e108c86bee07f50f265442c1fd3b7b68"
+  },
+  {
+   "path": "browser/forward-validation/playwright-results.xml.gz",
+   "bytes": 418,
+   "sha256": "52e948de853288d9e6174b69353469c6d1bdbefd54c7d07b1a5f30a764905901"
+  },
+  {
+   "path": "browser/forward-validation/runner.log.gz",
+   "bytes": 342,
+   "sha256": "b0b9f4c42ec7a3eb296d907615596ef1846a7b3482d34d8026ab5e1dead4ceda"
+  },
+  {
+   "path": "browser/forward-validation/workspace-manifest.json.gz",
+   "bytes": 34983,
+   "sha256": "e902a5ae8b4e0f8ad460711b3443d6ed885ac7a209626546667552adcd5fdfd6"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/archived-labels.json.gz",
+   "bytes": 785,
+   "sha256": "d2cdf3c4766c8ea0bc9f64457bdfa59eaf5cae3b76c9c8b2d92ff1081a710530"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/browser-receipt.json.gz",
+   "bytes": 2509,
+   "sha256": "584d40c312cfa0a7bbeae6efad5b49aabfddeb03f38d5d33060be4f954e5d570"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/controlled-requests.json.gz",
+   "bytes": 17713,
+   "sha256": "2964cc4d2422039ad72eee3ddf21348d50ac0f5ed33a9c43c6bf79de4e36a3e6"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/original-label-files.json.gz",
+   "bytes": 18763,
+   "sha256": "f7bc29076dc0131071937b8b9d4a46ed726bfc9f82c572fad1f625da94640d39"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/paused-schedule.json.gz",
+   "bytes": 876,
+   "sha256": "cbdb8955252e18971a7f88ff1ae556eaa406f692c8e03f06ab159938836fa237"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restart-labels.json.gz",
+   "bytes": 784,
+   "sha256": "0dee99ad0a37bcc7c747868fa1d26c934e4d8486a0a035f3bcd88562c369da93"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restart-schedule.json.gz",
+   "bytes": 877,
+   "sha256": "bfb76f951e789b172136f0334a94fec107d72b6c2d5c0d7b0514401f5de42e44"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restart-seal.json.gz",
+   "bytes": 18383,
+   "sha256": "5ac7ce36f826e9c8b5d7f273f38b1b5447987443aa1a1d2e0490e15cfe504db2"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restore-labels.json.gz",
+   "bytes": 784,
+   "sha256": "a782fe6269f7884308e496efd5ced3e478c050ff1d8e5295c4a3070e0768c58e"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restore-schedule.json.gz",
+   "bytes": 877,
+   "sha256": "2a1a45578e22cecea40aeb570d7323030b05f19ba14490f5a0b40143f1e77c4a"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restore-seal.json.gz",
+   "bytes": 18383,
+   "sha256": "276796d9c9bcd72fe2d6b404a7afae1278e1b5b2439172afcf530ba855c36813"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/restore.log.gz",
+   "bytes": 232,
+   "sha256": "3a4811dd02563722eef301ae0679c5f940a0b22526957af0cec190169b47374a"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/sealed-partition.json.gz",
+   "bytes": 18387,
+   "sha256": "dd7af4b0fcebd20c9b411fce9c226c2a3f76c356d6dd32df715098c9847824e2"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/seed-controlled.log.gz",
+   "bytes": 40,
+   "sha256": "77f86b07840c931e5729de6ff8d8951ec11c447e81d71332abca2257336ac1ab"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/label-partitions/partition-controlled/snapshot.log.gz",
+   "bytes": 229,
+   "sha256": "bb734da4f04278fdea66fc625b313d86a237b2f8cb5c3af8922f4c630777914a"
+  },
+  {
+   "path": "browser/label-partitions/playwright-results.json.gz",
+   "bytes": 1189,
+   "sha256": "88c95b9e814060f3b0e62501dc564afb58c7f1af35a2da5787d95d4c0e211bca"
+  },
+  {
+   "path": "browser/label-partitions/playwright-results.xml.gz",
+   "bytes": 361,
+   "sha256": "62d392ccec58b94ff81668921ee8d5300ae60146bce678419bb47d4b4baf1478"
+  },
+  {
+   "path": "browser/label-partitions/runner.log.gz",
+   "bytes": 304,
+   "sha256": "751c82df58c1bb4ed9a2fa0d8ee9cb3a8b5439f09e3326deea8e4f7324e9f66b"
+  },
+  {
+   "path": "browser/label-partitions/workspace-manifest.json.gz",
+   "bytes": 63704,
+   "sha256": "3c44ab63222d487289f8b732ad163967c7719a20e03f81eeb6f6acf79bb65e73"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-empty/receipt.json.gz",
+   "bytes": 669,
+   "sha256": "cad04e5aed43c8c80ac1f47ed251d32d00725fc62ce918a010992e8ccc78e785"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-empty/retained-original-hashes.json.gz",
+   "bytes": 53,
+   "sha256": "574bc727eba729b0b58739d101087fe1a15779dc569d16be51b1e4f413875f38"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-empty/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-empty/setup.json.gz",
+   "bytes": 80,
+   "sha256": "7f5c1f4e7cb2af1caa108cb348ff2ec3bba1681048a626a394d7225158785bb3"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/actual-monitoring-investigations.json.gz",
+   "bytes": 2087,
+   "sha256": "461d5fb58d8a69b66ed89d7bc86f1c6329f03d44b15601273b715189750f5d5d"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/actual-paper-account.json.gz",
+   "bytes": 927,
+   "sha256": "e7b4d25529050d6b24585d8aa5ad5282e659e1f26897cebe684bfafed1d79c5e"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/actual-paper-export.json.gz",
+   "bytes": 17124,
+   "sha256": "d9a357f3629814d14a4fb308d26366814ce47089808914c97aa9553dda95d677"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/blocked-readiness.json.gz",
+   "bytes": 3230,
+   "sha256": "a6cd3803d495ce4f997805c9c0506267943eb0ee728610977063f9e93449f569"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/receipt.json.gz",
+   "bytes": 4789,
+   "sha256": "59fb24d667a23533a11cad0b9ffb53c7e0a140152075bc6a53105960afe4af15"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/retained-original-hashes.json.gz",
+   "bytes": 32903,
+   "sha256": "783b478f77a4a4369850e5ff6844470391347d3ed6102f4c184529fb36feb0eb"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-mixed/setup.json.gz",
+   "bytes": 492,
+   "sha256": "0c2b7cdbc31cdf3f39cd7df6b0e5efa71a48ea0ea95a6fbeaf072cde0dc61719"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-unavailable/receipt.json.gz",
+   "bytes": 632,
+   "sha256": "5ae6fb509c6c551148d7ada70f5996b13d95b903432c394d3b90e0b3db762d84"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-unavailable/retained-original-hashes.json.gz",
+   "bytes": 53,
+   "sha256": "574bc727eba729b0b58739d101087fe1a15779dc569d16be51b1e4f413875f38"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-unavailable/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/lifecycle/lifecycle-unavailable/setup.json.gz",
+   "bytes": 86,
+   "sha256": "228e200cd182b4bfeb44867f3265c35cfb6e9ab1f2e85ae4b9b5831aacba64e6"
+  },
+  {
+   "path": "browser/lifecycle/playwright-results.json.gz",
+   "bytes": 1344,
+   "sha256": "a7d0de3079609878a3829cfbe32d6bdd70cd4f3940c349bc82966a7e21f5d899"
+  },
+  {
+   "path": "browser/lifecycle/playwright-results.xml.gz",
+   "bytes": 448,
+   "sha256": "ff7bf37c3db2920cd3eff7d0058252538b0768ae234293fec4cb49f675082134"
+  },
+  {
+   "path": "browser/lifecycle/runner.log.gz",
+   "bytes": 365,
+   "sha256": "d3c7869f73e3690a9707b4d69c7da4b512e5c4c894eb2dfa495c36a7e87ebb5b"
+  },
+  {
+   "path": "browser/lifecycle/workspace-manifest.json.gz",
+   "bytes": 36208,
+   "sha256": "3252678ef5ea5dae12d75b0c47a48e550a10065deb56af252d5d7ea861810dc8"
+  },
+  {
+   "path": "browser/paper/authentic/account.json.gz",
+   "bytes": 646,
+   "sha256": "8e961a7ed20e8ab62fd810188da32313f6dad98180f5ce019bcafc1cb0fabb87"
+  },
+  {
+   "path": "browser/paper/authentic/receipt.json.gz",
+   "bytes": 587,
+   "sha256": "e9c6cb2753223ebf0b87216bc1fb1525e950b4da55354ce8ab695d721100b830"
+  },
+  {
+   "path": "browser/paper/authentic/restarted-account.json.gz",
+   "bytes": 656,
+   "sha256": "913f4d779780e4440225a8a3c06fec6f704c837560715a169b309ab92b974000"
+  },
+  {
+   "path": "browser/paper/authentic/restarted-shadow.json.gz",
+   "bytes": 65130,
+   "sha256": "2f398cab268b6b051d1ea03597b14ad0620347d6bec8f1ad3a7b6f0afa495454"
+  },
+  {
+   "path": "browser/paper/authentic/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/paper/authentic/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/paper/authentic/setup.json.gz",
+   "bytes": 551,
+   "sha256": "e4e4379417b5b74bc5e967d8efe62dff2941dbe0736f7bd2a9d49c99c3f86ff9"
+  },
+  {
+   "path": "browser/paper/authentic/shadow.json.gz",
+   "bytes": 65120,
+   "sha256": "0925fe83ca5876ce67be56db31b402994eee2962df5c13937b9cb3833f95bf16"
+  },
+  {
+   "path": "browser/paper/controlled/account.json.gz",
+   "bytes": 1058,
+   "sha256": "1695aaa843091d03b1083a077cd9210051309fb7c1591d7ffb928181c6216b07"
+  },
+  {
+   "path": "browser/paper/controlled/receipt.json.gz",
+   "bytes": 590,
+   "sha256": "1653018914576ec43f4defecfef9900e1253669f102f6a17ac3744642a632ec9"
+  },
+  {
+   "path": "browser/paper/controlled/restarted-account.json.gz",
+   "bytes": 1068,
+   "sha256": "ff64dc956bac434b6c37cd57cb82f04fd99ffe512b4ddbe7cc9d6f2f61ff2e63"
+  },
+  {
+   "path": "browser/paper/controlled/restarted-shadow.json.gz",
+   "bytes": 9293,
+   "sha256": "6f88e652c02eb41fa2c283e89f27fed5da3ea03afc049ac84547bc292bc247ec"
+  },
+  {
+   "path": "browser/paper/controlled/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/paper/controlled/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/paper/controlled/setup.json.gz",
+   "bytes": 583,
+   "sha256": "711ba56d8a41dad70ab987180bc70f7ec70754c409a56bf4e7cf4e6afd8c8ae2"
+  },
+  {
+   "path": "browser/paper/controlled/shadow.json.gz",
+   "bytes": 9283,
+   "sha256": "efe7693dc65f8a216e0d3d7db703979248a6e3171fbbf3d0afdce01dca669294"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/cancelled-account.json.gz",
+   "bytes": 924,
+   "sha256": "229f3ec8aa44ec48b3efb4e9b0c4f1fd53bd0a4fa944bb9fe9f6f98b4ca2112a"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/cancelled-evidence.json.gz",
+   "bytes": 16989,
+   "sha256": "42211b2c2b0c8940570b77eae374c0e032c37aea8dbd020b852e27a172e3269a"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/receipt.json.gz",
+   "bytes": 849,
+   "sha256": "43f27cf7ce59ba1a2098eaa197c95e92c9a73381fc8198445e5d7d699fb3f62e"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/restarted-account.json.gz",
+   "bytes": 924,
+   "sha256": "9a92d4964750178720debcb6ba2e473e2d785d39582638f689dbb1a742179324"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/restarted-evidence.json.gz",
+   "bytes": 16989,
+   "sha256": "f27cccd1b7d543ed197465c5ad0dbed2638e62552cc4b45f210ea7f209109ad8"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/restored-account.json.gz",
+   "bytes": 923,
+   "sha256": "94b8269459eb7a15540bcdba56f50026b51fee8e7440e4c065437013b2dc3187"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/restored-evidence.json.gz",
+   "bytes": 16988,
+   "sha256": "d069f5c508b414227d49d1933d546b14b2f5063f8f53a6e3cd5100c71f0cc5a3"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "0731b7afeac0d3f48a4478256ead1e1358100c6bf8edbb31642586db5e7b2442"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "ed82b5694a6dff9eddaccff47852d33f373eeec5a625b8fa4f1c7fc42ecff04a"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "ad2072bb4027b90410e5c2baf831780fc41e178eda470301a4a257778da28597"
+  },
+  {
+   "path": "browser/paper/controlled-promotion/setup.json.gz",
+   "bytes": 181,
+   "sha256": "826ee4be0dd270839d0e66b912e47f424a2bbc28faf0e0147f8cafd2cb22f5c5"
+  },
+  {
+   "path": "browser/paper/playwright-results.json.gz",
+   "bytes": 1272,
+   "sha256": "9ac6b11c5a0567b9117d0fbf0e857e91fe403d8ad45b87830316506a6b4f5e00"
+  },
+  {
+   "path": "browser/paper/playwright-results.xml.gz",
+   "bytes": 397,
+   "sha256": "861dcb69013c8428b031b66fdea05c774da8ceda90c6218158d278743ddccbea"
+  },
+  {
+   "path": "browser/paper/production-refusal/receipt.json.gz",
+   "bytes": 192,
+   "sha256": "2410d14abc24b10e8d1c7a8a9c054414b9507c9f826645d9df7b4b2a8a40e52f"
+  },
+  {
+   "path": "browser/paper/production-refusal/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "0731b7afeac0d3f48a4478256ead1e1358100c6bf8edbb31642586db5e7b2442"
+  },
+  {
+   "path": "browser/paper/production-refusal/setup.json.gz",
+   "bytes": 184,
+   "sha256": "f55db9a591f0def24bb83d7209a7454021555373e59e629bbf53d1eee194fb1f"
+  },
+  {
+   "path": "browser/paper/runner.log.gz",
+   "bytes": 330,
+   "sha256": "1e69cfb6939593c8ea03b283137c73fe073187520799479fd930b6db89d82881"
+  },
+  {
+   "path": "browser/paper/workspace-manifest.json.gz",
+   "bytes": 4273,
+   "sha256": "62dfd6159500385b3bf013500471e7bf8205229649ab00ec20d7dd4f3ed03182"
+  },
+  {
+   "path": "browser/prospective/authentic/evaluation.json.gz",
+   "bytes": 2168,
+   "sha256": "92f8d52268d49bfc2ac286671dd2f057f132a28410c8f31415b7dd0c6fe6592d"
+  },
+  {
+   "path": "browser/prospective/authentic/observations.csv.gz",
+   "bytes": 441,
+   "sha256": "0c42957f20cf183f36793fe6870c48c0a79ad2341e25088bf584f4a77e408d3a"
+  },
+  {
+   "path": "browser/prospective/authentic/receipt.json.gz",
+   "bytes": 618,
+   "sha256": "6774af20e638bbe07e6a7eccb2faeefa391543fbaf8d60c7771711e45785f78f"
+  },
+  {
+   "path": "browser/prospective/authentic/restarted-evaluation.json.gz",
+   "bytes": 2178,
+   "sha256": "c507d228e76bfcce22460cbd81d39fb36014aba8892e9c43ce1260b64d42e54a"
+  },
+  {
+   "path": "browser/prospective/authentic/restarted-observations.csv.gz",
+   "bytes": 451,
+   "sha256": "abc84c34630949438d1abfcfe86ae73c12f947eb6b0dcfe804468bab4022b899"
+  },
+  {
+   "path": "browser/prospective/authentic/restored-evaluation.json.gz",
+   "bytes": 2177,
+   "sha256": "4835dbec295d470e4d4bff35c4d22db7b8a97047387a3ab176ba585a44187d8b"
+  },
+  {
+   "path": "browser/prospective/authentic/restored-observations.csv.gz",
+   "bytes": 450,
+   "sha256": "4b60d18fa2b8eb21abaf445f3dc38aeca5573ec07c6e1855901f5aecdd700bca"
+  },
+  {
+   "path": "browser/prospective/authentic/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/prospective/authentic/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/prospective/authentic/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/prospective/authentic/setup.json.gz",
+   "bytes": 2383,
+   "sha256": "41d20b9a04db1ea048d7a62ee0f5ab22115898fc6be4ac53faf900a848ad5806"
+  },
+  {
+   "path": "browser/prospective/controlled/evaluation.json.gz",
+   "bytes": 3955,
+   "sha256": "0da6262d09eac14228e463431e8e6a2052efe3d0ca9bb914fb06d1345e56a351"
+  },
+  {
+   "path": "browser/prospective/controlled/observations.csv.gz",
+   "bytes": 502,
+   "sha256": "2e7b96fa4ccb3367c9d988829331b40d8cb7f1a887155d5a4c38bcfdf2beaca3"
+  },
+  {
+   "path": "browser/prospective/controlled/receipt.json.gz",
+   "bytes": 644,
+   "sha256": "7f6646b3b8af0d59ff09476532b85b91916ccf0b10004008f5d2c46464245e18"
+  },
+  {
+   "path": "browser/prospective/controlled/restarted-evaluation.json.gz",
+   "bytes": 3965,
+   "sha256": "c787b6d70b9fca095c462a4ce20d3d91d04721c17a5bf8e258a72d9c828b6ef9"
+  },
+  {
+   "path": "browser/prospective/controlled/restarted-observations.csv.gz",
+   "bytes": 512,
+   "sha256": "2a4206f927d7c18ecb42f8e6c8b197a4aae4ca6e7394cc5406700ab12ad913c8"
+  },
+  {
+   "path": "browser/prospective/controlled/restored-evaluation.json.gz",
+   "bytes": 3964,
+   "sha256": "752ebbba57ff042be39c66865bdc5a0dcdb57319d16d772c6309a19ebee2cb63"
+  },
+  {
+   "path": "browser/prospective/controlled/restored-observations.csv.gz",
+   "bytes": 511,
+   "sha256": "203b9b98b7cadbe0a53e72e7d90e96d4a94975af1f57aeb32002e1f42c43c92b"
+  },
+  {
+   "path": "browser/prospective/controlled/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/prospective/controlled/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/prospective/controlled/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/prospective/controlled/setup.json.gz",
+   "bytes": 4467,
+   "sha256": "69a4d17e52219dfb2eed7844362b60ddfb08036eed20553951451e45d38fd3de"
+  },
+  {
+   "path": "browser/prospective/playwright-results.json.gz",
+   "bytes": 1283,
+   "sha256": "61e5ecdaa571a90cc8525acdc81e8db9dc6a9897629c442a21bd768018af5b98"
+  },
+  {
+   "path": "browser/prospective/playwright-results.xml.gz",
+   "bytes": 406,
+   "sha256": "c8410a8491d251fcd617df6a8e6ddbeb1edf20238427ab44179ba372c14d0d85"
+  },
+  {
+   "path": "browser/prospective/runner.log.gz",
+   "bytes": 341,
+   "sha256": "24d7597751782622190756fd676ebd17d72ac98f8690ad9e228c76716b9378f7"
+  },
+  {
+   "path": "browser/prospective/workspace-manifest.json.gz",
+   "bytes": 5228,
+   "sha256": "c9ec284f8829c74fe212d9aef348b06060edb4400085e59b42af89ee29baf8b0"
+  },
+  {
+   "path": "browser/provider/playwright-results.json.gz",
+   "bytes": 1175,
+   "sha256": "1ca4afc66fba770388ee4728c88e14eb5d16dcf01f07645d2345193c9a581700"
+  },
+  {
+   "path": "browser/provider/playwright-results.xml.gz",
+   "bytes": 348,
+   "sha256": "f4c0fadbf1c93c0c1d27824d8821f4b82ded7282f659cd11b9ccacc2e764940b"
+  },
+  {
+   "path": "browser/provider/provider-browser-receipt.json.gz",
+   "bytes": 1856,
+   "sha256": "7de1a87f2c787c2bd043ac285cc3f12a400e86a254c0dac909f86a8085a2f381"
+  },
+  {
+   "path": "browser/provider/provider-missing-credential.json.gz",
+   "bytes": 4591,
+   "sha256": "0a73e7df274d65c1e898bed429c1b5997b85ffe5c85aa0dba54d52ea929b735c"
+  },
+  {
+   "path": "browser/provider/provider-missing-credential.txt.gz",
+   "bytes": 153,
+   "sha256": "94977a4cbdc0ab5290565f339c8fd2c0ec67399f03c36acb380fe81970cefabc"
+  },
+  {
+   "path": "browser/provider/provider-outage-restarted.json.gz",
+   "bytes": 6251,
+   "sha256": "b5686bdc4c457c8f8d0703692d4e75bd05df5f9efa3054c24c5f901b2c566d61"
+  },
+  {
+   "path": "browser/provider/provider-outage.json.gz",
+   "bytes": 6241,
+   "sha256": "69d82bc85c06d90ba867c639372a48741b4187561695f8336dd4c887b160461d"
+  },
+  {
+   "path": "browser/provider/provider-server-1.log.gz",
+   "bytes": 42,
+   "sha256": "9b3918a9845243eff94b26f38c246ff9861fa8d1043c43b830c4414077cb2b1f"
+  },
+  {
+   "path": "browser/provider/provider-server-2.log.gz",
+   "bytes": 42,
+   "sha256": "dbfc2264eb99262cdfced715913118f760a392e4ad7a194946c7f8477dcb183d"
+  },
+  {
+   "path": "browser/provider/provider-success-restarted.json.gz",
+   "bytes": 20150,
+   "sha256": "60af219277347a9e6333c4fd0c930717dc0a957a53bcddfe50594b1ec020b4f9"
+  },
+  {
+   "path": "browser/provider/provider-success-restarted.txt.gz",
+   "bytes": 420,
+   "sha256": "0c80e2e8245883a8dca983b7ad1272aa483e47a78af9af184c425f2bc3e7b4ec"
+  },
+  {
+   "path": "browser/provider/provider-success.json.gz",
+   "bytes": 20140,
+   "sha256": "b90585d534519519a4ace477b5388a81a551c18986d201f28b3d97798a331115"
+  },
+  {
+   "path": "browser/provider/provider-success.txt.gz",
+   "bytes": 410,
+   "sha256": "be658fb3a5c5f75e92cb1f00e29cb770458a1e00a4a7eaaf891ee7ce152debc8"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-first-restarted.json.gz",
+   "bytes": 6374,
+   "sha256": "924ea438c566f0787b5b88fe94f1f4c828c232ff8ed7e87516deaab96a3de599"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-first.json.gz",
+   "bytes": 6364,
+   "sha256": "95196b90bccc9d14ecbcc5cedb94f2907877ca060a6e5fe525f5db48b0b5325e"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-first.txt.gz",
+   "bytes": 199,
+   "sha256": "fbb4042886b14d6686ea6054487bd010c534fb2ff275a3258175c4661e3a33dc"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-second-restarted.json.gz",
+   "bytes": 6489,
+   "sha256": "8ad04395f835c693d3a296ee07e2d79be5096766c7fe7890d840c39f87b8cff0"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-second.json.gz",
+   "bytes": 6479,
+   "sha256": "1bd2c051ab4bbc5773f6c1e02337cdae052935964d7f4666c1209d9705593358"
+  },
+  {
+   "path": "browser/provider/provider-unpriced-second.txt.gz",
+   "bytes": 200,
+   "sha256": "0b856ff402354e3bdf4180a04ff9dc9321097a304425e6de805ff813dd93afd5"
+  },
+  {
+   "path": "browser/provider/runner.log.gz",
+   "bytes": 300,
+   "sha256": "ae3ee6f1491edf9d6757f78aa521b3e8865abb5d65c527406577523b0b627b38"
+  },
+  {
+   "path": "browser/provider/workspace-manifest.json.gz",
+   "bytes": 3343,
+   "sha256": "9bf1af7b26666ecba80c983df4a94254f85f7a13a374d0eb8573910e138e69f0"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/receipt.json.gz",
+   "bytes": 1599,
+   "sha256": "f0b49576b6024bd91d9f15d551800d47e502925e24d66ab52734f42b67f1c864"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/restarted-readiness.json.gz",
+   "bytes": 7370,
+   "sha256": "0890442c9c5e514e9f69150c2665228bf700727bd188d0abe4bde03eca062842"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/restored-readiness.json.gz",
+   "bytes": 7369,
+   "sha256": "a17798342f1d2517d4ab4d41ea12d9f8ccaf21106541b106642578e6e247189b"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/revoked-readiness.json.gz",
+   "bytes": 7368,
+   "sha256": "fd0bc548b53a74b2afe77b190b377667136d9bf48523b53bcc1ca3e110ff1562"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "1f567f1db364383c1af1a2464933d1d414b1db98fef4e0c233af59339575238e"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/readiness/controlled-readiness/setup.json.gz",
+   "bytes": 237,
+   "sha256": "4faa6eb1b14d382f19d75d07fc35685212e413ca4b478232804fb37782a7843a"
+  },
+  {
+   "path": "browser/readiness/playwright-results.json.gz",
+   "bytes": 1274,
+   "sha256": "ad398a47fb2dc9c96143f97e8fcf7d086e042bb23baff0e0affaac522070c55f"
+  },
+  {
+   "path": "browser/readiness/playwright-results.xml.gz",
+   "bytes": 405,
+   "sha256": "1083342d257501a797545d0234839ed06d4d69131a169a2e38c78e576034a988"
+  },
+  {
+   "path": "browser/readiness/production-refusal/receipt.json.gz",
+   "bytes": 582,
+   "sha256": "f2c33516e28df59c4cbe80b44686bacec9a0b74c36d6883c1ba945e9e1afd0d5"
+  },
+  {
+   "path": "browser/readiness/production-refusal/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/readiness/production-refusal/setup.json.gz",
+   "bytes": 236,
+   "sha256": "adbc10b5ddd0026bca0869cbc9ef0c9e65ef11380fd1eac55c7a65981a724fc0"
+  },
+  {
+   "path": "browser/readiness/runner.log.gz",
+   "bytes": 403,
+   "sha256": "5505fd6e6c8c0f46cf451ef0ab55edda885693aa4eeb6e70fe608ddf6bc6cac9"
+  },
+  {
+   "path": "browser/readiness/workspace-manifest.json.gz",
+   "bytes": 166708,
+   "sha256": "9289ca0c0fda07ef9fb0bb8c4cff5081fef557144a8357063b9623997b8eb300"
+  },
+  {
+   "path": "browser/recovery/active-before-stop.json.gz",
+   "bytes": 1771,
+   "sha256": "20c949da44aa73620c42efb4df9f909107b8904a6b279900e56f64fe82344da0"
+  },
+  {
+   "path": "browser/recovery/active-recovered.json.gz",
+   "bytes": 6139,
+   "sha256": "8eef5c8abda5429a9af23d69a125d953162c12294968f49c62554158de5fb8f3"
+  },
+  {
+   "path": "browser/recovery/paused-original.json.gz",
+   "bytes": 5964,
+   "sha256": "8919836ac82c2c2be2f75fc9b39c8a2ce9d05d267e99a9f56195b4d0bc6042fb"
+  },
+  {
+   "path": "browser/recovery/paused-restored.json.gz",
+   "bytes": 5964,
+   "sha256": "bb075f95c7fcb660f201613c13491325281396edcba274860982ecc5d94ae045"
+  },
+  {
+   "path": "browser/recovery/paused-second-restart.json.gz",
+   "bytes": 5970,
+   "sha256": "251147035cb49bacc08445c477d4bf6cf5d4358e2087aa5ac21ccf690ac4b091"
+  },
+  {
+   "path": "browser/recovery/playwright-results.json.gz",
+   "bytes": 1174,
+   "sha256": "53dc9bed9c0d0b2e34728efde69565ba79c71f93593b8ebe72f142bad6917882"
+  },
+  {
+   "path": "browser/recovery/playwright-results.xml.gz",
+   "bytes": 355,
+   "sha256": "40983880359263c4a973cb0e38b776cded4b5d9b46d7c5479dfc8ce450086b6c"
+  },
+  {
+   "path": "browser/recovery/recorded-restored.json.gz",
+   "bytes": 29922,
+   "sha256": "465b3fcfe35b59ee5f670e94c786c3b6b9521be128e6b40ef820072df6a686f5"
+  },
+  {
+   "path": "browser/recovery/recorded-review.json.gz",
+   "bytes": 29920,
+   "sha256": "2b71015bb49b7f6abcffa600460e1642f75bea905d9630d0eed0ed5cadd4e8f2"
+  },
+  {
+   "path": "browser/recovery/recovery-browser-receipt.json.gz",
+   "bytes": 2122,
+   "sha256": "d12d218c9ab0283cb7ec677f8fe62a48e27991ca512573044faefac6f4ea7a4b"
+  },
+  {
+   "path": "browser/recovery/recovery-server-1.log.gz",
+   "bytes": 42,
+   "sha256": "ce7ea5efa0025e4fed70c0b50a03d5556b645ad121facfe9fbbf0bb9f8cdf00e"
+  },
+  {
+   "path": "browser/recovery/recovery-server-2.log.gz",
+   "bytes": 42,
+   "sha256": "dfe26f62cff3e8671f8ed655d9d190885b48a742097a13689f0c84cb4f738f5b"
+  },
+  {
+   "path": "browser/recovery/recovery-server-3.log.gz",
+   "bytes": 42,
+   "sha256": "6a3f0add8154a5242af751a14b9b48e87bd8dbfd61a309cb4fa45fdd02b2b911"
+  },
+  {
+   "path": "browser/recovery/runner.log.gz",
+   "bytes": 295,
+   "sha256": "40a9fd17009588365d3b9be26bc0ae6666cb62b36132b23a22178ced3461a097"
+  },
+  {
+   "path": "browser/recovery/snapshot-manifest.json.gz",
+   "bytes": 6836,
+   "sha256": "74af14b46547715a71faf2210af9024cd92cdb5731b63f910245c7ce6eda8321"
+  },
+  {
+   "path": "browser/recovery/synthetic-report.txt.gz",
+   "bytes": 977,
+   "sha256": "c9f7810020986a0308c2dc190b19b69a29982a6d27d63c4a640cc776829bebdb"
+  },
+  {
+   "path": "browser/recovery/synthetic-restored.json.gz",
+   "bytes": 78843,
+   "sha256": "a3cc47ee06044dfb407fd5bdba8d9c90600a1d498a53d2bca807f290c9b5fd3e"
+  },
+  {
+   "path": "browser/recovery/synthetic-restored.txt.gz",
+   "bytes": 979,
+   "sha256": "25c10f7f92c84f8a4bb2d1b949ed2816f48d6f9c7c382a0abf871bd428349c33"
+  },
+  {
+   "path": "browser/recovery/synthetic-review.json.gz",
+   "bytes": 78841,
+   "sha256": "2a80b9c39ec56f2eccda95fd2e59617195d87ae3c64cdba00c31980d508beaca"
+  },
+  {
+   "path": "browser/recovery/workspace-manifest.json.gz",
+   "bytes": 11186,
+   "sha256": "c0716d79d6542a09068dace96146a0e0914bcef61ea502da6ca5a521c752eef2"
+  },
+  {
+   "path": "browser/redesign/playwright-results.json.gz",
+   "bytes": 1182,
+   "sha256": "667483bd80b39c6f57031831468a8a31994f47ff4b355d05ad26265941dd9f59"
+  },
+  {
+   "path": "browser/redesign/playwright-results.xml.gz",
+   "bytes": 346,
+   "sha256": "63e59b270d1c4732a52e2f5c29923aa99bec001374382cd81028c0da79991f66"
+  },
+  {
+   "path": "browser/redesign/redesign/receipt.json.gz",
+   "bytes": 265,
+   "sha256": "74058257ca376e01767eaae9dc227f908ca5aad0f33ca4f4771cbfae00ea820c"
+  },
+  {
+   "path": "browser/redesign/redesign/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/redesign/runner.log.gz",
+   "bytes": 295,
+   "sha256": "c5e80f64075aa7f2503691dee577dee5dd59faa2e4db9a78307560b15b471237"
+  },
+  {
+   "path": "browser/redesign/workspace-manifest.json.gz",
+   "bytes": 295,
+   "sha256": "99bf88ba8b1a68730d7c9ca750cb292f5ada618d8f2891dc3c110aca21e2b5d9"
+  },
+  {
+   "path": "browser/research/playwright-results.json.gz",
+   "bytes": 1492,
+   "sha256": "417cf2b5145efa6bc0febb6091fb8b4073216cda1de5343965935d73d74fe184"
+  },
+  {
+   "path": "browser/research/playwright-results.xml.gz",
+   "bytes": 539,
+   "sha256": "f64188fcbf344b26fd447e8d9cdab14de92633f39214c2ac57b6444ed1cfab6f"
+  },
+  {
+   "path": "browser/research/research/receipt.json.gz",
+   "bytes": 271,
+   "sha256": "d968169652b5a99fba734af0f861219fbc092c0bb46fb58ecfde74f7743c4917"
+  },
+  {
+   "path": "browser/research/research/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/research/research-acquisition/receipt.json.gz",
+   "bytes": 213,
+   "sha256": "db77db2c029bdbec961a7091e847eef668e6dd20f91c41ce1cd72d503171d220"
+  },
+  {
+   "path": "browser/research/research-acquisition/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/research/research-modeling/receipt.json.gz",
+   "bytes": 282,
+   "sha256": "0781bfbe45ca9710b8932d67d2876f1cf064e03e4fbeed6645a1641c16671d43"
+  },
+  {
+   "path": "browser/research/research-modeling/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/research/research-modeling/synthetic-research-report-after-restart.json.gz",
+   "bytes": 17560,
+   "sha256": "bba7318e198b5a168a1e06dce55f7c09e0d23b0c31771e065dfe99c63666395d"
+  },
+  {
+   "path": "browser/research/research-modeling/synthetic-research-report.json.gz",
+   "bytes": 17546,
+   "sha256": "4f3a184923b2dbd342c6e8ec42c3e9126cd308b5ef473246ce860086b8a13a76"
+  },
+  {
+   "path": "browser/research/research-modeling-execution/receipt.json.gz",
+   "bytes": 282,
+   "sha256": "0be8d7c8587ab3b83ec25e2c5d00de4228e5e60307857611b46c3e91e28ce2cd"
+  },
+  {
+   "path": "browser/research/research-modeling-execution/server.log.gz",
+   "bytes": 31,
+   "sha256": "377b77668fdd3b86afd1f81411e30895814b1d84ff1d859849eac6e48887cbd6"
+  },
+  {
+   "path": "browser/research/runner.log.gz",
+   "bytes": 453,
+   "sha256": "28354f1d6fa63be2b4c940b8dd722f9af55b358446079d30b099262e500ad422"
+  },
+  {
+   "path": "browser/research/workspace-manifest.json.gz",
+   "bytes": 39081,
+   "sha256": "28fe85689cc409e84e221a40c883d21ce6628c3e4d312c04a201f8b122dae96e"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/cancelled-account.json.gz",
+   "bytes": 924,
+   "sha256": "c15139df299b8ec25125163d61496573c7d2faf244c725a17373940dfcb7d0fe"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/cancelled-evidence.json.gz",
+   "bytes": 16987,
+   "sha256": "2403c6cd1d4b417fc6ddfc9e439a2db7fc17190729b6e76c0c68d081320680a2"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/receipt.json.gz",
+   "bytes": 850,
+   "sha256": "5c5ae2b5285a8d867dd972244c3184f9ceb54fa58d6f080854bfd74a6e76c0db"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/restarted-account.json.gz",
+   "bytes": 924,
+   "sha256": "2777e0826ec0f11bbe03c0fe29e049991d399fb311c97ebbc11ddf33cf5a6844"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/restarted-evidence.json.gz",
+   "bytes": 16987,
+   "sha256": "4aa5f1650ea3e42c7edd76e60e25b2e99589bae16d9d1228522c8b89815a0079"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/restored-account.json.gz",
+   "bytes": 923,
+   "sha256": "686f382e157929f3ddc5adee703f70c168fe6e95fc4d9d6eadf5eed68d5a8bd6"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/restored-evidence.json.gz",
+   "bytes": 16986,
+   "sha256": "5c020f25140ec2779a69eee9354bbbf4dc03594873de7abc00b45821bd0f400a"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/server-2.log.gz",
+   "bytes": 790,
+   "sha256": "5bba1f2022459eb122baf18b3838598320acb716a319719039d470ebb2b7f3f5"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/server-3.log.gz",
+   "bytes": 33,
+   "sha256": "9b8a9ecf598eecf41353f1232f7b5833da02841aa66f4012ed005ea1b7553ea8"
+  },
+  {
+   "path": "browser/research-paper/controlled-promotion/setup.json.gz",
+   "bytes": 182,
+   "sha256": "bd792737c3e56f8e957e47c1e3f38b50e9eb3c1dab69624e4803667f2e9676e7"
+  },
+  {
+   "path": "browser/research-paper/playwright-results.json.gz",
+   "bytes": 1263,
+   "sha256": "7880b4f8da1597bb3f101f0f49194fa57a0a38337e9ac5562da6882fc3af4a8e"
+  },
+  {
+   "path": "browser/research-paper/playwright-results.xml.gz",
+   "bytes": 395,
+   "sha256": "f028330fa12381b5c1e2050fff08208354750d1f7c29f41eb2fbb23298557bbd"
+  },
+  {
+   "path": "browser/research-paper/production-refusal/receipt.json.gz",
+   "bytes": 192,
+   "sha256": "82016f10b6319569d9f65c8ec6f9e3f3e99af2b5b7009b4a640beca41a9f7c86"
+  },
+  {
+   "path": "browser/research-paper/production-refusal/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/research-paper/production-refusal/setup.json.gz",
+   "bytes": 182,
+   "sha256": "7de0655ae3620ff3d95f3ffe3e6a96f195e52abce43f292e349e67cb4d0cf94f"
+  },
+  {
+   "path": "browser/research-paper/runner.log.gz",
+   "bytes": 330,
+   "sha256": "2085e03f72860df04fd9bdc23c2b99365e864e24b2b3ce7226179d7a9ec69607"
+  },
+  {
+   "path": "browser/research-paper/workspace-manifest.json.gz",
+   "bytes": 100483,
+   "sha256": "5cae4c8f59ca13aadd5670a6032f0145b8adcce2b7e07457c2067e2da784240d"
+  },
+  {
+   "path": "browser/shadow/playwright-results.json.gz",
+   "bytes": 1178,
+   "sha256": "e0914c035f19cc7848a51be877360f8e24de648d8f2f68a2bc7bd8b375f0d247"
+  },
+  {
+   "path": "browser/shadow/playwright-results.xml.gz",
+   "bytes": 348,
+   "sha256": "8911263af4798b9efa7a5f7f0c0ef6b2e8d7f96afce4ad11fdcb23de6c2dcffd"
+  },
+  {
+   "path": "browser/shadow/runner.log.gz",
+   "bytes": 288,
+   "sha256": "ff59cb0542431016c88d7c838f9909a5920c1b4dead9f04ecd1b98ddd1301638"
+  },
+  {
+   "path": "browser/shadow/shadow-browser-receipt.json.gz",
+   "bytes": 1363,
+   "sha256": "be156104d22405dce89efb21e846c4cc91b016634dab49a6fd6ddbb44880270a"
+  },
+  {
+   "path": "browser/shadow/shadow-paused.json.gz",
+   "bytes": 5976,
+   "sha256": "e92325d844276c5afa61c1ec07f2fca3e048cec17977d519fc731314541a9742"
+  },
+  {
+   "path": "browser/shadow/shadow-restarted.json.gz",
+   "bytes": 5979,
+   "sha256": "c50a1b4bba7359d8b4917e2870255e920dbedd9a974766343fdf52d9940e751a"
+  },
+  {
+   "path": "browser/shadow/shadow-second-cycle.json.gz",
+   "bytes": 6857,
+   "sha256": "3e2af95aed1d3c714cee9cab88c3ee988b27e720b9bcae05e314754d2aad341e"
+  },
+  {
+   "path": "browser/shadow/shadow-server-1.log.gz",
+   "bytes": 40,
+   "sha256": "eb0de82d40aa0b816a92479a2fbb6280ffab6375ce46d005be27fbddf5fcccf5"
+  },
+  {
+   "path": "browser/shadow/shadow-server-2.log.gz",
+   "bytes": 40,
+   "sha256": "5a159d4ffb5ed095750bfbd1db6d7ab7d562065f9afd8c0c0d93a3b957ab80b6"
+  },
+  {
+   "path": "browser/shadow/workspace-manifest.json.gz",
+   "bytes": 3184,
+   "sha256": "851a238f49fea02f0fca2e5b9050efa6eb6de2fcc5b5b8c590e5088996643fbc"
+  },
+  {
+   "path": "browser/shadow-history/authentic/authentic-inputs.json.gz",
+   "bytes": 446,
+   "sha256": "ee515219c463331578f12eae781cdd379c426cec75106093ac4b699ca7bcf074"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-browser-receipt.json.gz",
+   "bytes": 1625,
+   "sha256": "8fe32b3ecc4253bbafcc29263d00b461b67c5e67e093098a44b1dcbe4cef3d50"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-report.txt.gz",
+   "bytes": 2578,
+   "sha256": "84157402ea879c5cf77aad7928e43022245b2f35e738768bc5576c3b68cf2c43"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-restart-report.txt.gz",
+   "bytes": 2586,
+   "sha256": "f3bb364a80a8ba5eb90168e70ae0c21aa41e983c95038441dc6c72ac2ebfaa84"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-restart-review.json.gz",
+   "bytes": 22163,
+   "sha256": "8ec08d4f2be9a2ac28b53f3b1429e3836e484f2d97b2d8cc245ff7d39a867d11"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-restart-shadow-inputs.json.gz",
+   "bytes": 20890,
+   "sha256": "31992f89006cf394e02ee72f2f7d0242cc79fc7faea137cc807e4265abab17a1"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-review.json.gz",
+   "bytes": 22155,
+   "sha256": "3212f75f0038d87fb31bfbe12cf8c5573208418c6a0177b8e1a66b3679a4c438"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "a1af16f73d65f5d86540157b8b80411284fe6f6dc70749796504976830c28e27"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "29270ce8855f0fa119616858e36cd95a76fe5fa02597a3c44f344c54458ec6f7"
+  },
+  {
+   "path": "browser/shadow-history/authentic/weather-shadow-inputs.json.gz",
+   "bytes": 20882,
+   "sha256": "d9c5d09091975d982fd2fea85f435dcef90e3a9c745a1394657ae159d38fc398"
+  },
+  {
+   "path": "browser/shadow-history/cohort/authentic-inputs.json.gz",
+   "bytes": 4285,
+   "sha256": "2a0288371ea9344e6db50cc3c15c7301b9b00ddcaa89d44582e628fac22fb1f6"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-browser-receipt.json.gz",
+   "bytes": 5654,
+   "sha256": "c81dc35b463ce7a4106e7f944932d31a0d62141c96d708cbaec2a863c10ec85b"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-report.txt.gz",
+   "bytes": 14589,
+   "sha256": "02ab4e07db37d74bce9c7227468c40387dcb7950984f76a48daa6041e788186a"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-restart-report.txt.gz",
+   "bytes": 14597,
+   "sha256": "4782cdff017ac05f8f0ce1310f55a8bb968205eba0bce49a620ad043ec7a6deb"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-restart-review.json.gz",
+   "bytes": 68713,
+   "sha256": "6ac15e79c3d3e0d52a55762fe7656d8748f418cc23a6750216477cac88c135e0"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-restart-shadow-inputs.json.gz",
+   "bytes": 199,
+   "sha256": "7e3fc10cb6b26616f4ef8a82c74b16778f7849bc7f5594a1c34c7456d3618f09"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-review.json.gz",
+   "bytes": 68705,
+   "sha256": "b0d1f0abd563fcf21afc28efbc46cf0e42301bb91afaacef56ce0a2aea463156"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "a1af16f73d65f5d86540157b8b80411284fe6f6dc70749796504976830c28e27"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "29270ce8855f0fa119616858e36cd95a76fe5fa02597a3c44f344c54458ec6f7"
+  },
+  {
+   "path": "browser/shadow-history/cohort/weather-shadow-inputs.json.gz",
+   "bytes": 191,
+   "sha256": "3d1e63db5802f9e655030b028a15b8da1e1787ba223988686a4a3350a906a256"
+  },
+  {
+   "path": "browser/shadow-history/controlled/authentic-inputs.json.gz",
+   "bytes": 4446,
+   "sha256": "4bb3b4624cd53aae9c80b0c8585a5ebe2e10f8ee5a10e83e462d7437a5fd106f"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-browser-receipt.json.gz",
+   "bytes": 5844,
+   "sha256": "09f982e0cddff5f87c514009dca3d745e63489e858bc04ec6d59f2114baea5be"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-report.txt.gz",
+   "bytes": 9737,
+   "sha256": "fa6617f3fe83d02175072ff5d40fb7a57832b8145f698467155e1af6656897d2"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-restart-report.txt.gz",
+   "bytes": 9745,
+   "sha256": "431bf3d12d87919375cf31894c2318b20c8f32e332337bdfedd8c27920108bf3"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-restart-review.json.gz",
+   "bytes": 42508,
+   "sha256": "29fa92edbb6ef6e2be6c44dfdda6165af23f561489ba92adca18f6c347ee8475"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-restart-shadow-inputs.json.gz",
+   "bytes": 51749,
+   "sha256": "dd58a02fa9021b3b8536b00d751eaea173027ae4d47b50b2f9029001cbec602d"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-review.json.gz",
+   "bytes": 42500,
+   "sha256": "b855a04c709f6d210be3dc9f62c9fcae9ef53881b8d3a195b9c31ef9dde603ce"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "a1af16f73d65f5d86540157b8b80411284fe6f6dc70749796504976830c28e27"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "29270ce8855f0fa119616858e36cd95a76fe5fa02597a3c44f344c54458ec6f7"
+  },
+  {
+   "path": "browser/shadow-history/controlled/weather-shadow-inputs.json.gz",
+   "bytes": 51741,
+   "sha256": "fd74e7c2db12467d8eab6b09e9ba01e1fd60ba33e1bf991a22a0841748378007"
+  },
+  {
+   "path": "browser/shadow-history/playwright-results.json.gz",
+   "bytes": 1329,
+   "sha256": "d61bdf0fc105ea9d58c4c9ffd2abaeed19d68cc539802ad58db0f0e118bb21f9"
+  },
+  {
+   "path": "browser/shadow-history/playwright-results.xml.gz",
+   "bytes": 422,
+   "sha256": "ad87017b1a48c9e66ab1ec671378ca0c8b14e8b449aee8f15bda044ce42dc908"
+  },
+  {
+   "path": "browser/shadow-history/runner.log.gz",
+   "bytes": 348,
+   "sha256": "7f77df5ede03d280bab09b3d6efb186e3d3bbddfa1756e33833abcd92698828b"
+  },
+  {
+   "path": "browser/weather-history/authentic-inputs.json.gz",
+   "bytes": 602,
+   "sha256": "d3870dfc0664dc0f4d4081dec0b166b90c273117135e662d29be40e7e7a28cae"
+  },
+  {
+   "path": "browser/weather-history/playwright-results.json.gz",
+   "bytes": 1178,
+   "sha256": "4a1aa32868a57023205f4adaeb8ff8333d0a1aae5922846695478941902a0dde"
+  },
+  {
+   "path": "browser/weather-history/playwright-results.xml.gz",
+   "bytes": 350,
+   "sha256": "ffe194e7a5c01a6421a2146a0e5bdd0c9a8be388f3b0d36dace846fa4727482c"
+  },
+  {
+   "path": "browser/weather-history/runner.log.gz",
+   "bytes": 297,
+   "sha256": "c0f69f403ec113ef2dc1fd32cdb3b451c1ba4b43e35195bbb8d4563f8c2537ce"
+  },
+  {
+   "path": "browser/weather-history/weather-browser-receipt.json.gz",
+   "bytes": 1532,
+   "sha256": "7d43ab2a855c359066d5c08e8d8a2bb6309d0d88ffcc54afbb434a06757e4d15"
+  },
+  {
+   "path": "browser/weather-history/weather-report.txt.gz",
+   "bytes": 2581,
+   "sha256": "ca8b1b729337f7192f89e92e83652b97268def0312e93f26692fb777458a9790"
+  },
+  {
+   "path": "browser/weather-history/weather-restart-report.txt.gz",
+   "bytes": 2589,
+   "sha256": "ed1e7a54f9cb2715385b4f1bae97a40f9e85da66fcc0fb9584f391910de820c9"
+  },
+  {
+   "path": "browser/weather-history/weather-restart-review.json.gz",
+   "bytes": 21922,
+   "sha256": "6485f0f6223b136adfa600a5be4e2dfea56069b7a77a2543faa308d681d7c154"
+  },
+  {
+   "path": "browser/weather-history/weather-review.json.gz",
+   "bytes": 21914,
+   "sha256": "7c6646507bcbb4e8fbb5e9d92b333cd65bd25cd15f9b283ced1926188482f33e"
+  },
+  {
+   "path": "browser/weather-history/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "a1af16f73d65f5d86540157b8b80411284fe6f6dc70749796504976830c28e27"
+  },
+  {
+   "path": "browser/weather-history/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "29270ce8855f0fa119616858e36cd95a76fe5fa02597a3c44f344c54458ec6f7"
+  },
+  {
+   "path": "browser/weather-history/workspace-manifest.json.gz",
+   "bytes": 4679,
+   "sha256": "1f3733320a9efac9c1780b8e65f8f3ce97a3973950a847d3e3668eafe085b8c7"
+  },
+  {
+   "path": "browser/weather-labels/authentic-inputs.json.gz",
+   "bytes": 600,
+   "sha256": "a2ae5e38a31bbc6e4719b2e463f245ca880739ef302d9712566188aee49c3deb"
+  },
+  {
+   "path": "browser/weather-labels/playwright-results.json.gz",
+   "bytes": 10719,
+   "sha256": "ae5c988bd80f9c044ba1f44a2fdb5b97ca2cb9c60cc80e2b19d2f72c4c74e6fd"
+  },
+  {
+   "path": "browser/weather-labels/playwright-results.xml.gz",
+   "bytes": 5508,
+   "sha256": "31c1a02089a5bd364fe0b87180cbe5aafe4594e717fb56b7582d00ba376361af"
+  },
+  {
+   "path": "browser/weather-labels/runner.log.gz",
+   "bytes": 5833,
+   "sha256": "a5ecf73a62a85412d642f5e412a4f672fb3c7fa4a059e78d0bf8a375ad1aa5b8"
+  },
+  {
+   "path": "browser/weather-labels/weather-label-browser-receipt.json.gz",
+   "bytes": 6656,
+   "sha256": "030c1aea7744a05f2b1ae6d072eba9449b5077ceb199903eafc93ba8f67e8c68"
+  },
+  {
+   "path": "browser/weather-labels/weather-labels.json.gz",
+   "bytes": 1506,
+   "sha256": "ce1cbb29e37c1212a6a7473741a25f030b635733887c5163a9ed672dc8c088e8"
+  },
+  {
+   "path": "browser/weather-labels/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "a1af16f73d65f5d86540157b8b80411284fe6f6dc70749796504976830c28e27"
+  },
+  {
+   "path": "browser/weather-labels/workspace-manifest.json.gz",
+   "bytes": 3499,
+   "sha256": "0683669836bc5c77022d9688ae3f93f5dd982124c924198f2e44a62a384ac4ef"
+  },
+  {
+   "path": "browser/workbench/browser-receipt.json.gz",
+   "bytes": 9702,
+   "sha256": "888d9e87d0bb930b33015dd970dd69ccdf32a4001603b11bf7d59d8a5c245897"
+  },
+  {
+   "path": "browser/workbench/cancelled-job-after-restart.json.gz",
+   "bytes": 448,
+   "sha256": "6f8df91e63ae3bcfc8ba8f3740729651d2966ffc2009719e6963c7db2e078828"
+  },
+  {
+   "path": "browser/workbench/dom/public-bitcoin-evidence.txt.gz",
+   "bytes": 2966,
+   "sha256": "1545019fee6d6dbca40f66851f6e574fd52345e30456eb216f192b98e79ce9e4"
+  },
+  {
+   "path": "browser/workbench/dom/public-bitcoin-probabilities.txt.gz",
+   "bytes": 941,
+   "sha256": "22631484f1a3779ee2c33b08ae486c61eccbb5415af5f72d32beb0e835cb98e3"
+  },
+  {
+   "path": "browser/workbench/dom/public-bitcoin-review.txt.gz",
+   "bytes": 1325,
+   "sha256": "41bd83381d2e940eaaf0823a112a9ab6b089a4eb10e7fdf807cfd7adc165703d"
+  },
+  {
+   "path": "browser/workbench/dom/public-weather-evidence.txt.gz",
+   "bytes": 3416,
+   "sha256": "8541b5596ddbd3fb55b138ddf9f84b4e9ecfaa5b69f1aa178844b2c209e74573"
+  },
+  {
+   "path": "browser/workbench/dom/public-weather-probabilities.txt.gz",
+   "bytes": 1245,
+   "sha256": "ab69be6e540142357bba74ef4844c5a5d4a6aa4fdf041e33bbb45ca787fc24ea"
+  },
+  {
+   "path": "browser/workbench/dom/public-weather-review.txt.gz",
+   "bytes": 1658,
+   "sha256": "b898916d26cbfa4b5b95845a09a8bdd4fc74d4708dac02c5659122f562ab81bd"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-after-restart-entropytrade-149ea7a5-2071-4b99-b168-cb91d433d8e9.json.gz",
+   "bytes": 8482,
+   "sha256": "b180273559d2402e998303f747caa34dfd3987846add5f6a31f9d1ba05dc99d0"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-after-restart-entropytrade-149ea7a5-2071-4b99-b168-cb91d433d8e9.txt.gz",
+   "bytes": 953,
+   "sha256": "8cd2a506775eb5477948129a16b63b304907a2ffd42fb084de22d146448a3f8b"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-after-restart-entropytrade-63773ca3-f63f-4913-9547-be6434b28415.json.gz",
+   "bytes": 8467,
+   "sha256": "66a97bd8be587cbfd9b93fde5d524571ce3fa3bbcd5db3fbbd05cf1076159d10"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-after-restart-entropytrade-63773ca3-f63f-4913-9547-be6434b28415.txt.gz",
+   "bytes": 948,
+   "sha256": "a970dc434927a3fcf7f028312006eb1d5b5994ef748f148ffbc7bd85aa90e26b"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-entropytrade-149ea7a5-2071-4b99-b168-cb91d433d8e9.json.gz",
+   "bytes": 8468,
+   "sha256": "cada0f18aa5ae63ddaabf1711b1fbba3cc2fa352123f7f2a81d159dbcd4af371"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-entropytrade-149ea7a5-2071-4b99-b168-cb91d433d8e9.txt.gz",
+   "bytes": 939,
+   "sha256": "f11fc8ffcae8b54317909ec9325d2297c33689a744b142577c0e8196ac10686c"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-entropytrade-63773ca3-f63f-4913-9547-be6434b28415.json.gz",
+   "bytes": 8453,
+   "sha256": "183d4d5439b116b61cd0ce6a93a9be6c5dcb4aa7804d6e38121bdc37952cb19a"
+  },
+  {
+   "path": "browser/workbench/downloads/public-bitcoin-entropytrade-63773ca3-f63f-4913-9547-be6434b28415.txt.gz",
+   "bytes": 934,
+   "sha256": "595d7c80ef3f2f56b264b2e0346290decd7f87b3d1ceed6d17b2d8f00a416692"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-after-restart-entropytrade-3b756d3c-ae2f-4510-9131-ab6f0ff89b12.json.gz",
+   "bytes": 11775,
+   "sha256": "383fa45e8ab51de433f9bdb00e5cfaeae9e16eb7c21e51c39e88f5352949a5ee"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-after-restart-entropytrade-3b756d3c-ae2f-4510-9131-ab6f0ff89b12.txt.gz",
+   "bytes": 1258,
+   "sha256": "9487e38e9d23987a222dbb4ab9ecddc19d5e4ad3bd31a3bf47dc59ad87c683a6"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-after-restart-entropytrade-f2eb9d16-4f73-4695-8238-681776aa4adc.json.gz",
+   "bytes": 11764,
+   "sha256": "c47fe78d14facbdbd566a2a59544f45f5d5c5ffb37c700829ac18646196d029b"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-after-restart-entropytrade-f2eb9d16-4f73-4695-8238-681776aa4adc.txt.gz",
+   "bytes": 1252,
+   "sha256": "c054aadd9c9cf14c73b798101e3d8eabc6252e4559524951cd504297de31d609"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-entropytrade-3b756d3c-ae2f-4510-9131-ab6f0ff89b12.json.gz",
+   "bytes": 11761,
+   "sha256": "19574fa35aa168665ad105652bf619d91c3243f47cd705383b7f68ed89fa547a"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-entropytrade-3b756d3c-ae2f-4510-9131-ab6f0ff89b12.txt.gz",
+   "bytes": 1244,
+   "sha256": "02b26f6e200a3b206f0302b11d19fecb73d1cc08099cb9a2aea3980b5e762a3d"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-entropytrade-f2eb9d16-4f73-4695-8238-681776aa4adc.json.gz",
+   "bytes": 11750,
+   "sha256": "05a54359d7ab93b05fbfcca0fe619912d45fe24e320bd3551dcff0b38b3a91ce"
+  },
+  {
+   "path": "browser/workbench/downloads/public-weather-entropytrade-f2eb9d16-4f73-4695-8238-681776aa4adc.txt.gz",
+   "bytes": 1238,
+   "sha256": "5fa5c7179a6c5cbaecb0c9d08bbc11b794f466ed55779c9ff4006717941a0f78"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-after-restart-entropytrade-1f1ca427-0ee9-436c-a48a-bd3e3586bf86.json.gz",
+   "bytes": 19306,
+   "sha256": "4a14504b20f826578d2022aeb42be614ee7423254a7c42d835da30faeaf6abc6"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-after-restart-entropytrade-1f1ca427-0ee9-436c-a48a-bd3e3586bf86.txt.gz",
+   "bytes": 447,
+   "sha256": "fb3f4650fabb9b0724d02d9a0e2238122359c6962319205c994513ca113cb5c5"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-after-restart-entropytrade-8203367b-84ed-4f54-979e-ba3664cd1188.json.gz",
+   "bytes": 19307,
+   "sha256": "285dbe3f4d28ea19eeff1bc71665c0583eb5e6539ef4d9838d22ba2571e43d58"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-after-restart-entropytrade-8203367b-84ed-4f54-979e-ba3664cd1188.txt.gz",
+   "bytes": 449,
+   "sha256": "78d6b93b59c333c3aabdab6ea6ee2f731bc9f4e9956e3d0bd11399045b64905d"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-entropytrade-1f1ca427-0ee9-436c-a48a-bd3e3586bf86.json.gz",
+   "bytes": 19292,
+   "sha256": "c2493fbbf4c90e3f2abf3eee110fbd850532cd980410f856d2fe97a3a49fd7cb"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-entropytrade-1f1ca427-0ee9-436c-a48a-bd3e3586bf86.txt.gz",
+   "bytes": 433,
+   "sha256": "f96d33197bf6e5aac889b1910a20bb7717d903fc028bfcf7a49f786cc6fefb85"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-entropytrade-8203367b-84ed-4f54-979e-ba3664cd1188.json.gz",
+   "bytes": 19293,
+   "sha256": "6a9144ac14f5768bac2db2720f219f43f188310a09a50f5278757aef147b37cc"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-after-cancel-entropytrade-8203367b-84ed-4f54-979e-ba3664cd1188.txt.gz",
+   "bytes": 435,
+   "sha256": "42508f6c87ad7e492ab1400b1ad779e2ebfae8f5785655f555d5c29c5ec2563a"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-after-restart-entropytrade-be8b436b-c30b-42f9-a94c-b4cdb7b897f3.json.gz",
+   "bytes": 17635,
+   "sha256": "13e133aa8813f1914ab37c57c1da80c143b071f25a3b0300650a06d0d0e71e6c"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-after-restart-entropytrade-be8b436b-c30b-42f9-a94c-b4cdb7b897f3.txt.gz",
+   "bytes": 443,
+   "sha256": "d434b4a5d718fa1b0851eed5e91fabfcf8fd17cfee38b471e2a1743c14a26254"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-after-restart-entropytrade-dd73d86b-d816-4621-86ad-f0048ab18bb1.json.gz",
+   "bytes": 17630,
+   "sha256": "335568a28b3b5b212f89e7c2cf8c81379e365359b7e87dc96b4672bd681eec59"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-after-restart-entropytrade-dd73d86b-d816-4621-86ad-f0048ab18bb1.txt.gz",
+   "bytes": 447,
+   "sha256": "3aed16184bbfeaae2751a94ce71b01604272f4e40fc0478ccfa304927fc58493"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-entropytrade-be8b436b-c30b-42f9-a94c-b4cdb7b897f3.json.gz",
+   "bytes": 17621,
+   "sha256": "3c11c2ffd31e455af00f291ad35f4d2019a4d11791af3faec4cb61116d1c501a"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-entropytrade-be8b436b-c30b-42f9-a94c-b4cdb7b897f3.txt.gz",
+   "bytes": 429,
+   "sha256": "7e824e90699dc074f312531b45f87ac210ba22cf73c516914863ca11f067945e"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-entropytrade-dd73d86b-d816-4621-86ad-f0048ab18bb1.json.gz",
+   "bytes": 17616,
+   "sha256": "aa65068d541f3c05e974c8a01b0b1b3e475622ba2d91cb8d353a2cb06f99c0c8"
+  },
+  {
+   "path": "browser/workbench/downloads/recorded-weather-entropytrade-dd73d86b-d816-4621-86ad-f0048ab18bb1.txt.gz",
+   "bytes": 433,
+   "sha256": "e038cc775cbac638d41f51e662330f57eeaf6fb5fc0618502af9bea6264ec4c5"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-after-restart-entropytrade-3c2dc6d9-88a0-4541-ac2f-acc5d374cc0f.json.gz",
+   "bytes": 94532,
+   "sha256": "ffd24829981c1e7518d5910954b8287ae764f95f213fb5e05f8158e7d5028dbf"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-after-restart-entropytrade-3c2dc6d9-88a0-4541-ac2f-acc5d374cc0f.txt.gz",
+   "bytes": 1042,
+   "sha256": "ac4b2f0181b21c41d66f265a1995a8f3553835b71e7ef2e7976501adc9f7d919"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-after-restart-entropytrade-a24c991d-ef6a-4c37-a1d0-dce84bc817ce.json.gz",
+   "bytes": 94542,
+   "sha256": "e4a193b30ce0f60fadaadf2a502abea7522a329e2fe6657a4b995dc8b8b8fc95"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-after-restart-entropytrade-a24c991d-ef6a-4c37-a1d0-dce84bc817ce.txt.gz",
+   "bytes": 1042,
+   "sha256": "e7ab146f67b857b4400959646c4829372423fbe8589cc97770af48faac06f492"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-entropytrade-3c2dc6d9-88a0-4541-ac2f-acc5d374cc0f.json.gz",
+   "bytes": 94518,
+   "sha256": "e248c6429dff8afc32eb9a26a78ec4d2e5edfb464f9ea7b928667c31e540fad6"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-entropytrade-3c2dc6d9-88a0-4541-ac2f-acc5d374cc0f.txt.gz",
+   "bytes": 1028,
+   "sha256": "9e817fc44dc4b51ce502293db4f8c7546cd1b50e9a0b17dc621bdefbc2400eaa"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-entropytrade-a24c991d-ef6a-4c37-a1d0-dce84bc817ce.json.gz",
+   "bytes": 94528,
+   "sha256": "de1a749e2d623f50c4ff1d0de90f434e543a92220b79526bba9ab3a27796a477"
+  },
+  {
+   "path": "browser/workbench/downloads/synthetic-weather-entropytrade-a24c991d-ef6a-4c37-a1d0-dce84bc817ce.txt.gz",
+   "bytes": 1028,
+   "sha256": "7a9da12c79c73c7081b9d95c87344e8b408fc73c2abde1dc515bf2afa818b884"
+  },
+  {
+   "path": "browser/workbench/interrupted-job.json.gz",
+   "bytes": 451,
+   "sha256": "5f2467690e2ab0db7c3dc6168c950a38cda1ed33da049b0ece18a1b613869d43"
+  },
+  {
+   "path": "browser/workbench/playwright-results.json.gz",
+   "bytes": 3552,
+   "sha256": "2a2e5d57c2b75f5ec07fc7ad578ced7a261c620cc3ce273dedcac03a7016978f"
+  },
+  {
+   "path": "browser/workbench/playwright-results.xml.gz",
+   "bytes": 2243,
+   "sha256": "73325742b440fdd6b6d53cbeba3aed4d48bef71eff8760248a86b3132d67f049"
+  },
+  {
+   "path": "browser/workbench/public-bitcoin-job.json.gz",
+   "bytes": 9656,
+   "sha256": "f95f6e2bcd985b7a5d49f4c74e45c4a2aa83e5fe08fbd28010b353c33e7f6137"
+  },
+  {
+   "path": "browser/workbench/public-weather-job.json.gz",
+   "bytes": 13287,
+   "sha256": "28a1d91e468c092f5bff2f2623278289032ad0a803590ba5f49de8d23ccf828f"
+  },
+  {
+   "path": "browser/workbench/recorded-after-cancel-job.json.gz",
+   "bytes": 23162,
+   "sha256": "5e49c9617699c026e4f3be3e21f39b51a5000b38c5f5d3eb4e916ed8c8570f85"
+  },
+  {
+   "path": "browser/workbench/recorded-weather-job.json.gz",
+   "bytes": 20045,
+   "sha256": "28c0638fca7615de0cf08ae3a2d4d741d163f841e93d53772c16ccd52a7754c9"
+  },
+  {
+   "path": "browser/workbench/runner.log.gz",
+   "bytes": 2238,
+   "sha256": "f9001f202e46d83486fdf721715ddb4384b666d87c3c5c79856cd9d9e1723a6f"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/evidence.json.gz",
+   "bytes": 251,
+   "sha256": "0a5bdf1e24fad42cb14cf2c3a9903ac9f39625b84584641e9a53e771e20e1ee8"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/public/capture.json.gz",
+   "bytes": 295,
+   "sha256": "7c8146de8b064133f2f91c492d8a016e51f9932bb72ea8371f7d4f98c7ed50ea"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/public/manifest.json.gz",
+   "bytes": 695,
+   "sha256": "33ed8e332cd573ac721e59fe8cf46afda3773d7e3d8e50b9b432c05f7ef51052"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/review.json.gz",
+   "bytes": 9105,
+   "sha256": "c05b6c5913e2f51ed6737560e66a7cea74ddec1abe2634789022ab92328e56e2"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/99ed3460a36ac320b3fe4a59d2f72689fd7a717a1ceee9bb4a79d3a1ef6dd53c/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "0582ba257224df4d18547ddb3d49483702e61a7909c995c3e9df3aedd1b74a8e"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/99ed3460a36ac320b3fe4a59d2f72689fd7a717a1ceee9bb4a79d3a1ef6dd53c/replay-inputs.json.gz",
+   "bytes": 7829,
+   "sha256": "fb3119bde85dbb748c52f74dfa9fce82f30b71cd83277316777d6bb00327e04a"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/99ed3460a36ac320b3fe4a59d2f72689fd7a717a1ceee9bb4a79d3a1ef6dd53c/results.json.gz",
+   "bytes": 1624,
+   "sha256": "647582c34002d3303e29883d0bc302e16ceda03ffbf97a35b8d6cfb68578fa51"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/af4b5a0caa2c0a3161507c6dc5d14c08c338d7398848466f7d8594e9b442a6f2/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "0f87fce12e5ab1692c65056616199495ea1f0060867213c7a63746bb2ebf9909"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/af4b5a0caa2c0a3161507c6dc5d14c08c338d7398848466f7d8594e9b442a6f2/replay-inputs.json.gz",
+   "bytes": 7849,
+   "sha256": "7832dfb440d72037b2b72487034ccded980054af40f618537f7663c7a69131ba"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/experiments/af4b5a0caa2c0a3161507c6dc5d14c08c338d7398848466f7d8594e9b442a6f2/results.json.gz",
+   "bytes": 1625,
+   "sha256": "d85969ea2dab12073ca20df13fa4e5e34086632ff71b3a614bf38f728b408f4f"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "87b8372379b2f532ae926b51fa08fb1fa3b40559f8e7466e3abe8d9b3a4dd956"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/research/01ec4b04-7619-4616-867d-845b32d02f33/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "a88a85bb527f6852589cb97058c2ab06e79ae2453be48be228e06e9710a76299"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/research/01ec4b04-7619-4616-867d-845b32d02f33/run.json.gz",
+   "bytes": 6568,
+   "sha256": "11a0114a41d00794fac74f549a98462a7fd191ae4a096a971eaca702d25b828a"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/research/4fe7b9cd-b36f-4667-8416-6e3e3f68d663/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "0e80627d465f91e016716c49db542f62352523db16fbe3fe0ed15e467cb4fe0c"
+  },
+  {
+   "path": "browser/workbench/runs/public-bitcoin/workflow/research/4fe7b9cd-b36f-4667-8416-6e3e3f68d663/run.json.gz",
+   "bytes": 6560,
+   "sha256": "7e2fdb4ad1d340b5d2f5422f8ce6353072d9d5be440850d370b639cc77a69054"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/evidence.json.gz",
+   "bytes": 250,
+   "sha256": "9936af646fddd5e19d169669265b0b6b4bd7e0b4dfe2fd4a6051207942c9521b"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/public/capture.json.gz",
+   "bytes": 695,
+   "sha256": "c22f0175b3ac09b1a0d956b473395704b694639d991aa3e48af5725d822a3978"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/public/manifest.json.gz",
+   "bytes": 797,
+   "sha256": "66b4475fce424787e593273d995c138a8ffc970b1142af8bdaceaefdf2409450"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/public/weather/manifest.json.gz",
+   "bytes": 176,
+   "sha256": "5e9d7f55e81f20f150b4ac9deec4f0c8efe9d4761ef97d076114492e36e22fe8"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/public/weather/receipts.json.gz",
+   "bytes": 92,
+   "sha256": "905a2517534f9bfbdb1e1851438487c1f9129dd62037646d4dc07062a0f02cad"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/review.json.gz",
+   "bytes": 12289,
+   "sha256": "a24fe96967f218c3fc2a50488567d9a7ef4ea25f7db7eb15768861e8d6568313"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/07238dd917968c977effde08ef204eca6e154168f1fe0a8ee05ef71db540b763/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "ce968cdc9a322441e38b3bb7a8c114aa729f0796a55a89dc0f565edc77465551"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/07238dd917968c977effde08ef204eca6e154168f1fe0a8ee05ef71db540b763/replay-inputs.json.gz",
+   "bytes": 10722,
+   "sha256": "1f5a21ddca7568e644d5c327dee92ae816c45a6b771f76276a7df37934c09f53"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/07238dd917968c977effde08ef204eca6e154168f1fe0a8ee05ef71db540b763/results.json.gz",
+   "bytes": 1626,
+   "sha256": "abc8119713cf8ac8ff1737fc2828a6a42055444db3c3eb55ca6214a55af88363"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/1e18184cb64db71b58a31024260259c1d47e5c6fa4ffa83cb1c91c8653b3e3bd/checksums.json.gz",
+   "bytes": 270,
+   "sha256": "f6862323ed5108190eede013a237cbb32498dd72f452f082f7c475d89f1e98d6"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/1e18184cb64db71b58a31024260259c1d47e5c6fa4ffa83cb1c91c8653b3e3bd/replay-inputs.json.gz",
+   "bytes": 10721,
+   "sha256": "22855efb33760c028a780f2efd6c79b6af2a6b8cfca279765c82dbb9000dba41"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/experiments/1e18184cb64db71b58a31024260259c1d47e5c6fa4ffa83cb1c91c8653b3e3bd/results.json.gz",
+   "bytes": 1624,
+   "sha256": "42accc0ed1d845f8b788a7129a57ca63920395ba0da12b4039eb0a08693aa78c"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "87b8372379b2f532ae926b51fa08fb1fa3b40559f8e7466e3abe8d9b3a4dd956"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/research/2fd4fff0-fa0d-48b2-b213-b2619eec3f2c/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "3b09ac0727da2905cbcd79113e1ae0f030eba34b2ccc0835a773c030603c2850"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/research/2fd4fff0-fa0d-48b2-b213-b2619eec3f2c/run.json.gz",
+   "bytes": 9046,
+   "sha256": "f76638133f01d2d992d3dcfd4e73705b223c48f1cd0a08f9194d36ae1fa68fd2"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/research/54d162b8-77bf-4b18-bc8c-01afc57a47c9/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "bec4ed0d2450215cdaea3acd24384a206d550cee10a84a9943174ce810a60a40"
+  },
+  {
+   "path": "browser/workbench/runs/public-weather/workflow/research/54d162b8-77bf-4b18-bc8c-01afc57a47c9/run.json.gz",
+   "bytes": 9043,
+   "sha256": "8125c0846654bcecae34b15ef03e1fb7fdede6918ca376db96f3d05a7f9b97c0"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/evidence.json.gz",
+   "bytes": 306,
+   "sha256": "e95611f8d9e98f3aa1fb63f1df0e5a8a0c607ff7f9857c8cfe6e9664c8dd9eed"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/review.json.gz",
+   "bytes": 22427,
+   "sha256": "5e95fc20e77bb3163759815c782f19af06705d16a728c052b5c64a0461e9b073"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/00942e8ede833adec8eeb86588b6ba95744a128db751331ec28b3d86a5648f58/checksums.json.gz",
+   "bytes": 270,
+   "sha256": "c90f5426b618c6089aaf3080f4c4a0262bcc2e4f45f9e9e6d01742e8a2ea98f6"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/00942e8ede833adec8eeb86588b6ba95744a128db751331ec28b3d86a5648f58/replay-inputs.json.gz",
+   "bytes": 23574,
+   "sha256": "7ddcfcd15300917078936bd382252f8de960144b624ce7443d26b79e024a4e2d"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/00942e8ede833adec8eeb86588b6ba95744a128db751331ec28b3d86a5648f58/results.json.gz",
+   "bytes": 2129,
+   "sha256": "1d9368c67175f484c136074c5284f1e600c4b1f7bed40216cd5a4c984737556c"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/0398a697c90a1f580d40bdd8885ef639afdd7b51f52b069e2b1e65737b2ecd11/checksums.json.gz",
+   "bytes": 271,
+   "sha256": "1cbbb70bef2a67ca546efd59c822e62ca2e098944fea077d4d5757abd73d4460"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/0398a697c90a1f580d40bdd8885ef639afdd7b51f52b069e2b1e65737b2ecd11/replay-inputs.json.gz",
+   "bytes": 23569,
+   "sha256": "f93516b34b9feb86f61b5049eab9f0a370cbbb52de0eef12117d5885d743fb85"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/experiments/0398a697c90a1f580d40bdd8885ef639afdd7b51f52b069e2b1e65737b2ecd11/results.json.gz",
+   "bytes": 2129,
+   "sha256": "705d66df863b7e4331c9585b50383005be9cc3047a10aa7a890b866e76573838"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "87b8372379b2f532ae926b51fa08fb1fa3b40559f8e7466e3abe8d9b3a4dd956"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/models/9229835b451f1f35030c27dcfc594def4a85956e35f11e070af297dc71fc0b36/checksums.json.gz",
+   "bytes": 266,
+   "sha256": "718c57de85f83bd2f484dac54035aa2390c54063a7e631481f41cd4874890878"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/models/9229835b451f1f35030c27dcfc594def4a85956e35f11e070af297dc71fc0b36/results.json.gz",
+   "bytes": 1915,
+   "sha256": "0f8996f1906d31bfca392b00dc067404972bd25ad50b29e6180e841d7a93fdc5"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/research/6c960e96-742e-4658-9f79-46fae357a0d4/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "212e1f541a37f658793b8bb1bbc53598f088212a1bf5bd97be2e90ef1e2ff2b0"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/research/6c960e96-742e-4658-9f79-46fae357a0d4/run.json.gz",
+   "bytes": 18189,
+   "sha256": "079032e51f731ecdaefe12b504db4ad9adc17217e11dae2d51234455402f18e8"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/research/6dd684f5-99e9-481a-8589-39c42b3e456a/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "4e370fbcc38c50deecd0f72aef438a19257900c08d49063ef60bd938e68dabd7"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-after-cancel/workflow/research/6dd684f5-99e9-481a-8589-39c42b3e456a/run.json.gz",
+   "bytes": 18189,
+   "sha256": "88b4577cee27b30780a3f388fbe3be86112bafd9afe152563b8c335624e06ad6"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/evidence.json.gz",
+   "bytes": 306,
+   "sha256": "e95611f8d9e98f3aa1fb63f1df0e5a8a0c607ff7f9857c8cfe6e9664c8dd9eed"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/review.json.gz",
+   "bytes": 18924,
+   "sha256": "0bbd5cdb845a75210b17437cad26293b5584b500d943834c5a982ef69a8573ba"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/04cc280991e492073086eeca17ab7b16eff1be7ea4b053d903e79dbd67a67769/checksums.json.gz",
+   "bytes": 268,
+   "sha256": "deb20e4e90b28915e9155b1cd8fec8daaa7893fb5a624b0666fb3f4f5b292308"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/04cc280991e492073086eeca17ab7b16eff1be7ea4b053d903e79dbd67a67769/replay-inputs.json.gz",
+   "bytes": 20210,
+   "sha256": "d44f6742232de75c7f2e335e1d76b4af8906b659c81a66c05cd2a44f18d99f1d"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/04cc280991e492073086eeca17ab7b16eff1be7ea4b053d903e79dbd67a67769/results.json.gz",
+   "bytes": 2127,
+   "sha256": "6b82ba59d6de3d394b6e7467c44d8fa360750dc7423d64e9abfa054abbfce87d"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/e11576c9b0857440ec7e0198a480ac6f5e91580f514e0c84325232006408a11e/checksums.json.gz",
+   "bytes": 270,
+   "sha256": "fe00b86787a27c6cf51069d884b013c4a295934db18dc459dc6c77d4b7323676"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/e11576c9b0857440ec7e0198a480ac6f5e91580f514e0c84325232006408a11e/replay-inputs.json.gz",
+   "bytes": 20207,
+   "sha256": "c204642e2e2d2c479a8b9c1ae557e62725ef03967d48bff697d12e101370303a"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/experiments/e11576c9b0857440ec7e0198a480ac6f5e91580f514e0c84325232006408a11e/results.json.gz",
+   "bytes": 2130,
+   "sha256": "13469f4b96a328f6ee16692f494c29a40f284d664abe16761df8f1eb538ac041"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/fee-evidence.json.gz",
+   "bytes": 118,
+   "sha256": "87b8372379b2f532ae926b51fa08fb1fa3b40559f8e7466e3abe8d9b3a4dd956"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/models/9229835b451f1f35030c27dcfc594def4a85956e35f11e070af297dc71fc0b36/checksums.json.gz",
+   "bytes": 266,
+   "sha256": "718c57de85f83bd2f484dac54035aa2390c54063a7e631481f41cd4874890878"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/models/9229835b451f1f35030c27dcfc594def4a85956e35f11e070af297dc71fc0b36/results.json.gz",
+   "bytes": 1915,
+   "sha256": "0f8996f1906d31bfca392b00dc067404972bd25ad50b29e6180e841d7a93fdc5"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/research/3380be7e-d552-4dbb-8449-d7deff27fa5c/checksums.json.gz",
+   "bytes": 164,
+   "sha256": "82d1ed8a763f82cbe7c960c96b873131174d146470a56bba9ff9f12a29a899fd"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/research/3380be7e-d552-4dbb-8449-d7deff27fa5c/run.json.gz",
+   "bytes": 16279,
+   "sha256": "84141f85cc9b6a543a415dbac5887ede7b515edbfbcede58d898e4a24c74731d"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/research/5d82f58e-f0e6-47f4-b842-423c7af97fd6/checksums.json.gz",
+   "bytes": 166,
+   "sha256": "a98ff4ffa7a5941ae99cd62c25bc7f4f21ece94ceb9fee577bc30ffe9716634e"
+  },
+  {
+   "path": "browser/workbench/runs/recorded-weather/workflow/research/5d82f58e-f0e6-47f4-b842-423c7af97fd6/run.json.gz",
+   "bytes": 16276,
+   "sha256": "aed217390dce22d8b3297b05d4ecba55195037ac971166aa0e988569e21bccb9"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/review.json.gz",
+   "bytes": 124914,
+   "sha256": "6874f394932bea3df187c297ebbc1f97fac8d5cc2e5d6b1b0bc0568d5fec8f46"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/experiments/9d7090e8a93613172348d73b5e34e231cb90826b38bf0d49deedf49ae6dd5674/checksums.json.gz",
+   "bytes": 221,
+   "sha256": "0836fbb269b5e053541144f9af2a53fbf3826c4512c438cd32e89bd4eb3d6b8c"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/experiments/9d7090e8a93613172348d73b5e34e231cb90826b38bf0d49deedf49ae6dd5674/results.json.gz",
+   "bytes": 58950,
+   "sha256": "e9ba2d852ccaab960eed1584e3ff48edfc62ff2abfa656f2fd871ee6efa02c29"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/experiments/ded36c913423fdb9e5fd2ff8cc6c7ca78308843b9191d14273e2926c9fb8733b/checksums.json.gz",
+   "bytes": 218,
+   "sha256": "e2706183c24e3f7fa2342e8116b38a21c1826da411e4b7567bdf35268089020b"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/experiments/ded36c913423fdb9e5fd2ff8cc6c7ca78308843b9191d14273e2926c9fb8733b/results.json.gz",
+   "bytes": 58921,
+   "sha256": "c7b1f2ac603c7aa2112df86bec522846b2a4ec8902d7c4419dc7917ba48c43b5"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/inputs/152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6/manifest.json.gz",
+   "bytes": 452,
+   "sha256": "699eaacaea13e2b6a68ee34febb8af17941a0bf8711aacb4194ae39d998f069f"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/inputs/features/e8e4553532f28e71c78772cee630aa74460cad24f25fae77ebabcffef2f7bc83/manifest.json.gz",
+   "bytes": 1281,
+   "sha256": "bdfa52d55e0ab99d1e1d88eb0b538c9e30ea64204dd678fdeda86820f4f3782c"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/models/c1c10d8c1f4e4164111b63a5d2ef18a4fd2a9682c6ef13d7aadf1daada0617ec/checksums.json.gz",
+   "bytes": 815,
+   "sha256": "be2384a26d479639214eb475fae949134b5acdef155947292f58a1ccd8770d33"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/models/c1c10d8c1f4e4164111b63a5d2ef18a4fd2a9682c6ef13d7aadf1daada0617ec/climatology.forward.json.gz",
+   "bytes": 1556,
+   "sha256": "c69b55ddfc1b7784a930766858acac990028cd5667e4d541d0a978300579b26b"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/models/c1c10d8c1f4e4164111b63a5d2ef18a4fd2a9682c6ef13d7aadf1daada0617ec/forecast_error.forward.json.gz",
+   "bytes": 1569,
+   "sha256": "e5f96f79a8e23197b83bc2646eff96830f39cbec02f40407d3e9b41fbf642b36"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/models/c1c10d8c1f4e4164111b63a5d2ef18a4fd2a9682c6ef13d7aadf1daada0617ec/raw_forecast.forward.json.gz",
+   "bytes": 1544,
+   "sha256": "9e7741fe47f6aa53359d8fde087b3fa55e852f4e2ebc897f72609acbe9ea7547"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/models/c1c10d8c1f4e4164111b63a5d2ef18a4fd2a9682c6ef13d7aadf1daada0617ec/results.json.gz",
+   "bytes": 7236,
+   "sha256": "ea79d7a1873181c8f52fe109a0193133fc92e2d86e738328b3f142528d999b0c"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/research/72770db7-25b2-47c1-b200-4b0cac4a8d85/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "54cc5c05435570f5ed6676d9bfa2a6e96375ed19bba33906023cee11da3459f0"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/research/72770db7-25b2-47c1-b200-4b0cac4a8d85/run.json.gz",
+   "bytes": 46294,
+   "sha256": "3285f70bd2499db52df64ab62de99c2ae2e8c98af94b219c1f4dc8d060ec08a4"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/research/964b221e-57cd-41f2-b0bf-dd25b44bb66f/checksums.json.gz",
+   "bytes": 165,
+   "sha256": "38594e44e015b42bd6a5928184c9fb102ba3e74e80d092be04a3a3364dfd4871"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/research/964b221e-57cd-41f2-b0bf-dd25b44bb66f/run.json.gz",
+   "bytes": 46318,
+   "sha256": "5a65083bf71edab88e7bc378d9f49bfac7c68a9e93830c538b9a3bf3952fd9ac"
+  },
+  {
+   "path": "browser/workbench/runs/synthetic-weather/workflow/research-inputs.json.gz",
+   "bytes": 387,
+   "sha256": "9a294489eca96a80401dda3544f4c4e6525516d571f635c6ed5acb3e25b949a9"
+  },
+  {
+   "path": "browser/workbench/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "b5e6fee727745fd6c2e21fbdeaaf4b424cc9af5e0d96c7525696ef1b8b2ac9c8"
+  },
+  {
+   "path": "browser/workbench/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "da2b93397937d3ecdfe9e218fe262c42332cc213d5bf9358ce2d75c229639a55"
+  },
+  {
+   "path": "browser/workbench/synthetic-weather-job.json.gz",
+   "bytes": 125574,
+   "sha256": "cfb25f7f57871c437b56153a47a30bc9d4ad4f62069c878d661c64763d4780a7"
+  },
+  {
+   "path": "browser/workbench/workspace-manifest.json.gz",
+   "bytes": 8685,
+   "sha256": "5a7e2226447dcf0412764f26d32c021159e264048317f3a625044ccb320cb12c"
+  },
+  {
+   "path": "browser-acceptance.json",
+   "bytes": 15403,
+   "sha256": "c86869067456cae4067973c65ac93d9e62e20e4dd047539a91a605bb1181d11d"
+  },
+  {
+   "path": "browser-discovery.log.gz",
+   "bytes": 1314,
+   "sha256": "7dbabd7fb2c1d63b0c5d6fd34fcd5b27ed2dcb5dd7033ba94d6474c95b89d351"
+  },
+  {
+   "path": "browser-frozen-rerun.log.gz",
+   "bytes": 492,
+   "sha256": "1bc362f03fe082bd5d5d6dc9e2c6d01cced00e1c5cb243c3f450414ac758e503"
+  },
+  {
+   "path": "browser-original-manifest.json",
+   "bytes": 461583,
+   "sha256": "f55016432975b3696a6a0981656b3e7ec9d464ffcce264955db6e3d755e830d2"
+  },
+  {
+   "path": "browser-paper-rerun.log.gz",
+   "bytes": 342,
+   "sha256": "47768c5e76fc13ac3ee9a871d9b06f5ea437843c9bc4fc768546b9edd1864c1e"
+  },
+  {
+   "path": "browser-sweep-2.log.gz",
+   "bytes": 310,
+   "sha256": "89d71bfa2df4f38f94de9f5417a24bce43d6d5e8f4c0070ad11e39dc160eeb52"
+  },
+  {
+   "path": "browser-sweep-3.log.gz",
+   "bytes": 655,
+   "sha256": "2f88082b2e7647e91441394a6136b26f1fbdb32b117110b24e5a69bc11736a0f"
+  },
+  {
+   "path": "browser-sweep-4.log.gz",
+   "bytes": 241,
+   "sha256": "ef7f2e01effe612e903d4ae26d88a93a6baaafddb261f5869dfba45e3796569b"
+  },
+  {
+   "path": "browser-sweep-5.log.gz",
+   "bytes": 648,
+   "sha256": "962daca04aee0a01a5d40678c8e65b431d390999471b85549ffeb52886eddf09"
+  },
+  {
+   "path": "completed-fixture-cleanup.json",
+   "bytes": 453,
+   "sha256": "ac56f09cf473dc766c6ed574ea7714908d46bf221cd26143ea8eddaca6f0d74f"
+  },
+  {
+   "path": "controlled-lifecycle-summary.json.gz",
+   "bytes": 104820,
+   "sha256": "e81d9fd81a29bae96ab2c00f9ef5177111053ccff23f9510b848c977316e5dc8"
+  },
+  {
+   "path": "controlled-summary.json",
+   "bytes": 575,
+   "sha256": "b68648e85b5d0e299018182fb252eb1851c2604e7f642eb0444075f2a1eda294"
+  },
+  {
+   "path": "controlled-workspace-archive.json",
+   "bytes": 436,
+   "sha256": "87280527fc63729df89d5f683f076487f2bf0de94d62fa0962db580f0c6e3dc3"
+  },
+  {
+   "path": "frontend-activation.log.gz",
+   "bytes": 4246,
+   "sha256": "bd634f045c305abee7734484d947fd0c9b8904836dbd905796a575584a8b76bc"
+  },
+  {
+   "path": "frontend-final.log.gz",
+   "bytes": 4297,
+   "sha256": "57bde24dfea84c8d1ded9108e28530d6274ac51fb157c9620812a57a21508b7b"
+  },
+  {
+   "path": "frontend-ready-final.log.gz",
+   "bytes": 4315,
+   "sha256": "0ebd558254f8534361bde0f6c5412277b898e0215c874bd54c71415ca5746e16"
+  },
+  {
+   "path": "full-ci-previous-cb28b7f.log.gz",
+   "bytes": 25138,
+   "sha256": "44168ce5cb1f594c8736252ed42dbadeeb36645cdd0c35d5de8dd6038c1cc08f"
+  },
+  {
+   "path": "full-ci.log.gz",
+   "bytes": 25295,
+   "sha256": "26a126da39b6295c2b0f65ca3504041d330812023f8c2c9911454177131af604"
+  },
+  {
+   "path": "handoff-fix-2.log.gz",
+   "bytes": 71,
+   "sha256": "fb0329ed929d66f62743c9a10fe47926ab8f2d5f11bbcd0b504dd7c8d1e7d642"
+  },
+  {
+   "path": "interrupted-browser-cleanup.json",
+   "bytes": 293,
+   "sha256": "fd98ae752b31e65c1f0ba3aaeabd6a9fe0b85c9e713a155100bbd6c4f3f8c886"
+  },
+  {
+   "path": "interrupted-workspaces.json",
+   "bytes": 493,
+   "sha256": "c1f4fe3083afdf1b4e51404d75359977de68b94b02ee02a80c1252ec07f05645"
+  },
+  {
+   "path": "lifecycle-final.log.gz",
+   "bytes": 73,
+   "sha256": "635fa352943323e87e66c4ccff28fa5ada2f2924422f04f58620f8aeeb6e91a1"
+  },
+  {
+   "path": "lifecycle-forward-scoring.log.gz",
+   "bytes": 83,
+   "sha256": "98299b3910d70750dd88de29ed740733069bd2e4884b31759316283c611279ec"
+  },
+  {
+   "path": "lifecycle-upgrade-verified.log.gz",
+   "bytes": 84,
+   "sha256": "4c67a5d13faacf91fc23d8ba4bd8f79f77aef68c768af2a33b716ac7480f87aa"
+  },
+  {
+   "path": "live-public-probe.json",
+   "bytes": 8063,
+   "sha256": "a183fdbad31b33ccef833c423473077408cf7132abaed42e2716b5459c076f81"
+  },
+  {
+   "path": "obsolete-failed-trace-cleanup.json",
+   "bytes": 504594,
+   "sha256": "c90a12dd43ee333d7845d2c09481047f9f472ed3694d9bcf3b5c2d7ccacabd60"
+  },
+  {
+   "path": "obsolete-prototype-cleanup.json",
+   "bytes": 447769,
+   "sha256": "41ac73354e63e2daeacc6833b23458e1487c5ebb7a056af9b443020cf8b123b5"
+  },
+  {
+   "path": "provider-presence.json",
+   "bytes": 286,
+   "sha256": "0d5a01e87d3ee4cc6e54a813e7ab1a79d5153789085e8cf92d6959d24a7ebcd1"
+  },
+  {
+   "path": "provider-ready-final.log.gz",
+   "bytes": 314,
+   "sha256": "0c38e5c15c41578902cb1bd52e3d82a9a8f46b1296c6066afe880e142cadee38"
+  },
+  {
+   "path": "public-browser/original-manifest.json",
+   "bytes": 44638,
+   "sha256": "909b665454f1cae63492f702b54fa215d81d796b00146e0808f42b9e46fbb53f"
+  },
+  {
+   "path": "public-browser/shadow/evidence/playwright-results.json.gz",
+   "bytes": 1525,
+   "sha256": "2c01d83078f18685f391803025528ab5f1e5f1edc7762ef4b7b1517bb953cf07"
+  },
+  {
+   "path": "public-browser/shadow/evidence/playwright-results.xml.gz",
+   "bytes": 353,
+   "sha256": "732eb3a4d3036b6c44a5302a6ccef9b06114c74a7382f82455177577e8df8d1b"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-browser-receipt.json.gz",
+   "bytes": 2133,
+   "sha256": "31e1fa4b3c40f0b91c68bd2134ec30bc20b3b191e4e06b79bffc8552565c0f89"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-paused.json.gz",
+   "bytes": 27533,
+   "sha256": "f9995aaaa33d595ee5f11fbb3df8c39a98a7cbd226e28a55edac1fb742474833"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-restarted.json.gz",
+   "bytes": 27536,
+   "sha256": "ffe9b6f1d4fe79f262b8e2cd2984eb09bbfefd5292a54bcb57540726f368cac7"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-second-cycle.json.gz",
+   "bytes": 50291,
+   "sha256": "430f38331ef0c4b8be2d699161a1117eb8235355794271ee502833a9438723f0"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-server-1.log.gz",
+   "bytes": 40,
+   "sha256": "f115e5aa1c4ca1c354303e2c3f08b364b9e26e4a9be3ed37bebea5262383e5e9"
+  },
+  {
+   "path": "public-browser/shadow/evidence/shadow-server-2.log.gz",
+   "bytes": 40,
+   "sha256": "bd277c253a57143e3e4d245c5e2f123156391c9c006c4852c54be04c207b5b40"
+  },
+  {
+   "path": "public-browser/shadow/runner.log.gz",
+   "bytes": 184,
+   "sha256": "eaa5d3d35f8732b1870a701338b64d2e58f2a9e24239b2b11deca38f8b47808d"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/authentic-inputs.json.gz",
+   "bytes": 600,
+   "sha256": "175c4684e8060573c562e7f2bece573df9e4cb4a570074f930c2a260614d7874"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/playwright-results.json.gz",
+   "bytes": 1526,
+   "sha256": "1e3bb4d15a260a16df2976f403629aafc810af1d36ba580bd93ac873c732e18d"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/playwright-results.xml.gz",
+   "bytes": 347,
+   "sha256": "3f99b5d32c4d7408e706fa4f7eddc07a432826e8a36951a76cdc5e3729082e50"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-label-browser-receipt.json.gz",
+   "bytes": 3956,
+   "sha256": "c38562b703558c6adc912d55b247f8ed78c7287e168009009abc4d6fb8e53fdd"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-labels.json.gz",
+   "bytes": 10922,
+   "sha256": "c47e0c8752b94758ecbc274f7ade17be4c3205b84e6ad9727c39b120968af950"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-report.txt.gz",
+   "bytes": 4614,
+   "sha256": "bdc14ee82e459e195f5146bb6e336c7e63726a21b88f988ec9f78b206b89cb07"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-restart-labels.json.gz",
+   "bytes": 10930,
+   "sha256": "d5f6ecfda8a292ebe98332792198bd373111c7bc38aabad872af63c9ff9eb023"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-restart-report.txt.gz",
+   "bytes": 4622,
+   "sha256": "0ecfd16410332aaf58183e38260c9ac265b13dfdd8b01a3e7b6dec4173b9701a"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-restart-review.json.gz",
+   "bytes": 24631,
+   "sha256": "8981f3bb580870b45bf5f255fb7fd082e451fa1909f34a6becb97d8e61ae9ddf"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-review.json.gz",
+   "bytes": 24623,
+   "sha256": "d08c16c5639c98ab163671da3de7960ebf314d6666481924a5aa4669abd396c8"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "2bd5504a877754db3883842aeaffc29c8a80b6be87fa0fa993469e5e11723e4d"
+  },
+  {
+   "path": "public-browser/weather-labels/evidence/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "767f7d42b56231a95a5c060b4aa15363195997a60c91406f09d7fa5cb044d1d9"
+  },
+  {
+   "path": "public-browser/weather-labels/runner.log.gz",
+   "bytes": 183,
+   "sha256": "012e402e9adda6c121bab19a895167a0a0c529de0e7a56d042fe904f18144c3c"
+  },
+  {
+   "path": "public-browser/workbench/evidence/browser-receipt.json.gz",
+   "bytes": 6998,
+   "sha256": "329a6d077adc46eecd6e885e1426f96b3fcc36795ede61c5fed60206cccc250c"
+  },
+  {
+   "path": "public-browser/workbench/evidence/cancelled-job-after-restart.json.gz",
+   "bytes": 451,
+   "sha256": "03491bf8e2c2110a8692ff5aeec4c0cd4f48ec2a8ca068fa29442a9344a446a1"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-bitcoin-evidence.txt.gz",
+   "bytes": 5018,
+   "sha256": "c2bb45a30ef97f33e4a2b7ed9476f42b632d683050b970447dfd726e49ace353"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-bitcoin-probabilities.txt.gz",
+   "bytes": 898,
+   "sha256": "a6711adab28814c001908c61ab8ec591391ef0f7141b1f42db0cabb650f8f9d6"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-bitcoin-review.txt.gz",
+   "bytes": 1334,
+   "sha256": "b5098d5ff161f36345f679867f7bdb551e7e65171eba5d64ff2b738db9230e82"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-weather-evidence.txt.gz",
+   "bytes": 5106,
+   "sha256": "b132fee4ca1b5e306ef27bcb537ebbdc0c0698c433de068c5351c57655e0c842"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-weather-probabilities.txt.gz",
+   "bytes": 800,
+   "sha256": "eae323725e7e7fb804756a4e304d8d88a1585c283fb80702096522c3c4d6199f"
+  },
+  {
+   "path": "public-browser/workbench/evidence/dom/public-weather-review.txt.gz",
+   "bytes": 1182,
+   "sha256": "ca5bf2bf9a05f4ff82791515905c1f11ce9367ea9a4130d64ba7b69a104687e3"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-3be9a83e-7622-466f-b0e2-0611053fb11e.json.gz",
+   "bytes": 34382,
+   "sha256": "41cf31043829f23a30682816b98bf3803c087256756fb81be26d70c57a6b85ef"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-3be9a83e-7622-466f-b0e2-0611053fb11e.txt.gz",
+   "bytes": 959,
+   "sha256": "182debc63247ffe57f4179f4f010d42352494862e43af64a55d63da0a91744a8"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-bitcoin-entropytrade-3be9a83e-7622-466f-b0e2-0611053fb11e.json.gz",
+   "bytes": 34368,
+   "sha256": "fe8a0d8e725e1a415258fcfe6e66dac5efb8a41aa091f64d421359346760a9ae"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-bitcoin-entropytrade-3be9a83e-7622-466f-b0e2-0611053fb11e.txt.gz",
+   "bytes": 945,
+   "sha256": "60335700cabb2557e24ff088cf0802fe8ae58d94170abac73f58cbe2fdbf8563"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-weather-after-restart-entropytrade-07b0d688-44dc-4572-a5d6-721c8e33b527.json.gz",
+   "bytes": 18883,
+   "sha256": "2b5dadf08082d4ba8c049c4c5bcb89d33d0edce68f2c5ced7a6c1b29742977ef"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-weather-after-restart-entropytrade-07b0d688-44dc-4572-a5d6-721c8e33b527.txt.gz",
+   "bytes": 808,
+   "sha256": "b7cc73f25a7ccafb1d6d762dd3c6ed5cba1f344898ae897b94aa603bdf86a3c0"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-weather-entropytrade-07b0d688-44dc-4572-a5d6-721c8e33b527.json.gz",
+   "bytes": 18869,
+   "sha256": "03cbaa13fd3672255a051d37530b67843fcf38a1d708135dac188874cc75dd1a"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/public-weather-entropytrade-07b0d688-44dc-4572-a5d6-721c8e33b527.txt.gz",
+   "bytes": 794,
+   "sha256": "138c63883effd42173ffffd67866af762816e8351f161352a510ed0adb72b5ed"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-15db65f9-877d-49eb-a106-29b280ec2e9e.json.gz",
+   "bytes": 22958,
+   "sha256": "39d1e4a37694d559029739f89f8d47989131c918c09950b46f1fc8eb54525ee2"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-15db65f9-877d-49eb-a106-29b280ec2e9e.txt.gz",
+   "bytes": 449,
+   "sha256": "19418eb4b8a5ccc72550dcd00c04fe88496f89ce88745886e2e4d0761567694e"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-after-cancel-entropytrade-15db65f9-877d-49eb-a106-29b280ec2e9e.json.gz",
+   "bytes": 22944,
+   "sha256": "854ec6c2cfc5ae9cf5e357ce21d73228f9a64dd9ddfa851f50c23516c42bac3e"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-after-cancel-entropytrade-15db65f9-877d-49eb-a106-29b280ec2e9e.txt.gz",
+   "bytes": 435,
+   "sha256": "15f1368d65b8d08648e8ecd4059465723ce5f7f71799271ffcfc93a3e3cdbc97"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-8ed36302-bd24-48fd-b39e-c738cf2e040d.json.gz",
+   "bytes": 17636,
+   "sha256": "6d309b139274dc0444dbe4ab2dc3eb59dca8c81fbadbcb5f311935dbe0dca8f6"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-8ed36302-bd24-48fd-b39e-c738cf2e040d.txt.gz",
+   "bytes": 442,
+   "sha256": "0c19afbcfb56d157841dc5f6c0ecff539931d96852c4c3eb68f379cd4518e3df"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-weather-entropytrade-8ed36302-bd24-48fd-b39e-c738cf2e040d.json.gz",
+   "bytes": 17622,
+   "sha256": "482da86a24115847c59a3512459413b78d8a30722c795966336b6c0b8882c4be"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/recorded-weather-entropytrade-8ed36302-bd24-48fd-b39e-c738cf2e040d.txt.gz",
+   "bytes": 428,
+   "sha256": "0638fdc860fe0285b203b42a56c16b79bcfea25f398765502c75ea9e5a035dfd"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-cdb991fa-24f3-4d33-bf76-d9710ec3a9d8.json.gz",
+   "bytes": 94581,
+   "sha256": "588eea73aded92c1367f83ea4b4f4a8aee9aee375308e492f41166646d17baf6"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-cdb991fa-24f3-4d33-bf76-d9710ec3a9d8.txt.gz",
+   "bytes": 1042,
+   "sha256": "6056f595bf39823603e0acc7a824b75984b64e63d90307184bf6909d8375220f"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/synthetic-weather-entropytrade-cdb991fa-24f3-4d33-bf76-d9710ec3a9d8.json.gz",
+   "bytes": 94567,
+   "sha256": "313d313a6d80f71d5e932badb20ec4de0a36767a9883d190ad8294996e28abb5"
+  },
+  {
+   "path": "public-browser/workbench/evidence/downloads/synthetic-weather-entropytrade-cdb991fa-24f3-4d33-bf76-d9710ec3a9d8.txt.gz",
+   "bytes": 1028,
+   "sha256": "83d985cdc1bb06448971c86c6f3494aa3e78daee96236ae6a7762687a94485db"
+  },
+  {
+   "path": "public-browser/workbench/evidence/interrupted-job.json.gz",
+   "bytes": 454,
+   "sha256": "72d7b583f33a743d66a07241bdf1abada31c146a25f6957747990e4429dc7ab2"
+  },
+  {
+   "path": "public-browser/workbench/evidence/playwright-results.json.gz",
+   "bytes": 1776,
+   "sha256": "03e3c4e51e32d8df50d2416dc2f012a9ea904fd08d38fd503b0e7398b4c49dd7"
+  },
+  {
+   "path": "public-browser/workbench/evidence/playwright-results.xml.gz",
+   "bytes": 397,
+   "sha256": "c47344c5ff830dc7097ec43e30474ae3a744f2e33f5099315e1f752e6e59af68"
+  },
+  {
+   "path": "public-browser/workbench/evidence/public-bitcoin-job.json.gz",
+   "bytes": 37966,
+   "sha256": "9277b0b4a6898f1eaa4e41f947badeac8877d8ea5a46320038625c085423a0f8"
+  },
+  {
+   "path": "public-browser/workbench/evidence/public-weather-job.json.gz",
+   "bytes": 21385,
+   "sha256": "6157b69c1655a98d7b9700a728cd2c3c0f343bc0e173a06c5d330a2ba5863db7"
+  },
+  {
+   "path": "public-browser/workbench/evidence/recorded-after-cancel-job.json.gz",
+   "bytes": 28373,
+   "sha256": "d9e4d16402b481014f2a6d8c7cb3e53e3e69c7978e28042aa205dd88c4d8f97d"
+  },
+  {
+   "path": "public-browser/workbench/evidence/recorded-weather-job.json.gz",
+   "bytes": 20040,
+   "sha256": "3cfbe46b23cc4a2d4db2da951a1362f5f48c0dfeef22018e0ee5d7349835fc94"
+  },
+  {
+   "path": "public-browser/workbench/evidence/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "bfa1de44228a895f94439e195c8dcdbde5da817a96117b824e25c6a822287669"
+  },
+  {
+   "path": "public-browser/workbench/evidence/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "8f34fd6a3cda93af967f4ddfdaaf24bd145a2f4e210d7eca49b189bafd2ea71d"
+  },
+  {
+   "path": "public-browser/workbench/evidence/synthetic-weather-job.json.gz",
+   "bytes": 125610,
+   "sha256": "bae7e7df694bae31d7f0864819aae908a464833f83696c687a9dd977b5f10b8c"
+  },
+  {
+   "path": "public-browser/workbench/runner.log.gz",
+   "bytes": 169,
+   "sha256": "ec257b013bc33474a77744261366341131514a70e592436c78ffda44660bc3b9"
+  },
+  {
+   "path": "public-browser-accepted/original-manifest.json",
+   "bytes": 44667,
+   "sha256": "6887153e540dcacb5a3ef28850cc75bd39f86051118b668fe0426971e06161af"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/playwright-results.json.gz",
+   "bytes": 1512,
+   "sha256": "0961d496e41e4577187e42ab1e6acbf15213a9098e510e139afb2f13159f9a2a"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/playwright-results.xml.gz",
+   "bytes": 352,
+   "sha256": "29ab2d6b57da7fa16a926d9e6ddc8fc8991f7673bc195d59ebc41bb6830febd8"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-browser-receipt.json.gz",
+   "bytes": 1944,
+   "sha256": "5f94976350c236c098afc48b1a4ffcab857d05039d4b5490289bd0d5210cb135"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-paused.json.gz",
+   "bytes": 24604,
+   "sha256": "77f3cd8f3ee71b6422d6a2ec0018316793bafb7169477b88689a03996b71427a"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-restarted.json.gz",
+   "bytes": 24607,
+   "sha256": "8e56c37afc701187a11e721b3beb53e86884d9dfc1d1cc6d003b2b87c1d1c65e"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-second-cycle.json.gz",
+   "bytes": 44877,
+   "sha256": "4f1d38ecf69f623a553e37afc3e940979e1e952841ebcf1892ebcc0ff9bd3f50"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-server-1.log.gz",
+   "bytes": 40,
+   "sha256": "2c246c66df638d5b08af17e31149817a7da485e6029015782f8bb749d0470133"
+  },
+  {
+   "path": "public-browser-accepted/shadow/evidence/shadow-server-2.log.gz",
+   "bytes": 40,
+   "sha256": "98c3a2cb3643caf4b93750fd4cb1a5313fa1b32a73abd2f60a4be120274de570"
+  },
+  {
+   "path": "public-browser-accepted/shadow/runner.log.gz",
+   "bytes": 181,
+   "sha256": "6126d8a1094b10162198d409fbede10d76808e1563b9edfdb0ee574ed82a74ac"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/authentic-inputs.json.gz",
+   "bytes": 602,
+   "sha256": "09a90d00c0a6f57a5b1f83e4b32c3d069401406d628aff780a0390569c866411"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/playwright-results.json.gz",
+   "bytes": 1518,
+   "sha256": "a14de8e2fa4f0fe2cc0514b5b578786c26f561075128751ea5d366b4bf4da877"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/playwright-results.xml.gz",
+   "bytes": 345,
+   "sha256": "4d305e25b26da081ff9668ccd7b21427d354687af9f9c1b3ae3656f0d0d8318f"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-label-browser-receipt.json.gz",
+   "bytes": 3954,
+   "sha256": "42c3109d55a46c9f29ff8f170b44f55ecfdc2b128e61f3504e82ec710d7825a2"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-labels.json.gz",
+   "bytes": 10923,
+   "sha256": "b5b0e006dabc2e14395b6b3d21d4bf06b1ce8fe04cd1801e9559db05f48b58a5"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-report.txt.gz",
+   "bytes": 4611,
+   "sha256": "b59c8ac7d8f24795148bc02386470669c9cd3078657560bfc9a8ab2401bac230"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-restart-labels.json.gz",
+   "bytes": 10931,
+   "sha256": "e6a02cfa59cbb85f6d0c1292f39a98085b19ae6789dcb1023aae73d7f7ddb9c3"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-restart-report.txt.gz",
+   "bytes": 4619,
+   "sha256": "40a97552459511238650ff0b2444656d418b1a73d446cd252fa5285824d2cc18"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-restart-review.json.gz",
+   "bytes": 24635,
+   "sha256": "7d2271a3ad928697ad3262c3c8d2012ac7a2c1455da5328af1bdf5aedfb075f9"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-review.json.gz",
+   "bytes": 24627,
+   "sha256": "145bfa765de1bb5ac3fa39aef83d2aa354e0309e7c146b7d8f4cfae0bf9ee704"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-server-1.log.gz",
+   "bytes": 41,
+   "sha256": "5e33cf1e17f157bd93284fa9b7d4525f67e65ae9885cdc75bf489ce94cec6146"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/evidence/weather-server-2.log.gz",
+   "bytes": 41,
+   "sha256": "312a5a424dc55d71cc25e03f06abff71e13809df1c4ded4bfd459698cd54ab80"
+  },
+  {
+   "path": "public-browser-accepted/weather-labels/runner.log.gz",
+   "bytes": 182,
+   "sha256": "ba1a87368fbfa2dfcc113c986b43657f5f7fd7bf8cb627db535762c529160a63"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/browser-receipt.json.gz",
+   "bytes": 7058,
+   "sha256": "3b153a5c87613ed886159d79ca0dba5d4b2e17cebbd4c25b05effcc94047546b"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/cancelled-job-after-restart.json.gz",
+   "bytes": 450,
+   "sha256": "a35b6d4801c679e2d7459674ebb185b45a877debf5892431e4593cf3d40e1bf3"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-bitcoin-evidence.txt.gz",
+   "bytes": 5010,
+   "sha256": "c58cf2374d17ebc2f00c990ae2f05add6d0f669b7d7f69368d0226bb6372e789"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-bitcoin-probabilities.txt.gz",
+   "bytes": 896,
+   "sha256": "959dd65cd48d76fc5a20f86552af31498303f0563ac241548340353cf1113b24"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-bitcoin-review.txt.gz",
+   "bytes": 1331,
+   "sha256": "4bf5dcc97c2b36c506a37d7ba5cc69cf1b0f301a8689ae66ddd866a0fbb8de0f"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-weather-evidence.txt.gz",
+   "bytes": 5052,
+   "sha256": "45fcb1eee2393ec5116895b4e59d8cc6b03345e026dfd74c981feb8f4f4ab667"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-weather-probabilities.txt.gz",
+   "bytes": 801,
+   "sha256": "8177cb6c06ea550aff26e23bdd17a68c84253bc571ff2b1e2598d53a071aaa9a"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/dom/public-weather-review.txt.gz",
+   "bytes": 1184,
+   "sha256": "f69d369cfbd3b56e5ea69dc55a0e51a89947d6d1f2837e220f47dca9e48b4df6"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.json.gz",
+   "bytes": 34396,
+   "sha256": "19cad42cfe6976316737746ff44f816da2d16f207fba7479f5c3a90a8577e817"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.txt.gz",
+   "bytes": 958,
+   "sha256": "000cf3a62fd178d30055edcbfada0337344a6eaf9e423168b12950e27da16ea8"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-bitcoin-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.json.gz",
+   "bytes": 34382,
+   "sha256": "f437595e11980033a8c630bc5d731282b0f4a76d280dc85f1f4a383b87590758"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-bitcoin-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.txt.gz",
+   "bytes": 944,
+   "sha256": "ac67a8e905ef35697a15901277c0f711d78def9193a4eeee3de43c60b6f89acf"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-weather-after-restart-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.json.gz",
+   "bytes": 17946,
+   "sha256": "df0eef2c050945aa3d604c9e1180a1bc0d63f8c7246bc1ace6901807a87f7904"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-weather-after-restart-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.txt.gz",
+   "bytes": 808,
+   "sha256": "8241638913e60dde3632965aa3d58ae4c419a3520608ba1e7b4d628b76251754"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-weather-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.json.gz",
+   "bytes": 17932,
+   "sha256": "632c9ef5ee9895f0bf118c91566561116213024ab1f2b1e478baf9f548d55fe0"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/public-weather-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.txt.gz",
+   "bytes": 794,
+   "sha256": "04aecbcad6e341a7e1ade6835de362922e316ef8fdb5f86f86819ecdcc0d74bb"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.json.gz",
+   "bytes": 22940,
+   "sha256": "68a580db51bbcdf84d6c9f6fa6c7695980d080f174613b76b25f8fd5e5fa2615"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.txt.gz",
+   "bytes": 448,
+   "sha256": "2b4f6b72cb4b672191cdac3df671b046bc3b01f7ca59051e94afa1fe56cbfaf1"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-after-cancel-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.json.gz",
+   "bytes": 22926,
+   "sha256": "f3941c3c5b01b26d84398918fbde6588db6b7b42402388675746f0a997f2ed3f"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-after-cancel-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.txt.gz",
+   "bytes": 434,
+   "sha256": "b0e110af0356326055d19671664d6b0ee7078c96443c83a92a0783a2262e7c7c"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.json.gz",
+   "bytes": 17635,
+   "sha256": "f0925195a48191d4f8eee25062b7cb9f2ae4f15357f1cdc378e0942c733427b9"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.txt.gz",
+   "bytes": 443,
+   "sha256": "00d2478a4576447b299c5de7d181d2d6c37de4d4dfaa2e1754916e2ddd227031"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-weather-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.json.gz",
+   "bytes": 17621,
+   "sha256": "d563de8282adcb29a44d64050335fc4d431b3d30f3831e8863c435752e9e0b5b"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/recorded-weather-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.txt.gz",
+   "bytes": 429,
+   "sha256": "fd3d9a7a4279f7116d14f82f8e541dddf4c70fdb9531d5f8abf0315ab452fa8c"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.json.gz",
+   "bytes": 94555,
+   "sha256": "52e8ef08e17469ded59398d6774f9c48a7da9eaa0062d8c6649bd690928a0730"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.txt.gz",
+   "bytes": 1042,
+   "sha256": "b40511a3dd0626ea238d30f75be5608eb5f91999edc2f41db6af9f484bd93d8f"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/synthetic-weather-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.json.gz",
+   "bytes": 94541,
+   "sha256": "e90e9bf2cd9083caab79c67b52adb97fa2ad0f4e4f356e2776125c841e625e7b"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/downloads/synthetic-weather-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.txt.gz",
+   "bytes": 1028,
+   "sha256": "58b39b84f3b1d7fbf5c3f227812963f28e10b4a40d45fb14789aa957e5cf61bc"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/interrupted-job.json.gz",
+   "bytes": 453,
+   "sha256": "35d5381e195b9b1e7ed5aeef356febe00ed312c1f0a853378dfe4c2da75b2317"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/playwright-results.json.gz",
+   "bytes": 1770,
+   "sha256": "7e1191a8cd3c69d5f6330b79858776b34ac35db5fe0853332026fc4184cb3b0c"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/playwright-results.xml.gz",
+   "bytes": 399,
+   "sha256": "92264acb5962582007d26182bc4ea8402e82a798b9bcf757314c140fd0e918c5"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/public-bitcoin-job.json.gz",
+   "bytes": 37994,
+   "sha256": "8092350d85cfa9c106f4ef46bae593a982f74fa14bd70ae4013d6a9c46636c4d"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/public-weather-job.json.gz",
+   "bytes": 20359,
+   "sha256": "d86a572aa9354e3b6e07d2380cc946b50423002fad8c681d6e97c793c2b68a82"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/recorded-after-cancel-job.json.gz",
+   "bytes": 28362,
+   "sha256": "352175960510bc21473835bd21a43b7b52dcf0f3d4ef7e776ce3f0efeeefee92"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/recorded-weather-job.json.gz",
+   "bytes": 20037,
+   "sha256": "0ad2bcbff617fc0fe4c87bf1590b7ac4e66c80a4d95e6ecb5547640dc621e88e"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/server-1.log.gz",
+   "bytes": 33,
+   "sha256": "744b1672a4a2f145a46738c7aa4bc1010d5f6f558032a28880a9372790ab84bf"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/server-2.log.gz",
+   "bytes": 33,
+   "sha256": "64ecfdd52afe0e54ee303e09c97f2bd7f38be6715aad252cd7239b1d5d2d9bc7"
+  },
+  {
+   "path": "public-browser-accepted/workbench/evidence/synthetic-weather-job.json.gz",
+   "bytes": 125547,
+   "sha256": "79fdadaa53d193ec1b2449fa8188e45e32766cb3baca82f9c04827a74675dce3"
+  },
+  {
+   "path": "public-browser-accepted/workbench/runner.log.gz",
+   "bytes": 168,
+   "sha256": "d8e5eb347531de818c1a48df314bd593956bed0df8a4a45e1dacc889c87139c7"
+  },
+  {
+   "path": "public-browser-accepted-ci.log.gz",
+   "bytes": 13769,
+   "sha256": "8f8cfc5e607d038474fca2a65e8cfc85ca23d0e54f279c1d1cb89247a643403b"
+  },
+  {
+   "path": "public-browser-ci.log.gz",
+   "bytes": 13769,
+   "sha256": "279647b0e19438ae0ada4374528355a96c8310be4731f7f04476d6901fb9eda8"
+  },
+  {
+   "path": "public-browser-final-ci.log.gz",
+   "bytes": 13694,
+   "sha256": "b43e8e6cf0b271510c154f6ce345e7fc34577c1b990d0a03945d45850a0f49dc"
+  },
+  {
+   "path": "public-probe-30day-ci.log.gz",
+   "bytes": 8893,
+   "sha256": "ee907b969e9433fe2ab3d1afc1058dc9b2e486903ee61fe8b3a9d2935a3e8078"
+  },
+  {
+   "path": "public-probe-ci.log.gz",
+   "bytes": 8754,
+   "sha256": "1f1212d10da3e8f8a71d8e26811dbfcfd2d01ef95bbb3af053392034d7da7efd"
+  },
+  {
+   "path": "pytest-results-previous-cb28b7f.xml.gz",
+   "bytes": 41508,
+   "sha256": "00cad4ac4a553f2a2bbde047bf82c356a2689022f7c3f7699be92f8d4068acce"
+  },
+  {
+   "path": "pytest-results.xml.gz",
+   "bytes": 41804,
+   "sha256": "2786ff1e59dd5cb0bf64c134700c720d4201f175cfb5f91ea6a03ccacc1d77f0"
+  },
+  {
+   "path": "quality-acceptance.json",
+   "bytes": 668,
+   "sha256": "d3691f6fa4829c526c6679f1dd39ff233f46ed599659f4622d9962b5c22c0ec9"
+  },
+  {
+   "path": "quality-previous-cb28b7f.json",
+   "bytes": 667,
+   "sha256": "4aa33738f1d6bcd327549f5d5841b20b4024004eafe023590596eb19da2af170"
+  },
+  {
+   "path": "review.md",
+   "bytes": 4973,
+   "sha256": "b3ac61b6c2c1bcc6db9476ae1fb871cafae328cce6a3c018b6446cfe8cdaf1df"
+  },
+  {
+   "path": "source-fingerprint.json",
+   "bytes": 90036,
+   "sha256": "4ecc1035de01167638f2df5300b5ba5d366ab09f67c823842ec7b6bff3b14ea3"
+  },
+  {
+   "path": "test-scratch-cleanup.json",
+   "bytes": 180,
+   "sha256": "1c362abc74797f390573f08baf923a5020bc1c7962d0b7406faf80ea8c43dfb9"
+  }
+ ]
+}

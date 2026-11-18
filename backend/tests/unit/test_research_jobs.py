@@ -63,6 +63,40 @@ def submit(svc: ResearchService, **extra: Any) -> str:
     return str(svc.submit(BASE | extra)["id"])
 
 
+def test_upgrade_schedules_legacy_evaluated_checkpoint_without_new_generation(
+    tmp_path: Path,
+) -> None:
+    svc = service(tmp_path)
+    svc.sources = {}  # Controlled unavailable catalog; no source can claim forward coverage.
+    job_id = submit(svc)
+    svc.run_until_idle()
+    job = svc.store.get_job(job_id)
+    assert job is not None
+    assert job["status"] == JobStatus.EVALUATED
+    hypotheses = [row["spec"] for row in svc.store.hypotheses(job_id)]
+    # Compatibility fixture: old evaluated checkpoints did not contain this field.
+    svc.store.transition(
+        job_id,
+        JobStatus.EVALUATED,
+        "Pre-upgrade checkpoint",
+        now=NOW,
+        checkpoint={k: v for k, v in job["checkpoint"].items() if k != "reevaluate_evidence"},
+    )
+    restarted = service(tmp_path)
+    restarted.sources = {}
+    restarted.recover()
+    upgraded = restarted.store.get_job(job_id)
+    assert upgraded is not None
+    assert upgraded["checkpoint"]["reevaluate_evidence"] is True
+    assert datetime.fromisoformat(upgraded["next_run_at"]) > NOW
+    assert not restarted.step()
+    restarted.clock = SimulatedClock(NOW + timedelta(hours=7))
+    restarted.run_until_idle()
+    assert [row["spec"] for row in restarted.store.hypotheses(job_id)] == hypotheses
+    assert restarted.store.get_job(job_id)["status"] == JobStatus.EVALUATED  # type: ignore[index]
+    assert not restarted.step()
+
+
 def test_request_creates_persistent_hypotheses_and_machine_readable_requirements(
     tmp_path: Path,
 ) -> None:

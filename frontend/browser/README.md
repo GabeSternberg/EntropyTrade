@@ -1,5 +1,11 @@
 # Real workbench browser acceptance
 
+**Current integration acceptance (started November 17, 2026).** All 36 default browser
+procedures across 20 files were exercised on the accepted source. The development cloud
+verified the controlled workflows; public-network procedures additionally passed on the
+anonymous GitHub runner. See the [current results and limitations](../../data/research-integration-review/20261117/README.md).
+Older environment denials and milestone-specific results below are historical records.
+
 **Redesigned website (Nov 15, 2026).** The workbench now lives at `/#/workbench` inside the
 application shell; every spec opens that route. `redesign.spec.cjs` drives the shell through
 Real and Demo modes on a real localhost listener: navigation of all sections, search, filters,

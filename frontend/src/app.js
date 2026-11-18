@@ -16,6 +16,11 @@ function requireLegacy(epoch = legacy.epoch) {
   return epoch;
 }
 function currentLegacy(epoch) { return legacy.active && epoch === legacy.epoch && legacyVisible(); }
+function workbenchBusy(value) {
+  $("workbench-view").inert = value;
+  $("workbench-controls").disabled = value;
+  $("workbench-view").setAttribute("aria-busy", String(value));
+}
 const staticListeners = [];
 function listen(element, type, handler) {
   // Static form controls survive navigation. Controls rendered from saved records belong
@@ -701,7 +706,10 @@ async function initialize(epoch) {
     if (state.job) { await selectJob(state.job.id, epoch); requireLegacy(epoch); }
     if (state.monitor) { await selectMonitor(state.monitor.id, true, epoch); requireLegacy(epoch); }
     for (const id of ["weather-label-acquire", "weather-schedule-create", "weather-cohort-freeze", "weather-freeze"]) $(id).disabled = false;
-    shadowCandidates(); $("submit").disabled = false;
+    // Inputs can change while the read-only panels initialize. Their event handlers
+    // are intentionally gated until ready; reconcile current values before enabling
+    // submission so a selected provider never has an invisible consent control.
+    modeHelp(); shadowCandidates(); $("submit").disabled = false;
     $("connection").replaceChildren();
   } catch (error) {
     if (!error.cancelled) $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true));
@@ -728,6 +736,7 @@ async function poll(epoch) {
 }
 function deactivateWorkbench() {
   legacy.active = false; legacy.ready = false; legacy.epoch += 1;
+  workbenchBusy(true);
   legacy.controller?.abort(); legacy.controller = null;
   if (legacy.timer !== null) clearInterval(legacy.timer);
   legacy.timer = null; legacy.pending = null; state.busy = false;
@@ -739,12 +748,15 @@ async function activateWorkbench() {
   if (legacy.active && legacy.pending) return legacy.pending;
   if (legacy.active && legacy.ready) return;
   legacy.active = true;
+  // History rows can render before the remaining panels finish loading. Browser
+  // interaction must wait for readiness instead of dispatching an ignored click.
+  workbenchBusy(true);
   const epoch = ++legacy.epoch;
   alertVersion = undefined; state.scheduleJSON = null;
   staticListeners.forEach(bindListener);
   legacy.controller = typeof AbortController === "function" ? new AbortController() : null;
   const pending = initialize(epoch).then(() => {
-    requireLegacy(epoch); legacy.ready = true;
+    requireLegacy(epoch); legacy.ready = true; workbenchBusy(false);
     legacy.timer = setInterval(() => poll(epoch), 1500);
   });
   legacy.pending = pending;
@@ -773,3 +785,7 @@ document.addEventListener("visibilitychange", () => {
   else deactivateWorkbench();
 });
 $("submit").disabled = true;
+workbenchBusy(true);
+// Deferred scripts run in order after the DOM becomes interactive. The shell may
+// have opened this route before the legacy controller was registered.
+if (legacyVisible()) activateWorkbench().catch(() => {});

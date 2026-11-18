@@ -1,0 +1,24 @@
+{
+  "workflow_run_id": 44246118008,
+  "job_id": 134605471068,
+  "url": "https://github.com/GabeSternberg/EntropyTrade/actions/runs/44246118008",
+  "code_commit": "cb28b7f664569dc2715b6f01dbbcb3a48f377d3a",
+  "python": "3.13.14",
+  "pytest": {
+    "tests": 2128,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0
+  },
+  "pytest_seconds": 1140.9,
+  "ruff": "passed",
+  "ruff_format": "661 files already formatted",
+  "strict_mypy": "passed:661 source files",
+  "frontend": {
+    "passed": 127,
+    "failed": 0
+  },
+  "artifact_id": 14402387688,
+  "artifact_sha256": "b2040b6242ba53ccf8a9bd741b0f1ab6c1a535001bac3c9b967f2eb17c08e69d",
+  "submission_enabled": false
+}

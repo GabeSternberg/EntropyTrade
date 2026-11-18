@@ -12,9 +12,12 @@ order. Production submission stays disabled.
 | A. Durable research and data requirements | Persistent jobs, typed hypotheses, machine-readable requirements, dataset inventory, missing-data reports, provider selection and budgets, website | Implemented |
 | B. Acquisition and feature registration | Source catalog and evaluation, read-only acquisition, immutable datasets, feature materialization, forward-collection requests, automatic reevaluation | Implemented; verified live for KXHIGHPHIL |
 | C. Modeling, backtesting and validation | Durable acquired-feature fitting, temporal validation, verified local evidence, contract replay and reports | Implemented; authentic validation and prospective evidence remain gated |
-| D. Paper-trading lifecycle | Verified research promotion, exact forward features, persistent accounts and controls | Implemented; final acceptance in progress and production candidates remain gated |
-| E. Approval and live-readiness | Approval artifacts, promotion gates, degradation investigations | Not started; live trading stays disabled |
-| F. Complete frontend workflow | End-to-end observation and management on the website | Partial (each milestone ships its own pages) |
+| D. Paper-trading lifecycle | Verified research promotion, exact forward features, persistent accounts and controls | Implemented and controlled verification complete; authentic candidates remain gated |
+| E. Approval and live-readiness | Owner review artifacts, paper readiness gates, degradation investigations | Implemented and controlled verification complete; genuine prospective evidence remains required; live trading disabled |
+| F. Complete frontend workflow | Unified lifecycle, evidence links, monitoring and controls | Implemented; see the current integration acceptance report |
+
+Implementation is separate from scientific readiness. The [end-to-end integration report](research-integration-readiness.md)
+separates controlled verification, authentic public acquisition and unresolved external gates.
 
 ## Using it
 
@@ -50,7 +53,12 @@ evaluated | awaiting_observations | awaiting_authorization`, with `recoverable_e
 - **Idempotent submission.** Submitting an equivalent unfinished request returns the existing
   job.
 - **Waiting jobs make no AI calls.** A job waiting for observations is reevaluated on a
-  schedule.
+  schedule. Evaluated jobs with unmet requirements or missing replay evidence also recheck
+  inventory every six hours. They reuse hypotheses, approval decisions and frozen family
+  partitions. New eligible dataset/fee versions produce new immutable experiments; completed
+  results are never overwritten. A pending acquisition approval still requires an explicit
+  decision. Exhausted acquisition budgets are reported; inventory can still recognize a
+  separately imported verified dataset without granting more network or AI spending.
 
 ## Hypotheses
 

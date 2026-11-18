@@ -1,0 +1,52 @@
+{
+  "acquisitions": [
+    {
+      "dataset_id": "sha256:dcbf0d48a5ba48b04feac07d05df91e20ddf9a2ca691fac9b5dce77aeb631395",
+      "detail": "862 records from 5 responses; 0 refused",
+      "source_id": "iem-nws-pfm",
+      "status": "completed"
+    },
+    {
+      "dataset_id": "sha256:8a25aa8efe550c0bd4ff9dc247081e43077bc7280209fb65aa1a657c29fc13c9",
+      "detail": "180 records from 1 responses; 0 refused",
+      "source_id": "kalshi-settled-markets",
+      "status": "completed"
+    },
+    {
+      "dataset_id": "sha256:8ed0fd63960a6432571fb236aa1c768967865b884d994f441164a46660783217",
+      "detail": "30 records from 3 responses; 31 refused",
+      "source_id": "iem-nws-cli",
+      "status": "completed"
+    },
+    {
+      "dataset_id": "sha256:4a3ca0bdd3f22addf816fbd12f57441ce0710fd4a4d0410b9059982d8cf94804",
+      "detail": "30 records from 30 responses; 0 refused",
+      "source_id": "weather-company-labels",
+      "status": "completed"
+    }
+  ],
+  "data_kind": "authentic public HTTP only; successful acquisition is counted below",
+  "detail": "Awaiting prospective evidence for 2 requirements; next reevaluation 2026-11-18T11:25+00:00",
+  "features": 4,
+  "job_id": "7190c54a-561a-4a40-8999-b15cebc1a337",
+  "paper": {
+    "job_id": "7190c54a-561a-4a40-8999-b15cebc1a337",
+    "proposals": [],
+    "submission_enabled": false
+  },
+  "provider": "local_templates; no AI provider or credentials used",
+  "restart_artifact_bytes_equal": true,
+  "schema": "entropytrade-public-lifecycle-probe-v1",
+  "status": "awaiting_observations",
+  "submission_enabled": false,
+  "usage": {
+    "ai_requests": 0,
+    "ai_usd": "0",
+    "bytes": 4681236,
+    "http_requests": 39,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "runtime_seconds": 34.10313915099999
+  },
+  "windows_accessed": false
+}

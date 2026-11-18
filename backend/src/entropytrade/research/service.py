@@ -128,11 +128,14 @@ class ResearchService:
         self.recover()
         self.thread.start()
 
-    def close(self) -> None:
+    def close(self, *, timeout: float = 300) -> None:
         self.stop.set()
         self.wake.set()
         if self.thread.ident is not None:
-            self.thread.join(timeout=10)
+            self.thread.join(timeout=timeout)
+            if self.thread.is_alive():
+                # The server must retain its writer lease until every writer stops.
+                raise RuntimeError("research worker has not stopped; workspace lease retained")
 
     def recover(self) -> None:
         """Jobs mid-step simply re-run their idempotent step; record that it happened."""
@@ -141,6 +144,23 @@ class ResearchService:
         requeued = self.store.recover_acquisitions(now=self.now())
         self.store.recover_experiments(now=self.now())
         for job in self.store.list_jobs(limit=500):
+            if (
+                JobStatus(job["status"]) is JobStatus.EVALUATED
+                and "reevaluate_evidence" not in job["checkpoint"]
+            ):
+                # Older evaluated checkpoints had no scheduled evidence recheck.
+                # Schedule the ordinary planning path without changing permissions
+                # or doing acquisition/model work during startup recovery.
+                waiting = self._awaits_evidence(job["id"])
+                self.store.transition(
+                    job["id"],
+                    JobStatus.EVALUATED,
+                    job["detail"]
+                    + ("; automatic inventory reevaluation scheduled" if waiting else ""),
+                    now=self.now(),
+                    next_run_at=self.now() + CHECK_INTERVAL if waiting else None,
+                    checkpoint={**job["checkpoint"], "reevaluate_evidence": waiting},
+                )
             if JobStatus(job["status"]) in RUNNABLE - {JobStatus.QUEUED}:
                 self.store.event(
                     job["id"],
@@ -234,7 +254,12 @@ class ResearchService:
         started = time.monotonic()
         stage = status
         try:
-            spent = job["usage"]["runtime_seconds"] - job["checkpoint"].get("runtime_base", 0)
+            scheduled = status in {JobStatus.AWAITING_OBSERVATIONS, JobStatus.EVALUATED}
+            spent = (
+                0
+                if scheduled
+                else job["usage"]["runtime_seconds"] - job["checkpoint"].get("runtime_base", 0)
+            )
             if spent >= request.budget.max_runtime_seconds:
                 raise StepError("The job's runtime budget is exhausted.", transient=False)
             if status is JobStatus.RECOVERABLE_ERROR:
@@ -249,8 +274,12 @@ class ResearchService:
                 )
             elif status is JobStatus.GENERATING:
                 self._generate(job, request)
-            elif status in {JobStatus.PLANNING, JobStatus.AWAITING_OBSERVATIONS}:
-                if status is JobStatus.AWAITING_OBSERVATIONS:
+            elif status in {
+                JobStatus.PLANNING,
+                JobStatus.AWAITING_OBSERVATIONS,
+                JobStatus.EVALUATED,
+            }:
+                if scheduled:
                     # Each reevaluation gets its own runtime allowance; waiting is not work.
                     self.store.transition(
                         job_id,
@@ -260,6 +289,7 @@ class ResearchService:
                         checkpoint={
                             **job["checkpoint"],
                             "runtime_base": job["usage"]["runtime_seconds"],
+                            "reevaluate_evidence": False,
                         },
                     )
                 self._plan(job, request)
@@ -329,6 +359,9 @@ class ResearchService:
                     "name": d.feature_id,
                     "role": d.role,
                     "unit": d.unit,
+                    "dtype": d.dtype,
+                    "materializer": d.materializer,
+                    "availability": d.availability,
                     "description": d.description,
                     "evidence": sorted({i.kind.value for i in d.inputs}),
                 }
@@ -366,7 +399,7 @@ class ResearchService:
                 request.provider.provider,
                 self.context(family, universe),
                 timeout=float(min(300, request.budget.max_runtime_seconds)),
-                cancelled=lambda: job_id in self.cancelled,
+                cancelled=lambda: job_id in self.cancelled or self.stop.is_set(),
             )
             self._record_ai_usage(job_id, result)
             if result.get("status") != "completed":
@@ -683,7 +716,7 @@ class ResearchService:
             clock=self.now,
             budget_requests=remaining_requests,
             budget_bytes=remaining_bytes,
-            cancelled=lambda: job_id in self.cancelled,
+            cancelled=lambda: job_id in self.cancelled or self.stop.is_set(),
             transport=self.transport,
             sleep=self.sleep,
         )
@@ -812,12 +845,32 @@ class ResearchService:
         job_id = job["id"]
         self._local_execution_inputs(job, request)
         artifacts = self.store.job_features(job_id)
+        execution_requirements = {
+            r.requirement_id
+            for r in self.store.requirements(job_id)
+            if r.kind in {DataKind.DECISION_QUOTES, DataKind.MARKET_CONTRACTS}
+        }
+        # Snapshot inventory IDs also use sha256, but their bytes live in the
+        # snapshot store. Only locally published research datasets are consumed here;
+        # _local_execution_inputs performs the verified snapshot normalization.
+        published_datasets = {
+            "sha256:" + path.name.removeprefix("sha256-")
+            for path in (self.store.root / "datasets").glob("sha256-*")
+            if path.is_dir() and not path.is_symlink()
+        }
         execution_datasets = tuple(
             sorted(
                 {
                     row["dataset_id"]
                     for row in self.store.job_acquisitions(job_id, statuses=("completed",))
                     if row["dataset_id"]
+                }
+                | {
+                    dataset
+                    for requirement_id, assessment in self.store.assessments(job_id).items()
+                    if requirement_id in execution_requirements
+                    for dataset in assessment.datasets
+                    if dataset in published_datasets
                 }
             )
         )
@@ -1020,6 +1073,16 @@ class ResearchService:
             now=self.now(),
         )
 
+    def _awaits_evidence(self, job_id: str) -> bool:
+        return any(
+            a.status is not AssessmentStatus.SATISFIED
+            for a in self.store.assessments(job_id).values()
+        ) or any(
+            (row.get("result") or {}).get("backtest", {}).get("status")
+            == "awaiting_execution_evidence"
+            for row in self.store.experiments(job_id)
+        )
+
     def _settle(self, job: dict[str, Any], request: ResearchRequest) -> None:
         """Evidence waits stay durable after predictive modeling; no eligibility promotion."""
         job_id = job["id"]
@@ -1052,7 +1115,25 @@ class ResearchService:
             )
         else:
             target, detail, next_run = JobStatus.EVALUATED, self.outcome_detail(job_id), None
-        self.store.transition(job_id, target, detail, now=self.now(), next_run_at=next_run)
+            if self._awaits_evidence(job_id):
+                next_run = self.now() + CHECK_INTERVAL
+                detail += "; awaiting eligible evidence; automatic inventory reevaluation scheduled"
+        if approved and min(self.budget_left(job, request)) <= 0:
+            detail += (
+                "; acquisition budget exhausted; increase the budget in a new job "
+                "or import verified evidence"
+            )
+        self.store.transition(
+            job_id,
+            target,
+            detail,
+            now=self.now(),
+            next_run_at=next_run,
+            checkpoint={
+                **job["checkpoint"],
+                "reevaluate_evidence": target is JobStatus.EVALUATED and next_run is not None,
+            },
+        )
 
     def _feature_inputs(
         self,

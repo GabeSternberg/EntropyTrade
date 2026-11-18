@@ -29,7 +29,9 @@ module.exports = defineConfig({
     locale: "en-US",
     timezoneId: "UTC",
     acceptDownloads: true,
-    trace: "on",
+    // DOM/network traces plus each procedure's explicit screenshots are sufficient
+    // for review; continuous screencast frames can exhaust a small cloud disk.
+    trace: { mode: "on", screenshots: false },
     screenshot: "only-on-failure",
   },
 });

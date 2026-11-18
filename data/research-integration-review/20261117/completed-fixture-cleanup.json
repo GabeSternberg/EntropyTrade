@@ -1,0 +1,10 @@
+{
+  "removed": [
+    "/tmp/pytest-of-agent/pytest-8",
+    "/tmp/pytest-of-agent/pytest-9",
+    "data/cache/e2e-paper-rerun-workspace-20261118-1-controlled-promotion",
+    "data/cache/e2e-paper-rerun-workspace-20261118-1-controlled-promotion-restored",
+    "data/cache/e2e-paper-rerun-workspace-20261118-1-production-refusal"
+  ],
+  "purpose": "completed disposable tests; last controlled integration fixture and all reports/downloads/traces retained"
+}

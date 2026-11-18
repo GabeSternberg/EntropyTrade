@@ -1,0 +1,8 @@
+{
+  "label": "CONTROLLED SYNTHETIC software evidence; no genuine returns or production paper eligibility",
+  "sha256": "9353842fce748d3f8036dcb53c7367f597c8620fd3e7f84df6a7c0e3afb4f3ad",
+  "bytes": 1871141,
+  "snapshot_and_restore_verified_by": "tests.integration.test_research_lifecycle::test_objective_acquisition_modeling_automatic_resume_and_paper_decision",
+  "schema": "entropytrade-workspace-v2",
+  "manifest_file_count": 1051
+}
