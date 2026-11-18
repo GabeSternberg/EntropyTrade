@@ -93,6 +93,24 @@ test("provider selection during initialization reconciles consent before submiss
   assert.equal(app.get("submit").disabled, false);
 });
 
+test("rendered history stays inert until all panels and handlers are ready", async () => {
+  const app = application(); let releaseDatasets;
+  app.overrides.set("/api/monitors", [monitor()]);
+  app.overrides.set("/api/weather/datasets", new Promise((resolve) => { releaseDatasets = resolve; }));
+  const pending = app.enter(); await tick();
+  const button = walk(app.get("shadow-history")).find((element) => element.tag === "button");
+  assert.ok(button, "history renders before later panels finish");
+  assert.equal(app.get("workbench-view").inert, true);
+  assert.equal(app.get("workbench-view").attributes["aria-busy"], "true");
+  releaseDatasets([]); await pending;
+  assert.equal(app.get("workbench-view").inert, false);
+  assert.equal(app.get("workbench-view").attributes["aria-busy"], "false");
+  await button.emit("click");
+  assert.match(text(app.get("shadow-evidence")), /CURRENT_MONITOR/);
+  app.leave();
+  assert.equal(app.get("workbench-view").inert, true);
+});
+
 test("legacy script load, hidden workbench and Demo dispatch no reads or writes", async () => {
   const app = application(); await tick();
   assert.equal(app.requests.length, 0); assert.equal(app.timers.size, 0); assert.equal(app.get("submit").disabled, true);
