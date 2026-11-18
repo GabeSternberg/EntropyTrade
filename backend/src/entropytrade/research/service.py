@@ -833,6 +833,14 @@ class ResearchService:
             for r in self.store.requirements(job_id)
             if r.kind in {DataKind.DECISION_QUOTES, DataKind.MARKET_CONTRACTS}
         }
+        # Snapshot inventory IDs also use sha256, but their bytes live in the
+        # snapshot store. Only locally published research datasets are consumed here;
+        # _local_execution_inputs performs the verified snapshot normalization.
+        published_datasets = {
+            "sha256:" + path.name.removeprefix("sha256-")
+            for path in (self.store.root / "datasets").glob("sha256-*")
+            if path.is_dir() and not path.is_symlink()
+        }
         execution_datasets = tuple(
             sorted(
                 {
@@ -845,7 +853,7 @@ class ResearchService:
                     for requirement_id, assessment in self.store.assessments(job_id).items()
                     if requirement_id in execution_requirements
                     for dataset in assessment.datasets
-                    if dataset.startswith("sha256:")
+                    if dataset in published_datasets
                 }
             )
         )
