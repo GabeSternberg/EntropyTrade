@@ -1,0 +1,7 @@
+{
+  "purpose": "completed disposable tests only; pytest-8 failure and logs retained",
+  "removed": [
+    "/tmp/pytest-of-agent/pytest-6",
+    "/tmp/pytest-of-agent/pytest-7"
+  ]
+}

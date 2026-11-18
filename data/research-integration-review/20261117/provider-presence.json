@@ -1,0 +1,10 @@
+{
+  "research_credentials_present": {
+    "gemini": false,
+    "openai": false,
+    "anthropic": false
+  },
+  "local_endpoint_configured": false,
+  "local_key_present": false,
+  "github_secret_metadata": "unavailable: GitHub integration returned HTTP 403; no secret values retrieved"
+}

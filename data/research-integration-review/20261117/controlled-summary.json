@@ -1,0 +1,24 @@
+{
+  "label": "CONTROLLED SYNTHETIC software verification only; no genuine returns",
+  "job_id": "18154652-5dfd-4d3b-a50f-088e2a79fda8",
+  "provider": {
+    "model_name": "controlled-function-model",
+    "provider": "gemini"
+  },
+  "source_requests": 1,
+  "experiments": 6,
+  "controlled_eligible": 6,
+  "production_eligible": 0,
+  "deployments": 1,
+  "cycles": [
+    {
+      "data_kind": "synthetic",
+      "model_refusals": {},
+      "decisions": 1,
+      "predictions": 1,
+      "executions": 1,
+      "submission_enabled": false
+    }
+  ],
+  "submission_enabled": false
+}

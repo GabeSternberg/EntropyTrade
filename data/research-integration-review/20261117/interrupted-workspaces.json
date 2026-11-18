@@ -1,0 +1,11 @@
+{
+  "status": "interrupted before source-frozen final sweep",
+  "removed_disposable_workspaces": [
+    "data/cache/e2e-browser-workspaces-20261118-2",
+    "data/cache/e2e-frozen-rerun-workspace-20261118-1-cis1990-controlled",
+    "data/cache/e2e-frozen-rerun-workspace-20261118-1-cis1990-outage",
+    "data/cache/e2e-frozen-rerun-workspace-20261118-1-cis1990-no-key",
+    "data/cache/e2e-frozen-rerun-workspace-20261118-1-provider"
+  ],
+  "logs_downloads_receipts_and_traces_retained": true
+}

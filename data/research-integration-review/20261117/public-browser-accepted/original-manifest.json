@@ -1,0 +1,1069 @@
+{
+ "run_id": 44250121144,
+ "job_id": 134618577319,
+ "artifact_id": 14404385928,
+ "code_commit": "25cdeb1be70d045b5506495cfc21d5c74c1d16c7",
+ "archive_sha256": "0048f42ca2002ee97054f80f33f52141db81b6c2dd8510084b2eeabeb1ad08b5",
+ "original_files": [
+  {
+   "path": "shadow/evidence/playwright-results.json",
+   "sha256": "35fbc7be06217fd38325108c35509bae90e4d56aaf45a90cf43e7f8a37088c10",
+   "bytes": 6037
+  },
+  {
+   "path": "shadow/evidence/playwright-artifacts/shadow-continuous-shadow-r-6dbcc-resume-and-durable-evidence/trace.zip",
+   "sha256": "ae94f7d3d0f4cb3736d1c30fb6fd4bd17bdb476f75a474b373a4c7b7df0d559d",
+   "bytes": 5457416
+  },
+  {
+   "path": "shadow/evidence/playwright-results.xml",
+   "sha256": "97836c9d3c4fc7fbd658d32070208859ae698bf63330d29ad7a3ee24e5d72b1b",
+   "bytes": 573
+  },
+  {
+   "path": "shadow/evidence/shadow-browser-receipt.json",
+   "sha256": "f3292a74669c87cae4eff26f2f12dcfe55479b89f0e6c00aa2d156ab4bd48dbf",
+   "bytes": 6429
+  },
+  {
+   "path": "shadow/evidence/shadow-paused.json",
+   "sha256": "a5c9ef9a5ebfb71b5a6d9171243f6931eb2f0876dcea19520a98e5b38817a62a",
+   "bytes": 264625
+  },
+  {
+   "path": "shadow/evidence/shadow-paused.png",
+   "sha256": "5aafc928af13dd16855b774f3ed9c5dadeec15019f846fdaf07ddb9e951043cc",
+   "bytes": 1168245
+  },
+  {
+   "path": "shadow/evidence/shadow-restarted.json",
+   "sha256": "a5c9ef9a5ebfb71b5a6d9171243f6931eb2f0876dcea19520a98e5b38817a62a",
+   "bytes": 264625
+  },
+  {
+   "path": "shadow/evidence/shadow-restarted.png",
+   "sha256": "dde70aa9128cc644d8a7d5c739723059d3655d565a8d798905336bfd17670f3d",
+   "bytes": 1029238
+  },
+  {
+   "path": "shadow/evidence/shadow-second-cycle.json",
+   "sha256": "15fd5d7a07d3941adc82e7176b3e9a26d0743c133e982aa6997dd7c01922f142",
+   "bytes": 474559
+  },
+  {
+   "path": "shadow/evidence/shadow-server-1.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "shadow/evidence/shadow-second-cycle.png",
+   "sha256": "299b8f699747a113a89c921101d0bc37725deb13e9d54fd117734139b2161d0b",
+   "bytes": 1344748
+  },
+  {
+   "path": "shadow/evidence/shadow-server-2.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "shadow/runner.log",
+   "sha256": "2e00505e22348c378cc1fb88c13b1d31ab68d586dda0c5a357cb08ac8d496add",
+   "bytes": 191
+  },
+  {
+   "path": "weather-labels/evidence/authentic-inputs.json",
+   "sha256": "4dbc72105b9d3c4e2e32d8e850ce4ed9755572b2dcd36c850b0ae83a75833209",
+   "bytes": 1119
+  },
+  {
+   "path": "weather-labels/evidence/playwright-artifacts/weather-labels-authentic-w-47013-ovenance-freeze-and-restart/trace.zip",
+   "sha256": "7a3abc5bc38d11107074bb9ace264228f119b5a9603b18d8a6c22fd40c0925ee",
+   "bytes": 391841
+  },
+  {
+   "path": "weather-labels/evidence/playwright-results.json",
+   "sha256": "4f607f09bcf76cb3fb5cf8c6e097f9aff276900711cd16b0c4aac67de3cd3baa",
+   "bytes": 6083
+  },
+  {
+   "path": "weather-labels/evidence/weather-Evidence---lineage.png",
+   "sha256": "5d1e574261c10f6d1910c4c928a35bd6c59b489a9dfd72983328155a809ed09b",
+   "bytes": 1131461
+  },
+  {
+   "path": "weather-labels/evidence/weather-Probabilities.png",
+   "sha256": "db03837928ad3c9c19038742847bf244885712034847e1f38fa48278598f2538",
+   "bytes": 849960
+  },
+  {
+   "path": "weather-labels/evidence/playwright-results.xml",
+   "sha256": "013318417bda118eb92c68af83c8ca7d89e60e433c9c389584ce352f10859339",
+   "bytes": 569
+  },
+  {
+   "path": "weather-labels/evidence/weather-Review.png",
+   "sha256": "0f3a81a92444b57c7a33f037d6efb634a9172e9b32875ee50b0b28857ba64455",
+   "bytes": 949542
+  },
+  {
+   "path": "weather-labels/evidence/weather-acquisition.png",
+   "sha256": "9dbdf7541f3f894390d4c8cbbaef7db6fd016de6e784b870e031ac07bd27ad37",
+   "bytes": 710079
+  },
+  {
+   "path": "weather-labels/evidence/weather-dataset.png",
+   "sha256": "1a782c523e8d756e4fa4ecef0450d98ead0df7e930f1ad00f69818b5c600b7d8",
+   "bytes": 667437
+  },
+  {
+   "path": "weather-labels/evidence/weather-label-browser-receipt.json",
+   "sha256": "aef417112e7a7fb225f3624ed878d07e2b6aeccd2af633d518749bb073aef499",
+   "bytes": 14223
+  },
+  {
+   "path": "weather-labels/evidence/weather-labelled-dataset.png",
+   "sha256": "81e55fcdaab4dd8967c3235fe7bf55be1e5d3ad23703151e7473f49ddd91ffc4",
+   "bytes": 739435
+  },
+  {
+   "path": "weather-labels/evidence/weather-labels.json",
+   "sha256": "e246e7d5288cc7f8db1ae34dffc4eda219dfad9828a3fec23b3d68d7690871dd",
+   "bytes": 72816
+  },
+  {
+   "path": "weather-labels/evidence/weather-report.txt",
+   "sha256": "bf4bf10cfcec56e15b5562cf2c11bb5fd51ae843a84424b5284142bd6c58a368",
+   "bytes": 15474
+  },
+  {
+   "path": "weather-labels/evidence/weather-restart-labels.json",
+   "sha256": "e246e7d5288cc7f8db1ae34dffc4eda219dfad9828a3fec23b3d68d7690871dd",
+   "bytes": 72816
+  },
+  {
+   "path": "weather-labels/evidence/weather-restart-report.txt",
+   "sha256": "bf4bf10cfcec56e15b5562cf2c11bb5fd51ae843a84424b5284142bd6c58a368",
+   "bytes": 15474
+  },
+  {
+   "path": "weather-labels/evidence/weather-restart-review.json",
+   "sha256": "0f0fa86ceb4fcac87f9bf2559fd9939a96f65088cf866aa376fe590bea5de793",
+   "bytes": 244010
+  },
+  {
+   "path": "weather-labels/evidence/weather-review.json",
+   "sha256": "0f0fa86ceb4fcac87f9bf2559fd9939a96f65088cf866aa376fe590bea5de793",
+   "bytes": 244010
+  },
+  {
+   "path": "weather-labels/evidence/weather-server-2.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "weather-labels/evidence/weather-restart.png",
+   "sha256": "90cab9601044527e1345239f0cf5246328a6632692af02ee68bcf10926ab086a",
+   "bytes": 963073
+  },
+  {
+   "path": "weather-labels/evidence/weather-server-1.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "workbench/evidence/browser-receipt.json",
+   "sha256": "992e4d5c7a803c36abf81eda37b2aaafd9a5a4c923c8a332c6755771dd683005",
+   "bytes": 50022
+  },
+  {
+   "path": "weather-labels/runner.log",
+   "sha256": "b98797eaeed88fb4a78a7813c979bb28d6dbdf0bd04baaded6378e47852de23d",
+   "bytes": 193
+  },
+  {
+   "path": "workbench/evidence/cancelled-job-after-restart.json",
+   "sha256": "e5743047f3a395a212ff3635f58d083f96ef2ac323fb927c4020816c2c229827",
+   "bytes": 934
+  },
+  {
+   "path": "workbench/evidence/dom/public-bitcoin-evidence.txt",
+   "sha256": "af0b544f5ec4ff78ce8517a3f399aa84f36a0ced76908c80248340184b71a35b",
+   "bytes": 28503
+  },
+  {
+   "path": "workbench/evidence/dom/public-bitcoin-probabilities.txt",
+   "sha256": "8ca8a6b085444f883c749088b008a6e77e6fffb007a7dea4a8fc1f4ad6bf47ee",
+   "bytes": 1529
+  },
+  {
+   "path": "workbench/evidence/dom/public-bitcoin-review.txt",
+   "sha256": "466eeb15c3010175c027cd7d862a9690f22eb0b3576bdcc3084b080e3abc5f7f",
+   "bytes": 2950
+  },
+  {
+   "path": "workbench/evidence/dom/public-weather-evidence.txt",
+   "sha256": "b6d5413d9b1922ad848b1d1296f6909fe7ce7954a225cd23275ac58118637eca",
+   "bytes": 14968
+  },
+  {
+   "path": "workbench/evidence/dom/public-weather-probabilities.txt",
+   "sha256": "0287c1e950da6344742bc73e3f05ceef773cb6298c1de6266c367efa61e58188",
+   "bytes": 1337
+  },
+  {
+   "path": "workbench/evidence/dom/public-weather-review.txt",
+   "sha256": "1853b526f8cef95f4e3640fb0c1d6c09e7b52ac664426192cfd36c641f27bc4c",
+   "bytes": 2387
+  },
+  {
+   "path": "workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.json",
+   "sha256": "210ea4836d7f29860f07b99e7767e67408407261570adc1d975651ab8850d2b2",
+   "bytes": 699347
+  },
+  {
+   "path": "workbench/evidence/downloads/public-bitcoin-after-restart-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.txt",
+   "sha256": "0ba88e19628873a6afaef7394330bb907bb7686bb6c43eb2d8fe7f3fa108f8a0",
+   "bytes": 1682
+  },
+  {
+   "path": "workbench/evidence/downloads/public-bitcoin-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.json",
+   "sha256": "210ea4836d7f29860f07b99e7767e67408407261570adc1d975651ab8850d2b2",
+   "bytes": 699347
+  },
+  {
+   "path": "workbench/evidence/downloads/public-bitcoin-entropytrade-0edce704-ba83-4220-b767-afe16f4ce875.txt",
+   "sha256": "0ba88e19628873a6afaef7394330bb907bb7686bb6c43eb2d8fe7f3fa108f8a0",
+   "bytes": 1682
+  },
+  {
+   "path": "workbench/evidence/downloads/public-weather-after-restart-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.json",
+   "sha256": "01cd520981aed67373899cfaf479b4460fbe80c5202d93954d4a5a6eb3fb3fea",
+   "bytes": 214101
+  },
+  {
+   "path": "workbench/evidence/downloads/public-weather-after-restart-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.txt",
+   "sha256": "ef207abfab21a12571bb3eb66e8e54ab7cffd999ee64760d1b19732bc1398a9e",
+   "bytes": 1246
+  },
+  {
+   "path": "workbench/evidence/downloads/public-weather-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.json",
+   "sha256": "01cd520981aed67373899cfaf479b4460fbe80c5202d93954d4a5a6eb3fb3fea",
+   "bytes": 214101
+  },
+  {
+   "path": "workbench/evidence/downloads/public-weather-entropytrade-851723b9-eb6c-4cd3-b441-f6e617996797.txt",
+   "sha256": "ef207abfab21a12571bb3eb66e8e54ab7cffd999ee64760d1b19732bc1398a9e",
+   "bytes": 1246
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.json",
+   "sha256": "7b5090855fc88ac82cb13c7fcd3542321a7fa373f7c43a8c171c0f85e6a16e64",
+   "bytes": 213343
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-after-cancel-after-restart-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.txt",
+   "sha256": "8f979634621ebbe9ef4a6516673b8093c75fba735f46b19afe545d4bb56130d0",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-after-cancel-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.json",
+   "sha256": "7b5090855fc88ac82cb13c7fcd3542321a7fa373f7c43a8c171c0f85e6a16e64",
+   "bytes": 213343
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-after-cancel-entropytrade-fd7d1a29-db31-4797-b3d8-95be10bd4ad1.txt",
+   "sha256": "8f979634621ebbe9ef4a6516673b8093c75fba735f46b19afe545d4bb56130d0",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.json",
+   "sha256": "35b46aed796da3788bf2c4fdc2a2eb9bcc1d3b3962aeaf740f5feb15220f6035",
+   "bytes": 178050
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-weather-after-restart-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.txt",
+   "sha256": "4958904f1d343c53a4a5ec16eb4bf7124d7fa7958bab74c5ab9ceb841d3cf7b2",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-weather-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.json",
+   "sha256": "35b46aed796da3788bf2c4fdc2a2eb9bcc1d3b3962aeaf740f5feb15220f6035",
+   "bytes": 178050
+  },
+  {
+   "path": "workbench/evidence/downloads/recorded-weather-entropytrade-4a9e56c1-5bc0-48d9-a9a1-0784d6e69bcf.txt",
+   "sha256": "4958904f1d343c53a4a5ec16eb4bf7124d7fa7958bab74c5ab9ceb841d3cf7b2",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.json",
+   "sha256": "3b10651dd7f99251b68ea963a15a0ee605004f2b53d500a9594755af88d41b6b",
+   "bytes": 673076
+  },
+  {
+   "path": "workbench/evidence/downloads/synthetic-weather-after-restart-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.txt",
+   "sha256": "4c781c41a649f607822b831aa73b8e36806062ece0d7aad9217291965b5131f0",
+   "bytes": 4825
+  },
+  {
+   "path": "workbench/evidence/downloads/synthetic-weather-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.json",
+   "sha256": "3b10651dd7f99251b68ea963a15a0ee605004f2b53d500a9594755af88d41b6b",
+   "bytes": 673076
+  },
+  {
+   "path": "workbench/evidence/downloads/synthetic-weather-entropytrade-5c935f38-6fb0-429e-8711-aee6480e50ad.txt",
+   "sha256": "4c781c41a649f607822b831aa73b8e36806062ece0d7aad9217291965b5131f0",
+   "bytes": 4825
+  },
+  {
+   "path": "workbench/evidence/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/attachments/browser-receipt-cf577ee51d4b90444e5e8090ece0306cdf072d46.json",
+   "sha256": "992e4d5c7a803c36abf81eda37b2aaafd9a5a4c923c8a332c6755771dd683005",
+   "bytes": 50022
+  },
+  {
+   "path": "workbench/evidence/interrupted-job.json",
+   "sha256": "35cfca8c329e2ea694569846955814d29f30bb386708c215f794851e8cc61c37",
+   "bytes": 972
+  },
+  {
+   "path": "workbench/evidence/playwright-artifacts/workbench-four-documented--dbdf4-n-the-committed-application/trace.zip",
+   "sha256": "136905a07600fcbfad59c1ff56496916eb31e25fe19ca10f437a2102e4e5237c",
+   "bytes": 1212182
+  },
+  {
+   "path": "workbench/evidence/playwright-results.json",
+   "sha256": "3fac0650d1b49b188caef146419c70d1b9fa8212213d62d2e1c897b64d57a420",
+   "bytes": 7281
+  },
+  {
+   "path": "workbench/evidence/playwright-results.xml",
+   "sha256": "d6788a58875602f2db92faf3317f2d54337fc07cbb4d7283e37b256adbf7a20f",
+   "bytes": 726
+  },
+  {
+   "path": "workbench/evidence/public-weather-job.json",
+   "sha256": "88fd1f693698552cc12f8d72098c874cc6d42c7ff9554fecfe979e7dcb5b273c",
+   "bytes": 252375
+  },
+  {
+   "path": "workbench/evidence/public-bitcoin-job.json",
+   "sha256": "80c86fd32875ef7fe27dbad48d17cb561b00526cc37bff2b6566cfeba1a95371",
+   "bytes": 922453
+  },
+  {
+   "path": "workbench/evidence/recorded-after-cancel-job.json",
+   "sha256": "27fdf6626f60183250394caa3be6b72aeb0d33db9745f4cc835c315afeac5762",
+   "bytes": 253962
+  },
+  {
+   "path": "workbench/evidence/recorded-weather-job.json",
+   "sha256": "2737a39dd12857c70f7dd9af9393c0b308a028caa3f01915878ed98efc16da76",
+   "bytes": 212165
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/evidence.json",
+   "sha256": "e3c720e5a0d65d483b5fc4cf7ac83b5165f2d972e9a73568630f2b56a28d6084",
+   "bytes": 326
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/capture.json",
+   "sha256": "7eaa69b1ab72b36158cc3502eb7b055486e4fcb2dac8c885d36d9d9d1e14b38b",
+   "bytes": 1242
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/markets.jsonl",
+   "sha256": "037ab433bd644ac6fdc494b035df4f40b92dbced6ced9f2e8b7608ec5fc11bf2",
+   "bytes": 536997
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/manifest.json",
+   "sha256": "4613b4631dccbe09f7228ee6695a92491a2009b69594947b80735d59f3fd069b",
+   "bytes": 2016
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/observations.jsonl",
+   "sha256": "ee242838a4e9b2f585b0c34b8ca5bf385afe841c0d582dbc02d113894fbb519e",
+   "bytes": 586
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/raw/0001.json",
+   "sha256": "a63b3688b6fb136ffbd1dae69ce3bd90c9b7f1718b66c61069489059f65afc4f",
+   "bytes": 390155
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/raw/0002.json",
+   "sha256": "fb7e39a5b80971fab30a6667909f846b73e1b171cd35455e2252b4f099443305",
+   "bytes": 230398
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/public/raw/0003.json",
+   "sha256": "31a51cecc26e24f38da31234e948c6c4b5429924cfbb7e84ccc3ace93e0bf09f",
+   "bytes": 185
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/review.json",
+   "sha256": "7381d38e3c0c9506c3692bff5a5fd3680ecd66570ada92d8d9e938e0431bc11a",
+   "bytes": 882341
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/experiments/06369a814e27edb7c0401c03fd20a8f970bcb972c520003bca1642ce22e55598/checksums.json",
+   "sha256": "31a6cae7b0f45eac1b501db8ad260fdfcf2b7885027ce700c8e5d30d69cef707",
+   "bytes": 369
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/experiments/06369a814e27edb7c0401c03fd20a8f970bcb972c520003bca1642ce22e55598/replay-inputs.json",
+   "sha256": "4f11e0b30a03f0919e8920e14a217b77bb62624daa70c8f86c297406395cf6bd",
+   "bytes": 1036291
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/experiments/06369a814e27edb7c0401c03fd20a8f970bcb972c520003bca1642ce22e55598/report.md",
+   "sha256": "cf94fe10a38a01779247521e23fe976fba06d97aacccb3c8e9da3616b4423575",
+   "bytes": 763
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/experiments/06369a814e27edb7c0401c03fd20a8f970bcb972c520003bca1642ce22e55598/results.json",
+   "sha256": "d9f108ccb72f4e6586899e4e3acaa8c43a966a202291c8af109a6d98dce89ab7",
+   "bytes": 178003
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/experiments/06369a814e27edb7c0401c03fd20a8f970bcb972c520003bca1642ce22e55598/trades.parquet",
+   "sha256": "ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef",
+   "bytes": 365
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/fee-evidence.json",
+   "sha256": "90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484",
+   "bytes": 93
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/research/68bac577-2b8b-49f2-a779-eb18fcd45b10/checksums.json",
+   "sha256": "e3fc82d6e0979ac6a833834349053793908670b93c43420f0548e57a5fa131bd",
+   "bytes": 175
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/research/68bac577-2b8b-49f2-a779-eb18fcd45b10/run.json",
+   "sha256": "4f60cac4b05600439e5f0b9fff2eb6bb49b11e31e6bfa0ef046b168bdba142fc",
+   "bytes": 94057
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/evidence.json",
+   "sha256": "e7d03202f743f173c880ec59cd9687644bdeb25d4582de2006822cf5e85d3a54",
+   "bytes": 326
+  },
+  {
+   "path": "workbench/evidence/runs/public-bitcoin/workflow/research/68bac577-2b8b-49f2-a779-eb18fcd45b10/report.md",
+   "sha256": "a04a0976e14287a844889364ec106ce730ec87e2460ee7f1910fa1c0d33e40f4",
+   "bytes": 2174
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/capture.json",
+   "sha256": "dadae4ea9d6cca9a0173cfcf7252744fcedb011ee466210607f625ec60fe78d8",
+   "bytes": 5379
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/manifest.json",
+   "sha256": "62c6fc0dc01deeafb4465b64daa08957566ee320e98ff1d77636f67289311193",
+   "bytes": 3472
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/markets.jsonl",
+   "sha256": "74f8a1352ad87363c6178c3af0fc629113067b1dee81893f8e0b6b1fbc8820fe",
+   "bytes": 97386
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/observations.jsonl",
+   "sha256": "d54a70091d416e9e767af211ceb495c0727ea9741d579b790e9d35aae1e4d5ee",
+   "bytes": 898608
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0001.json",
+   "sha256": "8d102d9a48edf7ea6d018ef2cb55deb13965dec269965db96d10210cd61f747e",
+   "bytes": 17711
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0002.json",
+   "sha256": "c6c0a33e8accd72c95cbf95c75f30b6bbd0e6b3bcef504769ef1c6b5ca217129",
+   "bytes": 35306
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0004.json",
+   "sha256": "0a027dece3c2556c7827a06de9e867e16fe924f878e124349ce8ebbfbbfd7537",
+   "bytes": 35269
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0005.json",
+   "sha256": "9bfa23e916a50caf937c35476c4dc3e5638a3f95beb0b7c27d583c6ea1f47060",
+   "bytes": 4299
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0003.json",
+   "sha256": "1191c48b3c582206c771355e74e6eba052fcecc8a98cf5a9262bf45f16fb4ff5",
+   "bytes": 17718
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0006.json",
+   "sha256": "69f51bc5f3af8aeca5eac6bb87a16d88b085d6925239ff839184ffc3f1fafae3",
+   "bytes": 3921
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0007.json",
+   "sha256": "bad406ebaf871e90220a8303ee4bf69df24bcadb9fe303c8daf6f084a58fa506",
+   "bytes": 162114
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0008.json",
+   "sha256": "5507a8d02d11858869ac7f547e60c6aeffaf1bdabfd413109df6def04007335a",
+   "bytes": 4297
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0009.json",
+   "sha256": "0bf1962bbbe3cb88538635d38ba02db54966dcd0518862185dbf5cb33c09e300",
+   "bytes": 3899
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0010.json",
+   "sha256": "d8db9d174e08d6e5a58520790fb3ef09bd4e0ed99e7209cfe585234419ad7059",
+   "bytes": 162737
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0011.json",
+   "sha256": "7f41efee30f5cc64e3177562ecee83f4cfc518c94a2e6db2fd0c595c2c793c38",
+   "bytes": 4296
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0012.json",
+   "sha256": "4a661d1a0017bff7aeb4fa87e7de3145babf6ae02078be1448f73c089197ed14",
+   "bytes": 3917
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0013.json",
+   "sha256": "ab7acb3558c9d7964889cd15f39edb84598a52a35ce4fc5ec1ae335c48b1a0b5",
+   "bytes": 162482
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0014.json",
+   "sha256": "2e19b221a9b9605c79a25e8bec4bd9a26bd2cc4857c6ca199e2336caf5af2067",
+   "bytes": 4300
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0015.json",
+   "sha256": "7eaa408428f6cdf30962fd01f7787275249ea8ba61a2976466b5f6eee4dd57ae",
+   "bytes": 3919
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/raw/0016.json",
+   "sha256": "0cd10e70684d564cbc6c19c9d9d4ec5a368564742c1d3eb13100e4227eae8488",
+   "bytes": 162789
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/weather/manifest.json",
+   "sha256": "a8af69a9bf769cc6d8c63c2392628b71b59be7b8e51cd4a305bf529507d80cfb",
+   "bytes": 2771
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/public/weather/receipts.json",
+   "sha256": "f08fd5ff3b25a0eb31bf03bdca36119efcf10281808d7f25d0932eab8f01f07b",
+   "bytes": 7631
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/review.json",
+   "sha256": "d1dc8dc2d5445fd6cd5691f409ca3863b59fffe88fcc0357b7a1a326945529f0",
+   "bytes": 244611
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/experiments/f93c1b315c018266e10d6e8bb30117341f359d9e3bcf3f91d21bd8ea34787cbd/checksums.json",
+   "sha256": "d44de65ba867df89681debebb6ad9bf26134307aa3d1ea9c32745abafd7dd8e3",
+   "bytes": 369
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/experiments/f93c1b315c018266e10d6e8bb30117341f359d9e3bcf3f91d21bd8ea34787cbd/replay-inputs.json",
+   "sha256": "5eba814a1b0f970f6c627fbd07a154fdb8779cf179d69489ec629f017a3fb536",
+   "bytes": 275289
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/experiments/f93c1b315c018266e10d6e8bb30117341f359d9e3bcf3f91d21bd8ea34787cbd/report.md",
+   "sha256": "cdc3a3826d0857a1e7317ff7a17660398a2e84d943556f0e595ed6a754db165b",
+   "bytes": 519
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/experiments/f93c1b315c018266e10d6e8bb30117341f359d9e3bcf3f91d21bd8ea34787cbd/results.json",
+   "sha256": "53afa002afe65c131f9b391a15d299a4e406f750d3f9fb6e21e28719697cac26",
+   "bytes": 3353
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/experiments/f93c1b315c018266e10d6e8bb30117341f359d9e3bcf3f91d21bd8ea34787cbd/trades.parquet",
+   "sha256": "ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef",
+   "bytes": 365
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/fee-evidence.json",
+   "sha256": "90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484",
+   "bytes": 93
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/research/5cd4598e-39db-4800-ab2a-74addc5083df/checksums.json",
+   "sha256": "85a4c113ac5dda2ac66a4825822eb786bb735cbcc9e750c7c7102bdd5701470f",
+   "bytes": 175
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/research/5cd4598e-39db-4800-ab2a-74addc5083df/report.md",
+   "sha256": "5b85f9965b5e8d80ada59bc0814f2c84df29796897518dc102b3825dfb8b44ab",
+   "bytes": 2068
+  },
+  {
+   "path": "workbench/evidence/runs/public-weather/workflow/research/5cd4598e-39db-4800-ab2a-74addc5083df/run.json",
+   "sha256": "7cf18cb63dda479d075c8c5b07bd64ea980487bf8c67cbf120e387fb0d4c0cac",
+   "bytes": 131247
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/evidence.json",
+   "sha256": "d27b5311ed136e04f22e1d813f08079ed3e52d8df0412e989f5f5e4de0cadcb4",
+   "bytes": 414
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/review.json",
+   "sha256": "e19119fbe46efd8d88ce412a194fb05755556264c3206caad9c0a027340080f1",
+   "bytes": 246205
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/experiments/436a2cbfed7bcdf6f3fdd9c4a23f5149815d59d15523f7b84f729ac347e7b8d9/checksums.json",
+   "sha256": "41be1fb8cd32d65285a7d79c08aba976588d9ffedca58cdb00930b732341f1b9",
+   "bytes": 369
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/experiments/436a2cbfed7bcdf6f3fdd9c4a23f5149815d59d15523f7b84f729ac347e7b8d9/replay-inputs.json",
+   "sha256": "e5e5ccf17c14bd9528e889b42c02cf5554c778e1d5d7817c254ddaa59d9725da",
+   "bytes": 286258
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/experiments/436a2cbfed7bcdf6f3fdd9c4a23f5149815d59d15523f7b84f729ac347e7b8d9/report.md",
+   "sha256": "8f979634621ebbe9ef4a6516673b8093c75fba735f46b19afe545d4bb56130d0",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/experiments/436a2cbfed7bcdf6f3fdd9c4a23f5149815d59d15523f7b84f729ac347e7b8d9/results.json",
+   "sha256": "a533a67d475696992f835e6b741335d71b648f54fc2860b827ec6b17b1d863aa",
+   "bytes": 23465
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/experiments/436a2cbfed7bcdf6f3fdd9c4a23f5149815d59d15523f7b84f729ac347e7b8d9/trades.parquet",
+   "sha256": "ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef",
+   "bytes": 365
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/fee-evidence.json",
+   "sha256": "90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484",
+   "bytes": 93
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/checksums.json",
+   "sha256": "c29db8b750e1bf17d4b86aed305512c79133eecb34d66ac8f1a11dd192b8eb4d",
+   "bytes": 373
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/predictions.jsonl",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/predictions.parquet",
+   "sha256": "e6258dd3dd7e8832b85f7c29c7b98ac331e8483fb73a1429bc36729a7f748793",
+   "bytes": 533
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/report.md",
+   "sha256": "9cd7bd0cdda7965d083d6e661100f3b7f61c1d12c1e0eddb8186ec2f05f409bb",
+   "bytes": 1065
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/results.json",
+   "sha256": "2e6c351c9ffd2381b2d666a624d486055ee8977bf0b1e064bddff4cc34607b4c",
+   "bytes": 7434
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/research/0d12cc9e-b5d1-48a4-a1e6-f076a37a6519/checksums.json",
+   "sha256": "39029f3d9ed21440d985d026c7fa36733524e8780ae794f10b7ba5ebaa3e99f6",
+   "bytes": 175
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/research/0d12cc9e-b5d1-48a4-a1e6-f076a37a6519/report.md",
+   "sha256": "0aff0aefc58b1cb71ae68fcac784823c6320c844d78ba1cf5f296be5b273d34a",
+   "bytes": 2335
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-after-cancel/workflow/research/0d12cc9e-b5d1-48a4-a1e6-f076a37a6519/run.json",
+   "sha256": "ca227083e6f67632ef67eda6430fcb800cc324a4dcac4a49d2f3d8440d5c57d6",
+   "bytes": 199477
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/evidence.json",
+   "sha256": "d27b5311ed136e04f22e1d813f08079ed3e52d8df0412e989f5f5e4de0cadcb4",
+   "bytes": 414
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/review.json",
+   "sha256": "a341b83ae28c41d255a1414528e266f70248c27f4ea7c8c3c7a591d26f50a2cc",
+   "bytes": 204994
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/experiments/69447d7232d666018833d082a336677239ae00bbc65aa698a896caa2841b25a8/checksums.json",
+   "sha256": "ac2dd9d9e622d85eaeb19230a75039f29d66a5f44628c7ec612d2ac23291ae54",
+   "bytes": 369
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/experiments/69447d7232d666018833d082a336677239ae00bbc65aa698a896caa2841b25a8/replay-inputs.json",
+   "sha256": "df28f9f85a7aebea900f097a8c00fd9198692ac62a91a66943478492a170037d",
+   "bytes": 245040
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/experiments/69447d7232d666018833d082a336677239ae00bbc65aa698a896caa2841b25a8/report.md",
+   "sha256": "4958904f1d343c53a4a5ec16eb4bf7124d7fa7958bab74c5ab9ceb841d3cf7b2",
+   "bytes": 569
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/experiments/69447d7232d666018833d082a336677239ae00bbc65aa698a896caa2841b25a8/results.json",
+   "sha256": "f8ccf6bcaaafa042925294c6628b2a2bd18ad42f89c596100ddcfbb006f37103",
+   "bytes": 23465
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/experiments/69447d7232d666018833d082a336677239ae00bbc65aa698a896caa2841b25a8/trades.parquet",
+   "sha256": "ae372aa63a979fd4c3d85d450442e311573b2ab809accde888ce3ae5f01a3aef",
+   "bytes": 365
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/fee-evidence.json",
+   "sha256": "90253c01afdb1f41962bafb9dbad6822eacefd9ddfc6d1b286a3370b8ad37484",
+   "bytes": 93
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/checksums.json",
+   "sha256": "c29db8b750e1bf17d4b86aed305512c79133eecb34d66ac8f1a11dd192b8eb4d",
+   "bytes": 373
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/predictions.jsonl",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/predictions.parquet",
+   "sha256": "e6258dd3dd7e8832b85f7c29c7b98ac331e8483fb73a1429bc36729a7f748793",
+   "bytes": 533
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/report.md",
+   "sha256": "9cd7bd0cdda7965d083d6e661100f3b7f61c1d12c1e0eddb8186ec2f05f409bb",
+   "bytes": 1065
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/models/7a14a2275226519b0477a3de92644b65d99edb320dcd4f79a519ee13c8a5ba94/results.json",
+   "sha256": "2e6c351c9ffd2381b2d666a624d486055ee8977bf0b1e064bddff4cc34607b4c",
+   "bytes": 7434
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/research/3e963916-ace8-4e2a-a08d-1d0d5e3b3873/checksums.json",
+   "sha256": "d39c18858ed457d24ebbbe41f268bbda100c2d55fe137e6829d505212353f040",
+   "bytes": 175
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/research/3e963916-ace8-4e2a-a08d-1d0d5e3b3873/report.md",
+   "sha256": "b8c9dbd7b31515b58bd6b7471e0ed7c75e3796b4d6139bbc3dd46bbfe8d3fd1f",
+   "bytes": 2332
+  },
+  {
+   "path": "workbench/evidence/runs/recorded-weather/workflow/research/3e963916-ace8-4e2a-a08d-1d0d5e3b3873/run.json",
+   "sha256": "895a790ef7dc2aee79286473bd15fb3b0fed271efbe224131478db5eb6536154",
+   "bytes": 164177
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/review.json",
+   "sha256": "f24dc5fa2a1a73b5c3b7409d9b58dc2c60994af19fbee2585fedc2aafdef3d3f",
+   "bytes": 904218
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/experiments/7aac944516c0ada7271b78f72bb4fb516de23bc1689c3cbdd398b1f4e3134e2f/checksums.json",
+   "sha256": "7ab8c62d98f0b7fa8bc3c33191093a6fedf0b80be8cb076b3882cc7426555e00",
+   "bytes": 272
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/experiments/7aac944516c0ada7271b78f72bb4fb516de23bc1689c3cbdd398b1f4e3134e2f/report.md",
+   "sha256": "4c781c41a649f607822b831aa73b8e36806062ece0d7aad9217291965b5131f0",
+   "bytes": 4825
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/experiments/7aac944516c0ada7271b78f72bb4fb516de23bc1689c3cbdd398b1f4e3134e2f/results.json",
+   "sha256": "b35c2a2d522f8f1fc485b690b967cff1a4681e50fbfe742f6616cc836ac4143e",
+   "bytes": 422059
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/experiments/7aac944516c0ada7271b78f72bb4fb516de23bc1689c3cbdd398b1f4e3134e2f/trades.parquet",
+   "sha256": "d2122bf419f61d58b9a778dabfcf948623f279de4ca2eaba72132c37d4d542d3",
+   "bytes": 5698
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6/observations.parquet",
+   "sha256": "177647d97e12106e950c8b203c91ee8572d14158030c76a27c13c42545b86f75",
+   "bytes": 137601
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6/rows.parquet",
+   "sha256": "2cf6f7d35e09da1d996db6146eb4c1fb9ace07aa766a968c18ffed59b860f67d",
+   "bytes": 577638
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/152af65fec689e93cf39ced3361797985c25ddccec6cba7e40d5129d1b1eddd6/manifest.json",
+   "sha256": "30863dd22d2272b634f16abd83b5c2257a183224f3855749ea9618e0777e20f3",
+   "bytes": 975
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/features/e8e4553532f28e71c78772cee630aa74460cad24f25fae77ebabcffef2f7bc83/features.sha256",
+   "sha256": "fc972cf9ee7321d4d5496f232d120f5dc1cbb7e0ed6785fb02e84c57c2e1ad3f",
+   "bytes": 71
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/features/e8e4553532f28e71c78772cee630aa74460cad24f25fae77ebabcffef2f7bc83/features.parquet",
+   "sha256": "37934f4b406a7c22e185c35d5742efa875e5b285b643fe73b26425a86351e1ff",
+   "bytes": 770883
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/inputs/features/e8e4553532f28e71c78772cee630aa74460cad24f25fae77ebabcffef2f7bc83/manifest.json",
+   "sha256": "8fd5aa9d9f7a2581a2ed6f5a1df968fe03ac42e8b28a0a47857d0c075d7063db",
+   "bytes": 5626
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/boosting.joblib",
+   "sha256": "08784c2819183fedd2ae480965070d5032eef75e9bd700be1dbc6fc836ea73a6",
+   "bytes": 34093
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/climatology.forward.json",
+   "sha256": "3e535b2c762bdd69539b96c9fdec95aa7de7cd948af8c7e2acc15542eed4589a",
+   "bytes": 10817
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/checksums.json",
+   "sha256": "375c8da8114de8072c58b3b29c9ba9ccb929726193d938bffc8de7a4d189cced",
+   "bytes": 1576
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/climatology.joblib",
+   "sha256": "17db8ab87f683e7da1d4dbf811a3232bd8ac76c05ab19308a4c98b5c802323b5",
+   "bytes": 2340
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/forecast_error.forward.json",
+   "sha256": "cc3db831a14a38f17d5e0180c6029981c576df551da3a6c523b165fdea59c1ab",
+   "bytes": 10836
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/forecast_error.joblib",
+   "sha256": "1734ba65c84bd12f8d88ee4681be5c00277fb565a74cbb20570ca833231ca480",
+   "bytes": 2355
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/predictions.jsonl",
+   "sha256": "ec338b47d5c034af5128bc92168c9f76d833722607a54236ecee104c611eb38f",
+   "bytes": 4665654
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/predictions.parquet",
+   "sha256": "335b64aab6f77c8e68538bbe300e470c07d4a9e27bc483adc855179abf95fa49",
+   "bytes": 926885
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/raw_forecast.forward.json",
+   "sha256": "f9eea79ad624726df66b9197ce8c51dbc1050f4de68b0beab2339eab8e5b9fdf",
+   "bytes": 10803
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/raw_forecast.joblib",
+   "sha256": "d635672bc76cdabe13ec58b3e09e0a21eed8bcaa36f88b7720545962aa972ac1",
+   "bytes": 2337
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/report.md",
+   "sha256": "6b429b7493256fc7e8061921b1fb60aad6a3f62cca7a5cd1fc277f524e662863",
+   "bytes": 882
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/results.json",
+   "sha256": "a3db89a0be16fb63c3ffe6e06e4406d0f5c4dd95a785ad26cce9331c58ebff97",
+   "bytes": 54287
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/ridge.joblib",
+   "sha256": "17b4844d7cc7fdc271277b8518d860b8ad323cf965e40d9ef718d1aa1e074545",
+   "bytes": 3405
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/walk-1-forecast_error.joblib",
+   "sha256": "6fabec2be680c1dce920a89bd719694a3b80a0ba3ef388bf074ad4e87d7a3f97",
+   "bytes": 1768
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/walk-1-ridge.joblib",
+   "sha256": "182cf3686c36cdf4b332941b569fa5fd419f0040e30eb432825c5cdc3acd1184",
+   "bytes": 2820
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/walk-2-forecast_error.joblib",
+   "sha256": "155bba949dca8dced7025b67740201f6e2c6053a481d2be836c5ef192aacee64",
+   "bytes": 1997
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/research/577031c9-c749-4499-a1ff-006c560d5bba/checksums.json",
+   "sha256": "ae052976603861d6b1cec9546f5a53e09de439b88ff030a4380fa30ab9e20271",
+   "bytes": 175
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/research/577031c9-c749-4499-a1ff-006c560d5bba/report.md",
+   "sha256": "24548252130527f93babd0aa94a0866bdd438f721e7ce6a6c1e0ff8562e37252",
+   "bytes": 2154
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/models/2797f8afc4c60354a5ad588e79ead636b604326ea4cc00060074ed760e2aba00/walk-2-ridge.joblib",
+   "sha256": "2f7d9e3364ade3697a400ebb24b95c7a43c6933082c17e2c8ee19413c3722061",
+   "bytes": 3068
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/research/577031c9-c749-4499-a1ff-006c560d5bba/run.json",
+   "sha256": "1c7f68618c771d309ad5e26ea7aae2cfb507a62b914cb1e3710f6c43b6f15190",
+   "bytes": 363699
+  },
+  {
+   "path": "workbench/evidence/runs/synthetic-weather/workflow/research-inputs.json",
+   "sha256": "004f0db789f7da73fdd3397d585f5a5268915cabbfbae593b6216c234975209b",
+   "bytes": 561
+  },
+  {
+   "path": "workbench/evidence/screenshots/initial-workbench.png",
+   "sha256": "cc8e443618cfc4473055afae746d301c6a85a114f262f979fbb6fdfddd3ae78f",
+   "bytes": 471014
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-bitcoin-evidence.png",
+   "sha256": "fcbaf1f7b69292c65676d92db98610cf31a4a376e9aa992ab6358b87d1fdd1b8",
+   "bytes": 2778053
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-bitcoin-probabilities.png",
+   "sha256": "9a8a58f4c2c6e62144de7e0dd846d6753ce9546ac157978f42a40faf2608d86d",
+   "bytes": 594464
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-bitcoin-reopened-after-restart.png",
+   "sha256": "f613f4fed98db34a1546a1003f71661a2a417b37bfea809111023fb504897967",
+   "bytes": 745738
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-bitcoin-review.png",
+   "sha256": "315d9737ab09771728cbe8749386ef5bfded0c3900a0145dc7a069193a02818d",
+   "bytes": 712895
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-weather-probabilities.png",
+   "sha256": "46f164a7990bcbf652d6945fc0ab2092ea0ce806b32957e03115bccef3a19bc2",
+   "bytes": 578356
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-weather-evidence.png",
+   "sha256": "1bc77c0b4e3098b1d38164bb865bd4b8ede2afcb21832239a1fcc6c53f18c125",
+   "bytes": 1192758
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-weather-reopened-after-restart.png",
+   "sha256": "34dcb2ba92718212b58430483f10b64cf72d5ba5a59174038898c31ebf6cf0fd",
+   "bytes": 710008
+  },
+  {
+   "path": "workbench/evidence/screenshots/public-weather-review.png",
+   "sha256": "064343649e579922dd235bf95fa854a2b4424c56cf2ab0613ebf6cf0dfc12b05",
+   "bytes": 669969
+  },
+  {
+   "path": "workbench/evidence/screenshots/recorded-after-cancel-reopened-after-restart.png",
+   "sha256": "84ebf1ec94b5662758cdbe7b92b8e169fe23ca855177fda031fabdc88fdca491",
+   "bytes": 663864
+  },
+  {
+   "path": "workbench/evidence/screenshots/recorded-weather-lineage.png",
+   "sha256": "681f0ae475ef58bce064e5263e2129f04e98f41bcfa4553ace1a1e8f88b86964",
+   "bytes": 839504
+  },
+  {
+   "path": "workbench/evidence/screenshots/recorded-weather-probabilities.png",
+   "sha256": "ebce0aa5500a766e81ea56bef4b1f446832b31f3f2a60ef17127c500e27c26a2",
+   "bytes": 503059
+  },
+  {
+   "path": "workbench/evidence/screenshots/recorded-weather-reopened-after-restart.png",
+   "sha256": "df5335bae0d5aee0088ee832fe9953353425eecd672add1b212c31536e5b26d7",
+   "bytes": 663599
+  },
+  {
+   "path": "workbench/evidence/screenshots/recorded-weather-review-specification.png",
+   "sha256": "f8589d2e9a37d849b6d83e452a134609bc5fae07903ebbc1e75d17b2d12612e4",
+   "bytes": 632062
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-active-before-cancel.png",
+   "sha256": "fac8785153300367e4a12e2b61b0942fbea24f5dfa6c9f8f2492ffbd85b9a3fa",
+   "bytes": 488216
+  },
+  {
+   "path": "workbench/evidence/screenshots/restart-interrupted-history.png",
+   "sha256": "9d5ff3823916ab66cf14c70fbb0b521d6672a321f4db53d7ede6c5a37ccfcd54",
+   "bytes": 515516
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-active-before-shutdown.png",
+   "sha256": "dc6133bf794db60b7436bf0d6455f081e563e25da248a30b0268f757287d4a84",
+   "bytes": 508408
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-terminal-cancelled.png",
+   "sha256": "cba358e840129cc396f2802e40ca1bfb59dabe01ac7340bb28ae9be9b9a0b4f7",
+   "bytes": 469708
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-weather-lineage.png",
+   "sha256": "f9cc7c535214249ff29d7e5aaaf0a21edf6a677a317ccfc66740a0c9b2b30927",
+   "bytes": 844041
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-weather-probabilities.png",
+   "sha256": "b47ae01716420d999f0983dfb52de2a8c3f605a6724bfdd1d6b22e0608160591",
+   "bytes": 562984
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-weather-reopened-after-restart.png",
+   "sha256": "9d07c3386a218ec3fe1cf42271c3e8aa9c4b3448a3421e01506eba1b31a370f1",
+   "bytes": 796113
+  },
+  {
+   "path": "workbench/evidence/screenshots/synthetic-weather-review-gates-scenarios.png",
+   "sha256": "4ce5d8f27149f16bbcf752a68f72df843578f32848ce9e88a722d199af82218c",
+   "bytes": 779663
+  },
+  {
+   "path": "workbench/evidence/server-1.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "workbench/evidence/server-2.log",
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "bytes": 0
+  },
+  {
+   "path": "workbench/evidence/synthetic-weather-job.json",
+   "sha256": "d837e6fc3acc50dcbfc3c26667a25d26f333e1ee5b3a20a6ab0e17bab58c8bf0",
+   "bytes": 940344
+  },
+  {
+   "path": "workbench/runner.log",
+   "sha256": "2395c9634328247113ef853f1d3672cbc3a25a31c92ae338f4209858ea694087",
+   "bytes": 177
+  }
+ ]
+}

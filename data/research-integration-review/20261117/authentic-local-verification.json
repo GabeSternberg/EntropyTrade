@@ -1,0 +1,190 @@
+{
+  "counts": {
+    "datasets": 4,
+    "experiments": 5,
+    "features": 4,
+    "jobs": 1
+  },
+  "experiments": [
+    {
+      "backtest": {
+        "eligible": false,
+        "executed": false,
+        "execution_fidelity": "predictive_only",
+        "paper_eligible": false,
+        "performance": null,
+        "prospective_validation": "pending_genuine_forward_observations",
+        "reasons": [
+          "Historical decision-time contract prices and sized order books are unavailable.",
+          "Contract rules known at historical decision times are unverified.",
+          "Frozen point-in-time contract probabilities are unavailable; scalar predictive metrics are not trading probabilities.",
+          "Certified applicable historical fee evidence is unavailable."
+        ],
+        "status": "awaiting_execution_evidence",
+        "strategy": null,
+        "submission_enabled": false
+      },
+      "eligibility": {
+        "calibration_cutoff": "2026-11-04T23:00:00+00:00",
+        "calibration_eligible_events": 0,
+        "complete_events": 18,
+        "eligible": false,
+        "independent_dates": 30,
+        "independent_events": 30,
+        "missingness": {
+          "nws_cli_bias_f": 6,
+          "nws_pfm_max_f": 0,
+          "settlement_high_f": 0
+        },
+        "protected_events": 6,
+        "reasons": [
+          "0 independent training events with labels available before cutoff < 30; late receipts cannot be backdated. A longer window of timely, independent labeled events is required"
+        ],
+        "train_eligible_events": 0,
+        "training_cutoff": "2026-10-31T22:00:00+00:00",
+        "training_late_labels": 8
+      },
+      "status": "refused"
+    },
+    {
+      "backtest": {
+        "eligible": false,
+        "executed": false,
+        "execution_fidelity": "predictive_only",
+        "paper_eligible": false,
+        "performance": null,
+        "prospective_validation": "pending_genuine_forward_observations",
+        "reasons": [
+          "Historical decision-time contract prices and sized order books are unavailable.",
+          "Contract rules known at historical decision times are unverified.",
+          "Frozen point-in-time contract probabilities are unavailable; scalar predictive metrics are not trading probabilities.",
+          "Certified applicable historical fee evidence is unavailable."
+        ],
+        "status": "awaiting_execution_evidence",
+        "strategy": null,
+        "submission_enabled": false
+      },
+      "eligibility": {
+        "eligible": false,
+        "reasons": [
+          "Feature is not materialized by the acquired-data adapter: observed_temperature_f",
+          "Unsupported role/type/unit for weather modeling: hours_to_close",
+          "Feature is not materialized by the acquired-data adapter: hours_to_close",
+          "Unsupported role/type/unit for weather modeling: market_implied_probability",
+          "Feature is not materialized by the acquired-data adapter: market_implied_probability",
+          "Weather modeling requires a registered point-in-time forecast level"
+        ]
+      },
+      "status": "refused"
+    },
+    {
+      "backtest": {
+        "eligible": false,
+        "executed": false,
+        "execution_fidelity": "predictive_only",
+        "paper_eligible": false,
+        "performance": null,
+        "prospective_validation": "pending_genuine_forward_observations",
+        "reasons": [
+          "Historical decision-time contract prices and sized order books are unavailable.",
+          "Contract rules known at historical decision times are unverified.",
+          "Frozen point-in-time contract probabilities are unavailable; scalar predictive metrics are not trading probabilities.",
+          "Certified applicable historical fee evidence is unavailable."
+        ],
+        "status": "awaiting_execution_evidence",
+        "strategy": null,
+        "submission_enabled": false
+      },
+      "eligibility": {
+        "eligible": false,
+        "reasons": [
+          "Feature is not materialized by the acquired-data adapter: forecast_provider_disagreement",
+          "Unsupported role/type/unit for weather modeling: market_implied_probability",
+          "Feature is not materialized by the acquired-data adapter: market_implied_probability",
+          "Weather modeling requires a registered point-in-time forecast level"
+        ]
+      },
+      "status": "refused"
+    },
+    {
+      "backtest": {
+        "eligible": false,
+        "executed": false,
+        "execution_fidelity": "predictive_only",
+        "paper_eligible": false,
+        "performance": null,
+        "prospective_validation": "pending_genuine_forward_observations",
+        "reasons": [
+          "Historical decision-time contract prices and sized order books are unavailable.",
+          "Contract rules known at historical decision times are unverified.",
+          "Frozen point-in-time contract probabilities are unavailable; scalar predictive metrics are not trading probabilities.",
+          "Certified applicable historical fee evidence is unavailable."
+        ],
+        "status": "awaiting_execution_evidence",
+        "strategy": null,
+        "submission_enabled": false
+      },
+      "eligibility": {
+        "eligible": false,
+        "reasons": [
+          "Unsupported role/type/unit for weather modeling: market_implied_probability",
+          "Feature is not materialized by the acquired-data adapter: market_implied_probability",
+          "Weather modeling requires a registered point-in-time forecast level"
+        ]
+      },
+      "status": "refused"
+    },
+    {
+      "backtest": {
+        "eligible": false,
+        "executed": false,
+        "execution_fidelity": "predictive_only",
+        "paper_eligible": false,
+        "performance": null,
+        "prospective_validation": "pending_genuine_forward_observations",
+        "reasons": [
+          "Historical decision-time contract prices and sized order books are unavailable.",
+          "Contract rules known at historical decision times are unverified.",
+          "Frozen point-in-time contract probabilities are unavailable; scalar predictive metrics are not trading probabilities.",
+          "Certified applicable historical fee evidence is unavailable."
+        ],
+        "status": "awaiting_execution_evidence",
+        "strategy": null,
+        "submission_enabled": false
+      },
+      "eligibility": {
+        "eligible": false,
+        "reasons": [
+          "Feature is not materialized by the acquired-data adapter: ensemble_std_f",
+          "Unsupported role/type/unit for weather modeling: market_implied_probability",
+          "Feature is not materialized by the acquired-data adapter: market_implied_probability",
+          "Weather modeling requires a registered point-in-time forecast level"
+        ]
+      },
+      "status": "refused"
+    }
+  ],
+  "file_count": 78,
+  "job_id": "7190c54a-561a-4a40-8999-b15cebc1a337",
+  "original_reports_match_after_process_exit_and_local_reconstruction": true,
+  "restore": {
+    "archive_sha256": "sha256:eab8af96b116a864e89058363eb2d0eb7e3ad5c123462ccb2937ea06422eac0c",
+    "cycles": 0,
+    "jobs": 0,
+    "monitors": 0,
+    "submission_enabled": false,
+    "workspace": "/workspace/EntropyTrade/data/cache/e2e-authentic-30day-restored"
+  },
+  "snapshot": {
+    "archive": "/workspace/EntropyTrade/data/cache/e2e-authentic-30day-recovery.zip",
+    "cycles": 0,
+    "jobs": 0,
+    "monitors": 0,
+    "sha256": "sha256:eab8af96b116a864e89058363eb2d0eb7e3ad5c123462ccb2937ea06422eac0c",
+    "submission_enabled": false
+  },
+  "snapshot_restore_immutable_hashes_equal": true,
+  "source_archive_sha256": "9c2ccc39dacd0c449e4153a281084969f8a5435fdee103fe25f85757d57da568",
+  "submission_enabled": false,
+  "windows_accessed": false
+}

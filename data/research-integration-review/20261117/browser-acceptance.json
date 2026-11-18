@@ -1,0 +1,521 @@
+{
+  "registered_default_procedures": 36,
+  "spec_files": 20,
+  "cloud_passed": 34,
+  "cloud_failed": 2,
+  "public_runner_passed": 3,
+  "unique_accepted": 36,
+  "accepted": true,
+  "procedures": [
+    {
+      "file": "provider.spec.cjs",
+      "title": "provider-backed website: opt-in, typed candidates, failures, cancellation and recovery",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/provider/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "cis1990.spec.cjs",
+      "title": "CIS 1990 accepts a masked browser key and shows a controlled four-stage run",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/cis1990/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "cis1990.spec.cjs",
+      "title": "CIS 1990 reports a provider outage and retains its failed trace",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/cis1990/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "cis1990.spec.cjs",
+      "title": "CIS 1990 keeps credential entry out of fictional Demo Mode",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/cis1990/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research.spec.cjs",
+      "title": "autonomous research: submit, follow, inspect, export, cancel and demo isolation",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research.spec.cjs",
+      "title": "autonomous research acquisition: ask, approve, acquire, register features and await forward evidence",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research.spec.cjs",
+      "title": "autonomous research modeling: synthetic predictive analysis, baselines, heldout protection and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research.spec.cjs",
+      "title": "autonomous research modeling: synthetic executable backtest, baselines, heldout protection and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research-paper.spec.cjs",
+      "title": "research paper lifecycle: production synthetic refusal, controls and recovery",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research-paper/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "research-paper.spec.cjs",
+      "title": "research paper lifecycle: CONTROLLED synthetic promotion, controls and recovery",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/research-paper/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "readiness.spec.cjs",
+      "title": "readiness oversight: production evidence and unconfigured owner refusal",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/readiness/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "readiness.spec.cjs",
+      "title": "readiness oversight: CONTROLLED owner review and audit recovery",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/readiness/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "lifecycle.spec.cjs",
+      "title": "unified lifecycle summary: actual empty workspace",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/lifecycle/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "lifecycle.spec.cjs",
+      "title": "unified lifecycle summary: actual unavailable workspace",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/lifecycle/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "lifecycle.spec.cjs",
+      "title": "unified lifecycle: actual persisted research, exact evidence links, Demo isolation and legacy handoff",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/lifecycle/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "redesign.spec.cjs",
+      "title": "redesigned shell: real and demo modes, interactions, isolation and responsive layout",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/redesign/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "bitcoin-history.spec.cjs",
+      "title": "Bitcoin retained history: honest empty result, downloads and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/bitcoin-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "bitcoin-history.spec.cjs",
+      "title": "Bitcoin retained history: CONTROLLED populated result, downloads and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/bitcoin-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "weather-history.spec.cjs",
+      "title": "authentic retained weather: freeze, select, research, downloads and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/weather-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "forward-validation.spec.cjs",
+      "title": "continuous forward validation: controlled twelve-date transitions and recovery",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/forward-validation/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "forward-validation.spec.cjs",
+      "title": "continuous forward validation: authentic shadow receipts and new label acquisition",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/forward-validation/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "label-partitions.spec.cjs",
+      "title": "bounded label partitions: 130 controlled batches, outage, cancellation, restart and restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/label-partitions/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "shadow-history.spec.cjs",
+      "title": "sustained shadow history: CONTROLLED 130 captures, partition research and restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/shadow-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "shadow-history.spec.cjs",
+      "title": "sustained shadow history: authentic insufficiency, partition research and restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/shadow-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "shadow-history.spec.cjs",
+      "title": "research cohort: CONTROLLED 130 captures, partition research and restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/shadow-history/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "fees.spec.cjs",
+      "title": "point-in-time fees: CONTROLLED intentions, downloads and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/fees/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "fees.spec.cjs",
+      "title": "point-in-time fees: authentic refusal, downloads and restart",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/fees/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "paper.spec.cjs",
+      "title": "durable paper account: CONTROLLED synthetic fills, downloads, restart and offline replay",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/paper/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "paper.spec.cjs",
+      "title": "durable paper account: authentic refusal, downloads, restart and offline replay",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/paper/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "alerts.spec.cjs",
+      "title": "operator alerts: acknowledgement, listener restart, recovery, recurrence and offline restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/alerts/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "prospective.spec.cjs",
+      "title": "prospective forecast evaluation: CONTROLLED synthetic diagnostics, downloads, restart and offline restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/prospective/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "prospective.spec.cjs",
+      "title": "prospective forecast evaluation: authentic insufficiency, downloads, restart and offline restore",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/prospective/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "recovery.spec.cjs",
+      "title": "local operation and recovery: installed research, snapshot, restore and shadow lifecycle",
+      "passed": true,
+      "report": "data/cache/e2e-browser-20261118-5/recovery/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "shadow.spec.cjs",
+      "title": "continuous shadow: research, capture, pause, restart, resume and durable evidence",
+      "passed": true,
+      "report": "data/cache/e2e-public-browser-ci-accepted/shadow/evidence/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "weather-labels.spec.cjs",
+      "title": "authentic weather labels: acquire, inspect provenance, freeze and restart",
+      "passed": true,
+      "report": "data/cache/e2e-public-browser-ci-accepted/weather-labels/evidence/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    },
+    {
+      "file": "workbench.spec.cjs",
+      "title": "four documented workbench workflows on the committed application",
+      "passed": true,
+      "report": "data/cache/e2e-public-browser-ci-accepted/workbench/evidence/playwright-results.json",
+      "attempts": [
+        "passed"
+      ]
+    }
+  ],
+  "specs": [
+    {
+      "spec": "provider",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 56.16,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "cis1990",
+      "procedures": 3,
+      "cloud_passed": 3,
+      "cloud_exit": 0,
+      "cloud_seconds": 34.15,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "research",
+      "procedures": 4,
+      "cloud_passed": 4,
+      "cloud_exit": 0,
+      "cloud_seconds": 56.42,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "research-paper",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 52.02,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "readiness",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 312.63,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "lifecycle",
+      "procedures": 3,
+      "cloud_passed": 3,
+      "cloud_exit": 0,
+      "cloud_seconds": 45.29,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "redesign",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 24.77,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "bitcoin-history",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 44.72,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "weather-history",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 24.15,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "forward-validation",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 80.15,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "label-partitions",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 118.29,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "shadow-history",
+      "procedures": 3,
+      "cloud_passed": 3,
+      "cloud_exit": 0,
+      "cloud_seconds": 146.3,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "fees",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 44.45,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "paper",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 41.03,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "alerts",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 51.93,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "prospective",
+      "procedures": 2,
+      "cloud_passed": 2,
+      "cloud_exit": 0,
+      "cloud_seconds": 68.02,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "recovery",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 130.03,
+      "public_runner_passed": null,
+      "accepted": true
+    },
+    {
+      "spec": "shadow",
+      "procedures": 1,
+      "cloud_passed": 1,
+      "cloud_exit": 0,
+      "cloud_seconds": 83.74,
+      "public_runner_passed": 1,
+      "accepted": true
+    },
+    {
+      "spec": "weather-labels",
+      "procedures": 1,
+      "cloud_passed": 0,
+      "cloud_exit": 1,
+      "cloud_seconds": 27.84,
+      "public_runner_passed": 1,
+      "accepted": true
+    },
+    {
+      "spec": "workbench",
+      "procedures": 1,
+      "cloud_passed": 0,
+      "cloud_exit": 1,
+      "cloud_seconds": 119.17,
+      "public_runner_passed": 1,
+      "accepted": true
+    }
+  ],
+  "public_workflow_run": 44250121144,
+  "public_workflow_commit": "25cdeb1be70d045b5506495cfc21d5c74c1d16c7",
+  "public_artifact": 14404385928,
+  "code_commit": "25cdeb1be70d045b5506495cfc21d5c74c1d16c7"
+}
