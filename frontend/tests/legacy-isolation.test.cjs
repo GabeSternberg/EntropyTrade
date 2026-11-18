@@ -100,14 +100,17 @@ test("rendered history stays inert until all panels and handlers are ready", asy
   const pending = app.enter(); await tick();
   const button = walk(app.get("shadow-history")).find((element) => element.tag === "button");
   assert.ok(button, "history renders before later panels finish");
+  assert.equal(app.get("workbench-controls").disabled, true);
   assert.equal(app.get("workbench-view").inert, true);
   assert.equal(app.get("workbench-view").attributes["aria-busy"], "true");
   releaseDatasets([]); await pending;
+  assert.equal(app.get("workbench-controls").disabled, false);
   assert.equal(app.get("workbench-view").inert, false);
   assert.equal(app.get("workbench-view").attributes["aria-busy"], "false");
   await button.emit("click");
   assert.match(text(app.get("shadow-evidence")), /CURRENT_MONITOR/);
   app.leave();
+  assert.equal(app.get("workbench-controls").disabled, true);
   assert.equal(app.get("workbench-view").inert, true);
 });
 

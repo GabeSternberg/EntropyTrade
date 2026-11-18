@@ -527,6 +527,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 @keyframes toast-in { from { opacity: 0; transform: translateY(8px); } }
 
 /* ------------------------------------------- legacy research workbench (dark) */
+.legacy .workbench-controls { min-width: 0; margin: 0; padding: 0; border: 0; }
 .legacy .workspace { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 18px; align-items: start; }
 .legacy aside, .legacy .results { min-width: 0; display: flex; flex-direction: column; gap: 18px; }
 .legacy .results > div:empty { display: none; }

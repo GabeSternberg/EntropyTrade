@@ -18,6 +18,7 @@ function requireLegacy(epoch = legacy.epoch) {
 function currentLegacy(epoch) { return legacy.active && epoch === legacy.epoch && legacyVisible(); }
 function workbenchBusy(value) {
   $("workbench-view").inert = value;
+  $("workbench-controls").disabled = value;
   $("workbench-view").setAttribute("aria-busy", String(value));
 }
 const staticListeners = [];
