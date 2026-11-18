@@ -76,6 +76,23 @@ test("direct initial Real workbench route activates after deferred controller re
   assert.equal(demo.requests.length, 0); assert.equal(demo.timers.size, 0);
 });
 
+test("provider selection during initialization reconciles consent before submission", async () => {
+  const app = application(); let releaseHistory;
+  app.overrides.set("/api/catalog", { csrf_token: "real-csrf", provider_enabled: true,
+    research_provider: { provider: "openai", model_name: "controlled" } });
+  app.overrides.set("/api/jobs", new Promise((resolve) => { releaseHistory = resolve; }));
+  const pending = app.enter(); await tick();
+  app.get("reasoning").value = "provider";
+  await app.get("reasoning").emit("change");
+  assert.equal(app.get("provider-options").hidden, true);
+  assert.equal(app.get("submit").disabled, true);
+  releaseHistory([]); await pending;
+  assert.equal(app.get("provider-options").hidden, false);
+  assert.equal(app.get("enable-provider").required, true);
+  assert.equal(app.get("enable-provider").checked, false);
+  assert.equal(app.get("submit").disabled, false);
+});
+
 test("legacy script load, hidden workbench and Demo dispatch no reads or writes", async () => {
   const app = application(); await tick();
   assert.equal(app.requests.length, 0); assert.equal(app.timers.size, 0); assert.equal(app.get("submit").disabled, true);

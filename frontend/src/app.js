@@ -701,7 +701,10 @@ async function initialize(epoch) {
     if (state.job) { await selectJob(state.job.id, epoch); requireLegacy(epoch); }
     if (state.monitor) { await selectMonitor(state.monitor.id, true, epoch); requireLegacy(epoch); }
     for (const id of ["weather-label-acquire", "weather-schedule-create", "weather-cohort-freeze", "weather-freeze"]) $(id).disabled = false;
-    shadowCandidates(); $("submit").disabled = false;
+    // Inputs can change while the read-only panels initialize. Their event handlers
+    // are intentionally gated until ready; reconcile current values before enabling
+    // submission so a selected provider never has an invisible consent control.
+    modeHelp(); shadowCandidates(); $("submit").disabled = false;
     $("connection").replaceChildren();
   } catch (error) {
     if (!error.cancelled) $("connection").replaceChildren(notice(`Cannot connect to the local workbench: ${error.message}. Reload after the server is available.`, true));

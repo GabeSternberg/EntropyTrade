@@ -313,8 +313,23 @@ def test_objective_acquisition_modeling_automatic_resume_and_paper_decision(
         if req.blocking == "predictive":
             assert assess(req, datasets, clock.now()).status is not AssessmentStatus.SATISFIED
     assert tracking.history() == []  # An eligibility decision does not authorize deployment.
+    # The bias candidate deliberately cannot use recent protected holdout outcomes
+    # as trailing CLI inputs. Exercise forward scoring with the revision candidate,
+    # whose forecast-only inputs do not require opening those outcomes.
+    revision_experiments = {
+        row["id"]
+        for row in changed
+        if any(
+            f["name"] == "nws_pfm_revision_f"
+            for f in row["result"]["provenance"]["identity"]["spec"]["features"]
+        )
+    }
     eligible = next(
-        p for p in decisions["proposals"] if p["eligible"] and p["model_family"] == "ridge"
+        p
+        for p in decisions["proposals"]
+        if p["eligible"]
+        and p["model_family"] == "ridge"
+        and p["experiment_id"] in revision_experiments
     )
     choice = {
         "experiment_id": eligible["experiment_id"],
@@ -332,6 +347,11 @@ def test_objective_acquisition_modeling_automatic_resume_and_paper_decision(
         fixture, clock.now().replace(hour=23, minute=0, second=5), clock=clock
     )
     assert cycle["data_kind"] == "synthetic"
+    assert not cycle["model_refusals"]
+    assert not cycle["research_features"]["failures"]
+    assert cycle["paper"]["decisions"]
+    assert all(d["prediction"] is not None for d in cycle["paper"]["decisions"])
+    assert cycle["paper"]["submission_enabled"] is False
     with controlled_forward_environment(clock):
         monitoring = ResearchReadinessService(
             workspace, tracking, restarted, clock=clock, expected_data_kind="synthetic"
