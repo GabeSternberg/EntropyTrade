@@ -144,6 +144,23 @@ class ResearchService:
         requeued = self.store.recover_acquisitions(now=self.now())
         self.store.recover_experiments(now=self.now())
         for job in self.store.list_jobs(limit=500):
+            if (
+                JobStatus(job["status"]) is JobStatus.EVALUATED
+                and "reevaluate_evidence" not in job["checkpoint"]
+            ):
+                # Older evaluated checkpoints had no scheduled evidence recheck.
+                # Schedule the ordinary planning path without changing permissions
+                # or doing acquisition/model work during startup recovery.
+                waiting = self._awaits_evidence(job["id"])
+                self.store.transition(
+                    job["id"],
+                    JobStatus.EVALUATED,
+                    job["detail"]
+                    + ("; automatic inventory reevaluation scheduled" if waiting else ""),
+                    now=self.now(),
+                    next_run_at=self.now() + CHECK_INTERVAL if waiting else None,
+                    checkpoint={**job["checkpoint"], "reevaluate_evidence": waiting},
+                )
             if JobStatus(job["status"]) in RUNNABLE - {JobStatus.QUEUED}:
                 self.store.event(
                     job["id"],
@@ -1056,6 +1073,16 @@ class ResearchService:
             now=self.now(),
         )
 
+    def _awaits_evidence(self, job_id: str) -> bool:
+        return any(
+            a.status is not AssessmentStatus.SATISFIED
+            for a in self.store.assessments(job_id).values()
+        ) or any(
+            (row.get("result") or {}).get("backtest", {}).get("status")
+            == "awaiting_execution_evidence"
+            for row in self.store.experiments(job_id)
+        )
+
     def _settle(self, job: dict[str, Any], request: ResearchRequest) -> None:
         """Evidence waits stay durable after predictive modeling; no eligibility promotion."""
         job_id = job["id"]
@@ -1088,15 +1115,7 @@ class ResearchService:
             )
         else:
             target, detail, next_run = JobStatus.EVALUATED, self.outcome_detail(job_id), None
-            missing_replay_evidence = any(
-                (row.get("result") or {}).get("backtest", {}).get("status")
-                == "awaiting_execution_evidence"
-                for row in self.store.experiments(job_id)
-            )
-            if missing_replay_evidence or any(
-                a.status is not AssessmentStatus.SATISFIED
-                for a in self.store.assessments(job_id).values()
-            ):
+            if self._awaits_evidence(job_id):
                 next_run = self.now() + CHECK_INTERVAL
                 detail += "; awaiting eligible evidence; automatic inventory reevaluation scheduled"
         if approved and min(self.budget_left(job, request)) <= 0:
