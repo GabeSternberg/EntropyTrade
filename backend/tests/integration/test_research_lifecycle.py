@@ -26,6 +26,7 @@ from entropytrade.agents.hypotheses import propose
 from entropytrade.agents.pricing import PricedResearchModel
 from entropytrade.api.jobs import Jobs
 from entropytrade.api.recovery import restore, snapshot
+from entropytrade.api.runner import Runner
 from entropytrade.data.schema import Observation
 from entropytrade.domain.time import SimulatedClock
 from entropytrade.execution.fee_evidence import FeeEvidenceStore
@@ -355,9 +356,10 @@ def test_objective_acquisition_modeling_automatic_resume_and_paper_decision(
     assert restored_paper.proposals(job_id) == paper.proposals(job_id)
 
 
-def test_shutdown_refuses_to_release_a_live_research_writer(tmp_path: Path) -> None:
+@pytest.mark.parametrize("kind", ["research", "legacy"])
+def test_shutdown_refuses_to_release_a_live_research_writer(tmp_path: Path, kind: str) -> None:
     release = threading.Event()
-    svc = ResearchService(tmp_path, REPO)
+    svc = ResearchService(tmp_path, REPO) if kind == "research" else Runner(Jobs(tmp_path), REPO)
     svc.thread = threading.Thread(target=release.wait, daemon=True)
     svc.thread.start()
     try:

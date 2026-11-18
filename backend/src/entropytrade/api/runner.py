@@ -43,12 +43,16 @@ class Runner:
     def start(self) -> None:
         self.thread.start()
 
-    def close(self) -> None:
+    def close(self, *, timeout: float = 5) -> None:
         self.stop.set()
         with self._course_key_lock:
             self._course_keys.clear()
         if self.thread.ident is not None:
-            self.thread.join(timeout=5)
+            self.thread.join(timeout=timeout)
+            if self.thread.is_alive():
+                raise RuntimeError(
+                    "legacy research worker has not stopped; workspace lease retained"
+                )
 
     def submit_course(self, key: str) -> str:
         # The worker waits on the same lock before consuming the credential.
