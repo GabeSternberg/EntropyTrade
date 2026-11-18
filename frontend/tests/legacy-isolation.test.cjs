@@ -27,11 +27,11 @@ const tick = async () => { for (let i = 0; i < 3; i++) await new Promise((resolv
 const job = (marker = "CURRENT_JOB", status = "running") => ({ id: "same-job", status, updated_at: marker, created_at: "2026-11-17T00:00:00Z", request: { idea: marker, family: "weather", mode: "recorded" }, detail: marker, events: [], result: null });
 const monitor = (marker = "CURRENT_MONITOR") => ({ id: "same-monitor", family: "weather", status: "active", source_kind: "legacy", interval_seconds: 300, cycle_count: 0, next_at: marker, failures: 0, events: [], alerts: [], contracts: [], cycles: [] });
 const evaluation = { status: "insufficient", counts: {}, diagnostics: [], observations: [], cycle_statuses: {}, cycle_failures: [], limitations: [] };
-function application() {
+function application({ initiallyVisible = false, initialMode = "real" } = {}) {
   const nodes = new Map(), requests = [], timers = new Map(), documentHandlers = new Map(), overrides = new Map();
-  let mode = "real", workbench = false, timerId = 0;
+  let mode = initialMode, workbench = initiallyVisible, timerId = 0;
   const get = (id) => { if (!nodes.has(id)) nodes.set(id, new Element("div")); return nodes.get(id); };
-  get("workbench-view").hidden = true; get("mode").value = "recorded"; get("family").value = "weather";
+  get("workbench-view").hidden = !initiallyVisible; get("mode").value = "recorded"; get("family").value = "weather";
   const document = { visibilityState: "visible", getElementById: get, createElement: (tag) => new Element(tag), querySelectorAll: () => [], addEventListener: (type, handler) => documentHandlers.set(type, handler) };
   const window = { ET: { mode: () => mode, workbenchActive: () => workbench && !get("workbench-view").hidden, fmt: { decisionPoint: () => "retained decision" } } };
   const defaults = {
@@ -63,6 +63,18 @@ function application() {
   };
 }
 const cancelled = (error) => error.cancelled === true;
+
+test("direct initial Real workbench route activates after deferred controller registration", async () => {
+  const app = application({ initiallyVisible: true }); await tick();
+  assert.equal(app.requests.filter((request) => request.url === "/api/catalog").length, 1);
+  assert.equal(app.access.snapshot().ready, true);
+  assert.equal(app.get("submit").disabled, false);
+  assert.equal(app.timers.size, 1);
+  await app.hooks.activate();
+  assert.equal(app.requests.filter((request) => request.url === "/api/catalog").length, 1);
+  const demo = application({ initiallyVisible: true, initialMode: "demo" }); await tick();
+  assert.equal(demo.requests.length, 0); assert.equal(demo.timers.size, 0);
+});
 
 test("legacy script load, hidden workbench and Demo dispatch no reads or writes", async () => {
   const app = application(); await tick();

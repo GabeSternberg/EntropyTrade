@@ -773,3 +773,6 @@ document.addEventListener("visibilitychange", () => {
   else deactivateWorkbench();
 });
 $("submit").disabled = true;
+// Deferred scripts run in order after the DOM becomes interactive. The shell may
+// have opened this route before the legacy controller was registered.
+if (legacyVisible()) activateWorkbench().catch(() => {});
