@@ -1,8 +1,8 @@
 # Offline quality gates for every push and pull request.
 #
 # Uses no repository secrets, research/provider keys or exchange credentials and never
-# enables submission. Real-browser and public-source acceptance remain separate, evidence-
-# retaining procedures (frontend/browser/README.md) and are not claimed by this workflow.
+# enables submission. Manual public acquisition/browser jobs retain separate evidence;
+# ordinary CI claims only its offline quality gates.
 name: ci
 
 on:
@@ -15,6 +15,10 @@ on:
         description: Run only bounded anonymous public acquisition (no keys or orders)
         type: boolean
         default: false
+      public_browser:
+        description: Run the three public-network browser procedures without keys or orders
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -25,7 +29,7 @@ concurrency:
 
 jobs:
   quality:
-    if: github.event_name != 'workflow_dispatch' || !inputs.public_probe
+    if: github.event_name != 'workflow_dispatch' || (!inputs.public_probe && !inputs.public_browser)
     name: lint, types, frontend, pytest
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -104,5 +108,60 @@ jobs:
         with:
           name: public-research-probe
           path: data/cache/public-probe
+          if-no-files-found: error
+          retention-days: 30
+
+  public-browser:
+    if: github.event_name == 'workflow_dispatch' && inputs.public_browser
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+          python-version: "3.13"
+          enable-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: uv sync --locked
+      - run: npm ci --prefix frontend/browser --ignore-scripts --no-audit --no-fund
+      - name: Install isolated pinned Chromium
+        run: >-
+          PLAYWRIGHT_BROWSERS_PATH="$PWD/frontend/browser/.browsers"
+          node frontend/browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Exercise actual public browser flows
+        shell: bash
+        run: |
+          set +e
+          failed=0
+          for spec in shadow weather-labels workbench; do
+            root="$PWD/data/cache/native-public/$spec"
+            mkdir -p "$root/evidence"
+            ENTROPYTRADE_BROWSER_EVIDENCE="$root/evidence" \
+            ENTROPYTRADE_BROWSER_WORKSPACE="$root/workspace" \
+            ENTROPYTRADE_BROWSER_PYTHON="$PWD/.venv/bin/python" \
+              node frontend/browser/node_modules/@playwright/test/cli.js test \
+              -c frontend/browser/playwright.config.cjs "$spec.spec.cjs" \
+              > "$root/runner.log" 2>&1
+            result=$?
+            echo "$spec exit $result"
+            if [ "$result" -ne 0 ]; then failed=1; fi
+          done
+          exit "$failed"
+      - name: Retain browser reports, downloads, traces and source receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-browser-regression
+          path: |
+            data/cache/native-public/*/evidence
+            data/cache/native-public/*/runner.log
           if-no-files-found: error
           retention-days: 30
