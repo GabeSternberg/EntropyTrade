@@ -420,9 +420,15 @@ def _matches(requirement: DataRequirement, record: DatasetRecord) -> bool:
 
 
 def assess(
-    requirement: DataRequirement, records: Iterable[DatasetRecord], now: datetime
+    requirement: DataRequirement,
+    records: Iterable[DatasetRecord],
+    now: datetime,
+    *,
+    expected_data_kind: Literal["authentic", "synthetic"] = "authentic",
 ) -> Assessment:
     """Deterministic sufficiency: kind, variable, entity, clock, fidelity, provenance, window."""
+    if expected_data_kind not in {"authentic", "synthetic"}:
+        raise ValueError("unsupported assessment evidence kind")
     clocks = _CLOCKS[requirement.clock]
     fidelity = _FIDELITY[requirement.fidelity]
     reasons: list[str] = []
@@ -437,9 +443,14 @@ def assess(
             continue
         label = record.source_id or record.origin
         dates = set(record.coverage[requirement.entity])
-        if record.data_kind != "authentic":
+        if record.data_kind != expected_data_kind:
             reasons.append(
-                f"{record.data_kind} dataset {record.dataset_id} cannot support real research"
+                f"{record.data_kind} dataset {record.dataset_id} cannot support "
+                + (
+                    "real research"
+                    if expected_data_kind == "authentic"
+                    else "synthetic verification"
+                )
             )
             continue
         if record.origin == "collector_status":

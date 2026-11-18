@@ -173,9 +173,32 @@ def execution_fixture(
             {
                 "schema": "entropytrade-research-dataset-v1",
                 "dataset_id": identifier,
+                "content_hash": identifier,
                 "checksums": hashes,
                 "data_kind": "synthetic",
                 "raw_hashes": sorted({r["sha256"] for r in receipts}),
+                "records": [
+                    {
+                        "record_id": identifier + "#" + kind,
+                        "dataset_id": identifier,
+                        "origin": "research_acquisition",
+                        "data_kind": "synthetic",
+                        "kind": kind,
+                        "variable": variable,
+                        "family": "weather",
+                        "source_id": "controlled-synthetic-execution",
+                        "clock": "receipt",
+                        "fidelity": fidelity,
+                        "coverage": {spec.universe[0]: sorted(features)},
+                        "content_hash": identifier,
+                        "verified": True,
+                        "detail": "CONTROLLED SYNTHETIC typed execution archive",
+                    }
+                    for kind, variable, fidelity in (
+                        ("decision_quotes", "yes_quotes", "order_book"),
+                        ("market_contracts", "contract_terms", "any"),
+                    )
+                ],
             }
         )
     )

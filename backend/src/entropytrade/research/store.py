@@ -270,10 +270,17 @@ class ResearchStore:
             row = db.execute(
                 # Only fixed "?" placeholders are interpolated; values stay parameterized.
                 "SELECT id FROM research_jobs WHERE next_run_at <= ? AND (status IN ({}) OR "  # noqa: S608
-                "status IN ({})) ORDER BY next_run_at, created_at LIMIT 1".format(
+                "status IN ({}) OR (status = ? AND "
+                "json_extract(checkpoint, '$.reevaluate_evidence') = 1)) "
+                "ORDER BY next_run_at, created_at LIMIT 1".format(
                     ",".join("?" * len(RUNNABLE)), ",".join("?" * len(waiting))
                 ),
-                (now.isoformat(), *(s.value for s in RUNNABLE), *waiting),
+                (
+                    now.isoformat(),
+                    *(s.value for s in RUNNABLE),
+                    *waiting,
+                    JobStatus.EVALUATED.value,
+                ),
             ).fetchone()
             return str(row[0]) if row else None
 

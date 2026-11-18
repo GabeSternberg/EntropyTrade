@@ -10,6 +10,11 @@ on:
     branches: [main, "claude/**", "recovery/**", "supervisor/**"]
   pull_request:
   workflow_dispatch:
+    inputs:
+      public_probe:
+        description: Run only bounded anonymous public acquisition (no keys or orders)
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -20,6 +25,7 @@ concurrency:
 
 jobs:
   quality:
+    if: github.event_name != 'workflow_dispatch' || !inputs.public_probe
     name: lint, types, frontend, pytest
     runs-on: ubuntu-24.04
     timeout-minutes: 60
@@ -72,3 +78,31 @@ jobs:
           path: pytest-results.xml
           if-no-files-found: ignore
           retention-days: 14
+
+  public-probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.public_probe
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.32"
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --locked
+      - name: Run actual public research acquisition
+        run: uv run python tools/research_public_probe.py --output data/cache/public-probe
+      - name: Retain original public bytes, reports and restart evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-research-probe
+          path: data/cache/public-probe
+          if-no-files-found: error
+          retention-days: 30

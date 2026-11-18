@@ -40,7 +40,8 @@ class SyntheticResearchService(ResearchService):
     def _featurize(self, job: dict[str, Any], request: ResearchRequest) -> None:
         spec, artifacts = modeling_fixture(self.store.root)
         for artifact in artifacts:
-            self.store.register_feature(job["id"], artifact, [spec.hypothesis_id], now=self.now())
+            frozen = {key: value for key, value in artifact.items() if key != "hypotheses"}
+            self.store.register_feature(job["id"], frozen, [spec.hypothesis_id], now=self.now())
         if self.with_execution:
             from tests.research_execution_support import execution_fixture
 

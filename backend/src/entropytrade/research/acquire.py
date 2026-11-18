@@ -778,10 +778,13 @@ def publish(
     *,
     created_at: datetime,
     fidelity_by_kind: Mapping[DataKind, Literal["any", "quote", "order_book"]] | None = None,
+    data_kind: Literal["authentic", "synthetic"] = "authentic",
 ) -> dict[str, Any]:
     """Write a dataset directory atomically; identical content resolves to the same ID."""
     from entropytrade.data.sources import file_hash
 
+    if data_kind not in {"authentic", "synthetic"}:
+        raise ValueError("unsupported acquisition evidence kind")
     datasets = root / "datasets"
     datasets.mkdir(parents=True, exist_ok=True)
     staging = datasets / (".building-" + uuid4().hex)
@@ -800,6 +803,9 @@ def publish(
                     "adapter": adapter.adapter_id,
                     "version": adapter.version,
                     "params": params,
+                    # Synthetic fixtures must never collide with genuine responses,
+                    # even when the supplied bytes and source descriptor are identical.
+                    **({"data_kind": data_kind} if data_kind != "authentic" else {}),
                     **(
                         {
                             "fidelity_by_kind": {
@@ -824,7 +830,7 @@ def publish(
                 "record_id": f"{dataset_id}#{kind.value}:{variable}:{source_id}",
                 "dataset_id": dataset_id,
                 "origin": "research_acquisition",
-                "data_kind": "authentic",
+                "data_kind": data_kind,
                 "kind": kind.value,
                 "variable": variable,
                 "family": "weather" if "weather" in source.families else source.families[0],
@@ -858,14 +864,14 @@ def publish(
             "notes": parsed.notes[:40],
             "failures": failures,
             "raw_hashes": sorted({f.receipt.sha256 for f in fetched}),
-            "data_kind": "authentic",
+            "data_kind": data_kind,
             "records": records,
         }
         (staging / "manifest.json").write_text(json.dumps(manifest, sort_keys=True, indent=1))
         target = datasets / ("sha256-" + content_hash.removeprefix("sha256:"))
         if target.exists():
             existing = json.loads((target / "manifest.json").read_text())
-            if existing["checksums"] != checksums:
+            if existing["checksums"] != checksums or existing.get("data_kind") != data_kind:
                 raise ValueError("existing dataset has different content for the same identity")
             shutil.rmtree(staging)
             return dict(existing)
