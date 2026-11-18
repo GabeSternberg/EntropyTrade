@@ -1088,7 +1088,12 @@ class ResearchService:
             )
         else:
             target, detail, next_run = JobStatus.EVALUATED, self.outcome_detail(job_id), None
-            if any(
+            missing_replay_evidence = any(
+                (row.get("result") or {}).get("backtest", {}).get("status")
+                == "awaiting_execution_evidence"
+                for row in self.store.experiments(job_id)
+            )
+            if missing_replay_evidence or any(
                 a.status is not AssessmentStatus.SATISFIED
                 for a in self.store.assessments(job_id).values()
             ):

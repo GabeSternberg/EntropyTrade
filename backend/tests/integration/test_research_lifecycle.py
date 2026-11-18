@@ -186,7 +186,9 @@ def controlled_service(
         raise AssertionError("controlled lifecycle attempted genuine network access")
 
     monkeypatch.setattr(httpx.HTTPTransport, "handle_request", refuse)
-    monkeypatch.setattr(acquire, "publish", partial(acquire.publish, data_kind="synthetic"))
+    monkeypatch.setattr(
+        service, "run_acquisition", partial(acquire.run_acquisition, data_kind="synthetic")
+    )
     monkeypatch.setattr(service, "assess", partial(assess, expected_data_kind="synthetic"))
     for name in ("plan_hypothesis", "run_hypothesis", "verify_hypothesis"):
         monkeypatch.setattr(modeling, name, partial(getattr(modeling, name), data_kind="synthetic"))

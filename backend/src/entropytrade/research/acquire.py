@@ -717,6 +717,7 @@ def run_acquisition(
     *,
     now: Callable[[], datetime],
     progress: Callable[[int, int], None] | None = None,
+    data_kind: Literal["authentic", "synthetic"] = "authentic",
 ) -> dict[str, Any]:
     """Fetch, preserve, parse and publish one immutable dataset. Returns its manifest."""
     adapter = ADAPTERS[str(source.adapter)]
@@ -764,7 +765,17 @@ def run_acquisition(
             f"source response failed deterministic validation ({type(exc).__name__})",
             transient=False,
         ) from exc
-    return publish(root, source, adapter, params, fetched, parsed, failures, created_at=now())
+    return publish(
+        root,
+        source,
+        adapter,
+        params,
+        fetched,
+        parsed,
+        failures,
+        created_at=now(),
+        data_kind=data_kind,
+    )
 
 
 def publish(
