@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -318,3 +319,25 @@ def test_serve_environment_discards_inherited_exchange_keys(
         "--tailscale-owner",
         deployment.tailscale_owner,
     ]
+    port = captured["argv"].index("--port")
+    assert captured["argv"][port + 1] == str(runtime.RESEARCH_PORT) == "43138"
+
+
+def test_research_port_differs_from_collector_window_port(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A collection window's own workbench must never collide with the research service."""
+    from entropytrade.operations import forward
+
+    parsers: list[argparse.ArgumentParser] = []
+
+    def capture(self: argparse.ArgumentParser, *args: object, **kwargs: object) -> None:
+        parsers.append(self)
+        raise SystemExit(0)
+
+    monkeypatch.setattr(argparse.ArgumentParser, "parse_args", capture)
+    with pytest.raises(SystemExit):
+        forward.main()
+    collector_port = parsers[0].get_default("port")
+    assert collector_port == 43128
+    assert collector_port != runtime.RESEARCH_PORT

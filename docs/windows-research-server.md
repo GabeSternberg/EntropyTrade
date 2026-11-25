@@ -6,12 +6,15 @@ cloud acceptance does not configure Windows, Tailscale, remote storage or the ca
 collector. See the [deployment acceptance packet](../data/deployment-review/20261117/README.md)
 for executed checks and remaining physical gates. No command enables exchange submission.
 
-The research service binds `127.0.0.1:43128`. Windows Tailscale Serve terminates private HTTPS
-and supplies verified identity headers. The application additionally requires the exact
-owner login, exact HTTPS audience, CSRF and an owner passphrase session for every private
-API read, download and mutation. Cookies are Secure, HttpOnly and SameSite=Strict; sessions
-expire after 30 minutes and disappear on restart. Direct loopback callers are trusted host
-software: this is not isolation from a malicious Windows/WSL account administrator.
+The research service binds `127.0.0.1:43138`. Each canonical collection window starts its own
+bounded workbench on `127.0.0.1:43128`, so the two use distinct loopback ports and can run on
+the same host; never point the research service or Serve at 43128. Windows Tailscale Serve
+terminates private HTTPS and supplies verified identity headers. The application additionally
+requires the exact owner login, exact HTTPS audience, CSRF and an owner passphrase session for
+every private API read, download and mutation. Cookies are Secure, HttpOnly and
+SameSite=Strict; sessions expire after 30 minutes and disappear on restart. Direct loopback
+callers are trusted host software: this is not isolation from a malicious Windows/WSL account
+administrator.
 
 ## Inspect the physical installation first
 
@@ -33,7 +36,7 @@ units/tasks stay untouched. If these prerequisites fail, plan a separate mainten
 do not upgrade WSL, rewrite `/etc/wsl.conf`, terminate the distro or run global
 `wsl --shutdown` while its collector is running. Use the **Windows** Tailscale client only;
 a second `tailscaled` inside WSL is refused by preflight. Tailscale HTTPS/MagicDNS must be
-enabled for the tailnet. Do not enable Funnel or open a router/firewall port for 43128.
+enabled for the tailnet. Do not enable Funnel or open a router/firewall port for 43138 or 43128.
 
 Record the existing collector checkout and scheduled task/unit status without changing them.
 Expected exclusion: `~/Projects/EntropyTrade-collector`, canonical `data/cache/chain`.
@@ -147,7 +150,7 @@ install -m 600 "$HOME/.config/entropytrade-research/rendered-v1/"* "$HOME/.confi
 systemctl --user daemon-reload
 systemctl --user enable --now entropytrade-research.service
 systemctl --user status entropytrade-research.service
-ss -ltnp 'sport = :43128'
+ss -ltnp 'sport = :43138'
 ```
 
 Inspect the rendered units before installing. They have a read-only home/system, explicit
@@ -164,9 +167,9 @@ Inspect `tailscale serve status --json` again. The following mapping is for an *
 node/design. Do not reset all Serve configuration or overwrite an existing mapping.
 
 ```powershell
-& tailscale.exe serve --bg --https=443 http://127.0.0.1:43128
+& tailscale.exe serve --bg --https=443 http://127.0.0.1:43138
 & tailscale.exe serve status --json
-curl.exe -i http://127.0.0.1:43128/api/owner
+curl.exe -i http://127.0.0.1:43138/api/owner
 ```
 
 The direct unverified request must return 403. Confirm Windows localhost forwarding actually
