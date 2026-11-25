@@ -29,6 +29,11 @@ from entropytrade.api.workspace import workspace_path
 from entropytrade.research.store import reject_collector_chain
 
 UNIT = "entropytrade-research.service"
+# Each canonical forward-collection window starts its own bounded workbench on the server
+# default 127.0.0.1:43128 (operations.forward). The long-running research service therefore
+# listens on a distinct loopback port so both can run on the same host without one refusing
+# to start or the collector's client reaching the private research API.
+RESEARCH_PORT = 43138
 PROVIDER_KEYS = frozenset(
     {
         "GEMINI_API_KEY",
@@ -463,7 +468,7 @@ def serve(config: Deployment) -> None:
         "-m",
         "entropytrade.api.server",
         "--port",
-        "43128",
+        str(RESEARCH_PORT),
         "--workspace",
         str(config.workspace),
         "--owner-file",
